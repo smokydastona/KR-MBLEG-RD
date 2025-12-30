@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "krumblegard:block/haunted_waystone" }
+    "facing=north": { "model": "krumblegard:block/haunted_waystone", "y": 270 },
+    "facing=east":  { "model": "krumblegard:block/haunted_waystone" },
+    "facing=south": { "model": "krumblegard:block/haunted_waystone", "y": 90 },
+    "facing=west":  { "model": "krumblegard:block/haunted_waystone", "y": 180 }
   }
 }

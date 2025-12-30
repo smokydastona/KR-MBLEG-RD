@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "krumblegard:block/false_waystone" }
+    "facing=north": { "model": "krumblegard:block/false_waystone", "y": 270 },
+    "facing=east":  { "model": "krumblegard:block/false_waystone" },
+    "facing=south": { "model": "krumblegard:block/false_waystone", "y": 90 },
+    "facing=west":  { "model": "krumblegard:block/false_waystone", "y": 180 }
   }
 }
