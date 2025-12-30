@@ -30,3 +30,10 @@ mandatory=true
 versionRange="[4,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.krumblegard]]
+modId="waystones"
+mandatory=true
+versionRange="[14.1.17,)"
+ordering="NONE"
+side="BOTH"
