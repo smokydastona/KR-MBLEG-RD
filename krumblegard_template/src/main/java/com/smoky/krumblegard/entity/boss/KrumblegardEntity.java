@@ -4,11 +4,13 @@ import com.smoky.krumblegard.KrumblegardMod;
 import com.smoky.krumblegard.init.ModSounds;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -267,6 +269,11 @@ public class KrumblegardEntity extends Monster implements GeoEntity {
             if (distanceTo(target) < 4.5) {
                 target.hurt(damageSources().mobAttack(this), 22.0F);
                 target.knockback(1.2F, getX() - target.getX(), getZ() - target.getZ());
+
+                if (level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.CRIT, target.getX(), target.getY(0.6), target.getZ(), 18, 0.35, 0.35, 0.35, 0.25);
+                    serverLevel.sendParticles(ParticleTypes.POOF, target.getX(), target.getY(0.2), target.getZ(), 10, 0.25, 0.05, 0.25, 0.02);
+                }
             }
         }
 
@@ -286,6 +293,20 @@ public class KrumblegardEntity extends Monster implements GeoEntity {
                 e.hurt(damageSources().mobAttack(this), 16.0F);
                 e.setDeltaMovement(e.getDeltaMovement().add(0, 0.55, 0));
             }
+
+            if (level() instanceof ServerLevel serverLevel) {
+                // A simple expanding ring + dust burst so players can *see* the slam.
+                serverLevel.sendParticles(ParticleTypes.EXPLOSION, getX(), getY(0.15), getZ(), 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ParticleTypes.CLOUD, getX(), getY(0.15), getZ(), 40, 1.6, 0.05, 1.6, 0.02);
+
+                for (int i = 0; i < 36; i++) {
+                    double angle = (Math.PI * 2.0) * (i / 36.0);
+                    double r = 3.0;
+                    double px = getX() + Math.cos(angle) * r;
+                    double pz = getZ() + Math.sin(angle) * r;
+                    serverLevel.sendParticles(ParticleTypes.POOF, px, getY(0.1), pz, 1, 0, 0, 0, 0);
+                }
+            }
         }
 
         if (attackTicks > 42) {
@@ -302,6 +323,20 @@ public class KrumblegardEntity extends Monster implements GeoEntity {
         if (attackTicks == 18 && target != null && target.isAlive()) {
             if (distanceTo(target) < 12.0) {
                 target.hurt(damageSources().mobAttack(this), 10.0F);
+
+                if (level() instanceof ServerLevel serverLevel) {
+                    // Visual “rune bolt” line from boss to target (no real projectile yet).
+                    Vec3 from = position().add(0, getEyeHeight() * 0.75, 0);
+                    Vec3 to = target.position().add(0, target.getEyeHeight() * 0.6, 0);
+                    Vec3 delta = to.subtract(from);
+                    int steps = 18;
+                    for (int i = 0; i <= steps; i++) {
+                        double t = i / (double) steps;
+                        Vec3 p = from.add(delta.scale(t));
+                        serverLevel.sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0, 0, 0, 0);
+                    }
+                    serverLevel.sendParticles(ParticleTypes.ENCHANT, to.x, to.y, to.z, 22, 0.35, 0.35, 0.35, 0.12);
+                }
             }
         }
 
@@ -404,6 +439,8 @@ public class KrumblegardEntity extends Monster implements GeoEntity {
     }
 
     private PlayState combatController(AnimationState<KrumblegardEntity> state) {
-        return PlayState.STOP;
+        // IMPORTANT: this controller must remain active for triggerAnim("combat", ...) to work.
+        // We don't set a looping animation here; movement is handled by the "movement" controller.
+        return PlayState.CONTINUE;
     }
 }
