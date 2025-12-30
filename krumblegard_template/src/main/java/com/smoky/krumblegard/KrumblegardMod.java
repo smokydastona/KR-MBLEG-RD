@@ -7,7 +7,6 @@ import com.smoky.krumblegard.init.ModCriteria;
 import com.smoky.krumblegard.init.ModEntities;
 import com.smoky.krumblegard.init.ModItems;
 import com.smoky.krumblegard.init.ModSounds;
-import com.smoky.krumblegard.init.ModWorldgen;
 
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig.Type;
@@ -34,6 +33,5 @@ public final class KrumblegardMod {
         ModEntities.register(modBus);
         ModBlockEntities.register(modBus);
         ModSounds.register(modBus);
-        ModWorldgen.register(modBus);
     }
 }
