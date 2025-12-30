@@ -50,10 +50,10 @@
   - Re-validate after fixes (build/run) so no new errors slip in.
   - Explain changes (what was wrong, what changed, why).
 - Build validation:
-  - Local builds are allowed and recommended for quick iteration.
+  - Never build locally (as Copilot/agent) — rely on GitHub Actions for validation.
   - GitHub Actions is the authoritative “clean environment” build.
 - Keep workspace clean:
-  - Don’t commit generated outputs like `build/` or `.gradle/` (they will exist locally after builds; that’s normal).
+  - Don’t commit generated outputs like `build/` or `.gradle/`.
 - Log handling:
   - When asked to “read the log”, use the newest `latest.log` from the current run; don’t rely on stale copies.
 - Releases:
@@ -67,7 +67,6 @@
 - Don’t suggest code outside: `krumblegard_template/src/main/java/com/smoky/krumblegard`.
 
 ## Build / run
-- Local build: `./gradlew --no-daemon clean build`
-- Dev client: `./gradlew runClient`
+- CI build command: `./gradlew --no-daemon clean build`
 - CI: `.github/workflows/build.yml` uses the Gradle wrapper; keep CI on `./gradlew`.
 
