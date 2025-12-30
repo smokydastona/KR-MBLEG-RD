@@ -8,9 +8,12 @@ import com.smoky.krumblegard.init.ModEntities;
 import com.smoky.krumblegard.init.ModItems;
 import com.smoky.krumblegard.init.ModSounds;
 
+import net.minecraft.world.item.CreativeModeTabs;
+
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -33,5 +36,20 @@ public final class KrumblegardMod {
         ModEntities.register(modBus);
         ModBlockEntities.register(modBus);
         ModSounds.register(modBus);
+
+        modBus.addListener(this::addCreative);
+    }
+
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModItems.HAUNTED_WAYSTONE_ITEM);
+            event.accept(ModItems.FALSE_WAYSTONE_ITEM);
+            event.accept(ModItems.ANCIENT_WAYSTONE_ITEM);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(ModItems.STANDING_STONE_ITEM);
+            event.accept(ModItems.ATTUNED_STONE_ITEM);
+        }
     }
 }

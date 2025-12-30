@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public class HauntedWaystoneBlockEntity extends BlockEntity {
 
@@ -47,9 +48,22 @@ public class HauntedWaystoneBlockEntity extends BlockEntity {
         serverLevel.removeBlock(worldPosition, false);
 
         BlockPos anchorPos = worldPosition.below();
-        serverLevel.setBlock(anchorPos, ModBlocks.ARENA_ANCHOR.get().defaultBlockState(), 3);
 
-        if (serverLevel.getBlockEntity(anchorPos) instanceof ArenaAnchorBlockEntity anchor) {
+        serverLevel.setBlock(anchorPos, ModBlocks.ARENA_ANCHOR.get().defaultBlockState(), 3);
+        if (!serverLevel.getBlockState(anchorPos).is(ModBlocks.ARENA_ANCHOR.get())) {
+            // Fallback: if we couldn't place below (weird terrain/mod interference), place at the original position.
+            anchorPos = worldPosition;
+            serverLevel.setBlock(anchorPos, ModBlocks.ARENA_ANCHOR.get().defaultBlockState(), 3);
+        }
+
+        BlockEntity maybeAnchorBe = serverLevel.getBlockEntity(anchorPos);
+        if (maybeAnchorBe == null) {
+            // Ensure the BE is created immediately so we can start the state machine this tick.
+            maybeAnchorBe = serverLevel.getChunkAt(anchorPos)
+                    .getBlockEntity(anchorPos, LevelChunk.EntityCreationType.IMMEDIATE);
+        }
+
+        if (maybeAnchorBe instanceof ArenaAnchorBlockEntity anchor) {
             anchor.start(worldPosition, player.getUUID());
         }
     }

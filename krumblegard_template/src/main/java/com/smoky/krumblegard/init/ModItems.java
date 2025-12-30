@@ -24,6 +24,11 @@ public final class ModItems {
             () -> new BlockItem(ModBlocks.HAUNTED_WAYSTONE.get(), new Item.Properties())
     );
 
+    public static final RegistryObject<Item> FALSE_WAYSTONE_ITEM = ITEMS.register(
+            "false_waystone",
+            () -> new BlockItem(ModBlocks.FALSE_WAYSTONE.get(), new Item.Properties())
+    );
+
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
             "ancient_waystone",
             () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())
