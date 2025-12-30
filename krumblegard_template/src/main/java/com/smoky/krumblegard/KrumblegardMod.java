@@ -51,5 +51,19 @@ public final class KrumblegardMod {
             event.accept(ModItems.STANDING_STONE_ITEM);
             event.accept(ModItems.ATTUNED_STONE_ITEM);
         }
+
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.ATTUNED_RUNE_SHARD);
+            event.accept(ModItems.STONE_CORE_FRAGMENT);
+            event.accept(ModItems.RADIANT_ESSENCE);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(ModItems.CRUMBLING_CODEX);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.RADIANT_SWORD);
+        }
     }
 }
