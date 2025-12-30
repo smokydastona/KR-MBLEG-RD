@@ -1,0 +1,91 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '6.0.+'
+    id 'eclipse'
+    id 'maven-publish'
+}
+
+group = 'com.smoky'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net' }
+    maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    mavenCentral()
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            mods {
+                krumblegard {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            mods {
+                krumblegard {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            args '--mod', 'krumblegard', '--all', '--output', file('src/generated/resources/'), '--existing', file('krumblegard_template/src/main/resources/')
+            mods {
+                krumblegard {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['krumblegard_template/src/main/java']
+        }
+        resources {
+            srcDirs = ['krumblegard_template/src/main/resources']
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+
+    // GeckoLib for Forge 1.20.1
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.+')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title': 'krumblegard',
+            'Specification-Vendor': 'smoky',
+            'Specification-Version': '1',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Implementation-Vendor': 'smoky'
+        ])
+    }
+}
