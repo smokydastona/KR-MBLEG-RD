@@ -65,5 +65,9 @@ public final class KrumblegardMod {
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.RADIANT_SWORD);
         }
+
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(ModItems.KRUMBLEGARD_SPAWN_EGG);
+        }
     }
 }

@@ -8,6 +8,8 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.WrittenBookItem;
 
+import net.minecraftforge.common.ForgeSpawnEggItem;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -68,6 +70,16 @@ public final class ModItems {
     public static final RegistryObject<Item> RADIANT_SWORD = ITEMS.register(
             "radiant_sword",
             () -> new SwordItem(Tiers.IRON, 4, -2.2F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> KRUMBLEGARD_SPAWN_EGG = ITEMS.register(
+            "krumblegard_spawn_egg",
+            () -> new ForgeSpawnEggItem(
+                    ModEntities.KRUMBLEGARD,
+                    0x2A2A2A,
+                    0xC9B36D,
+                    new Item.Properties()
+            )
     );
 
     public static void register(IEventBus bus) {
