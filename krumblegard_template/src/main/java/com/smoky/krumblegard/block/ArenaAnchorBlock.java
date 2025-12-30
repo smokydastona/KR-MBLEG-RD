@@ -4,6 +4,7 @@ import com.smoky.krumblegard.blockentity.ArenaAnchorBlockEntity;
 import com.smoky.krumblegard.init.ModBlockEntities;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -34,6 +35,18 @@ public class ArenaAnchorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide ? null : createTickerHelper(type, ModBlockEntities.ARENA_ANCHOR.get(), ArenaAnchorBlockEntity::serverTick);
+        if (level.isClientSide) {
+            return null;
+        }
+
+        if (type != ModBlockEntities.ARENA_ANCHOR.get()) {
+            return null;
+        }
+
+        return (lvl, pos, st, be) -> {
+            if (lvl instanceof ServerLevel serverLevel) {
+                ArenaAnchorBlockEntity.serverTick(serverLevel, pos, st, (ArenaAnchorBlockEntity) be);
+            }
+        };
     }
 }
