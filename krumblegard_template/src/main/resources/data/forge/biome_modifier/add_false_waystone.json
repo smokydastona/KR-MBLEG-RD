@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#krumblegard:has_false_waystone",
+  "features": [
+    "krumblegard:false_waystone"
+  ],
+  "step": "surface_structures"
+}

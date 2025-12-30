@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": { "item": "krumblegard:haunted_waystone" },
+    "title": "Disturbed the Waystone",
+    "description": "You’ve disturbed something ancient...",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "observed": {
+      "trigger": "krumblegard:haunted_waystone_clicked"
+    }
+  }
+}

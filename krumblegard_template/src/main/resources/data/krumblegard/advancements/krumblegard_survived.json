@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": { "item": "krumblegard:stone_core_fragment" },
+    "title": "Survived Krümblegård",
+    "description": "You survived the emergence of Krümblegård.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "survived": {
+      "trigger": "krumblegard:krumblegard_survived"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": { "item": "krumblegard:ancient_waystone" },
+    "title": "Radiant Cleansing",
+    "description": "The curse is lifted; the waystone shines.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cleansed": {
+      "trigger": "krumblegard:krumblegard_cleansed"
+    }
+  }
+}

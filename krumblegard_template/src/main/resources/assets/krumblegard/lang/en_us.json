@@ -1,0 +1,15 @@
+{
+  "block.krumblegard.haunted_waystone": "Haunted Waystone",
+  "block.krumblegard.false_waystone": "Waystone",
+  "block.krumblegard.ancient_waystone": "Ancient Waystone",
+  "block.krumblegard.attuned_stone": "Attuned Stone",
+  "block.krumblegard.standing_stone": "Standing Stone",
+
+  "item.krumblegard.attuned_rune_shard": "Attuned Rune Shard",
+  "item.krumblegard.stone_core_fragment": "Stone Core Fragment",
+  "item.krumblegard.radiant_essence": "Radiant Essence",
+  "item.krumblegard.crumbling_codex": "Crumbling Codex",
+  "item.krumblegard.radiant_sword": "Radiant Sword",
+
+  "entity.krumblegard.krumblegard": "Krümblegård"
+}

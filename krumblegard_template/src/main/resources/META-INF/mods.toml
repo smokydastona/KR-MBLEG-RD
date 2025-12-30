@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="krumblegard"
+version="${file.jarVersion}"
+displayName="Krümblegård"
+description='''
+Krümblegård, Warden of the Standing Circle.
+'''
+
+[[dependencies.krumblegard]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.krumblegard]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.krumblegard]]
+modId="geckolib"
+mandatory=true
+versionRange="[4,)"
+ordering="NONE"
+side="BOTH"
