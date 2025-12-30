@@ -5,7 +5,14 @@ plugins {
 }
 
 group = 'com.smoky'
-version = '1.0.0'
+
+def baseVersion = (findProperty('baseVersion') ?: '1.0.0').toString()
+def ciRunNumber = System.getenv('GITHUB_RUN_NUMBER')
+def gitSha = System.getenv('GITHUB_SHA')
+def buildMeta = ciRunNumber ?: (gitSha ? gitSha.take(7) : 'dev')
+
+// Produces versions like: 1.0.0+123 (CI) or 1.0.0+dev (local)
+version = "${baseVersion}+${buildMeta}"
 
 java {
     toolchain {
