@@ -3,6 +3,7 @@ package com.smoky.krumblegard;
 import com.smoky.krumblegard.config.ModConfig;
 import com.smoky.krumblegard.init.ModBlockEntities;
 import com.smoky.krumblegard.init.ModBlocks;
+import com.smoky.krumblegard.init.ModCreativeTabs;
 import com.smoky.krumblegard.init.ModCriteria;
 import com.smoky.krumblegard.init.ModEntities;
 import com.smoky.krumblegard.init.ModItems;
@@ -33,6 +34,7 @@ public final class KrumblegardMod {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.register(modBus);
         ModItems.register(modBus);
+        ModCreativeTabs.register(modBus);
         ModEntities.register(modBus);
         ModBlockEntities.register(modBus);
         ModSounds.register(modBus);
