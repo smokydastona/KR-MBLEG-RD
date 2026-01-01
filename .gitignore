@@ -8,3 +8,9 @@ build/
 **/*.iws
 run/
 logs/
+
+# Eclipse / IDE metadata
+.classpath
+.project
+.settings/
+bin/

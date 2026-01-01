@@ -19,7 +19,10 @@ public class GenericProjectileRenderer<T extends Entity> extends EntityRenderer<
     @Override
     public void render(T entity, float yaw, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int light) {
-        // Invisible projectile  particles only
+        // Invisible projectile: particles only
+        poseStack.pushPose();
+        poseStack.scale(scale, scale, scale);
+        poseStack.popPose();
     }
 
     @Override
