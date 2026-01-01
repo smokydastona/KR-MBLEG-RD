@@ -43,14 +43,32 @@
 - Block texture reuse: `assets/kruemblegard/textures/block/standing_stone.png` is intentionally reused by multiple blocks.
 
 ## Dev workflows & safety features
-- Every change should follow this workflow:
-  - Scan likely impact radius first (call sites, registries, data files, client/server split).
-  - Fix errors systematically; don’t leave the workspace in a half-compiling state.
-  - Re-validate after fixes (build/run) so no new errors slip in.
-  - Explain changes (what was wrong, what changed, why).
+- Every change should follow this workflow.
+
+## Workflow After Every Code Change (STRICT)
+
+**After ANY code/resource/data change, you MUST follow this complete workflow:**
+
+1. **Scan all files first**
+  - Run workspace-wide error checking (VS Code Problems / diagnostics) across the entire codebase.
+  - Then do the relevant “impact radius” scan (see checklists below).
+2. **Fix errors systematically**
+  - Address errors discovered by the scan in a structured way.
+  - Do not stop after fixing “just one file”; iterate until the workspace is clean.
+3. **Re-validate after each fix**
+  - After each fix pass, re-run the workspace-wide error scan to ensure no new errors were introduced.
+4. **Explain every change**
+  - State what was wrong, what changed, and why.
+5. **Push to GitHub Actions**
+  - Commit and push ONLY (no tags/releases).
+6. **Only stop when 100% validated**
+  - Continue until the workspace has no remaining errors related to the change and the project is in a shippable state.
+7. **Update documentation if needed**
+  - If behavior/config/workflow changed, update relevant docs/instructions.
 
 ### “Scan likely impact radius” definition (do this before committing)
-- This does **not** mean “read every file in the repo”. It means: identify what the change touches and proactively scan the *connected* files/registries/data that must remain consistent so we don’t ship a new jar that just crashes somewhere else.
+- This is a *second step* after the workspace-wide “scan all files” pass.
+- It means: identify what the change touches and proactively scan the *connected* files/registries/data that must remain consistent so we don’t ship a new jar that just crashes somewhere else.
 
 ### Impact radius checklists
 - **Worldgen / datapack changes** (`src/main/resources/data/**/worldgen/**`, biome tags, biome modifiers)
