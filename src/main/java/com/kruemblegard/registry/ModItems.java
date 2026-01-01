@@ -77,7 +77,7 @@ public class ModItems {
     public static final RegistryObject<Item> KRUEMBLEGARD_SPAWN_EGG =
         ITEMS.register(
             "kruemblegard_spawn_egg",
-            () -> new SpawnEggItem(ModEntities.KRUEMBLEGARD, 0x3b2f4a, 0x7a4fff,
+            () -> new SpawnEggItem(ModEntities.KRUEMBLEGARD.get(), 0x3b2f4a, 0x7a4fff,
                 new Item.Properties()));
 
     @SubscribeEvent

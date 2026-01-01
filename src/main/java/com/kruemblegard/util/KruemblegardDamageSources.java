@@ -4,6 +4,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 /**
@@ -19,7 +20,10 @@ public class KruemblegardDamageSources {
     }
 
     public static DamageSource meteorArm(Entity projectile, Entity owner) {
-        return projectile.damageSources().mobAttack(owner);
+        if (owner instanceof LivingEntity living) {
+            return projectile.damageSources().mobAttack(living);
+        }
+        return projectile.damageSources().generic();
     }
 
     public static DamageSource arcaneStorm(Entity projectile, Entity owner) {
