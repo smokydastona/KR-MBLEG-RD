@@ -2,7 +2,7 @@
 
 ## Big picture
 - Repo is a Forge 1.20.1 + GeckoLib mod template for Krümblegård.
-- **Real sources live here:** `krumblegard_template/src/main/{java,resources}`.
+- **Real sources live here:** `src/main/{java,resources}`.
 - Root Gradle project compiles the template via `sourceSets.main` (see `build.gradle`).
 - Mod id: `krumblegard` | Base package: `com.smoky.krumblegard`.
 
@@ -25,8 +25,8 @@
 - Features are **code-registered** in `init/ModWorldgen`.
 - Config is in `config/ModConfig` (COMMON): `enableWaystones`, `waystoneRarity`.
 - Biome selection is data-driven:
-  - `krumblegard_template/src/main/resources/data/forge/biome_modifier/add_false_waystone.json`
-  - `krumblegard_template/src/main/resources/data/krumblegard/tags/worldgen/biome/has_false_waystone.json`
+  - `src/main/resources/data/forge/biome_modifier/add_false_waystone.json`
+  - `src/main/resources/data/krumblegard/tags/worldgen/biome/has_false_waystone.json`
 - Avoid adding `data/krumblegard/worldgen/*` JSON for waystones (conflicts with code registration).
 
 ## GeckoLib conventions
@@ -64,7 +64,7 @@
 - Always follow the Trigger → Controller → Boss flow when changing gameplay.
 - Client-only features (renderer, music, GeckoLib model wiring) go under `client/`.
 - Persistent logic (arena controller, boss state, arena build) goes under `blockentity/`, `entity/`, `world/arena/`.
-- Don’t suggest code outside: `krumblegard_template/src/main/java/com/smoky/krumblegard`.
+- Don’t suggest code outside: `src/main/java/com/smoky/krumblegard`.
 
 ## Build / run
 - CI build command: `./gradlew --no-daemon clean build`

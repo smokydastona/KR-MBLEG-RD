@@ -54,7 +54,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            args '--mod', 'krumblegard', '--all', '--output', file('src/generated/resources/'), '--existing', file('krumblegard_template/src/main/resources/')
+            args '--mod', 'krumblegard', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
                 krumblegard {
                     source sourceSets.main
@@ -66,11 +66,9 @@ minecraft {
 
 sourceSets {
     main {
-        java {
-            srcDirs = ['krumblegard_template/src/main/java']
-        }
         resources {
-            srcDirs = ['krumblegard_template/src/main/resources']
+            // Keep Forge datagen output on the classpath
+            srcDir 'src/generated/resources'
         }
     }
 }
