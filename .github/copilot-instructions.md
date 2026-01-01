@@ -49,6 +49,25 @@
   - Re-validate after fixes (build/run) so no new errors slip in.
   - Explain changes (what was wrong, what changed, why).
 
+### “Scan likely impact radius” definition (do this before committing)
+- This does **not** mean “read every file in the repo”. It means: identify what the change touches and proactively scan the *connected* files/registries/data that must remain consistent so we don’t ship a new jar that just crashes somewhere else.
+
+### Impact radius checklists
+- **Worldgen / datapack changes** (`src/main/resources/data/**/worldgen/**`, biome tags, biome modifiers)
+  - Verify all referenced IDs exist (features, structures, structure_sets, template_pools, processor_lists, tags)
+  - Grep for common invalid/renamed vanilla IDs (e.g., biomes like `minecraft:mountains` are invalid in 1.20.1)
+  - Verify structure_set placement schema (e.g., `minecraft:random_spread` includes required fields like `spread_type`)
+  - Check `data/forge/biome_modifier/*.json` references correct tags/ids
+- **Registries / DeferredRegister changes**
+  - Check all `RegistryObject` usages for eager `.get()` during registration
+  - Check cross-registry references (items referencing entities/blocks; block entities referencing blocks)
+  - Confirm client-only registrations stay under `client/`
+- **Assets / GeckoLib JSON changes**
+  - Confirm `assets/kruemblegard/**` file paths match code `ResourceLocation`s
+  - Ensure animation/model JSONs are well-formed and avoid known fragile patterns (e.g., keyframes)
+- **Gameplay flow changes**
+  - Re-scan Trigger → Controller → Boss flow to ensure trigger placement/removal and server/client separation still holds
+
 ### CI-first default (IMPORTANT)
 - If the user reports a crash/CI failure or asks for a fix, and you make code/resource changes:
   - **Stage + commit + push by default** to trigger GitHub Actions and produce an updated jar artifact.
