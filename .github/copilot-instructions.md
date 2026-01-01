@@ -48,6 +48,12 @@
   - Fix errors systematically; don’t leave the workspace in a half-compiling state.
   - Re-validate after fixes (build/run) so no new errors slip in.
   - Explain changes (what was wrong, what changed, why).
+
+### CI-first default (IMPORTANT)
+- If the user reports a crash/CI failure or asks for a fix, and you make code/resource changes:
+  - **Stage + commit + push by default** to trigger GitHub Actions and produce an updated jar artifact.
+  - Only skip commit/push if the user explicitly asks you not to, or if you’re still mid-debug and expect more immediate edits.
+- If there are uncommitted changes when the user expects a new jar, treat that as a bug in the workflow and push.
 - Build validation:
   - Never build locally (as Copilot/agent) — rely on GitHub Actions for validation.
   - GitHub Actions is the authoritative “clean environment” build.
