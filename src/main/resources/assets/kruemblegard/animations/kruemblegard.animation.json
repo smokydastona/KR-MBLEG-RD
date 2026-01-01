@@ -1,0 +1,100 @@
+﻿{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.kruemblegard.idle": {
+      "loop": true,
+      "bones": {
+        "torso": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 1, "vector": [0, 5, 0] },
+            { "time": 2, "vector": [0, 0, 0] }
+          ],
+          "position": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 1, "vector": [0, 1, 0] },
+            { "time": 2, "vector": [0, 0, 0] }
+          ]
+        },
+
+        "head": {
+          "rotation": [
+            { "time": 0, "vector": [0, -2, 0] },
+            { "time": 1, "vector": [0, 2, 0] },
+            { "time": 2, "vector": [0, -2, 0] }
+          ]
+        },
+
+        "right_arm": {
+          "rotation": [
+            { "time": 0, "vector": [2, 0, 0] },
+            { "time": 1, "vector": [-2, 0, 0] },
+            { "time": 2, "vector": [2, 0, 0] }
+          ]
+        },
+
+        "left_arm": {
+          "rotation": [
+            { "time": 0, "vector": [-2, 0, 0] },
+            { "time": 1, "vector": [2, 0, 0] },
+            { "time": 2, "vector": [-2, 0, 0] }
+          ]
+        },
+
+        "whirlwind": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 2, "vector": [0, 360, 0] }
+          ]
+        }
+      }
+    },
+
+    "animation.kruemblegard.move": {
+      "loop": true,
+      "bones": {
+        "torso": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 0.5, "vector": [0, 10, 0] },
+            { "time": 1, "vector": [0, 0, 0] }
+          ],
+          "position": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 0.5, "vector": [0, 2, 0] },
+            { "time": 1, "vector": [0, 0, 0] }
+          ]
+        },
+
+        "whirlwind": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 1, "vector": [0, 720, 0] }
+          ]
+        }
+      }
+    },
+
+    "animation.kruemblegard.attack": {
+      "loop": false,
+      "bones": {
+        "right_arm": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 0.2, "vector": [40, 0, 0] },
+            { "time": 0.5, "vector": [-20, 0, 0] },
+            { "time": 1, "vector": [0, 0, 0] }
+          ]
+        },
+
+        "torso": {
+          "rotation": [
+            { "time": 0, "vector": [0, 0, 0] },
+            { "time": 0.2, "vector": [0, 8, 0] },
+            { "time": 1, "vector": [0, 0, 0] }
+          ]
+        }
+      }
+    }
+  }
+}

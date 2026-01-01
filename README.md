@@ -32,10 +32,10 @@ dependencies {
 
 ## Registration checklist (if you rename things)
 - Mod id used here: `krumblegard`
-- Base package used here: `com.smoky.krumblegard`
+- Base package used here: `com.kruemblegard`
 
 If your mod id/package differ, update:
-- `com.smoky.krumblegard.KrumblegardMod` (MODID constant)
+- `com.kruemblegard.Kruemblegard` (MODID constant)
 - `META-INF/mods.toml`
 - resource folder names: `assets/krumblegard`, `data/krumblegard`
 

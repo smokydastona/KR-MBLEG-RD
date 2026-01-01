@@ -1,0 +1,28 @@
+{
+  "block.kruemblegard.haunted_waystone": "Haunted Waystone",
+  "block.kruemblegard.false_waystone": "Waystone",
+  "block.kruemblegard.ancient_waystone": "Ancient Waystone",
+  "block.kruemblegard.attuned_stone": "Attuned Stone",
+  "block.kruemblegard.standing_stone": "Standing Stone",
+
+  "item.kruemblegard.attuned_rune_shard": "Attuned Rune Shard",
+  "item.kruemblegard.runic_core_fragment": "Runic Core Fragment",
+  "item.kruemblegard.radiant_essence": "Radiant Essence",
+  "item.kruemblegard.crumbling_codex": "Crumbling Codex",
+  "item.kruemblegard.radiant_sword": "Radiant Sword",
+  "item.kruemblegard.kruemblegard_spawn_egg": "Krümblegård Spawn Egg",
+
+  "creativetab.kruemblegard": "Krümblegård",
+
+  "entity.kruemblegard.kruemblegard": "Krümblegård",
+
+  "death.attack.kruemblegard.rune_bolt": "%1$s was struck by a rune bolt",
+  "death.attack.kruemblegard.meteor_arm": "%1$s was crushed by a falling stone arm",
+  "death.attack.kruemblegard.arcane_storm": "%1$s was obliterated by arcane storm energy",
+
+  "subtitles.kruemblegard.ambient": "Krümblegård rumbles",
+  "subtitles.kruemblegard.death": "Krümblegård collapses",
+  "subtitles.kruemblegard.attack": "Krümblegård swings",
+  "subtitles.kruemblegard.dash": "Krümblegård dashes",
+  "subtitles.kruemblegard.storm": "Krümblegård summons a storm"
+}

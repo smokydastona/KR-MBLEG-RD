@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "item": "kruemblegard:runic_core_fragment"
+    },
+    "title": "Cursed Monuments",
+    "description": "Discover the ancient power of Krümblegård",
+    "background": "minecraft:textures/block/stone.png",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

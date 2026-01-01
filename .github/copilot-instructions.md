@@ -1,10 +1,10 @@
-# Copilot Instructions — KR-MBLEG-RD / Krümblegård (With Safety Features)
+# Copilot Instructions — Krümblegård Mod
 
 ## Big picture
 - Repo is a Forge 1.20.1 + GeckoLib mod template for Krümblegård.
 - **Real sources live here:** `src/main/{java,resources}`.
 - Root Gradle project compiles the template via `sourceSets.main` (see `build.gradle`).
-- Mod id: `krumblegard` | Base package: `com.smoky.krumblegard`.
+- Mod id: `kruemblegard` | Base package: `com.kruemblegard`.
 
 ## Core gameplay architecture (follow this flow)
 - **Trigger → persistent controller pattern**:
@@ -12,36 +12,35 @@
   - Trigger removes itself and places invisible `arena_anchor` **below** as the persistent controller.
   - `ArenaAnchorBlockEntity` runs a server-side state machine: `BUILDING → FIGHT → CLEANSE`.
 - Arena building lives in `world/arena/ArenaBuilder`.
-- Boss spawns underground and emerges via `KrumblegardEntity.beginEmergence()`.
+- Boss spawns underground and emerges via `KruemblegardBossEntity.beginEmergence()`.
 - Multiplayer scaling is applied at spawn in `ArenaAnchorBlockEntity`.
 
 ## Advancements & triggers (project-specific)
 - Don’t grant vanilla advancements directly.
 - Use `init/ModCriteria` triggers from gameplay:
   - `HAUNTED_WAYSTONE_CLICKED` (waystone BE)
-  - `KRUMBLEGARD_SURVIVED` / `KRUMBLEGARD_CLEANSED` (arena anchor BE)
+  - `KRUEMBLEGARD_SURVIVED` / `KRUEMBLEGARD_CLEANSED` (arena anchor BE)
 
 ## Worldgen (config-driven + data-driven biomes)
 - Features are **code-registered** in `init/ModWorldgen`.
 - Config is in `config/ModConfig` (COMMON): `enableWaystones`, `waystoneRarity`.
 - Biome selection is data-driven:
   - `src/main/resources/data/forge/biome_modifier/add_false_waystone.json`
-  - `src/main/resources/data/krumblegard/tags/worldgen/biome/has_false_waystone.json`
-- Avoid adding `data/krumblegard/worldgen/*` JSON for waystones (conflicts with code registration).
+  - `src/main/resources/data/kruemblegard/tags/worldgen/biome/has_false_waystone.json`
+- Avoid adding `data/kruemblegard/worldgen/*` JSON for waystones (conflicts with code registration).
 
 ## GeckoLib conventions
-- Model/animation/texture binding: `client/model/KrumblegardModel` (geo/texture/animation `ResourceLocation`s).
-- Renderer registration: `client/ClientModEvents` + `client/render/KrumblegardRenderer`.
-- Boss animations/controllers live in `entity/boss/KrumblegardEntity`.
+- Model/animation/texture binding: `client/render/model/KruemblegardBossModel` (geo/texture/animation `ResourceLocation`s).
+- Renderer registration: `client/KruemblegardClient` + `client/render/KruemblegardBossRenderer`.
+- Boss animations/controllers live in `entity/KruemblegardBossEntity`.
 
 ## Boss music
-- Key: `music.krumblegard` → registered in `init/ModSounds` and mapped in `assets/krumblegard/sounds.json`.
-- Played client-side via `MusicManager` in `client/music/KrumblegardBossMusicHandler`.
-- Synced with fight using `KrumblegardEntity.isEngaged()` (SynchedEntityData).
+- Key: `music.kruemblegard` → registered in `registry/ModSounds` and mapped in `assets/kruemblegard/sounds.json`.
+- Synced with fight using `KruemblegardBossEntity.isEngaged()` (SynchedEntityData).
 
 ## Assets
-- Entity texture: `assets/krumblegard/textures/entity/krumblegard.png`.
-- Block texture reuse: `assets/krumblegard/textures/block/standing_stone.png` is intentionally reused by multiple blocks.
+- Entity texture: `assets/kruemblegard/textures/entity/kruemblegard.png`.
+- Block texture reuse: `assets/kruemblegard/textures/block/standing_stone.png` is intentionally reused by multiple blocks.
 
 ## Dev workflows & safety features
 - Every change should follow this workflow:
@@ -60,11 +59,11 @@
   - Don’t auto-tag or create releases; user manages tags/releases manually.
 
 ## Copilot behavior rules (repo-specific)
-- Always respect: mod id `krumblegard`, base package `com.smoky.krumblegard`, and asset paths under `assets/krumblegard`.
+- Always respect: mod id `kruemblegard`, base package `com.kruemblegard`, and asset paths under `assets/kruemblegard`.
 - Always follow the Trigger → Controller → Boss flow when changing gameplay.
 - Client-only features (renderer, music, GeckoLib model wiring) go under `client/`.
 - Persistent logic (arena controller, boss state, arena build) goes under `blockentity/`, `entity/`, `world/arena/`.
-- Don’t suggest code outside: `src/main/java/com/smoky/krumblegard`.
+- Don’t suggest code outside: `src/main/java/com/kruemblegard`.
 
 ## Build / run
 - CI build command: `./gradlew --no-daemon clean build`

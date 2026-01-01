@@ -1,0 +1,67 @@
+{
+  "kruemblegard_ambient": {
+    "subtitle": "subtitles.kruemblegard.ambient",
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_ambient", "stream": false}
+    ]
+  },
+  "kruemblegard_death": {
+    "subtitle": "subtitles.kruemblegard.death",
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_death", "stream": false}
+    ]
+  },
+  "kruemblegard_attack": {
+    "subtitle": "subtitles.kruemblegard.attack",
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_attack", "stream": false}
+    ]
+  },
+  "kruemblegard_dash": {
+    "subtitle": "subtitles.kruemblegard.dash",
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_dash", "stream": false}
+    ]
+  },
+  "kruemblegard_storm": {
+    "subtitle": "subtitles.kruemblegard.storm",
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_storm", "stream": false}
+    ]
+  },
+  "kruemblegard.rise": {
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_rise", "stream": true}
+    ]
+  },
+  "kruemblegard.core_hum": {
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_core_hum", "stream": true}
+    ]
+  },
+  "kruemblegard.attack_smash": {
+    "sounds": [
+      {"name": "kruemblegard:attack_smash"}
+    ]
+  },
+  "kruemblegard.attack_slam": {
+    "sounds": [
+      {"name": "kruemblegard:attack_slam"}
+    ]
+  },
+  "kruemblegard.attack_rune": {
+    "sounds": [
+      {"name": "kruemblegard:attack_rune"}
+    ]
+  },
+  "kruemblegard.radiant": {
+    "sounds": [
+      {"name": "kruemblegard:radiant", "stream": true}
+    ]
+  },
+  "music.kruemblegard": {
+    "sounds": [
+      {"name": "kruemblegard:kruemblegard_theme", "stream": true}
+    ]
+  }
+}

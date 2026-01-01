@@ -1,0 +1,23 @@
+{
+  "parent": "kruemblegard:root",
+  "display": {
+    "icon": {
+      "item": "kruemblegard:runic_core_fragment"
+    },
+    "title": "The Monument Falls",
+    "description": "Defeat Krümblegård, the Cursed Megalithic Guardian",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "kruemblegard:kruemblegard"
+        }
+      }
+    }
+  }
+}

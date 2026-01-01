@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RS",
+    "SR"
+  ],
+  "key": {
+    "R": { "item": "kruemblegard:attuned_rune_shard" },
+    "S": { "item": "minecraft:stone" }
+  },
+  "result": { "item": "kruemblegard:attuned_stone", "count": 4 }
+}

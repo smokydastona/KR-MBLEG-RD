@@ -1,39 +1,25 @@
 modLoader="javafml"
 loaderVersion="[47,)"
-license="All Rights Reserved"
+license="MIT"
 
 [[mods]]
-modId="krumblegard"
-version="${file.jarVersion}"
+modId="kruemblegard"
+version="1.0.0"
 displayName="Krümblegård"
 description='''
-Krümblegård, Warden of the Standing Circle.
+Ancient megalithic stone guardian bound by cursed runes.
 '''
 
-[[dependencies.krumblegard]]
+[[dependencies.kruemblegard]]
 modId="forge"
 mandatory=true
 versionRange="[47,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.krumblegard]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20.1,1.21)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.krumblegard]]
+[[dependencies.kruemblegard]]
 modId="geckolib"
 mandatory=true
-versionRange="[4,)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.krumblegard]]
-modId="waystones"
-mandatory=true
-versionRange="[14.1.17,)"
+versionRange="[4.4.2,)"
 ordering="NONE"
 side="BOTH"
