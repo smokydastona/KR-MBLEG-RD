@@ -4,106 +4,15 @@
 		"animation.kruemblegard.idle": {
 			"loop": true,
 			"animation_length": 2.5833,
-			"bones": {
-				"torso": {
-					"position": [0, 0, 0]
-				},
-				"whirlwind": {
-					"rotation": [0, 0, 0]
-				}
-			}
+			"bones": {}
 		},
 		"animation.kruemblegard.move": {
 			"loop": true,
-			"bones": {
-				"torso": {
-					"rotation": [
-						{
-							"time": 0,
-							"vector": [0, 0, 0]
-						},
-						{
-							"time": 0.5,
-							"vector": [0, 10, 0]
-						},
-						{
-							"time": 1,
-							"vector": [0, 0, 0]
-						}
-					],
-					"position": [
-						{
-							"time": 0,
-							"vector": [0, 0, 0]
-						},
-						{
-							"time": 0.5,
-							"vector": [0, 2, 0]
-						},
-						{
-							"time": 1,
-							"vector": [0, 0, 0]
-						}
-					]
-				},
-				"whirlwind": {
-					"rotation": [
-						{
-							"time": 0,
-							"vector": [0, 0, 0]
-						},
-						{
-							"time": 0.5,
-							"vector": [0, 360, 0]
-						},
-						{
-							"time": 1,
-							"vector": [0, 720, 0]
-						}
-					]
-				}
-			}
+			"bones": {}
 		},
 		"animation.kruemblegard.attack": {
 			"loop": false,
-			"bones": {
-				"right_arm": {
-					"rotation": [
-						{
-							"time": 0,
-							"vector": [0, 0, 0]
-						},
-						{
-							"time": 0.2,
-							"vector": [40, 0, 0]
-						},
-						{
-							"time": 0.5,
-							"vector": [-20, 0, 0]
-						},
-						{
-							"time": 1,
-							"vector": [0, 0, 0]
-						}
-					]
-				},
-				"torso": {
-					"rotation": [
-						{
-							"time": 0,
-							"vector": [0, 0, 0]
-						},
-						{
-							"time": 0.2,
-							"vector": [0, 8, 0]
-						},
-						{
-							"time": 1,
-							"vector": [0, 0, 0]
-						}
-					]
-				}
-			}
+			"bones": {}
 		}
 	}
 }

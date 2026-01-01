@@ -7,6 +7,7 @@ import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModItems;
+import com.kruemblegard.registry.ModLootModifiers;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.registry.ModSounds;
@@ -42,6 +43,7 @@ public final class Kruemblegard {
         ModEntities.ENTITIES.register(modBus);
         ModProjectileEntities.PROJECTILES.register(modBus);
         ModItems.ITEMS.register(modBus);
+        ModLootModifiers.LOOT_MODIFIERS.register(modBus);
         ModParticles.PARTICLES.register(modBus);
         ModSounds.SOUNDS.register(modBus);
 
