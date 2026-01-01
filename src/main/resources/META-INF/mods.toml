@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="kruemblegard"
-version="1.0.0"
+version="${file.jarVersion}"
 displayName="Krümblegård"
 description='''
 Ancient megalithic stone guardian bound by cursed runes.

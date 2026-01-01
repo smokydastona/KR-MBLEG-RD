@@ -5,7 +5,31 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '1.0.0'
+def modVersionMajor = (project.findProperty('mod_version_major') ?: '1') as String
+def modVersionMinor = (project.findProperty('mod_version_minor') ?: '0') as String
+
+def autoPatchVersion = { ->
+    def runNumber = System.getenv('GITHUB_RUN_NUMBER')
+    if (runNumber != null && !runNumber.isBlank()) {
+        return runNumber.trim()
+    }
+
+    try {
+        def out = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-list', '--count', 'HEAD'
+            standardOutput = out
+            errorOutput = new ByteArrayOutputStream()
+            ignoreExitValue = true
+        }
+        def count = out.toString('UTF-8').trim()
+        return count.isBlank() ? '0' : count
+    } catch (Exception ignored) {
+        return '0'
+    }
+}
+
+version = "${modVersionMajor}.${modVersionMinor}.${autoPatchVersion()}"
 group = 'com.kruemblegard'
 archivesBaseName = 'kruemblegard'
 
