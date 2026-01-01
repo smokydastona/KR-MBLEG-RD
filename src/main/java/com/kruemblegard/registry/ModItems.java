@@ -6,11 +6,11 @@ import com.kruemblegard.init.ModBlocks;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.WrittenBookItem;
 
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -77,7 +77,7 @@ public class ModItems {
     public static final RegistryObject<Item> KRUEMBLEGARD_SPAWN_EGG =
         ITEMS.register(
             "kruemblegard_spawn_egg",
-            () -> new SpawnEggItem(ModEntities.KRUEMBLEGARD.get(), 0x3b2f4a, 0x7a4fff,
+            () -> new ForgeSpawnEggItem(ModEntities.KRUEMBLEGARD, 0x3b2f4a, 0x7a4fff,
                 new Item.Properties()));
 
     @SubscribeEvent
