@@ -1,106 +1,92 @@
 {
-  "format_version": "1.12.0",
-  "minecraft:geometry": [
-    {
-      "description": {
-        "identifier": "geometry.kruemblegard",
-        "texture_width": 128,
-        "texture_height": 128,
-        "visible_bounds_width": 4,
-        "visible_bounds_height": 6,
-        "visible_bounds_offset": [0, 1.5, 0]
-      },
-      "bones": [
-        {
-          "name": "root",
-          "pivot": [0, 0, 0]
-        },
-        {
-          "name": "torso",
-          "parent": "root",
-          "pivot": [0, 32, 0],
-          "cubes": [
-            {
-              "origin": [-6, 24, -3],
-              "size": [4, 10, 6],
-              "uv": [0, 0]
-            },
-            {
-              "origin": [2, 26, -4],
-              "size": [5, 9, 7],
-              "uv": [24, 0]
-            },
-            {
-              "origin": [-2, 28, -2],
-              "size": [4, 8, 4],
-              "uv": [48, 0]
-            }
-          ]
-        },
-        {
-          "name": "head",
-          "parent": "torso",
-          "pivot": [0, 40, 0],
-          "cubes": [
-            {
-              "origin": [-4, 38, -3],
-              "size": [8, 8, 6],
-              "uv": [0, 24]
-            }
-          ]
-        },
-        {
-          "name": "right_arm",
-          "parent": "torso",
-          "pivot": [-6, 32, 0],
-          "cubes": [
-            {
-              "origin": [-12, 28, -3],
-              "size": [6, 8, 6],
-              "uv": [32, 24]
-            },
-            {
-              "origin": [-14, 26, -2],
-              "size": [4, 6, 4],
-              "uv": [56, 24]
-            }
-          ]
-        },
-        {
-          "name": "left_arm",
-          "parent": "torso",
-          "pivot": [6, 32, 0],
-          "cubes": [
-            {
-              "origin": [6, 30, -2],
-              "size": [4, 10, 4],
-              "uv": [72, 24]
-            },
-            {
-              "origin": [8, 28, -1],
-              "size": [3, 6, 3],
-              "uv": [88, 24]
-            }
-          ]
-        },
-        {
-          "name": "whirlwind",
-          "parent": "root",
-          "pivot": [0, 16, 0],
-          "cubes": [
-            {
-              "origin": [-8, 12, -8],
-              "size": [16, 4, 16],
-              "uv": [0, 48]
-            },
-            {
-              "origin": [-6, 10, -6],
-              "size": [12, 3, 12],
-              "uv": [48, 48]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.kruemblegard",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 6,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "torso",
+					"parent": "root",
+					"pivot": [0, 32, 0],
+					"cubes": [
+						{"origin": [-6, 24, -3], "size": [4, 10, 6], "uv": [0, 0]},
+						{"origin": [2, 26, -4], "size": [5, 9, 7], "uv": [24, 0]},
+						{"origin": [-2, 28, -2], "size": [4, 8, 4], "uv": [48, 0]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "torso",
+					"pivot": [0, 40, 0],
+					"cubes": [
+						{"origin": [-4, 38, -3], "size": [8, 8, 6], "uv": [0, 24]}
+					]
+				},
+				{
+					"name": "right_arm",
+					"parent": "torso",
+					"pivot": [-6, 32, 0],
+					"cubes": [
+						{"origin": [-12, 28, -3], "size": [6, 8, 6], "uv": [32, 24]},
+						{"origin": [-14, 26, -2], "size": [4, 6, 4], "uv": [56, 24]}
+					]
+				},
+				{
+					"name": "left_arm",
+					"parent": "torso",
+					"pivot": [6, 32, 0],
+					"cubes": [
+						{"origin": [6, 30, -2], "size": [4, 10, 4], "uv": [72, 24]},
+						{"origin": [8, 28, -1], "size": [3, 6, 3], "uv": [88, 24]}
+					]
+				},
+				{
+					"name": "whirlwind",
+					"parent": "root",
+					"pivot": [0, 16, 0],
+					"cubes": [
+						{"origin": [-8, 12, -8], "size": [16, 4, 16], "uv": [0, 48]},
+						{"origin": [-6, 10, -6], "size": [12, 3, 12], "uv": [48, 48]}
+					]
+				},
+				{
+					"name": "debris",
+					"parent": "whirlwind",
+					"pivot": [-8, 20, -8],
+					"cubes": [
+						{"origin": [-2, 6, 1], "size": [4, 4, 6], "pivot": [-2, 7, 6], "rotation": [57.39936, 14.02846, -20.9057], "uv": [67, 8]}
+					]
+				},
+				{
+					"name": "lower_stone",
+					"parent": "debris",
+					"pivot": [9, 12, 13],
+					"cubes": [
+						{"origin": [8, 12, 9], "size": [4, 2, 5], "pivot": [9, 12, 13], "rotation": [32.39936, 14.02846, -20.9057], "uv": [67, 9]},
+						{"origin": [8, 11, 10], "size": [5, 2, 4], "pivot": [9, 12, 13], "rotation": [0.51052, 26.49734, -11.99139], "uv": [68, 10]}
+					]
+				},
+				{
+					"name": "top_stone",
+					"parent": "debris",
+					"pivot": [-8, 22, -7],
+					"cubes": [
+						{"origin": [-9, 20, -13], "size": [5, 3, 6], "pivot": [-8, 20, -8], "rotation": [32.39936, 14.02846, -20.9057], "uv": [66, 8]},
+						{"origin": [-7, 23, -12], "size": [3, 2, 4], "pivot": [-8, 22, -7], "rotation": [49.76592, 31.59152, -31.52654], "uv": [70, 10]}
+					]
+				}
+			]
+		}
+	]
 }
