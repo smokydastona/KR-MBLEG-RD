@@ -92,4 +92,12 @@ Common config file: `config/krumblegard-common.toml`
 [Krumblegard]
     enableWaystones = true
     waystoneRarity = 800
+
+    [Krumblegard.Boss]
+        bossMaxHealth = 1200.0
+        bossArmor = 18.0
+        bossArmorToughness = 10.0
+        bossAttackDamage = 20.0
+        bossAttackKnockback = 1.5
+        bossRegenPerTick = 0.0
 ```

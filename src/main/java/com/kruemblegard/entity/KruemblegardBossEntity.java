@@ -1,5 +1,6 @@
 package com.kruemblegard.entity;
 
+import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.entity.projectile.ArcaneStormProjectileEntity;
 import com.kruemblegard.entity.projectile.MeteorArmEntity;
 import com.kruemblegard.entity.projectile.RuneBoltEntity;
@@ -128,13 +129,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                // Boss-tier baseline: durable enough to survive late-game mobs (e.g. Warden)
-                .add(Attributes.MAX_HEALTH, 1200.0D)
-                .add(Attributes.ARMOR, 18.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
+                // Config-driven so balance can be tuned without recompiling.
+                .add(Attributes.MAX_HEALTH, ModConfig.BOSS_MAX_HEALTH.get())
+                .add(Attributes.ARMOR, ModConfig.BOSS_ARMOR.get())
+                .add(Attributes.ARMOR_TOUGHNESS, ModConfig.BOSS_ARMOR_TOUGHNESS.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.22D)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .add(Attributes.ATTACK_DAMAGE, ModConfig.BOSS_ATTACK_DAMAGE.get())
+                .add(Attributes.ATTACK_KNOCKBACK, ModConfig.BOSS_ATTACK_KNOCKBACK.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
@@ -236,6 +237,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             } else {
                 double step = Math.min(0.08, remaining);
                 this.setPos(this.getX(), this.getY() + step, this.getZ());
+            }
+        }
+
+        if (!this.level().isClientSide && this.isEngaged()) {
+            double regen = ModConfig.BOSS_REGEN_PER_TICK.get();
+            if (regen > 0.0D && this.getHealth() < this.getMaxHealth()) {
+                this.heal((float) regen);
             }
         }
 
