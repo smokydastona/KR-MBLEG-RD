@@ -26,6 +26,11 @@ public final class ModConfig {
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS;
 
+    public static final ForgeConfigSpec.IntValue BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_TRANSITION_BUFF_TICKS;
+    public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_TRANSITION_RADIUS;
+    public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_TRANSITION_KNOCKBACK;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -92,6 +97,22 @@ public final class ModConfig {
         BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS = builder
             .comment("Base cooldown (ticks) between arcane storm attacks in phase 3")
             .defineInRange("bossPhase3ArcaneStormCooldownTicks", 120, 1, 20_000);
+
+        BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS = builder
+            .comment("Global minimum spacing (ticks) between special abilities. Does not affect melee AI")
+            .defineInRange("bossAbilityGlobalCooldownTicks", 20, 0, 20_000);
+
+        BOSS_PHASE_TRANSITION_BUFF_TICKS = builder
+            .comment("Duration (ticks) of the boss power spike when entering phase 2/3")
+            .defineInRange("bossPhaseTransitionBuffTicks", 80, 0, 20_000);
+
+        BOSS_PHASE_TRANSITION_RADIUS = builder
+            .comment("Radius (blocks) around the boss affected by phase transition pulse")
+            .defineInRange("bossPhaseTransitionRadius", 10.0D, 0.0D, 128.0D);
+
+        BOSS_PHASE_TRANSITION_KNOCKBACK = builder
+            .comment("Strength of the knockback/pull impulse on phase transition")
+            .defineInRange("bossPhaseTransitionKnockback", 1.1D, 0.0D, 10.0D);
 
         builder.pop();
 

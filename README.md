@@ -107,4 +107,8 @@ Common config file: `config/krumblegard-common.toml`
         bossPhase3DashCooldownTicks = 80
         bossPhase3MeteorArmCooldownTicks = 100
         bossPhase3ArcaneStormCooldownTicks = 120
+        bossAbilityGlobalCooldownTicks = 20
+        bossPhaseTransitionBuffTicks = 80
+        bossPhaseTransitionRadius = 10.0
+        bossPhaseTransitionKnockback = 1.1
 ```
