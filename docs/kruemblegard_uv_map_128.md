@@ -42,6 +42,11 @@ These are the `uv` origins used by each cube in the model:
 - `[88,24]` Left Arm — Segment B
 - `[0,48]` Whirlwind — Ring A
 - `[48,48]` Whirlwind — Ring B
+- `[67,8]` Debris — Floating Chunk
+- `[66,8]` Top Stone — Chunk A
+- `[70,10]` Top Stone — Chunk B
+- `[67,9]` Lower Stone — Chunk A
+- `[68,10]` Lower Stone — Chunk B
 
 ## Per-Cube UV Regions
 
@@ -159,6 +164,61 @@ UV origin: **(48, 48)**
 - West: **(48, 60)** (12 × 3)
 - Up: **(60, 48)** (12 × 12)
 - Down: **(72, 48)** (12 × 12)
+
+### Debris — Floating Chunk
+Cube size: **4 × 4 × 6** (`x=4, y=4, z=6`)  
+UV origin: **(67, 8)**
+
+- North: **(73, 14)** (4 × 4)
+- East: **(77, 14)** (6 × 4)
+- South: **(83, 14)** (4 × 4)
+- West: **(67, 14)** (6 × 4)
+- Up: **(73, 8)** (4 × 6)
+- Down: **(77, 8)** (4 × 6)
+
+### Lower Stone — Chunk A
+Cube size: **4 × 2 × 5** (`x=4, y=2, z=5`)  
+UV origin: **(67, 9)**
+
+- North: **(72, 14)** (4 × 2)
+- East: **(76, 14)** (5 × 2)
+- South: **(81, 14)** (4 × 2)
+- West: **(67, 14)** (5 × 2)
+- Up: **(72, 9)** (4 × 5)
+- Down: **(76, 9)** (4 × 5)
+
+### Lower Stone — Chunk B
+Cube size: **5 × 2 × 4** (`x=5, y=2, z=4`)  
+UV origin: **(68, 10)**
+
+- North: **(72, 14)** (5 × 2)
+- East: **(77, 14)** (4 × 2)
+- South: **(81, 14)** (5 × 2)
+- West: **(68, 14)** (4 × 2)
+- Up: **(72, 10)** (5 × 4)
+- Down: **(77, 10)** (5 × 4)
+
+### Top Stone — Chunk A
+Cube size: **5 × 3 × 6** (`x=5, y=3, z=6`)  
+UV origin: **(66, 8)**
+
+- North: **(72, 14)** (5 × 3)
+- East: **(77, 14)** (6 × 3)
+- South: **(83, 14)** (5 × 3)
+- West: **(66, 14)** (6 × 3)
+- Up: **(72, 8)** (5 × 6)
+- Down: **(77, 8)** (5 × 6)
+
+### Top Stone — Chunk B
+Cube size: **3 × 2 × 4** (`x=3, y=2, z=4`)  
+UV origin: **(70, 10)**
+
+- North: **(74, 14)** (3 × 2)
+- East: **(77, 14)** (4 × 2)
+- South: **(81, 14)** (3 × 2)
+- West: **(70, 14)** (4 × 2)
+- Up: **(74, 10)** (3 × 4)
+- Down: **(77, 10)** (3 × 4)
 
 ## Texturing Guidelines
 ### Stone Material
