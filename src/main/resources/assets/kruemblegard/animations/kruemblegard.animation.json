@@ -2,8 +2,7 @@
 	"format_version": "1.10.0",
 	"animations": {
 		"animation.kruemblegard.attack": {
-			"loop": false,
-			"animation_length": 0.5,
+			"animation_length": 0.8,
 			"bones": {
 				"right_arm": {
 					"rotation": {
@@ -11,112 +10,60 @@
 						"0.2": [-55, 0, 0],
 						"0.5": [0, 0, 0]
 					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.8": [0, 720, 0]
+					}
 				}
 			}
 		},
 		"animation.kruemblegard.attack_melee": {
-			"loop": false,
-			"animation_length": 0.9,
+			"animation_length": 0.9167,
 			"bones": {
 				"torso": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.12": [-6, -8, 0],
+						"0.125": [-6, -8, 0],
 						"0.25": [8, 12, 0],
-						"0.55": [2, 3, 0],
-						"0.9": [0, 0, 0]
+						"0.5417": [2, 3, 0],
+						"0.875": [0, 0, 0]
 					}
 				},
 				"right_arm2": {
 					"rotation": {
-						"0.0": [0, 0, 15],
-						"0.9": [0, 0, 0]
+						"0.0417": [-43.94359, -12.34191, 1.80112],
+						"0.125": [-43.12, -16.63, -3.33],
+						"0.7917": [-43.9337, -43.86334, -35.14177],
+						"0.875": [-37.5, 0, 0]
 					}
 				},
 				"left_arm2": {
 					"rotation": {
-						"0.0": [0, 0, -15],
-						"0.9": [0, 0, 0]
+						"0.125": [-1.63, 10.34, -13.3],
+						"0.7917": [55.41001, 69.33019, 57.15966],
+						"0.875": [0, 0, 0]
 					}
 				},
 				"right_arm_down": {
 					"rotation": {
-						"0.0": {
-							"post": {"vector": [0, 0, 0]},
-							"lerp_mode": "catmullrom"
-						},
-						"0.12": {
-							"post": {"vector": [0, 0, 12]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutSine"
-						},
-						"0.3": {
-							"post": {"vector": [0, 0, 30]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutQuad"
-						},
-						"0.6": {
-							"post": {"vector": [0, 0, 60]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeOutQuad"
-						},
-						"0.9": {
-							"post": {"vector": [0, 0, 0]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutSine"
-						}
+						"0.125": [0, 0, -2.25],
+						"0.8333": [0, 0, -30]
 					}
 				},
 				"left_arm_down": {
 					"rotation": {
-						"0.0": {
-							"post": {"vector": [0, 0, 0]},
-							"lerp_mode": "catmullrom"
-						},
-						"0.12": {
-							"post": {"vector": [0, 0, -12]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutSine"
-						},
-						"0.3": {
-							"post": {"vector": [0, 0, -30]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutQuad"
-						},
-						"0.6": {
-							"post": {"vector": [0, 0, -60]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeOutQuad"
-						},
-						"0.9": {
-							"post": {"vector": [0, 0, 0]},
-							"lerp_mode": "catmullrom",
-							"easing": "easeInOutSine"
-						}
+						"0.0417": [-64.66239, 9.05478, 4.26175],
+						"0.125": [-64.66, 9.05, 4.26],
+						"0.7917": [-82.16, 9.05, 4.26],
+						"0.875": [-48.26249, 24.491, 17.59001]
 					}
 				},
-				"right_finger1": {
+				"whirlwind": {
 					"rotation": {
-						"0.3": [0, 0, -20],
-						"0.9": [0, 0, 0]
-					}
-				},
-				"left_finger1": {
-					"rotation": {
-						"0.3": [0, 0, 20],
-						"0.9": [0, 0, 0]
-					}
-				},
-				"right_finger2": {
-					"rotation": {
-						"0.6": [0, 0, -35],
-						"0.9": [0, 0, 0]
-					}
-				},
-				"left_finger2": {
-					"rotation": {
-						"0.6": [0, 0, 35],
-						"0.9": [0, 0, 0]
+						"0.0": [0, 0, 0],
+						"0.7917": [0, 720, 0]
 					}
 				}
 			}
@@ -161,7 +108,6 @@
 			}
 		},
 		"animation.kruemblegard.attack_meteor_arm": {
-			"loop": false,
 			"animation_length": 1.1,
 			"bones": {
 				"right_arm": {
@@ -177,6 +123,12 @@
 						"0.0": [0, 0, 0],
 						"0.31": [0, -12, 0],
 						"1.1": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.8": [0, 720, 0]
 					}
 				}
 			}
