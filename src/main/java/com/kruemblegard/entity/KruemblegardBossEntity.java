@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -251,6 +252,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (this.getTarget() == null) return;
 
         if (!this.level().isClientSide) {
+            this.swing(InteractionHand.MAIN_HAND);
+        }
+
+        if (!this.level().isClientSide) {
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -276,6 +281,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (this.getTarget() == null) return;
 
         if (!this.level().isClientSide) {
+            this.swing(InteractionHand.MAIN_HAND);
+        }
+
+        if (!this.level().isClientSide) {
             this.playSound(ModSounds.KRUEMBLEGARD_DASH.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -290,6 +299,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private void doMeteorArm() {
         if (!this.level().isClientSide) {
+            this.swing(InteractionHand.MAIN_HAND);
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -301,6 +311,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private void doArcaneStorm() {
         if (!this.level().isClientSide) {
+            this.swing(InteractionHand.MAIN_HAND);
             this.playSound(ModSounds.KRUEMBLEGARD_STORM.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -356,7 +367,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
         controllers.add(new AnimationController<>(this, "main", 5, state -> {
-            if (state.isMoving()) {
+            Vec3 delta = this.getDeltaMovement();
+            boolean moving = state.isMoving() && (delta.x * delta.x + delta.z * delta.z) > 1.0E-5;
+
+            if (moving) {
                 return state.setAndContinue(MOVE);
             }
             return state.setAndContinue(IDLE);
