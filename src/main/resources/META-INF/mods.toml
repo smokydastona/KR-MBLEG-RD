@@ -33,7 +33,7 @@ side="BOTH"
 
 [[dependencies.kruemblegard]]
 modId="waystoneinjector"
-mandatory=true
+mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
