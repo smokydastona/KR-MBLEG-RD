@@ -493,16 +493,21 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityTicksRemaining = totalTicks;
         this.currentAbilityImpactAt = impactAt;
 
+        // We count down from totalTicks to impactAt; impact happens when ticksRemaining == impactAt.
+        // Because the attack animation tick countdown is decremented earlier in aiStep(), add a small
+        // buffer so the telegraph animation is still active on the impact tick.
+        int telegraphAnimTicks = Math.max(1, (totalTicks - impactAt) + 2);
+
         // Telegraph: animation + sound.
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
             switch (ability) {
-				case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, totalTicks);
-                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, totalTicks);
-                case ABILITY_DASH -> this.setAttackAnim(ATTACK_ANIM_DASH, totalTicks);
-                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, totalTicks);
-                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, totalTicks);
-                default -> this.setAttackAnim(ATTACK_ANIM_MELEE, totalTicks);
+                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, telegraphAnimTicks);
+                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, telegraphAnimTicks);
+                case ABILITY_DASH -> this.setAttackAnim(ATTACK_ANIM_DASH, telegraphAnimTicks);
+                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, telegraphAnimTicks);
+                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, telegraphAnimTicks);
+                default -> this.setAttackAnim(ATTACK_ANIM_MELEE, telegraphAnimTicks);
             }
 
             float pitch = 0.9f + (this.random.nextFloat() * 0.2f);
@@ -618,9 +623,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void fireRuneBolt() {
         if (this.getTarget() == null) return;
 
+        // Animation is handled by the ability telegraph (startAbility) so timing aligns to impact.
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-            this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, 14);
         }
 
         if (!this.level().isClientSide) {
@@ -648,9 +653,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void doDashAttack() {
         if (this.getTarget() == null) return;
 
+        // Animation is handled by the ability telegraph (startAbility) so timing aligns to impact.
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-            this.setAttackAnim(ATTACK_ANIM_DASH, 10);
         }
 
         if (!this.level().isClientSide) {
@@ -669,7 +674,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void doMeteorArm() {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-            this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, 16);
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -682,7 +686,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void doArcaneStorm() {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-            this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, 24);
             this.playSound(ModSounds.KRUEMBLEGARD_STORM.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
