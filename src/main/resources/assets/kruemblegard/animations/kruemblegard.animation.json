@@ -86,7 +86,6 @@
 			}
 		},
 		"animation.kruemblegard.attack_melee": {
-			"loop": false,
 			"animation_length": 0.5,
 			"bones": {
 				"right_arm": {
@@ -97,11 +96,7 @@
 					}
 				},
 				"torso": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.2": [0, 10, 0],
-						"0.5": [0, 0, 0]
-					}
+					"rotation": [0, 0, 0]
 				}
 			}
 		},
