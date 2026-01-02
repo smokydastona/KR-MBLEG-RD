@@ -69,6 +69,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         private static final int ATTACK_ANIM_DASH = 3;
         private static final int ATTACK_ANIM_METEOR_ARM = 4;
         private static final int ATTACK_ANIM_ARCANE_STORM = 5;
+	    private static final int ATTACK_ANIM_GRAVITIC_PULL = 6;
 
     // -----------------------------
     // BOSS BAR
@@ -97,6 +98,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         private static final RawAnimation ATTACK_MELEE =
             RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee");
+
+	    private static final RawAnimation ATTACK_GRAVITIC_PULL =
+	        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_gravitic_pull");
 
         private static final RawAnimation ATTACK_RUNE_BOLT =
             RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
@@ -493,7 +497,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
             switch (ability) {
-                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_MELEE, totalTicks);
+				case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, totalTicks);
                 case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, totalTicks);
                 case ABILITY_DASH -> this.setAttackAnim(ATTACK_ANIM_DASH, totalTicks);
                 case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, totalTicks);
@@ -748,6 +752,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             if (attackAnim != ATTACK_ANIM_NONE) {
                 return switch (attackAnim) {
                     case ATTACK_ANIM_MELEE -> state.setAndContinue(ATTACK_MELEE);
+					case ATTACK_ANIM_GRAVITIC_PULL -> state.setAndContinue(ATTACK_GRAVITIC_PULL);
                     case ATTACK_ANIM_RUNE_BOLT -> state.setAndContinue(ATTACK_RUNE_BOLT);
                     case ATTACK_ANIM_DASH -> state.setAndContinue(ATTACK_DASH);
                     case ATTACK_ANIM_METEOR_ARM -> state.setAndContinue(ATTACK_METEOR_ARM);

@@ -68,6 +68,26 @@
 				}
 			}
 		},
+		"animation.kruemblegard.attack_gravitic_pull": {
+			"loop": false,
+			"animation_length": 0.9,
+			"bones": {
+				"torso": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [-4, -10, 0],
+						"0.45": [10, 14, 0],
+						"0.9": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [0, 1080, 0]
+					}
+				}
+			}
+		},
 		"animation.kruemblegard.attack_rune_bolt": {
 			"loop": false,
 			"animation_length": 0.8,
