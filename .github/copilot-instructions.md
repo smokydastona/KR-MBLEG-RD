@@ -52,15 +52,19 @@
 1. **Scan all files first**
   - Run workspace-wide error checking (VS Code Problems / diagnostics) across the entire codebase.
   - Then do the relevant “impact radius” scan (see checklists below).
+  - **Immediately after the scan:** update `README.md` and `CHANGELOG.md` if anything changed that a future-you would want to remember.
 2. **Fix errors systematically**
   - Address errors discovered by the scan in a structured way.
   - Do not stop after fixing “just one file”; iterate until the workspace is clean.
 3. **Re-validate after each fix**
   - After each fix pass, re-run the workspace-wide error scan to ensure no new errors were introduced.
+  - **Immediately after each re-scan:** refresh `README.md` and `CHANGELOG.md` again if the fix changed behavior or assets.
 4. **Explain every change**
   - State what was wrong, what changed, and why.
+  - Ensure `README.md` and `CHANGELOG.md` match the final behavior you're about to ship.
 5. **Push to GitHub Actions**
   - Commit and push ONLY (no tags/releases).
+  - **Before every commit:** verify `README.md` and `CHANGELOG.md` are updated for this change.
 6. **Only stop when 100% validated**
   - Continue until the workspace has no remaining errors related to the change and the project is in a shippable state.
 7. **Update documentation if needed**
