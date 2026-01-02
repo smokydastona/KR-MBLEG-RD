@@ -91,6 +91,9 @@
   - **Stage + commit + push by default** to trigger GitHub Actions and produce an updated jar artifact.
   - Only skip commit/push if the user explicitly asks you not to, or if you’re still mid-debug and expect more immediate edits.
 - If there are uncommitted changes when the user expects a new jar, treat that as a bug in the workflow and push.
+- **User override: “push” means push, always**
+  - If the user says “push” / “push updates” / “push it”, ALWAYS run `git push` even if there are no new local commits.
+  - Do NOT create empty commits unless the user explicitly asks for an empty commit; instead, report the current `HEAD` SHA so the user can match it to the latest GitHub Actions build.
 - Build validation:
   - Never build locally (as Copilot/agent) — rely on GitHub Actions for validation.
   - GitHub Actions is the authoritative “clean environment” build.
