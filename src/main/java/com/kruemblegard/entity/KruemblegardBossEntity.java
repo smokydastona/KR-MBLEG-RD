@@ -128,9 +128,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 300.0D)
+                // Boss-tier baseline: durable enough to survive late-game mobs (e.g. Warden)
+                .add(Attributes.MAX_HEALTH, 1200.0D)
+                .add(Attributes.ARMOR, 18.0D)
+                .add(Attributes.ARMOR_TOUGHNESS, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.22D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0D)
+                .add(Attributes.ATTACK_DAMAGE, 20.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
