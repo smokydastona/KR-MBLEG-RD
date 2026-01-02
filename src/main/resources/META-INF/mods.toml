@@ -23,3 +23,10 @@ mandatory=true
 versionRange="[4.4.2,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.kruemblegard]]
+modId="waystones"
+mandatory=true
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

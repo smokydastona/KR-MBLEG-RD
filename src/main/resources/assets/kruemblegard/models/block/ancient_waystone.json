@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "kruemblegard:block/standing_stone"
-  }
+  "parent": "waystones:item/portstone"
 }
