@@ -1,27 +1,14 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.kruemblegard.idle": {
-			"loop": true,
-			"animation_length": 2.0,
-			"bones": {
-				"torso": {
-					"rotation": {
-						"0.0": [0, -3, 0],
-						"1.0": [0, 3, 0],
-						"2.0": [0, -3, 0]
-					}
-				}
-			}
-		},
 		"animation.kruemblegard.move": {
 			"loop": true,
-			"animation_length": 1.0,
+			"animation_length": 1,
 			"bones": {
 				"torso": {
 					"position": {
 						"0.0": [0, 0, 0],
-						"0.5": [0, 1.0, 0],
+						"0.5": [0, 1, 0],
 						"1.0": [0, 0, 0]
 					}
 				},
@@ -42,6 +29,25 @@
 						"0.0": [0, 0, 0],
 						"0.2": [-55, 0, 0],
 						"0.5": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"torso": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [0, 1, 0],
+						"1.0": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 360, 0]
 					}
 				}
 			}
