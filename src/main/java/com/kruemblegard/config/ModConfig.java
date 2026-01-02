@@ -17,6 +17,15 @@ public final class ModConfig {
     public static final ForgeConfigSpec.DoubleValue BOSS_ATTACK_KNOCKBACK;
     public static final ForgeConfigSpec.DoubleValue BOSS_REGEN_PER_TICK;
 
+    public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_2_HEALTH_RATIO;
+    public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_3_HEALTH_RATIO;
+
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_DASH_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -55,6 +64,34 @@ public final class ModConfig {
         BOSS_REGEN_PER_TICK = builder
             .comment("Passive regeneration per tick while engaged (0 disables). 0.1 = 2 HP/sec at 20 TPS")
             .defineInRange("bossRegenPerTick", 0.0D, 0.0D, 1000.0D);
+
+        BOSS_PHASE_2_HEALTH_RATIO = builder
+            .comment("Health ratio at/below which phase 2 starts")
+            .defineInRange("bossPhase2HealthRatio", 0.70D, 0.01D, 0.99D);
+
+        BOSS_PHASE_3_HEALTH_RATIO = builder
+            .comment("Health ratio at/below which phase 3 starts")
+            .defineInRange("bossPhase3HealthRatio", 0.30D, 0.01D, 0.99D);
+
+        BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between rune bolt attacks in phase 2")
+            .defineInRange("bossPhase2RuneBoltCooldownTicks", 40, 1, 20_000);
+
+        BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between gravitic pulls in phase 2")
+            .defineInRange("bossPhase2GraviticPullCooldownTicks", 60, 1, 20_000);
+
+        BOSS_PHASE_3_DASH_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between dash attacks in phase 3")
+            .defineInRange("bossPhase3DashCooldownTicks", 80, 1, 20_000);
+
+        BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between meteor arm attacks in phase 3")
+            .defineInRange("bossPhase3MeteorArmCooldownTicks", 100, 1, 20_000);
+
+        BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between arcane storm attacks in phase 3")
+            .defineInRange("bossPhase3ArcaneStormCooldownTicks", 120, 1, 20_000);
 
         builder.pop();
 

@@ -115,6 +115,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private int attackAnimTicks;
 
+    private int runeBoltCooldown;
+    private int graviticPullCooldown;
+    private int dashCooldown;
+    private int meteorArmCooldown;
+    private int arcaneStormCooldown;
+
     // -----------------------------
     // CONSTRUCTOR
     // -----------------------------
@@ -122,6 +128,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         super(type, level);
         this.xpReward = 50;
         this.noCulling = true;
+
+        this.runeBoltCooldown = 0;
+        this.graviticPullCooldown = 0;
+        this.dashCooldown = 0;
+        this.meteorArmCooldown = 0;
+        this.arcaneStormCooldown = 0;
     }
 
     // -----------------------------
@@ -250,10 +262,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         // Phase logic
         if (!this.level().isClientSide) {
             float ratio = this.getHealth() / this.getMaxHealth();
-            int phase = ratio <= 0.3F ? 3 : ratio <= 0.7F ? 2 : 1;
+            float phase2 = ModConfig.BOSS_PHASE_2_HEALTH_RATIO.get().floatValue();
+            float phase3 = ModConfig.BOSS_PHASE_3_HEALTH_RATIO.get().floatValue();
+            int phase = ratio <= phase3 ? 3 : ratio <= phase2 ? 2 : 1;
 
             if (phase != this.getPhase()) {
                 this.setPhase(phase);
+                onPhaseChanged(phase);
             }
 
             this.bossEvent.setProgress(ratio);
@@ -280,11 +295,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // PHASE 2 — RUNE BOLTS + GRAVITIC PULL
     // -----------------------------
     private void phaseTwoBehavior() {
-        if (this.tickCount % 60 == 0) {
+        if (this.getTarget() == null) return;
+
+        if (this.graviticPullCooldown-- <= 0) {
             doGraviticPull();
+            this.graviticPullCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get());
         }
-        if (this.tickCount % 40 == 0) {
+
+        if (this.runeBoltCooldown-- <= 0) {
             fireRuneBolt();
+            this.runeBoltCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get());
         }
     }
 
@@ -292,15 +312,54 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // PHASE 3 — DASH + METEOR ARM + ARCANE STORM
     // -----------------------------
     private void phaseThreeBehavior() {
-        if (this.tickCount % 80 == 0) {
+        if (this.getTarget() == null) return;
+
+        if (this.dashCooldown-- <= 0) {
             doDashAttack();
+            this.dashCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get());
         }
-        if (this.tickCount % 100 == 0) {
+
+        if (this.meteorArmCooldown-- <= 0) {
             doMeteorArm();
+            this.meteorArmCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get());
         }
-        if (this.tickCount % 120 == 0) {
+
+        if (this.arcaneStormCooldown-- <= 0) {
             doArcaneStorm();
+            this.arcaneStormCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get());
         }
+    }
+
+    private void onPhaseChanged(int phase) {
+        // Reset/seed cooldowns so a new phase doesn't instantly fire every ability on the same tick.
+        if (phase <= 1) {
+            this.runeBoltCooldown = 0;
+            this.graviticPullCooldown = 0;
+            this.dashCooldown = 0;
+            this.meteorArmCooldown = 0;
+            this.arcaneStormCooldown = 0;
+            return;
+        }
+
+        if (phase == 2) {
+            this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
+            this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
+            this.dashCooldown = 0;
+            this.meteorArmCooldown = 0;
+            this.arcaneStormCooldown = 0;
+        } else {
+            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
+            this.meteorArmCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get()));
+            this.arcaneStormCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get()));
+            this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
+            this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
+        }
+    }
+
+    private int rollCooldown(int baseTicks) {
+        int base = Math.max(1, baseTicks);
+        int jitter = Math.max(1, base / 5);
+        return base + this.random.nextInt(jitter + 1);
     }
 
     // -----------------------------

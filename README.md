@@ -100,4 +100,11 @@ Common config file: `config/krumblegard-common.toml`
         bossAttackDamage = 20.0
         bossAttackKnockback = 1.5
         bossRegenPerTick = 0.0
+        bossPhase2HealthRatio = 0.7
+        bossPhase3HealthRatio = 0.3
+        bossPhase2RuneBoltCooldownTicks = 40
+        bossPhase2GraviticPullCooldownTicks = 60
+        bossPhase3DashCooldownTicks = 80
+        bossPhase3MeteorArmCooldownTicks = 100
+        bossPhase3ArcaneStormCooldownTicks = 120
 ```
