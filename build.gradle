@@ -62,7 +62,8 @@ minecraft {
 }
 
 repositories {
-    mavenCentral()
+    // Use the repo1 Maven Central endpoint to avoid intermittent 403s seen from repo.maven.apache.org in CI.
+    maven { url = 'https://repo1.maven.org/maven2' }
     maven { url = 'https://maven.minecraftforge.net' }
     maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
