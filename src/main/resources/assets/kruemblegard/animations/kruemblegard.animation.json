@@ -33,6 +33,105 @@
 				}
 			}
 		},
+		"animation.kruemblegard.attack_melee": {
+			"loop": false,
+			"animation_length": 0.5,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [-70, 0, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"torso": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [0, 10, 0],
+						"0.5": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.attack_rune_bolt": {
+			"loop": false,
+			"animation_length": 0.6,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [-25, -15, 0],
+						"0.4": [-10, 10, 0],
+						"0.6": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.6": [0, 540, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.attack_dash": {
+			"loop": false,
+			"animation_length": 0.4,
+			"bones": {
+				"torso": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1": [20, 0, 0],
+						"0.4": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.4": [0, 720, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.attack_meteor_arm": {
+			"loop": false,
+			"animation_length": 0.7,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [-40, 0, 0],
+						"0.5": [-10, 0, 0],
+						"0.7": [0, 0, 0]
+					}
+				},
+				"torso": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [0, -12, 0],
+						"0.7": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.attack_arcane_storm": {
+			"loop": false,
+			"animation_length": 1.0,
+			"bones": {
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 1080, 0]
+					}
+				},
+				"torso": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [0, 1.5, 0],
+						"1.0": [0, 0, 0]
+					}
+				}
+			}
+		},
 		"animation.kruemblegard.idle": {
 			"loop": true,
 			"animation_length": 1,

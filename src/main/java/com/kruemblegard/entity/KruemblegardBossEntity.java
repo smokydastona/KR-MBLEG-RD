@@ -53,6 +53,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final EntityDataAccessor<Boolean> ENGAGED =
             SynchedEntityData.defineId(KruemblegardBossEntity.class, EntityDataSerializers.BOOLEAN);
 
+        private static final EntityDataAccessor<Integer> ATTACK_ANIM =
+            SynchedEntityData.defineId(KruemblegardBossEntity.class, EntityDataSerializers.INT);
+
+        private static final int ATTACK_ANIM_NONE = 0;
+        private static final int ATTACK_ANIM_MELEE = 1;
+        private static final int ATTACK_ANIM_RUNE_BOLT = 2;
+        private static final int ATTACK_ANIM_DASH = 3;
+        private static final int ATTACK_ANIM_METEOR_ARM = 4;
+        private static final int ATTACK_ANIM_ARCANE_STORM = 5;
+
     // -----------------------------
     // BOSS BAR
     // -----------------------------
@@ -78,6 +88,21 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final RawAnimation ATTACK =
             RawAnimation.begin().thenPlay("animation.kruemblegard.attack");
 
+        private static final RawAnimation ATTACK_MELEE =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee");
+
+        private static final RawAnimation ATTACK_RUNE_BOLT =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
+
+        private static final RawAnimation ATTACK_DASH =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_dash");
+
+        private static final RawAnimation ATTACK_METEOR_ARM =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_arm");
+
+        private static final RawAnimation ATTACK_ARCANE_STORM =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
+
     // -----------------------------
     // ARENA / EMERGENCE (integration)
     // -----------------------------
@@ -86,6 +111,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private boolean emerging;
     private double emergenceTargetY;
+
+    private int attackAnimTicks;
 
     // -----------------------------
     // CONSTRUCTOR
@@ -116,6 +143,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         super.defineSynchedData();
         this.entityData.define(PHASE, 1);
         this.entityData.define(ENGAGED, false);
+        this.entityData.define(ATTACK_ANIM, ATTACK_ANIM_NONE);
+    }
+
+    private int getAttackAnim() {
+        return this.entityData.get(ATTACK_ANIM);
+    }
+
+    private void setAttackAnim(int animId, int ticks) {
+        this.attackAnimTicks = Math.max(this.attackAnimTicks, ticks);
+        this.entityData.set(ATTACK_ANIM, animId);
     }
 
     public int getPhase() {
@@ -175,6 +212,15 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     @Override
     public void aiStep() {
         super.aiStep();
+
+        if (!this.level().isClientSide) {
+            if (this.attackAnimTicks > 0) {
+                this.attackAnimTicks--;
+                if (this.attackAnimTicks <= 0) {
+                    this.entityData.set(ATTACK_ANIM, ATTACK_ANIM_NONE);
+                }
+            }
+        }
 
         if (!this.level().isClientSide && emerging) {
             double remaining = emergenceTargetY - this.getY();
@@ -253,6 +299,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
+            this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, 14);
         }
 
         if (!this.level().isClientSide) {
@@ -282,6 +329,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
+            this.setAttackAnim(ATTACK_ANIM_DASH, 10);
         }
 
         if (!this.level().isClientSide) {
@@ -300,6 +348,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void doMeteorArm() {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
+            this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, 16);
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -312,6 +361,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void doArcaneStorm() {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
+            this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, 24);
             this.playSound(ModSounds.KRUEMBLEGARD_STORM.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
@@ -377,8 +427,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         }));
 
         controllers.add(new AnimationController<>(this, "attack", 0, state -> {
-            if (this.swinging) {
-                return state.setAndContinue(ATTACK);
+            int attackAnim = getAttackAnim();
+            if (attackAnim != ATTACK_ANIM_NONE) {
+                return switch (attackAnim) {
+                    case ATTACK_ANIM_MELEE -> state.setAndContinue(ATTACK_MELEE);
+                    case ATTACK_ANIM_RUNE_BOLT -> state.setAndContinue(ATTACK_RUNE_BOLT);
+                    case ATTACK_ANIM_DASH -> state.setAndContinue(ATTACK_DASH);
+                    case ATTACK_ANIM_METEOR_ARM -> state.setAndContinue(ATTACK_METEOR_ARM);
+                    case ATTACK_ANIM_ARCANE_STORM -> state.setAndContinue(ATTACK_ARCANE_STORM);
+                    default -> state.setAndContinue(ATTACK);
+                };
             }
             return PlayState.STOP;
         }));
