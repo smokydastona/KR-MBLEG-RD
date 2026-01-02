@@ -17,7 +17,9 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -241,7 +243,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         // Targeting
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(
+            this,
+            LivingEntity.class,
+            10,
+            true,
+            false,
+            target -> target != this
+                && !(target instanceof KruemblegardBossEntity)
+                && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)
+        ));
     }
 
     // -----------------------------
