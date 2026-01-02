@@ -9,6 +9,9 @@ build/
 run/
 logs/
 
+# Local examples / reference content (not committed)
+examples/
+
 # Eclipse / IDE metadata
 .classpath
 .project
