@@ -23,8 +23,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -47,6 +47,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.EnumSet;
 
 public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
@@ -131,6 +133,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private int meteorArmCooldown;
     private int arcaneStormCooldown;
 
+    // -----------------------------
+    // CUSTOM MELEE TIMING (windup -> impact)
+    // -----------------------------
+    private static final int MELEE_TOTAL_TICKS = 10;
+    // Impact happens when meleeTicksRemaining == MELEE_IMPACT_AT
+    private static final int MELEE_IMPACT_AT = 4;
+
+    private int meleeCooldown;
+    private int meleeTicksRemaining;
+    private boolean meleeImpactDone;
+
     private int globalAbilityCooldown;
 
     private int currentAbility;
@@ -166,6 +179,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityImpactAt = 0;
         this.currentAbilityImpactDone = false;
         this.lastAbility = ABILITY_NONE;
+
+        this.meleeCooldown = 0;
+        this.meleeTicksRemaining = 0;
+        this.meleeImpactDone = false;
     }
 
     // -----------------------------
@@ -237,7 +254,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         // Movement
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(1.0D));
         this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.6D));
 
@@ -302,6 +319,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (!this.level().isClientSide) {
             tickCooldowns();
+			tickMeleeAttack();
         }
 
         // Phase logic
@@ -336,6 +354,108 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (this.dashCooldown > 0) this.dashCooldown--;
         if (this.meteorArmCooldown > 0) this.meteorArmCooldown--;
         if (this.arcaneStormCooldown > 0) this.arcaneStormCooldown--;
+        if (this.meleeCooldown > 0) this.meleeCooldown--;
+    }
+
+    private boolean isMeleeInProgress() {
+        return this.meleeTicksRemaining > 0;
+    }
+
+    private void startMeleeAttack() {
+        if (this.level().isClientSide) return;
+        if (this.meleeCooldown > 0) return;
+        if (this.currentAbility != ABILITY_NONE) return;
+        if (isMeleeInProgress()) return;
+
+        this.meleeImpactDone = false;
+        this.meleeTicksRemaining = MELEE_TOTAL_TICKS;
+
+        // Impact happens at MELEE_TOTAL_TICKS - MELEE_IMPACT_AT ticks after start.
+        // Keep the attack animation active through the impact tick (same pattern as abilities).
+        int telegraphAnimTicks = Math.max(1, (MELEE_TOTAL_TICKS - MELEE_IMPACT_AT) + 2);
+        this.swing(InteractionHand.MAIN_HAND);
+        this.setAttackAnim(ATTACK_ANIM_MELEE, telegraphAnimTicks);
+    }
+
+    private void tickMeleeAttack() {
+        if (!isMeleeInProgress()) return;
+
+        this.getNavigation().stop();
+        LivingEntity target = this.getTarget();
+        if (target == null || !target.isAlive()) {
+            this.meleeTicksRemaining = 0;
+            return;
+        }
+
+        if (!this.meleeImpactDone && this.meleeTicksRemaining == MELEE_IMPACT_AT) {
+            this.meleeImpactDone = true;
+            double reachSq = getAttackReachSqr(target);
+            if (this.distanceToSqr(target) <= reachSq) {
+                this.doHurtTarget(target);
+            }
+        }
+
+        this.meleeTicksRemaining--;
+        if (this.meleeTicksRemaining <= 0) {
+            this.meleeCooldown = 20;
+        }
+    }
+
+    private double getAttackReachSqr(LivingEntity target) {
+        float w = this.getBbWidth();
+        return (double)(w * 2.0F * w * 2.0F + target.getBbWidth());
+    }
+
+    private class KruemblegardMeleeGoal extends Goal {
+        private final double speed;
+        private int repathTime;
+
+        private KruemblegardMeleeGoal(double speed) {
+            this.speed = speed;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = KruemblegardBossEntity.this.getTarget();
+            return target != null && target.isAlive();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity target = KruemblegardBossEntity.this.getTarget();
+            return target != null && target.isAlive();
+        }
+
+        @Override
+        public void start() {
+            this.repathTime = 0;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = KruemblegardBossEntity.this.getTarget();
+            if (target == null) return;
+
+            KruemblegardBossEntity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+            if (KruemblegardBossEntity.this.currentAbility != ABILITY_NONE || KruemblegardBossEntity.this.isMeleeInProgress()) {
+                KruemblegardBossEntity.this.getNavigation().stop();
+                return;
+            }
+
+            double distSq = KruemblegardBossEntity.this.distanceToSqr(target);
+            double reachSq = KruemblegardBossEntity.this.getAttackReachSqr(target);
+
+            if (--this.repathTime <= 0) {
+                this.repathTime = 10;
+                KruemblegardBossEntity.this.getNavigation().moveTo(target, this.speed);
+            }
+
+            if (distSq <= reachSq && KruemblegardBossEntity.this.meleeCooldown <= 0) {
+                KruemblegardBossEntity.this.startMeleeAttack();
+            }
+        }
     }
 
     // -----------------------------
@@ -350,6 +470,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     private void phaseTwoBehavior() {
         if (this.getTarget() == null) return;
+		if (isMeleeInProgress()) return;
 
         if (tickCurrentAbility()) {
             return;
@@ -370,6 +491,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     private void phaseThreeBehavior() {
         if (this.getTarget() == null) return;
+		if (isMeleeInProgress()) return;
 
         if (tickCurrentAbility()) {
             return;
