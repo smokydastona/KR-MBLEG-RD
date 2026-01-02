@@ -9,6 +9,9 @@ build/
 run/
 logs/
 
+# Documentation (local notes / reference)
+docs/
+
 # Local examples / reference content (not committed)
 examples/
 
