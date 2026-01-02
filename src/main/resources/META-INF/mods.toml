@@ -30,3 +30,10 @@ mandatory=true
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.kruemblegard]]
+modId="waystoneinjector"
+mandatory=true
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
