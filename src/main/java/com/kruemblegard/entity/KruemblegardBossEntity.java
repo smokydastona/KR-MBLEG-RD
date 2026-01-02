@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -72,6 +73,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         private static final int ATTACK_ANIM_METEOR_ARM = 4;
         private static final int ATTACK_ANIM_ARCANE_STORM = 5;
 	    private static final int ATTACK_ANIM_GRAVITIC_PULL = 6;
+        private static final int ATTACK_ANIM_HURT = 7;
+        private static final int ATTACK_ANIM_DEATH = 8;
 
     // -----------------------------
     // BOSS BAR
@@ -115,6 +118,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         private static final RawAnimation ATTACK_ARCANE_STORM =
             RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
+
+        private static final RawAnimation HURT =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.hurt");
+
+        private static final RawAnimation DEATH =
+            RawAnimation.begin().thenPlay("animation.kruemblegard.death");
 
     // -----------------------------
     // ARENA / EMERGENCE (integration)
@@ -244,6 +253,35 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     public void beginEmergence(double targetY) {
         this.emerging = true;
         this.emergenceTargetY = targetY;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean result = super.hurt(source, amount);
+        if (!result) return false;
+
+        if (!this.level().isClientSide
+            && amount > 0.0F
+            && !this.isDeadOrDying()
+            && this.attackAnimTicks <= 0
+            && this.currentAbility == ABILITY_NONE
+            && !this.isMeleeInProgress()) {
+            // Short flinch. Avoid interrupting telegraphed attacks/melee windups.
+            this.setAttackAnim(ATTACK_ANIM_HURT, 8);
+        }
+        return true;
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        if (!this.level().isClientSide) {
+            // Force death animation to take over.
+            this.meleeTicksRemaining = 0;
+            this.currentAbility = ABILITY_NONE;
+            this.setAttackAnim(ATTACK_ANIM_DEATH, 40);
+            this.getNavigation().stop();
+        }
+        super.die(source);
     }
 
     // -----------------------------
@@ -882,6 +920,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                     case ATTACK_ANIM_DASH -> state.setAndContinue(ATTACK_DASH);
                     case ATTACK_ANIM_METEOR_ARM -> state.setAndContinue(ATTACK_METEOR_ARM);
                     case ATTACK_ANIM_ARCANE_STORM -> state.setAndContinue(ATTACK_ARCANE_STORM);
+					case ATTACK_ANIM_HURT -> state.setAndContinue(HURT);
+					case ATTACK_ANIM_DEATH -> state.setAndContinue(DEATH);
                     default -> state.setAndContinue(ATTACK);
                 };
             }
