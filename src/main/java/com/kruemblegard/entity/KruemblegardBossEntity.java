@@ -168,7 +168,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     @Override
     public boolean isNoGravity() {
-        return true;
+        return this.emerging;
     }
 
     @Override
@@ -187,10 +187,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 this.setPos(this.getX(), this.getY() + step, this.getZ());
             }
         }
-
-        // Floating bobbing motion
-        double bob = Math.sin(this.tickCount * 0.1) * 0.05;
-        this.setDeltaMovement(this.getDeltaMovement().add(0, bob, 0));
 
         // Phase logic
         if (!this.level().isClientSide) {
