@@ -8,12 +8,7 @@ plugins {
 def modVersionMajor = (project.findProperty('mod_version_major') ?: '1') as String
 def modVersionMinor = (project.findProperty('mod_version_minor') ?: '0') as String
 
-def autoPatchVersion = { ->
-    def runNumber = System.getenv('GITHUB_RUN_NUMBER')
-    if (runNumber != null && !runNumber.isBlank()) {
-        return runNumber.trim()
-    }
-
+def gitCommitCount = { ->
     try {
         def out = new ByteArrayOutputStream()
         exec {
@@ -29,7 +24,28 @@ def autoPatchVersion = { ->
     }
 }
 
-version = "${modVersionMajor}.${modVersionMinor}.${autoPatchVersion()}"
+def gitShortSha = { ->
+    def envSha = System.getenv('GITHUB_SHA')
+    if (envSha != null && !envSha.isBlank()) {
+        return envSha.trim().take(7)
+    }
+
+    try {
+        def out = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short=7', 'HEAD'
+            standardOutput = out
+            errorOutput = new ByteArrayOutputStream()
+            ignoreExitValue = true
+        }
+        def sha = out.toString('UTF-8').trim()
+        return sha.isBlank() ? 'unknown' : sha
+    } catch (Exception ignored) {
+        return 'unknown'
+    }
+}
+
+version = "${modVersionMajor}.${modVersionMinor}.${gitCommitCount()}+g${gitShortSha()}"
 group = 'com.kruemblegard'
 archivesBaseName = 'kruemblegard'
 
