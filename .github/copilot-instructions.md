@@ -97,6 +97,9 @@
 - If there are uncommitted changes when the user expects a new jar, treat that as a bug in the workflow and push.
 - **User override: “push” means push, always**
   - If the user says “push” / “push updates” / “push it”, ALWAYS run `git push` even if there are no new local commits.
+  - If there are local changes (dirty working tree) and the user says “push”, treat that as “ship what’s currently in the working tree”:
+    - Run the required scan(s), update `README.md` and `CHANGELOG.md` as needed, then **stage + commit + push**.
+    - Only skip committing if the user explicitly says “don’t commit yet” / “don’t push yet”.
   - Do NOT create empty commits unless the user explicitly asks for an empty commit; instead, report the current `HEAD` SHA so the user can match it to the latest GitHub Actions build.
 - Build validation:
   - Never build locally (as Copilot/agent) — rely on GitHub Actions for validation.
