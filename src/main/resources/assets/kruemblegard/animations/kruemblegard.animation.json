@@ -19,6 +19,49 @@
 				}
 			}
 		},
+		"animation.kruemblegard.hurt": {
+			"animation_length": 0.35,
+			"loop": false,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1": [-8, 0, -6],
+						"0.2": [6, 0, 4],
+						"0.35": [0, 0, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.35": [0, 180, 0]
+					}
+				}
+			}
+		},
+		"animation.kruemblegard.death": {
+			"animation_length": 1.25,
+			"loop": false,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.6": [18, 0, 12],
+						"1.25": [60, 0, 25]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.25": [0, -10, 0]
+					}
+				},
+				"whirlwind": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.25": [0, 1440, 0]
+					}
+				}
+			}
+		},
 		"animation.kruemblegard.attack_melee": {
 			"animation_length": 0.9167,
 			"bones": {
@@ -958,52 +1001,9 @@
 							"attack": "query.is_attacking"
 						}
 					]
-					"animation.kruemblegard.hurt": {
-						"animation_length": 0.35,
-						"loop": false,
-						"bones": {
-							"body": {
-								"rotation": {
-									"0.0": [0, 0, 0],
-									"0.1": [-8, 0, -6],
-									"0.2": [6, 0, 4],
-									"0.35": [0, 0, 0]
-								}
-							},
-							"whirlwind": {
-								"rotation": {
-									"0.0": [0, 0, 0],
-									"0.35": [0, 180, 0]
-								}
-							}
-						}
-					},
-					"animation.kruemblegard.death": {
-						"animation_length": 1.25,
-						"loop": false,
-						"bones": {
-							"body": {
-								"rotation": {
-									"0.0": [0, 0, 0],
-									"0.6": [18, 0, 12],
-									"1.25": [60, 0, 25]
-								},
-								"position": {
-									"0.0": [0, 0, 0],
-									"1.25": [0, -10, 0]
-								}
-							},
-							"whirlwind": {
-								"rotation": {
-									"0.0": [0, 0, 0],
-									"1.25": [0, 1440, 0]
-								}
-							}
-						}
-					},
 				},
 				"attack": {
-					"animations": ["animation.kruemblegard.attack_claw"],
+					"animations": ["animation.kruemblegard.attack_melee"],
 					"transitions": [
 						{
 							"default": "query.animation_finished"

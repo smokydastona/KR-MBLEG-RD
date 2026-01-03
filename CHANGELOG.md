@@ -3,4 +3,4 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-- Keep this section updated with the latest changes before each commit.
+- Fix `kruemblegard.animation.json` malformed JSON that could crash client startup (GeckoLib animation loader).
