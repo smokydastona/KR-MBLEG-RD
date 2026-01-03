@@ -24,28 +24,7 @@ def gitCommitCount = { ->
     }
 }
 
-def gitShortSha = { ->
-    def envSha = System.getenv('GITHUB_SHA')
-    if (envSha != null && !envSha.isBlank()) {
-        return envSha.trim().take(7)
-    }
-
-    try {
-        def out = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'rev-parse', '--short=7', 'HEAD'
-            standardOutput = out
-            errorOutput = new ByteArrayOutputStream()
-            ignoreExitValue = true
-        }
-        def sha = out.toString('UTF-8').trim()
-        return sha.isBlank() ? 'unknown' : sha
-    } catch (Exception ignored) {
-        return 'unknown'
-    }
-}
-
-version = "${modVersionMajor}.${modVersionMinor}.${gitCommitCount()}+g${gitShortSha()}"
+version = "${modVersionMajor}.${modVersionMinor}.${gitCommitCount()}"
 group = 'com.kruemblegard'
 archivesBaseName = 'kruemblegard'
 

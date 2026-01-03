@@ -54,6 +54,7 @@
   - Then do the relevant “impact radius” scan (see checklists below).
   - **Immediately after the scan:** update `README.md` and `CHANGELOG.md` if anything changed that a future-you would want to remember.
   - If changes are notable and you’re about to ship a test jar, record them under a **versioned** `CHANGELOG.md` section that matches the jar version (see versioning in `build.gradle`).
+  - If version uses git history (e.g., commit count), ensure GitHub Actions uses full history checkout (`fetch-depth: 0`) so CI jar versions match.
 2. **Fix errors systematically**
   - Address errors discovered by the scan in a structured way.
   - Do not stop after fixing “just one file”; iterate until the workspace is clean.
