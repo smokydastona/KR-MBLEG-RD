@@ -55,7 +55,7 @@ Quick test (manual place):
 - `/setblock ~ ~ ~ krumblegard:false_waystone`
 
 ## Assets you still need to provide
-This mod references textures/sounds but does not include binary assets.
+This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
 
 ### Textures
 Add PNGs under:
