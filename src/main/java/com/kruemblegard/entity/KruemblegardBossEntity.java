@@ -113,13 +113,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_cleave");
 
     private static final RawAnimation ATTACK_RUNE_BOLT =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_boss_rune_bolt");
 
     private static final RawAnimation ATTACK_RUNE_DASH =
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_dash");
 
     private static final RawAnimation ATTACK_GRAVITIC_PULL =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_gravitic_pull");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_boss_gravitic_pull");
 
     private static final RawAnimation ATTACK_RUNE_VOLLEY =
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_volley");
@@ -128,10 +128,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_blink_strike");
 
     private static final RawAnimation ATTACK_METEOR_ARM =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_arm");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_boss_meteor_arm");
 
     private static final RawAnimation ATTACK_ARCANE_STORM =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_boss_arcane_storm");
 
     private static final RawAnimation ATTACK_WHIRLWIND =
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_whirlwind");

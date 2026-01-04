@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.100 (2026-01-03)
+- Animations: fix duplicate animation-key collisions by renaming the four overlapping attack animations to unique boss-specific keys.
+
 ## 1.0.99 (2026-01-03)
 - Animations: rename the 12 boss attack animations to ability-specific keys (e.g. `attack_cleave`, `attack_rune_bolt`, etc.).
 - Boss/docs: update code + documentation to reference the renamed animations.

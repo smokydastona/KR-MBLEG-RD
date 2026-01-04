@@ -47,7 +47,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** stay out of its forward arc; strafe around the boss.
 
 ### 3) Rune Bolt (Phase 1 ranged)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_rune_bolt`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_boss_rune_bolt`.
 - **Timing:** `totalTicks = 16`, `impactAt = 8`.
 - **Impact / damage frame (Blockbench @20 FPS):** **Frame 8**.
 - **What happens on impact:** spawns a `RuneBoltEntity` at the boss and fires it toward the current target.
@@ -63,7 +63,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** sidestep during windup; don’t be directly in front of the boss.
 
 ### 5) Gravitic Pull (Phase 2 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_gravitic_pull`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_boss_gravitic_pull`.
 - **Timing:** `totalTicks = 18`, `impactAt = 10`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 8**.
 - **What happens on impact:** pulls **players** in a radius toward the boss by adding velocity toward the boss.
@@ -87,7 +87,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** keep moving and avoid being isolated; don’t rely on pure backpedaling.
 
 ### 8) Meteor Arm (Phase 3 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_meteor_arm`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_boss_meteor_arm`.
 - **Timing:** `totalTicks = 22`, `impactAt = 12`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 10**.
 - **What happens on impact:** spawns a `MeteorArmEntity` above the boss and sends it downward.
@@ -96,7 +96,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** watch the drop; move out from under its fall path.
 
 ### 9) Arcane Storm (Phase 3 ranged)
-- **Telegraph:** storm sound + soul particles; plays `animation.kruemblegard.attack_arcane_storm`.
+- **Telegraph:** storm sound + soul particles; plays `animation.kruemblegard.attack_boss_arcane_storm`.
 - **Timing:** `totalTicks = 26`, `impactAt = 14`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 12**.
 - **What happens on impact:** spawns 8 `ArcaneStormProjectileEntity` projectiles above random offsets around the boss.

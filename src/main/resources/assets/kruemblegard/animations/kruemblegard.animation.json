@@ -1446,7 +1446,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_rune_bolt": {
+		"animation.kruemblegard.attack_boss_rune_bolt": {
 			"animation_length": 1.0,
 			"bones": {
 				"body": {
@@ -1486,7 +1486,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_gravitic_pull": {
+		"animation.kruemblegard.attack_boss_gravitic_pull": {
 			"animation_length": 1.4,
 			"bones": {
 				"whirlwind": {
@@ -1547,7 +1547,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_meteor_arm": {
+		"animation.kruemblegard.attack_boss_meteor_arm": {
 			"animation_length": 1.6,
 			"bones": {
 				"body": {
@@ -1567,7 +1567,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_arcane_storm": {
+		"animation.kruemblegard.attack_boss_arcane_storm": {
 			"animation_length": 1.8,
 			"bones": {
 				"whirlwind": {
