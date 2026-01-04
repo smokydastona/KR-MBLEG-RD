@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.104 (2026-01-03)
+- Animations: remove unused `animation.kruemblegard.attack` so Blockbench only shows the 12 attacks + idle/move/hurt/death.
+
 ## 1.0.103 (2026-01-03)
 - Animations: remove legacy unused `boss_attack_*` entries so Blockbench only shows the active animation set.
 
