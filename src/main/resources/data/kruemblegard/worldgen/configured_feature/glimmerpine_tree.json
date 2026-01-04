@@ -1,4 +1,6 @@
-{
-  "type": "kruemblegard:glimmerpine_tree",
-  "config": {}
+﻿{
+    "type":  "kruemblegard:glimmerpine_tree",
+    "config":  {
+
+               }
 }

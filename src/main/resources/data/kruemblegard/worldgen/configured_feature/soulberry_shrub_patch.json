@@ -1,22 +1,38 @@
-{
-  "type": "minecraft:random_patch",
-  "config": {
-    "tries": 14,
-    "xz_spread": 5,
-    "y_spread": 2,
-    "feature": {
-      "feature": "minecraft:simple_block",
-      "config": {
-        "to_place": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "kruemblegard:soulberry_shrub",
-            "Properties": {
-              "age": "2"
-            }
-          }
-        }
-      }
-    }
-  }
+﻿{
+    "type":  "minecraft:random_patch",
+    "config":  {
+                   "tries":  14,
+                   "xz_spread":  5,
+                   "y_spread":  2,
+                   "feature":  {
+                                   "feature":  {
+                                                   "config":  {
+                                                                  "to_place":  {
+                                                                                   "type":  "minecraft:simple_state_provider",
+                                                                                   "state":  {
+                                                                                                 "Name":  "kruemblegard:soulberry_shrub",
+                                                                                                 "Properties":  {
+                                                                                                                    "age":  "2"
+                                                                                                                }
+                                                                                             }
+                                                                               }
+                                                              },
+                                                   "type":  "minecraft:simple_block"
+                                               },
+                                   "placement":  [
+                                                     {
+                                                         "predicate":  {
+                                                                           "state":  {
+                                                                                         "Name":  "kruemblegard:soulberry_shrub",
+                                                                                         "Properties":  {
+                                                                                                            "age":  "2"
+                                                                                                        }
+                                                                                     },
+                                                                           "type":  "minecraft:would_survive"
+                                                                       },
+                                                         "type":  "minecraft:block_predicate_filter"
+                                                     }
+                                                 ]
+                               }
+               }
 }

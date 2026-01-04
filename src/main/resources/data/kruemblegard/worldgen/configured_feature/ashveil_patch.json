@@ -1,19 +1,32 @@
-{
-  "type": "minecraft:random_patch",
-  "config": {
-    "tries": 20,
-    "xz_spread": 6,
-    "y_spread": 2,
-    "feature": {
-      "feature": "minecraft:simple_block",
-      "config": {
-        "to_place": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "kruemblegard:ashveil"
-          }
-        }
-      }
-    }
-  }
+﻿{
+    "type":  "minecraft:random_patch",
+    "config":  {
+                   "tries":  20,
+                   "xz_spread":  6,
+                   "y_spread":  2,
+                   "feature":  {
+                                   "feature":  {
+                                                   "config":  {
+                                                                  "to_place":  {
+                                                                                   "type":  "minecraft:simple_state_provider",
+                                                                                   "state":  {
+                                                                                                 "Name":  "kruemblegard:ashveil"
+                                                                                             }
+                                                                               }
+                                                              },
+                                                   "type":  "minecraft:simple_block"
+                                               },
+                                   "placement":  [
+                                                     {
+                                                         "predicate":  {
+                                                                           "state":  {
+                                                                                         "Name":  "kruemblegard:ashveil"
+                                                                                     },
+                                                                           "type":  "minecraft:would_survive"
+                                                                       },
+                                                         "type":  "minecraft:block_predicate_filter"
+                                                     }
+                                                 ]
+                               }
+               }
 }

@@ -1,18 +1,9 @@
-{
+﻿{
     "feature":  "kruemblegard:wayscar_ivy_patch",
     "placement":  [
                       {
                           "type":  "minecraft:rarity_filter",
                           "chance":  6
-                      },
-                      {
-                          "predicate":  {
-                                            "state":  {
-                                                          "Name":  "kruemblegard:wayscar_ivy"
-                                                      },
-                                            "type":  "minecraft:would_survive"
-                                        },
-                          "type":  "minecraft:block_predicate_filter"
                       },
                       {
                           "type":  "minecraft:in_square"

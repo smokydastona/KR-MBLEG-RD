@@ -1,18 +1,9 @@
-{
+﻿{
     "feature":  "kruemblegard:transit_fern_patch",
     "placement":  [
                       {
                           "type":  "minecraft:rarity_filter",
                           "chance":  6
-                      },
-                      {
-                          "predicate":  {
-                                            "state":  {
-                                                          "Name":  "kruemblegard:transit_fern"
-                                                      },
-                                            "type":  "minecraft:would_survive"
-                                        },
-                          "type":  "minecraft:block_predicate_filter"
                       },
                       {
                           "type":  "minecraft:in_square"

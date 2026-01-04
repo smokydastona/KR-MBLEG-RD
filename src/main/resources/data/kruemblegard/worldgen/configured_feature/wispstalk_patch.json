@@ -1,22 +1,38 @@
-{
-  "type": "minecraft:random_patch",
-  "config": {
-    "tries": 32,
-    "xz_spread": 7,
-    "y_spread": 3,
-    "feature": {
-      "feature": "minecraft:simple_block",
-      "config": {
-        "to_place": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "kruemblegard:wispstalk",
-            "Properties": {
-              "age": "3"
-            }
-          }
-        }
-      }
-    }
-  }
+﻿{
+    "type":  "minecraft:random_patch",
+    "config":  {
+                   "tries":  32,
+                   "xz_spread":  7,
+                   "y_spread":  3,
+                   "feature":  {
+                                   "feature":  {
+                                                   "config":  {
+                                                                  "to_place":  {
+                                                                                   "type":  "minecraft:simple_state_provider",
+                                                                                   "state":  {
+                                                                                                 "Name":  "kruemblegard:wispstalk",
+                                                                                                 "Properties":  {
+                                                                                                                    "age":  "3"
+                                                                                                                }
+                                                                                             }
+                                                                               }
+                                                              },
+                                                   "type":  "minecraft:simple_block"
+                                               },
+                                   "placement":  [
+                                                     {
+                                                         "predicate":  {
+                                                                           "state":  {
+                                                                                         "Name":  "kruemblegard:wispstalk",
+                                                                                         "Properties":  {
+                                                                                                            "age":  "3"
+                                                                                                        }
+                                                                                     },
+                                                                           "type":  "minecraft:would_survive"
+                                                                       },
+                                                         "type":  "minecraft:block_predicate_filter"
+                                                     }
+                                                 ]
+                               }
+               }
 }

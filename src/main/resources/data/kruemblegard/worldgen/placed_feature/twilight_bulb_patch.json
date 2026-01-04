@@ -1,16 +1,19 @@
-{
-  "feature": "kruemblegard:twilight_bulb_patch",
-  "placement": [
-    { "type": "minecraft:rarity_filter", "chance": 5 },
-    {
-      "type": "minecraft:block_predicate_filter",
-      "predicate": {
-        "type": "minecraft:would_survive",
-        "state": { "Name": "kruemblegard:twilight_bulb" }
-      }
-    },
-    { "type": "minecraft:in_square" },
-    { "type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG" },
-    { "type": "minecraft:biome" }
-  ]
+﻿{
+    "feature":  "kruemblegard:twilight_bulb_patch",
+    "placement":  [
+                      {
+                          "type":  "minecraft:rarity_filter",
+                          "chance":  5
+                      },
+                      {
+                          "type":  "minecraft:in_square"
+                      },
+                      {
+                          "type":  "minecraft:heightmap",
+                          "heightmap":  "WORLD_SURFACE_WG"
+                      },
+                      {
+                          "type":  "minecraft:biome"
+                      }
+                  ]
 }

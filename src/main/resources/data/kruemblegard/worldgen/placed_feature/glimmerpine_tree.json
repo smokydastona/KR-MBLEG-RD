@@ -1,9 +1,19 @@
-{
-  "feature": "kruemblegard:glimmerpine_tree",
-  "placement": [
-    { "type": "minecraft:rarity_filter", "chance": 25 },
-    { "type": "minecraft:in_square" },
-    { "type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG" },
-    { "type": "minecraft:biome" }
-  ]
+﻿{
+    "feature":  "kruemblegard:glimmerpine_tree",
+    "placement":  [
+                      {
+                          "type":  "minecraft:rarity_filter",
+                          "chance":  25
+                      },
+                      {
+                          "type":  "minecraft:in_square"
+                      },
+                      {
+                          "type":  "minecraft:heightmap",
+                          "heightmap":  "WORLD_SURFACE_WG"
+                      },
+                      {
+                          "type":  "minecraft:biome"
+                      }
+                  ]
 }

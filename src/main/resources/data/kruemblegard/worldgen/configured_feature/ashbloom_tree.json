@@ -1,4 +1,6 @@
-{
-  "type": "kruemblegard:ashbloom_tree",
-  "config": {}
+﻿{
+    "type":  "kruemblegard:ashbloom_tree",
+    "config":  {
+
+               }
 }

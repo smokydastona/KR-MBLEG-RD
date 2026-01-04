@@ -1,4 +1,6 @@
-{
-  "type": "kruemblegard:driftwood_tree",
-  "config": {}
+﻿{
+    "type":  "kruemblegard:driftwood_tree",
+    "config":  {
+
+               }
 }
