@@ -228,7 +228,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     public KruemblegardBossEntity(EntityType<? extends KruemblegardBossEntity> type, Level level) {
         super(type, level);
-        this.xpReward = 50;
+        this.xpReward = 12000;
         this.noCulling = true;
 
         this.cleaveCooldown = 0;

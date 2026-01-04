@@ -1,15 +1,17 @@
 {
   "block.kruemblegard.haunted_waystone": "Haunted Waystone",
-  "block.kruemblegard.false_waystone": "Waystone",
   "block.kruemblegard.ancient_waystone": "Ancient Waystone",
   "block.kruemblegard.attuned_stone": "Attuned Stone",
   "block.kruemblegard.standing_stone": "Standing Stone",
 
   "item.kruemblegard.attuned_rune_shard": "Attuned Rune Shard",
-  "item.kruemblegard.runic_core_fragment": "Runic Core Fragment",
-  "item.kruemblegard.radiant_essence": "Radiant Essence",
+  "item.kruemblegard.runic_core": "Runic Core",
   "item.kruemblegard.crumbling_codex": "Crumbling Codex",
-  "item.kruemblegard.radiant_sword": "Radiant Sword",
+  "item.kruemblegard.runic_sword": "Runic Sword",
+  "item.kruemblegard.runic_pickaxe": "Runic Pickaxe",
+  "item.kruemblegard.runic_axe": "Runic Axe",
+  "item.kruemblegard.runic_shovel": "Runic Shovel",
+  "item.kruemblegard.runic_hoe": "Runic Hoe",
   "item.kruemblegard.kruemblegard_spawn_egg": "Krümblegård Spawn Egg",
 
   "creativetab.kruemblegard": "Krümblegård",

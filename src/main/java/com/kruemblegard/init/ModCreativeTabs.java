@@ -2,6 +2,7 @@ package com.kruemblegard.init;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModItems;
+import com.kruemblegard.item.CrumblingCodexItem;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -22,21 +23,24 @@ public final class ModCreativeTabs {
             "kruemblegard",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab.kruemblegard"))
-                    .icon(() -> new ItemStack(ModItems.HAUNTED_WAYSTONE_ITEM.get()))
+                    .icon(() -> new ItemStack(ModItems.RUNIC_CORE.get()))
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.HAUNTED_WAYSTONE_ITEM.get());
-                        output.accept(ModItems.FALSE_WAYSTONE_ITEM.get());
                         output.accept(ModItems.ANCIENT_WAYSTONE_ITEM.get());
 
                         output.accept(ModItems.STANDING_STONE_ITEM.get());
                         output.accept(ModItems.ATTUNED_STONE_ITEM.get());
 
                         output.accept(ModItems.ATTUNED_RUNE_SHARD.get());
-                        output.accept(ModItems.STONE_CORE_FRAGMENT.get());
-                        output.accept(ModItems.RADIANT_ESSENCE.get());
+                        output.accept(ModItems.RUNIC_CORE.get());
 
-                        output.accept(ModItems.CRUMBLING_CODEX.get());
-                        output.accept(ModItems.RADIANT_SWORD.get());
+                        output.accept(ModItems.RUNIC_SWORD.get());
+                        output.accept(ModItems.RUNIC_PICKAXE.get());
+                        output.accept(ModItems.RUNIC_AXE.get());
+                        output.accept(ModItems.RUNIC_SHOVEL.get());
+                        output.accept(ModItems.RUNIC_HOE.get());
+
+                        output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
 
                         output.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG.get());
                     })

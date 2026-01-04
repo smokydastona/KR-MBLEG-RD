@@ -2,13 +2,17 @@ package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.item.CrumblingCodexItem;
 
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.WrittenBookItem;
 
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -29,11 +33,6 @@ public class ModItems {
         () -> new BlockItem(ModBlocks.HAUNTED_WAYSTONE.get(), new Item.Properties())
     );
 
-    public static final RegistryObject<Item> FALSE_WAYSTONE_ITEM = ITEMS.register(
-        "false_waystone",
-        () -> new BlockItem(ModBlocks.FALSE_WAYSTONE.get(), new Item.Properties())
-    );
-
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())
@@ -51,7 +50,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> CRUMBLING_CODEX = ITEMS.register(
         "crumbling_codex",
-        () -> new WrittenBookItem(new Item.Properties().stacksTo(1))
+        () -> new CrumblingCodexItem(new Item.Properties().stacksTo(1))
     );
 
     public static final RegistryObject<Item> ATTUNED_RUNE_SHARD = ITEMS.register(
@@ -59,19 +58,32 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
-    public static final RegistryObject<Item> RUNIC_CORE_FRAGMENT =
-        ITEMS.register("runic_core_fragment", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RUNIC_CORE =
+        ITEMS.register("runic_core", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> STONE_CORE_FRAGMENT = RUNIC_CORE_FRAGMENT;
-
-    public static final RegistryObject<Item> RADIANT_ESSENCE = ITEMS.register(
-        "radiant_essence",
-        () -> new Item(new Item.Properties())
+    public static final RegistryObject<Item> RUNIC_SWORD = ITEMS.register(
+        "runic_sword",
+        () -> new SwordItem(Tiers.DIAMOND, 3, -2.4F, new Item.Properties())
     );
 
-    public static final RegistryObject<Item> RADIANT_SWORD = ITEMS.register(
-        "radiant_sword",
-        () -> new SwordItem(Tiers.IRON, 4, -2.2F, new Item.Properties())
+    public static final RegistryObject<Item> RUNIC_PICKAXE = ITEMS.register(
+        "runic_pickaxe",
+        () -> new PickaxeItem(Tiers.DIAMOND, 1, -2.8F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNIC_AXE = ITEMS.register(
+        "runic_axe",
+        () -> new AxeItem(Tiers.DIAMOND, 5.0F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNIC_SHOVEL = ITEMS.register(
+        "runic_shovel",
+        () -> new ShovelItem(Tiers.DIAMOND, 1.5F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNIC_HOE = ITEMS.register(
+        "runic_hoe",
+        () -> new HoeItem(Tiers.DIAMOND, -3, 0.0F, new Item.Properties())
     );
 
     public static final RegistryObject<Item> KRUEMBLEGARD_SPAWN_EGG =
@@ -88,7 +100,7 @@ public class ModItems {
     }
 
     if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-        event.accept(RUNIC_CORE_FRAGMENT);
+        event.accept(RUNIC_CORE);
     }
     }
 }

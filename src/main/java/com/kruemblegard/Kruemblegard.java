@@ -1,6 +1,7 @@
 package com.kruemblegard;
 
 import com.kruemblegard.config.ModConfig;
+import com.kruemblegard.item.CrumblingCodexItem;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
@@ -53,7 +54,6 @@ public final class Kruemblegard {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModItems.HAUNTED_WAYSTONE_ITEM);
-            event.accept(ModItems.FALSE_WAYSTONE_ITEM);
             event.accept(ModItems.ANCIENT_WAYSTONE_ITEM);
         }
 
@@ -64,15 +64,19 @@ public final class Kruemblegard {
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ATTUNED_RUNE_SHARD);
-            event.accept(ModItems.RADIANT_ESSENCE);
+            event.accept(ModItems.RUNIC_CORE);
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.CRUMBLING_CODEX);
+            event.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
+            event.accept(ModItems.RUNIC_PICKAXE);
+            event.accept(ModItems.RUNIC_AXE);
+            event.accept(ModItems.RUNIC_SHOVEL);
+            event.accept(ModItems.RUNIC_HOE);
         }
 
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(ModItems.RADIANT_SWORD);
+            event.accept(ModItems.RUNIC_SWORD);
         }
 
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {

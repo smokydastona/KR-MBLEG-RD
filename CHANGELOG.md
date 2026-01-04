@@ -5,11 +5,19 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+
+## 1.0.107 (2026-01-04)
 - Boss: phase-based bone hiding (Phase 2 hides armor, Phase 3 hides `-p3` bones, Phase 4 hides whirlwind/debris bones).
 - Boss: Phase 4 uses a separate texture placeholder (`kruemblegard_phase4.png`).
+- Boss: awards Ender Dragon XP on death.
+- Loot: Krümblegård drops a new `runic_core` item.
 - Animations: add Phase 4-only idle/move animation slots (`idle_phase4`, `move_phase4`).
 - Animations: add phase transition one-shots (`phase2_transition`, `phase3_transition`, `phase4_transition`).
-- UI: custom boss bar rendering + texture hook for Krümblegård.
+- Items: add `runic_core` and a full Runic tool set (sword/pickaxe/axe/shovel/hoe); remove `runic_core_fragment`.
+- Items: Crumbling Codex now opens as a pre-filled guidebook (and appears filled in creative tabs).
+- Remove `radiant_essence`.
+- Remove `false_waystone` (block + worldgen + biome modifier/tag).
+- UI: enhanced custom boss bar (icon + overlay + hit-flash), still fully texture-driven.
 
 ## 1.0.104 (2026-01-03)
 - Animations: remove unused `animation.kruemblegard.attack` so Blockbench only shows the 12 attacks + idle/move/hurt/death.

@@ -3,7 +3,6 @@ package com.kruemblegard.init;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.ArenaAnchorBlock;
-import com.kruemblegard.block.FalseWaystoneBlock;
 import com.kruemblegard.block.HauntedWaystoneBlock;
 
 import net.minecraft.world.level.block.Block;
@@ -28,15 +27,6 @@ public final class ModBlocks {
                     .mapColor(MapColor.STONE)
                     .strength(3.5F, 30.0F)
                     .sound(SoundType.STONE))
-    );
-
-    public static final RegistryObject<Block> FALSE_WAYSTONE = BLOCKS.register(
-            "false_waystone",
-            () -> new FalseWaystoneBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(3.5F, 30.0F)
-                    .sound(SoundType.STONE)
-                    .noLootTable())
     );
 
     public static final RegistryObject<Block> ANCIENT_WAYSTONE = BLOCKS.register(

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR ",
+    "RS ",
+    " S "
+  ],
+  "key": {
+    "R": { "item": "kruemblegard:runic_core" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": { "item": "kruemblegard:runic_axe" }
+}

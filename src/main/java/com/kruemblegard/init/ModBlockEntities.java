@@ -22,8 +22,7 @@ public final class ModBlockEntities {
                     "haunted_waystone",
                     () -> BlockEntityType.Builder.of(
                             HauntedWaystoneBlockEntity::new,
-                            ModBlocks.HAUNTED_WAYSTONE.get(),
-                            ModBlocks.FALSE_WAYSTONE.get()
+                            ModBlocks.HAUNTED_WAYSTONE.get()
                     ).build(null)
             );
 

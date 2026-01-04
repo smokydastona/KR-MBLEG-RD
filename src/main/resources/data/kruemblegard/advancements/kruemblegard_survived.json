@@ -1,6 +1,6 @@
 {
   "display": {
-    "icon": { "item": "kruemblegard:runic_core_fragment" },
+    "icon": { "item": "kruemblegard:runic_core" },
     "title": "Survived Krümblegård",
     "description": "You survived the emergence of Krümblegård.",
     "frame": "goal",

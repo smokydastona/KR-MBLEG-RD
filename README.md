@@ -9,6 +9,7 @@ This project contains a Forge 1.20.1 + GeckoLib mod.
 - **Krümblegård spawns underground and emerges** (no teleport).
 - **Arena anti-cheese**: leaving the circle applies Slowness + Mining Fatigue and heals the boss.
 - On boss death, the arena **cleanses** and the **Ancient Waystone** forms (radiant particles).
+- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages.
 - **Advancements** (observed / survived / cleansed) are granted by code.
 - **Loot table** for unique drops.
 
@@ -46,35 +47,28 @@ If your mod id/package differ, update:
 3. Place it and right-click it.
 4. The arena should build and Krümblegård should emerge.
 
-### Worldgen false waystones
-- Block: `kruemblegard:false_waystone` (not intended to be obtained)
-- Biome modifier: `data/forge/biome_modifier/add_false_waystone.json`
-- Biome tag: `data/kruemblegard/tags/worldgen/biome/has_false_waystone.json`
-
 Quick test (manual place):
-- `/setblock ~ ~ ~ kruemblegard:false_waystone`
+    - `/setblock ~ ~ ~ kruemblegard:haunted_waystone`
 
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
 
 ### Textures
 Add PNGs under:
-- `assets/kruemblegard/textures/block/*.png`
-- `assets/kruemblegard/textures/item/*.png`
-- `assets/kruemblegard/textures/entity/kruemblegard.png`
-- `assets/kruemblegard/textures/entity/kruemblegard_phase4.png` (Phase 4 placeholder)
-- `assets/kruemblegard/textures/gui/kruemblegard_bossbar.png` (custom boss bar texture)
 
 #### Boss bar atlas layout
 The boss bar uses a single atlas texture: `assets/kruemblegard/textures/gui/kruemblegard_bossbar.png`.
 
 - Texture size: **256×32**
 - Bar size: **182×5** (same as vanilla)
-- Atlas rows:
-    - Row 0 (top): background at `u=0..181`, `v=0..4`
-    - Row 1 (below): fill at `u=0..181`, `v=5..9`
+- Atlas layout:
+    - Background: `u=0..181`, `v=0..4`
+    - Fill: `u=0..181`, `v=5..9`
+    - Overlay/frame: `u=0..181`, `v=10..14`
+    - Hit-flash fill: `u=0..181`, `v=15..19`
+    - Icon (16×16): `u=182..197`, `v=0..15`
 
-You can repaint/replace the PNG anytime as long as those two 182×5 strips stay in the same positions.
+You can repaint/replace the PNG anytime as long as those regions stay in the same positions.
 
 ### Sounds
 Add OGGs under:

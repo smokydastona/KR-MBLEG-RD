@@ -2,7 +2,7 @@
   "parent": "kruemblegard:root",
   "display": {
     "icon": {
-      "item": "kruemblegard:runic_core_fragment"
+      "item": "kruemblegard:runic_core"
     },
     "title": "The Monument Falls",
     "description": "Defeat Krümblegård, the Cursed Megalithic Guardian",

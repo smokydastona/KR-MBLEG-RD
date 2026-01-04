@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "kruemblegard:item/radiant_sword"
+    "layer0": "kruemblegard:item/runic_sword"
   }
 }
