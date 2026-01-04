@@ -7,6 +7,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.101 (2026-01-03)
+- Animations: rename boss attack animation keys to a consistent `boss_attack_*` naming scheme.
+- Boss/docs: update references to the renamed animations.
+
 ## 1.0.100 (2026-01-03)
 - Animations: fix duplicate animation-key collisions by renaming the four overlapping attack animations to unique boss-specific keys.
 
