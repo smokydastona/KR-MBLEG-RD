@@ -7,7 +7,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
-## 1.0.96 (2026-01-04)
+## 1.0.97 (2026-01-03)
+- Docs: refresh config snippet and correct changelog date.
+- Animations: update the JSON controller example to reference the new attack animation names.
+
+## 1.0.96 (2026-01-03)
 - Boss: add Phase 4 and expand to 12 unique attacks (fast/heavy/ranged per phase).
 - Boss: add 12 new GeckoLib attack animations (`attack_p1_*` … `attack_p4_*`).
 - Docs: update boss attack timings/animation names.

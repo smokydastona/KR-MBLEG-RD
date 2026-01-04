@@ -1658,7 +1658,7 @@
 					]
 				},
 				"attack": {
-					"animations": ["animation.kruemblegard.attack_melee"],
+					"animations": ["animation.kruemblegard.attack_p1_fast"],
 					"transitions": [
 						{
 							"default": "query.animation_finished"
