@@ -2,6 +2,7 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
+import com.kruemblegard.client.render.TraprockRenderer;
 import com.kruemblegard.registry.ModEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -14,5 +15,6 @@ public class KruemblegardClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossRenderer::new);
+        event.registerEntityRenderer(ModEntities.TRAPROCK.get(), TraprockRenderer::new);
     }
 }

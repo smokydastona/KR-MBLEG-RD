@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Mobs: add Traprock (dormant until disturbed; Blaze-derived GeckoLib mob with editable geo/anim/texture).
+- Gameplay: remove Mimic Waystone block (Traprock is spawned via spawn egg/commands for now).
+- Advancements: remove obsolete survived/cleansed advancements tied to removed encounter flow.
+- Docs/Codex: update guidebook + docs to match Traprock behavior.
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.

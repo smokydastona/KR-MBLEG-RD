@@ -28,11 +28,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
         DeferredRegister.create(ForgeRegistries.ITEMS, Kruemblegard.MOD_ID);
 
-    public static final RegistryObject<Item> HAUNTED_WAYSTONE_ITEM = ITEMS.register(
-        "haunted_waystone",
-        () -> new BlockItem(ModBlocks.HAUNTED_WAYSTONE.get(), new Item.Properties())
-    );
-
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())
@@ -92,11 +87,18 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.KRUEMBLEGARD, 0x3b2f4a, 0x7a4fff,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> TRAPROCK_SPAWN_EGG =
+        ITEMS.register(
+            "traprock_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.TRAPROCK, 0x3a2f2a, 0xd86b2e,
+                new Item.Properties()));
+
     @SubscribeEvent
     public static void addToCreativeTabs(BuildCreativeModeTabContentsEvent event) {
 
     if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
         event.accept(KRUEMBLEGARD_SPAWN_EGG);
+        event.accept(TRAPROCK_SPAWN_EGG);
     }
 
     if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {

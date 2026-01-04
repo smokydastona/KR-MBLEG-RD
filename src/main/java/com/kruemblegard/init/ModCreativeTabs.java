@@ -25,7 +25,6 @@ public final class ModCreativeTabs {
                     .title(Component.translatable("creativetab.kruemblegard"))
                     .icon(() -> new ItemStack(ModItems.RUNIC_CORE.get()))
                     .displayItems((parameters, output) -> {
-                        output.accept(ModItems.HAUNTED_WAYSTONE_ITEM.get());
                         output.accept(ModItems.ANCIENT_WAYSTONE_ITEM.get());
 
                         output.accept(ModItems.STANDING_STONE_ITEM.get());
@@ -43,6 +42,7 @@ public final class ModCreativeTabs {
                         output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
 
                         output.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG.get());
+                        output.accept(ModItems.TRAPROCK_SPAWN_EGG.get());
                     })
                     .build()
     );

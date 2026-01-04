@@ -1,6 +1,7 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.registry.ModEntities;
 
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -14,5 +15,6 @@ public final class CommonModEvents {
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossEntity.createAttributes().build());
+        event.put(ModEntities.TRAPROCK.get(), TraprockEntity.createAttributes().build());
     }
 }

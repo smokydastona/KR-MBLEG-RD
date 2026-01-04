@@ -2,8 +2,6 @@ package com.kruemblegard.init;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
-import com.kruemblegard.block.ArenaAnchorBlock;
-import com.kruemblegard.block.HauntedWaystoneBlock;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -20,14 +18,6 @@ public final class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, Kruemblegard.MODID);
-
-    public static final RegistryObject<Block> HAUNTED_WAYSTONE = BLOCKS.register(
-            "haunted_waystone",
-            () -> new HauntedWaystoneBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(3.5F, 30.0F)
-                    .sound(SoundType.STONE))
-    );
 
     public static final RegistryObject<Block> ANCIENT_WAYSTONE = BLOCKS.register(
             "ancient_waystone",
@@ -51,15 +41,6 @@ public final class ModBlocks {
                     .mapColor(MapColor.STONE)
                     .strength(4.0F, 60.0F)
                     .sound(SoundType.STONE))
-    );
-
-    public static final RegistryObject<Block> ARENA_ANCHOR = BLOCKS.register(
-            "arena_anchor",
-            () -> new ArenaAnchorBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.NONE)
-                    .noOcclusion()
-                    .strength(-1.0F, 3600000.0F)
-                    .noLootTable())
     );
 
     public static void register(IEventBus bus) {

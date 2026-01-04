@@ -2,7 +2,6 @@ package com.kruemblegard;
 
 import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.item.CrumblingCodexItem;
-import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
@@ -39,7 +38,6 @@ public final class Kruemblegard {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.register(modBus);
         ModCreativeTabs.register(modBus);
-        ModBlockEntities.register(modBus);
 
         ModEntities.ENTITIES.register(modBus);
         ModProjectileEntities.PROJECTILES.register(modBus);
@@ -53,7 +51,6 @@ public final class Kruemblegard {
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(ModItems.HAUNTED_WAYSTONE_ITEM);
             event.accept(ModItems.ANCIENT_WAYSTONE_ITEM);
         }
 

@@ -10,8 +10,6 @@ public final class AdvancementUtil {
     private AdvancementUtil() {}
 
     public static final ResourceLocation ADV_OBSERVED = new ResourceLocation(Kruemblegard.MODID, "kruemblegard_observed");
-    public static final ResourceLocation ADV_SURVIVED = new ResourceLocation(Kruemblegard.MODID, "kruemblegard_survived");
-    public static final ResourceLocation ADV_CLEANSED = new ResourceLocation(Kruemblegard.MODID, "kruemblegard_cleansed");
 
     public static void award(ServerPlayer player, ResourceLocation advancementId) {
         Advancement adv = player.server.getAdvancements().getAdvancement(advancementId);

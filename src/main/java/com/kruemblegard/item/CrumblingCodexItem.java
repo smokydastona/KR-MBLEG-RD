@@ -162,17 +162,17 @@ public final class CrumblingCodexItem extends WrittenBookItem {
     private static CodexContents defaultContents() {
         List<String> pages = List.of(
             "Crumbling Codex\n\nA guide to the ruins of Krümblegård.",
-            "How to start\n\n" +
-                "1) Explore until you find a Haunted Waystone.\n" +
-                "2) Right-click it to begin the encounter.\n" +
-                "3) The arena forms and Krümblegård emerges.",
-            "Survival tips\n\n" +
-                "- Krümblegård grows more dangerous each phase.\n" +
-                "- Watch for new attack patterns as the fight escalates.\n" +
-                "- Stay mobile during ranged attacks.",
-            "Rewards\n\n" +
-                "Defeat Krümblegård to earn a Runic Core.\n" +
-                "Use it to craft Runic tools."
+            "Traprock\n\n" +
+                "Some stone is alive.\n\n" +
+                "- Traprock can remain dormant until disturbed.\n" +
+                "- Linger too long, and it may awaken.",
+            "Traprock\n\n" +
+                "Traprock are small ambush predators.\n\n" +
+                "- Expect them to strike quickly.\n" +
+                "- Clear space so you can kite safely.",
+            "Runic craft\n\n" +
+                "Runic Core is used to craft Runic tools.\n\n" +
+                "If you face Krümblegård, it can drop a Runic Core."
         );
 
         return new CodexContents("Crumbling Codex", "Krümblegård", pages);

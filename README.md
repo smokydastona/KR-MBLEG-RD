@@ -5,22 +5,15 @@ This project contains a Forge 1.20.1 + GeckoLib mod.
 Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 
 ## What this mod already does
-- **Haunted Waystone** (looks normal) triggers the fight on right-click.
-- A hidden **Arena Anchor** blockentity is placed under it to persist the event.
-- Arena **rises from the ground in layers**, then standing stones appear.
-- **Krümblegård spawns underground and emerges** (no teleport).
-- **Arena anti-cheese**: leaving the circle applies Slowness + Mining Fatigue and heals the boss.
-- On boss death, the arena **cleanses** and the **Ancient Waystone** forms (radiant particles).
+- **Traprock** can remain dormant until disturbed, then attacks.
 - **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join).
-- **Advancements** (observed / survived / cleansed) are granted by code.
+- **Advancements** are granted by code.
 - **Loot table** for unique drops.
 
 Codex page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
 
 This mod uses **custom advancement triggers** registered in `ModCriteria`:
-- `kruemblegard:haunted_waystone_clicked`
-- `kruemblegard:kruemblegard_survived`
-- `kruemblegard:kruemblegard_cleansed`
+ (currently none)
 
 ## Dependencies (ForgeGradle)
 You need GeckoLib 4.x for Forge 1.20.1.
@@ -46,13 +39,9 @@ If your mod id/package differ, update:
 
 ## How to test quickly (dev)
 1. Start a dev world.
-2. Give yourself a haunted waystone:
-    - `/give @p kruemblegard:haunted_waystone`
-3. Place it and right-click it.
-4. The arena should build and Krümblegård should emerge.
-
-Quick test (manual place):
-    - `/setblock ~ ~ ~ kruemblegard:haunted_waystone`
+2. Spawn a Traprock:
+    - `/summon kruemblegard:traprock`
+3. Right-click it (or linger close) to awaken it.
 
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.

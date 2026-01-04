@@ -7,19 +7,14 @@
 - Mod id: `kruemblegard` | Base package: `com.kruemblegard`.
 
 ## Core gameplay architecture (follow this flow)
-- **Trigger → persistent controller pattern**:
-  - Right-click `HauntedWaystoneBlock` → `HauntedWaystoneBlockEntity.activate()`.
-  - Trigger removes itself and places invisible `arena_anchor` **below** as the persistent controller.
-  - `ArenaAnchorBlockEntity` runs a server-side state machine: `BUILDING → FIGHT → CLEANSE`.
-- Arena building lives in `world/arena/ArenaBuilder`.
-- Boss spawns underground and emerges via `KruemblegardBossEntity.beginEmergence()`.
-- Multiplayer scaling is applied at spawn in `ArenaAnchorBlockEntity`.
+- **Traprock ambush pattern**:
+  - `Traprock` starts dormant (no AI / no movement).
+  - It awakens if a player interacts with it or lingers too close, then attacks.
 
 ## Advancements & triggers (project-specific)
 - Don’t grant vanilla advancements directly.
-- Use `init/ModCriteria` triggers from gameplay:
-  - `HAUNTED_WAYSTONE_CLICKED` (waystone BE)
-  - `KRUEMBLEGARD_SURVIVED` / `KRUEMBLEGARD_CLEANSED` (arena anchor BE)
+- If you add advancements, prefer custom triggers in `init/ModCriteria` and fire them from gameplay.
+- Note: no custom criteria triggers are currently registered.
 
 ## Worldgen (config-driven + data-driven biomes)
 - Worldgen is currently minimal; `init/ModWorldgen` is intentionally empty.

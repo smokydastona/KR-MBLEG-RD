@@ -2,6 +2,7 @@ package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.TraprockEntity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -22,5 +23,14 @@ public class ModEntities {
                     KruemblegardBossEntity::new, MobCategory.MONSTER)
                 .sized(1.4f, 4.5f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "kruemblegard").toString())
+        );
+
+    public static final RegistryObject<EntityType<TraprockEntity>> TRAPROCK =
+        ENTITIES.register(
+            "traprock",
+            () -> EntityType.Builder.<TraprockEntity>of(
+                    TraprockEntity::new, MobCategory.MONSTER)
+                .sized(0.6f, 1.8f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "traprock").toString())
         );
 }
