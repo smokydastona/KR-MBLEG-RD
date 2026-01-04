@@ -18,6 +18,10 @@ public class KruemblegardBossModel extends GeoModel<KruemblegardBossEntity> {
 
     @Override
     public ResourceLocation getTextureResource(KruemblegardBossEntity animatable) {
+        if (animatable.getPhase() >= 4) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/kruemblegard_phase4.png");
+        }
+
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/kruemblegard.png");
     }
 

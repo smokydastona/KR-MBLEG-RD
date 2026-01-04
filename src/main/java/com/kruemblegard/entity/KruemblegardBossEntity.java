@@ -88,7 +88,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // BOSS BAR
     // -----------------------------
     private final ServerBossEvent bossEvent =
-            new ServerBossEvent(Component.literal("Kr\u00FCmbleg\u00E5rd"),
+            new ServerBossEvent(Component.translatable("entity.kruemblegard.kruemblegard"),
                     BossEvent.BossBarColor.PURPLE,
                     BossEvent.BossBarOverlay.PROGRESS);
 
@@ -164,6 +164,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private double emergenceTargetY;
 
     private int attackAnimTicks;
+
+    // Client-only: used to trigger one-shot phase transition animations
+    private int clientLastPhase = -1;
 
     private int cleaveCooldown;
     private int runeBoltCooldown;
@@ -386,6 +389,23 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     @Override
     public void aiStep() {
         super.aiStep();
+
+        if (this.level().isClientSide) {
+            int phase = this.getPhase();
+            if (clientLastPhase == -1) {
+                clientLastPhase = phase;
+            } else if (phase != clientLastPhase) {
+                clientLastPhase = phase;
+
+                if (phase == 2) {
+                    this.triggerAnim("phase_change", "phase2");
+                } else if (phase == 3) {
+                    this.triggerAnim("phase_change", "phase3");
+                } else if (phase == 4) {
+                    this.triggerAnim("phase_change", "phase4");
+                }
+            }
+        }
 
         if (!this.level().isClientSide) {
             if (this.attackAnimTicks > 0) {
@@ -1317,6 +1337,11 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             }
             return PlayState.STOP;
         }));
+
+        controllers.add(new AnimationController<>(this, "phase_change", 0, state -> PlayState.STOP)
+                .triggerableAnim("phase2", RawAnimation.begin().thenPlay("animation.kruemblegard.phase2_transition"))
+                .triggerableAnim("phase3", RawAnimation.begin().thenPlay("animation.kruemblegard.phase3_transition"))
+                .triggerableAnim("phase4", RawAnimation.begin().thenPlay("animation.kruemblegard.phase4_transition")));
     }
 
     @Override

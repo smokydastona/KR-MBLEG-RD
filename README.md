@@ -13,9 +13,9 @@ This project contains a Forge 1.20.1 + GeckoLib mod.
 - **Loot table** for unique drops.
 
 This mod uses **custom advancement triggers** registered in `ModCriteria`:
-- `krumblegard:haunted_waystone_clicked`
-- `krumblegard:krumblegard_survived`
-- `krumblegard:krumblegard_cleansed`
+- `kruemblegard:haunted_waystone_clicked`
+- `kruemblegard:kruemblegard_survived`
+- `kruemblegard:kruemblegard_cleansed`
 
 ## Dependencies (ForgeGradle)
 You need GeckoLib 4.x for Forge 1.20.1.
@@ -31,62 +31,75 @@ dependencies {
 ```
 
 ## Registration checklist (if you rename things)
-- Mod id used here: `krumblegard`
+- Mod id used here: `kruemblegard`
 - Base package used here: `com.kruemblegard`
 
 If your mod id/package differ, update:
 - `com.kruemblegard.Kruemblegard` (MODID constant)
 - `META-INF/mods.toml`
-- resource folder names: `assets/krumblegard`, `data/krumblegard`
+- resource folder names: `assets/kruemblegard`, `data/kruemblegard`
 
 ## How to test quickly (dev)
 1. Start a dev world.
 2. Give yourself a haunted waystone:
-   - `/give @p krumblegard:haunted_waystone`
+    - `/give @p kruemblegard:haunted_waystone`
 3. Place it and right-click it.
 4. The arena should build and Krümblegård should emerge.
 
 ### Worldgen false waystones
-- Block: `krumblegard:false_waystone` (not intended to be obtained)
+- Block: `kruemblegard:false_waystone` (not intended to be obtained)
 - Biome modifier: `data/forge/biome_modifier/add_false_waystone.json`
-- Biome tag: `data/krumblegard/tags/worldgen/biome/has_false_waystone.json`
+- Biome tag: `data/kruemblegard/tags/worldgen/biome/has_false_waystone.json`
 
 Quick test (manual place):
-- `/setblock ~ ~ ~ krumblegard:false_waystone`
+- `/setblock ~ ~ ~ kruemblegard:false_waystone`
 
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
 
 ### Textures
 Add PNGs under:
-- `assets/krumblegard/textures/block/*.png`
-- `assets/krumblegard/textures/item/*.png`
-- `assets/krumblegard/textures/entity/krumblegard.png`
+- `assets/kruemblegard/textures/block/*.png`
+- `assets/kruemblegard/textures/item/*.png`
+- `assets/kruemblegard/textures/entity/kruemblegard.png`
+- `assets/kruemblegard/textures/entity/kruemblegard_phase4.png` (Phase 4 placeholder)
+- `assets/kruemblegard/textures/gui/kruemblegard_bossbar.png` (custom boss bar texture)
+
+#### Boss bar atlas layout
+The boss bar uses a single atlas texture: `assets/kruemblegard/textures/gui/kruemblegard_bossbar.png`.
+
+- Texture size: **256×32**
+- Bar size: **182×5** (same as vanilla)
+- Atlas rows:
+    - Row 0 (top): background at `u=0..181`, `v=0..4`
+    - Row 1 (below): fill at `u=0..181`, `v=5..9`
+
+You can repaint/replace the PNG anytime as long as those two 182×5 strips stay in the same positions.
 
 ### Sounds
 Add OGGs under:
-- `assets/krumblegard/sounds/`
+- `assets/kruemblegard/sounds/`
 
-The `assets/krumblegard/sounds.json` defines these keys:
-- `krumblegard.rise`
-- `krumblegard.core_hum`
-- `krumblegard.attack_smash`
-- `krumblegard.attack_slam`
-- `krumblegard.attack_rune`
-- `krumblegard.radiant`
+The `assets/kruemblegard/sounds.json` defines these keys:
+- `kruemblegard.rise`
+- `kruemblegard.core_hum`
+- `kruemblegard.attack_smash`
+- `kruemblegard.attack_slam`
+- `kruemblegard.attack_rune`
+- `kruemblegard.radiant`
 
 ## Notes / next upgrades (optional)
 - Replace the rune barrage placeholder damage with real projectiles.
-- Add boss bar + music.
+- Add boss music.
 - Convert the arena boundary from “distance check” to a strict circle and include vertical bounds.
 - Add phase 2/3 arena behaviors (standing stones rising/rotating).
 
 ### Boss music (true music layer)
-- Sound event key: `music.krumblegard`
-- Expected asset: `assets/krumblegard/sounds/krumblegard_theme.ogg`
+- Sound event key: `music.kruemblegard`
+- Expected asset: `assets/kruemblegard/sounds/kruemblegard_theme.ogg`
 
 ### Config-driven waystone rarity
-Common config file: `config/krumblegard-common.toml`
+Common config file: `config/kruemblegard-common.toml`
 
 ```toml
 [Krumblegard]

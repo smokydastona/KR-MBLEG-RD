@@ -6,7 +6,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 - Boss: phase-based bone hiding (Phase 2 hides armor, Phase 3 hides `-p3` bones, Phase 4 hides whirlwind/debris bones).
+- Boss: Phase 4 uses a separate texture placeholder (`kruemblegard_phase4.png`).
 - Animations: add Phase 4-only idle/move animation slots (`idle_phase4`, `move_phase4`).
+- Animations: add phase transition one-shots (`phase2_transition`, `phase3_transition`, `phase4_transition`).
+- UI: custom boss bar rendering + texture hook for Krümblegård.
 
 ## 1.0.104 (2026-01-03)
 - Animations: remove unused `animation.kruemblegard.attack` so Blockbench only shows the 12 attacks + idle/move/hurt/death.
