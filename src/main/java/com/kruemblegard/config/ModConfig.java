@@ -19,12 +19,20 @@ public final class ModConfig {
 
     public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_2_HEALTH_RATIO;
     public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_3_HEALTH_RATIO;
+    public static final ForgeConfigSpec.DoubleValue BOSS_PHASE_4_HEALTH_RATIO;
 
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_DASH_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS;
+
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_1_CLEAVE_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_2_RUNE_VOLLEY_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_BLINK_STRIKE_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_3_METEOR_SHOWER_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_4_WHIRLWIND_COOLDOWN_TICKS;
+    public static final ForgeConfigSpec.IntValue BOSS_PHASE_4_ARCANE_BEAM_COOLDOWN_TICKS;
 
     public static final ForgeConfigSpec.IntValue BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS;
     public static final ForgeConfigSpec.IntValue BOSS_PHASE_TRANSITION_BUFF_TICKS;
@@ -78,6 +86,10 @@ public final class ModConfig {
             .comment("Health ratio at/below which phase 3 starts")
             .defineInRange("bossPhase3HealthRatio", 0.30D, 0.01D, 0.99D);
 
+        BOSS_PHASE_4_HEALTH_RATIO = builder
+            .comment("Health ratio at/below which phase 4 starts (should be <= phase 3 threshold)")
+            .defineInRange("bossPhase4HealthRatio", 0.10D, 0.01D, 0.99D);
+
         BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS = builder
             .comment("Base cooldown (ticks) between rune bolt attacks in phase 2")
             .defineInRange("bossPhase2RuneBoltCooldownTicks", 40, 1, 20_000);
@@ -97,6 +109,30 @@ public final class ModConfig {
         BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS = builder
             .comment("Base cooldown (ticks) between arcane storm attacks in phase 3")
             .defineInRange("bossPhase3ArcaneStormCooldownTicks", 120, 1, 20_000);
+
+        BOSS_PHASE_1_CLEAVE_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between cleave attacks in phase 1")
+            .defineInRange("bossPhase1CleaveCooldownTicks", 50, 1, 20_000);
+
+        BOSS_PHASE_2_RUNE_VOLLEY_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between rune volley attacks in phase 2")
+            .defineInRange("bossPhase2RuneVolleyCooldownTicks", 70, 1, 20_000);
+
+        BOSS_PHASE_3_BLINK_STRIKE_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between blink strike attacks in phase 3")
+            .defineInRange("bossPhase3BlinkStrikeCooldownTicks", 60, 1, 20_000);
+
+        BOSS_PHASE_3_METEOR_SHOWER_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between meteor shower attacks in phase 3")
+            .defineInRange("bossPhase3MeteorShowerCooldownTicks", 140, 1, 20_000);
+
+        BOSS_PHASE_4_WHIRLWIND_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between whirlwind attacks in phase 4")
+            .defineInRange("bossPhase4WhirlwindCooldownTicks", 80, 1, 20_000);
+
+        BOSS_PHASE_4_ARCANE_BEAM_COOLDOWN_TICKS = builder
+            .comment("Base cooldown (ticks) between arcane beam attacks in phase 4")
+            .defineInRange("bossPhase4ArcaneBeamCooldownTicks", 120, 1, 20_000);
 
         BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS = builder
             .comment("Global minimum spacing (ticks) between special abilities. Does not affect melee AI")

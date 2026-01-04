@@ -37,6 +37,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -67,14 +68,21 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             SynchedEntityData.defineId(KruemblegardBossEntity.class, EntityDataSerializers.INT);
 
         private static final int ATTACK_ANIM_NONE = 0;
-        private static final int ATTACK_ANIM_MELEE = 1;
-        private static final int ATTACK_ANIM_RUNE_BOLT = 2;
-        private static final int ATTACK_ANIM_DASH = 3;
-        private static final int ATTACK_ANIM_METEOR_ARM = 4;
-        private static final int ATTACK_ANIM_ARCANE_STORM = 5;
-	    private static final int ATTACK_ANIM_GRAVITIC_PULL = 6;
-        private static final int ATTACK_ANIM_HURT = 7;
-        private static final int ATTACK_ANIM_DEATH = 8;
+        private static final int ATTACK_ANIM_P1_FAST = 1;
+        private static final int ATTACK_ANIM_P1_HEAVY = 2;
+        private static final int ATTACK_ANIM_P1_RANGED = 3;
+        private static final int ATTACK_ANIM_P2_FAST = 4;
+        private static final int ATTACK_ANIM_P2_HEAVY = 5;
+        private static final int ATTACK_ANIM_P2_RANGED = 6;
+        private static final int ATTACK_ANIM_P3_FAST = 7;
+        private static final int ATTACK_ANIM_P3_HEAVY = 8;
+        private static final int ATTACK_ANIM_P3_RANGED = 9;
+        private static final int ATTACK_ANIM_P4_FAST = 10;
+        private static final int ATTACK_ANIM_P4_HEAVY = 11;
+        private static final int ATTACK_ANIM_P4_RANGED = 12;
+
+        private static final int ATTACK_ANIM_HURT = 90;
+        private static final int ATTACK_ANIM_DEATH = 91;
 
     // -----------------------------
     // BOSS BAR
@@ -98,26 +106,41 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final RawAnimation MOVE =
             RawAnimation.begin().thenLoop("animation.kruemblegard.move");
 
-    private static final RawAnimation ATTACK =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack");
+    private static final RawAnimation ATTACK_P1_FAST =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_fast");
 
-        private static final RawAnimation ATTACK_MELEE =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee");
+    private static final RawAnimation ATTACK_P1_HEAVY =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_heavy");
 
-	    private static final RawAnimation ATTACK_GRAVITIC_PULL =
-	        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_gravitic_pull");
+    private static final RawAnimation ATTACK_P1_RANGED =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_ranged");
 
-        private static final RawAnimation ATTACK_RUNE_BOLT =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
+    private static final RawAnimation ATTACK_P2_FAST =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_fast");
 
-        private static final RawAnimation ATTACK_DASH =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_dash");
+    private static final RawAnimation ATTACK_P2_HEAVY =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_heavy");
 
-        private static final RawAnimation ATTACK_METEOR_ARM =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_arm");
+    private static final RawAnimation ATTACK_P2_RANGED =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_ranged");
 
-        private static final RawAnimation ATTACK_ARCANE_STORM =
-            RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
+    private static final RawAnimation ATTACK_P3_FAST =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_fast");
+
+    private static final RawAnimation ATTACK_P3_HEAVY =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_heavy");
+
+    private static final RawAnimation ATTACK_P3_RANGED =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_ranged");
+
+    private static final RawAnimation ATTACK_P4_FAST =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_fast");
+
+    private static final RawAnimation ATTACK_P4_HEAVY =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_heavy");
+
+    private static final RawAnimation ATTACK_P4_RANGED =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_ranged");
 
         private static final RawAnimation HURT =
             RawAnimation.begin().thenPlay("animation.kruemblegard.hurt");
@@ -136,11 +159,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private int attackAnimTicks;
 
+    private int cleaveCooldown;
     private int runeBoltCooldown;
     private int graviticPullCooldown;
-    private int dashCooldown;
+    private int runeDashCooldown;
+    private int runeVolleyCooldown;
+    private int blinkStrikeCooldown;
     private int meteorArmCooldown;
     private int arcaneStormCooldown;
+    private int whirlwindCooldown;
+    private int meteorShowerCooldown;
+    private int arcaneBeamCooldown;
 
     // -----------------------------
     // CUSTOM MELEE TIMING (windup -> impact)
@@ -173,11 +202,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private int phaseAttackStepPhase;
 
     private static final int ABILITY_NONE = 0;
-    private static final int ABILITY_RUNE_BOLT = 1;
-    private static final int ABILITY_GRAVITIC_PULL = 2;
-    private static final int ABILITY_DASH = 3;
-    private static final int ABILITY_METEOR_ARM = 4;
-    private static final int ABILITY_ARCANE_STORM = 5;
+    private static final int ABILITY_CLEAVE = 1;
+    private static final int ABILITY_RUNE_BOLT = 2;
+    private static final int ABILITY_GRAVITIC_PULL = 3;
+    private static final int ABILITY_RUNE_DASH = 4;
+    private static final int ABILITY_RUNE_VOLLEY = 5;
+    private static final int ABILITY_BLINK_STRIKE = 6;
+    private static final int ABILITY_METEOR_ARM = 7;
+    private static final int ABILITY_ARCANE_STORM = 8;
+    private static final int ABILITY_WHIRLWIND = 9;
+    private static final int ABILITY_METEOR_SHOWER = 10;
+    private static final int ABILITY_ARCANE_BEAM = 11;
 
     // -----------------------------
     // CONSTRUCTOR
@@ -187,11 +222,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.xpReward = 50;
         this.noCulling = true;
 
+        this.cleaveCooldown = 0;
         this.runeBoltCooldown = 0;
         this.graviticPullCooldown = 0;
-        this.dashCooldown = 0;
+        this.runeDashCooldown = 0;
+        this.runeVolleyCooldown = 0;
+        this.blinkStrikeCooldown = 0;
         this.meteorArmCooldown = 0;
         this.arcaneStormCooldown = 0;
+        this.whirlwindCooldown = 0;
+        this.meteorShowerCooldown = 0;
+        this.arcaneBeamCooldown = 0;
 
         this.globalAbilityCooldown = 0;
         this.currentAbility = ABILITY_NONE;
@@ -379,7 +420,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             float ratio = this.getHealth() / this.getMaxHealth();
             float phase2 = ModConfig.BOSS_PHASE_2_HEALTH_RATIO.get().floatValue();
             float phase3 = ModConfig.BOSS_PHASE_3_HEALTH_RATIO.get().floatValue();
-            int phase = ratio <= phase3 ? 3 : ratio <= phase2 ? 2 : 1;
+            float phase4 = ModConfig.BOSS_PHASE_4_HEALTH_RATIO.get().floatValue();
+            int phase = ratio <= phase4 ? 4 : ratio <= phase3 ? 3 : ratio <= phase2 ? 2 : 1;
 
             if (phase != this.getPhase()) {
                 this.setPhase(phase);
@@ -395,17 +437,24 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 case 1 -> phaseOneBehavior();
                 case 2 -> phaseTwoBehavior();
                 case 3 -> phaseThreeBehavior();
+                case 4 -> phaseFourBehavior();
             }
         }
     }
 
     private void tickCooldowns() {
         if (this.globalAbilityCooldown > 0) this.globalAbilityCooldown--;
+        if (this.cleaveCooldown > 0) this.cleaveCooldown--;
         if (this.runeBoltCooldown > 0) this.runeBoltCooldown--;
         if (this.graviticPullCooldown > 0) this.graviticPullCooldown--;
-        if (this.dashCooldown > 0) this.dashCooldown--;
+        if (this.runeDashCooldown > 0) this.runeDashCooldown--;
+        if (this.runeVolleyCooldown > 0) this.runeVolleyCooldown--;
+        if (this.blinkStrikeCooldown > 0) this.blinkStrikeCooldown--;
         if (this.meteorArmCooldown > 0) this.meteorArmCooldown--;
         if (this.arcaneStormCooldown > 0) this.arcaneStormCooldown--;
+        if (this.whirlwindCooldown > 0) this.whirlwindCooldown--;
+        if (this.meteorShowerCooldown > 0) this.meteorShowerCooldown--;
+        if (this.arcaneBeamCooldown > 0) this.arcaneBeamCooldown--;
         if (this.meleeCooldown > 0) this.meleeCooldown--;
     }
 
@@ -426,7 +475,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         // Keep the attack animation active through the impact tick (same pattern as abilities).
         int telegraphAnimTicks = Math.max(1, (MELEE_TOTAL_TICKS - MELEE_IMPACT_AT) + 2);
         this.swing(InteractionHand.MAIN_HAND);
-        this.setAttackAnim(ATTACK_ANIM_MELEE, telegraphAnimTicks);
+        this.setAttackAnim(ATTACK_ANIM_P1_FAST, telegraphAnimTicks);
     }
 
     private void tickMeleeAttack() {
@@ -529,7 +578,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         boolean started = switch (category) {
             case PHASE_ATTACK_FAST -> tryStartMeleeFast(target);
-            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_GRAVITIC_PULL);
+            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_CLEAVE);
             case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_BOLT);
             default -> false;
         };
@@ -538,8 +587,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (!started) {
             double distSq = this.distanceToSqr(target);
             int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_GRAVITIC_PULL}
-                : new int[] {ABILITY_GRAVITIC_PULL, ABILITY_RUNE_BOLT};
+                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_CLEAVE}
+                : new int[] {ABILITY_CLEAVE, ABILITY_RUNE_BOLT};
 
             for (int id : preferred) {
                 if (tryStartAbilityIfReady(id)) {
@@ -571,17 +620,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         ensurePhaseAttackPattern(2);
         int category = this.phaseAttackStep % 3;
         boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_DASH);
+            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_RUNE_DASH);
             case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_GRAVITIC_PULL);
-            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_BOLT);
+            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_VOLLEY);
             default -> false;
         };
 
         if (!started) {
             double distSq = this.distanceToSqr(target);
             int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_GRAVITIC_PULL, ABILITY_DASH}
-                : new int[] {ABILITY_DASH, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_BOLT};
+                ? new int[] {ABILITY_RUNE_VOLLEY, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_DASH}
+                : new int[] {ABILITY_RUNE_DASH, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_VOLLEY};
 
             for (int id : preferred) {
                 if (tryStartAbilityIfReady(id)) {
@@ -613,7 +662,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         ensurePhaseAttackPattern(3);
         int category = this.phaseAttackStep % 3;
         boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_DASH);
+            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_BLINK_STRIKE);
             case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_METEOR_ARM);
             case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_ARCANE_STORM);
             default -> false;
@@ -622,8 +671,50 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (!started) {
             double distSq = this.distanceToSqr(target);
             int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_ARCANE_STORM, ABILITY_DASH, ABILITY_METEOR_ARM}
-                : new int[] {ABILITY_METEOR_ARM, ABILITY_DASH, ABILITY_ARCANE_STORM};
+                ? new int[] {ABILITY_ARCANE_STORM, ABILITY_BLINK_STRIKE, ABILITY_METEOR_ARM}
+                : new int[] {ABILITY_METEOR_ARM, ABILITY_BLINK_STRIKE, ABILITY_ARCANE_STORM};
+
+            for (int id : preferred) {
+                if (tryStartAbilityIfReady(id)) {
+                    started = true;
+                    break;
+                }
+            }
+        }
+
+        if (started) {
+            this.phaseAttackStep++;
+        }
+    }
+
+    // -----------------------------
+    // PHASE 4 — WHIRLWIND + METEOR SHOWER + ARCANE BEAM
+    // -----------------------------
+    private void phaseFourBehavior() {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+        if (isMeleeInProgress()) return;
+
+        if (tickCurrentAbility()) {
+            return;
+        }
+
+        if (this.globalAbilityCooldown > 0) return;
+
+        ensurePhaseAttackPattern(4);
+        int category = this.phaseAttackStep % 3;
+        boolean started = switch (category) {
+            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_WHIRLWIND);
+            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_METEOR_SHOWER);
+            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_ARCANE_BEAM);
+            default -> false;
+        };
+
+        if (!started) {
+            double distSq = this.distanceToSqr(target);
+            int[] preferred = distSq > 100.0
+                ? new int[] {ABILITY_ARCANE_BEAM, ABILITY_METEOR_SHOWER, ABILITY_WHIRLWIND}
+                : new int[] {ABILITY_WHIRLWIND, ABILITY_METEOR_SHOWER, ABILITY_ARCANE_BEAM};
 
             for (int id : preferred) {
                 if (tryStartAbilityIfReady(id)) {
@@ -645,34 +736,47 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.phaseAttackStepPhase = phase;
         this.phaseAttackStep = 0;
 
-        // Reset/seed cooldowns so a new phase doesn't instantly fire every ability on the same tick.
-        if (phase <= 1) {
-            // Phase 1 still uses a full "fast/heavy/ranged" kit (melee + pull + rune bolt).
+        // Reset/seed cooldowns so a new phase doesn't instantly fire everything on the same tick.
+        this.currentAbility = ABILITY_NONE;
+
+        this.cleaveCooldown = 0;
+        this.runeBoltCooldown = 0;
+        this.graviticPullCooldown = 0;
+        this.runeDashCooldown = 0;
+        this.runeVolleyCooldown = 0;
+        this.blinkStrikeCooldown = 0;
+        this.meteorArmCooldown = 0;
+        this.arcaneStormCooldown = 0;
+        this.whirlwindCooldown = 0;
+        this.meteorShowerCooldown = 0;
+        this.arcaneBeamCooldown = 0;
+
+        this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
+
+        if (phase == 1) {
+            this.cleaveCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_1_CLEAVE_COOLDOWN_TICKS.get()));
             this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
-            this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
-            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
-            this.meteorArmCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get()));
-            this.arcaneStormCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get()));
-            this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
-            this.currentAbility = ABILITY_NONE;
             return;
         }
 
         if (phase == 2) {
-            this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
+            this.runeDashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
             this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
-            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
-            this.meteorArmCooldown = 0;
-            this.arcaneStormCooldown = 0;
-            this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
-        } else {
-            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
+            this.runeVolleyCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_VOLLEY_COOLDOWN_TICKS.get()));
+            return;
+        }
+
+        if (phase == 3) {
+            this.blinkStrikeCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_BLINK_STRIKE_COOLDOWN_TICKS.get()));
             this.meteorArmCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get()));
             this.arcaneStormCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get()));
-            this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
-            this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
-            this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
+            return;
         }
+
+        // Phase 4
+        this.whirlwindCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_4_WHIRLWIND_COOLDOWN_TICKS.get()));
+        this.meteorShowerCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_METEOR_SHOWER_COOLDOWN_TICKS.get()));
+        this.arcaneBeamCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_4_ARCANE_BEAM_COOLDOWN_TICKS.get()));
     }
 
     private void ensurePhaseAttackPattern(int phase) {
@@ -695,11 +799,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private boolean isAbilityOffCooldown(int ability) {
         return switch (ability) {
+            case ABILITY_CLEAVE -> this.cleaveCooldown <= 0;
             case ABILITY_RUNE_BOLT -> this.runeBoltCooldown <= 0;
             case ABILITY_GRAVITIC_PULL -> this.graviticPullCooldown <= 0;
-            case ABILITY_DASH -> this.dashCooldown <= 0;
+            case ABILITY_RUNE_DASH -> this.runeDashCooldown <= 0;
+            case ABILITY_RUNE_VOLLEY -> this.runeVolleyCooldown <= 0;
+            case ABILITY_BLINK_STRIKE -> this.blinkStrikeCooldown <= 0;
             case ABILITY_METEOR_ARM -> this.meteorArmCooldown <= 0;
             case ABILITY_ARCANE_STORM -> this.arcaneStormCooldown <= 0;
+            case ABILITY_WHIRLWIND -> this.whirlwindCooldown <= 0;
+            case ABILITY_METEOR_SHOWER -> this.meteorShowerCooldown <= 0;
+            case ABILITY_ARCANE_BEAM -> this.arcaneBeamCooldown <= 0;
             default -> true;
         };
     }
@@ -786,11 +896,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         int totalTicks;
         int impactAt;
         switch (ability) {
-            case ABILITY_GRAVITIC_PULL -> { totalTicks = 18; impactAt = 10; }
+            case ABILITY_CLEAVE -> { totalTicks = 18; impactAt = 10; }
             case ABILITY_RUNE_BOLT -> { totalTicks = 16; impactAt = 8; }
-            case ABILITY_DASH -> { totalTicks = 14; impactAt = 7; }
+            case ABILITY_GRAVITIC_PULL -> { totalTicks = 18; impactAt = 10; }
+            case ABILITY_RUNE_DASH -> { totalTicks = 14; impactAt = 7; }
+            case ABILITY_RUNE_VOLLEY -> { totalTicks = 20; impactAt = 10; }
+            case ABILITY_BLINK_STRIKE -> { totalTicks = 14; impactAt = 8; }
             case ABILITY_METEOR_ARM -> { totalTicks = 22; impactAt = 12; }
             case ABILITY_ARCANE_STORM -> { totalTicks = 26; impactAt = 14; }
+            case ABILITY_WHIRLWIND -> { totalTicks = 18; impactAt = 9; }
+            case ABILITY_METEOR_SHOWER -> { totalTicks = 28; impactAt = 14; }
+            case ABILITY_ARCANE_BEAM -> { totalTicks = 22; impactAt = 12; }
             default -> { totalTicks = 10; impactAt = 5; }
         }
 
@@ -806,18 +922,24 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
             switch (ability) {
-                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, telegraphAnimTicks);
-                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, telegraphAnimTicks);
-                case ABILITY_DASH -> this.setAttackAnim(ATTACK_ANIM_DASH, telegraphAnimTicks);
-                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, telegraphAnimTicks);
-                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, telegraphAnimTicks);
-                default -> this.setAttackAnim(ATTACK_ANIM_MELEE, telegraphAnimTicks);
+                case ABILITY_CLEAVE -> this.setAttackAnim(ATTACK_ANIM_P1_HEAVY, telegraphAnimTicks);
+                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_P1_RANGED, telegraphAnimTicks);
+                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_P2_HEAVY, telegraphAnimTicks);
+                case ABILITY_RUNE_DASH -> this.setAttackAnim(ATTACK_ANIM_P2_FAST, telegraphAnimTicks);
+                case ABILITY_RUNE_VOLLEY -> this.setAttackAnim(ATTACK_ANIM_P2_RANGED, telegraphAnimTicks);
+                case ABILITY_BLINK_STRIKE -> this.setAttackAnim(ATTACK_ANIM_P3_FAST, telegraphAnimTicks);
+                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_P3_HEAVY, telegraphAnimTicks);
+                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_P3_RANGED, telegraphAnimTicks);
+                case ABILITY_WHIRLWIND -> this.setAttackAnim(ATTACK_ANIM_P4_FAST, telegraphAnimTicks);
+                case ABILITY_METEOR_SHOWER -> this.setAttackAnim(ATTACK_ANIM_P4_HEAVY, telegraphAnimTicks);
+                case ABILITY_ARCANE_BEAM -> this.setAttackAnim(ATTACK_ANIM_P4_RANGED, telegraphAnimTicks);
+                default -> this.setAttackAnim(ATTACK_ANIM_P1_FAST, telegraphAnimTicks);
             }
 
             float pitch = 0.9f + (this.random.nextFloat() * 0.2f);
             if (ability == ABILITY_ARCANE_STORM) {
                 this.playSound(ModSounds.KRUEMBLEGARD_STORM.get(), 1.0f, pitch);
-            } else if (ability == ABILITY_DASH) {
+            } else if (ability == ABILITY_RUNE_DASH || ability == ABILITY_BLINK_STRIKE) {
                 this.playSound(ModSounds.KRUEMBLEGARD_DASH.get(), 1.0f, pitch);
             } else {
                 this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, pitch);
@@ -832,11 +954,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private void doAbilityImpact(int ability) {
         switch (ability) {
+            case ABILITY_CLEAVE -> doCleave();
+            case ABILITY_RUNE_BOLT -> fireRuneBoltSingle();
             case ABILITY_GRAVITIC_PULL -> doGraviticPull();
-            case ABILITY_RUNE_BOLT -> fireRuneBolt();
-            case ABILITY_DASH -> doDashAttack();
+            case ABILITY_RUNE_DASH -> doRuneDash();
+            case ABILITY_RUNE_VOLLEY -> fireRuneVolley();
+            case ABILITY_BLINK_STRIKE -> doBlinkStrike();
             case ABILITY_METEOR_ARM -> doMeteorArm();
             case ABILITY_ARCANE_STORM -> doArcaneStorm();
+            case ABILITY_WHIRLWIND -> doWhirlwind();
+            case ABILITY_METEOR_SHOWER -> doMeteorShower();
+            case ABILITY_ARCANE_BEAM -> doArcaneBeam();
             default -> {}
         }
     }
@@ -846,16 +974,28 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         // Set per-ability cooldowns on completion so abilities don't stack.
         switch (ability) {
-            case ABILITY_GRAVITIC_PULL ->
-                this.graviticPullCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get());
+            case ABILITY_CLEAVE ->
+                this.cleaveCooldown = rollCooldown(ModConfig.BOSS_PHASE_1_CLEAVE_COOLDOWN_TICKS.get());
             case ABILITY_RUNE_BOLT ->
                 this.runeBoltCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get());
-            case ABILITY_DASH ->
-                this.dashCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get());
+            case ABILITY_GRAVITIC_PULL ->
+                this.graviticPullCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get());
+            case ABILITY_RUNE_DASH ->
+                this.runeDashCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get());
+            case ABILITY_RUNE_VOLLEY ->
+                this.runeVolleyCooldown = rollCooldown(ModConfig.BOSS_PHASE_2_RUNE_VOLLEY_COOLDOWN_TICKS.get());
+            case ABILITY_BLINK_STRIKE ->
+                this.blinkStrikeCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_BLINK_STRIKE_COOLDOWN_TICKS.get());
             case ABILITY_METEOR_ARM ->
                 this.meteorArmCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get());
             case ABILITY_ARCANE_STORM ->
                 this.arcaneStormCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get());
+            case ABILITY_WHIRLWIND ->
+                this.whirlwindCooldown = rollCooldown(ModConfig.BOSS_PHASE_4_WHIRLWIND_COOLDOWN_TICKS.get());
+            case ABILITY_METEOR_SHOWER ->
+                this.meteorShowerCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_METEOR_SHOWER_COOLDOWN_TICKS.get());
+            case ABILITY_ARCANE_BEAM ->
+                this.arcaneBeamCooldown = rollCooldown(ModConfig.BOSS_PHASE_4_ARCANE_BEAM_COOLDOWN_TICKS.get());
             default -> {}
         }
     }
@@ -869,25 +1009,67 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     // ATTACK HOOKS (IMPLEMENTED IN MESSAGE 4)
     // -----------------------------
-    private void fireRuneBolt() {
-        if (this.getTarget() == null) return;
+    private void fireRuneBoltSingle() {
+        fireRuneBoltVolley(1, 0.6, 0.0);
+    }
 
-        // Animation is handled by the ability telegraph (startAbility) so timing aligns to impact.
+    private void fireRuneVolley() {
+        fireRuneBoltVolley(3, 0.55, 12.0);
+    }
+
+    private void fireRuneBoltVolley(int count, double speed, double spreadDegrees) {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-        }
-
-        if (!this.level().isClientSide) {
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
-        RuneBoltEntity bolt = new RuneBoltEntity(this.level(), this);
-        bolt.setPos(this.getX(), this.getY() + 2, this.getZ());
+        Vec3 baseDir = target.position().add(0, target.getBbHeight() * 0.5, 0)
+            .subtract(this.position().add(0, 2.0, 0)).normalize();
 
-        Vec3 dir = this.getTarget().position().subtract(this.position()).normalize().scale(0.6);
-        bolt.setDeltaMovement(dir);
+        int mid = count / 2;
+        for (int i = 0; i < count; i++) {
+            double angle = (i - mid) * Math.toRadians(spreadDegrees);
+            Vec3 dir = rotateY(baseDir, angle).scale(speed);
 
-        this.level().addFreshEntity(bolt);
+            RuneBoltEntity bolt = new RuneBoltEntity(this.level(), this);
+            bolt.setPos(this.getX(), this.getY() + 2, this.getZ());
+            bolt.setDeltaMovement(dir);
+            this.level().addFreshEntity(bolt);
+        }
+    }
+
+    private Vec3 rotateY(Vec3 v, double radians) {
+        double cos = Math.cos(radians);
+        double sin = Math.sin(radians);
+        return new Vec3(v.x * cos - v.z * sin, v.y, v.x * sin + v.z * cos);
+    }
+
+    private void doCleave() {
+        if (this.level().isClientSide) return;
+
+        double radius = 4.0;
+        float damage = (float)(ModConfig.BOSS_ATTACK_DAMAGE.get() * 1.25);
+
+        Vec3 forward = this.getLookAngle();
+        for (Player p : this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(radius))) {
+            Vec3 to = p.position().subtract(this.position());
+            if (to.lengthSqr() < 1.0E-6) continue;
+
+            Vec3 dir = to.normalize();
+            // Rough 120-degree cone in front.
+            if (dir.dot(forward) < 0.25) continue;
+
+            p.hurt(this.damageSources().mobAttack(this), damage);
+            p.setDeltaMovement(p.getDeltaMovement().add(dir.x * 0.5, 0.25, dir.z * 0.5));
+        }
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, this.getX(), this.getY() + 1.2, this.getZ(),
+                8, 0.4, 0.2, 0.4, 0.02);
+        }
     }
 
     private void doGraviticPull() {
@@ -899,24 +1081,45 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         }
     }
 
-    private void doDashAttack() {
-        if (this.getTarget() == null) return;
+    private void doRuneDash() {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
 
-        // Animation is handled by the ability telegraph (startAbility) so timing aligns to impact.
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
-        }
-
-        if (!this.level().isClientSide) {
             this.playSound(ModSounds.KRUEMBLEGARD_DASH.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
-        Vec3 dir = this.getTarget().position().subtract(this.position()).normalize().scale(1.5);
+        Vec3 dir = target.position().subtract(this.position()).normalize().scale(1.25);
         this.setDeltaMovement(dir);
 
-        // Damage on contact
-        for (Player p : this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(2))) {
-            p.hurt(this.damageSources().mobAttack(this), 15f);
+        for (Player p : this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(2.2))) {
+            p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, true));
+            p.hurt(this.damageSources().mobAttack(this), 8.0f);
+        }
+    }
+
+    private void doBlinkStrike() {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+
+        if (!this.level().isClientSide) {
+            this.swing(InteractionHand.MAIN_HAND);
+            this.playSound(ModSounds.KRUEMBLEGARD_DASH.get(), 1.0f, 0.8f + (this.random.nextFloat() * 0.2f));
+        }
+
+        Vec3 behind = target.getLookAngle().normalize().scale(-2.5);
+        Vec3 dest = target.position().add(behind);
+        this.teleportTo(dest.x, dest.y, dest.z);
+        this.getNavigation().stop();
+
+        if (this.distanceToSqr(target) <= getAttackReachSqr(target) + 2.0) {
+            this.doHurtTarget(target);
+        }
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.PORTAL, dest.x, dest.y + 1.0, dest.z, 20,
+                0.4, 0.6, 0.4, 0.05);
         }
     }
 
@@ -946,6 +1149,88 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             proj.setPos(this.getX() + ox, this.getY() + 10, this.getZ() + oz);
             this.level().addFreshEntity(proj);
         }
+    }
+
+    private void doWhirlwind() {
+        if (this.level().isClientSide) return;
+
+        this.swing(InteractionHand.MAIN_HAND);
+        this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.75f + (this.random.nextFloat() * 0.2f));
+
+        double radius = 5.0;
+        for (Player p : this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(radius))) {
+            Vec3 away = p.position().subtract(this.position());
+            Vec3 dir = away.lengthSqr() < 1.0E-6 ? new Vec3(0, 0, 0) : away.normalize();
+            p.hurt(this.damageSources().mobAttack(this), 10.0f);
+            p.setDeltaMovement(p.getDeltaMovement().add(dir.x * 0.6, 0.25, dir.z * 0.6));
+        }
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX(), this.getY() + 1.0, this.getZ(),
+                30, 1.2, 0.4, 1.2, 0.03);
+        }
+    }
+
+    private void doMeteorShower() {
+        if (this.level().isClientSide) return;
+
+        this.swing(InteractionHand.MAIN_HAND);
+        this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.2f, 0.7f + (this.random.nextFloat() * 0.2f));
+
+        int count = 5;
+        for (int i = 0; i < count; i++) {
+            double ox = (this.random.nextDouble() - 0.5) * 12;
+            double oz = (this.random.nextDouble() - 0.5) * 12;
+
+            MeteorArmEntity arm = new MeteorArmEntity(this.level(), this);
+            arm.setPos(this.getX() + ox, this.getY() + 10, this.getZ() + oz);
+            arm.setDeltaMovement(0, -0.8, 0);
+            this.level().addFreshEntity(arm);
+        }
+    }
+
+    private void doArcaneBeam() {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+        if (this.level().isClientSide) return;
+
+        Vec3 start = this.position().add(0, 1.8, 0);
+        Vec3 end = target.position().add(0, target.getBbHeight() * 0.5, 0);
+        double range = 22.0;
+        Vec3 dir = end.subtract(start);
+        if (dir.lengthSqr() < 1.0E-6) return;
+        dir = dir.normalize();
+        end = start.add(dir.scale(range));
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            for (int i = 0; i <= (int)range; i++) {
+                Vec3 p = start.add(dir.scale(i));
+                serverLevel.sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0.02, 0.02, 0.02, 0.0);
+            }
+        }
+
+        AABB box = new AABB(
+            Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z),
+            Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)
+        ).inflate(1.75);
+
+        for (Player p : this.level().getEntitiesOfClass(Player.class, box)) {
+            double d = distanceToSegment(p.position().add(0, p.getBbHeight() * 0.5, 0), start, end);
+            if (d <= 1.5) {
+                p.hurt(this.damageSources().mobAttack(this), 14.0f);
+                p.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 30, 0, false, true));
+            }
+        }
+    }
+
+    private double distanceToSegment(Vec3 point, Vec3 a, Vec3 b) {
+        Vec3 ab = b.subtract(a);
+        double abLen2 = ab.lengthSqr();
+        if (abLen2 < 1.0E-6) return point.distanceTo(a);
+        double t = point.subtract(a).dot(ab) / abLen2;
+        t = Math.max(0.0, Math.min(1.0, t));
+        Vec3 proj = a.add(ab.scale(t));
+        return point.distanceTo(proj);
     }
 
     // -----------------------------
@@ -1003,15 +1288,21 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             int attackAnim = getAttackAnim();
             if (attackAnim != ATTACK_ANIM_NONE) {
                 return switch (attackAnim) {
-                    case ATTACK_ANIM_MELEE -> state.setAndContinue(ATTACK_MELEE);
-					case ATTACK_ANIM_GRAVITIC_PULL -> state.setAndContinue(ATTACK_GRAVITIC_PULL);
-                    case ATTACK_ANIM_RUNE_BOLT -> state.setAndContinue(ATTACK_RUNE_BOLT);
-                    case ATTACK_ANIM_DASH -> state.setAndContinue(ATTACK_DASH);
-                    case ATTACK_ANIM_METEOR_ARM -> state.setAndContinue(ATTACK_METEOR_ARM);
-                    case ATTACK_ANIM_ARCANE_STORM -> state.setAndContinue(ATTACK_ARCANE_STORM);
+                    case ATTACK_ANIM_P1_FAST -> state.setAndContinue(ATTACK_P1_FAST);
+                    case ATTACK_ANIM_P1_HEAVY -> state.setAndContinue(ATTACK_P1_HEAVY);
+                    case ATTACK_ANIM_P1_RANGED -> state.setAndContinue(ATTACK_P1_RANGED);
+                    case ATTACK_ANIM_P2_FAST -> state.setAndContinue(ATTACK_P2_FAST);
+                    case ATTACK_ANIM_P2_HEAVY -> state.setAndContinue(ATTACK_P2_HEAVY);
+                    case ATTACK_ANIM_P2_RANGED -> state.setAndContinue(ATTACK_P2_RANGED);
+                    case ATTACK_ANIM_P3_FAST -> state.setAndContinue(ATTACK_P3_FAST);
+                    case ATTACK_ANIM_P3_HEAVY -> state.setAndContinue(ATTACK_P3_HEAVY);
+                    case ATTACK_ANIM_P3_RANGED -> state.setAndContinue(ATTACK_P3_RANGED);
+                    case ATTACK_ANIM_P4_FAST -> state.setAndContinue(ATTACK_P4_FAST);
+                    case ATTACK_ANIM_P4_HEAVY -> state.setAndContinue(ATTACK_P4_HEAVY);
+                    case ATTACK_ANIM_P4_RANGED -> state.setAndContinue(ATTACK_P4_RANGED);
 					case ATTACK_ANIM_HURT -> state.setAndContinue(HURT);
 					case ATTACK_ANIM_DEATH -> state.setAndContinue(DEATH);
-                    default -> state.setAndContinue(ATTACK);
+                    default -> PlayState.STOP;
                 };
             }
             return PlayState.STOP;
