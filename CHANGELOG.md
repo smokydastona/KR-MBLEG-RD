@@ -7,6 +7,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.102 (2026-01-04)
+- Animations: add missing `attack_*` boss attack animation entries (placeholders) for Blockbench editing.
+- Boss/docs: switch boss attack animations from `boss_attack_*` back to the `attack_*` keys.
+
 ## 1.0.101 (2026-01-03)
 - Animations: rename boss attack animation keys to a consistent `boss_attack_*` naming scheme.
 - Boss/docs: update references to the renamed animations.

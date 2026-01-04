@@ -34,12 +34,12 @@ For Blockbench (so you don't have to convert):
 - **What it is:** custom boss melee (short windup before damage).
 - **When used:** Phase 1 only, whenever the boss can reach its target.
 - **Damage source:** uses the boss’s melee/attribute damage (config-driven via `BOSS_ATTACK_DAMAGE`).
-- **Animation:** `animation.kruemblegard.boss_attack_swipe`.
+- **Animation:** `animation.kruemblegard.attack_melee`.
 - **Damage frame (Blockbench @20 FPS):** **Frame 6**.
 - **Avoidance:** keep distance or break line-of-pathing; don’t let it stay in contact range.
 
 ### 2) Cleave (Phase 1 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_cleave`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_cleave`.
 - **Timing:** `totalTicks = 18`, `impactAt = 10`.
 - **Impact / damage frame (Blockbench @20 FPS):** **Frame 8**.
 - **What happens on impact:** hits players in a short cone in front of the boss and knocks them back.
@@ -47,7 +47,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** stay out of its forward arc; strafe around the boss.
 
 ### 3) Rune Bolt (Phase 1 ranged)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_rune_bolt`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_rune_bolt`.
 - **Timing:** `totalTicks = 16`, `impactAt = 8`.
 - **Impact / damage frame (Blockbench @20 FPS):** **Frame 8**.
 - **What happens on impact:** spawns a `RuneBoltEntity` at the boss and fires it toward the current target.
@@ -56,14 +56,14 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** strafe / sidestep during the windup; keep moving so the line shot misses.
 
 ### 4) Rune Dash (Phase 2 fast)
-- **Telegraph:** dash sound + soul particles; plays `animation.kruemblegard.boss_attack_rune_dash`.
+- **Telegraph:** dash sound + soul particles; plays `animation.kruemblegard.attack_dash`.
 - **Timing:** `totalTicks = 14`, `impactAt = 7`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 7**.
 - **What happens on impact:** boss lunges toward the target and applies brief slowness + chip damage to nearby players.
 - **Avoidance:** sidestep during windup; don’t be directly in front of the boss.
 
 ### 5) Gravitic Pull (Phase 2 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_gravitic_pull`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_gravitic_pull`.
 - **Timing:** `totalTicks = 18`, `impactAt = 10`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 8**.
 - **What happens on impact:** pulls **players** in a radius toward the boss by adding velocity toward the boss.
@@ -73,21 +73,21 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** create distance before impact; jump/sprint after the pull to regain spacing.
 
 ### 6) Rune Volley (Phase 2 ranged)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_rune_volley`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_rune_volley`.
 - **Timing:** `totalTicks = 20`, `impactAt = 10`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 10**.
 - **What happens on impact:** fires a short 3-bolt spread toward the target.
 - **Avoidance:** keep moving laterally; don’t backpedal in a straight line.
 
 ### 7) Blink Strike (Phase 3 fast)
-- **Telegraph:** dash sound + soul particles; plays `animation.kruemblegard.boss_attack_blink_strike`.
+- **Telegraph:** dash sound + soul particles; plays `animation.kruemblegard.attack_blink_strike`.
 - **Timing:** `totalTicks = 14`, `impactAt = 8`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 6**.
 - **What happens on impact:** boss teleports behind the target and attempts an immediate melee hit.
 - **Avoidance:** keep moving and avoid being isolated; don’t rely on pure backpedaling.
 
 ### 8) Meteor Arm (Phase 3 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_meteor_arm`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_meteor_arm`.
 - **Timing:** `totalTicks = 22`, `impactAt = 12`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 10**.
 - **What happens on impact:** spawns a `MeteorArmEntity` above the boss and sends it downward.
@@ -96,7 +96,7 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** watch the drop; move out from under its fall path.
 
 ### 9) Arcane Storm (Phase 3 ranged)
-- **Telegraph:** storm sound + soul particles; plays `animation.kruemblegard.boss_attack_arcane_storm`.
+- **Telegraph:** storm sound + soul particles; plays `animation.kruemblegard.attack_arcane_storm`.
 - **Timing:** `totalTicks = 26`, `impactAt = 14`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 12**.
 - **What happens on impact:** spawns 8 `ArcaneStormProjectileEntity` projectiles above random offsets around the boss.
@@ -107,21 +107,21 @@ For Blockbench (so you don't have to convert):
 - **Avoidance:** keep moving and avoid standing still near the boss when the storm starts.
 
 ### 10) Whirlwind (Phase 4 fast)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_whirlwind`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_whirlwind`.
 - **Timing:** `totalTicks = 18`, `impactAt = 9`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 9**.
 - **What happens on impact:** AoE hit around the boss with knockback.
 - **Avoidance:** don’t stack in melee range; create space on windup.
 
 ### 11) Meteor Shower (Phase 4 heavy)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_meteor_shower`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_meteor_shower`.
 - **Timing:** `totalTicks = 28`, `impactAt = 14`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 14**.
 - **What happens on impact:** spawns multiple `MeteorArmEntity` drops around the boss.
 - **Avoidance:** keep moving; don’t linger near the boss center.
 
 ### 12) Arcane Beam (Phase 4 ranged)
-- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.boss_attack_arcane_beam`.
+- **Telegraph:** attack sound + soul particles; plays `animation.kruemblegard.attack_arcane_beam`.
 - **Timing:** `totalTicks = 22`, `impactAt = 12`.
 - **Impact frame (Blockbench @20 FPS):** **Frame 10**.
 - **What happens on impact:** a straight-line beam that damages players close to the beam path and briefly blinds.

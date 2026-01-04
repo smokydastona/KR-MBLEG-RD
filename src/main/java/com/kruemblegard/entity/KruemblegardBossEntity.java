@@ -107,40 +107,40 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             RawAnimation.begin().thenLoop("animation.kruemblegard.move");
 
     private static final RawAnimation ATTACK_MELEE_SWIPE =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_swipe");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee");
 
     private static final RawAnimation ATTACK_CLEAVE =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_cleave");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_cleave");
 
     private static final RawAnimation ATTACK_RUNE_BOLT =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_rune_bolt");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
 
     private static final RawAnimation ATTACK_RUNE_DASH =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_rune_dash");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_dash");
 
     private static final RawAnimation ATTACK_GRAVITIC_PULL =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_gravitic_pull");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_gravitic_pull");
 
     private static final RawAnimation ATTACK_RUNE_VOLLEY =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_rune_volley");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_volley");
 
     private static final RawAnimation ATTACK_BLINK_STRIKE =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_blink_strike");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_blink_strike");
 
     private static final RawAnimation ATTACK_METEOR_ARM =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_meteor_arm");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_arm");
 
     private static final RawAnimation ATTACK_ARCANE_STORM =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_arcane_storm");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
 
     private static final RawAnimation ATTACK_WHIRLWIND =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_whirlwind");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_whirlwind");
 
     private static final RawAnimation ATTACK_METEOR_SHOWER =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_meteor_shower");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_shower");
 
     private static final RawAnimation ATTACK_ARCANE_BEAM =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.boss_attack_arcane_beam");
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_beam");
 
         private static final RawAnimation HURT =
             RawAnimation.begin().thenPlay("animation.kruemblegard.hurt");
