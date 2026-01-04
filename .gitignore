@@ -10,7 +10,8 @@ run/
 logs/
 
 # Documentation (local notes / reference)
-docs/
+docs/**
+!docs/boss-attacks.md
 
 # Local examples / reference content (not committed)
 examples/

@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.98 (2026-01-03)
+- Docs: clarify how `totalTicks`/`impactAt` maps to Blockbench impact frames.
+
 ## 1.0.97 (2026-01-03)
 - Docs: refresh config snippet and correct changelog date.
 - Animations: update the JSON controller example to reference the new attack animation names.
