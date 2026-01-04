@@ -6,8 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -17,12 +17,13 @@ public class AshveilBlock extends CarpetBlock {
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BlockTags.DIRT)
-                || state.is(net.minecraft.world.level.block.Blocks.END_STONE)
-                || state.is(ModBlocks.ATTUNED_STONE.get())
-                || state.is(net.minecraft.world.level.block.Blocks.STONE)
-                || state.is(net.minecraft.world.level.block.Blocks.COBBLESTONE);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockState below = level.getBlockState(pos.below());
+        return below.is(BlockTags.DIRT)
+                || below.is(net.minecraft.world.level.block.Blocks.END_STONE)
+                || below.is(ModBlocks.ATTUNED_STONE.get())
+                || below.is(net.minecraft.world.level.block.Blocks.STONE)
+                || below.is(net.minecraft.world.level.block.Blocks.COBBLESTONE);
     }
 
     @Override

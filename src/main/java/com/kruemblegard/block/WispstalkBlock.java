@@ -4,6 +4,7 @@ import com.kruemblegard.init.ModBlocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -34,7 +35,7 @@ public class WispstalkBlock extends BushBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         super.randomTick(state, level, pos, random);
 
         int age = state.getValue(AGE);
