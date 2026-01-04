@@ -8,7 +8,7 @@
 
 ## Core gameplay architecture (follow this flow)
 - **Trigger → persistent controller pattern**:
-  - Right-click `HauntedWaystoneBlock` or `FalseWaystoneBlock` → `HauntedWaystoneBlockEntity.activate()`.
+  - Right-click `HauntedWaystoneBlock` → `HauntedWaystoneBlockEntity.activate()`.
   - Trigger removes itself and places invisible `arena_anchor` **below** as the persistent controller.
   - `ArenaAnchorBlockEntity` runs a server-side state machine: `BUILDING → FIGHT → CLEANSE`.
 - Arena building lives in `world/arena/ArenaBuilder`.
@@ -22,12 +22,13 @@
   - `KRUEMBLEGARD_SURVIVED` / `KRUEMBLEGARD_CLEANSED` (arena anchor BE)
 
 ## Worldgen (config-driven + data-driven biomes)
-- Features are **code-registered** in `init/ModWorldgen`.
+- Worldgen is currently minimal; `init/ModWorldgen` is intentionally empty.
 - Config is in `config/ModConfig` (COMMON): `enableWaystones`, `waystoneRarity`.
-- Biome selection is data-driven:
-  - `src/main/resources/data/forge/biome_modifier/add_false_waystone.json`
-  - `src/main/resources/data/kruemblegard/tags/worldgen/biome/has_false_waystone.json`
-- Avoid adding `data/kruemblegard/worldgen/*` JSON for waystones (conflicts with code registration).
+- If you add/restore any waystone worldgen in the future, re-run the full worldgen impact-radius checklist.
+
+## Crumbling Codex (in-game guidebook)
+- Page text is data-driven: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
+- The Codex is granted once on first join (tracked in player persistent NBT).
 
 ## GeckoLib conventions
 - Model/animation/texture binding: `client/render/model/KruemblegardBossModel` (geo/texture/animation `ResourceLocation`s).
@@ -52,7 +53,11 @@
 1. **Scan all files first**
   - Run workspace-wide error checking (VS Code Problems / diagnostics) across the entire codebase.
   - Then do the relevant “impact radius” scan (see checklists below).
-  - **Immediately after the scan:** update `README.md` and `CHANGELOG.md` if anything changed that a future-you would want to remember.
+  - **Immediately after the scan:** update any relevant docs so they match the final behavior:
+    - `README.md`
+    - `CHANGELOG.md`
+    - `docs/MOD_FEATURES.md` (feature reference; keep this complete and current)
+    - Any other docs touched by the change (e.g., codex text JSON)
   - If changes are notable and you’re about to ship a test jar, record them under a **versioned** `CHANGELOG.md` section that matches the jar version (see versioning in `build.gradle`).
   - If version uses git history (e.g., commit count), ensure GitHub Actions uses full history checkout (`fetch-depth: 0`) so CI jar versions match.
 2. **Fix errors systematically**
@@ -60,13 +65,13 @@
   - Do not stop after fixing “just one file”; iterate until the workspace is clean.
 3. **Re-validate after each fix**
   - After each fix pass, re-run the workspace-wide error scan to ensure no new errors were introduced.
-  - **Immediately after each re-scan:** refresh `README.md` and `CHANGELOG.md` again if the fix changed behavior or assets.
+  - **Immediately after each re-scan:** refresh any relevant docs again if the fix changed behavior/assets.
 4. **Explain every change**
   - State what was wrong, what changed, and why.
-  - Ensure `README.md` and `CHANGELOG.md` match the final behavior you're about to ship.
+  - Ensure all relevant docs match the final behavior you're about to ship.
 5. **Push to GitHub Actions**
   - Commit and push ONLY (no tags/releases).
-  - **Before every commit:** verify `README.md` and `CHANGELOG.md` are updated for this change.
+  - **Before every commit:** verify `README.md`, `CHANGELOG.md`, and `docs/MOD_FEATURES.md` are updated for this change.
 6. **Only stop when 100% validated**
   - Continue until the workspace has no remaining errors related to the change and the project is in a shippable state.
 7. **Update documentation if needed**

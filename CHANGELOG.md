@@ -6,6 +6,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 
+## 1.0.110 (2026-01-03)
+- Docs/workflow: update Copilot instructions to require updating all relevant docs.
+- Docs: add `docs/MOD_FEATURES.md` as the complete mod feature reference.
+
 ## 1.0.108 (2026-01-03)
 - Items: grant the Crumbling Codex once per player on first join.
 - Items: move Crumbling Codex page text to `data/kruemblegard/books/crumbling_codex.json` for easy edits.

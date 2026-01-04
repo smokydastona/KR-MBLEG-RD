@@ -2,6 +2,8 @@
 
 This project contains a Forge 1.20.1 + GeckoLib mod.
 
+Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
+
 ## What this mod already does
 - **Haunted Waystone** (looks normal) triggers the fight on right-click.
 - A hidden **Arena Anchor** blockentity is placed under it to persist the event.
