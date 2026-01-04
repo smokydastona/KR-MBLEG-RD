@@ -13,6 +13,10 @@ Keep it up to date whenever you add/remove/rename content.
   - Implemented as a Blaze-derived GeckoLib mob.
   - Uses editable resources: `geo/traprock.geo.json`, `animations/traprock.animation.json`, `textures/entity/traprock.png`.
 
+- **Pebblit** (`pebblit`)
+  - Hostile Silverfish-like creature.
+  - Can be tamed by right-clicking with cobblestone; follows its owner.
+
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
 - **12 unique attacks** across phases (fast/heavy/ranged kits per phase).
@@ -35,10 +39,24 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Runic Axe (`runic_axe`)
   - Runic Shovel (`runic_shovel`)
   - Runic Hoe (`runic_hoe`)
+  - Tier: Runic tools are above Netherite.
+  - Crafting: Runic tools require Attuned Rune Shards + a Runic Core catalyst.
 
 ## Blocks
 - Ancient Waystone block.
 - Standing Stone + Attuned Stone blocks.
+- Attuned Ore block (Wayfall-only worldgen).
+- Wayfall plants: Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub).
+  - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
+- Planned Wayfall trees + additional flora concepts are documented in: docs/FLORA_REFERENCE.md
+
+## Dimensions
+- **Wayfall** (`kruemblegard:wayfall`)
+  - Void dimension with End-like floating islands.
+  - Uses only Krümblegård Wayfall biomes (no vanilla biomes).
+  - Detailed biome list (keep updated): docs/WAYFALL_BIOMES.md
+  - Attuned Ore generates here.
+  - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
 
 ## Advancements / criteria (project-specific)
 - Vanilla advancements are not granted directly.

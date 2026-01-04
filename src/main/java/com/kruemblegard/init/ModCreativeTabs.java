@@ -29,6 +29,7 @@ public final class ModCreativeTabs {
 
                         output.accept(ModItems.STANDING_STONE_ITEM.get());
                         output.accept(ModItems.ATTUNED_STONE_ITEM.get());
+                        output.accept(ModItems.ATTUNED_ORE_ITEM.get());
 
                         output.accept(ModItems.ATTUNED_RUNE_SHARD.get());
                         output.accept(ModItems.RUNIC_CORE.get());
@@ -43,6 +44,7 @@ public final class ModCreativeTabs {
 
                         output.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG.get());
                         output.accept(ModItems.TRAPROCK_SPAWN_EGG.get());
+                        output.accept(ModItems.PEBBLIT_SPAWN_EGG.get());
                     })
                     .build()
     );

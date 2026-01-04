@@ -6,7 +6,13 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 - Mobs: add Traprock (dormant until disturbed; Blaze-derived GeckoLib mob with editable geo/anim/texture).
+- Mobs: add Pebblit (hostile; tameable with cobblestone; follows owner).
 - Gameplay: remove Mimic Waystone block (Traprock is spawned via spawn egg/commands for now).
+- Dimension: add Wayfall (`kruemblegard:wayfall`) with End-like baseline terrain and custom Wayfall biomes.
+- Worldgen: enrich Wayfall biomes (ambience + small biome features) and restrict Wayfall spawns to Krümblegård mobs only.
+- Worldgen: add Attuned Ore (Wayfall-only) that drops Attuned Rune Shards (Fortune affects drops).
+- Worldgen: add Wayfall plants (Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrubs) + Ghoulberry corruption.
+- Items: Runic tools upgraded to a custom tier above Netherite; recipes now use Attuned Rune Shards + Runic Core.
 - Advancements: remove obsolete survived/cleansed advancements tied to removed encounter flow.
 - Docs/Codex: update guidebook + docs to match Traprock behavior.
 

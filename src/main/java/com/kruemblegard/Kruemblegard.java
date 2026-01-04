@@ -9,6 +9,8 @@ import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModLootModifiers;
 import com.kruemblegard.registry.ModParticles;
+import com.kruemblegard.registry.ModPotions;
+import com.kruemblegard.registry.ModBrewing;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.registry.ModSounds;
 
@@ -45,6 +47,7 @@ public final class Kruemblegard {
         ModLootModifiers.LOOT_MODIFIERS.register(modBus);
         ModParticles.PARTICLES.register(modBus);
         ModSounds.SOUNDS.register(modBus);
+        ModPotions.POTIONS.register(modBus);
 
         modBus.addListener(this::addCreative);
     }
@@ -59,9 +62,25 @@ public final class Kruemblegard {
             event.accept(ModItems.ATTUNED_STONE_ITEM);
         }
 
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
+            event.accept(ModItems.WISPSTALK_ITEM);
+            event.accept(ModItems.GRAVEVINE_ITEM);
+            event.accept(ModItems.ECHOCAP_ITEM);
+            event.accept(ModItems.RUNEBLOOM_ITEM);
+            event.accept(ModItems.SOULBERRY_SHRUB_ITEM);
+            event.accept(ModItems.GHOULBERRY_SHRUB_ITEM);
+        }
+
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ATTUNED_RUNE_SHARD);
             event.accept(ModItems.RUNIC_CORE);
+            event.accept(ModItems.REMNANT_SEEDS);
+            event.accept(ModItems.RUNE_PETALS);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            event.accept(ModItems.SOULBERRIES);
+            event.accept(ModItems.GHOULBERRIES);
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=0": { "model": "kruemblegard:block/runebloom_0" },
+    "variant=1": { "model": "kruemblegard:block/runebloom_1" },
+    "variant=2": { "model": "kruemblegard:block/runebloom_2" },
+    "variant=3": { "model": "kruemblegard:block/runebloom_3" },
+    "variant=4": { "model": "kruemblegard:block/runebloom_4" },
+    "variant=5": { "model": "kruemblegard:block/runebloom_5" }
+  }
+}

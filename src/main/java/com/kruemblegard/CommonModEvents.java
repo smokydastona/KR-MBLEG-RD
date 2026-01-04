@@ -1,8 +1,11 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.registry.ModEntities;
+
+import net.minecraft.world.entity.monster.Silverfish;
 
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,5 +19,6 @@ public final class CommonModEvents {
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossEntity.createAttributes().build());
         event.put(ModEntities.TRAPROCK.get(), TraprockEntity.createAttributes().build());
+        event.put(ModEntities.PEBBLIT.get(), Silverfish.createAttributes().build());
     }
 }

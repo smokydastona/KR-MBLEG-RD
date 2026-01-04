@@ -1,0 +1,75 @@
+{
+  "spawners": {
+    "water_ambient": [],
+    "ambient": [],
+    "misc": [],
+    "water_creature": [],
+    "creature": [],
+    "monster": [
+      {
+        "type": "kruemblegard:traprock",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "kruemblegard:pebblit",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": []
+  },
+  "features": [
+    [],
+    [],
+    [
+      "kruemblegard:attuned_stone_disk_large"
+    ],
+    [],
+    [
+      "kruemblegard:standing_stone_scatter_sparse"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "temperature": 0.65,
+  "downfall": 0.0,
+  "effects": {
+    "sky_color": 0,
+    "fog_color": 6636321,
+    "water_color": 4159204,
+    "water_fog_color": 329011,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 3800,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "additions_sound": {
+      "sound": "minecraft:block.enchantment_table.use",
+      "tick_chance": 0.0002
+    },
+    "music": {
+      "sound": "minecraft:music.end",
+      "min_delay": 10000,
+      "max_delay": 20000,
+      "replace_current_music": false
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:enchant"
+      },
+      "probability": 0.001
+    }
+  },
+  "has_precipitation": false
+}

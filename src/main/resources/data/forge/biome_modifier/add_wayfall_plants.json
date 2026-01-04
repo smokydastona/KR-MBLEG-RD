@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:wayfall"
+  },
+  "features": [
+    "kruemblegard:wispstalk_patch",
+    "kruemblegard:gravevine_patch",
+    "kruemblegard:echocap_patch",
+    "kruemblegard:runebloom_patch",
+    "kruemblegard:soulberry_shrub_patch"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -2,6 +2,7 @@ package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.TraprockEntity;
 
 import net.minecraft.resources.ResourceLocation;
@@ -32,5 +33,14 @@ public class ModEntities {
                     TraprockEntity::new, MobCategory.MONSTER)
                 .sized(0.6f, 1.8f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "traprock").toString())
+        );
+
+    public static final RegistryObject<EntityType<PebblitEntity>> PEBBLIT =
+        ENTITIES.register(
+            "pebblit",
+            () -> EntityType.Builder.<PebblitEntity>of(
+                    PebblitEntity::new, MobCategory.MONSTER)
+                .sized(0.4f, 0.3f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "pebblit").toString())
         );
 }

@@ -5,6 +5,8 @@
     "Crumbling Codex\n\nA guide to the ruins of Krümblegård.",
     "Traprock\n\nSome stone is alive.\n\n- Traprock can remain dormant until disturbed.\n- Linger too long, and it may awaken.",
     "Traprock\n\nTraprock are small ambush predators.\n\n- Expect them to strike quickly.\n- Clear space so you can kite safely.",
-    "Runic craft\n\nRunic Core is used to craft Runic tools.\n\nIf you face Krümblegård, it can drop a Runic Core."
+    "Pebblit\n\nSome stones crawl.\n\n- Pebblit are hostile by default.\n- Offer cobblestone to tame one.",
+    "Wayfall\n\nA broken sky-realm beyond the world.\n\n- The Wayfall holds Attuned Ore.\n- Mine it with Netherite (or better).",
+    "Runic craft\n\nRunic tools require:\n- Attuned Rune Shards (from Attuned Ore)\n- A Runic Core (from Krümblegård)"
   ]
 }

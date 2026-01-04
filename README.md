@@ -6,6 +6,9 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 
 ## What this mod already does
 - **Traprock** can remain dormant until disturbed, then attacks.
+- **Pebblit**: a hostile stone-bug that can be tamed with cobblestone.
+- **Wayfall**: a new void dimension with End-like floating islands, containing Attuned Ore (custom Wayfall biomes only; spawns restricted to Krümblegård mobs).
+- **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join).
 - **Advancements** are granted by code.
 - **Loot table** for unique drops.
@@ -42,6 +45,14 @@ If your mod id/package differ, update:
 2. Spawn a Traprock:
     - `/summon kruemblegard:traprock`
 3. Right-click it (or linger close) to awaken it.
+
+### Pebblit
+- Spawn: `/summon kruemblegard:pebblit`
+- Tame: right-click a Pebblit with `minecraft:cobblestone`
+
+### Wayfall
+- Enter via command (no portal yet):
+    - `/execute in kruemblegard:wayfall run tp @s 0 80 0`
 
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
