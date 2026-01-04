@@ -6,7 +6,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 
-## 1.0.107 (2026-01-04)
+## 1.0.108 (2026-01-03)
+- Items: grant the Crumbling Codex once per player on first join.
+- Items: move Crumbling Codex page text to `data/kruemblegard/books/crumbling_codex.json` for easy edits.
+
+## 1.0.107 (2026-01-03)
 - Boss: phase-based bone hiding (Phase 2 hides armor, Phase 3 hides `-p3` bones, Phase 4 hides whirlwind/debris bones).
 - Boss: Phase 4 uses a separate texture placeholder (`kruemblegard_phase4.png`).
 - Boss: awards Ender Dragon XP on death.

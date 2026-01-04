@@ -9,9 +9,11 @@ This project contains a Forge 1.20.1 + GeckoLib mod.
 - **Krümblegård spawns underground and emerges** (no teleport).
 - **Arena anti-cheese**: leaving the circle applies Slowness + Mining Fatigue and heals the boss.
 - On boss death, the arena **cleanses** and the **Ancient Waystone** forms (radiant particles).
-- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages.
+- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join).
 - **Advancements** (observed / survived / cleansed) are granted by code.
 - **Loot table** for unique drops.
+
+Codex page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
 
 This mod uses **custom advancement triggers** registered in `ModCriteria`:
 - `kruemblegard:haunted_waystone_clicked`
