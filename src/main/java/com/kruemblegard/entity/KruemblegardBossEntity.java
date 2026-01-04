@@ -68,18 +68,18 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             SynchedEntityData.defineId(KruemblegardBossEntity.class, EntityDataSerializers.INT);
 
         private static final int ATTACK_ANIM_NONE = 0;
-        private static final int ATTACK_ANIM_P1_FAST = 1;
-        private static final int ATTACK_ANIM_P1_HEAVY = 2;
-        private static final int ATTACK_ANIM_P1_RANGED = 3;
-        private static final int ATTACK_ANIM_P2_FAST = 4;
-        private static final int ATTACK_ANIM_P2_HEAVY = 5;
-        private static final int ATTACK_ANIM_P2_RANGED = 6;
-        private static final int ATTACK_ANIM_P3_FAST = 7;
-        private static final int ATTACK_ANIM_P3_HEAVY = 8;
-        private static final int ATTACK_ANIM_P3_RANGED = 9;
-        private static final int ATTACK_ANIM_P4_FAST = 10;
-        private static final int ATTACK_ANIM_P4_HEAVY = 11;
-        private static final int ATTACK_ANIM_P4_RANGED = 12;
+        private static final int ATTACK_ANIM_MELEE_SWIPE = 1;
+        private static final int ATTACK_ANIM_CLEAVE = 2;
+        private static final int ATTACK_ANIM_RUNE_BOLT = 3;
+        private static final int ATTACK_ANIM_RUNE_DASH = 4;
+        private static final int ATTACK_ANIM_GRAVITIC_PULL = 5;
+        private static final int ATTACK_ANIM_RUNE_VOLLEY = 6;
+        private static final int ATTACK_ANIM_BLINK_STRIKE = 7;
+        private static final int ATTACK_ANIM_METEOR_ARM = 8;
+        private static final int ATTACK_ANIM_ARCANE_STORM = 9;
+        private static final int ATTACK_ANIM_WHIRLWIND = 10;
+        private static final int ATTACK_ANIM_METEOR_SHOWER = 11;
+        private static final int ATTACK_ANIM_ARCANE_BEAM = 12;
 
         private static final int ATTACK_ANIM_HURT = 90;
         private static final int ATTACK_ANIM_DEATH = 91;
@@ -106,41 +106,41 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final RawAnimation MOVE =
             RawAnimation.begin().thenLoop("animation.kruemblegard.move");
 
-    private static final RawAnimation ATTACK_P1_FAST =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_fast");
+    private static final RawAnimation ATTACK_MELEE_SWIPE =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee_swipe");
 
-    private static final RawAnimation ATTACK_P1_HEAVY =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_heavy");
+    private static final RawAnimation ATTACK_CLEAVE =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_cleave");
 
-    private static final RawAnimation ATTACK_P1_RANGED =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p1_ranged");
+    private static final RawAnimation ATTACK_RUNE_BOLT =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_bolt");
 
-    private static final RawAnimation ATTACK_P2_FAST =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_fast");
+    private static final RawAnimation ATTACK_RUNE_DASH =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_dash");
 
-    private static final RawAnimation ATTACK_P2_HEAVY =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_heavy");
+    private static final RawAnimation ATTACK_GRAVITIC_PULL =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_gravitic_pull");
 
-    private static final RawAnimation ATTACK_P2_RANGED =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p2_ranged");
+    private static final RawAnimation ATTACK_RUNE_VOLLEY =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_rune_volley");
 
-    private static final RawAnimation ATTACK_P3_FAST =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_fast");
+    private static final RawAnimation ATTACK_BLINK_STRIKE =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_blink_strike");
 
-    private static final RawAnimation ATTACK_P3_HEAVY =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_heavy");
+    private static final RawAnimation ATTACK_METEOR_ARM =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_arm");
 
-    private static final RawAnimation ATTACK_P3_RANGED =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p3_ranged");
+    private static final RawAnimation ATTACK_ARCANE_STORM =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_storm");
 
-    private static final RawAnimation ATTACK_P4_FAST =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_fast");
+    private static final RawAnimation ATTACK_WHIRLWIND =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_whirlwind");
 
-    private static final RawAnimation ATTACK_P4_HEAVY =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_heavy");
+    private static final RawAnimation ATTACK_METEOR_SHOWER =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_meteor_shower");
 
-    private static final RawAnimation ATTACK_P4_RANGED =
-        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_p4_ranged");
+    private static final RawAnimation ATTACK_ARCANE_BEAM =
+        RawAnimation.begin().thenPlay("animation.kruemblegard.attack_arcane_beam");
 
         private static final RawAnimation HURT =
             RawAnimation.begin().thenPlay("animation.kruemblegard.hurt");
@@ -475,7 +475,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         // Keep the attack animation active through the impact tick (same pattern as abilities).
         int telegraphAnimTicks = Math.max(1, (MELEE_TOTAL_TICKS - MELEE_IMPACT_AT) + 2);
         this.swing(InteractionHand.MAIN_HAND);
-        this.setAttackAnim(ATTACK_ANIM_P1_FAST, telegraphAnimTicks);
+        this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, telegraphAnimTicks);
     }
 
     private void tickMeleeAttack() {
@@ -922,18 +922,18 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
             switch (ability) {
-                case ABILITY_CLEAVE -> this.setAttackAnim(ATTACK_ANIM_P1_HEAVY, telegraphAnimTicks);
-                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_P1_RANGED, telegraphAnimTicks);
-                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_P2_HEAVY, telegraphAnimTicks);
-                case ABILITY_RUNE_DASH -> this.setAttackAnim(ATTACK_ANIM_P2_FAST, telegraphAnimTicks);
-                case ABILITY_RUNE_VOLLEY -> this.setAttackAnim(ATTACK_ANIM_P2_RANGED, telegraphAnimTicks);
-                case ABILITY_BLINK_STRIKE -> this.setAttackAnim(ATTACK_ANIM_P3_FAST, telegraphAnimTicks);
-                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_P3_HEAVY, telegraphAnimTicks);
-                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_P3_RANGED, telegraphAnimTicks);
-                case ABILITY_WHIRLWIND -> this.setAttackAnim(ATTACK_ANIM_P4_FAST, telegraphAnimTicks);
-                case ABILITY_METEOR_SHOWER -> this.setAttackAnim(ATTACK_ANIM_P4_HEAVY, telegraphAnimTicks);
-                case ABILITY_ARCANE_BEAM -> this.setAttackAnim(ATTACK_ANIM_P4_RANGED, telegraphAnimTicks);
-                default -> this.setAttackAnim(ATTACK_ANIM_P1_FAST, telegraphAnimTicks);
+                case ABILITY_CLEAVE -> this.setAttackAnim(ATTACK_ANIM_CLEAVE, telegraphAnimTicks);
+                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, telegraphAnimTicks);
+                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, telegraphAnimTicks);
+                case ABILITY_RUNE_DASH -> this.setAttackAnim(ATTACK_ANIM_RUNE_DASH, telegraphAnimTicks);
+                case ABILITY_RUNE_VOLLEY -> this.setAttackAnim(ATTACK_ANIM_RUNE_VOLLEY, telegraphAnimTicks);
+                case ABILITY_BLINK_STRIKE -> this.setAttackAnim(ATTACK_ANIM_BLINK_STRIKE, telegraphAnimTicks);
+                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, telegraphAnimTicks);
+                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, telegraphAnimTicks);
+                case ABILITY_WHIRLWIND -> this.setAttackAnim(ATTACK_ANIM_WHIRLWIND, telegraphAnimTicks);
+                case ABILITY_METEOR_SHOWER -> this.setAttackAnim(ATTACK_ANIM_METEOR_SHOWER, telegraphAnimTicks);
+                case ABILITY_ARCANE_BEAM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_BEAM, telegraphAnimTicks);
+                default -> this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, telegraphAnimTicks);
             }
 
             float pitch = 0.9f + (this.random.nextFloat() * 0.2f);
@@ -1288,18 +1288,18 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             int attackAnim = getAttackAnim();
             if (attackAnim != ATTACK_ANIM_NONE) {
                 return switch (attackAnim) {
-                    case ATTACK_ANIM_P1_FAST -> state.setAndContinue(ATTACK_P1_FAST);
-                    case ATTACK_ANIM_P1_HEAVY -> state.setAndContinue(ATTACK_P1_HEAVY);
-                    case ATTACK_ANIM_P1_RANGED -> state.setAndContinue(ATTACK_P1_RANGED);
-                    case ATTACK_ANIM_P2_FAST -> state.setAndContinue(ATTACK_P2_FAST);
-                    case ATTACK_ANIM_P2_HEAVY -> state.setAndContinue(ATTACK_P2_HEAVY);
-                    case ATTACK_ANIM_P2_RANGED -> state.setAndContinue(ATTACK_P2_RANGED);
-                    case ATTACK_ANIM_P3_FAST -> state.setAndContinue(ATTACK_P3_FAST);
-                    case ATTACK_ANIM_P3_HEAVY -> state.setAndContinue(ATTACK_P3_HEAVY);
-                    case ATTACK_ANIM_P3_RANGED -> state.setAndContinue(ATTACK_P3_RANGED);
-                    case ATTACK_ANIM_P4_FAST -> state.setAndContinue(ATTACK_P4_FAST);
-                    case ATTACK_ANIM_P4_HEAVY -> state.setAndContinue(ATTACK_P4_HEAVY);
-                    case ATTACK_ANIM_P4_RANGED -> state.setAndContinue(ATTACK_P4_RANGED);
+                    case ATTACK_ANIM_MELEE_SWIPE -> state.setAndContinue(ATTACK_MELEE_SWIPE);
+                    case ATTACK_ANIM_CLEAVE -> state.setAndContinue(ATTACK_CLEAVE);
+                    case ATTACK_ANIM_RUNE_BOLT -> state.setAndContinue(ATTACK_RUNE_BOLT);
+                    case ATTACK_ANIM_RUNE_DASH -> state.setAndContinue(ATTACK_RUNE_DASH);
+                    case ATTACK_ANIM_GRAVITIC_PULL -> state.setAndContinue(ATTACK_GRAVITIC_PULL);
+                    case ATTACK_ANIM_RUNE_VOLLEY -> state.setAndContinue(ATTACK_RUNE_VOLLEY);
+                    case ATTACK_ANIM_BLINK_STRIKE -> state.setAndContinue(ATTACK_BLINK_STRIKE);
+                    case ATTACK_ANIM_METEOR_ARM -> state.setAndContinue(ATTACK_METEOR_ARM);
+                    case ATTACK_ANIM_ARCANE_STORM -> state.setAndContinue(ATTACK_ARCANE_STORM);
+                    case ATTACK_ANIM_WHIRLWIND -> state.setAndContinue(ATTACK_WHIRLWIND);
+                    case ATTACK_ANIM_METEOR_SHOWER -> state.setAndContinue(ATTACK_METEOR_SHOWER);
+                    case ATTACK_ANIM_ARCANE_BEAM -> state.setAndContinue(ATTACK_ARCANE_BEAM);
 					case ATTACK_ANIM_HURT -> state.setAndContinue(HURT);
 					case ATTACK_ANIM_DEATH -> state.setAndContinue(DEATH);
                     default -> PlayState.STOP;

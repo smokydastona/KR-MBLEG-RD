@@ -1404,7 +1404,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p1_fast": {
+		"animation.kruemblegard.attack_melee_swipe": {
 			"animation_length": 0.7,
 			"bones": {
 				"body": {
@@ -1425,7 +1425,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p1_heavy": {
+		"animation.kruemblegard.attack_cleave": {
 			"animation_length": 1.1,
 			"bones": {
 				"body": {
@@ -1446,7 +1446,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p1_ranged": {
+		"animation.kruemblegard.attack_rune_bolt": {
 			"animation_length": 1.0,
 			"bones": {
 				"body": {
@@ -1466,7 +1466,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p2_fast": {
+		"animation.kruemblegard.attack_rune_dash": {
 			"animation_length": 0.8,
 			"bones": {
 				"body": {
@@ -1486,7 +1486,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p2_heavy": {
+		"animation.kruemblegard.attack_gravitic_pull": {
 			"animation_length": 1.4,
 			"bones": {
 				"whirlwind": {
@@ -1506,7 +1506,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p2_ranged": {
+		"animation.kruemblegard.attack_rune_volley": {
 			"animation_length": 1.2,
 			"bones": {
 				"right_arm": {
@@ -1527,7 +1527,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p3_fast": {
+		"animation.kruemblegard.attack_blink_strike": {
 			"animation_length": 0.9,
 			"bones": {
 				"body": {
@@ -1547,7 +1547,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p3_heavy": {
+		"animation.kruemblegard.attack_meteor_arm": {
 			"animation_length": 1.6,
 			"bones": {
 				"body": {
@@ -1567,7 +1567,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p3_ranged": {
+		"animation.kruemblegard.attack_arcane_storm": {
 			"animation_length": 1.8,
 			"bones": {
 				"whirlwind": {
@@ -1579,7 +1579,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p4_fast": {
+		"animation.kruemblegard.attack_whirlwind": {
 			"animation_length": 1.0,
 			"bones": {
 				"whirlwind": {
@@ -1599,7 +1599,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p4_heavy": {
+		"animation.kruemblegard.attack_meteor_shower": {
 			"animation_length": 2.0,
 			"bones": {
 				"top_debris": {
@@ -1618,7 +1618,7 @@
 				}
 			}
 		},
-		"animation.kruemblegard.attack_p4_ranged": {
+		"animation.kruemblegard.attack_arcane_beam": {
 			"animation_length": 1.6,
 			"bones": {
 				"body": {
@@ -1658,7 +1658,7 @@
 					]
 				},
 				"attack": {
-					"animations": ["animation.kruemblegard.attack_p1_fast"],
+					"animations": ["animation.kruemblegard.attack_melee_swipe"],
 					"transitions": [
 						{
 							"default": "query.animation_finished"
