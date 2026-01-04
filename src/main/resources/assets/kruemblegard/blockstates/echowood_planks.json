@@ -1,5 +1,7 @@
-{
-  "variants": {
-    "": { "model": "kruemblegard:block/echowood_planks" }
-  }
+﻿{
+    "variants":  {
+                     "":  {
+                              "model":  "kruemblegard:block/echowood_planks"
+                          }
+                 }
 }

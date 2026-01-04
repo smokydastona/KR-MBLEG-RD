@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/wayglass_planks"
+                     "texture":  "kruemblegard:block/wayglass_fence"
                  },
     "parent":  "minecraft:block/fence_inventory"
 }

@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/faultwood_planks"
+                     "layer0":  "kruemblegard:item/faultwood_door"
                  },
     "parent":  "minecraft:item/generated"
 }

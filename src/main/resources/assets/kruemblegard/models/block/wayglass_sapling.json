@@ -1,6 +1,6 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "kruemblegard:block/wayglass_sapling"
-  }
+﻿{
+    "textures":  {
+                     "cross":  "kruemblegard:block/wayglass_sapling"
+                 },
+    "parent":  "minecraft:block/cross"
 }

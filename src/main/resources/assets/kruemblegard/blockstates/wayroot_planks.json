@@ -1,5 +1,7 @@
-{
-  "variants": {
-    "": { "model": "kruemblegard:block/wayroot_planks" }
-  }
+﻿{
+    "variants":  {
+                     "":  {
+                              "model":  "kruemblegard:block/wayroot_planks"
+                          }
+                 }
 }

@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/monument_oak_planks"
+                     "texture":  "kruemblegard:block/monument_oak_button"
                  },
     "parent":  "minecraft:block/button_inventory"
 }

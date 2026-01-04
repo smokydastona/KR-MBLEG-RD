@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/shardbark_pine_planks"
+                     "texture":  "kruemblegard:block/shardbark_pine_fence"
                  },
     "parent":  "minecraft:block/fence_post"
 }

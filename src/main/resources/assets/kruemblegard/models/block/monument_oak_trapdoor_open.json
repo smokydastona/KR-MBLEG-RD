@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/monument_oak_planks"
+                     "texture":  "kruemblegard:block/monument_oak_trapdoor"
                  },
     "parent":  "minecraft:block/template_orientable_trapdoor_open"
 }

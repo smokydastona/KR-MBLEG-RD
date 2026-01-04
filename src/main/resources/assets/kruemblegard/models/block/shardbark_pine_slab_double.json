@@ -1,3 +1,6 @@
 ﻿{
-    "parent":  "kruemblegard:block/shardbark_pine_planks"
+    "textures":  {
+                     "all":  "kruemblegard:block/shardbark_pine_slab"
+                 },
+    "parent":  "minecraft:block/cube_all"
 }

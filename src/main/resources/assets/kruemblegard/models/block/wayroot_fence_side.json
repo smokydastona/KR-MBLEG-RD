@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/wayroot_planks"
+                     "texture":  "kruemblegard:block/wayroot_fence"
                  },
     "parent":  "minecraft:block/fence_side"
 }

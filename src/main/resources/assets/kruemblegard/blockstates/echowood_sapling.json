@@ -1,5 +1,7 @@
-{
-  "variants": {
-    "": { "model": "kruemblegard:block/echowood_sapling" }
-  }
+﻿{
+    "variants":  {
+                     "":  {
+                              "model":  "kruemblegard:block/echowood_sapling"
+                          }
+                 }
 }

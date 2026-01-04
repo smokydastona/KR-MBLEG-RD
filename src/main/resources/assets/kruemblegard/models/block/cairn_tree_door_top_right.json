@@ -1,7 +1,7 @@
 ﻿{
     "textures":  {
-                     "top":  "kruemblegard:block/cairn_tree_planks",
-                     "bottom":  "kruemblegard:block/cairn_tree_planks"
+                     "top":  "kruemblegard:block/cairn_tree_door_top",
+                     "bottom":  "kruemblegard:block/cairn_tree_door_bottom"
                  },
     "parent":  "minecraft:block/door_top_right"
 }

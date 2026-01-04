@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/waytorch_tree_planks"
+                     "texture":  "kruemblegard:block/waytorch_tree_button"
                  },
     "parent":  "minecraft:block/button_pressed"
 }

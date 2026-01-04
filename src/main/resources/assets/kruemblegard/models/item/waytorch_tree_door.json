@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/waytorch_tree_planks"
+                     "layer0":  "kruemblegard:item/waytorch_tree_door"
                  },
     "parent":  "minecraft:item/generated"
 }

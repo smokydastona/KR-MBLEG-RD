@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/shardbark_pine_planks"
+                     "layer0":  "kruemblegard:item/shardbark_pine_door"
                  },
     "parent":  "minecraft:item/generated"
 }

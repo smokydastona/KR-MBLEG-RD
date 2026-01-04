@@ -1,7 +1,16 @@
-{
-  "variants": {
-    "axis=y": { "model": "kruemblegard:block/shardbark_pine_log" },
-    "axis=z": { "model": "kruemblegard:block/shardbark_pine_log", "x": 90 },
-    "axis=x": { "model": "kruemblegard:block/shardbark_pine_log", "x": 90, "y": 90 }
-  }
+﻿{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/shardbark_pine_log"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/shardbark_pine_log",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/shardbark_pine_log",
+                                    "x":  90
+                                }
+                 }
 }

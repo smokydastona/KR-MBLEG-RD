@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/monument_oak_planks",
-                     "top":  "kruemblegard:block/monument_oak_planks",
-                     "side":  "kruemblegard:block/monument_oak_planks"
+                     "bottom":  "kruemblegard:block/monument_oak_stairs",
+                     "top":  "kruemblegard:block/monument_oak_stairs",
+                     "side":  "kruemblegard:block/monument_oak_stairs"
                  },
     "parent":  "minecraft:block/inner_stairs"
 }

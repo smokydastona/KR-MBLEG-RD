@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/wayglass_planks"
+                     "layer0":  "kruemblegard:item/wayglass_door"
                  },
     "parent":  "minecraft:item/generated"
 }

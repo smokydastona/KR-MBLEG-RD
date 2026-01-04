@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/cairn_tree_planks"
+                     "layer0":  "kruemblegard:item/cairn_tree_door"
                  },
     "parent":  "minecraft:item/generated"
 }

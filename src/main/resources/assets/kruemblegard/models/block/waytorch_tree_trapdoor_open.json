@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/waytorch_tree_planks"
+                     "texture":  "kruemblegard:block/waytorch_tree_trapdoor"
                  },
     "parent":  "minecraft:block/template_orientable_trapdoor_open"
 }

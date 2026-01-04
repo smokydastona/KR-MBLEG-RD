@@ -1,5 +1,7 @@
-{
-  "variants": {
-    "": { "model": "kruemblegard:block/wayglass_planks" }
-  }
+﻿{
+    "variants":  {
+                     "":  {
+                              "model":  "kruemblegard:block/wayglass_planks"
+                          }
+                 }
 }

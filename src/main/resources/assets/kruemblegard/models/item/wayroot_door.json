@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/wayroot_planks"
+                     "layer0":  "kruemblegard:item/wayroot_door"
                  },
     "parent":  "minecraft:item/generated"
 }

@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/faultwood_planks"
+                     "texture":  "kruemblegard:block/faultwood_fence"
                  },
     "parent":  "minecraft:block/fence_side"
 }

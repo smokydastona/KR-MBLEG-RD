@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/monument_oak_planks"
+                     "texture":  "kruemblegard:block/monument_oak_fence_gate"
                  },
     "parent":  "minecraft:block/fence_gate_wall"
 }

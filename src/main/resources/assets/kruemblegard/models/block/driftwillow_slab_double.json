@@ -1,3 +1,6 @@
 ﻿{
-    "parent":  "kruemblegard:block/driftwillow_planks"
+    "textures":  {
+                     "all":  "kruemblegard:block/driftwillow_slab"
+                 },
+    "parent":  "minecraft:block/cube_all"
 }

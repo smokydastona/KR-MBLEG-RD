@@ -1,5 +1,7 @@
-{
-  "variants": {
-    "": { "model": "kruemblegard:block/wayroot_leaves" }
-  }
+﻿{
+    "variants":  {
+                     "":  {
+                              "model":  "kruemblegard:block/wayroot_leaves"
+                          }
+                 }
 }

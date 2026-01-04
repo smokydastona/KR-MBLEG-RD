@@ -1,7 +1,7 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "kruemblegard:block/fallbark_log",
-    "end": "kruemblegard:block/fallbark_log"
-  }
+﻿{
+    "textures":  {
+                     "end":  "kruemblegard:block/fallbark_log",
+                     "side":  "kruemblegard:block/fallbark_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
 }

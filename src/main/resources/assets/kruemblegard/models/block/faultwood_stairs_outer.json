@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/faultwood_planks",
-                     "top":  "kruemblegard:block/faultwood_planks",
-                     "side":  "kruemblegard:block/faultwood_planks"
+                     "bottom":  "kruemblegard:block/faultwood_stairs",
+                     "top":  "kruemblegard:block/faultwood_stairs",
+                     "side":  "kruemblegard:block/faultwood_stairs"
                  },
     "parent":  "minecraft:block/outer_stairs"
 }

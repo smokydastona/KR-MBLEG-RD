@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/shardbark_pine_planks",
-                     "top":  "kruemblegard:block/shardbark_pine_planks",
-                     "side":  "kruemblegard:block/shardbark_pine_planks"
+                     "bottom":  "kruemblegard:block/shardbark_pine_stairs",
+                     "top":  "kruemblegard:block/shardbark_pine_stairs",
+                     "side":  "kruemblegard:block/shardbark_pine_stairs"
                  },
     "parent":  "minecraft:block/inner_stairs"
 }

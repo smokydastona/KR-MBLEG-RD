@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/driftwillow_planks"
+                     "texture":  "kruemblegard:block/driftwillow_trapdoor"
                  },
     "parent":  "minecraft:block/template_orientable_trapdoor_top"
 }

@@ -12,6 +12,8 @@ $dataRoot = Join-Path $repoRoot 'src/main/resources/data/kruemblegard'
 $blockstatesDir = Join-Path $assetsRoot 'blockstates'
 $modelsBlockDir = Join-Path $assetsRoot 'models/block'
 $modelsItemDir  = Join-Path $assetsRoot 'models/item'
+$texturesBlockDir = Join-Path $assetsRoot 'textures/block'
+$texturesItemDir  = Join-Path $assetsRoot 'textures/item'
 $lootBlocksDir  = Join-Path $dataRoot 'loot_tables/blocks'
 $recipesDir     = Join-Path $dataRoot 'recipes'
 
@@ -49,6 +51,28 @@ function Write-JsonFile {
     Set-Content -Path $Path -Value $json -Encoding UTF8
 }
 
+function Ensure-FileCopy {
+    param(
+        [Parameter(Mandatory=$true)][string]$Source,
+        [Parameter(Mandatory=$true)][string]$Dest
+    )
+
+    if (-not (Test-Path $Source)) {
+        throw "Missing source file: $Source"
+    }
+
+    if (-not $Force -and (Test-Path $Dest)) {
+        return
+    }
+
+    $dir = Split-Path -Parent $Dest
+    if (-not (Test-Path $dir)) {
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    }
+
+    Copy-Item -Path $Source -Destination $Dest -Force
+}
+
 function RotVariants($model) {
     return @{
         "axis=y" = @{ model = $model }
@@ -61,8 +85,6 @@ function StairsVariants($name) {
     $mStraight = "kruemblegard:block/${name}"
     $mInner = "kruemblegard:block/${name}_inner"
     $mOuter = "kruemblegard:block/${name}_outer"
-
-    $faces = @('east','west','south','north')
     $faceY = @{ east=0; south=90; west=180; north=270 }
 
     $variants = @{}
@@ -73,7 +95,7 @@ function StairsVariants($name) {
             if ($shape -like 'inner_*') { $model = $mInner }
             if ($shape -like 'outer_*') { $model = $mOuter }
 
-            foreach ($facing in $faces) {
+            foreach ($facing in @('east','west','south','north')) {
                 $key = "facing=$facing,half=$half,shape=$shape"
                 $entry = @{ model = $model }
 
@@ -137,10 +159,9 @@ function TrapdoorVariants($name) {
     $mOpen = "kruemblegard:block/${name}_open"
 
     $variants = @{}
-    $faces = @('north','south','west','east')
     $faceY = @{ north=0; east=90; south=180; west=270 }
 
-    foreach ($facing in $faces) {
+    foreach ($facing in @('north','south','west','east')) {
         foreach ($half in @('bottom','top')) {
             foreach ($open in @('false','true')) {
                 $key = "facing=$facing,half=$half,open=$open"
@@ -166,10 +187,9 @@ function TrapdoorVariants($name) {
 
 function GateVariants($name) {
     $variants = @{}
-    $faces = @('north','south','west','east')
     $faceY = @{ north=0; east=90; south=180; west=270 }
 
-    foreach ($facing in $faces) {
+    foreach ($facing in @('north','south','west','east')) {
         foreach ($open in @('false','true')) {
             foreach ($inWall in @('false','true')) {
                 $key = "facing=$facing,in_wall=$inWall,open=$open"
@@ -193,11 +213,9 @@ function GateVariants($name) {
 
 function DoorVariants($name) {
     $variants = @{}
-
-    $faces = @('north','south','west','east')
     $faceY = @{ north=0; east=90; south=180; west=270 }
 
-    foreach ($facing in $faces) {
+    foreach ($facing in @('north','south','west','east')) {
         foreach ($half in @('lower','upper')) {
             foreach ($hinge in @('left','right')) {
                 foreach ($open in @('false','true')) {
@@ -227,8 +245,6 @@ function DoorVariants($name) {
 
 function ButtonVariants($name) {
     $variants = @{}
-
-    $faces = @('north','south','west','east')
     $faceY = @{ south=0; west=90; north=180; east=270 }
 
     foreach ($face in @('ceiling','floor','wall')) {
@@ -356,6 +372,31 @@ foreach ($w in $woods) {
         plate = "${planks}_pressure_plate" -replace "_planks",""
     }
 
+    # Dedicated (placeholder) textures per wood-part. These are initially copied from planks
+    # so they exist as real files and can be painted later without needing JSON changes.
+    $planksPng = Join-Path $texturesBlockDir "$planks.png"
+
+    $stairsName = $family.stairs
+    $slabName = $family.slab
+    $fenceName = $family.fence
+    $gateName = $family.gate
+    $doorName = $family.door
+    $trapName = $family.trapdoor
+    $buttonName = $family.button
+    $plateName = $family.plate
+
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$stairsName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$slabName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$fenceName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$gateName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "${doorName}_top.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "${doorName}_bottom.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$trapName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$buttonName.png")
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesBlockDir "$plateName.png")
+
+    Ensure-FileCopy -Source $planksPng -Dest (Join-Path $texturesItemDir "$doorName.png")
+
     # Base models/blockstates/item models (create if missing)
     Write-JsonFile (Join-Path $modelsBlockDir "$($w.log).json") @{ parent = "minecraft:block/cube_column"; textures = @{ end = "kruemblegard:block/$($w.log)"; side = "kruemblegard:block/$($w.log)" } }
     Write-JsonFile (Join-Path $modelsBlockDir "$($w.planks).json") @{ parent = "minecraft:block/cube_all"; textures = @{ all = "kruemblegard:block/$($w.planks)" } }
@@ -373,51 +414,50 @@ foreach ($w in $woods) {
     Write-JsonFile (Join-Path $modelsItemDir "$($w.sapling).json") @{ parent = "kruemblegard:block/$($w.sapling)" }
 
     # --- Stairs ---
-    $stairsName = $family.stairs
-    Write-JsonFile (Join-Path $modelsBlockDir "$stairsName.json") @{ parent = "minecraft:block/stairs"; textures = @{ bottom = "kruemblegard:block/$planks"; top = "kruemblegard:block/$planks"; side = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${stairsName}_inner.json") @{ parent = "minecraft:block/inner_stairs"; textures = @{ bottom = "kruemblegard:block/$planks"; top = "kruemblegard:block/$planks"; side = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${stairsName}_outer.json") @{ parent = "minecraft:block/outer_stairs"; textures = @{ bottom = "kruemblegard:block/$planks"; top = "kruemblegard:block/$planks"; side = "kruemblegard:block/$planks" } }
+    $stairsTex = "kruemblegard:block/$stairsName"
+    Write-JsonFile (Join-Path $modelsBlockDir "$stairsName.json") @{ parent = "minecraft:block/stairs"; textures = @{ bottom = $stairsTex; top = $stairsTex; side = $stairsTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${stairsName}_inner.json") @{ parent = "minecraft:block/inner_stairs"; textures = @{ bottom = $stairsTex; top = $stairsTex; side = $stairsTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${stairsName}_outer.json") @{ parent = "minecraft:block/outer_stairs"; textures = @{ bottom = $stairsTex; top = $stairsTex; side = $stairsTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$stairsName.json") @{ variants = (StairsVariants($stairsName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$stairsName.json") @{ parent = "kruemblegard:block/$stairsName" }
 
     # --- Slab ---
-    $slabName = $family.slab
-    Write-JsonFile (Join-Path $modelsBlockDir "$slabName.json") @{ parent = "minecraft:block/slab"; textures = @{ bottom = "kruemblegard:block/$planks"; top = "kruemblegard:block/$planks"; side = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${slabName}_top.json") @{ parent = "minecraft:block/slab_top"; textures = @{ bottom = "kruemblegard:block/$planks"; top = "kruemblegard:block/$planks"; side = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${slabName}_double.json") @{ parent = "kruemblegard:block/$planks" }
+    $slabTex = "kruemblegard:block/$slabName"
+    Write-JsonFile (Join-Path $modelsBlockDir "$slabName.json") @{ parent = "minecraft:block/slab"; textures = @{ bottom = $slabTex; top = $slabTex; side = $slabTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${slabName}_top.json") @{ parent = "minecraft:block/slab_top"; textures = @{ bottom = $slabTex; top = $slabTex; side = $slabTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${slabName}_double.json") @{ parent = "minecraft:block/cube_all"; textures = @{ all = $slabTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$slabName.json") @{ variants = (SlabVariants($slabName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$slabName.json") @{ parent = "kruemblegard:block/$slabName" }
 
     # --- Fence ---
-    $fenceName = $family.fence
-    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_post.json") @{ parent = "minecraft:block/fence_post"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_side.json") @{ parent = "minecraft:block/fence_side"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_inventory.json") @{ parent = "minecraft:block/fence_inventory"; textures = @{ texture = "kruemblegard:block/$planks" } }
+    $fenceTex = "kruemblegard:block/$fenceName"
+    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_post.json") @{ parent = "minecraft:block/fence_post"; textures = @{ texture = $fenceTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_side.json") @{ parent = "minecraft:block/fence_side"; textures = @{ texture = $fenceTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${fenceName}_inventory.json") @{ parent = "minecraft:block/fence_inventory"; textures = @{ texture = $fenceTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$fenceName.json") @{ multipart = (FenceMultipart($fenceName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$fenceName.json") @{ parent = "kruemblegard:block/${fenceName}_inventory" }
 
     # --- Fence Gate ---
-    $gateName = $family.gate
-    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}.json") @{ parent = "minecraft:block/fence_gate"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_open.json") @{ parent = "minecraft:block/fence_gate_open"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_wall.json") @{ parent = "minecraft:block/fence_gate_wall"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_wall_open.json") @{ parent = "minecraft:block/fence_gate_wall_open"; textures = @{ texture = "kruemblegard:block/$planks" } }
+    $gateTex = "kruemblegard:block/$gateName"
+    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}.json") @{ parent = "minecraft:block/fence_gate"; textures = @{ texture = $gateTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_open.json") @{ parent = "minecraft:block/fence_gate_open"; textures = @{ texture = $gateTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_wall.json") @{ parent = "minecraft:block/fence_gate_wall"; textures = @{ texture = $gateTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${gateName}_wall_open.json") @{ parent = "minecraft:block/fence_gate_wall_open"; textures = @{ texture = $gateTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$gateName.json") @{ variants = (GateVariants($gateName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$gateName.json") @{ parent = "kruemblegard:block/$gateName" }
 
     # --- Door ---
-    $doorName = $family.door
-    $doorTex = "kruemblegard:block/$planks"
-    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_bottom_left.json") @{ parent = "minecraft:block/door_bottom_left"; textures = @{ bottom = $doorTex; top = $doorTex } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_bottom_right.json") @{ parent = "minecraft:block/door_bottom_right"; textures = @{ bottom = $doorTex; top = $doorTex } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_top_left.json") @{ parent = "minecraft:block/door_top_left"; textures = @{ bottom = $doorTex; top = $doorTex } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_top_right.json") @{ parent = "minecraft:block/door_top_right"; textures = @{ bottom = $doorTex; top = $doorTex } }
+    $doorTexTop = "kruemblegard:block/${doorName}_top"
+    $doorTexBottom = "kruemblegard:block/${doorName}_bottom"
+    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_bottom_left.json") @{ parent = "minecraft:block/door_bottom_left"; textures = @{ bottom = $doorTexBottom; top = $doorTexTop } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_bottom_right.json") @{ parent = "minecraft:block/door_bottom_right"; textures = @{ bottom = $doorTexBottom; top = $doorTexTop } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_top_left.json") @{ parent = "minecraft:block/door_top_left"; textures = @{ bottom = $doorTexBottom; top = $doorTexTop } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${doorName}_top_right.json") @{ parent = "minecraft:block/door_top_right"; textures = @{ bottom = $doorTexBottom; top = $doorTexTop } }
     Write-JsonFile (Join-Path $blockstatesDir "$doorName.json") @{ variants = (DoorVariants($doorName)) }
-    Write-JsonFile (Join-Path $modelsItemDir "$doorName.json") @{ parent = "minecraft:item/generated"; textures = @{ layer0 = $doorTex } }
+    Write-JsonFile (Join-Path $modelsItemDir "$doorName.json") @{ parent = "minecraft:item/generated"; textures = @{ layer0 = "kruemblegard:item/$doorName" } }
 
     # --- Trapdoor ---
-    $trapName = $family.trapdoor
-    $trapTex = "kruemblegard:block/$planks"
+    $trapTex = "kruemblegard:block/$trapName"
     Write-JsonFile (Join-Path $modelsBlockDir "${trapName}_bottom.json") @{ parent = "minecraft:block/template_orientable_trapdoor_bottom"; textures = @{ texture = $trapTex } }
     Write-JsonFile (Join-Path $modelsBlockDir "${trapName}_top.json") @{ parent = "minecraft:block/template_orientable_trapdoor_top"; textures = @{ texture = $trapTex } }
     Write-JsonFile (Join-Path $modelsBlockDir "${trapName}_open.json") @{ parent = "minecraft:block/template_orientable_trapdoor_open"; textures = @{ texture = $trapTex } }
@@ -425,17 +465,17 @@ foreach ($w in $woods) {
     Write-JsonFile (Join-Path $modelsItemDir "$trapName.json") @{ parent = "kruemblegard:block/${trapName}_bottom" }
 
     # --- Button ---
-    $buttonName = $family.button
-    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}.json") @{ parent = "minecraft:block/button"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}_pressed.json") @{ parent = "minecraft:block/button_pressed"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}_inventory.json") @{ parent = "minecraft:block/button_inventory"; textures = @{ texture = "kruemblegard:block/$planks" } }
+    $buttonTex = "kruemblegard:block/$buttonName"
+    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}.json") @{ parent = "minecraft:block/button"; textures = @{ texture = $buttonTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}_pressed.json") @{ parent = "minecraft:block/button_pressed"; textures = @{ texture = $buttonTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${buttonName}_inventory.json") @{ parent = "minecraft:block/button_inventory"; textures = @{ texture = $buttonTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$buttonName.json") @{ variants = (ButtonVariants($buttonName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$buttonName.json") @{ parent = "kruemblegard:block/${buttonName}_inventory" }
 
     # --- Pressure Plate ---
-    $plateName = $family.plate
-    Write-JsonFile (Join-Path $modelsBlockDir "${plateName}.json") @{ parent = "minecraft:block/pressure_plate_up"; textures = @{ texture = "kruemblegard:block/$planks" } }
-    Write-JsonFile (Join-Path $modelsBlockDir "${plateName}_down.json") @{ parent = "minecraft:block/pressure_plate_down"; textures = @{ texture = "kruemblegard:block/$planks" } }
+    $plateTex = "kruemblegard:block/$plateName"
+    Write-JsonFile (Join-Path $modelsBlockDir "${plateName}.json") @{ parent = "minecraft:block/pressure_plate_up"; textures = @{ texture = $plateTex } }
+    Write-JsonFile (Join-Path $modelsBlockDir "${plateName}_down.json") @{ parent = "minecraft:block/pressure_plate_down"; textures = @{ texture = $plateTex } }
     Write-JsonFile (Join-Path $blockstatesDir "$plateName.json") @{ variants = (PressurePlateVariants($plateName)) }
     Write-JsonFile (Join-Path $modelsItemDir "$plateName.json") @{ parent = "kruemblegard:block/${plateName}" }
 

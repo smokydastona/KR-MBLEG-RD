@@ -1,1 +1,3 @@
-{ "parent": "kruemblegard:block/wayglass_sapling" }
+﻿{
+    "parent":  "kruemblegard:block/wayglass_sapling"
+}

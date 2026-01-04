@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/hollowway_tree_planks",
-                     "top":  "kruemblegard:block/hollowway_tree_planks",
-                     "side":  "kruemblegard:block/hollowway_tree_planks"
+                     "bottom":  "kruemblegard:block/hollowway_tree_slab",
+                     "top":  "kruemblegard:block/hollowway_tree_slab",
+                     "side":  "kruemblegard:block/hollowway_tree_slab"
                  },
     "parent":  "minecraft:block/slab"
 }

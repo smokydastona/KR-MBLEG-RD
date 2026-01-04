@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/echowood_planks"
+                     "texture":  "kruemblegard:block/echowood_pressure_plate"
                  },
     "parent":  "minecraft:block/pressure_plate_down"
 }

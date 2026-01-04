@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/driftwillow_planks"
+                     "layer0":  "kruemblegard:item/driftwillow_door"
                  },
     "parent":  "minecraft:item/generated"
 }

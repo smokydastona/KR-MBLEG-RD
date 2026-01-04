@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/driftwillow_planks",
-                     "top":  "kruemblegard:block/driftwillow_planks",
-                     "side":  "kruemblegard:block/driftwillow_planks"
+                     "bottom":  "kruemblegard:block/driftwillow_slab",
+                     "top":  "kruemblegard:block/driftwillow_slab",
+                     "side":  "kruemblegard:block/driftwillow_slab"
                  },
     "parent":  "minecraft:block/slab_top"
 }

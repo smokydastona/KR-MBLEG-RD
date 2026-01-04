@@ -1,6 +1,6 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "kruemblegard:block/fallbark_sapling"
-  }
+﻿{
+    "textures":  {
+                     "cross":  "kruemblegard:block/fallbark_sapling"
+                 },
+    "parent":  "minecraft:block/cross"
 }

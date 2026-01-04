@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/monument_oak_planks"
+                     "layer0":  "kruemblegard:item/monument_oak_door"
                  },
     "parent":  "minecraft:item/generated"
 }

@@ -1,7 +1,7 @@
 ﻿{
     "textures":  {
-                     "top":  "kruemblegard:block/monument_oak_planks",
-                     "bottom":  "kruemblegard:block/monument_oak_planks"
+                     "top":  "kruemblegard:block/monument_oak_door_top",
+                     "bottom":  "kruemblegard:block/monument_oak_door_bottom"
                  },
     "parent":  "minecraft:block/door_top_right"
 }

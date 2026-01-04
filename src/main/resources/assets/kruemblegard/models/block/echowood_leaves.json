@@ -1,6 +1,6 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "kruemblegard:block/echowood_leaves"
-  }
+﻿{
+    "textures":  {
+                     "all":  "kruemblegard:block/echowood_leaves"
+                 },
+    "parent":  "minecraft:block/cube_all"
 }

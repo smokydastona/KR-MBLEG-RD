@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/fallbark_planks"
+                     "layer0":  "kruemblegard:item/fallbark_door"
                  },
     "parent":  "minecraft:item/generated"
 }

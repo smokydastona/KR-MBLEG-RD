@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/wayglass_planks",
-                     "top":  "kruemblegard:block/wayglass_planks",
-                     "side":  "kruemblegard:block/wayglass_planks"
+                     "bottom":  "kruemblegard:block/wayglass_stairs",
+                     "top":  "kruemblegard:block/wayglass_stairs",
+                     "side":  "kruemblegard:block/wayglass_stairs"
                  },
     "parent":  "minecraft:block/stairs"
 }

@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "layer0":  "kruemblegard:block/echowood_planks"
+                     "layer0":  "kruemblegard:item/echowood_door"
                  },
     "parent":  "minecraft:item/generated"
 }

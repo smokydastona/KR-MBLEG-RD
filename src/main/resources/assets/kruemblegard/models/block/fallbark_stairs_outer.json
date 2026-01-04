@@ -1,8 +1,8 @@
 ﻿{
     "textures":  {
-                     "bottom":  "kruemblegard:block/fallbark_planks",
-                     "top":  "kruemblegard:block/fallbark_planks",
-                     "side":  "kruemblegard:block/fallbark_planks"
+                     "bottom":  "kruemblegard:block/fallbark_stairs",
+                     "top":  "kruemblegard:block/fallbark_stairs",
+                     "side":  "kruemblegard:block/fallbark_stairs"
                  },
     "parent":  "minecraft:block/outer_stairs"
 }

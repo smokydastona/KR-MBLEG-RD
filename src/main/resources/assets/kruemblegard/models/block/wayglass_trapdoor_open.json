@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/wayglass_planks"
+                     "texture":  "kruemblegard:block/wayglass_trapdoor"
                  },
     "parent":  "minecraft:block/template_orientable_trapdoor_open"
 }

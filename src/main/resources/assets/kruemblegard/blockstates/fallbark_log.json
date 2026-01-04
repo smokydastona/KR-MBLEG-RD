@@ -1,7 +1,16 @@
-{
-  "variants": {
-    "axis=y": { "model": "kruemblegard:block/fallbark_log" },
-    "axis=z": { "model": "kruemblegard:block/fallbark_log", "x": 90 },
-    "axis=x": { "model": "kruemblegard:block/fallbark_log", "x": 90, "y": 90 }
-  }
+﻿{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/fallbark_log"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/fallbark_log",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/fallbark_log",
+                                    "x":  90
+                                }
+                 }
 }

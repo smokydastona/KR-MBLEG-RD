@@ -1,7 +1,16 @@
-{
-  "variants": {
-    "axis=y": { "model": "kruemblegard:block/hollowway_tree_log" },
-    "axis=z": { "model": "kruemblegard:block/hollowway_tree_log", "x": 90 },
-    "axis=x": { "model": "kruemblegard:block/hollowway_tree_log", "x": 90, "y": 90 }
-  }
+﻿{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/hollowway_tree_log"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/hollowway_tree_log",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/hollowway_tree_log",
+                                    "x":  90
+                                }
+                 }
 }
