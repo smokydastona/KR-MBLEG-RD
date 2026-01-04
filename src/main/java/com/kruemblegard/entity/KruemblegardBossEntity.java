@@ -106,6 +106,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final RawAnimation MOVE =
             RawAnimation.begin().thenLoop("animation.kruemblegard.move");
 
+        private static final RawAnimation IDLE_PHASE4 =
+            RawAnimation.begin().thenLoop("animation.kruemblegard.idle_phase4");
+
+        private static final RawAnimation MOVE_PHASE4 =
+            RawAnimation.begin().thenLoop("animation.kruemblegard.move_phase4");
+
     private static final RawAnimation ATTACK_MELEE_SWIPE =
         RawAnimation.begin().thenPlay("animation.kruemblegard.attack_melee");
 
@@ -1278,10 +1284,14 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             Vec3 delta = this.getDeltaMovement();
             boolean moving = state.isMoving() && (delta.x * delta.x + delta.z * delta.z) > 1.0E-5;
 
+            boolean phase4 = this.getPhase() >= 4;
+            RawAnimation moveAnim = phase4 ? MOVE_PHASE4 : MOVE;
+            RawAnimation idleAnim = phase4 ? IDLE_PHASE4 : IDLE;
+
             if (moving) {
-                return state.setAndContinue(MOVE);
+                return state.setAndContinue(moveAnim);
             }
-            return state.setAndContinue(IDLE);
+            return state.setAndContinue(idleAnim);
         }));
 
         controllers.add(new AnimationController<>(this, "attack", 0, state -> {
