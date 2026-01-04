@@ -7,6 +7,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 - (Nothing notable yet.)
 
+## 1.0.95 (2026-01-03)
+- Boss: each phase now uses a fast/heavy/ranged attack kit (less close-range bias).
+
+## 1.0.94 (2026-01-03)
+- Boss: minor geo + animation JSON tweaks.
+
 ## 1.0.93 (2026-01-03)
 - Update Kruemblegård boss GeckoLib animation definitions.
 - Docs: restore missing changelog version sections.

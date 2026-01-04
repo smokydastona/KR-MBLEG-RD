@@ -161,6 +161,17 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private boolean currentAbilityImpactDone;
     private int lastAbility;
 
+    // -----------------------------
+    // PHASE ATTACK PATTERN
+    // Each phase cycles FAST -> HEAVY -> RANGED.
+    // -----------------------------
+    private static final int PHASE_ATTACK_FAST = 0;
+    private static final int PHASE_ATTACK_HEAVY = 1;
+    private static final int PHASE_ATTACK_RANGED = 2;
+
+    private int phaseAttackStep;
+    private int phaseAttackStepPhase;
+
     private static final int ABILITY_NONE = 0;
     private static final int ABILITY_RUNE_BOLT = 1;
     private static final int ABILITY_GRAVITIC_PULL = 2;
@@ -188,6 +199,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityImpactAt = 0;
         this.currentAbilityImpactDone = false;
         this.lastAbility = ABILITY_NONE;
+
+        this.phaseAttackStep = 0;
+        this.phaseAttackStepPhase = 0;
 
         this.meleeCooldown = 0;
         this.meleeTicksRemaining = 0;
@@ -456,13 +470,13 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         @Override
         public boolean canUse() {
             LivingEntity target = KruemblegardBossEntity.this.getTarget();
-            return target != null && target.isAlive();
+            return KruemblegardBossEntity.this.getPhase() == 1 && target != null && target.isAlive();
         }
 
         @Override
         public boolean canContinueToUse() {
             LivingEntity target = KruemblegardBossEntity.this.getTarget();
-            return target != null && target.isAlive();
+            return KruemblegardBossEntity.this.getPhase() == 1 && target != null && target.isAlive();
         }
 
         @Override
@@ -500,15 +514,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // PHASE 1 — BASIC MELEE + SLOW MOVEMENT
     // -----------------------------
     private void phaseOneBehavior() {
-        // Slow idle drifting — no special attacks
-    }
-
-    // -----------------------------
-    // PHASE 2 — RUNE BOLTS + GRAVITIC PULL
-    // -----------------------------
-    private void phaseTwoBehavior() {
-        if (this.getTarget() == null) return;
-		if (isMeleeInProgress()) return;
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+        if (isMeleeInProgress()) return;
 
         if (tickCurrentAbility()) {
             return;
@@ -516,11 +524,75 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
-        double distSq = this.distanceToSqr(this.getTarget());
+        ensurePhaseAttackPattern(1);
+        int category = this.phaseAttackStep % 3;
 
-        int chosen = chooseAbilityForPhaseTwo(distSq);
-        if (chosen != ABILITY_NONE) {
-            startAbility(chosen);
+        boolean started = switch (category) {
+            case PHASE_ATTACK_FAST -> tryStartMeleeFast(target);
+            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_GRAVITIC_PULL);
+            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_BOLT);
+            default -> false;
+        };
+
+        // Fallback if the scheduled move can't start yet.
+        if (!started) {
+            double distSq = this.distanceToSqr(target);
+            int[] preferred = distSq > 81.0
+                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_GRAVITIC_PULL}
+                : new int[] {ABILITY_GRAVITIC_PULL, ABILITY_RUNE_BOLT};
+
+            for (int id : preferred) {
+                if (tryStartAbilityIfReady(id)) {
+                    started = true;
+                    break;
+                }
+            }
+        }
+
+        if (started) {
+            this.phaseAttackStep++;
+        }
+    }
+
+    // -----------------------------
+    // PHASE 2 — RUNE BOLTS + GRAVITIC PULL
+    // -----------------------------
+    private void phaseTwoBehavior() {
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+        if (isMeleeInProgress()) return;
+
+        if (tickCurrentAbility()) {
+            return;
+        }
+
+        if (this.globalAbilityCooldown > 0) return;
+
+        ensurePhaseAttackPattern(2);
+        int category = this.phaseAttackStep % 3;
+        boolean started = switch (category) {
+            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_DASH);
+            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_GRAVITIC_PULL);
+            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_BOLT);
+            default -> false;
+        };
+
+        if (!started) {
+            double distSq = this.distanceToSqr(target);
+            int[] preferred = distSq > 81.0
+                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_GRAVITIC_PULL, ABILITY_DASH}
+                : new int[] {ABILITY_DASH, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_BOLT};
+
+            for (int id : preferred) {
+                if (tryStartAbilityIfReady(id)) {
+                    started = true;
+                    break;
+                }
+            }
+        }
+
+        if (started) {
+            this.phaseAttackStep++;
         }
     }
 
@@ -528,8 +600,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // PHASE 3 — DASH + METEOR ARM + ARCANE STORM
     // -----------------------------
     private void phaseThreeBehavior() {
-        if (this.getTarget() == null) return;
-		if (isMeleeInProgress()) return;
+        LivingEntity target = this.getTarget();
+        if (target == null) return;
+        if (isMeleeInProgress()) return;
 
         if (tickCurrentAbility()) {
             return;
@@ -537,25 +610,50 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
-        double distSq = this.distanceToSqr(this.getTarget());
+        ensurePhaseAttackPattern(3);
+        int category = this.phaseAttackStep % 3;
+        boolean started = switch (category) {
+            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_DASH);
+            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_METEOR_ARM);
+            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_ARCANE_STORM);
+            default -> false;
+        };
 
-        int chosen = chooseAbilityForPhaseThree(distSq);
-        if (chosen != ABILITY_NONE) {
-            startAbility(chosen);
+        if (!started) {
+            double distSq = this.distanceToSqr(target);
+            int[] preferred = distSq > 81.0
+                ? new int[] {ABILITY_ARCANE_STORM, ABILITY_DASH, ABILITY_METEOR_ARM}
+                : new int[] {ABILITY_METEOR_ARM, ABILITY_DASH, ABILITY_ARCANE_STORM};
+
+            for (int id : preferred) {
+                if (tryStartAbilityIfReady(id)) {
+                    started = true;
+                    break;
+                }
+            }
+        }
+
+        if (started) {
+            this.phaseAttackStep++;
         }
     }
 
     private void onPhaseChanged(int phase) {
         doPhaseTransitionEvent(phase);
 
+        // Reset attack pattern so each phase starts with FAST.
+        this.phaseAttackStepPhase = phase;
+        this.phaseAttackStep = 0;
+
         // Reset/seed cooldowns so a new phase doesn't instantly fire every ability on the same tick.
         if (phase <= 1) {
-            this.runeBoltCooldown = 0;
-            this.graviticPullCooldown = 0;
-            this.dashCooldown = 0;
-            this.meteorArmCooldown = 0;
-            this.arcaneStormCooldown = 0;
-            this.globalAbilityCooldown = 0;
+            // Phase 1 still uses a full "fast/heavy/ranged" kit (melee + pull + rune bolt).
+            this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
+            this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
+            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
+            this.meteorArmCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_METEOR_ARM_COOLDOWN_TICKS.get()));
+            this.arcaneStormCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get()));
+            this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
             this.currentAbility = ABILITY_NONE;
             return;
         }
@@ -563,7 +661,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (phase == 2) {
             this.runeBoltCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_RUNE_BOLT_COOLDOWN_TICKS.get()));
             this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
-            this.dashCooldown = 0;
+            this.dashCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_3_DASH_COOLDOWN_TICKS.get()));
             this.meteorArmCooldown = 0;
             this.arcaneStormCooldown = 0;
             this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
@@ -575,6 +673,52 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             this.graviticPullCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_2_GRAVITIC_PULL_COOLDOWN_TICKS.get()));
             this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
         }
+    }
+
+    private void ensurePhaseAttackPattern(int phase) {
+        if (this.phaseAttackStepPhase != phase) {
+            this.phaseAttackStepPhase = phase;
+            this.phaseAttackStep = 0;
+        }
+    }
+
+    private boolean tryStartAbilityIfReady(int ability) {
+        if (this.level().isClientSide) return false;
+        if (this.currentAbility != ABILITY_NONE) return false;
+        if (isMeleeInProgress()) return false;
+        if (this.globalAbilityCooldown > 0) return false;
+        if (!isAbilityOffCooldown(ability)) return false;
+
+        startAbility(ability);
+        return true;
+    }
+
+    private boolean isAbilityOffCooldown(int ability) {
+        return switch (ability) {
+            case ABILITY_RUNE_BOLT -> this.runeBoltCooldown <= 0;
+            case ABILITY_GRAVITIC_PULL -> this.graviticPullCooldown <= 0;
+            case ABILITY_DASH -> this.dashCooldown <= 0;
+            case ABILITY_METEOR_ARM -> this.meteorArmCooldown <= 0;
+            case ABILITY_ARCANE_STORM -> this.arcaneStormCooldown <= 0;
+            default -> true;
+        };
+    }
+
+    private boolean tryStartMeleeFast(LivingEntity target) {
+        if (this.level().isClientSide) return false;
+        if (this.meleeCooldown > 0) return false;
+        if (this.currentAbility != ABILITY_NONE) return false;
+        if (isMeleeInProgress()) return false;
+
+        double distSq = this.distanceToSqr(target);
+        double reachSq = getAttackReachSqr(target);
+        if (distSq > reachSq) return false;
+
+        startMeleeAttack();
+
+        // Prevent immediate ability chaining right after the melee windup.
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 10);
+        return true;
     }
 
     private void doPhaseTransitionEvent(int phase) {
@@ -714,61 +858,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 this.arcaneStormCooldown = rollCooldown(ModConfig.BOSS_PHASE_3_ARCANE_STORM_COOLDOWN_TICKS.get());
             default -> {}
         }
-    }
-
-    private int chooseAbilityForPhaseTwo(double distSq) {
-        // Prefer pull at range, rune bolt at mid/close. Avoid repeating last move when possible.
-        boolean canPull = this.graviticPullCooldown <= 0;
-        boolean canBolt = this.runeBoltCooldown <= 0;
-        if (!canPull && !canBolt) return ABILITY_NONE;
-
-        int pullWeight = canPull ? (distSq > 81.0 ? 6 : 3) : 0;
-        int boltWeight = canBolt ? (distSq > 81.0 ? 2 : 6) : 0;
-
-        if (this.lastAbility == ABILITY_GRAVITIC_PULL) pullWeight = Math.max(0, pullWeight - 2);
-        if (this.lastAbility == ABILITY_RUNE_BOLT) boltWeight = Math.max(0, boltWeight - 2);
-
-        return weightedPick(new int[] {ABILITY_GRAVITIC_PULL, ABILITY_RUNE_BOLT}, new int[] {pullWeight, boltWeight});
-    }
-
-    private int chooseAbilityForPhaseThree(double distSq) {
-        boolean canDash = this.dashCooldown <= 0;
-        boolean canMeteor = this.meteorArmCooldown <= 0;
-        boolean canStorm = this.arcaneStormCooldown <= 0;
-        boolean canBolt = this.runeBoltCooldown <= 0;
-        boolean canPull = this.graviticPullCooldown <= 0;
-
-        int dashWeight = canDash ? (distSq > 100.0 ? 6 : 2) : 0;
-        int meteorWeight = canMeteor ? (distSq < 64.0 ? 5 : 3) : 0;
-        int stormWeight = canStorm ? (distSq > 64.0 ? 6 : 4) : 0;
-        int boltWeight = canBolt ? (distSq > 100.0 ? 4 : 2) : 0;
-        int pullWeight = canPull ? (distSq > 81.0 ? 3 : 1) : 0;
-
-        if (this.lastAbility == ABILITY_DASH) dashWeight = Math.max(0, dashWeight - 2);
-        if (this.lastAbility == ABILITY_METEOR_ARM) meteorWeight = Math.max(0, meteorWeight - 2);
-        if (this.lastAbility == ABILITY_ARCANE_STORM) stormWeight = Math.max(0, stormWeight - 2);
-        if (this.lastAbility == ABILITY_RUNE_BOLT) boltWeight = Math.max(0, boltWeight - 2);
-        if (this.lastAbility == ABILITY_GRAVITIC_PULL) pullWeight = Math.max(0, pullWeight - 2);
-
-        return weightedPick(
-            new int[] {ABILITY_DASH, ABILITY_METEOR_ARM, ABILITY_ARCANE_STORM, ABILITY_RUNE_BOLT, ABILITY_GRAVITIC_PULL},
-            new int[] {dashWeight, meteorWeight, stormWeight, boltWeight, pullWeight}
-        );
-    }
-
-    private int weightedPick(int[] ids, int[] weights) {
-        int total = 0;
-        for (int w : weights) total += Math.max(0, w);
-        if (total <= 0) return ABILITY_NONE;
-
-        int roll = this.random.nextInt(total);
-        for (int i = 0; i < ids.length; i++) {
-            int w = Math.max(0, weights[i]);
-            if (w <= 0) continue;
-            roll -= w;
-            if (roll < 0) return ids[i];
-        }
-        return ABILITY_NONE;
     }
 
     private int rollCooldown(int baseTicks) {
