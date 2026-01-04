@@ -16,6 +16,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Pebblit** (`pebblit`)
   - Hostile Silverfish-like creature.
   - Can be tamed by right-clicking with cobblestone; follows its owner.
+  - Texture: `assets/kruemblegard/textures/entity/pebblit.png` (rendered via a Silverfish-derived renderer).
 
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
