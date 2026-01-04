@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "kruemblegard:block/cairn_tree_log",
+    "end": "kruemblegard:block/cairn_tree_log"
+  }
+}

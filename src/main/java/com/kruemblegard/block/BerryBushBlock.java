@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -40,7 +41,7 @@ public class BerryBushBlock extends BushBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int age = state.getValue(AGE);
         if (age < 3 && random.nextInt(8) == 0) {
             level.setBlock(pos, state.setValue(AGE, age + 1), 2);
@@ -53,7 +54,7 @@ public class BerryBushBlock extends BushBlock {
         boolean mature = age >= 2;
 
         if (!mature) {
-            return super.use(state, level, pos, player, hand, hit);
+            return InteractionResult.PASS;
         }
 
         Item berryItem = ForgeRegistries.ITEMS.getValue(berryItemId);
@@ -73,8 +74,6 @@ public class BerryBushBlock extends BushBlock {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        super.entityInside(state, level, pos, entity);
-
         if (damageOnTouch <= 0.0f) return;
         int age = state.getValue(AGE);
         if (age > 0) {

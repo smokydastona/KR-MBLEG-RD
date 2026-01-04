@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/fallbark_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/fallbark_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/fallbark_slab_double"
+                                     }
+                 }
+}

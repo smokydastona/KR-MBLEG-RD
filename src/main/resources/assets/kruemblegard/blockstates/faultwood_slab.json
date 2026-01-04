@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/faultwood_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/faultwood_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/faultwood_slab_double"
+                                     }
+                 }
+}

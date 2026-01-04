@@ -1,0 +1,23 @@
+﻿{
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:monument_oak_door",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1,
+                      "conditions":  [
+                                         {
+                                             "properties":  {
+                                                                "half":  "lower"
+                                                            },
+                                             "condition":  "minecraft:block_state_property",
+                                             "block":  "kruemblegard:monument_oak_door"
+                                         }
+                                     ]
+                  }
+              ],
+    "type":  "minecraft:block"
+}

@@ -1,0 +1,14 @@
+﻿{
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:shardbark_pine_fence_gate",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1
+                  }
+              ],
+    "type":  "minecraft:block"
+}

@@ -5,19 +5,17 @@ import com.kruemblegard.registry.ModItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.MapColor;
 
 public class RunebloomBlock extends BushBlock {
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 5);
@@ -33,9 +31,7 @@ public class RunebloomBlock extends BushBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        super.randomTick(state, level, pos, random);
-
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextInt(12) != 0) return;
 
         // "Blooms change color based on nearby blocks or biome".
@@ -61,7 +57,7 @@ public class RunebloomBlock extends BushBlock {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
 
         if (!level.isClientSide) {
-            boolean silkTouch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) > 0;
+            boolean silkTouch = tool.getEnchantmentLevel(Enchantments.SILK_TOUCH) > 0;
             if (silkTouch) {
                 popResource(level, pos, new ItemStack(this));
             } else {

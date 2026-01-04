@@ -6,14 +6,15 @@ import com.kruemblegard.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GravevineBlock extends BushBlock {
@@ -29,13 +30,11 @@ public class GravevineBlock extends BushBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        super.randomTick(state, level, pos, random);
-
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // "Grows faster near skull blocks or Crumbling Codex structures".
         // We interpret "Codex structures" as the mod's ancient/standing stone cluster pieces.
         int bonus = 0;
-        bonus += countNearby(level, pos, 4, BlockTags.SKULLS) > 0 ? 2 : 0;
+        bonus += countNearbySkulls(level, pos, 4) > 0 ? 2 : 0;
         bonus += countNearby(level, pos, 6, ModBlocks.ANCIENT_WAYSTONE.get()) > 0 ? 2 : 0;
         bonus += countNearby(level, pos, 6, ModBlocks.STANDING_STONE.get()) > 0 ? 1 : 0;
 
@@ -56,16 +55,16 @@ public class GravevineBlock extends BushBlock {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
 
         if (!level.isClientSide) {
-            boolean silkTouch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) > 0;
+            boolean silkTouch = tool.getEnchantmentLevel(Enchantments.SILK_TOUCH) > 0;
             ItemStack drop = silkTouch ? new ItemStack(this) : new ItemStack(ModItems.REMNANT_SEEDS.get());
             popResource(level, pos, drop);
         }
     }
 
-    private static int countNearby(Level level, BlockPos origin, int radius, net.minecraft.tags.TagKey<Block> tag) {
+    private static int countNearbySkulls(Level level, BlockPos origin, int radius) {
         int found = 0;
         for (BlockPos p : BlockPos.betweenClosed(origin.offset(-radius, -radius, -radius), origin.offset(radius, radius, radius))) {
-            if (level.getBlockState(p).is(tag)) {
+            if (level.getBlockState(p).getBlock() instanceof SkullBlock) {
                 found++;
                 if (found >= 1) return found;
             }

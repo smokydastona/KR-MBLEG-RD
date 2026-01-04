@@ -1,0 +1,8 @@
+﻿{
+    "textures":  {
+                     "bottom":  "kruemblegard:block/echowood_planks",
+                     "top":  "kruemblegard:block/echowood_planks",
+                     "side":  "kruemblegard:block/echowood_planks"
+                 },
+    "parent":  "minecraft:block/slab_top"
+}

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:wayroot_leaves",
+    "kruemblegard:fallbark_leaves",
+    "kruemblegard:echowood_leaves",
+    "kruemblegard:cairn_tree_leaves",
+    "kruemblegard:wayglass_leaves",
+    "kruemblegard:shardbark_pine_leaves",
+    "kruemblegard:hollowway_tree_leaves",
+    "kruemblegard:driftwillow_leaves",
+    "kruemblegard:monument_oak_leaves",
+    "kruemblegard:waytorch_tree_leaves",
+    "kruemblegard:faultwood_leaves"
+  ]
+}

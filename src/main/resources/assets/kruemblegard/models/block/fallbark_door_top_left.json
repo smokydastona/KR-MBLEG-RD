@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "top":  "kruemblegard:block/fallbark_planks",
+                     "bottom":  "kruemblegard:block/fallbark_planks"
+                 },
+    "parent":  "minecraft:block/door_top_left"
+}

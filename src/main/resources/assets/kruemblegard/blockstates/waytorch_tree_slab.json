@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/waytorch_tree_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/waytorch_tree_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/waytorch_tree_slab_double"
+                                     }
+                 }
+}

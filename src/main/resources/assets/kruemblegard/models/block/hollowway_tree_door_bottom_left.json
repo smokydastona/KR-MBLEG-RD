@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "top":  "kruemblegard:block/hollowway_tree_planks",
+                     "bottom":  "kruemblegard:block/hollowway_tree_planks"
+                 },
+    "parent":  "minecraft:block/door_bottom_left"
+}

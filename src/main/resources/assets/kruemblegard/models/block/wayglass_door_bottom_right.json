@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "top":  "kruemblegard:block/wayglass_planks",
+                     "bottom":  "kruemblegard:block/wayglass_planks"
+                 },
+    "parent":  "minecraft:block/door_bottom_right"
+}

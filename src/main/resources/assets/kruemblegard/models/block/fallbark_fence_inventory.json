@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "texture":  "kruemblegard:block/fallbark_planks"
+                 },
+    "parent":  "minecraft:block/fence_inventory"
+}

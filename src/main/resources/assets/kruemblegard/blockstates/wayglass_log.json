@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "kruemblegard:block/wayglass_log" },
+    "axis=z": { "model": "kruemblegard:block/wayglass_log", "x": 90 },
+    "axis=x": { "model": "kruemblegard:block/wayglass_log", "x": 90, "y": 90 }
+  }
+}

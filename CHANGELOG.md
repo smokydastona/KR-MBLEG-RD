@@ -12,6 +12,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Worldgen: enrich Wayfall biomes (ambience + small biome features) and restrict Wayfall spawns to Krümblegård mobs only.
 - Worldgen: add Attuned Ore (Wayfall-only) that drops Attuned Rune Shards (Fortune affects drops).
 - Worldgen: add Wayfall plants (Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrubs) + Ghoulberry corruption.
+- Blocks/items: expand Wayfall wood sets with full vanilla-style wood-family blocks (stairs/slabs/fences/gates/doors/trapdoors/buttons/pressure plates) including recipes + loot.
+- Blocks: Wayfall saplings can now grow into simple trees (random ticks + bonemeal).
 - Items: Runic tools upgraded to a custom tier above Netherite; recipes now use Attuned Rune Shards + Runic Core.
 - Advancements: remove obsolete survived/cleansed advancements tied to removed encounter flow.
 - Docs/Codex: update guidebook + docs to match Traprock behavior.

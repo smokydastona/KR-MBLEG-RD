@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "top":  "kruemblegard:block/faultwood_planks",
+                     "bottom":  "kruemblegard:block/faultwood_planks"
+                 },
+    "parent":  "minecraft:block/door_bottom_right"
+}

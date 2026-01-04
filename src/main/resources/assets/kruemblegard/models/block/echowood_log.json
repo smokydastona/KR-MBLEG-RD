@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "kruemblegard:block/echowood_log",
+    "end": "kruemblegard:block/echowood_log"
+  }
+}

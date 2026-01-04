@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/echowood_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/echowood_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/echowood_slab_double"
+                                     }
+                 }
+}

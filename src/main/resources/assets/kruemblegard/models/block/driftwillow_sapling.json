@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "cross":  "kruemblegard:block/driftwillow_sapling"
+                 },
+    "parent":  "minecraft:block/cross"
+}

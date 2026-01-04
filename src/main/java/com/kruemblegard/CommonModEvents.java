@@ -1,7 +1,6 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.KruemblegardBossEntity;
-import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.registry.ModEntities;
 

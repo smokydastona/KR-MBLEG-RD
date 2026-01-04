@@ -1,0 +1,23 @@
+﻿{
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:wayroot_door",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1,
+                      "conditions":  [
+                                         {
+                                             "properties":  {
+                                                                "half":  "lower"
+                                                            },
+                                             "condition":  "minecraft:block_state_property",
+                                             "block":  "kruemblegard:wayroot_door"
+                                         }
+                                     ]
+                  }
+              ],
+    "type":  "minecraft:block"
+}

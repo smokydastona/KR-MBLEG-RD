@@ -46,9 +46,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Ancient Waystone block.
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).
-- Wayfall plants: Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub).
+- Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
-- Planned Wayfall trees + additional flora concepts are documented in: docs/FLORA_REFERENCE.md
+- Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
+  - Saplings can grow into simple trees via random ticks or bonemeal.
+  - Current limitation: this is not yet wired into a full vanilla tree-feature/worldgen pipeline.
 
 ## Dimensions
 - **Wayfall** (`kruemblegard:wayfall`)
@@ -82,7 +84,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ## Worldgen
 - Current worldgen is minimal; `init/ModWorldgen` is intentionally empty.
-- If/when worldgen is added back, keep biome modifiers/tags/worldgen JSON consistent.
+- Wayfall flora placement is data-driven via biome modifiers/tags/worldgen JSON.
 
 ## Removed / not present (by design)
 - `false_waystone` (block + worldgen + biome modifier/tag) was removed.

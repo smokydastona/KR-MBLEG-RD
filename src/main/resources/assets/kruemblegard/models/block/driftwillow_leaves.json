@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "kruemblegard:block/driftwillow_leaves"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

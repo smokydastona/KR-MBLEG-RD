@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "cross":  "kruemblegard:block/waytorch_tree_sapling"
+                 },
+    "parent":  "minecraft:block/cross"
+}

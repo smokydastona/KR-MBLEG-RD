@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "kruemblegard:block/waytorch_tree_planks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

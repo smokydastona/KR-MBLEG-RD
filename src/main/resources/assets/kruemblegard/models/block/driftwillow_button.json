@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "texture":  "kruemblegard:block/driftwillow_planks"
+                 },
+    "parent":  "minecraft:block/button"
+}

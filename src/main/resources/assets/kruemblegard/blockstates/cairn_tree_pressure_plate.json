@@ -1,0 +1,10 @@
+﻿{
+    "variants":  {
+                     "powered=true":  {
+                                          "model":  "kruemblegard:block/cairn_tree_pressure_plate_down"
+                                      },
+                     "powered=false":  {
+                                           "model":  "kruemblegard:block/cairn_tree_pressure_plate"
+                                       }
+                 }
+}

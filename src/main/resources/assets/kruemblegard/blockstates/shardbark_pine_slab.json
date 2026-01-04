@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/shardbark_pine_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/shardbark_pine_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/shardbark_pine_slab_double"
+                                     }
+                 }
+}

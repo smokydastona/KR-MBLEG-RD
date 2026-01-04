@@ -111,7 +111,8 @@ public class TraprockEntity extends Blaze implements GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!level().isClientSide) {
-            if (player instanceof LivingEntity living) {
+            if (player instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) player;
                 awaken(living);
             }
         }
@@ -122,7 +123,8 @@ public class TraprockEntity extends Blaze implements GeoEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!level().isClientSide) {
-            if (!isAwakened() && source.getEntity() instanceof LivingEntity living) {
+            if (!isAwakened() && source.getEntity() instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) source.getEntity();
                 awaken(living);
             }
         }

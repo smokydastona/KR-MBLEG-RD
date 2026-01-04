@@ -1,0 +1,8 @@
+﻿{
+    "textures":  {
+                     "bottom":  "kruemblegard:block/wayroot_planks",
+                     "top":  "kruemblegard:block/wayroot_planks",
+                     "side":  "kruemblegard:block/wayroot_planks"
+                 },
+    "parent":  "minecraft:block/outer_stairs"
+}

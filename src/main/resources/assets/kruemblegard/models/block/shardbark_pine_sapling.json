@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "kruemblegard:block/shardbark_pine_sapling"
+  }
+}

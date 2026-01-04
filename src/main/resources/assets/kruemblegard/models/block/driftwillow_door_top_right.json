@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "top":  "kruemblegard:block/driftwillow_planks",
+                     "bottom":  "kruemblegard:block/driftwillow_planks"
+                 },
+    "parent":  "minecraft:block/door_top_right"
+}

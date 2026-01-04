@@ -1,0 +1,19 @@
+{
+    "config":  {
+                   "tries":  24,
+                   "feature":  {
+                                   "feature":  "minecraft:simple_block",
+                                   "config":  {
+                                                  "to_place":  {
+                                                                   "state":  {
+                                                                                 "Name":  "kruemblegard:wayrot_fungus"
+                                                                             },
+                                                                   "type":  "minecraft:simple_state_provider"
+                                                               }
+                                              }
+                               },
+                   "xz_spread":  6,
+                   "y_spread":  3
+               },
+    "type":  "minecraft:random_patch"
+}

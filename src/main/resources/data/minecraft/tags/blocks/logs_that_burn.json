@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:wayroot_log",
+    "kruemblegard:fallbark_log",
+    "kruemblegard:echowood_log",
+    "kruemblegard:cairn_tree_log",
+    "kruemblegard:wayglass_log",
+    "kruemblegard:shardbark_pine_log",
+    "kruemblegard:hollowway_tree_log",
+    "kruemblegard:driftwillow_log",
+    "kruemblegard:monument_oak_log",
+    "kruemblegard:waytorch_tree_log",
+    "kruemblegard:faultwood_log"
+  ]
+}

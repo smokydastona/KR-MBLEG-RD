@@ -1,0 +1,49 @@
+﻿{
+    "multipart":  [
+                      {
+                          "apply":  {
+                                        "model":  "kruemblegard:block/monument_oak_fence_post"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "north":  "true"
+                                   },
+                          "apply":  {
+                                        "uvlock":  true,
+                                        "model":  "kruemblegard:block/monument_oak_fence_side",
+                                        "y":  0
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "east":  "true"
+                                   },
+                          "apply":  {
+                                        "uvlock":  true,
+                                        "model":  "kruemblegard:block/monument_oak_fence_side",
+                                        "y":  90
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "south":  "true"
+                                   },
+                          "apply":  {
+                                        "uvlock":  true,
+                                        "model":  "kruemblegard:block/monument_oak_fence_side",
+                                        "y":  180
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "west":  "true"
+                                   },
+                          "apply":  {
+                                        "uvlock":  true,
+                                        "model":  "kruemblegard:block/monument_oak_fence_side",
+                                        "y":  270
+                                    }
+                      }
+                  ]
+}
