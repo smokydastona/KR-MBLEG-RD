@@ -48,9 +48,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Attuned Ore block (Wayfall-only worldgen).
 - Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
+- Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
   - Saplings can grow into simple trees via random ticks or bonemeal.
-  - Current limitation: this is not yet wired into a full vanilla tree-feature/worldgen pipeline.
+  - New staple wood sets: Ashbloom, Glimmerpine, Driftwood.
+  - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`), but the JSON worldgen hooks are still pending.
 
 ## Dimensions
 - **Wayfall** (`kruemblegard:wayfall`)

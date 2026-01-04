@@ -5,6 +5,11 @@ import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
 import com.kruemblegard.block.GravevineBlock;
+import com.kruemblegard.block.GlimmerpineLeavesBlock;
+import com.kruemblegard.block.AshbloomLeavesBlock;
+import com.kruemblegard.block.DriftwoodLeavesBlock;
+import com.kruemblegard.block.WayfallReactivePlantBlock;
+import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
@@ -27,6 +32,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+
+import net.minecraft.core.particles.ParticleTypes;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -486,6 +493,94 @@ public final class ModBlocks {
                     .randomTicks())
     );
 
+    // --- Wayfall staples (all-biome plants/shrubs) ---
+
+    public static final RegistryObject<Block> VOIDFERN = BLOCKS.register(
+            "voidfern",
+            () -> new WayfallReactivePlantBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_PURPLE)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .randomTicks(),
+                    ParticleTypes.REVERSE_PORTAL,
+                    ParticleTypes.REVERSE_PORTAL,
+                    0,
+                    0)
+    );
+
+    public static final RegistryObject<Block> RUNEBLOSSOM = BLOCKS.register(
+            "runeblossom",
+            () -> new WayfallReactivePlantBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_BLUE)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .randomTicks(),
+                    ParticleTypes.ENCHANT,
+                    ParticleTypes.END_ROD,
+                    0,
+                    6)
+    );
+
+    public static final RegistryObject<Block> MOTESHRUB = BLOCKS.register(
+            "moteshrub",
+            () -> new WayfallReactivePlantBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .randomTicks(),
+                    ParticleTypes.END_ROD,
+                    ParticleTypes.END_ROD,
+                    0,
+                    0)
+    );
+
+    public static final RegistryObject<Block> ASHVEIL = BLOCKS.register(
+            "ashveil",
+            () -> new AshveilBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.MOSS_CARPET)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> TWILIGHT_BULB = BLOCKS.register(
+            "twilight_bulb",
+            () -> new WayfallReactivePlantBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_BLACK)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .lightLevel(s -> 4)
+                            .randomTicks(),
+                    ParticleTypes.WITCH,
+                    ParticleTypes.END_ROD,
+                    6,
+                    6)
+    );
+
+    public static final RegistryObject<Block> WHISPERVINE = BLOCKS.register(
+            "whispervine",
+            () -> new WayfallReactivePlantBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_BLACK)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .randomTicks(),
+                    ParticleTypes.SMOKE,
+                    ParticleTypes.SMOKE,
+                    0,
+                    0)
+    );
+
     // --- Wayfall trees (block sets; saplings are currently decorative) ---
 
     private static RegistryObject<Block> registerLog(String id) {
@@ -718,6 +813,83 @@ public final class ModBlocks {
 
         public static final RegistryObject<Block> FAULTWOOD_STAIRS = registerStairs("faultwood_stairs", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_SLAB = registerSlab("faultwood_slab", FAULTWOOD_PLANKS);
+
+    // --- Staple trees (all-biome) ---
+
+    public static final RegistryObject<Block> ASHBLOOM_LOG = registerLog("ashbloom_log");
+    public static final RegistryObject<Block> ASHBLOOM_PLANKS = registerPlanks("ashbloom_planks");
+    public static final RegistryObject<Block> ASHBLOOM_LEAVES = BLOCKS.register(
+            "ashbloom_leaves",
+            () -> new AshbloomLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .randomTicks()
+                    .noOcclusion()
+                    .sound(SoundType.GRASS)
+                    .lightLevel(s -> 3))
+    );
+    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerSapling("ashbloom_sapling", ASHBLOOM_LOG, ASHBLOOM_LEAVES);
+
+    public static final RegistryObject<Block> ASHBLOOM_STAIRS = registerStairs("ashbloom_stairs", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_SLAB = registerSlab("ashbloom_slab", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_FENCE = registerFence("ashbloom_fence", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_FENCE_GATE = registerFenceGate("ashbloom_fence_gate", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_DOOR = registerDoor("ashbloom_door", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_TRAPDOOR = registerTrapdoor("ashbloom_trapdoor", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_BUTTON = registerButton("ashbloom_button", ASHBLOOM_PLANKS);
+    public static final RegistryObject<Block> ASHBLOOM_PRESSURE_PLATE = registerPressurePlate("ashbloom_pressure_plate", ASHBLOOM_PLANKS);
+
+    public static final RegistryObject<Block> GLIMMERPINE_LOG = registerLog("glimmerpine_log");
+    public static final RegistryObject<Block> GLIMMERPINE_PLANKS = BLOCKS.register(
+            "glimmerpine_planks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .strength(2.0F, 3.0F)
+                    .sound(SoundType.WOOD)
+                    .lightLevel(s -> 3))
+    );
+    public static final RegistryObject<Block> GLIMMERPINE_LEAVES = BLOCKS.register(
+            "glimmerpine_leaves",
+            () -> new GlimmerpineLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .randomTicks()
+                    .noOcclusion()
+                    .sound(SoundType.GRASS)
+                    .lightLevel(s -> 2))
+    );
+    public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerSapling("glimmerpine_sapling", GLIMMERPINE_LOG, GLIMMERPINE_LEAVES);
+
+    public static final RegistryObject<Block> GLIMMERPINE_STAIRS = registerStairs("glimmerpine_stairs", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_SLAB = registerSlab("glimmerpine_slab", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_FENCE = registerFence("glimmerpine_fence", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_FENCE_GATE = registerFenceGate("glimmerpine_fence_gate", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_DOOR = registerDoor("glimmerpine_door", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_TRAPDOOR = registerTrapdoor("glimmerpine_trapdoor", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_BUTTON = registerButton("glimmerpine_button", GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Block> GLIMMERPINE_PRESSURE_PLATE = registerPressurePlate("glimmerpine_pressure_plate", GLIMMERPINE_PLANKS);
+
+    public static final RegistryObject<Block> DRIFTWOOD_LOG = registerLog("driftwood_log");
+    public static final RegistryObject<Block> DRIFTWOOD_PLANKS = registerPlanks("driftwood_planks");
+    public static final RegistryObject<Block> DRIFTWOOD_LEAVES = BLOCKS.register(
+            "driftwood_leaves",
+            () -> new DriftwoodLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .randomTicks()
+                    .noOcclusion()
+                    .sound(SoundType.GRASS))
+    );
+    public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerSapling("driftwood_sapling", DRIFTWOOD_LOG, DRIFTWOOD_LEAVES);
+
+    public static final RegistryObject<Block> DRIFTWOOD_STAIRS = registerStairs("driftwood_stairs", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_SLAB = registerSlab("driftwood_slab", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_FENCE = registerFence("driftwood_fence", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_FENCE_GATE = registerFenceGate("driftwood_fence_gate", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_DOOR = registerDoor("driftwood_door", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_TRAPDOOR = registerTrapdoor("driftwood_trapdoor", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_BUTTON = registerButton("driftwood_button", DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Block> DRIFTWOOD_PRESSURE_PLATE = registerPressurePlate("driftwood_pressure_plate", DRIFTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_FENCE = registerFence("faultwood_fence", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_FENCE_GATE = registerFenceGate("faultwood_fence_gate", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_DOOR = registerDoor("faultwood_door", FAULTWOOD_PLANKS);

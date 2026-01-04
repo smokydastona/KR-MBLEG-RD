@@ -19,7 +19,7 @@ public final class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Kruemblegard.MODID);
 
-        public static final RegistryObject<CreativeModeTab> KRUEMBLEGARD = TABS.register(
+    public static final RegistryObject<CreativeModeTab> KRUEMBLEGARD = TABS.register(
             "kruemblegard",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab.kruemblegard"))

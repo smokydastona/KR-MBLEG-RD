@@ -123,6 +123,15 @@ public class ModItems {
     public static final RegistryObject<Item> FALLSEED_PODS_ITEM = registerBlockItem("fallseed_pods", ModBlocks.FALLSEED_PODS);
     public static final RegistryObject<Item> REVERSE_PORTAL_SPORES_ITEM = registerBlockItem("reverse_portal_spores", ModBlocks.REVERSE_PORTAL_SPORES);
 
+    // --- Wayfall staple flora block items ---
+
+    public static final RegistryObject<Item> VOIDFERN_ITEM = registerBlockItem("voidfern", ModBlocks.VOIDFERN);
+    public static final RegistryObject<Item> RUNEBLOSSOM_ITEM = registerBlockItem("runeblossom", ModBlocks.RUNEBLOSSOM);
+    public static final RegistryObject<Item> MOTESHRUB_ITEM = registerBlockItem("moteshrub", ModBlocks.MOTESHRUB);
+    public static final RegistryObject<Item> ASHVEIL_ITEM = registerBlockItem("ashveil", ModBlocks.ASHVEIL);
+    public static final RegistryObject<Item> TWILIGHT_BULB_ITEM = registerBlockItem("twilight_bulb", ModBlocks.TWILIGHT_BULB);
+    public static final RegistryObject<Item> WHISPERVINE_ITEM = registerBlockItem("whispervine", ModBlocks.WHISPERVINE);
+
     // --- Wayfall tree block items ---
 
     public static final RegistryObject<Item> WAYROOT_LOG_ITEM = registerBlockItem("wayroot_log", ModBlocks.WAYROOT_LOG);
@@ -279,6 +288,47 @@ public class ModItems {
     public static final RegistryObject<Item> FAULTWOOD_BUTTON_ITEM = registerBlockItem("faultwood_button", ModBlocks.FAULTWOOD_BUTTON);
     public static final RegistryObject<Item> FAULTWOOD_PRESSURE_PLATE_ITEM = registerBlockItem("faultwood_pressure_plate", ModBlocks.FAULTWOOD_PRESSURE_PLATE);
 
+    // --- Wayfall staple tree block items ---
+
+    public static final RegistryObject<Item> ASHBLOOM_LOG_ITEM = registerBlockItem("ashbloom_log", ModBlocks.ASHBLOOM_LOG);
+    public static final RegistryObject<Item> ASHBLOOM_PLANKS_ITEM = registerBlockItem("ashbloom_planks", ModBlocks.ASHBLOOM_PLANKS);
+    public static final RegistryObject<Item> ASHBLOOM_LEAVES_ITEM = registerBlockItem("ashbloom_leaves", ModBlocks.ASHBLOOM_LEAVES);
+    public static final RegistryObject<Item> ASHBLOOM_SAPLING_ITEM = registerBlockItem("ashbloom_sapling", ModBlocks.ASHBLOOM_SAPLING);
+    public static final RegistryObject<Item> ASHBLOOM_STAIRS_ITEM = registerBlockItem("ashbloom_stairs", ModBlocks.ASHBLOOM_STAIRS);
+    public static final RegistryObject<Item> ASHBLOOM_SLAB_ITEM = registerBlockItem("ashbloom_slab", ModBlocks.ASHBLOOM_SLAB);
+    public static final RegistryObject<Item> ASHBLOOM_FENCE_ITEM = registerBlockItem("ashbloom_fence", ModBlocks.ASHBLOOM_FENCE);
+    public static final RegistryObject<Item> ASHBLOOM_FENCE_GATE_ITEM = registerBlockItem("ashbloom_fence_gate", ModBlocks.ASHBLOOM_FENCE_GATE);
+    public static final RegistryObject<Item> ASHBLOOM_DOOR_ITEM = registerBlockItem("ashbloom_door", ModBlocks.ASHBLOOM_DOOR);
+    public static final RegistryObject<Item> ASHBLOOM_TRAPDOOR_ITEM = registerBlockItem("ashbloom_trapdoor", ModBlocks.ASHBLOOM_TRAPDOOR);
+    public static final RegistryObject<Item> ASHBLOOM_BUTTON_ITEM = registerBlockItem("ashbloom_button", ModBlocks.ASHBLOOM_BUTTON);
+    public static final RegistryObject<Item> ASHBLOOM_PRESSURE_PLATE_ITEM = registerBlockItem("ashbloom_pressure_plate", ModBlocks.ASHBLOOM_PRESSURE_PLATE);
+
+    public static final RegistryObject<Item> GLIMMERPINE_LOG_ITEM = registerBlockItem("glimmerpine_log", ModBlocks.GLIMMERPINE_LOG);
+    public static final RegistryObject<Item> GLIMMERPINE_PLANKS_ITEM = registerBlockItem("glimmerpine_planks", ModBlocks.GLIMMERPINE_PLANKS);
+    public static final RegistryObject<Item> GLIMMERPINE_LEAVES_ITEM = registerBlockItem("glimmerpine_leaves", ModBlocks.GLIMMERPINE_LEAVES);
+    public static final RegistryObject<Item> GLIMMERPINE_SAPLING_ITEM = registerBlockItem("glimmerpine_sapling", ModBlocks.GLIMMERPINE_SAPLING);
+    public static final RegistryObject<Item> GLIMMERPINE_STAIRS_ITEM = registerBlockItem("glimmerpine_stairs", ModBlocks.GLIMMERPINE_STAIRS);
+    public static final RegistryObject<Item> GLIMMERPINE_SLAB_ITEM = registerBlockItem("glimmerpine_slab", ModBlocks.GLIMMERPINE_SLAB);
+    public static final RegistryObject<Item> GLIMMERPINE_FENCE_ITEM = registerBlockItem("glimmerpine_fence", ModBlocks.GLIMMERPINE_FENCE);
+    public static final RegistryObject<Item> GLIMMERPINE_FENCE_GATE_ITEM = registerBlockItem("glimmerpine_fence_gate", ModBlocks.GLIMMERPINE_FENCE_GATE);
+    public static final RegistryObject<Item> GLIMMERPINE_DOOR_ITEM = registerBlockItem("glimmerpine_door", ModBlocks.GLIMMERPINE_DOOR);
+    public static final RegistryObject<Item> GLIMMERPINE_TRAPDOOR_ITEM = registerBlockItem("glimmerpine_trapdoor", ModBlocks.GLIMMERPINE_TRAPDOOR);
+    public static final RegistryObject<Item> GLIMMERPINE_BUTTON_ITEM = registerBlockItem("glimmerpine_button", ModBlocks.GLIMMERPINE_BUTTON);
+    public static final RegistryObject<Item> GLIMMERPINE_PRESSURE_PLATE_ITEM = registerBlockItem("glimmerpine_pressure_plate", ModBlocks.GLIMMERPINE_PRESSURE_PLATE);
+
+    public static final RegistryObject<Item> DRIFTWOOD_LOG_ITEM = registerBlockItem("driftwood_log", ModBlocks.DRIFTWOOD_LOG);
+    public static final RegistryObject<Item> DRIFTWOOD_PLANKS_ITEM = registerBlockItem("driftwood_planks", ModBlocks.DRIFTWOOD_PLANKS);
+    public static final RegistryObject<Item> DRIFTWOOD_LEAVES_ITEM = registerBlockItem("driftwood_leaves", ModBlocks.DRIFTWOOD_LEAVES);
+    public static final RegistryObject<Item> DRIFTWOOD_SAPLING_ITEM = registerBlockItem("driftwood_sapling", ModBlocks.DRIFTWOOD_SAPLING);
+    public static final RegistryObject<Item> DRIFTWOOD_STAIRS_ITEM = registerBlockItem("driftwood_stairs", ModBlocks.DRIFTWOOD_STAIRS);
+    public static final RegistryObject<Item> DRIFTWOOD_SLAB_ITEM = registerBlockItem("driftwood_slab", ModBlocks.DRIFTWOOD_SLAB);
+    public static final RegistryObject<Item> DRIFTWOOD_FENCE_ITEM = registerBlockItem("driftwood_fence", ModBlocks.DRIFTWOOD_FENCE);
+    public static final RegistryObject<Item> DRIFTWOOD_FENCE_GATE_ITEM = registerBlockItem("driftwood_fence_gate", ModBlocks.DRIFTWOOD_FENCE_GATE);
+    public static final RegistryObject<Item> DRIFTWOOD_DOOR_ITEM = registerBlockItem("driftwood_door", ModBlocks.DRIFTWOOD_DOOR);
+    public static final RegistryObject<Item> DRIFTWOOD_TRAPDOOR_ITEM = registerBlockItem("driftwood_trapdoor", ModBlocks.DRIFTWOOD_TRAPDOOR);
+    public static final RegistryObject<Item> DRIFTWOOD_BUTTON_ITEM = registerBlockItem("driftwood_button", ModBlocks.DRIFTWOOD_BUTTON);
+    public static final RegistryObject<Item> DRIFTWOOD_PRESSURE_PLATE_ITEM = registerBlockItem("driftwood_pressure_plate", ModBlocks.DRIFTWOOD_PRESSURE_PLATE);
+
     public static final RegistryObject<Item> REMNANT_SEEDS = ITEMS.register(
         "remnant_seeds",
         () -> new Item(new Item.Properties())
@@ -397,6 +447,13 @@ public class ModItems {
         event.accept(FAULTWOOD_LOG_ITEM);
         event.accept(FAULTWOOD_PLANKS_ITEM);
 
+        event.accept(ASHBLOOM_LOG_ITEM);
+        event.accept(ASHBLOOM_PLANKS_ITEM);
+        event.accept(GLIMMERPINE_LOG_ITEM);
+        event.accept(GLIMMERPINE_PLANKS_ITEM);
+        event.accept(DRIFTWOOD_LOG_ITEM);
+        event.accept(DRIFTWOOD_PLANKS_ITEM);
+
         event.accept(WAYROOT_STAIRS_ITEM);
         event.accept(WAYROOT_SLAB_ITEM);
         event.accept(WAYROOT_FENCE_ITEM);
@@ -495,6 +552,33 @@ public class ModItems {
         event.accept(FAULTWOOD_TRAPDOOR_ITEM);
         event.accept(FAULTWOOD_BUTTON_ITEM);
         event.accept(FAULTWOOD_PRESSURE_PLATE_ITEM);
+
+        event.accept(ASHBLOOM_STAIRS_ITEM);
+        event.accept(ASHBLOOM_SLAB_ITEM);
+        event.accept(ASHBLOOM_FENCE_ITEM);
+        event.accept(ASHBLOOM_FENCE_GATE_ITEM);
+        event.accept(ASHBLOOM_DOOR_ITEM);
+        event.accept(ASHBLOOM_TRAPDOOR_ITEM);
+        event.accept(ASHBLOOM_BUTTON_ITEM);
+        event.accept(ASHBLOOM_PRESSURE_PLATE_ITEM);
+
+        event.accept(GLIMMERPINE_STAIRS_ITEM);
+        event.accept(GLIMMERPINE_SLAB_ITEM);
+        event.accept(GLIMMERPINE_FENCE_ITEM);
+        event.accept(GLIMMERPINE_FENCE_GATE_ITEM);
+        event.accept(GLIMMERPINE_DOOR_ITEM);
+        event.accept(GLIMMERPINE_TRAPDOOR_ITEM);
+        event.accept(GLIMMERPINE_BUTTON_ITEM);
+        event.accept(GLIMMERPINE_PRESSURE_PLATE_ITEM);
+
+        event.accept(DRIFTWOOD_STAIRS_ITEM);
+        event.accept(DRIFTWOOD_SLAB_ITEM);
+        event.accept(DRIFTWOOD_FENCE_ITEM);
+        event.accept(DRIFTWOOD_FENCE_GATE_ITEM);
+        event.accept(DRIFTWOOD_DOOR_ITEM);
+        event.accept(DRIFTWOOD_TRAPDOOR_ITEM);
+        event.accept(DRIFTWOOD_BUTTON_ITEM);
+        event.accept(DRIFTWOOD_PRESSURE_PLATE_ITEM);
     }
 
     if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
@@ -541,6 +625,13 @@ public class ModItems {
         event.accept(FALLSEED_PODS_ITEM);
         event.accept(REVERSE_PORTAL_SPORES_ITEM);
 
+        event.accept(VOIDFERN_ITEM);
+        event.accept(RUNEBLOSSOM_ITEM);
+        event.accept(MOTESHRUB_ITEM);
+        event.accept(ASHVEIL_ITEM);
+        event.accept(TWILIGHT_BULB_ITEM);
+        event.accept(WHISPERVINE_ITEM);
+
         event.accept(WAYROOT_LEAVES_ITEM);
         event.accept(WAYROOT_SAPLING_ITEM);
         event.accept(FALLBARK_LEAVES_ITEM);
@@ -563,6 +654,13 @@ public class ModItems {
         event.accept(WAYTORCH_TREE_SAPLING_ITEM);
         event.accept(FAULTWOOD_LEAVES_ITEM);
         event.accept(FAULTWOOD_SAPLING_ITEM);
+
+        event.accept(ASHBLOOM_LEAVES_ITEM);
+        event.accept(ASHBLOOM_SAPLING_ITEM);
+        event.accept(GLIMMERPINE_LEAVES_ITEM);
+        event.accept(GLIMMERPINE_SAPLING_ITEM);
+        event.accept(DRIFTWOOD_LEAVES_ITEM);
+        event.accept(DRIFTWOOD_SAPLING_ITEM);
     }
     }
 }
