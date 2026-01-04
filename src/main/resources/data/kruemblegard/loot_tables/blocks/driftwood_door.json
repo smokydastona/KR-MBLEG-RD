@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [{ "type": "minecraft:item", "name": "kruemblegard:driftwood_door" }],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:driftwood_door",
+          "properties": { "half": "lower" }
+        }
+      ]
+    }
+  ]
+}

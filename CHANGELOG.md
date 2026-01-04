@@ -16,7 +16,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Assets: give each Wayfall wood-family block its own dedicated texture file (placeholders copied from planks for now).
 - Blocks: Wayfall saplings can now grow into simple trees (random ticks + bonemeal).
 - Blocks/items: add initial scaffolding for new Wayfall staple flora (Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine).
-- Blocks/items: add new Wayfall staple wood sets (Ashbloom, Glimmerpine, Driftwood) and register simple tree Features for later data-driven worldgen.
+- Blocks/items: add new Wayfall staple wood sets (Ashbloom, Glimmerpine, Driftwood) and register simple tree Features.
+- Worldgen: wire Wayfall staple flora patches + staple trees into all Wayfall biomes via configured/placed features + biome modifier.
+- Loot: add loot tables for Wayfall staple flora + the three staple wood sets.
+- Assets: add placeholder blockstates + item models for Wayfall staples to avoid missing-model rendering.
+- Dev tooling: add workspace JSON schema overrides to reduce false-positive loot table/blockstate validation errors.
 - Items: Runic tools upgraded to a custom tier above Netherite; recipes now use Attuned Rune Shards + Runic Core.
 - Advancements: remove obsolete survived/cleansed advancements tied to removed encounter flow.
 - Docs/Codex: update guidebook + docs to match Traprock behavior.

@@ -52,7 +52,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
   - Saplings can grow into simple trees via random ticks or bonemeal.
   - New staple wood sets: Ashbloom, Glimmerpine, Driftwood.
-  - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`), but the JSON worldgen hooks are still pending.
+  - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`) and is wired into Wayfall worldgen via configured/placed features + biome modifiers.
+
+### Reactive staple plants
+- Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.
 
 ## Dimensions
 - **Wayfall** (`kruemblegard:wayfall`)
@@ -87,6 +90,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Worldgen
 - Current worldgen is minimal; `init/ModWorldgen` is intentionally empty.
 - Wayfall flora placement is data-driven via biome modifiers/tags/worldgen JSON.
+- Wayfall staple flora + the three staple trees are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
 
 ## Removed / not present (by design)
 - `false_waystone` (block + worldgen + biome modifier/tag) was removed.

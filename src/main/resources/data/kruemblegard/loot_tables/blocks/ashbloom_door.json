@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [{ "type": "minecraft:item", "name": "kruemblegard:ashbloom_door" }],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:ashbloom_door",
+          "properties": { "half": "lower" }
+        }
+      ]
+    }
+  ]
+}

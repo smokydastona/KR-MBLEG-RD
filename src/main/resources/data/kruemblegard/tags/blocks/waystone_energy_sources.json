@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:ancient_waystone",
+    "kruemblegard:standing_stone",
+    "kruemblegard:attuned_stone",
+    "kruemblegard:attuned_ore"
+  ]
+}

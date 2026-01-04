@@ -3,5 +3,19 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.import.gradle.enabled": true,
     "java.import.gradle.wrapper.enabled": true,
-    "java.import.gradle.offline.enabled": false
+    "java.import.gradle.offline.enabled": false,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "src/main/resources/data/**/loot_tables/**/*.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-loot-table-permissive.schema.json"
+        },
+        {
+            "fileMatch": [
+                "src/main/resources/assets/**/blockstates/**/*.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-blockstate-permissive.schema.json"
+        }
+    ]
 }

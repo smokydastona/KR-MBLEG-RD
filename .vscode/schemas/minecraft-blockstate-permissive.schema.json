@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Minecraft Blockstate (permissive)",
+  "description": "Permissive schema to avoid false-positive validation errors for Minecraft blockstates in this workspace.",
+  "type": "object",
+  "additionalProperties": true
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Minecraft Loot Table (permissive)",
+  "description": "Permissive schema to avoid false-positive validation errors for Minecraft/Forge loot tables in this workspace.",
+  "type": "object",
+  "additionalProperties": true
+}

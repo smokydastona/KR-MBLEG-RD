@@ -45,7 +45,18 @@
     "kruemblegard:waythread_patch",
     "kruemblegard:gravemint_patch",
     "kruemblegard:fallseed_pods_patch",
-    "kruemblegard:reverse_portal_spores_patch"
+    "kruemblegard:reverse_portal_spores_patch",
+
+    "kruemblegard:voidfern_patch",
+    "kruemblegard:runeblossom_patch",
+    "kruemblegard:moteshrub_patch",
+    "kruemblegard:ashveil_patch",
+    "kruemblegard:twilight_bulb_patch",
+    "kruemblegard:whispervine_patch",
+
+    "kruemblegard:ashbloom_tree",
+    "kruemblegard:glimmerpine_tree",
+    "kruemblegard:driftwood_tree"
   ],
   "step": "vegetal_decoration"
 }
