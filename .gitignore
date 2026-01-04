@@ -11,8 +11,7 @@ logs/
 
 # Documentation (local notes / reference)
 docs/**
-!docs/boss-attacks.md
-!docs/MOD_FEATURES.md
+
 
 # Local examples / reference content (not committed)
 examples/
