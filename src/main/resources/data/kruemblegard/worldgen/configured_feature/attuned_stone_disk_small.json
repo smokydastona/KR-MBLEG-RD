@@ -10,8 +10,10 @@
                               },
                    "half_height":  1,
                    "target":  {
-                                  "predicate_type":  "minecraft:block_match",
-                                  "block":  "minecraft:end_stone"
+                                  "type":  "minecraft:matching_blocks",
+                                  "blocks":  [
+                                                 "minecraft:end_stone"
+                                             ]
                               },
                    "state_provider":  {
                                           "state":  {
