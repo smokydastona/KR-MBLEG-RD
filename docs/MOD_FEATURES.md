@@ -47,6 +47,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Ancient Waystone block.
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).
+- Wayfall geology palette blocks:
+  - Fractured Wayrock, Crushstone, Ashfall Loam, Fault Dust.
+  - Scarstone family: Scarstone, Cracked Scarstone, Polished Scarstone, Chiseled Scarstone.
+  - Stoneveil Rubble family: Stoneveil Rubble, Polished Stoneveil Rubble, Runed Stoneveil Rubble.
 - Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
@@ -59,13 +63,24 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ### Reactive staple plants
 - Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.
 
+### Wayfall surface covers
+- Veilgrowth / Ashmoss / Runegrowth / Voidfelt are full-block “surface cover” blocks.
+- Runegrowth emerges near blocks tagged as `kruemblegard:waystone_energy_sources`.
+- Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
+- Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.
+
 ## Dimensions
   - Void dimension with End-like floating islands.
   - Uses only Krümblegård Wayfall biomes (no vanilla biomes).
   - Detailed biome list (keep updated): docs/WAYFALL_BIOMES.md
   - Attuned Ore generates here.
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
+- Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
+
+## Gameplay rules
+- Scarstone has progression gating:
+  - Breaking with a tool below iron tier is slower, damages the tool, and drops Cracked Scarstone.
 
 ## Advancements / criteria (project-specific)
 - Vanilla advancements are not granted directly.

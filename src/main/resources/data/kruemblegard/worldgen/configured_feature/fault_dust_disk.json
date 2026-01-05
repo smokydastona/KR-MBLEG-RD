@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 6
+      }
+    },
+    "half_height": 1,
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "kruemblegard:fractured_wayrock",
+        "kruemblegard:crushstone"
+      ]
+    },
+    "state_provider": {
+      "fallback": {
+        "state": {
+          "Name": "kruemblegard:fault_dust"
+        },
+        "type": "minecraft:simple_state_provider"
+      },
+      "rules": []
+    }
+  }
+}

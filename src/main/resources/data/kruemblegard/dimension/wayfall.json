@@ -2,7 +2,7 @@
   "type": "kruemblegard:wayfall",
   "generator": {
     "type": "minecraft:noise",
-    "settings": "minecraft:end",
+    "settings": "kruemblegard:wayfall",
     "biome_source": {
       "type": "minecraft:checkerboard",
       "scale": 3,

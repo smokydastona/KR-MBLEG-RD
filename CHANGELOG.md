@@ -33,6 +33,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix: resolve “Failed to load registries” by fixing `minecraft:disk` configured feature schema (`state_provider` is rule-based; `target` is a block predicate) and by correcting sapling selector features to include `placement` entries.
 - Fix: register on-ground spawn placements for Wayfall mobs so Traprock/Pebblit don’t spawn in midair/void.
 - Refactor: Wayfall flora/saplings now use the `kruemblegard:wayfall_ground` block tag for valid substrate (preparing for terrain palette changes).
+- Wayfall: add geology palette blocks (Fractured Wayrock, Crushstone, Ashfall Loam, Fault Dust, Scarstone family, Stoneveil Rubble family) + placeholder textures/models.
+- Wayfall: switch dimension noise settings to `kruemblegard:wayfall` so terrain defaults to Fractured Wayrock.
+- Wayfall: add surface cover blocks (Veilgrowth/Ashmoss/Runegrowth/Voidfelt) with basic spread/conversion rules + client-side ambience when standing still.
+- Gameplay: Scarstone is iron-gated (weak tools are slower, take damage, and yield Cracked Scarstone).
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.

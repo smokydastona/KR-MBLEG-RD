@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:wayfall_ash_heavy"
+  },
+  "features": [
+    "kruemblegard:ashmoss_patch"
+  ],
+  "step": "vegetal_decoration"
+}

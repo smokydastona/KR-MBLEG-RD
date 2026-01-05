@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "charged=false": { "model": "kruemblegard:block/veilgrowth" },
+    "charged=true": { "model": "kruemblegard:block/veilgrowth_charged" }
+  }
+}

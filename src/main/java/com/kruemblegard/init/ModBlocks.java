@@ -8,6 +8,12 @@ import com.kruemblegard.block.GravevineBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
 import com.kruemblegard.block.AshbloomLeavesBlock;
 import com.kruemblegard.block.DriftwoodLeavesBlock;
+import com.kruemblegard.block.AshmossBlock;
+import com.kruemblegard.block.RunedStoneveilRubbleBlock;
+import com.kruemblegard.block.RunegrowthBlock;
+import com.kruemblegard.block.ScarstoneBlock;
+import com.kruemblegard.block.VeilgrowthBlock;
+import com.kruemblegard.block.VoidfeltBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
 import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
@@ -65,6 +71,144 @@ public final class ModBlocks {
                     .mapColor(MapColor.STONE)
                     .strength(3.0F, 30.0F)
                     .sound(SoundType.STONE))
+    );
+
+    // --- Wayfall geology (palette foundation) ---
+
+    public static final RegistryObject<Block> FRACTURED_WAYROCK = BLOCKS.register(
+            "fractured_wayrock",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> CRUSHSTONE = BLOCKS.register(
+            "crushstone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ASHFALL_LOAM = BLOCKS.register(
+            "ashfall_loam",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DIRT)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.ROOTED_DIRT))
+    );
+
+    public static final RegistryObject<Block> FAULT_DUST = BLOCKS.register(
+            "fault_dust",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(0.5F, 0.5F)
+                    .sound(SoundType.SAND))
+    );
+
+    public static final RegistryObject<Block> CRACKED_SCARSTONE = BLOCKS.register(
+            "cracked_scarstone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 36.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> SCARSTONE = BLOCKS.register(
+            "scarstone",
+            () -> new ScarstoneBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 42.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_SCARSTONE = BLOCKS.register(
+            "polished_scarstone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.0F, 50.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> CHISELED_SCARSTONE = BLOCKS.register(
+            "chiseled_scarstone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.5F, 60.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    // --- Stoneveil rubble (structure palette) ---
+
+    public static final RegistryObject<Block> STONEVEIL_RUBBLE = BLOCKS.register(
+            "stoneveil_rubble",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_STONEVEIL_RUBBLE = BLOCKS.register(
+            "polished_stoneveil_rubble",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 20.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> RUNED_STONEVEIL_RUBBLE = BLOCKS.register(
+            "runed_stoneveil_rubble",
+            () -> new RunedStoneveilRubbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 22.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    // --- Wayfall surface covers (spread / conversion) ---
+
+    public static final RegistryObject<Block> VEILGROWTH = BLOCKS.register(
+            "veilgrowth",
+            () -> new VeilgrowthBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GREEN)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRASS)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> ASHMOSS = BLOCKS.register(
+            "ashmoss",
+            () -> new AshmossBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.MOSS_CARPET)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> RUNEGROWTH = BLOCKS.register(
+            "runegrowth",
+            () -> new RunegrowthBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLUE)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRASS)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> VOIDFELT = BLOCKS.register(
+            "voidfelt",
+            () -> new VoidfeltBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.WOOL)
+                    .randomTicks())
     );
 
     public static final RegistryObject<Block> ATTUNED_ORE = BLOCKS.register(

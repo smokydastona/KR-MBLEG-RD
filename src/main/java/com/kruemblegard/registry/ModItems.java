@@ -41,6 +41,30 @@ public class ModItems {
         () -> new BlockItem(ModBlocks.ATTUNED_STONE.get(), new Item.Properties())
     );
 
+    // --- Wayfall geology block items ---
+
+    public static final RegistryObject<Item> FRACTURED_WAYROCK_ITEM = registerBlockItem("fractured_wayrock", ModBlocks.FRACTURED_WAYROCK);
+    public static final RegistryObject<Item> CRUSHSTONE_ITEM = registerBlockItem("crushstone", ModBlocks.CRUSHSTONE);
+    public static final RegistryObject<Item> ASHFALL_LOAM_ITEM = registerBlockItem("ashfall_loam", ModBlocks.ASHFALL_LOAM);
+    public static final RegistryObject<Item> FAULT_DUST_ITEM = registerBlockItem("fault_dust", ModBlocks.FAULT_DUST);
+    public static final RegistryObject<Item> SCARSTONE_ITEM = registerBlockItem("scarstone", ModBlocks.SCARSTONE);
+    public static final RegistryObject<Item> POLISHED_SCARSTONE_ITEM = registerBlockItem("polished_scarstone", ModBlocks.POLISHED_SCARSTONE);
+    public static final RegistryObject<Item> CHISELED_SCARSTONE_ITEM = registerBlockItem("chiseled_scarstone", ModBlocks.CHISELED_SCARSTONE);
+    public static final RegistryObject<Item> CRACKED_SCARSTONE_ITEM = registerBlockItem("cracked_scarstone", ModBlocks.CRACKED_SCARSTONE);
+
+    // --- Stoneveil rubble block items ---
+
+    public static final RegistryObject<Item> STONEVEIL_RUBBLE_ITEM = registerBlockItem("stoneveil_rubble", ModBlocks.STONEVEIL_RUBBLE);
+    public static final RegistryObject<Item> POLISHED_STONEVEIL_RUBBLE_ITEM = registerBlockItem("polished_stoneveil_rubble", ModBlocks.POLISHED_STONEVEIL_RUBBLE);
+    public static final RegistryObject<Item> RUNED_STONEVEIL_RUBBLE_ITEM = registerBlockItem("runed_stoneveil_rubble", ModBlocks.RUNED_STONEVEIL_RUBBLE);
+
+    // --- Wayfall surface covers block items ---
+
+    public static final RegistryObject<Item> VEILGROWTH_ITEM = registerBlockItem("veilgrowth", ModBlocks.VEILGROWTH);
+    public static final RegistryObject<Item> ASHMOSS_ITEM = registerBlockItem("ashmoss", ModBlocks.ASHMOSS);
+    public static final RegistryObject<Item> RUNEGROWTH_ITEM = registerBlockItem("runegrowth", ModBlocks.RUNEGROWTH);
+    public static final RegistryObject<Item> VOIDFELT_ITEM = registerBlockItem("voidfelt", ModBlocks.VOIDFELT);
+
     public static final RegistryObject<Item> ATTUNED_ORE_ITEM = ITEMS.register(
         "attuned_ore",
         () -> new BlockItem(ModBlocks.ATTUNED_ORE.get(), new Item.Properties())
@@ -424,6 +448,16 @@ public class ModItems {
         event.accept(ATTUNED_ORE_ITEM);
         event.accept(STANDING_STONE_ITEM);
 
+        event.accept(FRACTURED_WAYROCK_ITEM);
+        event.accept(CRUSHSTONE_ITEM);
+        event.accept(SCARSTONE_ITEM);
+        event.accept(CRACKED_SCARSTONE_ITEM);
+        event.accept(POLISHED_SCARSTONE_ITEM);
+        event.accept(CHISELED_SCARSTONE_ITEM);
+        event.accept(STONEVEIL_RUBBLE_ITEM);
+        event.accept(POLISHED_STONEVEIL_RUBBLE_ITEM);
+        event.accept(RUNED_STONEVEIL_RUBBLE_ITEM);
+
         event.accept(WAYROOT_LOG_ITEM);
         event.accept(WAYROOT_PLANKS_ITEM);
         event.accept(FALLBARK_LOG_ITEM);
@@ -582,6 +616,13 @@ public class ModItems {
     }
 
     if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
+        event.accept(ASHFALL_LOAM_ITEM);
+        event.accept(FAULT_DUST_ITEM);
+        event.accept(VEILGROWTH_ITEM);
+        event.accept(ASHMOSS_ITEM);
+        event.accept(RUNEGROWTH_ITEM);
+        event.accept(VOIDFELT_ITEM);
+
         event.accept(WISPSTALK_ITEM);
         event.accept(GRAVEVINE_ITEM);
         event.accept(ECHOCAP_ITEM);

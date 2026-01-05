@@ -2,6 +2,12 @@
   "replace": false,
   "values": [
     "minecraft:end_stone",
-    "kruemblegard:attuned_stone"
+    "kruemblegard:attuned_stone",
+    "kruemblegard:fractured_wayrock",
+    "kruemblegard:crushstone",
+    "kruemblegard:ashfall_loam",
+    "kruemblegard:fault_dust",
+    "kruemblegard:scarstone",
+    "kruemblegard:cracked_scarstone"
   ]
 }

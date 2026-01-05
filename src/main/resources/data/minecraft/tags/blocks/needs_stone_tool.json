@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:fractured_wayrock",
+    "kruemblegard:stoneveil_rubble",
+    "kruemblegard:polished_stoneveil_rubble",
+    "kruemblegard:runed_stoneveil_rubble",
+    "kruemblegard:fault_dust"
+  ]
+}

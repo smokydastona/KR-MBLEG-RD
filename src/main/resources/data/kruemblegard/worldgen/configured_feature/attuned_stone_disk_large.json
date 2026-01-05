@@ -12,7 +12,7 @@
                    "target":  {
                                   "type":  "minecraft:matching_blocks",
                                   "blocks":  [
-                                                 "minecraft:end_stone"
+                                                 "kruemblegard:fractured_wayrock"
                                              ]
                               },
                    "state_provider":  {
