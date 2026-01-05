@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
     "kruemblegard:basin_of_scars",
+    "kruemblegard:crumbled_crossing",
+    "kruemblegard:driftway_chasm",
     "kruemblegard:faulted_expanse",
+    "kruemblegard:riven_causeways",
     "kruemblegard:strata_collapse"
   ]
 }

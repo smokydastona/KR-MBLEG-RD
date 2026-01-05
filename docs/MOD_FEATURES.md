@@ -76,6 +76,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Attuned Ore generates here.
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
 - Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
+- Wayfall surface palette can vary by biome tag:
+  - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam**.
+  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt**.
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 
 ## Gameplay rules

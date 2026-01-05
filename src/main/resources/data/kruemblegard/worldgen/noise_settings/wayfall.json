@@ -134,9 +134,66 @@
   "sea_level": 0,
   "spawn_target": [],
   "surface_rule": {
-    "type": "minecraft:block",
-    "result_state": {
-      "Name": "kruemblegard:fractured_wayrock"
-    }
+    "type": "minecraft:sequence",
+    "sequence": [
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:biome",
+              "biome_is": [
+                "#kruemblegard:wayfall_ash_heavy"
+              ]
+            },
+            {
+              "type": "minecraft:stone_depth",
+              "offset": 0,
+              "add_surface_depth": true,
+              "secondary_depth_range": 0
+            }
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "kruemblegard:ashfall_loam"
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:biome",
+              "biome_is": [
+                "#kruemblegard:wayfall_void"
+              ]
+            },
+            {
+              "type": "minecraft:stone_depth",
+              "offset": 0,
+              "add_surface_depth": true,
+              "secondary_depth_range": 0
+            }
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "kruemblegard:voidfelt"
+          }
+        }
+      },
+      {
+        "type": "minecraft:block",
+        "result_state": {
+          "Name": "kruemblegard:fractured_wayrock"
+        }
+      }
+    ]
   }
 }
