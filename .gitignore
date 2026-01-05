@@ -11,6 +11,9 @@ logs/
 
 # Documentation (local notes / reference)
 docs/**
+!docs/MOD_FEATURES.md
+!docs/FLORA_REFERENCE.md
+!docs/WAYFALL_BIOMES.md
 
 
 # Local examples / reference content (not committed)
