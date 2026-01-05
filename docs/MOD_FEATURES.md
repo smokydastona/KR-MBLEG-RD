@@ -44,11 +44,17 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Crafting: Runic tools require Attuned Rune Shards + a Runic Core catalyst.
 
 ## Creative inventory
-- All Krümblegård items/blocks appear in the single Krümblegård creative tab.
-- Creative tab icon uses `assets/kruemblegard/textures/gui/menu_tab.png`.
 
-## Blocks
-- Ancient Waystone block.
+## Wayfall Skybox (Client)
+- Wayfall renders a custom skybox in-game (client-only) using 6 textures:
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_north.png`
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_south.png`
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_east.png`
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_west.png`
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_up.png`
+  - `assets/kruemblegard/textures/environment/wayfall_skybox_down.png`
+- These are placeholders; replace them with your final cubemap art (keep filenames the same).
+
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).
 - Wayfall geology palette blocks:
