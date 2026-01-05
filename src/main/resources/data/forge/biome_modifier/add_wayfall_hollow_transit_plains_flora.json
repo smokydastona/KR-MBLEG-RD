@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:hollow_transit_plains"
+  },
+  "features": [
+    "kruemblegard:hollowway_tree_tree",
+
+    "kruemblegard:cairnroot_patch",
+    "kruemblegard:transit_bloom_patch",
+    "kruemblegard:waythread_patch"
+  ],
+  "step": "vegetal_decoration"
+}

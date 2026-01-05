@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:underway_falls"
+  },
+  "features": [
+    "kruemblegard:driftwillow_tree",
+    "kruemblegard:waytorch_tree_tree",
+
+    "kruemblegard:driftbloom_patch",
+    "kruemblegard:reverse_portal_spores_patch",
+    "kruemblegard:waythread_patch"
+  ],
+  "step": "vegetal_decoration"
+}

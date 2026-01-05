@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:riven_causeways"
+  },
+  "features": [
+    "kruemblegard:faultwood_tree",
+    "kruemblegard:driftwillow_tree",
+
+    "kruemblegard:falsepath_thorns_patch",
+    "kruemblegard:sliproot_patch",
+    "kruemblegard:dustpetal_patch"
+  ],
+  "step": "vegetal_decoration"
+}

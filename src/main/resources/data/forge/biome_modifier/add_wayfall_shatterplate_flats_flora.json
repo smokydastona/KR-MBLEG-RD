@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:shatterplate_flats"
+  },
+  "features": [
+    "kruemblegard:shardbark_pine_tree",
+
+    "kruemblegard:wayseed_cluster_patch",
+    "kruemblegard:voidcap_briar_patch",
+    "kruemblegard:echo_puff_patch"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:betweenlight_void"
+  },
+  "features": [
+    "kruemblegard:hollowway_tree_tree",
+
+    "kruemblegard:driftbloom_patch",
+    "kruemblegard:void_lichen_patch",
+    "kruemblegard:waythread_patch"
+  ],
+  "step": "vegetal_decoration"
+}

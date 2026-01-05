@@ -92,7 +92,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Worldgen
 - Current worldgen is minimal; `init/ModWorldgen` is intentionally empty.
 - Wayfall flora placement is data-driven via biome modifiers/tags/worldgen JSON.
-- Wayfall flora patches + Wayfall trees are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
+- Wayfall flora is injected via Forge biome modifiers:
+  - Global “staple” trees/plants are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
+  - Biome-specific trees/plants are injected via `data/forge/biome_modifier/add_wayfall_*_flora.json`.
 
 ## Removed / not present (by design)
 - `false_waystone` (block + worldgen + biome modifier/tag) was removed.

@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:driftway_chasm"
+  },
+  "features": [
+    "kruemblegard:driftwillow_tree",
+
+    "kruemblegard:pathreed_patch",
+    "kruemblegard:runedrift_reed_patch",
+    "kruemblegard:cairnroot_patch"
+  ],
+  "step": "vegetal_decoration"
+}

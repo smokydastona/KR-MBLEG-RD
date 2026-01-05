@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:basin_of_scars"
+  },
+  "features": [
+    "kruemblegard:shardbark_pine_tree",
+    "kruemblegard:fallbark_tree",
+
+    "kruemblegard:faultgrass_patch",
+    "kruemblegard:wayseed_cluster_patch",
+    "kruemblegard:dustpetal_patch"
+  ],
+  "step": "vegetal_decoration"
+}

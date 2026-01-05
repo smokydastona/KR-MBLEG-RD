@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:crumbled_crossing"
+  },
+  "features": [
+    "kruemblegard:driftwillow_tree",
+    "kruemblegard:cairn_tree_tree",
+
+    "kruemblegard:waylily_patch",
+    "kruemblegard:milestone_grass_patch",
+    "kruemblegard:echo_puff_patch"
+  ],
+  "step": "vegetal_decoration"
+}
