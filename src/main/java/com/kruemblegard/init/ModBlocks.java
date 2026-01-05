@@ -14,7 +14,6 @@ import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
-import com.kruemblegard.block.WayfallSaplingBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
 
@@ -587,7 +586,7 @@ public final class ModBlocks {
                     0)
     );
 
-    // --- Wayfall trees (block sets; saplings are currently decorative) ---
+        // --- Wayfall trees (block sets; saplings grow into matching configured features) ---
 
     private static RegistryObject<Block> registerLog(String id) {
         return BLOCKS.register(id, () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
@@ -663,15 +662,6 @@ public final class ModBlocks {
                         .sound(SoundType.WOOD), BlockSetType.OAK));
     }
 
-        private static RegistryObject<Block> registerSapling(String id, RegistryObject<Block> log, RegistryObject<Block> leaves) {
-                return BLOCKS.register(id, () -> new WayfallSaplingBlock(BlockBehaviour.Properties.of()
-                                .mapColor(MapColor.PLANT)
-                                .noCollission()
-                                .instabreak()
-                                .sound(SoundType.GRASS)
-                                .randomTicks(), log::get, leaves::get));
-    }
-
         private static RegistryObject<Block> registerFeatureSapling(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
                 return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
                                 new FixedConfiguredFeatureTreeGrower(featureKey),
@@ -691,7 +681,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> WAYROOT_LOG = registerLog("wayroot_log");
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
-        public static final RegistryObject<Block> WAYROOT_SAPLING = registerSapling("wayroot_sapling", WAYROOT_LOG, WAYROOT_LEAVES);
+        public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling(
+                        "wayroot_sapling",
+                        configuredFeatureKey("wayroot/sapling")
+        );
 
         public static final RegistryObject<Block> WAYROOT_STAIRS = registerStairs("wayroot_stairs", WAYROOT_PLANKS);
         public static final RegistryObject<Block> WAYROOT_SLAB = registerSlab("wayroot_slab", WAYROOT_PLANKS);
@@ -705,7 +698,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> FALLBARK_LOG = registerLog("fallbark_log");
     public static final RegistryObject<Block> FALLBARK_PLANKS = registerPlanks("fallbark_planks");
     public static final RegistryObject<Block> FALLBARK_LEAVES = registerLeaves("fallbark_leaves");
-        public static final RegistryObject<Block> FALLBARK_SAPLING = registerSapling("fallbark_sapling", FALLBARK_LOG, FALLBARK_LEAVES);
+        public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling(
+                        "fallbark_sapling",
+                        configuredFeatureKey("fallbark/sapling")
+        );
 
         public static final RegistryObject<Block> FALLBARK_STAIRS = registerStairs("fallbark_stairs", FALLBARK_PLANKS);
         public static final RegistryObject<Block> FALLBARK_SLAB = registerSlab("fallbark_slab", FALLBARK_PLANKS);
@@ -719,7 +715,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> ECHOWOOD_LOG = registerLog("echowood_log");
     public static final RegistryObject<Block> ECHOWOOD_PLANKS = registerPlanks("echowood_planks");
     public static final RegistryObject<Block> ECHOWOOD_LEAVES = registerLeaves("echowood_leaves");
-        public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerSapling("echowood_sapling", ECHOWOOD_LOG, ECHOWOOD_LEAVES);
+        public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling(
+                        "echowood_sapling",
+                        configuredFeatureKey("echowood/sapling")
+        );
 
         public static final RegistryObject<Block> ECHOWOOD_STAIRS = registerStairs("echowood_stairs", ECHOWOOD_PLANKS);
         public static final RegistryObject<Block> ECHOWOOD_SLAB = registerSlab("echowood_slab", ECHOWOOD_PLANKS);
@@ -733,7 +732,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CAIRN_TREE_LOG = registerLog("cairn_tree_log");
     public static final RegistryObject<Block> CAIRN_TREE_PLANKS = registerPlanks("cairn_tree_planks");
     public static final RegistryObject<Block> CAIRN_TREE_LEAVES = registerLeaves("cairn_tree_leaves");
-        public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerSapling("cairn_tree_sapling", CAIRN_TREE_LOG, CAIRN_TREE_LEAVES);
+        public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling(
+                        "cairn_tree_sapling",
+                        configuredFeatureKey("cairn_tree/sapling")
+        );
 
         public static final RegistryObject<Block> CAIRN_TREE_STAIRS = registerStairs("cairn_tree_stairs", CAIRN_TREE_PLANKS);
         public static final RegistryObject<Block> CAIRN_TREE_SLAB = registerSlab("cairn_tree_slab", CAIRN_TREE_PLANKS);
@@ -747,7 +749,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> WAYGLASS_LOG = registerLog("wayglass_log");
     public static final RegistryObject<Block> WAYGLASS_PLANKS = registerPlanks("wayglass_planks");
     public static final RegistryObject<Block> WAYGLASS_LEAVES = registerLeaves("wayglass_leaves");
-        public static final RegistryObject<Block> WAYGLASS_SAPLING = registerSapling("wayglass_sapling", WAYGLASS_LOG, WAYGLASS_LEAVES);
+        public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling(
+                        "wayglass_sapling",
+                        configuredFeatureKey("wayglass/sapling")
+        );
 
         public static final RegistryObject<Block> WAYGLASS_STAIRS = registerStairs("wayglass_stairs", WAYGLASS_PLANKS);
         public static final RegistryObject<Block> WAYGLASS_SLAB = registerSlab("wayglass_slab", WAYGLASS_PLANKS);
@@ -761,7 +766,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> SHARDBARK_PINE_LOG = registerLog("shardbark_pine_log");
     public static final RegistryObject<Block> SHARDBARK_PINE_PLANKS = registerPlanks("shardbark_pine_planks");
     public static final RegistryObject<Block> SHARDBARK_PINE_LEAVES = registerLeaves("shardbark_pine_leaves");
-        public static final RegistryObject<Block> SHARDBARK_PINE_SAPLING = registerSapling("shardbark_pine_sapling", SHARDBARK_PINE_LOG, SHARDBARK_PINE_LEAVES);
+        public static final RegistryObject<Block> SHARDBARK_PINE_SAPLING = registerFeatureSapling(
+                        "shardbark_pine_sapling",
+                        configuredFeatureKey("shardbark_pine/sapling")
+        );
 
         public static final RegistryObject<Block> SHARDBARK_PINE_STAIRS = registerStairs("shardbark_pine_stairs", SHARDBARK_PINE_PLANKS);
         public static final RegistryObject<Block> SHARDBARK_PINE_SLAB = registerSlab("shardbark_pine_slab", SHARDBARK_PINE_PLANKS);
@@ -775,7 +783,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LOG = registerLog("hollowway_tree_log");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_PLANKS = registerPlanks("hollowway_tree_planks");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LEAVES = registerLeaves("hollowway_tree_leaves");
-        public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerSapling("hollowway_tree_sapling", HOLLOWWAY_TREE_LOG, HOLLOWWAY_TREE_LEAVES);
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling(
+                        "hollowway_tree_sapling",
+                        configuredFeatureKey("hollowway_tree/sapling")
+        );
 
         public static final RegistryObject<Block> HOLLOWWAY_TREE_STAIRS = registerStairs("hollowway_tree_stairs", HOLLOWWAY_TREE_PLANKS);
         public static final RegistryObject<Block> HOLLOWWAY_TREE_SLAB = registerSlab("hollowway_tree_slab", HOLLOWWAY_TREE_PLANKS);
@@ -789,7 +800,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> DRIFTWILLOW_LOG = registerLog("driftwillow_log");
     public static final RegistryObject<Block> DRIFTWILLOW_PLANKS = registerPlanks("driftwillow_planks");
     public static final RegistryObject<Block> DRIFTWILLOW_LEAVES = registerLeaves("driftwillow_leaves");
-        public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerSapling("driftwillow_sapling", DRIFTWILLOW_LOG, DRIFTWILLOW_LEAVES);
+        public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling(
+                        "driftwillow_sapling",
+                        configuredFeatureKey("driftwillow/sapling")
+        );
 
         public static final RegistryObject<Block> DRIFTWILLOW_STAIRS = registerStairs("driftwillow_stairs", DRIFTWILLOW_PLANKS);
         public static final RegistryObject<Block> DRIFTWILLOW_SLAB = registerSlab("driftwillow_slab", DRIFTWILLOW_PLANKS);
@@ -803,7 +817,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> MONUMENT_OAK_LOG = registerLog("monument_oak_log");
     public static final RegistryObject<Block> MONUMENT_OAK_PLANKS = registerPlanks("monument_oak_planks");
     public static final RegistryObject<Block> MONUMENT_OAK_LEAVES = registerLeaves("monument_oak_leaves");
-        public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerSapling("monument_oak_sapling", MONUMENT_OAK_LOG, MONUMENT_OAK_LEAVES);
+        public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling(
+                        "monument_oak_sapling",
+                        configuredFeatureKey("monument_oak/sapling")
+        );
 
         public static final RegistryObject<Block> MONUMENT_OAK_STAIRS = registerStairs("monument_oak_stairs", MONUMENT_OAK_PLANKS);
         public static final RegistryObject<Block> MONUMENT_OAK_SLAB = registerSlab("monument_oak_slab", MONUMENT_OAK_PLANKS);
@@ -817,7 +834,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> WAYTORCH_TREE_LOG = registerLog("waytorch_tree_log");
     public static final RegistryObject<Block> WAYTORCH_TREE_PLANKS = registerPlanks("waytorch_tree_planks");
     public static final RegistryObject<Block> WAYTORCH_TREE_LEAVES = registerLeaves("waytorch_tree_leaves");
-        public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerSapling("waytorch_tree_sapling", WAYTORCH_TREE_LOG, WAYTORCH_TREE_LEAVES);
+        public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling(
+                        "waytorch_tree_sapling",
+                        configuredFeatureKey("waytorch_tree/sapling")
+        );
 
         public static final RegistryObject<Block> WAYTORCH_TREE_STAIRS = registerStairs("waytorch_tree_stairs", WAYTORCH_TREE_PLANKS);
         public static final RegistryObject<Block> WAYTORCH_TREE_SLAB = registerSlab("waytorch_tree_slab", WAYTORCH_TREE_PLANKS);
@@ -831,7 +851,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> FAULTWOOD_LOG = registerLog("faultwood_log");
     public static final RegistryObject<Block> FAULTWOOD_PLANKS = registerPlanks("faultwood_planks");
     public static final RegistryObject<Block> FAULTWOOD_LEAVES = registerLeaves("faultwood_leaves");
-        public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerSapling("faultwood_sapling", FAULTWOOD_LOG, FAULTWOOD_LEAVES);
+        public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling(
+                        "faultwood_sapling",
+                        configuredFeatureKey("faultwood/sapling")
+        );
 
         public static final RegistryObject<Block> FAULTWOOD_STAIRS = registerStairs("faultwood_stairs", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_SLAB = registerSlab("faultwood_slab", FAULTWOOD_PLANKS);

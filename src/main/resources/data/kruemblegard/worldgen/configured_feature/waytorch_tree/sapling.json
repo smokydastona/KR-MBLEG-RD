@@ -1,0 +1,13 @@
+﻿{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:waytorch_tree/1", "placement": [] },
+      { "feature": "kruemblegard:waytorch_tree/2", "placement": [] },
+      { "feature": "kruemblegard:waytorch_tree/3", "placement": [] },
+      { "feature": "kruemblegard:waytorch_tree/4", "placement": [] },
+      { "feature": "kruemblegard:waytorch_tree/5", "placement": [] }
+    ]
+  }
+}
+

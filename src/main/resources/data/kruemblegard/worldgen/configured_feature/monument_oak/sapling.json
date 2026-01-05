@@ -1,0 +1,13 @@
+﻿{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:monument_oak/1", "placement": [] },
+      { "feature": "kruemblegard:monument_oak/2", "placement": [] },
+      { "feature": "kruemblegard:monument_oak/3", "placement": [] },
+      { "feature": "kruemblegard:monument_oak/4", "placement": [] },
+      { "feature": "kruemblegard:monument_oak/5", "placement": [] }
+    ]
+  }
+}
+

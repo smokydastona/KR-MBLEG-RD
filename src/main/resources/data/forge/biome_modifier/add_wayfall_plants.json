@@ -56,7 +56,19 @@
 
     "kruemblegard:ashbloom_tree",
     "kruemblegard:glimmerpine_tree",
-    "kruemblegard:driftwood_tree"
+    "kruemblegard:driftwood_tree",
+
+    "kruemblegard:wayroot_tree",
+    "kruemblegard:fallbark_tree",
+    "kruemblegard:echowood_tree",
+    "kruemblegard:cairn_tree_tree",
+    "kruemblegard:wayglass_tree",
+    "kruemblegard:shardbark_pine_tree",
+    "kruemblegard:hollowway_tree_tree",
+    "kruemblegard:driftwillow_tree",
+    "kruemblegard:monument_oak_tree",
+    "kruemblegard:waytorch_tree_tree",
+    "kruemblegard:faultwood_tree"
   ],
   "step": "vegetal_decoration"
 }

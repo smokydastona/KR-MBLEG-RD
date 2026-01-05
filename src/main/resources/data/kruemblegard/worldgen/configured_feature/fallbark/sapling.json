@@ -1,0 +1,13 @@
+﻿{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:fallbark/1", "placement": [] },
+      { "feature": "kruemblegard:fallbark/2", "placement": [] },
+      { "feature": "kruemblegard:fallbark/3", "placement": [] },
+      { "feature": "kruemblegard:fallbark/4", "placement": [] },
+      { "feature": "kruemblegard:fallbark/5", "placement": [] }
+    ]
+  }
+}
+

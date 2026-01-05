@@ -9,7 +9,7 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 - **Pebblit**: a hostile stone-bug that can be tamed with cobblestone.
 - **Wayfall**: a new void dimension with End-like floating islands, containing Attuned Ore (custom Wayfall biomes only; spawns restricted to Krümblegård mobs).
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
-- **Wayfall staples**: staple flora + new wood sets (Ashbloom/Glimmerpine/Driftwood) registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
+- **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
 - **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join).
 - **Advancements** are granted by code.
 - **Loot table** for unique drops.

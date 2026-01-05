@@ -14,12 +14,13 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Worldgen: add Wayfall plants (Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrubs) + Ghoulberry corruption.
 - Blocks/items: expand Wayfall wood sets with full vanilla-style wood-family blocks (stairs/slabs/fences/gates/doors/trapdoors/buttons/pressure plates) including recipes + loot.
 - Assets: give each Wayfall wood-family block its own dedicated texture file (placeholders copied from planks for now).
-- Blocks: Wayfall saplings can now grow into simple trees (random ticks + bonemeal).
+- Blocks: Wayfall saplings grow into their matching worldgen configured features (random ticks + bonemeal).
 - Blocks/items: add initial scaffolding for new Wayfall staple flora (Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine).
 - Blocks/items: add new Wayfall staple wood sets (Ashbloom, Glimmerpine, Driftwood) and register simple tree Features.
 - Worldgen: wire Wayfall staple flora patches + staple trees into all Wayfall biomes via configured/placed features + biome modifier.
 - Worldgen: replace staple tree worldgen with Arboria-derived vanilla tree feature templates (multiple variants per species) while swapping in Kruemblegård logs/leaves.
-- Blocks: make Ashbloom/Glimmerpine/Driftwood saplings grow into their matching Arboria-derived tree feature variants (configured-feature selectors), matching natural worldgen.
+- Blocks: make all Wayfall saplings grow into their matching Arboria-derived tree feature variants (configured-feature selectors), matching natural worldgen.
+- Worldgen: inject all Wayfall tree placed features into Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
 - Worldgen: replace `#arboria:tree_branch_replaceable` references with `#kruemblegard:tree_branch_replaceable` and define the new block tag.
 - Loot: add loot tables for Wayfall staple flora + the three staple wood sets.
 - Assets: add placeholder blockstates + item models for Wayfall staples to avoid missing-model rendering.

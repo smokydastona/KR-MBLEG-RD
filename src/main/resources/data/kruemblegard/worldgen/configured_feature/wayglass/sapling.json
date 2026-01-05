@@ -1,0 +1,13 @@
+﻿{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:wayglass/1", "placement": [] },
+      { "feature": "kruemblegard:wayglass/2", "placement": [] },
+      { "feature": "kruemblegard:wayglass/3", "placement": [] },
+      { "feature": "kruemblegard:wayglass/4", "placement": [] },
+      { "feature": "kruemblegard:wayglass/5", "placement": [] }
+    ]
+  }
+}
+
