@@ -13,8 +13,8 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Sky is always black (`sky_color: 0`).
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets).
 - Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
-  - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam**.
-  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt**.
+  - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
+  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.

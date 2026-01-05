@@ -36,6 +36,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Wayfall: add geology palette blocks (Fractured Wayrock, Crushstone, Ashfall Loam, Fault Dust, Scarstone family, Stoneveil Rubble family) + placeholder textures/models.
 - Wayfall: switch dimension noise settings to `kruemblegard:wayfall` so terrain defaults to Fractured Wayrock.
 - Wayfall: surface palette is now biome-tag-driven in noise settings (Ashfall Loam in ash-heavy biomes, Voidfelt in void biomes).
+- Wayfall: add shallow subsurface layering via surface rules (Crushstone under Ashfall Loam / Voidfelt).
 - Wayfall: add surface cover blocks (Veilgrowth/Ashmoss/Runegrowth/Voidfelt) with basic spread/conversion rules + client-side ambience when standing still.
 - Gameplay: Scarstone is iron-gated (weak tools are slower, take damage, and yield Cracked Scarstone).
 
