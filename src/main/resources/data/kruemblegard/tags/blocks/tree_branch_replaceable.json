@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:replaceable_by_trees",
+    "#minecraft:leaves",
+    "#minecraft:saplings",
+    "minecraft:air",
+    "minecraft:cave_air",
+    "minecraft:void_air"
+  ]
+}

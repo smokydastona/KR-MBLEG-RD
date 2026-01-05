@@ -59,7 +59,7 @@
                 "placement": [
                   {
                     "predicate": {
-                      "blocks": "#arboria:tree_branch_replaceable",
+                      "blocks": "#kruemblegard:tree_branch_replaceable",
                       "type": "minecraft:matching_blocks"
                     },
                     "type": "minecraft:block_predicate_filter"
@@ -124,7 +124,7 @@
                         "placement": [
                           {
                             "predicate": {
-                              "blocks": "#arboria:tree_branch_replaceable",
+                              "blocks": "#kruemblegard:tree_branch_replaceable",
                               "type": "minecraft:matching_blocks"
                             },
                             "type": "minecraft:block_predicate_filter"
@@ -189,7 +189,7 @@
                                 "placement": [
                                   {
                                     "predicate": {
-                                      "blocks": "#arboria:tree_branch_replaceable",
+                                      "blocks": "#kruemblegard:tree_branch_replaceable",
                                       "type": "minecraft:matching_blocks"
                                     },
                                     "type": "minecraft:block_predicate_filter"
@@ -407,7 +407,7 @@
                             "predicate": {
                               "predicates": [
                                 {
-                                  "blocks": "#arboria:tree_branch_replaceable",
+                                  "blocks": "#kruemblegard:tree_branch_replaceable",
                                   "type": "minecraft:matching_blocks"
                                 },
                                 {
@@ -420,7 +420,7 @@
                                   "type": "minecraft:matching_blocks"
                                 },
                                 {
-                                  "blocks": "#arboria:tree_branch_replaceable",
+                                  "blocks": "#kruemblegard:tree_branch_replaceable",
                                   "offset": [
                                     -1,
                                     1,
@@ -429,7 +429,7 @@
                                   "type": "minecraft:matching_blocks"
                                 },
                                 {
-                                  "blocks": "#arboria:tree_branch_replaceable",
+                                  "blocks": "#kruemblegard:tree_branch_replaceable",
                                   "offset": [
                                     0,
                                     1,
@@ -469,7 +469,7 @@
                     "predicate": {
                       "predicates": [
                         {
-                          "blocks": "#arboria:tree_branch_replaceable",
+                          "blocks": "#kruemblegard:tree_branch_replaceable",
                           "type": "minecraft:matching_blocks"
                         },
                         {
@@ -482,7 +482,7 @@
                           "type": "minecraft:matching_blocks"
                         },
                         {
-                          "blocks": "#arboria:tree_branch_replaceable",
+                          "blocks": "#kruemblegard:tree_branch_replaceable",
                           "offset": [
                             -1,
                             1,
@@ -491,7 +491,7 @@
                           "type": "minecraft:matching_blocks"
                         },
                         {
-                          "blocks": "#arboria:tree_branch_replaceable",
+                          "blocks": "#kruemblegard:tree_branch_replaceable",
                           "offset": [
                             0,
                             1,
@@ -524,7 +524,7 @@
             "predicate": {
               "predicates": [
                 {
-                  "blocks": "#arboria:tree_branch_replaceable",
+                  "blocks": "#kruemblegard:tree_branch_replaceable",
                   "type": "minecraft:matching_blocks"
                 },
                 {
@@ -537,7 +537,7 @@
                   "type": "minecraft:matching_blocks"
                 },
                 {
-                  "blocks": "#arboria:tree_branch_replaceable",
+                  "blocks": "#kruemblegard:tree_branch_replaceable",
                   "offset": [
                     -1,
                     1,
@@ -546,7 +546,7 @@
                   "type": "minecraft:matching_blocks"
                 },
                 {
-                  "blocks": "#arboria:tree_branch_replaceable",
+                  "blocks": "#kruemblegard:tree_branch_replaceable",
                   "offset": [
                     0,
                     1,

@@ -184,7 +184,7 @@
         "placement": [
           {
             "predicate": {
-              "blocks": "#arboria:tree_branch_replaceable",
+              "blocks": "#kruemblegard:tree_branch_replaceable",
               "type": "minecraft:matching_blocks"
             },
             "type": "minecraft:block_predicate_filter"

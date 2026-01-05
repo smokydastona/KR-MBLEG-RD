@@ -20,6 +20,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Worldgen: wire Wayfall staple flora patches + staple trees into all Wayfall biomes via configured/placed features + biome modifier.
 - Worldgen: replace staple tree worldgen with Arboria-derived vanilla tree feature templates (multiple variants per species) while swapping in Kruemblegård logs/leaves.
 - Blocks: make Ashbloom/Glimmerpine/Driftwood saplings grow into their matching Arboria-derived tree feature variants (configured-feature selectors), matching natural worldgen.
+- Worldgen: replace `#arboria:tree_branch_replaceable` references with `#kruemblegard:tree_branch_replaceable` and define the new block tag.
 - Loot: add loot tables for Wayfall staple flora + the three staple wood sets.
 - Assets: add placeholder blockstates + item models for Wayfall staples to avoid missing-model rendering.
 - Dev tooling: add workspace JSON schema overrides to reduce false-positive loot table/blockstate validation errors.

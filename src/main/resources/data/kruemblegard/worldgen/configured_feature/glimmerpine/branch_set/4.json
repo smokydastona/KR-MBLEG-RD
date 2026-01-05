@@ -5,7 +5,7 @@
         "feature": {
           "config": {
             "allowed_placement": {
-              "blocks": "#arboria:tree_branch_replaceable",
+              "blocks": "#kruemblegard:tree_branch_replaceable",
               "type": "minecraft:matching_blocks"
             },
             "direction": "east",
@@ -63,7 +63,7 @@
         "feature": {
           "config": {
             "allowed_placement": {
-              "blocks": "#arboria:tree_branch_replaceable",
+              "blocks": "#kruemblegard:tree_branch_replaceable",
               "type": "minecraft:matching_blocks"
             },
             "direction": "south",
@@ -121,7 +121,7 @@
         "feature": {
           "config": {
             "allowed_placement": {
-              "blocks": "#arboria:tree_branch_replaceable",
+              "blocks": "#kruemblegard:tree_branch_replaceable",
               "type": "minecraft:matching_blocks"
             },
             "direction": "west",
@@ -179,7 +179,7 @@
         "feature": {
           "config": {
             "allowed_placement": {
-              "blocks": "#arboria:tree_branch_replaceable",
+              "blocks": "#kruemblegard:tree_branch_replaceable",
               "type": "minecraft:matching_blocks"
             },
             "direction": "north",
