@@ -12,10 +12,15 @@ import com.kruemblegard.block.WayfallReactivePlantBlock;
 import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
+import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WayfallSaplingBlock;
 import com.kruemblegard.block.WispstalkBlock;
+import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
@@ -31,6 +36,7 @@ import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.material.MapColor;
 
 import net.minecraft.core.particles.ParticleTypes;
@@ -666,6 +672,22 @@ public final class ModBlocks {
                                 .randomTicks(), log::get, leaves::get));
     }
 
+        private static RegistryObject<Block> registerFeatureSapling(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
+                return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
+                                new FixedConfiguredFeatureTreeGrower(featureKey),
+                                BlockBehaviour.Properties.of()
+                                                .mapColor(MapColor.PLANT)
+                                                .noCollission()
+                                                .instabreak()
+                                                .sound(SoundType.GRASS)
+                                                .randomTicks()
+                ));
+        }
+
+        private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String path) {
+                return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Kruemblegard.MODID, path));
+        }
+
     public static final RegistryObject<Block> WAYROOT_LOG = registerLog("wayroot_log");
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
@@ -828,7 +850,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 3))
     );
-    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerSapling("ashbloom_sapling", ASHBLOOM_LOG, ASHBLOOM_LEAVES);
+    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerFeatureSapling(
+            "ashbloom_sapling",
+            configuredFeatureKey("ashbloom/sapling")
+    );
 
     public static final RegistryObject<Block> ASHBLOOM_STAIRS = registerStairs("ashbloom_stairs", ASHBLOOM_PLANKS);
     public static final RegistryObject<Block> ASHBLOOM_SLAB = registerSlab("ashbloom_slab", ASHBLOOM_PLANKS);
@@ -858,7 +883,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 2))
     );
-    public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerSapling("glimmerpine_sapling", GLIMMERPINE_LOG, GLIMMERPINE_LEAVES);
+    public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerFeatureSapling(
+            "glimmerpine_sapling",
+            configuredFeatureKey("glimmerpine/sapling")
+    );
 
     public static final RegistryObject<Block> GLIMMERPINE_STAIRS = registerStairs("glimmerpine_stairs", GLIMMERPINE_PLANKS);
     public static final RegistryObject<Block> GLIMMERPINE_SLAB = registerSlab("glimmerpine_slab", GLIMMERPINE_PLANKS);
@@ -880,7 +908,10 @@ public final class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.GRASS))
     );
-    public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerSapling("driftwood_sapling", DRIFTWOOD_LOG, DRIFTWOOD_LEAVES);
+    public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerFeatureSapling(
+            "driftwood_sapling",
+            configuredFeatureKey("driftwood/sapling")
+    );
 
     public static final RegistryObject<Block> DRIFTWOOD_STAIRS = registerStairs("driftwood_stairs", DRIFTWOOD_PLANKS);
     public static final RegistryObject<Block> DRIFTWOOD_SLAB = registerSlab("driftwood_slab", DRIFTWOOD_PLANKS);

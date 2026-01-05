@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:glimmerpine/1" },
+      { "feature": "kruemblegard:glimmerpine/2" },
+      { "feature": "kruemblegard:glimmerpine/3" },
+      { "feature": "kruemblegard:glimmerpine/4" },
+      { "feature": "kruemblegard:glimmerpine/5" }
+    ]
+  }
+}

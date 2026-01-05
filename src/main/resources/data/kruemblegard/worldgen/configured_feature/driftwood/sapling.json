@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:driftwood/1" },
+      { "feature": "kruemblegard:driftwood/2" },
+      { "feature": "kruemblegard:driftwood/3" },
+      { "feature": "kruemblegard:driftwood/4" },
+      { "feature": "kruemblegard:driftwood/5" }
+    ]
+  }
+}

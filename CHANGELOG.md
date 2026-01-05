@@ -18,6 +18,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Blocks/items: add initial scaffolding for new Wayfall staple flora (Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine).
 - Blocks/items: add new Wayfall staple wood sets (Ashbloom, Glimmerpine, Driftwood) and register simple tree Features.
 - Worldgen: wire Wayfall staple flora patches + staple trees into all Wayfall biomes via configured/placed features + biome modifier.
+- Worldgen: replace staple tree worldgen with Arboria-derived vanilla tree feature templates (multiple variants per species) while swapping in Kruemblegård logs/leaves.
+- Blocks: make Ashbloom/Glimmerpine/Driftwood saplings grow into their matching Arboria-derived tree feature variants (configured-feature selectors), matching natural worldgen.
 - Loot: add loot tables for Wayfall staple flora + the three staple wood sets.
 - Assets: add placeholder blockstates + item models for Wayfall staples to avoid missing-model rendering.
 - Dev tooling: add workspace JSON schema overrides to reduce false-positive loot table/blockstate validation errors.
