@@ -66,6 +66,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Detailed biome list (keep updated): docs/WAYFALL_BIOMES.md
   - Attuned Ore generates here.
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
+  - Wayfall mob spawns are registered as **on-ground** spawns (must have a solid block underfoot).
 
 ## Advancements / criteria (project-specific)
 - Vanilla advancements are not granted directly.

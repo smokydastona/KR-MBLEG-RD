@@ -31,6 +31,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix: resolve “Failed to load registries” on world creation by correcting Wayfall `dimension_type` fields and worldgen feature JSON codecs (including `minecraft:disk` target predicate format).
 - Fix: resolve “Failed to load registries” by adding missing `kruemblegard:ashbloom/branch_set/2` configured feature referenced by Ashbloom tree variants.
 - Fix: resolve “Failed to load registries” by fixing `minecraft:disk` configured feature schema (`state_provider` is rule-based; `target` is a block predicate) and by correcting sapling selector features to include `placement` entries.
+- Fix: register on-ground spawn placements for Wayfall mobs so Traprock/Pebblit don’t spawn in midair/void.
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.
