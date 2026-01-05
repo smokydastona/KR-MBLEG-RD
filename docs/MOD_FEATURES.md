@@ -43,6 +43,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Tier: Runic tools are above Netherite.
   - Crafting: Runic tools require Attuned Rune Shards + a Runic Core catalyst.
 
+## Creative inventory
+- All Krümblegård items/blocks appear in the single Krümblegård creative tab.
+
 ## Blocks
 - Ancient Waystone block.
 - Standing Stone + Attuned Stone blocks.

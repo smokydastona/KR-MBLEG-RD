@@ -25,26 +25,11 @@ public final class ModCreativeTabs {
                     .title(Component.translatable("creativetab.kruemblegard"))
                     .icon(() -> new ItemStack(ModItems.RUNIC_CORE.get()))
                     .displayItems((parameters, output) -> {
-                        output.accept(ModItems.ANCIENT_WAYSTONE_ITEM.get());
+                        // Put *everything* registered by the mod into one tab.
+                        ModItems.ITEMS.getEntries().forEach(item -> output.accept(item.get()));
 
-                        output.accept(ModItems.STANDING_STONE_ITEM.get());
-                        output.accept(ModItems.ATTUNED_STONE_ITEM.get());
-                        output.accept(ModItems.ATTUNED_ORE_ITEM.get());
-
-                        output.accept(ModItems.ATTUNED_RUNE_SHARD.get());
-                        output.accept(ModItems.RUNIC_CORE.get());
-
-                        output.accept(ModItems.RUNIC_SWORD.get());
-                        output.accept(ModItems.RUNIC_PICKAXE.get());
-                        output.accept(ModItems.RUNIC_AXE.get());
-                        output.accept(ModItems.RUNIC_SHOVEL.get());
-                        output.accept(ModItems.RUNIC_HOE.get());
-
+                        // Also include the filled codex variant for easy testing.
                         output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
-
-                        output.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG.get());
-                        output.accept(ModItems.TRAPROCK_SPAWN_EGG.get());
-                        output.accept(ModItems.PEBBLIT_SPAWN_EGG.get());
                     })
                     .build()
     );
