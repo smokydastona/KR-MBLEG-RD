@@ -17,5 +17,10 @@ public final class ModTags {
                 Registries.BLOCK,
                 new ResourceLocation(Kruemblegard.MOD_ID, "waystone_energy_sources")
         );
+
+        public static final TagKey<Block> WAYFALL_GROUND = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_ground")
+        );
     }
 }

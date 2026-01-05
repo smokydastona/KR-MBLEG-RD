@@ -1,6 +1,7 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,8 +21,7 @@ public class AshveilBlock extends CarpetBlock {
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState below = level.getBlockState(pos.below());
         return below.is(BlockTags.DIRT)
-                || below.is(net.minecraft.world.level.block.Blocks.END_STONE)
-                || below.is(ModBlocks.ATTUNED_STONE.get())
+                || below.is(ModTags.Blocks.WAYFALL_GROUND)
                 || below.is(net.minecraft.world.level.block.Blocks.STONE)
                 || below.is(net.minecraft.world.level.block.Blocks.COBBLESTONE);
     }

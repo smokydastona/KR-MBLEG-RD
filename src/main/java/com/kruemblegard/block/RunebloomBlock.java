@@ -38,7 +38,7 @@ public class RunebloomBlock extends BushBlock {
         // Keep it deterministic-ish: hash biome + whether it’s near attuned/standing stones.
         int nearbySig = 0;
         if (level.getBlockState(pos.below()).is(ModBlocks.ATTUNED_STONE.get())) nearbySig += 17;
-        if (level.getBlockState(pos.below()).is(net.minecraft.world.level.block.Blocks.END_STONE)) nearbySig += 11;
+            if (level.getBlockState(pos.below()).is(ModTags.Blocks.WAYFALL_GROUND)) nearbySig += 11;
         if (level.getBlockState(pos.relative(net.minecraft.core.Direction.NORTH)).is(ModBlocks.STANDING_STONE.get())) nearbySig += 7;
 
         Biome biome = level.getBiome(pos).value();

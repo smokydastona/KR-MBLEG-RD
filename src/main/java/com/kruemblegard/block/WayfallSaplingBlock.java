@@ -1,6 +1,6 @@
 package com.kruemblegard.block;
 
-import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModTags;
 
 import java.util.function.Supplier;
 
@@ -30,8 +30,7 @@ public class WayfallSaplingBlock extends BushBlock implements BonemealableBlock 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
         return state.is(BlockTags.DIRT)
-                || state.is(net.minecraft.world.level.block.Blocks.END_STONE)
-                || state.is(ModBlocks.ATTUNED_STONE.get());
+                || state.is(ModTags.Blocks.WAYFALL_GROUND);
     }
 
     @Override

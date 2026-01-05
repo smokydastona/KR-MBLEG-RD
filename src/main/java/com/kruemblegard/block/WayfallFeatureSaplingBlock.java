@@ -1,6 +1,6 @@
 package com.kruemblegard.block;
 
-import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -17,7 +17,6 @@ public class WayfallFeatureSaplingBlock extends SaplingBlock {
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
         return state.is(BlockTags.DIRT)
-                || state.is(net.minecraft.world.level.block.Blocks.END_STONE)
-                || state.is(ModBlocks.ATTUNED_STONE.get());
+                || state.is(ModTags.Blocks.WAYFALL_GROUND);
     }
 }

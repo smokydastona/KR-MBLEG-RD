@@ -60,13 +60,12 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.
 
 ## Dimensions
-- **Wayfall** (`kruemblegard:wayfall`)
   - Void dimension with End-like floating islands.
   - Uses only Krümblegård Wayfall biomes (no vanilla biomes).
   - Detailed biome list (keep updated): docs/WAYFALL_BIOMES.md
   - Attuned Ore generates here.
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
-  - Wayfall mob spawns are registered as **on-ground** spawns (must have a solid block underfoot).
+- Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 
 ## Advancements / criteria (project-specific)
 - Vanilla advancements are not granted directly.
