@@ -16,10 +16,14 @@
                                              ]
                               },
                    "state_provider":  {
-                                          "state":  {
-                                                        "Name":  "kruemblegard:attuned_stone"
-                                                    },
-                                          "type":  "minecraft:simple_state_provider"
+                                          "fallback":  {
+                                                           "state":  {
+                                                                         "Name":  "kruemblegard:attuned_stone"
+                                                                     },
+                                                           "type":  "minecraft:simple_state_provider"
+                                                       },
+                                          "rules":  [
+                                                      ]
                                       }
                }
 }

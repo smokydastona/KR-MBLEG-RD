@@ -2,10 +2,10 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      { "feature": "kruemblegard:ashbloom/1" },
-      { "feature": "kruemblegard:ashbloom/2" },
-      { "feature": "kruemblegard:ashbloom/3" },
-      { "feature": "kruemblegard:ashbloom/4" }
+      { "feature": "kruemblegard:ashbloom/1", "placement": [] },
+      { "feature": "kruemblegard:ashbloom/2", "placement": [] },
+      { "feature": "kruemblegard:ashbloom/3", "placement": [] },
+      { "feature": "kruemblegard:ashbloom/4", "placement": [] }
     ]
   }
 }

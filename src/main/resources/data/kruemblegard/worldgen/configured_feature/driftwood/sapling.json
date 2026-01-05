@@ -2,11 +2,11 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      { "feature": "kruemblegard:driftwood/1" },
-      { "feature": "kruemblegard:driftwood/2" },
-      { "feature": "kruemblegard:driftwood/3" },
-      { "feature": "kruemblegard:driftwood/4" },
-      { "feature": "kruemblegard:driftwood/5" }
+      { "feature": "kruemblegard:driftwood/1", "placement": [] },
+      { "feature": "kruemblegard:driftwood/2", "placement": [] },
+      { "feature": "kruemblegard:driftwood/3", "placement": [] },
+      { "feature": "kruemblegard:driftwood/4", "placement": [] },
+      { "feature": "kruemblegard:driftwood/5", "placement": [] }
     ]
   }
 }
