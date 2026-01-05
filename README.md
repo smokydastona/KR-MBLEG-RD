@@ -59,6 +59,8 @@ If your mod id/package differ, update:
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
 
+Note: this repo includes placeholder generators under `tools/` that can backfill missing referenced PNGs for dev so you don’t see purple/black missing-texture spam.
+
 ### Textures
 Add PNGs under:
 

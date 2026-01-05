@@ -389,7 +389,10 @@ $plannedTrees = @(
     'driftwillow',
     'monument_oak',
     'waytorch_tree',
-    'faultwood'
+    'faultwood',
+    'ashbloom',
+    'glimmerpine',
+    'driftwood'
 )
 
 $plannedPlants = @(
@@ -463,10 +466,90 @@ foreach ($t in $plannedTrees) {
     }
 
     New-TreeLogTexture    ("{0}_log.png" -f $t)     $key $barkA $barkB $ring
+    New-TreeLogTexture    ("{0}_wood.png" -f $t)    "$key:wood" $barkA $barkB $ring
+
+    # stripped variants: slightly brighter / less ring emphasis (still placeholder)
+    $sbarkA = [System.Drawing.Color]::FromArgb(255, [Math]::Min(255, $barkA.R + 18), [Math]::Min(255, $barkA.G + 18), [Math]::Min(255, $barkA.B + 18))
+    $sbarkB = [System.Drawing.Color]::FromArgb(255, [Math]::Min(255, $barkB.R + 18), [Math]::Min(255, $barkB.G + 18), [Math]::Min(255, $barkB.B + 18))
+    $sring  = [System.Drawing.Color]::FromArgb(210, $ring.R, $ring.G, $ring.B)
+    New-TreeLogTexture    ("stripped_{0}_log.png" -f $t)  "$key:stripped_log" $sbarkA $sbarkB $sring
+    New-TreeLogTexture    ("stripped_{0}_wood.png" -f $t) "$key:stripped_wood" $sbarkA $sbarkB $sring
+
     New-TreePlanksTexture ("{0}_planks.png" -f $t)  $key $barkA $barkB
     New-TreeLeavesTexture ("{0}_leaves.png" -f $t)  $key $leafA $leafB
     New-TreeSaplingTexture ("{0}_sapling.png" -f $t) $key $leafA $ring
 }
+
+function Ensure-TextureFromRef([string]$ref) {
+    # Only backfill our mod textures.
+    if (-not $ref) { return }
+    if ($ref -notmatch '^kruemblegard:(item|block)/(.+)$') { return }
+
+    $kind = $Matches[1]
+    $name = $Matches[2]
+
+    # Avoid weird refs (atlas, etc)
+    if ($name -match '[\\\s]' -or $name.Contains('..')) { return }
+
+    $dir = if ($kind -eq 'item') { $texItem } else { $texBlock }
+    $path = Join-Path $dir ("$name.png")
+
+    if (Test-Path -LiteralPath $path) { return }
+
+    New-Texture16 $path {
+        param($bmp)
+
+        $base = if ($kind -eq 'item') {
+            [System.Drawing.Color]::FromArgb(255, 90, 90, 100)
+        }
+        else {
+            [System.Drawing.Color]::FromArgb(255, 75, 75, 85)
+        }
+
+        # fill background
+        for ($y = 0; $y -lt 16; $y++) {
+            for ($x = 0; $x -lt 16; $x++) {
+                P $bmp $x $y $base
+            }
+        }
+
+        $a = [System.Drawing.Color]::FromArgb(255, 130, 130, 160)
+        $b = [System.Drawing.Color]::FromArgb(255, 170, 120, 200)
+        New-HashedDots $bmp "ref:$ref" $a $b
+    }
+}
+
+function Backfill-TexturesFromModels([string]$modelsDir) {
+    if (-not (Test-Path -LiteralPath $modelsDir)) { return }
+
+    Get-ChildItem -LiteralPath $modelsDir -Filter '*.json' | ForEach-Object {
+        $jsonText = Get-Content -LiteralPath $_.FullName -Raw
+        if (-not $jsonText) { return }
+
+        try {
+            $model = $jsonText | ConvertFrom-Json
+        }
+        catch {
+            return
+        }
+
+        $texturesProp = $model.PSObject.Properties.Match('textures') | Select-Object -First 1
+        if ($null -eq $texturesProp) { return }
+
+        $textures = $texturesProp.Value
+        if ($null -eq $textures) { return }
+
+        $textures.PSObject.Properties | ForEach-Object {
+            $val = $_.Value
+            if ($val -is [string]) {
+                Ensure-TextureFromRef $val
+            }
+        }
+    }
+}
+
+Backfill-TexturesFromModels (Join-Path $root 'src/main/resources/assets/kruemblegard/models/item')
+Backfill-TexturesFromModels (Join-Path $root 'src/main/resources/assets/kruemblegard/models/block')
 
 foreach ($p in $plannedPlants) {
     $key = "plant:$p"

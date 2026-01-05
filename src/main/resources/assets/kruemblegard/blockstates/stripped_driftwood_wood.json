@@ -1,0 +1,16 @@
+﻿{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/stripped_driftwood_wood"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/stripped_driftwood_wood",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/stripped_driftwood_wood",
+                                    "x":  90
+                                }
+                 }
+}

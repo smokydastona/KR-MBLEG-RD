@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "kruemblegard:block/waytorch_tree_wood",
+                     "side":  "kruemblegard:block/waytorch_tree_wood"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

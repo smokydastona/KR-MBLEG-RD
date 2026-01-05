@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "kruemblegard:block/driftwood_wood",
+                     "side":  "kruemblegard:block/driftwood_wood"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

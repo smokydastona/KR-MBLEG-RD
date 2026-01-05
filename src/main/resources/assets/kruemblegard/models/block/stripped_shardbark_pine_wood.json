@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "kruemblegard:block/stripped_shardbark_pine_wood",
+                     "side":  "kruemblegard:block/stripped_shardbark_pine_wood"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

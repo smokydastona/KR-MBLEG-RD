@@ -55,6 +55,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
+  - Wayfall wood families include `*_log`, `*_wood`, and stripped `stripped_*_{log,wood}` variants.
+  - Axes strip Wayfall logs/wood into their stripped variants.
   - Saplings can grow via random ticks or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.

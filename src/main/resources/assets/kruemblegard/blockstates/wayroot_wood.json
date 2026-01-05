@@ -1,0 +1,16 @@
+﻿{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/wayroot_wood"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/wayroot_wood",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/wayroot_wood",
+                                    "x":  90
+                                }
+                 }
+}

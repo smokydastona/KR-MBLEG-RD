@@ -159,6 +159,9 @@ public class ModItems {
     // --- Wayfall tree block items ---
 
     public static final RegistryObject<Item> WAYROOT_LOG_ITEM = registerBlockItem("wayroot_log", ModBlocks.WAYROOT_LOG);
+    public static final RegistryObject<Item> WAYROOT_WOOD_ITEM = registerBlockItem("wayroot_wood", ModBlocks.WAYROOT_WOOD);
+    public static final RegistryObject<Item> STRIPPED_WAYROOT_LOG_ITEM = registerBlockItem("stripped_wayroot_log", ModBlocks.STRIPPED_WAYROOT_LOG);
+    public static final RegistryObject<Item> STRIPPED_WAYROOT_WOOD_ITEM = registerBlockItem("stripped_wayroot_wood", ModBlocks.STRIPPED_WAYROOT_WOOD);
     public static final RegistryObject<Item> WAYROOT_PLANKS_ITEM = registerBlockItem("wayroot_planks", ModBlocks.WAYROOT_PLANKS);
     public static final RegistryObject<Item> WAYROOT_LEAVES_ITEM = registerBlockItem("wayroot_leaves", ModBlocks.WAYROOT_LEAVES);
     public static final RegistryObject<Item> WAYROOT_SAPLING_ITEM = registerBlockItem("wayroot_sapling", ModBlocks.WAYROOT_SAPLING);
@@ -173,6 +176,9 @@ public class ModItems {
     public static final RegistryObject<Item> WAYROOT_PRESSURE_PLATE_ITEM = registerBlockItem("wayroot_pressure_plate", ModBlocks.WAYROOT_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> FALLBARK_LOG_ITEM = registerBlockItem("fallbark_log", ModBlocks.FALLBARK_LOG);
+    public static final RegistryObject<Item> FALLBARK_WOOD_ITEM = registerBlockItem("fallbark_wood", ModBlocks.FALLBARK_WOOD);
+    public static final RegistryObject<Item> STRIPPED_FALLBARK_LOG_ITEM = registerBlockItem("stripped_fallbark_log", ModBlocks.STRIPPED_FALLBARK_LOG);
+    public static final RegistryObject<Item> STRIPPED_FALLBARK_WOOD_ITEM = registerBlockItem("stripped_fallbark_wood", ModBlocks.STRIPPED_FALLBARK_WOOD);
     public static final RegistryObject<Item> FALLBARK_PLANKS_ITEM = registerBlockItem("fallbark_planks", ModBlocks.FALLBARK_PLANKS);
     public static final RegistryObject<Item> FALLBARK_LEAVES_ITEM = registerBlockItem("fallbark_leaves", ModBlocks.FALLBARK_LEAVES);
     public static final RegistryObject<Item> FALLBARK_SAPLING_ITEM = registerBlockItem("fallbark_sapling", ModBlocks.FALLBARK_SAPLING);
@@ -187,6 +193,9 @@ public class ModItems {
     public static final RegistryObject<Item> FALLBARK_PRESSURE_PLATE_ITEM = registerBlockItem("fallbark_pressure_plate", ModBlocks.FALLBARK_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> ECHOWOOD_LOG_ITEM = registerBlockItem("echowood_log", ModBlocks.ECHOWOOD_LOG);
+    public static final RegistryObject<Item> ECHOWOOD_WOOD_ITEM = registerBlockItem("echowood_wood", ModBlocks.ECHOWOOD_WOOD);
+    public static final RegistryObject<Item> STRIPPED_ECHOWOOD_LOG_ITEM = registerBlockItem("stripped_echowood_log", ModBlocks.STRIPPED_ECHOWOOD_LOG);
+    public static final RegistryObject<Item> STRIPPED_ECHOWOOD_WOOD_ITEM = registerBlockItem("stripped_echowood_wood", ModBlocks.STRIPPED_ECHOWOOD_WOOD);
     public static final RegistryObject<Item> ECHOWOOD_PLANKS_ITEM = registerBlockItem("echowood_planks", ModBlocks.ECHOWOOD_PLANKS);
     public static final RegistryObject<Item> ECHOWOOD_LEAVES_ITEM = registerBlockItem("echowood_leaves", ModBlocks.ECHOWOOD_LEAVES);
     public static final RegistryObject<Item> ECHOWOOD_SAPLING_ITEM = registerBlockItem("echowood_sapling", ModBlocks.ECHOWOOD_SAPLING);
@@ -201,6 +210,9 @@ public class ModItems {
     public static final RegistryObject<Item> ECHOWOOD_PRESSURE_PLATE_ITEM = registerBlockItem("echowood_pressure_plate", ModBlocks.ECHOWOOD_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> CAIRN_TREE_LOG_ITEM = registerBlockItem("cairn_tree_log", ModBlocks.CAIRN_TREE_LOG);
+    public static final RegistryObject<Item> CAIRN_TREE_WOOD_ITEM = registerBlockItem("cairn_tree_wood", ModBlocks.CAIRN_TREE_WOOD);
+    public static final RegistryObject<Item> STRIPPED_CAIRN_TREE_LOG_ITEM = registerBlockItem("stripped_cairn_tree_log", ModBlocks.STRIPPED_CAIRN_TREE_LOG);
+    public static final RegistryObject<Item> STRIPPED_CAIRN_TREE_WOOD_ITEM = registerBlockItem("stripped_cairn_tree_wood", ModBlocks.STRIPPED_CAIRN_TREE_WOOD);
     public static final RegistryObject<Item> CAIRN_TREE_PLANKS_ITEM = registerBlockItem("cairn_tree_planks", ModBlocks.CAIRN_TREE_PLANKS);
     public static final RegistryObject<Item> CAIRN_TREE_LEAVES_ITEM = registerBlockItem("cairn_tree_leaves", ModBlocks.CAIRN_TREE_LEAVES);
     public static final RegistryObject<Item> CAIRN_TREE_SAPLING_ITEM = registerBlockItem("cairn_tree_sapling", ModBlocks.CAIRN_TREE_SAPLING);
@@ -215,6 +227,9 @@ public class ModItems {
     public static final RegistryObject<Item> CAIRN_TREE_PRESSURE_PLATE_ITEM = registerBlockItem("cairn_tree_pressure_plate", ModBlocks.CAIRN_TREE_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> WAYGLASS_LOG_ITEM = registerBlockItem("wayglass_log", ModBlocks.WAYGLASS_LOG);
+    public static final RegistryObject<Item> WAYGLASS_WOOD_ITEM = registerBlockItem("wayglass_wood", ModBlocks.WAYGLASS_WOOD);
+    public static final RegistryObject<Item> STRIPPED_WAYGLASS_LOG_ITEM = registerBlockItem("stripped_wayglass_log", ModBlocks.STRIPPED_WAYGLASS_LOG);
+    public static final RegistryObject<Item> STRIPPED_WAYGLASS_WOOD_ITEM = registerBlockItem("stripped_wayglass_wood", ModBlocks.STRIPPED_WAYGLASS_WOOD);
     public static final RegistryObject<Item> WAYGLASS_PLANKS_ITEM = registerBlockItem("wayglass_planks", ModBlocks.WAYGLASS_PLANKS);
     public static final RegistryObject<Item> WAYGLASS_LEAVES_ITEM = registerBlockItem("wayglass_leaves", ModBlocks.WAYGLASS_LEAVES);
     public static final RegistryObject<Item> WAYGLASS_SAPLING_ITEM = registerBlockItem("wayglass_sapling", ModBlocks.WAYGLASS_SAPLING);
@@ -229,6 +244,9 @@ public class ModItems {
     public static final RegistryObject<Item> WAYGLASS_PRESSURE_PLATE_ITEM = registerBlockItem("wayglass_pressure_plate", ModBlocks.WAYGLASS_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> SHARDBARK_PINE_LOG_ITEM = registerBlockItem("shardbark_pine_log", ModBlocks.SHARDBARK_PINE_LOG);
+    public static final RegistryObject<Item> SHARDBARK_PINE_WOOD_ITEM = registerBlockItem("shardbark_pine_wood", ModBlocks.SHARDBARK_PINE_WOOD);
+    public static final RegistryObject<Item> STRIPPED_SHARDBARK_PINE_LOG_ITEM = registerBlockItem("stripped_shardbark_pine_log", ModBlocks.STRIPPED_SHARDBARK_PINE_LOG);
+    public static final RegistryObject<Item> STRIPPED_SHARDBARK_PINE_WOOD_ITEM = registerBlockItem("stripped_shardbark_pine_wood", ModBlocks.STRIPPED_SHARDBARK_PINE_WOOD);
     public static final RegistryObject<Item> SHARDBARK_PINE_PLANKS_ITEM = registerBlockItem("shardbark_pine_planks", ModBlocks.SHARDBARK_PINE_PLANKS);
     public static final RegistryObject<Item> SHARDBARK_PINE_LEAVES_ITEM = registerBlockItem("shardbark_pine_leaves", ModBlocks.SHARDBARK_PINE_LEAVES);
     public static final RegistryObject<Item> SHARDBARK_PINE_SAPLING_ITEM = registerBlockItem("shardbark_pine_sapling", ModBlocks.SHARDBARK_PINE_SAPLING);
@@ -243,6 +261,9 @@ public class ModItems {
     public static final RegistryObject<Item> SHARDBARK_PINE_PRESSURE_PLATE_ITEM = registerBlockItem("shardbark_pine_pressure_plate", ModBlocks.SHARDBARK_PINE_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> HOLLOWWAY_TREE_LOG_ITEM = registerBlockItem("hollowway_tree_log", ModBlocks.HOLLOWWAY_TREE_LOG);
+    public static final RegistryObject<Item> HOLLOWWAY_TREE_WOOD_ITEM = registerBlockItem("hollowway_tree_wood", ModBlocks.HOLLOWWAY_TREE_WOOD);
+    public static final RegistryObject<Item> STRIPPED_HOLLOWWAY_TREE_LOG_ITEM = registerBlockItem("stripped_hollowway_tree_log", ModBlocks.STRIPPED_HOLLOWWAY_TREE_LOG);
+    public static final RegistryObject<Item> STRIPPED_HOLLOWWAY_TREE_WOOD_ITEM = registerBlockItem("stripped_hollowway_tree_wood", ModBlocks.STRIPPED_HOLLOWWAY_TREE_WOOD);
     public static final RegistryObject<Item> HOLLOWWAY_TREE_PLANKS_ITEM = registerBlockItem("hollowway_tree_planks", ModBlocks.HOLLOWWAY_TREE_PLANKS);
     public static final RegistryObject<Item> HOLLOWWAY_TREE_LEAVES_ITEM = registerBlockItem("hollowway_tree_leaves", ModBlocks.HOLLOWWAY_TREE_LEAVES);
     public static final RegistryObject<Item> HOLLOWWAY_TREE_SAPLING_ITEM = registerBlockItem("hollowway_tree_sapling", ModBlocks.HOLLOWWAY_TREE_SAPLING);
@@ -257,6 +278,9 @@ public class ModItems {
     public static final RegistryObject<Item> HOLLOWWAY_TREE_PRESSURE_PLATE_ITEM = registerBlockItem("hollowway_tree_pressure_plate", ModBlocks.HOLLOWWAY_TREE_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> DRIFTWILLOW_LOG_ITEM = registerBlockItem("driftwillow_log", ModBlocks.DRIFTWILLOW_LOG);
+    public static final RegistryObject<Item> DRIFTWILLOW_WOOD_ITEM = registerBlockItem("driftwillow_wood", ModBlocks.DRIFTWILLOW_WOOD);
+    public static final RegistryObject<Item> STRIPPED_DRIFTWILLOW_LOG_ITEM = registerBlockItem("stripped_driftwillow_log", ModBlocks.STRIPPED_DRIFTWILLOW_LOG);
+    public static final RegistryObject<Item> STRIPPED_DRIFTWILLOW_WOOD_ITEM = registerBlockItem("stripped_driftwillow_wood", ModBlocks.STRIPPED_DRIFTWILLOW_WOOD);
     public static final RegistryObject<Item> DRIFTWILLOW_PLANKS_ITEM = registerBlockItem("driftwillow_planks", ModBlocks.DRIFTWILLOW_PLANKS);
     public static final RegistryObject<Item> DRIFTWILLOW_LEAVES_ITEM = registerBlockItem("driftwillow_leaves", ModBlocks.DRIFTWILLOW_LEAVES);
     public static final RegistryObject<Item> DRIFTWILLOW_SAPLING_ITEM = registerBlockItem("driftwillow_sapling", ModBlocks.DRIFTWILLOW_SAPLING);
@@ -271,6 +295,9 @@ public class ModItems {
     public static final RegistryObject<Item> DRIFTWILLOW_PRESSURE_PLATE_ITEM = registerBlockItem("driftwillow_pressure_plate", ModBlocks.DRIFTWILLOW_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> MONUMENT_OAK_LOG_ITEM = registerBlockItem("monument_oak_log", ModBlocks.MONUMENT_OAK_LOG);
+    public static final RegistryObject<Item> MONUMENT_OAK_WOOD_ITEM = registerBlockItem("monument_oak_wood", ModBlocks.MONUMENT_OAK_WOOD);
+    public static final RegistryObject<Item> STRIPPED_MONUMENT_OAK_LOG_ITEM = registerBlockItem("stripped_monument_oak_log", ModBlocks.STRIPPED_MONUMENT_OAK_LOG);
+    public static final RegistryObject<Item> STRIPPED_MONUMENT_OAK_WOOD_ITEM = registerBlockItem("stripped_monument_oak_wood", ModBlocks.STRIPPED_MONUMENT_OAK_WOOD);
     public static final RegistryObject<Item> MONUMENT_OAK_PLANKS_ITEM = registerBlockItem("monument_oak_planks", ModBlocks.MONUMENT_OAK_PLANKS);
     public static final RegistryObject<Item> MONUMENT_OAK_LEAVES_ITEM = registerBlockItem("monument_oak_leaves", ModBlocks.MONUMENT_OAK_LEAVES);
     public static final RegistryObject<Item> MONUMENT_OAK_SAPLING_ITEM = registerBlockItem("monument_oak_sapling", ModBlocks.MONUMENT_OAK_SAPLING);
@@ -285,6 +312,9 @@ public class ModItems {
     public static final RegistryObject<Item> MONUMENT_OAK_PRESSURE_PLATE_ITEM = registerBlockItem("monument_oak_pressure_plate", ModBlocks.MONUMENT_OAK_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> WAYTORCH_TREE_LOG_ITEM = registerBlockItem("waytorch_tree_log", ModBlocks.WAYTORCH_TREE_LOG);
+    public static final RegistryObject<Item> WAYTORCH_TREE_WOOD_ITEM = registerBlockItem("waytorch_tree_wood", ModBlocks.WAYTORCH_TREE_WOOD);
+    public static final RegistryObject<Item> STRIPPED_WAYTORCH_TREE_LOG_ITEM = registerBlockItem("stripped_waytorch_tree_log", ModBlocks.STRIPPED_WAYTORCH_TREE_LOG);
+    public static final RegistryObject<Item> STRIPPED_WAYTORCH_TREE_WOOD_ITEM = registerBlockItem("stripped_waytorch_tree_wood", ModBlocks.STRIPPED_WAYTORCH_TREE_WOOD);
     public static final RegistryObject<Item> WAYTORCH_TREE_PLANKS_ITEM = registerBlockItem("waytorch_tree_planks", ModBlocks.WAYTORCH_TREE_PLANKS);
     public static final RegistryObject<Item> WAYTORCH_TREE_LEAVES_ITEM = registerBlockItem("waytorch_tree_leaves", ModBlocks.WAYTORCH_TREE_LEAVES);
     public static final RegistryObject<Item> WAYTORCH_TREE_SAPLING_ITEM = registerBlockItem("waytorch_tree_sapling", ModBlocks.WAYTORCH_TREE_SAPLING);
@@ -299,6 +329,9 @@ public class ModItems {
     public static final RegistryObject<Item> WAYTORCH_TREE_PRESSURE_PLATE_ITEM = registerBlockItem("waytorch_tree_pressure_plate", ModBlocks.WAYTORCH_TREE_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> FAULTWOOD_LOG_ITEM = registerBlockItem("faultwood_log", ModBlocks.FAULTWOOD_LOG);
+    public static final RegistryObject<Item> FAULTWOOD_WOOD_ITEM = registerBlockItem("faultwood_wood", ModBlocks.FAULTWOOD_WOOD);
+    public static final RegistryObject<Item> STRIPPED_FAULTWOOD_LOG_ITEM = registerBlockItem("stripped_faultwood_log", ModBlocks.STRIPPED_FAULTWOOD_LOG);
+    public static final RegistryObject<Item> STRIPPED_FAULTWOOD_WOOD_ITEM = registerBlockItem("stripped_faultwood_wood", ModBlocks.STRIPPED_FAULTWOOD_WOOD);
     public static final RegistryObject<Item> FAULTWOOD_PLANKS_ITEM = registerBlockItem("faultwood_planks", ModBlocks.FAULTWOOD_PLANKS);
     public static final RegistryObject<Item> FAULTWOOD_LEAVES_ITEM = registerBlockItem("faultwood_leaves", ModBlocks.FAULTWOOD_LEAVES);
     public static final RegistryObject<Item> FAULTWOOD_SAPLING_ITEM = registerBlockItem("faultwood_sapling", ModBlocks.FAULTWOOD_SAPLING);
@@ -315,6 +348,9 @@ public class ModItems {
     // --- Wayfall staple tree block items ---
 
     public static final RegistryObject<Item> ASHBLOOM_LOG_ITEM = registerBlockItem("ashbloom_log", ModBlocks.ASHBLOOM_LOG);
+    public static final RegistryObject<Item> ASHBLOOM_WOOD_ITEM = registerBlockItem("ashbloom_wood", ModBlocks.ASHBLOOM_WOOD);
+    public static final RegistryObject<Item> STRIPPED_ASHBLOOM_LOG_ITEM = registerBlockItem("stripped_ashbloom_log", ModBlocks.STRIPPED_ASHBLOOM_LOG);
+    public static final RegistryObject<Item> STRIPPED_ASHBLOOM_WOOD_ITEM = registerBlockItem("stripped_ashbloom_wood", ModBlocks.STRIPPED_ASHBLOOM_WOOD);
     public static final RegistryObject<Item> ASHBLOOM_PLANKS_ITEM = registerBlockItem("ashbloom_planks", ModBlocks.ASHBLOOM_PLANKS);
     public static final RegistryObject<Item> ASHBLOOM_LEAVES_ITEM = registerBlockItem("ashbloom_leaves", ModBlocks.ASHBLOOM_LEAVES);
     public static final RegistryObject<Item> ASHBLOOM_SAPLING_ITEM = registerBlockItem("ashbloom_sapling", ModBlocks.ASHBLOOM_SAPLING);
@@ -328,6 +364,9 @@ public class ModItems {
     public static final RegistryObject<Item> ASHBLOOM_PRESSURE_PLATE_ITEM = registerBlockItem("ashbloom_pressure_plate", ModBlocks.ASHBLOOM_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> GLIMMERPINE_LOG_ITEM = registerBlockItem("glimmerpine_log", ModBlocks.GLIMMERPINE_LOG);
+    public static final RegistryObject<Item> GLIMMERPINE_WOOD_ITEM = registerBlockItem("glimmerpine_wood", ModBlocks.GLIMMERPINE_WOOD);
+    public static final RegistryObject<Item> STRIPPED_GLIMMERPINE_LOG_ITEM = registerBlockItem("stripped_glimmerpine_log", ModBlocks.STRIPPED_GLIMMERPINE_LOG);
+    public static final RegistryObject<Item> STRIPPED_GLIMMERPINE_WOOD_ITEM = registerBlockItem("stripped_glimmerpine_wood", ModBlocks.STRIPPED_GLIMMERPINE_WOOD);
     public static final RegistryObject<Item> GLIMMERPINE_PLANKS_ITEM = registerBlockItem("glimmerpine_planks", ModBlocks.GLIMMERPINE_PLANKS);
     public static final RegistryObject<Item> GLIMMERPINE_LEAVES_ITEM = registerBlockItem("glimmerpine_leaves", ModBlocks.GLIMMERPINE_LEAVES);
     public static final RegistryObject<Item> GLIMMERPINE_SAPLING_ITEM = registerBlockItem("glimmerpine_sapling", ModBlocks.GLIMMERPINE_SAPLING);
@@ -341,6 +380,9 @@ public class ModItems {
     public static final RegistryObject<Item> GLIMMERPINE_PRESSURE_PLATE_ITEM = registerBlockItem("glimmerpine_pressure_plate", ModBlocks.GLIMMERPINE_PRESSURE_PLATE);
 
     public static final RegistryObject<Item> DRIFTWOOD_LOG_ITEM = registerBlockItem("driftwood_log", ModBlocks.DRIFTWOOD_LOG);
+    public static final RegistryObject<Item> DRIFTWOOD_WOOD_ITEM = registerBlockItem("driftwood_wood", ModBlocks.DRIFTWOOD_WOOD);
+    public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_LOG_ITEM = registerBlockItem("stripped_driftwood_log", ModBlocks.STRIPPED_DRIFTWOOD_LOG);
+    public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_WOOD_ITEM = registerBlockItem("stripped_driftwood_wood", ModBlocks.STRIPPED_DRIFTWOOD_WOOD);
     public static final RegistryObject<Item> DRIFTWOOD_PLANKS_ITEM = registerBlockItem("driftwood_planks", ModBlocks.DRIFTWOOD_PLANKS);
     public static final RegistryObject<Item> DRIFTWOOD_LEAVES_ITEM = registerBlockItem("driftwood_leaves", ModBlocks.DRIFTWOOD_LEAVES);
     public static final RegistryObject<Item> DRIFTWOOD_SAPLING_ITEM = registerBlockItem("driftwood_sapling", ModBlocks.DRIFTWOOD_SAPLING);

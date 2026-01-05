@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "kruemblegard:block/ashbloom_wood",
+                     "side":  "kruemblegard:block/ashbloom_wood"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

@@ -18,10 +18,13 @@ import com.kruemblegard.block.WayfallReactivePlantBlock;
 import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
+import com.kruemblegard.block.StrippableRotatedPillarBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
+
+import java.util.function.Supplier;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -739,6 +742,13 @@ public final class ModBlocks {
                 .sound(SoundType.WOOD)));
     }
 
+        private static RegistryObject<Block> registerStrippableLog(String id, Supplier<? extends Block> stripped) {
+                return BLOCKS.register(id, () -> new StrippableRotatedPillarBlock(stripped, BlockBehaviour.Properties.of()
+                                .mapColor(MapColor.WOOD)
+                                .strength(2.0F)
+                                .sound(SoundType.WOOD)));
+        }
+
     private static RegistryObject<Block> registerPlanks(String id) {
         return BLOCKS.register(id, () -> new Block(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.WOOD)
@@ -822,7 +832,7 @@ public final class ModBlocks {
                 return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Kruemblegard.MODID, path));
         }
 
-    public static final RegistryObject<Block> WAYROOT_LOG = registerLog("wayroot_log");
+        public static final RegistryObject<Block> WAYROOT_LOG = registerStrippableLog("wayroot_log", () -> STRIPPED_WAYROOT_LOG.get());
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
         public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling(
@@ -839,7 +849,14 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYROOT_BUTTON = registerButton("wayroot_button", WAYROOT_PLANKS);
         public static final RegistryObject<Block> WAYROOT_PRESSURE_PLATE = registerPressurePlate("wayroot_pressure_plate", WAYROOT_PLANKS);
 
-    public static final RegistryObject<Block> FALLBARK_LOG = registerLog("fallbark_log");
+                public static final RegistryObject<Block> WAYROOT_WOOD = registerStrippableLog("wayroot_wood", () -> STRIPPED_WAYROOT_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_WAYROOT_LOG = registerLog("stripped_wayroot_log");
+        public static final RegistryObject<Block> STRIPPED_WAYROOT_WOOD = registerLog("stripped_wayroot_wood");
+
+        public static final RegistryObject<Block> FALLBARK_LOG = registerStrippableLog("fallbark_log", () -> STRIPPED_FALLBARK_LOG.get());
+                public static final RegistryObject<Block> FALLBARK_WOOD = registerStrippableLog("fallbark_wood", () -> STRIPPED_FALLBARK_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_FALLBARK_LOG = registerLog("stripped_fallbark_log");
+        public static final RegistryObject<Block> STRIPPED_FALLBARK_WOOD = registerLog("stripped_fallbark_wood");
     public static final RegistryObject<Block> FALLBARK_PLANKS = registerPlanks("fallbark_planks");
     public static final RegistryObject<Block> FALLBARK_LEAVES = registerLeaves("fallbark_leaves");
         public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling(
@@ -856,7 +873,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> FALLBARK_BUTTON = registerButton("fallbark_button", FALLBARK_PLANKS);
         public static final RegistryObject<Block> FALLBARK_PRESSURE_PLATE = registerPressurePlate("fallbark_pressure_plate", FALLBARK_PLANKS);
 
-    public static final RegistryObject<Block> ECHOWOOD_LOG = registerLog("echowood_log");
+        public static final RegistryObject<Block> ECHOWOOD_LOG = registerStrippableLog("echowood_log", () -> STRIPPED_ECHOWOOD_LOG.get());
+                public static final RegistryObject<Block> ECHOWOOD_WOOD = registerStrippableLog("echowood_wood", () -> STRIPPED_ECHOWOOD_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_ECHOWOOD_LOG = registerLog("stripped_echowood_log");
+        public static final RegistryObject<Block> STRIPPED_ECHOWOOD_WOOD = registerLog("stripped_echowood_wood");
     public static final RegistryObject<Block> ECHOWOOD_PLANKS = registerPlanks("echowood_planks");
     public static final RegistryObject<Block> ECHOWOOD_LEAVES = registerLeaves("echowood_leaves");
         public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling(
@@ -873,7 +893,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> ECHOWOOD_BUTTON = registerButton("echowood_button", ECHOWOOD_PLANKS);
         public static final RegistryObject<Block> ECHOWOOD_PRESSURE_PLATE = registerPressurePlate("echowood_pressure_plate", ECHOWOOD_PLANKS);
 
-    public static final RegistryObject<Block> CAIRN_TREE_LOG = registerLog("cairn_tree_log");
+        public static final RegistryObject<Block> CAIRN_TREE_LOG = registerStrippableLog("cairn_tree_log", () -> STRIPPED_CAIRN_TREE_LOG.get());
+                public static final RegistryObject<Block> CAIRN_TREE_WOOD = registerStrippableLog("cairn_tree_wood", () -> STRIPPED_CAIRN_TREE_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_CAIRN_TREE_LOG = registerLog("stripped_cairn_tree_log");
+        public static final RegistryObject<Block> STRIPPED_CAIRN_TREE_WOOD = registerLog("stripped_cairn_tree_wood");
     public static final RegistryObject<Block> CAIRN_TREE_PLANKS = registerPlanks("cairn_tree_planks");
     public static final RegistryObject<Block> CAIRN_TREE_LEAVES = registerLeaves("cairn_tree_leaves");
         public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling(
@@ -890,7 +913,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> CAIRN_TREE_BUTTON = registerButton("cairn_tree_button", CAIRN_TREE_PLANKS);
         public static final RegistryObject<Block> CAIRN_TREE_PRESSURE_PLATE = registerPressurePlate("cairn_tree_pressure_plate", CAIRN_TREE_PLANKS);
 
-    public static final RegistryObject<Block> WAYGLASS_LOG = registerLog("wayglass_log");
+        public static final RegistryObject<Block> WAYGLASS_LOG = registerStrippableLog("wayglass_log", () -> STRIPPED_WAYGLASS_LOG.get());
+                public static final RegistryObject<Block> WAYGLASS_WOOD = registerStrippableLog("wayglass_wood", () -> STRIPPED_WAYGLASS_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_WAYGLASS_LOG = registerLog("stripped_wayglass_log");
+        public static final RegistryObject<Block> STRIPPED_WAYGLASS_WOOD = registerLog("stripped_wayglass_wood");
     public static final RegistryObject<Block> WAYGLASS_PLANKS = registerPlanks("wayglass_planks");
     public static final RegistryObject<Block> WAYGLASS_LEAVES = registerLeaves("wayglass_leaves");
         public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling(
@@ -907,7 +933,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYGLASS_BUTTON = registerButton("wayglass_button", WAYGLASS_PLANKS);
         public static final RegistryObject<Block> WAYGLASS_PRESSURE_PLATE = registerPressurePlate("wayglass_pressure_plate", WAYGLASS_PLANKS);
 
-    public static final RegistryObject<Block> SHARDBARK_PINE_LOG = registerLog("shardbark_pine_log");
+        public static final RegistryObject<Block> SHARDBARK_PINE_LOG = registerStrippableLog("shardbark_pine_log", () -> STRIPPED_SHARDBARK_PINE_LOG.get());
+                public static final RegistryObject<Block> SHARDBARK_PINE_WOOD = registerStrippableLog("shardbark_pine_wood", () -> STRIPPED_SHARDBARK_PINE_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_SHARDBARK_PINE_LOG = registerLog("stripped_shardbark_pine_log");
+        public static final RegistryObject<Block> STRIPPED_SHARDBARK_PINE_WOOD = registerLog("stripped_shardbark_pine_wood");
     public static final RegistryObject<Block> SHARDBARK_PINE_PLANKS = registerPlanks("shardbark_pine_planks");
     public static final RegistryObject<Block> SHARDBARK_PINE_LEAVES = registerLeaves("shardbark_pine_leaves");
         public static final RegistryObject<Block> SHARDBARK_PINE_SAPLING = registerFeatureSapling(
@@ -924,7 +953,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> SHARDBARK_PINE_BUTTON = registerButton("shardbark_pine_button", SHARDBARK_PINE_PLANKS);
         public static final RegistryObject<Block> SHARDBARK_PINE_PRESSURE_PLATE = registerPressurePlate("shardbark_pine_pressure_plate", SHARDBARK_PINE_PLANKS);
 
-    public static final RegistryObject<Block> HOLLOWWAY_TREE_LOG = registerLog("hollowway_tree_log");
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_LOG = registerStrippableLog("hollowway_tree_log", () -> STRIPPED_HOLLOWWAY_TREE_LOG.get());
+                public static final RegistryObject<Block> HOLLOWWAY_TREE_WOOD = registerStrippableLog("hollowway_tree_wood", () -> STRIPPED_HOLLOWWAY_TREE_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_LOG = registerLog("stripped_hollowway_tree_log");
+        public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_WOOD = registerLog("stripped_hollowway_tree_wood");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_PLANKS = registerPlanks("hollowway_tree_planks");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LEAVES = registerLeaves("hollowway_tree_leaves");
         public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling(
@@ -941,7 +973,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> HOLLOWWAY_TREE_BUTTON = registerButton("hollowway_tree_button", HOLLOWWAY_TREE_PLANKS);
         public static final RegistryObject<Block> HOLLOWWAY_TREE_PRESSURE_PLATE = registerPressurePlate("hollowway_tree_pressure_plate", HOLLOWWAY_TREE_PLANKS);
 
-    public static final RegistryObject<Block> DRIFTWILLOW_LOG = registerLog("driftwillow_log");
+        public static final RegistryObject<Block> DRIFTWILLOW_LOG = registerStrippableLog("driftwillow_log", () -> STRIPPED_DRIFTWILLOW_LOG.get());
+                public static final RegistryObject<Block> DRIFTWILLOW_WOOD = registerStrippableLog("driftwillow_wood", () -> STRIPPED_DRIFTWILLOW_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_DRIFTWILLOW_LOG = registerLog("stripped_driftwillow_log");
+        public static final RegistryObject<Block> STRIPPED_DRIFTWILLOW_WOOD = registerLog("stripped_driftwillow_wood");
     public static final RegistryObject<Block> DRIFTWILLOW_PLANKS = registerPlanks("driftwillow_planks");
     public static final RegistryObject<Block> DRIFTWILLOW_LEAVES = registerLeaves("driftwillow_leaves");
         public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling(
@@ -958,7 +993,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> DRIFTWILLOW_BUTTON = registerButton("driftwillow_button", DRIFTWILLOW_PLANKS);
         public static final RegistryObject<Block> DRIFTWILLOW_PRESSURE_PLATE = registerPressurePlate("driftwillow_pressure_plate", DRIFTWILLOW_PLANKS);
 
-    public static final RegistryObject<Block> MONUMENT_OAK_LOG = registerLog("monument_oak_log");
+        public static final RegistryObject<Block> MONUMENT_OAK_LOG = registerStrippableLog("monument_oak_log", () -> STRIPPED_MONUMENT_OAK_LOG.get());
+                public static final RegistryObject<Block> MONUMENT_OAK_WOOD = registerStrippableLog("monument_oak_wood", () -> STRIPPED_MONUMENT_OAK_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_MONUMENT_OAK_LOG = registerLog("stripped_monument_oak_log");
+        public static final RegistryObject<Block> STRIPPED_MONUMENT_OAK_WOOD = registerLog("stripped_monument_oak_wood");
     public static final RegistryObject<Block> MONUMENT_OAK_PLANKS = registerPlanks("monument_oak_planks");
     public static final RegistryObject<Block> MONUMENT_OAK_LEAVES = registerLeaves("monument_oak_leaves");
         public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling(
@@ -975,11 +1013,14 @@ public final class ModBlocks {
         public static final RegistryObject<Block> MONUMENT_OAK_BUTTON = registerButton("monument_oak_button", MONUMENT_OAK_PLANKS);
         public static final RegistryObject<Block> MONUMENT_OAK_PRESSURE_PLATE = registerPressurePlate("monument_oak_pressure_plate", MONUMENT_OAK_PLANKS);
 
-    public static final RegistryObject<Block> WAYTORCH_TREE_LOG = registerLog("waytorch_tree_log");
+        public static final RegistryObject<Block> WAYTORCH_TREE_LOG = registerStrippableLog("waytorch_tree_log", () -> STRIPPED_WAYTORCH_TREE_LOG.get());
+                public static final RegistryObject<Block> WAYTORCH_TREE_WOOD = registerStrippableLog("waytorch_tree_wood", () -> STRIPPED_WAYTORCH_TREE_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_WAYTORCH_TREE_LOG = registerLog("stripped_waytorch_tree_log");
+        public static final RegistryObject<Block> STRIPPED_WAYTORCH_TREE_WOOD = registerLog("stripped_waytorch_tree_wood");
     public static final RegistryObject<Block> WAYTORCH_TREE_PLANKS = registerPlanks("waytorch_tree_planks");
     public static final RegistryObject<Block> WAYTORCH_TREE_LEAVES = registerLeaves("waytorch_tree_leaves");
         public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling(
-                        "waytorch_tree_sapling",
+                                                "waytorch_tree_sapling",
                         configuredFeatureKey("waytorch_tree/sapling")
         );
 
@@ -992,7 +1033,10 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYTORCH_TREE_BUTTON = registerButton("waytorch_tree_button", WAYTORCH_TREE_PLANKS);
         public static final RegistryObject<Block> WAYTORCH_TREE_PRESSURE_PLATE = registerPressurePlate("waytorch_tree_pressure_plate", WAYTORCH_TREE_PLANKS);
 
-    public static final RegistryObject<Block> FAULTWOOD_LOG = registerLog("faultwood_log");
+        public static final RegistryObject<Block> FAULTWOOD_LOG = registerStrippableLog("faultwood_log", () -> STRIPPED_FAULTWOOD_LOG.get());
+                public static final RegistryObject<Block> FAULTWOOD_WOOD = registerStrippableLog("faultwood_wood", () -> STRIPPED_FAULTWOOD_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_FAULTWOOD_LOG = registerLog("stripped_faultwood_log");
+        public static final RegistryObject<Block> STRIPPED_FAULTWOOD_WOOD = registerLog("stripped_faultwood_wood");
     public static final RegistryObject<Block> FAULTWOOD_PLANKS = registerPlanks("faultwood_planks");
     public static final RegistryObject<Block> FAULTWOOD_LEAVES = registerLeaves("faultwood_leaves");
         public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling(
@@ -1005,7 +1049,10 @@ public final class ModBlocks {
 
     // --- Staple trees (all-biome) ---
 
-    public static final RegistryObject<Block> ASHBLOOM_LOG = registerLog("ashbloom_log");
+        public static final RegistryObject<Block> ASHBLOOM_LOG = registerStrippableLog("ashbloom_log", () -> STRIPPED_ASHBLOOM_LOG.get());
+                public static final RegistryObject<Block> ASHBLOOM_WOOD = registerStrippableLog("ashbloom_wood", () -> STRIPPED_ASHBLOOM_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_ASHBLOOM_LOG = registerLog("stripped_ashbloom_log");
+        public static final RegistryObject<Block> STRIPPED_ASHBLOOM_WOOD = registerLog("stripped_ashbloom_wood");
     public static final RegistryObject<Block> ASHBLOOM_PLANKS = registerPlanks("ashbloom_planks");
     public static final RegistryObject<Block> ASHBLOOM_LEAVES = BLOCKS.register(
             "ashbloom_leaves",
@@ -1031,7 +1078,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> ASHBLOOM_BUTTON = registerButton("ashbloom_button", ASHBLOOM_PLANKS);
     public static final RegistryObject<Block> ASHBLOOM_PRESSURE_PLATE = registerPressurePlate("ashbloom_pressure_plate", ASHBLOOM_PLANKS);
 
-    public static final RegistryObject<Block> GLIMMERPINE_LOG = registerLog("glimmerpine_log");
+        public static final RegistryObject<Block> GLIMMERPINE_LOG = registerStrippableLog("glimmerpine_log", () -> STRIPPED_GLIMMERPINE_LOG.get());
+                public static final RegistryObject<Block> GLIMMERPINE_WOOD = registerStrippableLog("glimmerpine_wood", () -> STRIPPED_GLIMMERPINE_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_GLIMMERPINE_LOG = registerLog("stripped_glimmerpine_log");
+        public static final RegistryObject<Block> STRIPPED_GLIMMERPINE_WOOD = registerLog("stripped_glimmerpine_wood");
     public static final RegistryObject<Block> GLIMMERPINE_PLANKS = BLOCKS.register(
             "glimmerpine_planks",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -1064,7 +1114,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GLIMMERPINE_BUTTON = registerButton("glimmerpine_button", GLIMMERPINE_PLANKS);
     public static final RegistryObject<Block> GLIMMERPINE_PRESSURE_PLATE = registerPressurePlate("glimmerpine_pressure_plate", GLIMMERPINE_PLANKS);
 
-    public static final RegistryObject<Block> DRIFTWOOD_LOG = registerLog("driftwood_log");
+        public static final RegistryObject<Block> DRIFTWOOD_LOG = registerStrippableLog("driftwood_log", () -> STRIPPED_DRIFTWOOD_LOG.get());
+                public static final RegistryObject<Block> DRIFTWOOD_WOOD = registerStrippableLog("driftwood_wood", () -> STRIPPED_DRIFTWOOD_WOOD.get());
+        public static final RegistryObject<Block> STRIPPED_DRIFTWOOD_LOG = registerLog("stripped_driftwood_log");
+        public static final RegistryObject<Block> STRIPPED_DRIFTWOOD_WOOD = registerLog("stripped_driftwood_wood");
     public static final RegistryObject<Block> DRIFTWOOD_PLANKS = registerPlanks("driftwood_planks");
     public static final RegistryObject<Block> DRIFTWOOD_LEAVES = BLOCKS.register(
             "driftwood_leaves",
