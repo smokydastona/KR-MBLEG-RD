@@ -66,6 +66,7 @@
   - Ensure all relevant docs match the final behavior you're about to ship.
 5. **Push to GitHub Actions**
   - Commit and push ONLY (no tags/releases).
+  - **After EVERY commit, immediately run `git push`** so GitHub Actions produces a fresh artifact.
   - **Before every commit:** verify `README.md`, `CHANGELOG.md`, and `docs/MOD_FEATURES.md` are updated for this change.
 6. **Only stop when 100% validated**
   - Continue until the workspace has no remaining errors related to the change and the project is in a shippable state.
@@ -96,6 +97,8 @@
 - If the user reports a crash/CI failure or asks for a fix, and you make code/resource changes:
   - **Stage + commit + push by default** to trigger GitHub Actions and produce an updated jar artifact.
   - Only skip commit/push if the user explicitly asks you not to, or if you’re still mid-debug and expect more immediate edits.
+- **Always push after committing**
+  - If you created a commit during the session, **push it before ending your turn** (unless the user explicitly says “don’t push yet”).
 - If there are uncommitted changes when the user expects a new jar, treat that as a bug in the workflow and push.
 - **User override: “push” means push, always**
   - If the user says “push” / “push updates” / “push it”, ALWAYS run `git push` even if there are no new local commits.
