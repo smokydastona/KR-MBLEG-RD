@@ -44,6 +44,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Wayfall: add shallow subsurface layering via surface rules (Crushstone under Ashfall Loam / Voidfelt).
 - Wayfall: add surface cover blocks (Veilgrowth/Ashmoss/Runegrowth/Voidfelt) with basic spread/conversion rules + client-side ambience when standing still.
 - Gameplay: Scarstone is iron-gated (weak tools are slower, take damage, and yield Cracked Scarstone).
+- Fix: add missing block loot tables so all blocks drop as items.
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.
