@@ -28,6 +28,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Advancements: remove obsolete survived/cleansed advancements tied to removed encounter flow.
 - Docs/Codex: update guidebook + docs to match Traprock behavior.
 - Fix: resolve “Failed to load registries” on world creation by correcting Wayfall `dimension_type` fields and worldgen feature JSON codecs (including `minecraft:disk` target predicate format).
+- Fix: resolve “Failed to load registries” by adding missing `kruemblegard:ashbloom/branch_set/2` configured feature referenced by Ashbloom tree variants.
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.
