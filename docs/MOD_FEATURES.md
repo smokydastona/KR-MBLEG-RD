@@ -45,6 +45,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ## Creative inventory
 - All Krümblegård items/blocks appear in the single Krümblegård creative tab.
+- Creative tab icon uses `assets/kruemblegard/textures/gui/menu_tab.png`.
 
 ## Blocks
 - Ancient Waystone block.

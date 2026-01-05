@@ -23,10 +23,14 @@ public final class ModCreativeTabs {
             "kruemblegard",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab.kruemblegard"))
-                    .icon(() -> new ItemStack(ModItems.RUNIC_CORE.get()))
+                    .icon(() -> new ItemStack(ModItems.MENU_TAB.get()))
                     .displayItems((parameters, output) -> {
                         // Put *everything* registered by the mod into one tab.
-                        ModItems.ITEMS.getEntries().forEach(item -> output.accept(item.get()));
+                        ModItems.ITEMS.getEntries().forEach(item -> {
+                            if (item != ModItems.MENU_TAB) {
+                                output.accept(item.get());
+                            }
+                        });
 
                         // Also include the filled codex variant for easy testing.
                         output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
