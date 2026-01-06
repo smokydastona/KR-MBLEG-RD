@@ -1,7 +1,7 @@
-﻿{
+{
     "textures":  {
                      "end":  "kruemblegard:block/glimmerpine_log_top",
-                     "side":  "kruemblegard:block/stripped_glimmerpine_log"
+                     "side":  "kruemblegard:block/glimmerpine_log"
                  },
     "parent":  "minecraft:block/cube_column"
 }

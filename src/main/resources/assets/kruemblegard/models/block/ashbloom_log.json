@@ -1,7 +1,7 @@
-﻿{
+{
     "textures":  {
                      "end":  "kruemblegard:block/ashbloom_log_top",
-                     "side":  "kruemblegard:block/stripped_ashbloom_log"
+                     "side":  "kruemblegard:block/ashbloom_log"
                  },
     "parent":  "minecraft:block/cube_column"
 }

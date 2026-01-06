@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/stripped_waytorch_tree_log",
+                     "end":  "kruemblegard:block/waytorch_tree_log_top",
                      "side":  "kruemblegard:block/stripped_waytorch_tree_log"
                  },
     "parent":  "minecraft:block/cube_column"

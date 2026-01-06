@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.178 (2026-01-06)
+- Fix(assets): logs and stripped logs now render proper end-grain via per-wood `<type>_log_top` textures (stripped logs reuse the unstripped top texture).
+
 ## 1.0.177 (2026-01-06)
 - Fix(worldgen): resolve “Failed to load registries” on world creation by correcting Wayfall multi-noise biome source configuration and `minecraft:disk` configured feature `state_provider` codecs.
 

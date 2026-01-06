@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/monument_oak_log",
+                     "end":  "kruemblegard:block/monument_oak_log_top",
                      "side":  "kruemblegard:block/monument_oak_log"
                  },
     "parent":  "minecraft:block/cube_column"

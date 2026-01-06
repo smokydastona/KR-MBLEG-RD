@@ -1,7 +1,7 @@
 {
   "variants": {
-    "axis=y": { "model": "kruemblegard:block/driftwillow_log" },
-    "axis=x": { "model": "kruemblegard:block/driftwillow_log", "x": 90, "y": 90 },
-    "axis=z": { "model": "kruemblegard:block/driftwillow_log", "x": 90 }
+    "axis=y": { "model": "kruemblegard:block/driftwood_log" },
+    "axis=x": { "model": "kruemblegard:block/driftwood_log", "x": 90, "y": 90 },
+    "axis=z": { "model": "kruemblegard:block/driftwood_log", "x": 90 }
   }
 }

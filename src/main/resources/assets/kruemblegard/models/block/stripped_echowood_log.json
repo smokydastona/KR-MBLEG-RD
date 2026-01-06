@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/stripped_echowood_log",
+                     "end":  "kruemblegard:block/echowood_log_top",
                      "side":  "kruemblegard:block/stripped_echowood_log"
                  },
     "parent":  "minecraft:block/cube_column"
