@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "/crushstone",
-    "top": "/crushstone",
-    "side": "/crushstone"
+    "bottom": "kruemblegard:block/crushstone",
+    "top": "kruemblegard:block/crushstone",
+    "side": "kruemblegard:block/crushstone"
   }
 }
 

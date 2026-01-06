@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "/attuned_stone",
-    "top": "/attuned_stone",
-    "side": "/attuned_stone"
+    "bottom": "kruemblegard:block/attuned_stone",
+    "top": "kruemblegard:block/attuned_stone",
+    "side": "kruemblegard:block/attuned_stone"
   }
 }
 

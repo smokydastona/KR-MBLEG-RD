@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "/stoneveil_rubble",
-    "top": "/stoneveil_rubble",
-    "side": "/stoneveil_rubble"
+    "bottom": "kruemblegard:block/stoneveil_rubble",
+    "top": "kruemblegard:block/stoneveil_rubble",
+    "side": "kruemblegard:block/stoneveil_rubble"
   }
 }
 

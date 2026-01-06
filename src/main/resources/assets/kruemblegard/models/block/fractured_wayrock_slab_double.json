@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "/fractured_wayrock"
+    "all": "kruemblegard:block/fractured_wayrock"
   }
 }
 

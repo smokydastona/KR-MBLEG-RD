@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "/cracked_scarstone"
+    "wall": "kruemblegard:block/cracked_scarstone"
   }
 }
 

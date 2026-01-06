@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "/fractured_wayrock",
-    "top": "/fractured_wayrock",
-    "side": "/fractured_wayrock"
+    "bottom": "kruemblegard:block/fractured_wayrock",
+    "top": "kruemblegard:block/fractured_wayrock",
+    "side": "kruemblegard:block/fractured_wayrock"
   }
 }
 

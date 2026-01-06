@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "/stoneveil_rubble"
+    "wall": "kruemblegard:block/stoneveil_rubble"
   }
 }
 

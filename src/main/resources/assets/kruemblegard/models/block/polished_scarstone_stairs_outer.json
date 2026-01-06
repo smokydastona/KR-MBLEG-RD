@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "/polished_scarstone",
-    "top": "/polished_scarstone",
-    "side": "/polished_scarstone"
+    "bottom": "kruemblegard:block/polished_scarstone",
+    "top": "kruemblegard:block/polished_scarstone",
+    "side": "kruemblegard:block/polished_scarstone"
   }
 }
 

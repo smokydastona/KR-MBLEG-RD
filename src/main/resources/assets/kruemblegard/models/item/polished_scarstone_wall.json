@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "/polished_scarstone"
+    "wall": "kruemblegard:block/polished_scarstone"
   }
 }
 

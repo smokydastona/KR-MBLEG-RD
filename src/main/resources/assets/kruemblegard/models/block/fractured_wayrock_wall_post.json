@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "/fractured_wayrock"
+    "wall": "kruemblegard:block/fractured_wayrock"
   }
 }
 

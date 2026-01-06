@@ -1,7 +1,7 @@
 ﻿{
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "/crushstone"
+    "all": "kruemblegard:block/crushstone"
   }
 }
 
