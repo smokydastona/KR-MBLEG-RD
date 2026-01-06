@@ -117,6 +117,7 @@ public final class ModBlocks {
             "wayfall_portal",
             () -> new WayfallPortalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
+                    .noCollission()
                     .strength(2.0F, 18.0F)
                     .sound(SoundType.STONE))
     );

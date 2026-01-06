@@ -61,7 +61,7 @@ If your mod id/package differ, update:
 - Tame: right-click a Pebblit with `minecraft:cobblestone`
 
 ### Wayfall
-- Enter via the `kruemblegard:wayfall_portal` testing block (place it in creative and right-click).
+- Enter via the `kruemblegard:wayfall_portal` testing block (place it in creative and walk into it).
 - Or enter via command:
     - `/execute in kruemblegard:wayfall run tp @s 0 80 0`
 

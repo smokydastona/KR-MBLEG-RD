@@ -46,7 +46,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ## Creative inventory
 
-- `wayfall_portal`: a simple testing portal block you can place in creative and right-click to toggle between Overworld and Wayfall.
+- `wayfall_portal`: a simple testing portal block you can place in creative; walking into it sends you to the Wayfall spawn.
 
 ## Wayfall Skybox (Client)
 - Wayfall renders a custom sky in-game (client-only).

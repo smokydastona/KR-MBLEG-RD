@@ -22,6 +22,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.171 (2026-01-05)
 - Fix(assets): backfill missing stone-family textures referenced by generated models (removes missing-texture rendering).
 
+## 1.0.172 (2026-01-05)
+- Fix: `wayfall_portal` is now a walk-into portal (non-solid) that teleports players to the Wayfall spawn.
+
 ## 1.0.165 (2026-01-06)
 - Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
 - Data-driven: make Crumbling Codex JSON loading codec-backed (safer parsing, fewer brittle assumptions).
