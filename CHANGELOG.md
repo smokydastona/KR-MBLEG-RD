@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.176 (2026-01-05)
+- Wayfall: replace End-based noise routing with custom climate noises + density functions for a more Aether-like floating-islands feel.
+- Wayfall: increase generation height to 384.
+- Wayfall: portal arrivals now search for nearby solid ground and will generate a small safety platform if the area is void.
+
 ## 1.0.167 (2026-01-05)
 - Traprock: after a player has encountered Traprock once, repeat encounters have a high chance to awaken immediately.
 

@@ -83,12 +83,14 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.
 
 ## Dimensions
-  - Void dimension with End-like floating islands.
+  - Void dimension with Aether-inspired floating islands.
   - Uses only Krümblegård Wayfall biomes (no vanilla biomes).
   - Detailed biome list (keep updated): docs/WAYFALL_BIOMES.md
   - Attuned Ore generates here.
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
 - Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
+- Wayfall terrain shaping is driven by custom `worldgen/noise/**` + `worldgen/density_function/**` entries (instead of End island routing).
+- Safety: entering Wayfall via the portal searches for nearby solid ground and will generate a small platform if the spawn area is void.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.

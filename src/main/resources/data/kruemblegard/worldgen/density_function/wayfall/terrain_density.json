@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:mul",
+  "argument1": "kruemblegard:wayfall/island_shape",
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": "kruemblegard:wayfall/bottom_slide",
+    "argument2": "kruemblegard:wayfall/top_slide"
+  }
+}

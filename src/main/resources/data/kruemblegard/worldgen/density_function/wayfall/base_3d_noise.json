@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:noise",
+    "noise": "kruemblegard:wayfall/detail",
+    "xz_scale": 0.02,
+    "y_scale": 0.02
+  },
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": 0.6,
+    "argument2": {
+      "type": "minecraft:noise",
+      "noise": "kruemblegard:wayfall/ridges_3d",
+      "xz_scale": 0.04,
+      "y_scale": 0.03
+    }
+  }
+}

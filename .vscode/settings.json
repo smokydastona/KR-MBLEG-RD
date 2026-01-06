@@ -4,6 +4,7 @@
     "java.import.gradle.enabled": true,
     "java.import.gradle.wrapper.enabled": true,
     "java.import.gradle.offline.enabled": false,
+    "powershell.scriptAnalysis.enable": false,
     "json.schemas": [
         {
             "fileMatch": [

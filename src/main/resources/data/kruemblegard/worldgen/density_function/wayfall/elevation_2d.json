@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:noise",
+    "noise": "kruemblegard:wayfall/elevation",
+    "xz_scale": 0.004,
+    "y_scale": 0.0001
+  }
+}
