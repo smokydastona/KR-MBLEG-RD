@@ -46,14 +46,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Creative inventory
 
 ## Wayfall Skybox (Client)
-- Wayfall renders a custom skybox in-game (client-only) using 6 textures:
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_north.png`
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_south.png`
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_east.png`
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_west.png`
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_up.png`
-  - `assets/kruemblegard/textures/environment/wayfall_skybox_down.png`
-- These are placeholders; replace them with your final cubemap art (keep filenames the same).
+- Wayfall renders a custom sky in-game (client-only).
+- Uses a single equirectangular panorama texture (2:1 aspect ratio):
+  - `assets/kruemblegard/textures/environment/wayfall_panorama.png`
+- A placeholder can be generated via:
+  - `tools/generate_wayfall_panorama_placeholder.ps1`
 
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).

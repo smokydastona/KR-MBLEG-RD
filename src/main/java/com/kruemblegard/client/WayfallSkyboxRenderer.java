@@ -9,19 +9,19 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
+import java.util.Optional;
+
 public final class WayfallSkyboxRenderer {
     private WayfallSkyboxRenderer() {}
 
-    private static final ResourceLocation SKY_NORTH = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_north.png");
-    private static final ResourceLocation SKY_SOUTH = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_south.png");
-    private static final ResourceLocation SKY_EAST = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_east.png");
-    private static final ResourceLocation SKY_WEST = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_west.png");
-    private static final ResourceLocation SKY_UP = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_up.png");
-    private static final ResourceLocation SKY_DOWN = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_skybox_down.png");
+    // Single-texture panorama (equirectangular) sky.
+    // Expected mapping: u = 0..1 across 360°, v = 0..1 from top (north pole) to bottom (south pole).
+    private static final ResourceLocation SKY_PANORAMA = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_panorama.png");
 
     public static void render(PoseStack poseStack, float partialTick, long gameTime) {
         // A subtle rotation + brightness pulse so the Wayfall feels "alive" even with a fixed time.
@@ -41,14 +41,10 @@ public final class WayfallSkyboxRenderer {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(pulse, pulse, pulse, 1.0f);
 
-        // Render the cube around the camera.
-        float s = 100.0f;
-        drawFace(poseStack, SKY_NORTH, -s, -s, -s, s, s, -s); // north (z-)
-        drawFace(poseStack, SKY_SOUTH, s, -s, s, -s, s, s);  // south (z+)
-        drawFace(poseStack, SKY_EAST, s, -s, -s, s, s, s);   // east (x+)
-        drawFace(poseStack, SKY_WEST, -s, -s, s, -s, s, -s); // west (x-)
-        drawFaceUpDown(poseStack, SKY_UP, s, s, -s, -s, s, s);       // up (y+)
-        drawFaceUpDown(poseStack, SKY_DOWN, -s, -s, -s, s, -s, s);   // down (y-)
+        // Panorama is required.
+        if (hasResource(SKY_PANORAMA)) {
+            drawPanoramaDome(poseStack, SKY_PANORAMA);
+        }
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableBlend();
@@ -59,31 +55,61 @@ public final class WayfallSkyboxRenderer {
         poseStack.popPose();
     }
 
-    // Draw a vertical face (quad) with UVs 0..1.
-    private static void drawFace(PoseStack poseStack, ResourceLocation texture, float x1, float y1, float z1, float x2, float y2, float z2) {
+    private static boolean hasResource(ResourceLocation location) {
+        // Avoid hard-failing if the user hasn't added the panorama yet.
+        Optional<?> res = Minecraft.getInstance().getResourceManager().getResource(location);
+        return res.isPresent();
+    }
+
+    private static void drawPanoramaDome(PoseStack poseStack, ResourceLocation texture) {
         RenderSystem.setShaderTexture(0, texture);
+
+        // Inside-out sphere around the camera.
+        final float radius = 100.0f;
+        final int slices = 64;
+        final int stacks = 32;
 
         var pose = poseStack.last().pose();
         BufferBuilder buffer = Tesselator.getInstance().getBuilder();
         buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.vertex(pose, x1, y1, z1).uv(0.0f, 0.0f).endVertex();
-        buffer.vertex(pose, x1, y2, z1).uv(0.0f, 1.0f).endVertex();
-        buffer.vertex(pose, x2, y2, z2).uv(1.0f, 1.0f).endVertex();
-        buffer.vertex(pose, x2, y1, z2).uv(1.0f, 0.0f).endVertex();
+
+        // Latitude from -90..+90 degrees (bottom to top)
+        for (int i = 0; i < stacks; i++) {
+            float v0 = (float) i / (float) stacks;
+            float v1 = (float) (i + 1) / (float) stacks;
+            float lat0 = (v0 - 0.5f) * (float) Math.PI;
+            float lat1 = (v1 - 0.5f) * (float) Math.PI;
+
+            float y0 = Mth.sin(lat0) * radius;
+            float y1 = Mth.sin(lat1) * radius;
+            float r0 = Mth.cos(lat0) * radius;
+            float r1 = Mth.cos(lat1) * radius;
+
+            for (int j = 0; j < slices; j++) {
+                float u0 = (float) j / (float) slices;
+                float u1 = (float) (j + 1) / (float) slices;
+                float lon0 = (u0 - 0.5f) * (float) (Math.PI * 2.0);
+                float lon1 = (u1 - 0.5f) * (float) (Math.PI * 2.0);
+
+                float x00 = Mth.cos(lon0) * r0;
+                float z00 = Mth.sin(lon0) * r0;
+                float x10 = Mth.cos(lon1) * r0;
+                float z10 = Mth.sin(lon1) * r0;
+
+                float x01 = Mth.cos(lon0) * r1;
+                float z01 = Mth.sin(lon0) * r1;
+                float x11 = Mth.cos(lon1) * r1;
+                float z11 = Mth.sin(lon1) * r1;
+
+                // Invert winding by ordering vertices for inside view; culling is disabled anyway.
+                buffer.vertex(pose, x10, y0, z10).uv(u1, 1.0f - v0).endVertex();
+                buffer.vertex(pose, x00, y0, z00).uv(u0, 1.0f - v0).endVertex();
+                buffer.vertex(pose, x01, y1, z01).uv(u0, 1.0f - v1).endVertex();
+                buffer.vertex(pose, x11, y1, z11).uv(u1, 1.0f - v1).endVertex();
+            }
+        }
+
         Tesselator.getInstance().end();
     }
 
-    // Draw a horizontal face (top/bottom) with UVs 0..1.
-    private static void drawFaceUpDown(PoseStack poseStack, ResourceLocation texture, float x1, float y, float z1, float x2, float y2, float z2) {
-        RenderSystem.setShaderTexture(0, texture);
-
-        var pose = poseStack.last().pose();
-        BufferBuilder buffer = Tesselator.getInstance().getBuilder();
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.vertex(pose, x1, y, z1).uv(0.0f, 0.0f).endVertex();
-        buffer.vertex(pose, x2, y, z1).uv(1.0f, 0.0f).endVertex();
-        buffer.vertex(pose, x2, y2, z2).uv(1.0f, 1.0f).endVertex();
-        buffer.vertex(pose, x1, y2, z2).uv(0.0f, 1.0f).endVertex();
-        Tesselator.getInstance().end();
-    }
 }
