@@ -16,6 +16,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.169 (2026-01-05)
 - Docs: align changelog entries with commit-count versioning.
 
+## 1.0.170 (2026-01-05)
+- Assets: update Wayfall ground-cover block textures (Cairn Moss, Runegrowth, Voidfelt).
+
 ## 1.0.165 (2026-01-06)
 - Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
 - Data-driven: make Crumbling Codex JSON loading codec-backed (safer parsing, fewer brittle assumptions).
