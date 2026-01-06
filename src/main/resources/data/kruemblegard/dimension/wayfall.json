@@ -4,22 +4,8 @@
     "type": "minecraft:noise",
     "settings": "kruemblegard:wayfall",
     "biome_source": {
-      "type": "minecraft:checkerboard",
-      "scale": 3,
-      "biomes": [
-        "kruemblegard:driftway_chasm",
-        "kruemblegard:riven_causeways",
-        "kruemblegard:crumbled_crossing",
-        "kruemblegard:hollow_transit_plains",
-        "kruemblegard:betweenlight_void",
-        "kruemblegard:faulted_expanse",
-        "kruemblegard:fracture_shoals",
-        "kruemblegard:strata_collapse",
-        "kruemblegard:underway_falls",
-        "kruemblegard:basin_of_scars",
-        "kruemblegard:shatterplate_flats",
-        "kruemblegard:glyphscar_reach"
-      ]
+      "type": "minecraft:multi_noise",
+      "preset": "kruemblegard:wayfall"
     }
   }
 }

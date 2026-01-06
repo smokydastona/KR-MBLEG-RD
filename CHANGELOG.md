@@ -31,6 +31,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.174 (2026-01-06)
 - Fix(worldgen): correct `minecraft:disk` configured feature `state_provider` for Wayfall surface disks so they can generate.
 
+## 1.0.175 (2026-01-05)
+- Wayfall: switch biome distribution from checkerboard to multi-noise, and increase noise settings height/detail for more varied terrain.
+
 ## 1.0.165 (2026-01-06)
 - Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
 - Data-driven: make Crumbling Codex JSON loading codec-backed (safer parsing, fewer brittle assumptions).
