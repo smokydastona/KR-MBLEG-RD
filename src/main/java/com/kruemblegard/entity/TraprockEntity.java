@@ -109,6 +109,16 @@ public class TraprockEntity extends Blaze implements GeoEntity {
     }
 
     @Override
+    public void aiStep() {
+        // Traprock sleeps as a dormant "waystone" and should not emit Blaze smoke/sound particles.
+        if (this.level().isClientSide && !this.isAwakened()) {
+            return;
+        }
+
+        super.aiStep();
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!level().isClientSide) {
             if (player instanceof LivingEntity) {
