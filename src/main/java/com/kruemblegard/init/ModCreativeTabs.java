@@ -8,10 +8,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public final class ModCreativeTabs {
     private ModCreativeTabs() {}
@@ -26,11 +28,20 @@ public final class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModItems.MENU_TAB.get()))
                     .displayItems((parameters, output) -> {
                         // Put *everything* registered by the mod into one tab.
-                        ModItems.ITEMS.getEntries().forEach(item -> {
-                            if (item != ModItems.MENU_TAB) {
-                                output.accept(item.get());
+                        // NOTE: Some items (e.g., auto-generated BlockItems) are registered outside ModItems.ITEMS,
+                        // so we scan the actual item registry by namespace.
+                        for (Item item : ForgeRegistries.ITEMS.getValues()) {
+                            var key = ForgeRegistries.ITEMS.getKey(item);
+                            if (key == null || !Kruemblegard.MODID.equals(key.getNamespace())) {
+                                continue;
                             }
-                        });
+
+                            if (item == ModItems.MENU_TAB.get()) {
+                                continue;
+                            }
+
+                            output.accept(item);
+                        }
 
                         // Also include the filled codex variant for easy testing.
                         output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
