@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.179 (2026-01-06)
+- Assets: `*_wood` + `stripped_*_wood` blocks now reuse their matching log textures, and redundant wood-texture PNGs were removed.
+
 ## 1.0.178 (2026-01-06)
 - Fix(assets): logs and stripped logs now render proper end-grain via per-wood `<type>_log_top` textures (stripped logs reuse the unstripped top texture).
 

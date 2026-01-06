@@ -1,7 +1,7 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/stripped_echowood_wood",
-                     "side":  "kruemblegard:block/stripped_echowood_wood"
+                     "end":  "kruemblegard:block/stripped_echowood_log",
+                     "side":  "kruemblegard:block/stripped_echowood_log"
                  },
     "parent":  "minecraft:block/cube_column"
 }

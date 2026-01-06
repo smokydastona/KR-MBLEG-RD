@@ -1,7 +1,7 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/wayroot_wood",
-                     "side":  "kruemblegard:block/wayroot_wood"
+                     "end":  "kruemblegard:block/wayroot_log",
+                     "side":  "kruemblegard:block/wayroot_log"
                  },
     "parent":  "minecraft:block/cube_column"
 }

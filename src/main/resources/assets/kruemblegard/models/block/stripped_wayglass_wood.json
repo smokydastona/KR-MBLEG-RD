@@ -1,7 +1,7 @@
 ﻿{
     "textures":  {
-                     "end":  "kruemblegard:block/stripped_wayglass_wood",
-                     "side":  "kruemblegard:block/stripped_wayglass_wood"
+                     "end":  "kruemblegard:block/stripped_wayglass_log",
+                     "side":  "kruemblegard:block/stripped_wayglass_log"
                  },
     "parent":  "minecraft:block/cube_column"
 }
