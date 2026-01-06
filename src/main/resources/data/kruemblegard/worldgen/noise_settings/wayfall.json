@@ -139,130 +139,120 @@
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:all_of",
-          "terms": [
-            {
-              "type": "minecraft:biome",
-              "biome_is": [
-                "#kruemblegard:wayfall_ash_heavy"
-              ]
-            },
-            {
-              "type": "minecraft:stone_depth",
-              "offset": 0,
-              "add_surface_depth": true,
-              "secondary_depth_range": 0
-            }
+          "type": "minecraft:biome",
+          "biome_is": [
+            "#kruemblegard:wayfall_ash_heavy"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "kruemblegard:ashfall_loam"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 0,
+            "add_surface_depth": true,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:ashfall_loam"
+            }
           }
         }
       },
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:all_of",
-          "terms": [
-            {
-              "type": "minecraft:biome",
-              "biome_is": [
-                "#kruemblegard:wayfall_ash_heavy"
-              ]
-            },
-            {
-              "type": "minecraft:stone_depth",
-              "offset": 1,
-              "add_surface_depth": true,
-              "secondary_depth_range": 0
-            }
+          "type": "minecraft:biome",
+          "biome_is": [
+            "#kruemblegard:wayfall_ash_heavy"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "kruemblegard:crushstone"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 1,
+            "add_surface_depth": true,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:crushstone"
+            }
           }
         }
       },
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:all_of",
-          "terms": [
-            {
-              "type": "minecraft:biome",
-              "biome_is": [
-                "#kruemblegard:wayfall_ash_heavy"
-              ]
-            },
-            {
-              "type": "minecraft:stone_depth",
-              "offset": 2,
-              "add_surface_depth": true,
-              "secondary_depth_range": 0
-            }
+          "type": "minecraft:biome",
+          "biome_is": [
+            "#kruemblegard:wayfall_ash_heavy"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "kruemblegard:crushstone"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 2,
+            "add_surface_depth": true,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:crushstone"
+            }
           }
         }
       },
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:all_of",
-          "terms": [
-            {
-              "type": "minecraft:biome",
-              "biome_is": [
-                "#kruemblegard:wayfall_void"
-              ]
-            },
-            {
-              "type": "minecraft:stone_depth",
-              "offset": 0,
-              "add_surface_depth": true,
-              "secondary_depth_range": 0
-            }
+          "type": "minecraft:biome",
+          "biome_is": [
+            "#kruemblegard:wayfall_void"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "kruemblegard:voidfelt"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 0,
+            "add_surface_depth": true,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:voidfelt"
+            }
           }
         }
       },
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:all_of",
-          "terms": [
-            {
-              "type": "minecraft:biome",
-              "biome_is": [
-                "#kruemblegard:wayfall_void"
-              ]
-            },
-            {
-              "type": "minecraft:stone_depth",
-              "offset": 1,
-              "add_surface_depth": true,
-              "secondary_depth_range": 0
-            }
+          "type": "minecraft:biome",
+          "biome_is": [
+            "#kruemblegard:wayfall_void"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "kruemblegard:crushstone"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 1,
+            "add_surface_depth": true,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:crushstone"
+            }
           }
         }
       },
