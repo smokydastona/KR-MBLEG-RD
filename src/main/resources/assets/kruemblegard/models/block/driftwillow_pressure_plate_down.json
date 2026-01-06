@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/driftwillow_pressure_plate"
+                     "texture":  "kruemblegard:block/driftwillow_planks"
                  },
     "parent":  "minecraft:block/pressure_plate_down"
 }

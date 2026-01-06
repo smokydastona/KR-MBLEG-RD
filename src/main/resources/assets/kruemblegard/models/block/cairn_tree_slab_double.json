@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "all":  "kruemblegard:block/cairn_tree_slab"
+                     "all":  "kruemblegard:block/cairn_tree_planks"
                  },
     "parent":  "minecraft:block/cube_all"
 }

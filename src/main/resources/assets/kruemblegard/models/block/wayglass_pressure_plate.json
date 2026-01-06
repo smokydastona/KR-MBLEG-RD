@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/wayglass_pressure_plate"
+                     "texture":  "kruemblegard:block/wayglass_planks"
                  },
     "parent":  "minecraft:block/pressure_plate_up"
 }

@@ -1,8 +1,8 @@
-﻿{
+{
     "textures":  {
-                     "bottom":  "kruemblegard:block/cairn_tree_slab",
-                     "top":  "kruemblegard:block/cairn_tree_slab",
-                     "side":  "kruemblegard:block/cairn_tree_slab"
+                     "bottom":  "kruemblegard:block/cairn_tree_planks",
+                     "top":  "kruemblegard:block/cairn_tree_planks",
+                     "side":  "kruemblegard:block/cairn_tree_planks"
                  },
     "parent":  "minecraft:block/slab_top"
 }

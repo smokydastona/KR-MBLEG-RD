@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "all":  "kruemblegard:block/wayglass_slab"
+                     "all":  "kruemblegard:block/wayglass_planks"
                  },
     "parent":  "minecraft:block/cube_all"
 }

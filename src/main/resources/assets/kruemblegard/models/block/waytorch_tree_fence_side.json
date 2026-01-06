@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/waytorch_tree_fence"
+                     "texture":  "kruemblegard:block/waytorch_tree_planks"
                  },
     "parent":  "minecraft:block/fence_side"
 }

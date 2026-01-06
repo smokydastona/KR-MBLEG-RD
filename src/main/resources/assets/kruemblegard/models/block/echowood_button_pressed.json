@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/echowood_button"
+                     "texture":  "kruemblegard:block/echowood_planks"
                  },
     "parent":  "minecraft:block/button_pressed"
 }

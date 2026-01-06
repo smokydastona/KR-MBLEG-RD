@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/faultwood_pressure_plate"
+                     "texture":  "kruemblegard:block/faultwood_planks"
                  },
     "parent":  "minecraft:block/pressure_plate_up"
 }

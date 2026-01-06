@@ -1,8 +1,8 @@
-﻿{
+{
     "textures":  {
-                     "bottom":  "kruemblegard:block/faultwood_slab",
-                     "top":  "kruemblegard:block/faultwood_slab",
-                     "side":  "kruemblegard:block/faultwood_slab"
+                     "bottom":  "kruemblegard:block/faultwood_planks",
+                     "top":  "kruemblegard:block/faultwood_planks",
+                     "side":  "kruemblegard:block/faultwood_planks"
                  },
     "parent":  "minecraft:block/slab_top"
 }

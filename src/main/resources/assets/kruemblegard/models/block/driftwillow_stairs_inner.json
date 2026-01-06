@@ -1,8 +1,8 @@
-﻿{
+{
     "textures":  {
-                     "bottom":  "kruemblegard:block/driftwillow_stairs",
-                     "top":  "kruemblegard:block/driftwillow_stairs",
-                     "side":  "kruemblegard:block/driftwillow_stairs"
+                     "bottom":  "kruemblegard:block/driftwillow_planks",
+                     "top":  "kruemblegard:block/driftwillow_planks",
+                     "side":  "kruemblegard:block/driftwillow_planks"
                  },
     "parent":  "minecraft:block/inner_stairs"
 }

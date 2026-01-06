@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/hollowway_tree_pressure_plate"
+                     "texture":  "kruemblegard:block/hollowway_tree_planks"
                  },
     "parent":  "minecraft:block/pressure_plate_down"
 }

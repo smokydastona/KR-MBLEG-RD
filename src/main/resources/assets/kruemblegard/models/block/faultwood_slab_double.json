@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "all":  "kruemblegard:block/faultwood_slab"
+                     "all":  "kruemblegard:block/faultwood_planks"
                  },
     "parent":  "minecraft:block/cube_all"
 }

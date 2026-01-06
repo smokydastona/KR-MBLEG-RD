@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/faultwood_button"
+                     "texture":  "kruemblegard:block/faultwood_planks"
                  },
     "parent":  "minecraft:block/button_inventory"
 }

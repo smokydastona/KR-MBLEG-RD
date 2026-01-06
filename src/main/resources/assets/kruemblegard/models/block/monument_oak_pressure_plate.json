@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/monument_oak_pressure_plate"
+                     "texture":  "kruemblegard:block/monument_oak_planks"
                  },
     "parent":  "minecraft:block/pressure_plate_up"
 }

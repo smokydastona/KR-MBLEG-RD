@@ -1,8 +1,8 @@
-﻿{
+{
     "textures":  {
-                     "bottom":  "kruemblegard:block/wayroot_slab",
-                     "top":  "kruemblegard:block/wayroot_slab",
-                     "side":  "kruemblegard:block/wayroot_slab"
+                     "bottom":  "kruemblegard:block/wayroot_planks",
+                     "top":  "kruemblegard:block/wayroot_planks",
+                     "side":  "kruemblegard:block/wayroot_planks"
                  },
     "parent":  "minecraft:block/slab"
 }

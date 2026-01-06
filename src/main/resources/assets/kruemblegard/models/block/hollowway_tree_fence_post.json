@@ -1,6 +1,6 @@
-﻿{
+{
     "textures":  {
-                     "texture":  "kruemblegard:block/hollowway_tree_fence"
+                     "texture":  "kruemblegard:block/hollowway_tree_planks"
                  },
     "parent":  "minecraft:block/fence_post"
 }

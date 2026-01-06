@@ -50,6 +50,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Gameplay: Scarstone is iron-gated (weak tools are slower, take damage, and yield Cracked Scarstone).
 - Fix: add missing block loot tables so all blocks drop as items.
 - Fix: fence gate block models now reference their planks textures (prevents missing-texture rendering).
+- Refactor: wood-family derived block/item models (stairs/slabs/fences/buttons/pressure plates) now reuse their matching planks textures to reduce duplicated placeholder textures.
 - Fix: generate missing `en_us` block/item names so creative inventory shows readable names.
 
 ## 1.0.110 (2026-01-03)
