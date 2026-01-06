@@ -7,6 +7,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.
+- After a player has encountered Traprock once, newly found Traprock have a high chance to awaken immediately.
 
 ## Mobs
 - **Traprock** (`traprock`)

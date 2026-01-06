@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.166 (2026-01-06)
+## 1.0.167 (2026-01-05)
+- Traprock: after a player has encountered Traprock once, repeat encounters have a high chance to awaken immediately.
+
+## 1.0.166 (2026-01-05)
 - Dev/testing: add a `wayfall_portal` block that toggles between Overworld and Wayfall on right-click (for quick creative testing).
 
 ## 1.0.165 (2026-01-06)

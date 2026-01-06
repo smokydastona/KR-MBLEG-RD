@@ -12,23 +12,28 @@ import net.minecraft.nbt.CompoundTag;
  * <p>Forge doesn't have NeoForge-style attachments, so we store this under
  * player.getPersistentData()[kruemblegard].</p>
  */
-public record KruemblegardPlayerData(boolean givenCrumblingCodex) {
+public record KruemblegardPlayerData(boolean givenCrumblingCodex, boolean encounteredTraprock) {
 
     public static final String ROOT_KEY = Kruemblegard.MOD_ID;
 
     private static final String TAG_GIVEN_CODEX = "given_crumbling_codex";
+    private static final String TAG_ENCOUNTERED_TRAPROCK = "encountered_traprock";
 
-    public static final Codec<KruemblegardPlayerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.optionalFieldOf(TAG_GIVEN_CODEX, false).forGetter(KruemblegardPlayerData::givenCrumblingCodex)
-    ).apply(instance, KruemblegardPlayerData::new));
+        public static final Codec<KruemblegardPlayerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.BOOL.optionalFieldOf(TAG_GIVEN_CODEX, false).forGetter(KruemblegardPlayerData::givenCrumblingCodex),
+            Codec.BOOL.optionalFieldOf(TAG_ENCOUNTERED_TRAPROCK, false).forGetter(KruemblegardPlayerData::encounteredTraprock)
+        ).apply(instance, KruemblegardPlayerData::new));
 
     public static KruemblegardPlayerData read(CompoundTag playerPersistent) {
         if (playerPersistent == null) {
-            return new KruemblegardPlayerData(false);
+            return new KruemblegardPlayerData(false, false);
         }
 
         CompoundTag root = playerPersistent.getCompound(ROOT_KEY);
-        return new KruemblegardPlayerData(root.getBoolean(TAG_GIVEN_CODEX));
+        return new KruemblegardPlayerData(
+            root.getBoolean(TAG_GIVEN_CODEX),
+            root.getBoolean(TAG_ENCOUNTERED_TRAPROCK)
+        );
     }
 
     public void write(CompoundTag playerPersistent) {
@@ -38,10 +43,15 @@ public record KruemblegardPlayerData(boolean givenCrumblingCodex) {
 
         CompoundTag root = playerPersistent.getCompound(ROOT_KEY);
         root.putBoolean(TAG_GIVEN_CODEX, this.givenCrumblingCodex);
+        root.putBoolean(TAG_ENCOUNTERED_TRAPROCK, this.encounteredTraprock);
         playerPersistent.put(ROOT_KEY, root);
     }
 
     public KruemblegardPlayerData withGivenCrumblingCodex(boolean value) {
-        return new KruemblegardPlayerData(value);
+        return new KruemblegardPlayerData(value, this.encounteredTraprock);
+    }
+
+    public KruemblegardPlayerData withEncounteredTraprock(boolean value) {
+        return new KruemblegardPlayerData(this.givenCrumblingCodex, value);
     }
 }

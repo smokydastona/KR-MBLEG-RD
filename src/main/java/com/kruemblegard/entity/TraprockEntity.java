@@ -1,5 +1,7 @@
 package com.kruemblegard.entity;
 
+import com.kruemblegard.playerdata.KruemblegardPlayerData;
+
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +28,12 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class TraprockEntity extends Blaze implements GeoEntity {
+
+    /**
+     * If a player has already encountered Traprock before, we bias heavily toward immediate awakening
+     * so the mob doesn't feel "cheap" on repeat encounters.
+     */
+    private static final float REPEAT_ENCOUNTER_INSTANT_AWAKEN_CHANCE = 0.85F;
 
     private static final EntityDataAccessor<Boolean> AWAKENED =
             SynchedEntityData.defineId(TraprockEntity.class, EntityDataSerializers.BOOLEAN);
@@ -77,6 +85,30 @@ public class TraprockEntity extends Blaze implements GeoEntity {
 
         if (target != null) {
             this.setTarget(target);
+
+            if (target instanceof Player player) {
+                markPlayerEncounteredTraprock(player);
+            }
+        }
+    }
+
+    private static boolean hasPlayerEncounteredTraprock(Player player) {
+        if (player == null) {
+            return false;
+        }
+
+        return KruemblegardPlayerData.read(player.getPersistentData()).encounteredTraprock();
+    }
+
+    private static void markPlayerEncounteredTraprock(Player player) {
+        if (player == null) {
+            return;
+        }
+
+        var data = KruemblegardPlayerData.read(player.getPersistentData());
+        if (!data.encounteredTraprock()) {
+            data = data.withEncounteredTraprock(true);
+            data.write(player.getPersistentData());
         }
     }
 
@@ -94,10 +126,16 @@ public class TraprockEntity extends Blaze implements GeoEntity {
             getNavigation().stop();
 
             // Proximity trigger: if a player lingers nearby, awaken.
+            // If they've already encountered Traprock before, we often awaken immediately.
             double radius = 3.5;
             AABB scan = getBoundingBox().inflate(radius);
             Player nearby = level().getNearestPlayer(this, radius);
             if (nearby != null && scan.contains(nearby.position())) {
+                if (hasPlayerEncounteredTraprock(nearby) && this.random.nextFloat() < REPEAT_ENCOUNTER_INSTANT_AWAKEN_CHANCE) {
+                    awaken(nearby);
+                    return;
+                }
+
                 lingerTicks++;
                 if (lingerTicks >= 60) {
                     awaken(nearby);
@@ -136,6 +174,10 @@ public class TraprockEntity extends Blaze implements GeoEntity {
             if (!isAwakened() && source.getEntity() instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) source.getEntity();
                 awaken(living);
+            }
+
+            if (source.getEntity() instanceof Player player) {
+                markPlayerEncounteredTraprock(player);
             }
         }
 
