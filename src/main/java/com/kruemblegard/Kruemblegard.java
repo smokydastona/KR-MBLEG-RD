@@ -5,6 +5,7 @@ import com.kruemblegard.item.CrumblingCodexItem;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
+import com.kruemblegard.network.ModNetworking;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModFeatures;
 import com.kruemblegard.registry.ModItems;
@@ -24,6 +25,9 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
+
 import software.bernie.geckolib.GeckoLib;
 
 @Mod(Kruemblegard.MOD_ID)
@@ -31,8 +35,12 @@ public final class Kruemblegard {
     public static final String MOD_ID = "kruemblegard";
     public static final String MODID = MOD_ID;
 
+    public static final Logger LOGGER = LogUtils.getLogger();
+
     public Kruemblegard() {
         GeckoLib.initialize();
+
+        ModNetworking.register();
 
         ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.COMMON_SPEC);
 

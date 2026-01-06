@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.164 (2026-01-06)
+- Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
+- Data-driven: make Crumbling Codex JSON loading codec-backed (safer parsing, fewer brittle assumptions).
+- Networking/player state: add a tiny per-player persistent state wrapper + S2C sync packet to avoid client-side guessing.
+- Repo/process: add a Conventional Commit hook (`.githooks/commit-msg`) and contributing guidance on asset licensing.
+
 ## Unreleased
 - Add Wayfall ambient music (`music.wayfall`) and a matching music disc item.
 - Add a Wayfall-only dynamic custom skybox renderer (client) with 6 placeholder cubemap face textures.

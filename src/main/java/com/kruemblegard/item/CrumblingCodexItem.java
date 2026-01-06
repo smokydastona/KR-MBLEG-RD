@@ -1,12 +1,13 @@
 package com.kruemblegard.item;
 
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import com.kruemblegard.Kruemblegard;
 
@@ -98,11 +99,11 @@ public final class CrumblingCodexItem extends WrittenBookItem {
     }
 
     private static void writeContents(CompoundTag tag, CodexContents contents) {
-        tag.putString(TAG_TITLE, contents.title);
-        tag.putString(TAG_AUTHOR, contents.author);
+        tag.putString(TAG_TITLE, contents.title());
+        tag.putString(TAG_AUTHOR, contents.author());
 
         ListTag pages = new ListTag();
-        for (String page : contents.pages) {
+        for (String page : contents.pages()) {
             pages.add(StringTag.valueOf(toJsonPage(page)));
         }
         tag.put(TAG_PAGES, pages);
@@ -139,20 +140,11 @@ public final class CrumblingCodexItem extends WrittenBookItem {
 
             try (Reader reader = resource.get().openAsReader()) {
                 JsonObject obj = GsonHelper.parse(reader);
-                String title = GsonHelper.getAsString(obj, "title", "Crumbling Codex");
-                String author = GsonHelper.getAsString(obj, "author", "Krümblegård");
-                JsonArray pagesJson = GsonHelper.getAsJsonArray(obj, "pages");
 
-                List<String> pages = new ArrayList<>();
-                for (int i = 0; i < pagesJson.size(); i++) {
-                    pages.add(GsonHelper.convertToString(pagesJson.get(i), "pages[" + i + "]"));
-                }
-
-                if (pages.isEmpty()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(new CodexContents(title, author, pages));
+                return CodexContents.CODEC
+                        .parse(JsonOps.INSTANCE, obj)
+                        .result()
+                        .filter(c -> !c.pages().isEmpty());
             }
         } catch (Exception ignored) {
             return Optional.empty();
@@ -178,15 +170,11 @@ public final class CrumblingCodexItem extends WrittenBookItem {
         return new CodexContents("Crumbling Codex", "Krümblegård", pages);
     }
 
-    private static final class CodexContents {
-        private final String title;
-        private final String author;
-        private final List<String> pages;
-
-        private CodexContents(String title, String author, List<String> pages) {
-            this.title = title;
-            this.author = author;
-            this.pages = pages;
-        }
+    private record CodexContents(String title, String author, List<String> pages) {
+        private static final Codec<CodexContents> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("title", "Crumbling Codex").forGetter(CodexContents::title),
+                Codec.STRING.optionalFieldOf("author", "Krümblegård").forGetter(CodexContents::author),
+                Codec.list(Codec.STRING).fieldOf("pages").forGetter(CodexContents::pages)
+        ).apply(instance, CodexContents::new));
     }
 }

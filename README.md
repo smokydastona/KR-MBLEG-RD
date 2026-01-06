@@ -17,6 +17,14 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 
 Codex page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
 
+## Worldgen organization
+- Datapack content lives under `src/main/resources/data/kruemblegard/worldgen/**`.
+- Code references to important worldgen IDs are centralized in `src/main/java/com/kruemblegard/worldgen/ModWorldgenKeys.java`.
+- On server start, `com.kruemblegard.worldgen.WorldgenValidator` logs warnings if critical registry entries/tags are missing.
+
+## Asset licensing
+- Don’t copy assets from other mods. See `CONTRIBUTING.md`.
+
 This mod uses **custom advancement triggers** registered in `ModCriteria`:
  (currently none)
 

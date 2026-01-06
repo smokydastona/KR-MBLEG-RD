@@ -38,4 +38,23 @@ public final class ModTags {
                 new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_void")
         );
     }
+
+    /**
+     * Biome tags used specifically by worldgen wiring (biome modifiers, structure biomes, etc.).
+     *
+     * <p>Note: biome tags live under data/*/tags/worldgen/biome, but are referenced by ID only.</p>
+     */
+    public static final class WorldgenBiomes {
+        private WorldgenBiomes() {}
+
+        public static final TagKey<Biome> WAYFALL = TagKey.create(
+                Registries.BIOME,
+                new ResourceLocation(Kruemblegard.MOD_ID, "wayfall")
+        );
+
+        public static final TagKey<Biome> HAS_MEGALITHIC_CIRCLE = TagKey.create(
+                Registries.BIOME,
+                new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/megalithic_circle")
+        );
+    }
 }

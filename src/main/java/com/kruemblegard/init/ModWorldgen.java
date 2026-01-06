@@ -6,8 +6,10 @@ public final class ModWorldgen {
     private ModWorldgen() {}
 
     /**
-    * Worldgen features are data-driven via JSON under data/kruemblegard/worldgen.
-     * (See the Forge biome modifier under data/forge/biome_modifier.)
+     * Worldgen is data-driven via JSON under data/kruemblegard/worldgen.
+     *
+     * <p>Code references are centralized in {@code com.kruemblegard.worldgen.ModWorldgenKeys},
+     * and critical datapack resources are validated at runtime by {@code com.kruemblegard.worldgen.WorldgenValidator}.</p>
      */
     public static void register(IEventBus bus) {
         // Intentionally empty.
