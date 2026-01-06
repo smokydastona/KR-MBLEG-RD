@@ -72,6 +72,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`).
+  - Full per-tree reference: [TREES.md](TREES.md)
 
 ### Reactive staple plants
 - Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.

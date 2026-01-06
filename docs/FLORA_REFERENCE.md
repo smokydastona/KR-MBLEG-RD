@@ -27,6 +27,38 @@ Current limitations:
 ### Wayfall trees (block sets implemented; mechanics WIP)
 These trees exist as blocks/items with placeholder textures. Generation + special mechanics can be implemented later.
 
+Full per-tree reference: [TREES.md](TREES.md)
+
+#### Ashbloom
+- Appearance: Ash-toned wood family intended as a staple Wayfall starter palette.
+- Use: Standard wood building set.
+- Mechanic: No special mechanics yet.
+- Placeholder textures:
+  - `assets/kruemblegard/textures/block/ashbloom_log.png`
+  - `assets/kruemblegard/textures/block/ashbloom_planks.png`
+  - `assets/kruemblegard/textures/block/ashbloom_leaves.png`
+  - `assets/kruemblegard/textures/block/ashbloom_sapling.png`
+
+#### Glimmerpine
+- Appearance: Pine-like wood family intended as a staple Wayfall palette.
+- Use: Standard wood building set.
+- Mechanic: No special mechanics yet.
+- Placeholder textures:
+  - `assets/kruemblegard/textures/block/glimmerpine_log.png`
+  - `assets/kruemblegard/textures/block/glimmerpine_planks.png`
+  - `assets/kruemblegard/textures/block/glimmerpine_leaves.png`
+  - `assets/kruemblegard/textures/block/glimmerpine_sapling.png`
+
+#### Driftwood
+- Appearance: Weathered, pale wood intended as a staple Wayfall palette.
+- Use: Standard wood building set.
+- Mechanic: No special mechanics yet.
+- Placeholder textures:
+  - `assets/kruemblegard/textures/block/driftwood_log.png`
+  - `assets/kruemblegard/textures/block/driftwood_planks.png`
+  - `assets/kruemblegard/textures/block/driftwood_leaves.png`
+  - `assets/kruemblegard/textures/block/driftwood_sapling.png`
+
 #### Wayroot Tree
 - Appearance: Stone-barked tree with exposed, floating roots that don’t touch the ground.
 - Use: Logs used for waystone upgrades and teleport stabilizers.
