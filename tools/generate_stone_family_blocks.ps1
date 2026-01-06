@@ -59,55 +59,55 @@ function New-StairsBlockstateJson {
     return @"
 {
   "variants": {
-    "facing=east,half=bottom,shape=straight": { "model": "${ModId}:block/${base}_stairs" },
-    "facing=west,half=bottom,shape=straight": { "model": "${ModId}:block/${base}_stairs", "y": 180 },
-    "facing=south,half=bottom,shape=straight": { "model": "${ModId}:block/${base}_stairs", "y": 90 },
-    "facing=north,half=bottom,shape=straight": { "model": "${ModId}:block/${base}_stairs", "y": 270 },
+    "facing=east,half=bottom,shape=straight": { "model": "$($ModId):block/${base}_stairs" },
+    "facing=west,half=bottom,shape=straight": { "model": "$($ModId):block/${base}_stairs", "y": 180 },
+    "facing=south,half=bottom,shape=straight": { "model": "$($ModId):block/${base}_stairs", "y": 90 },
+    "facing=north,half=bottom,shape=straight": { "model": "$($ModId):block/${base}_stairs", "y": 270 },
 
-    "facing=east,half=top,shape=straight": { "model": "${ModId}:block/${base}_stairs", "x": 180 },
-    "facing=west,half=top,shape=straight": { "model": "${ModId}:block/${base}_stairs", "x": 180, "y": 180 },
-    "facing=south,half=top,shape=straight": { "model": "${ModId}:block/${base}_stairs", "x": 180, "y": 90 },
-    "facing=north,half=top,shape=straight": { "model": "${ModId}:block/${base}_stairs", "x": 180, "y": 270 },
+    "facing=east,half=top,shape=straight": { "model": "$($ModId):block/${base}_stairs", "x": 180 },
+    "facing=west,half=top,shape=straight": { "model": "$($ModId):block/${base}_stairs", "x": 180, "y": 180 },
+    "facing=south,half=top,shape=straight": { "model": "$($ModId):block/${base}_stairs", "x": 180, "y": 90 },
+    "facing=north,half=top,shape=straight": { "model": "$($ModId):block/${base}_stairs", "x": 180, "y": 270 },
 
-    "facing=east,half=bottom,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "y": 270 },
-    "facing=west,half=bottom,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "y": 90 },
-    "facing=south,half=bottom,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner" },
-    "facing=north,half=bottom,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "y": 180 },
+    "facing=east,half=bottom,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "y": 270 },
+    "facing=west,half=bottom,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "y": 90 },
+    "facing=south,half=bottom,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner" },
+    "facing=north,half=bottom,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "y": 180 },
 
-    "facing=east,half=bottom,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner" },
-    "facing=west,half=bottom,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "y": 180 },
-    "facing=south,half=bottom,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "y": 90 },
-    "facing=north,half=bottom,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "y": 270 },
+    "facing=east,half=bottom,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner" },
+    "facing=west,half=bottom,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "y": 180 },
+    "facing=south,half=bottom,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "y": 90 },
+    "facing=north,half=bottom,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "y": 270 },
 
-    "facing=east,half=bottom,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "y": 270 },
-    "facing=west,half=bottom,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "y": 90 },
-    "facing=south,half=bottom,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer" },
-    "facing=north,half=bottom,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "y": 180 },
+    "facing=east,half=bottom,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "y": 270 },
+    "facing=west,half=bottom,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "y": 90 },
+    "facing=south,half=bottom,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer" },
+    "facing=north,half=bottom,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "y": 180 },
 
-    "facing=east,half=bottom,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer" },
-    "facing=west,half=bottom,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "y": 180 },
-    "facing=south,half=bottom,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "y": 90 },
-    "facing=north,half=bottom,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "y": 270 },
+    "facing=east,half=bottom,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer" },
+    "facing=west,half=bottom,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "y": 180 },
+    "facing=south,half=bottom,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "y": 90 },
+    "facing=north,half=bottom,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "y": 270 },
 
-    "facing=east,half=top,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 270 },
-    "facing=west,half=top,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 90 },
-    "facing=south,half=top,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180 },
-    "facing=north,half=top,shape=inner_left": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 180 },
+    "facing=east,half=top,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 270 },
+    "facing=west,half=top,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 90 },
+    "facing=south,half=top,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180 },
+    "facing=north,half=top,shape=inner_left": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 180 },
 
-    "facing=east,half=top,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180 },
-    "facing=west,half=top,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 180 },
-    "facing=south,half=top,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 90 },
-    "facing=north,half=top,shape=inner_right": { "model": "${ModId}:block/${base}_stairs_inner", "x": 180, "y": 270 },
+    "facing=east,half=top,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180 },
+    "facing=west,half=top,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 180 },
+    "facing=south,half=top,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 90 },
+    "facing=north,half=top,shape=inner_right": { "model": "$($ModId):block/${base}_stairs_inner", "x": 180, "y": 270 },
 
-    "facing=east,half=top,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 270 },
-    "facing=west,half=top,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 90 },
-    "facing=south,half=top,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180 },
-    "facing=north,half=top,shape=outer_left": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 180 },
+    "facing=east,half=top,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 270 },
+    "facing=west,half=top,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 90 },
+    "facing=south,half=top,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180 },
+    "facing=north,half=top,shape=outer_left": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 180 },
 
-    "facing=east,half=top,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180 },
-    "facing=west,half=top,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 180 },
-    "facing=south,half=top,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 90 },
-    "facing=north,half=top,shape=outer_right": { "model": "${ModId}:block/${base}_stairs_outer", "x": 180, "y": 270 }
+    "facing=east,half=top,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180 },
+    "facing=west,half=top,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 180 },
+    "facing=south,half=top,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 90 },
+    "facing=north,half=top,shape=outer_right": { "model": "$($ModId):block/${base}_stairs_outer", "x": 180, "y": 270 }
   }
 }
 "@
@@ -119,9 +119,9 @@ function New-SlabBlockstateJson {
     return @"
 {
   "variants": {
-    "type=bottom": { "model": "${ModId}:block/${base}_slab" },
-    "type=top": { "model": "${ModId}:block/${base}_slab_top" },
-    "type=double": { "model": "${ModId}:block/${base}_slab_double" }
+    "type=bottom": { "model": "$($ModId):block/${base}_slab" },
+    "type=top": { "model": "$($ModId):block/${base}_slab_top" },
+    "type=double": { "model": "$($ModId):block/${base}_slab_double" }
   }
 }
 "@
@@ -133,17 +133,17 @@ function New-WallBlockstateJson {
     return @"
 {
   "multipart": [
-    { "when": { "up": "true" }, "apply": { "model": "${ModId}:block/${base}_wall_post" } },
+    { "when": { "up": "true" }, "apply": { "model": "$($ModId):block/${base}_wall_post" } },
 
-    { "when": { "north": "low" }, "apply": { "model": "${ModId}:block/${base}_wall_side", "uvlock": true } },
-    { "when": { "east": "low" }, "apply": { "model": "${ModId}:block/${base}_wall_side", "y": 90, "uvlock": true } },
-    { "when": { "south": "low" }, "apply": { "model": "${ModId}:block/${base}_wall_side", "y": 180, "uvlock": true } },
-    { "when": { "west": "low" }, "apply": { "model": "${ModId}:block/${base}_wall_side", "y": 270, "uvlock": true } },
+    { "when": { "north": "low" }, "apply": { "model": "$($ModId):block/${base}_wall_side", "uvlock": true } },
+    { "when": { "east": "low" }, "apply": { "model": "$($ModId):block/${base}_wall_side", "y": 90, "uvlock": true } },
+    { "when": { "south": "low" }, "apply": { "model": "$($ModId):block/${base}_wall_side", "y": 180, "uvlock": true } },
+    { "when": { "west": "low" }, "apply": { "model": "$($ModId):block/${base}_wall_side", "y": 270, "uvlock": true } },
 
-    { "when": { "north": "tall" }, "apply": { "model": "${ModId}:block/${base}_wall_side_tall", "uvlock": true } },
-    { "when": { "east": "tall" }, "apply": { "model": "${ModId}:block/${base}_wall_side_tall", "y": 90, "uvlock": true } },
-    { "when": { "south": "tall" }, "apply": { "model": "${ModId}:block/${base}_wall_side_tall", "y": 180, "uvlock": true } },
-    { "when": { "west": "tall" }, "apply": { "model": "${ModId}:block/${base}_wall_side_tall", "y": 270, "uvlock": true } }
+    { "when": { "north": "tall" }, "apply": { "model": "$($ModId):block/${base}_wall_side_tall", "uvlock": true } },
+    { "when": { "east": "tall" }, "apply": { "model": "$($ModId):block/${base}_wall_side_tall", "y": 90, "uvlock": true } },
+    { "when": { "south": "tall" }, "apply": { "model": "$($ModId):block/${base}_wall_side_tall", "y": 180, "uvlock": true } },
+    { "when": { "west": "tall" }, "apply": { "model": "$($ModId):block/${base}_wall_side_tall", "y": 270, "uvlock": true } }
   ]
 }
 "@
@@ -162,9 +162,9 @@ function New-StairsModelJson {
 {
   "parent": "$parent",
   "textures": {
-    "bottom": "${ModId}:block/$base",
-    "top": "${ModId}:block/$base",
-    "side": "${ModId}:block/$base"
+    "bottom": "$($ModId):block/$base",
+    "top": "$($ModId):block/$base",
+    "side": "$($ModId):block/$base"
   }
 }
 "@
@@ -182,9 +182,9 @@ function New-SlabModelJson {
 {
   "parent": "$parent",
   "textures": {
-    "bottom": "${ModId}:block/$base",
-    "top": "${ModId}:block/$base",
-    "side": "${ModId}:block/$base"
+    "bottom": "$($ModId):block/$base",
+    "top": "$($ModId):block/$base",
+    "side": "$($ModId):block/$base"
   }
 }
 "@
@@ -197,7 +197,7 @@ function New-SlabDoubleModelJson {
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "${ModId}:block/$base"
+    "all": "$($ModId):block/$base"
   }
 }
 "@
@@ -216,7 +216,7 @@ function New-WallModelJson {
 {
   "parent": "$parent",
   "textures": {
-    "wall": "${ModId}:block/$base"
+    "wall": "$($ModId):block/$base"
   }
 }
 "@
@@ -381,8 +381,8 @@ foreach ($base in $Bases) {
     Write-JsonFile -Path (Join-Path $modelsBlockDir "${base}_wall_side_tall.json") -Json (New-WallModelJson $base 'side_tall')
 
     # Item models
-    Write-JsonFile -Path (Join-Path $modelsItemDir "${base}_stairs.json") -Json (New-ItemBlockParentJson "${ModId}:block/${base}_stairs")
-    Write-JsonFile -Path (Join-Path $modelsItemDir "${base}_slab.json") -Json (New-ItemBlockParentJson "${ModId}:block/${base}_slab")
+    Write-JsonFile -Path (Join-Path $modelsItemDir "${base}_stairs.json") -Json (New-ItemBlockParentJson "$($ModId):block/${base}_stairs")
+    Write-JsonFile -Path (Join-Path $modelsItemDir "${base}_slab.json") -Json (New-ItemBlockParentJson "$($ModId):block/${base}_slab")
     Write-JsonFile -Path (Join-Path $modelsItemDir "${base}_wall.json") -Json (New-ItemWallInventoryJson $base)
 
     # Loot tables

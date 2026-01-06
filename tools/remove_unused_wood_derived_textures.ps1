@@ -23,7 +23,7 @@ $targets = '(stairs|slab|fence|fence_gate|button|pressure_plate)'
 # Collect referenced block texture names (without extension)
 $referenced = New-Object System.Collections.Generic.HashSet[string]
 
-$pattern = "$ModId:block/([a-z0-9_./-]+)"
+$pattern = "$($ModId):block/([a-z0-9_./-]+)"
 
 foreach ($root in $modelRoots) {
     if (-not (Test-Path $root)) { continue }

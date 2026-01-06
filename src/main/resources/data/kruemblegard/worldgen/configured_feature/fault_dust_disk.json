@@ -17,13 +17,10 @@
       ]
     },
     "state_provider": {
-      "fallback": {
-        "state": {
-          "Name": "kruemblegard:fault_dust"
-        },
-        "type": "minecraft:simple_state_provider"
-      },
-      "rules": []
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:fault_dust"
+      }
     }
   }
 }

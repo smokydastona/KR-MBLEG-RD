@@ -38,8 +38,8 @@ foreach ($modelDir in $modelDirs) {
 
         foreach ($wood in $woodTypes) {
             foreach ($t in $targets) {
-                $from = "$ModId:block/$wood`_$t"
-                $to = "$ModId:block/$wood`_planks"
+                $from = "$($ModId):block/$wood`_$t"
+                $to = "$($ModId):block/$wood`_planks"
                 if ($text -like "*$from*") {
                     $text = $text.Replace($from, $to)
                 }
@@ -48,7 +48,7 @@ foreach ($modelDir in $modelDirs) {
 
         if ($text -ne $original) {
             $changedFiles++
-            $totalReplacements += ([regex]::Matches($original, [regex]::Escape("$ModId:block/")).Count - [regex]::Matches($text, [regex]::Escape("$ModId:block/")).Count)
+            $totalReplacements += ([regex]::Matches($original, [regex]::Escape("$($ModId):block/")).Count - [regex]::Matches($text, [regex]::Escape("$($ModId):block/")).Count)
 
             if ($WhatIf) {
                 Write-Output "WOULD UPDATE: $path"
