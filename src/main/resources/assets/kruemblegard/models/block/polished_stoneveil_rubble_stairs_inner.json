@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "/polished_stoneveil_rubble",
+    "top": "/polished_stoneveil_rubble",
+    "side": "/polished_stoneveil_rubble"
+  }
+}
+

@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "/attuned_stone",
+    "top": "/attuned_stone",
+    "side": "/attuned_stone"
+  }
+}
+

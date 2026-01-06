@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "/cracked_scarstone",
+    "top": "/cracked_scarstone",
+    "side": "/cracked_scarstone"
+  }
+}
+

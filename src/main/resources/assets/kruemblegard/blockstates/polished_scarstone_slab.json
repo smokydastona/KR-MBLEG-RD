@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "type=bottom": { "model": "/polished_scarstone_slab" },
+    "type=top": { "model": "/polished_scarstone_slab_top" },
+    "type=double": { "model": "/polished_scarstone_slab_double" }
+  }
+}
+

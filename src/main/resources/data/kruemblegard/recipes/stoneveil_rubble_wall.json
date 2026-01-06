@@ -1,0 +1,12 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:stoneveil_rubble" }
+  },
+  "result": { "item": "kruemblegard:stoneveil_rubble_wall", "count": 6 }
+}
+

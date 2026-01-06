@@ -47,22 +47,50 @@ public class ModItems {
         () -> new BlockItem(ModBlocks.ATTUNED_STONE.get(), new Item.Properties())
     );
 
+    public static final RegistryObject<Item> ATTUNED_STONE_STAIRS_ITEM = registerBlockItem("attuned_stone_stairs", ModBlocks.ATTUNED_STONE_STAIRS);
+    public static final RegistryObject<Item> ATTUNED_STONE_SLAB_ITEM = registerBlockItem("attuned_stone_slab", ModBlocks.ATTUNED_STONE_SLAB);
+    public static final RegistryObject<Item> ATTUNED_STONE_WALL_ITEM = registerBlockItem("attuned_stone_wall", ModBlocks.ATTUNED_STONE_WALL);
+
     // --- Wayfall geology block items ---
 
     public static final RegistryObject<Item> FRACTURED_WAYROCK_ITEM = registerBlockItem("fractured_wayrock", ModBlocks.FRACTURED_WAYROCK);
+    public static final RegistryObject<Item> FRACTURED_WAYROCK_STAIRS_ITEM = registerBlockItem("fractured_wayrock_stairs", ModBlocks.FRACTURED_WAYROCK_STAIRS);
+    public static final RegistryObject<Item> FRACTURED_WAYROCK_SLAB_ITEM = registerBlockItem("fractured_wayrock_slab", ModBlocks.FRACTURED_WAYROCK_SLAB);
+    public static final RegistryObject<Item> FRACTURED_WAYROCK_WALL_ITEM = registerBlockItem("fractured_wayrock_wall", ModBlocks.FRACTURED_WAYROCK_WALL);
     public static final RegistryObject<Item> CRUSHSTONE_ITEM = registerBlockItem("crushstone", ModBlocks.CRUSHSTONE);
+    public static final RegistryObject<Item> CRUSHSTONE_STAIRS_ITEM = registerBlockItem("crushstone_stairs", ModBlocks.CRUSHSTONE_STAIRS);
+    public static final RegistryObject<Item> CRUSHSTONE_SLAB_ITEM = registerBlockItem("crushstone_slab", ModBlocks.CRUSHSTONE_SLAB);
+    public static final RegistryObject<Item> CRUSHSTONE_WALL_ITEM = registerBlockItem("crushstone_wall", ModBlocks.CRUSHSTONE_WALL);
     public static final RegistryObject<Item> ASHFALL_LOAM_ITEM = registerBlockItem("ashfall_loam", ModBlocks.ASHFALL_LOAM);
     public static final RegistryObject<Item> FAULT_DUST_ITEM = registerBlockItem("fault_dust", ModBlocks.FAULT_DUST);
     public static final RegistryObject<Item> SCARSTONE_ITEM = registerBlockItem("scarstone", ModBlocks.SCARSTONE);
+    public static final RegistryObject<Item> SCARSTONE_STAIRS_ITEM = registerBlockItem("scarstone_stairs", ModBlocks.SCARSTONE_STAIRS);
+    public static final RegistryObject<Item> SCARSTONE_SLAB_ITEM = registerBlockItem("scarstone_slab", ModBlocks.SCARSTONE_SLAB);
+    public static final RegistryObject<Item> SCARSTONE_WALL_ITEM = registerBlockItem("scarstone_wall", ModBlocks.SCARSTONE_WALL);
     public static final RegistryObject<Item> POLISHED_SCARSTONE_ITEM = registerBlockItem("polished_scarstone", ModBlocks.POLISHED_SCARSTONE);
+    public static final RegistryObject<Item> POLISHED_SCARSTONE_STAIRS_ITEM = registerBlockItem("polished_scarstone_stairs", ModBlocks.POLISHED_SCARSTONE_STAIRS);
+    public static final RegistryObject<Item> POLISHED_SCARSTONE_SLAB_ITEM = registerBlockItem("polished_scarstone_slab", ModBlocks.POLISHED_SCARSTONE_SLAB);
+    public static final RegistryObject<Item> POLISHED_SCARSTONE_WALL_ITEM = registerBlockItem("polished_scarstone_wall", ModBlocks.POLISHED_SCARSTONE_WALL);
     public static final RegistryObject<Item> CHISELED_SCARSTONE_ITEM = registerBlockItem("chiseled_scarstone", ModBlocks.CHISELED_SCARSTONE);
     public static final RegistryObject<Item> CRACKED_SCARSTONE_ITEM = registerBlockItem("cracked_scarstone", ModBlocks.CRACKED_SCARSTONE);
+    public static final RegistryObject<Item> CRACKED_SCARSTONE_STAIRS_ITEM = registerBlockItem("cracked_scarstone_stairs", ModBlocks.CRACKED_SCARSTONE_STAIRS);
+    public static final RegistryObject<Item> CRACKED_SCARSTONE_SLAB_ITEM = registerBlockItem("cracked_scarstone_slab", ModBlocks.CRACKED_SCARSTONE_SLAB);
+    public static final RegistryObject<Item> CRACKED_SCARSTONE_WALL_ITEM = registerBlockItem("cracked_scarstone_wall", ModBlocks.CRACKED_SCARSTONE_WALL);
 
     // --- Stoneveil rubble block items ---
 
     public static final RegistryObject<Item> STONEVEIL_RUBBLE_ITEM = registerBlockItem("stoneveil_rubble", ModBlocks.STONEVEIL_RUBBLE);
+    public static final RegistryObject<Item> STONEVEIL_RUBBLE_STAIRS_ITEM = registerBlockItem("stoneveil_rubble_stairs", ModBlocks.STONEVEIL_RUBBLE_STAIRS);
+    public static final RegistryObject<Item> STONEVEIL_RUBBLE_SLAB_ITEM = registerBlockItem("stoneveil_rubble_slab", ModBlocks.STONEVEIL_RUBBLE_SLAB);
+    public static final RegistryObject<Item> STONEVEIL_RUBBLE_WALL_ITEM = registerBlockItem("stoneveil_rubble_wall", ModBlocks.STONEVEIL_RUBBLE_WALL);
     public static final RegistryObject<Item> POLISHED_STONEVEIL_RUBBLE_ITEM = registerBlockItem("polished_stoneveil_rubble", ModBlocks.POLISHED_STONEVEIL_RUBBLE);
+    public static final RegistryObject<Item> POLISHED_STONEVEIL_RUBBLE_STAIRS_ITEM = registerBlockItem("polished_stoneveil_rubble_stairs", ModBlocks.POLISHED_STONEVEIL_RUBBLE_STAIRS);
+    public static final RegistryObject<Item> POLISHED_STONEVEIL_RUBBLE_SLAB_ITEM = registerBlockItem("polished_stoneveil_rubble_slab", ModBlocks.POLISHED_STONEVEIL_RUBBLE_SLAB);
+    public static final RegistryObject<Item> POLISHED_STONEVEIL_RUBBLE_WALL_ITEM = registerBlockItem("polished_stoneveil_rubble_wall", ModBlocks.POLISHED_STONEVEIL_RUBBLE_WALL);
     public static final RegistryObject<Item> RUNED_STONEVEIL_RUBBLE_ITEM = registerBlockItem("runed_stoneveil_rubble", ModBlocks.RUNED_STONEVEIL_RUBBLE);
+    public static final RegistryObject<Item> RUNED_STONEVEIL_RUBBLE_STAIRS_ITEM = registerBlockItem("runed_stoneveil_rubble_stairs", ModBlocks.RUNED_STONEVEIL_RUBBLE_STAIRS);
+    public static final RegistryObject<Item> RUNED_STONEVEIL_RUBBLE_SLAB_ITEM = registerBlockItem("runed_stoneveil_rubble_slab", ModBlocks.RUNED_STONEVEIL_RUBBLE_SLAB);
+    public static final RegistryObject<Item> RUNED_STONEVEIL_RUBBLE_WALL_ITEM = registerBlockItem("runed_stoneveil_rubble_wall", ModBlocks.RUNED_STONEVEIL_RUBBLE_WALL);
 
     // --- Wayfall surface covers block items ---
 

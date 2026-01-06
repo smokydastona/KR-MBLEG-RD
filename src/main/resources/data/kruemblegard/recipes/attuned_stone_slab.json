@@ -1,0 +1,11 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:attuned_stone" }
+  },
+  "result": { "item": "kruemblegard:attuned_stone_slab", "count": 6 }
+}
+

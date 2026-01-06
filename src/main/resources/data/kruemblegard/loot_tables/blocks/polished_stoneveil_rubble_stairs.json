@@ -1,0 +1,7 @@
+﻿{
+  "type": "minecraft:block",
+  "pools": [
+    { "rolls": 1, "entries": [{ "type": "minecraft:item", "name": "kruemblegard:polished_stoneveil_rubble_stairs" }] }
+  ]
+}
+

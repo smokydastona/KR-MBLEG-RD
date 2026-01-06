@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "/scarstone",
+    "top": "/scarstone",
+    "side": "/scarstone"
+  }
+}
+

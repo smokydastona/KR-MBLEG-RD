@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "type=bottom": { "model": "/crushstone_slab" },
+    "type=top": { "model": "/crushstone_slab_top" },
+    "type=double": { "model": "/crushstone_slab_double" }
+  }
+}
+

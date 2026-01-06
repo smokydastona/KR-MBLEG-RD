@@ -1,0 +1,11 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:cracked_scarstone" }
+  },
+  "result": { "item": "kruemblegard:cracked_scarstone_slab", "count": 6 }
+}
+

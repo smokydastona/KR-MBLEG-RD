@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "type=bottom": { "model": "/scarstone_slab" },
+    "type=top": { "model": "/scarstone_slab_top" },
+    "type=double": { "model": "/scarstone_slab_double" }
+  }
+}
+

@@ -1,0 +1,7 @@
+﻿{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "/runed_stoneveil_rubble"
+  }
+}
+

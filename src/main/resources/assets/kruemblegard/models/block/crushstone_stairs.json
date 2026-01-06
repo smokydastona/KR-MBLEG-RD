@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "/crushstone",
+    "top": "/crushstone",
+    "side": "/crushstone"
+  }
+}
+

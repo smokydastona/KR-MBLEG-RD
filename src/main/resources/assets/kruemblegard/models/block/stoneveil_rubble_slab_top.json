@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "/stoneveil_rubble",
+    "top": "/stoneveil_rubble",
+    "side": "/stoneveil_rubble"
+  }
+}
+

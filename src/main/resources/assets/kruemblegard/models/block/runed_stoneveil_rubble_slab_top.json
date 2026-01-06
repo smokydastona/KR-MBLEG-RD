@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "/runed_stoneveil_rubble",
+    "top": "/runed_stoneveil_rubble",
+    "side": "/runed_stoneveil_rubble"
+  }
+}
+

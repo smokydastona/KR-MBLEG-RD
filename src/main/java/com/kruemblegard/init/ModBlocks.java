@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -76,6 +77,30 @@ public final class ModBlocks {
                     .sound(SoundType.STONE))
     );
 
+    public static final RegistryObject<Block> ATTUNED_STONE_STAIRS = BLOCKS.register(
+            "attuned_stone_stairs",
+            () -> new StairBlock(() -> ATTUNED_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(3.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ATTUNED_STONE_SLAB = BLOCKS.register(
+            "attuned_stone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(3.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ATTUNED_STONE_WALL = BLOCKS.register(
+            "attuned_stone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(3.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
     // --- Wayfall geology (palette foundation) ---
 
     public static final RegistryObject<Block> FRACTURED_WAYROCK = BLOCKS.register(
@@ -87,9 +112,60 @@ public final class ModBlocks {
                     .sound(SoundType.STONE))
     );
 
+    public static final RegistryObject<Block> FRACTURED_WAYROCK_STAIRS = BLOCKS.register(
+            "fractured_wayrock_stairs",
+            () -> new StairBlock(() -> FRACTURED_WAYROCK.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> FRACTURED_WAYROCK_SLAB = BLOCKS.register(
+            "fractured_wayrock_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> FRACTURED_WAYROCK_WALL = BLOCKS.register(
+            "fractured_wayrock_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
     public static final RegistryObject<Block> CRUSHSTONE = BLOCKS.register(
             "crushstone",
             () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> CRUSHSTONE_STAIRS = BLOCKS.register(
+            "crushstone_stairs",
+            () -> new StairBlock(() -> CRUSHSTONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> CRUSHSTONE_SLAB = BLOCKS.register(
+            "crushstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> CRUSHSTONE_WALL = BLOCKS.register(
+            "crushstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(1.2F, 6.0F)
                     .sound(SoundType.STONE))
@@ -120,6 +196,33 @@ public final class ModBlocks {
                     .sound(SoundType.DEEPSLATE))
     );
 
+    public static final RegistryObject<Block> CRACKED_SCARSTONE_STAIRS = BLOCKS.register(
+            "cracked_scarstone_stairs",
+            () -> new StairBlock(() -> CRACKED_SCARSTONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 36.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> CRACKED_SCARSTONE_SLAB = BLOCKS.register(
+            "cracked_scarstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 36.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> CRACKED_SCARSTONE_WALL = BLOCKS.register(
+            "cracked_scarstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 36.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
     public static final RegistryObject<Block> SCARSTONE = BLOCKS.register(
             "scarstone",
             () -> new ScarstoneBlock(BlockBehaviour.Properties.of()
@@ -129,9 +232,63 @@ public final class ModBlocks {
                     .sound(SoundType.DEEPSLATE))
     );
 
+    public static final RegistryObject<Block> SCARSTONE_STAIRS = BLOCKS.register(
+            "scarstone_stairs",
+            () -> new StairBlock(() -> SCARSTONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 42.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> SCARSTONE_SLAB = BLOCKS.register(
+            "scarstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 42.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> SCARSTONE_WALL = BLOCKS.register(
+            "scarstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 42.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
     public static final RegistryObject<Block> POLISHED_SCARSTONE = BLOCKS.register(
             "polished_scarstone",
             () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.0F, 50.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_SCARSTONE_STAIRS = BLOCKS.register(
+            "polished_scarstone_stairs",
+            () -> new StairBlock(() -> POLISHED_SCARSTONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.0F, 50.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_SCARSTONE_SLAB = BLOCKS.register(
+            "polished_scarstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.0F, 50.0F)
+                    .sound(SoundType.DEEPSLATE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_SCARSTONE_WALL = BLOCKS.register(
+            "polished_scarstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DEEPSLATE)
                     .requiresCorrectToolForDrops()
                     .strength(4.0F, 50.0F)
@@ -158,6 +315,33 @@ public final class ModBlocks {
                     .sound(SoundType.STONE))
     );
 
+    public static final RegistryObject<Block> STONEVEIL_RUBBLE_STAIRS = BLOCKS.register(
+            "stoneveil_rubble_stairs",
+            () -> new StairBlock(() -> STONEVEIL_RUBBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> STONEVEIL_RUBBLE_SLAB = BLOCKS.register(
+            "stoneveil_rubble_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> STONEVEIL_RUBBLE_WALL = BLOCKS.register(
+            "stoneveil_rubble_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
     public static final RegistryObject<Block> POLISHED_STONEVEIL_RUBBLE = BLOCKS.register(
             "polished_stoneveil_rubble",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -167,9 +351,63 @@ public final class ModBlocks {
                     .sound(SoundType.STONE))
     );
 
+    public static final RegistryObject<Block> POLISHED_STONEVEIL_RUBBLE_STAIRS = BLOCKS.register(
+            "polished_stoneveil_rubble_stairs",
+            () -> new StairBlock(() -> POLISHED_STONEVEIL_RUBBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 20.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_STONEVEIL_RUBBLE_SLAB = BLOCKS.register(
+            "polished_stoneveil_rubble_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 20.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_STONEVEIL_RUBBLE_WALL = BLOCKS.register(
+            "polished_stoneveil_rubble_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 20.0F)
+                    .sound(SoundType.STONE))
+    );
+
     public static final RegistryObject<Block> RUNED_STONEVEIL_RUBBLE = BLOCKS.register(
             "runed_stoneveil_rubble",
             () -> new RunedStoneveilRubbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 22.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> RUNED_STONEVEIL_RUBBLE_STAIRS = BLOCKS.register(
+            "runed_stoneveil_rubble_stairs",
+            () -> new StairBlock(() -> RUNED_STONEVEIL_RUBBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 22.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> RUNED_STONEVEIL_RUBBLE_SLAB = BLOCKS.register(
+            "runed_stoneveil_rubble_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 22.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> RUNED_STONEVEIL_RUBBLE_WALL = BLOCKS.register(
+            "runed_stoneveil_rubble_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 22.0F)

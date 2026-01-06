@@ -1,0 +1,12 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:crushstone" }
+  },
+  "result": { "item": "kruemblegard:crushstone_wall", "count": 6 }
+}
+

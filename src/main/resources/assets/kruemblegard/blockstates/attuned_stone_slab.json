@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "type=bottom": { "model": "/attuned_stone_slab" },
+    "type=top": { "model": "/attuned_stone_slab_top" },
+    "type=double": { "model": "/attuned_stone_slab_double" }
+  }
+}
+

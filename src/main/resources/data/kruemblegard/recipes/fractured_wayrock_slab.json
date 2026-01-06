@@ -1,0 +1,11 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:fractured_wayrock" }
+  },
+  "result": { "item": "kruemblegard:fractured_wayrock_slab", "count": 6 }
+}
+

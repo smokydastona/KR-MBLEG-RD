@@ -1,0 +1,13 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X  ",
+    "XX ",
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:polished_scarstone" }
+  },
+  "result": { "item": "kruemblegard:polished_scarstone_stairs", "count": 4 }
+}
+

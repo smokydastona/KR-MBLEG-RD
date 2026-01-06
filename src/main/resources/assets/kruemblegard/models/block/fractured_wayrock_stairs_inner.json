@@ -1,0 +1,9 @@
+﻿{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "/fractured_wayrock",
+    "top": "/fractured_wayrock",
+    "side": "/fractured_wayrock"
+  }
+}
+
