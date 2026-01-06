@@ -55,6 +55,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Assets: remove unused wood-family derived fence textures now that models reuse planks.
 - Fix: generate missing `en_us` block/item names so creative inventory shows readable names.
 - Dev tooling: add `tools/generate_stone_family_blocks.ps1` to generate stone-family resource/data files.
+- Fix: treat Wayfall surface palette blocks as `minecraft:dirt` so vanilla/mod saplings can be planted and tree features can generate on them.
 
 ## 1.0.110 (2026-01-03)
 - Docs/workflow: update Copilot instructions to require updating all relevant docs.
