@@ -42,7 +42,7 @@ public final class ModTags {
     /**
      * Biome tags used specifically by worldgen wiring (biome modifiers, structure biomes, etc.).
      *
-     * <p>Note: biome tags live under data/*/tags/worldgen/biome, but are referenced by ID only.</p>
+     * <p>Note: biome tags live under data/&lt;namespace&gt;/tags/worldgen/biome, but are referenced by ID only.</p>
      */
     public static final class WorldgenBiomes {
         private WorldgenBiomes() {}

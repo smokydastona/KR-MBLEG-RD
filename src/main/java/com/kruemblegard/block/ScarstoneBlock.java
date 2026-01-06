@@ -27,6 +27,7 @@ public class ScarstoneBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
         float base = super.getDestroyProgress(state, player, level, pos);
         int toolTier = getToolTierLevel(player);
@@ -79,6 +80,7 @@ public class ScarstoneBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
         ItemStack tool = builder.getOptionalParameter(LootContextParams.TOOL);
         int toolTier = getToolTierLevel(tool);
@@ -95,6 +97,7 @@ public class ScarstoneBlock extends Block {
         return getToolTierLevel(player.getMainHandItem());
     }
 
+    @SuppressWarnings("deprecation")
     private static int getToolTierLevel(ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             return -1;

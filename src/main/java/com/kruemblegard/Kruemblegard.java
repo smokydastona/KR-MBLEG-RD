@@ -12,7 +12,6 @@ import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModLootModifiers;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModPotions;
-import com.kruemblegard.registry.ModBrewing;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.registry.ModSounds;
 

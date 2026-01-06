@@ -3,7 +3,6 @@ package com.kruemblegard.worldgen;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModTags;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
@@ -53,12 +52,7 @@ public final class WorldgenValidator {
             return;
         }
 
-        boolean any = false;
-        for (Holder<net.minecraft.world.level.biome.Biome> ignored : holders.get()) {
-            any = true;
-            break;
-        }
-        if (!any) {
+        if (!holders.get().iterator().hasNext()) {
             Kruemblegard.LOGGER.warn("Biome tag is present but empty: {}", tag.location());
         }
     }

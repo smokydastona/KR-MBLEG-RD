@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.164 (2026-01-06)
+## 1.0.166 (2026-01-06)
+- Dev/testing: add a `wayfall_portal` block that toggles between Overworld and Wayfall on right-click (for quick creative testing).
+
+## 1.0.165 (2026-01-06)
 - Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
 - Data-driven: make Crumbling Codex JSON loading codec-backed (safer parsing, fewer brittle assumptions).
 - Networking/player state: add a tiny per-player persistent state wrapper + S2C sync packet to avoid client-side guessing.

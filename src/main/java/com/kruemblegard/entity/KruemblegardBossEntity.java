@@ -197,7 +197,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private int currentAbilityTicksRemaining;
     private int currentAbilityImpactAt;
     private boolean currentAbilityImpactDone;
-    private int lastAbility;
 
     // -----------------------------
     // PHASE ATTACK PATTERN
@@ -248,7 +247,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityTicksRemaining = 0;
         this.currentAbilityImpactAt = 0;
         this.currentAbilityImpactDone = false;
-        this.lastAbility = ABILITY_NONE;
 
         this.phaseAttackStep = 0;
         this.phaseAttackStepPhase = 0;
@@ -908,7 +906,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityTicksRemaining--;
         if (this.currentAbilityTicksRemaining <= 0) {
             finishAbility(this.currentAbility);
-            this.lastAbility = this.currentAbility;
             this.currentAbility = ABILITY_NONE;
         }
         return true;

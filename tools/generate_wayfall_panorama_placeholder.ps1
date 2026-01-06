@@ -1,3 +1,10 @@
+[
+    Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSUseApprovedVerbs',
+        '',
+        Justification = 'Local helper functions in this script are not exported cmdlets; keep names concise.'
+    )
+]
 param(
     [int]$Width = 2048,
     [int]$Height = 1024,
@@ -76,13 +83,13 @@ $shadow = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(
 $title = 'WAYFALL PANORAMA (PLACEHOLDER)'
 $hint = 'Replace this with a real equirectangular 2:1 panorama (e.g. 4096x2048).'
 
-function Draw-ShadowText($text, $x, $y, $font) {
+function Write-ShadowText($text, $x, $y, $font) {
     $gfx.DrawString($text, $font, $shadow, ($x + 3), ($y + 3))
     $gfx.DrawString($text, $font, $brushText, $x, $y)
 }
 
-Draw-ShadowText $title 40 30 $fontTitle
-Draw-ShadowText $hint 40 90 $fontSmall
+Write-ShadowText $title 40 30 $fontTitle
+Write-ShadowText $hint 40 90 $fontSmall
 
 # Cardinal directions on the horizon band
 $labels = @(
@@ -94,7 +101,7 @@ $labels = @(
 )
 foreach ($l in $labels) {
     $x = [int]([math]::Round(($l.deg / 360.0) * ($Width - 1)))
-    Draw-ShadowText $l.t ($x + 12) ($horizonY + 12) $fontSmall
+    Write-ShadowText $l.t ($x + 12) ($horizonY + 12) $fontSmall
 }
 
 # Cleanup + save

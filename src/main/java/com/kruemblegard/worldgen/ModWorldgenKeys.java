@@ -5,11 +5,11 @@ import com.kruemblegard.Kruemblegard;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -34,6 +34,12 @@ public final class ModWorldgenKeys {
         private Dimensions() {}
 
         public static final ResourceKey<LevelStem> WAYFALL = ResourceKey.create(Registries.LEVEL_STEM, id("wayfall"));
+    }
+
+    public static final class Levels {
+        private Levels() {}
+
+        public static final ResourceKey<Level> WAYFALL = ResourceKey.create(Registries.DIMENSION, id("wayfall"));
     }
 
     public static final class DimensionTypes {

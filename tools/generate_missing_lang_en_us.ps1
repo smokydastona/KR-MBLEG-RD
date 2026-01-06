@@ -1,3 +1,10 @@
+[
+  Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    'PSUseApprovedVerbs',
+    '',
+    Justification = 'Local helper functions in this script are not exported cmdlets; keep names concise.'
+  )
+]
 param(
   [string]$ModId = "kruemblegard",
   [string]$Lang = "en_us"
@@ -19,13 +26,13 @@ function ConvertTo-Hashtable {
   return $ht
 }
 
-function Humanize-Id {
+function ConvertTo-DisplayName {
   param([Parameter(Mandatory = $true)][string]$Id)
 
   # Special cases
   if ($Id -match "^(.*)_spawn_egg$") {
     $base = $Matches[1]
-    return (Humanize-Id $base) + " Spawn Egg"
+    return (ConvertTo-DisplayName $base) + " Spawn Egg"
   }
 
   # Default: replace underscores and title-case
@@ -66,7 +73,7 @@ $blockIds = Get-ChildItem -LiteralPath $blockstatesDir -File -Filter "*.json" | 
 foreach ($id in $blockIds) {
   $key = "block.$ModId.$id"
   if (-not $existing.ContainsKey($key)) {
-    $existing[$key] = Humanize-Id $id
+    $existing[$key] = ConvertTo-DisplayName $id
     $added++
   }
 }
@@ -77,7 +84,7 @@ if (Test-Path $itemModelsDir) {
   foreach ($id in $itemIds) {
     $key = "item.$ModId.$id"
     if (-not $existing.ContainsKey($key)) {
-      $existing[$key] = Humanize-Id $id
+      $existing[$key] = ConvertTo-DisplayName $id
       $added++
     }
   }

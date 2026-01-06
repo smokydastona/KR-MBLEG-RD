@@ -1,6 +1,5 @@
 package com.kruemblegard.block;
 
-import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;

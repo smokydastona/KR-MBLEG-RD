@@ -15,6 +15,7 @@ import com.kruemblegard.block.ScarstoneBlock;
 import com.kruemblegard.block.VeilgrowthBlock;
 import com.kruemblegard.block.VoidfeltBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
+import com.kruemblegard.block.WayfallPortalBlock;
 import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
@@ -108,6 +109,14 @@ public final class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .requiresCorrectToolForDrops()
+                    .strength(2.0F, 18.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> WAYFALL_PORTAL = BLOCKS.register(
+            "wayfall_portal",
+            () -> new WayfallPortalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
                     .strength(2.0F, 18.0F)
                     .sound(SoundType.STONE))
     );

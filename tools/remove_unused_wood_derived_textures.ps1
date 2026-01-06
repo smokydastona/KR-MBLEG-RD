@@ -46,7 +46,7 @@ $unused = $candidates |
 
 Write-Output ("UNUSED_COUNT=" + $unused.Count)
 if ($Show -gt 0) {
-    Write-Output ("FIRST_${Show}:")
+    Write-Output ("FIRST_{0}" -f $Show)
     $unused | Select-Object -First $Show -ExpandProperty FullName
 }
 
