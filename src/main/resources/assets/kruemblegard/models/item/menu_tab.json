@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "kruemblegard:gui/menu_tab"
+    "layer0": "kruemblegard:item/menu_tab"
   }
 }
