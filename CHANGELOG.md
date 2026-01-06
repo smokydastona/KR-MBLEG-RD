@@ -7,8 +7,14 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.167 (2026-01-05)
 - Traprock: after a player has encountered Traprock once, repeat encounters have a high chance to awaken immediately.
 
-## 1.0.166 (2026-01-05)
-- Dev/testing: add a `wayfall_portal` block that toggles between Overworld and Wayfall on right-click (for quick creative testing).
+## 1.0.167 (2026-01-05)
+- Assets: replace placeholder 16x16 textures for Wayfall surface blocks with higher-detail textures (Ashmoss, Fault Dust, Veilgrowth, Veilgrowth Charged).
+
+## 1.0.168 (2026-01-05)
+- Traprock: after a player has encountered Traprock once, repeat encounters have a high chance to awaken immediately.
+
+## 1.0.169 (2026-01-05)
+- Docs: align changelog entries with commit-count versioning.
 
 ## 1.0.165 (2026-01-06)
 - Worldgen: centralize important datapack IDs into `worldgen/ModWorldgenKeys` and add runtime validation warnings via `WorldgenValidator`.
