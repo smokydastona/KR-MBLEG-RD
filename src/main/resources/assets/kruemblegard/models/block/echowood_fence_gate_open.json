@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/echowood_fence_gate"
+                     "texture":  "kruemblegard:block/echowood_planks"
                  },
     "parent":  "minecraft:block/fence_gate_open"
 }

@@ -1,6 +1,6 @@
 ﻿{
     "textures":  {
-                     "texture":  "kruemblegard:block/driftwillow_fence_gate"
+                     "texture":  "kruemblegard:block/driftwillow_planks"
                  },
     "parent":  "minecraft:block/fence_gate_wall_open"
 }
