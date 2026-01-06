@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.177 (2026-01-06)
+- Fix(worldgen): resolve “Failed to load registries” on world creation by correcting Wayfall multi-noise biome source configuration and `minecraft:disk` configured feature `state_provider` codecs.
+
 ## 1.0.176 (2026-01-05)
 - Wayfall: replace End-based noise routing with custom climate noises + density functions for a more Aether-like floating-islands feel.
 - Wayfall: increase generation height to 384.

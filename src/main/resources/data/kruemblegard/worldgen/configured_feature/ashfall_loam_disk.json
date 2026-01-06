@@ -17,10 +17,13 @@
       ]
     },
     "state_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "kruemblegard:ashfall_loam"
-      }
+      "fallback": {
+        "state": {
+          "Name": "kruemblegard:ashfall_loam"
+        },
+        "type": "minecraft:simple_state_provider"
+      },
+      "rules": []
     }
   }
 }
