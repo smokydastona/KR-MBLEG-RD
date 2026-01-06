@@ -119,6 +119,51 @@ function New-Rng {
     }.GetNewClosure()
 }
 
+function Get-FamilyStyle {
+    param([string]$familyPrefix)
+
+    switch ($familyPrefix) {
+        'ashbloom' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'ash_speckle'; BarkRidge = 3; BarkCrackChance = 28; LeavesDensity = 62 } }
+        'cairn_tree' { return [pscustomobject]@{ PlankBoard = 3; PlankMotif = 'stone_mosaic'; BarkRidge = 4; BarkCrackChance = 999; LeavesDensity = 55 } }
+        'driftwillow' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'wavy_grain'; BarkRidge = 3; BarkCrackChance = 35; LeavesDensity = 68 } }
+        'driftwood' { return [pscustomobject]@{ PlankBoard = 5; PlankMotif = 'bleached_streaks'; BarkRidge = 4; BarkCrackChance = 40; LeavesDensity = 58 } }
+        'echowood' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'echo_ripples'; BarkRidge = 3; BarkCrackChance = 999; LeavesDensity = 60 } }
+        'fallbark' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'autumn_gradient'; BarkRidge = 3; BarkCrackChance = 30; LeavesDensity = 72 } }
+        'faultwood' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'fault_cracks'; BarkRidge = 3; BarkCrackChance = 12; LeavesDensity = 64 } }
+        'glimmerpine' { return [pscustomobject]@{ PlankBoard = 3; PlankMotif = 'fine_striations'; BarkRidge = 2; BarkCrackChance = 45; LeavesDensity = 56 } }
+        'hollowway_tree' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'hollow_knots'; BarkRidge = 4; BarkCrackChance = 32; LeavesDensity = 52 } }
+        'monument_oak' { return [pscustomobject]@{ PlankBoard = 6; PlankMotif = 'big_knots'; BarkRidge = 4; BarkCrackChance = 30; LeavesDensity = 70 } }
+        'shardbark_pine' { return [pscustomobject]@{ PlankBoard = 3; PlankMotif = 'shards'; BarkRidge = 2; BarkCrackChance = 999; LeavesDensity = 60 } }
+        'wayglass' { return [pscustomobject]@{ PlankBoard = 2; PlankMotif = 'glass_highlight'; BarkRidge = 5; BarkCrackChance = 999; LeavesDensity = 46 } }
+        'wayroot' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'root_tendrils'; BarkRidge = 3; BarkCrackChance = 34; LeavesDensity = 66 } }
+        'waytorch_tree' { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'char_embers'; BarkRidge = 3; BarkCrackChance = 22; LeavesDensity = 50 } }
+        Default { return [pscustomobject]@{ PlankBoard = 4; PlankMotif = 'none'; BarkRidge = 3; BarkCrackChance = 30; LeavesDensity = 60 } }
+    }
+}
+
+function Draw-LineClamped {
+    param(
+        [System.Drawing.Bitmap]$bmp,
+        [int]$x0,
+        [int]$y0,
+        [int]$x1,
+        [int]$y1,
+        [System.Drawing.Color]$color
+    )
+    $dx = [Math]::Abs($x1 - $x0)
+    $sx = if ($x0 -lt $x1) { 1 } else { -1 }
+    $dy = -[Math]::Abs($y1 - $y0)
+    $sy = if ($y0 -lt $y1) { 1 } else { -1 }
+    $err = $dx + $dy
+    while ($true) {
+        Set-PixelSafe $bmp $x0 $y0 $color
+        if ($x0 -eq $x1 -and $y0 -eq $y1) { break }
+        $e2 = 2 * $err
+        if ($e2 -ge $dy) { $err += $dy; $x0 += $sx }
+        if ($e2 -le $dx) { $err += $dx; $y0 += $sy }
+    }
+}
+
 function Rng-Range {
     param($rng, [int]$min, [int]$max)
     $n = [int](([int64](& $rng) -band 0x7FFFFFFF))
@@ -147,13 +192,15 @@ function Draw-Planks {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey,
         [switch]$Vertical
     )
     $rng = New-Rng -seed (Hash-Seed $seedKey)
+    $style = Get-FamilyStyle $familyPrefix
     $w = $bmp.Width
     $h = $bmp.Height
-    $board = 4
+    $board = [int]$style.PlankBoard
 
     for ($y = 0; $y -lt $h; $y++) {
         for ($x = 0; $x -lt $w; $x++) {
@@ -176,6 +223,158 @@ function Draw-Planks {
         }
     }
 
+    # strong family motifs (on top of the baseline planks)
+    switch ($style.PlankMotif) {
+        'autumn_gradient' {
+            for ($y = 0; $y -lt $h; $y++) {
+                $delta = [int]([Math]::Round((($y / [double]($h - 1)) * 10) - 5))
+                for ($x = 0; $x -lt $w; $x++) {
+                    if ((($x + $y) % 5) -eq 0) {
+                        $bmp.SetPixel($x, $y, (Color-Shift $accent $delta))
+                    }
+                }
+            }
+        }
+        'big_knots' {
+            for ($i = 0; $i -lt 2; $i++) {
+                $kx = Rng-Range $rng 3 ($w - 4)
+                $ky = Rng-Range $rng 3 ($h - 4)
+                for ($y = ($ky - 2); $y -le ($ky + 2); $y++) {
+                    for ($x = ($kx - 2); $x -le ($kx + 2); $x++) {
+                        $dx = $x - $kx
+                        $dy = $y - $ky
+                        if ((($dx * $dx) + ($dy * $dy)) -le 5) {
+                            Set-PixelSafe $bmp $x $y (Color-Shift $base -14)
+                        }
+                    }
+                }
+                Set-PixelSafe $bmp $kx $ky (Color-Shift $accent -10)
+            }
+        }
+        'hollow_knots' {
+            $kx = Rng-Range $rng 4 ($w - 5)
+            $ky = Rng-Range $rng 4 ($h - 5)
+            for ($y = ($ky - 2); $y -le ($ky + 2); $y++) {
+                for ($x = ($kx - 2); $x -le ($kx + 2); $x++) {
+                    $dx = $x - $kx
+                    $dy = $y - $ky
+                    $d2 = ($dx * $dx) + ($dy * $dy)
+                    if ($d2 -ge 4 -and $d2 -le 7) { Set-PixelSafe $bmp $x $y (Color-Shift $accent -14) }
+                    if ($d2 -le 2) { Set-PixelSafe $bmp $x $y (Color-Shift $base -24) }
+                }
+            }
+        }
+        'echo_ripples' {
+            $cy = [int]($h / 2)
+            for ($x = 0; $x -lt $w; $x++) {
+                $yy = $cy + [int]([Math]::Round([Math]::Sin(($x + (Rng-Range $rng 0 50)) * 0.7) * 2))
+                Set-PixelSafe $bmp $x $yy (Color-Shift $accent 8)
+                Set-PixelSafe $bmp $x ($yy + 2) (Color-Shift $accent -4)
+            }
+        }
+        'wavy_grain' {
+            for ($y = 0; $y -lt $h; $y++) {
+                $xx = [int]([Math]::Round(([Math]::Sin(($y + (Rng-Range $rng 0 50)) * 0.6) * 2) + ($w / 2)))
+                Set-PixelSafe $bmp $xx $y (Color-Shift $accent 6)
+            }
+        }
+        'fine_striations' {
+            for ($x = 0; $x -lt $w; $x++) {
+                if (($x % 2) -eq 0) {
+                    for ($y = 0; $y -lt $h; $y++) {
+                        if ((Rng-Range $rng 0 6) -eq 0) { Set-PixelSafe $bmp $x $y (Color-Shift $accent 4) }
+                    }
+                }
+            }
+        }
+        'shards' {
+            for ($i = 0; $i -lt 4; $i++) {
+                $x0 = Rng-Range $rng 0 ($w - 1)
+                $y0 = Rng-Range $rng 0 ($h - 1)
+                $x1 = [Math]::Min($w - 1, [Math]::Max(0, $x0 + (Rng-Range $rng -6 6)))
+                $y1 = [Math]::Min($h - 1, [Math]::Max(0, $y0 + (Rng-Range $rng -6 6)))
+                Draw-LineClamped $bmp $x0 $y0 $x1 $y1 (Color-Shift $accent (Rng-Range $rng -6 10))
+            }
+        }
+        'stone_mosaic' {
+            for ($y = 0; $y -lt $h; $y += 2) {
+                for ($x = 0; $x -lt $w; $x += 2) {
+                    if ((Rng-Range $rng 0 3) -eq 0) {
+                        $c = Color-Shift $accent (Rng-Range $rng -18 2)
+                        Set-PixelSafe $bmp $x $y $c
+                        Set-PixelSafe $bmp ($x + 1) $y $c
+                        Set-PixelSafe $bmp $x ($y + 1) $c
+                        Set-PixelSafe $bmp ($x + 1) ($y + 1) $c
+                    }
+                }
+            }
+            # rune dots on seams
+            for ($i = 0; $i -lt 6; $i++) {
+                Set-PixelSafe $bmp (Rng-Range $rng 1 ($w - 2)) (Rng-Range $rng 1 ($h - 2)) (Color-Shift $accent 14)
+            }
+        }
+        'bleached_streaks' {
+            for ($y = 1; $y -lt $h; $y += 3) {
+                for ($x = 0; $x -lt $w; $x++) {
+                    if ((Rng-Range $rng 0 2) -eq 0) { Set-PixelSafe $bmp $x $y (Color-Shift $base 10) }
+                }
+            }
+        }
+        'ash_speckle' {
+            for ($i = 0; $i -lt 18; $i++) {
+                $x = Rng-Range $rng 0 ($w - 1)
+                $y = Rng-Range $rng 0 ($h - 1)
+                Set-PixelSafe $bmp $x $y (Color-Shift $base (Rng-Range $rng -18 18))
+            }
+        }
+        'fault_cracks' {
+            for ($i = 0; $i -lt 3; $i++) {
+                $x0 = Rng-Range $rng 0 ($w - 1)
+                $y0 = Rng-Range $rng 0 ($h - 1)
+                $x1 = [Math]::Min($w - 1, [Math]::Max(0, $x0 + (Rng-Range $rng -7 7)))
+                $y1 = [Math]::Min($h - 1, [Math]::Max(0, $y0 + (Rng-Range $rng -7 7)))
+                Draw-LineClamped $bmp $x0 $y0 $x1 $y1 (Color-Shift $accent -22)
+            }
+        }
+        'glass_highlight' {
+            for ($y = 0; $y -lt $h; $y++) {
+                Set-PixelSafe $bmp ($w - 3) $y (Color-Shift $accent 12)
+                if (($y % 2) -eq 0) { Set-PixelSafe $bmp ($w - 2) $y (Color-Shift $base 10) }
+            }
+            for ($x = 0; $x -lt $w; $x++) {
+                Set-PixelSafe $bmp $x 0 (Color-Shift $base 8)
+                Set-PixelSafe $bmp $x ($h - 1) (Color-Shift $base -6)
+            }
+        }
+        'root_tendrils' {
+            $cy = [int]($h / 2)
+            $phase = Rng-Range $rng 0 100
+            for ($x = 0; $x -lt $w; $x++) {
+                $yy = $cy + [int]([Math]::Round([Math]::Sin(($x + $phase) * 0.65) * 2))
+                Set-PixelSafe $bmp $x $yy (Color-Shift $accent -6)
+                if ((Rng-Range $rng 0 3) -eq 0) { Set-PixelSafe $bmp $x ($yy + 1) (Color-Shift $base -10) }
+            }
+        }
+        'char_embers' {
+            # char-darken everything slightly
+            for ($y = 0; $y -lt $h; $y++) {
+                for ($x = 0; $x -lt $w; $x++) {
+                    if ((Rng-Range $rng 0 4) -eq 0) {
+                        $c = $bmp.GetPixel($x, $y)
+                        $bmp.SetPixel($x, $y, (Color-Shift $c -12))
+                    }
+                }
+            }
+            # embers
+            for ($i = 0; $i -lt 10; $i++) {
+                $x = Rng-Range $rng 0 ($w - 1)
+                $y = Rng-Range $rng 0 ($h - 1)
+                Set-PixelSafe $bmp $x $y (Color-Shift $accent 10)
+                if (-not $emissive.IsEmpty -and (Rng-Range $rng 0 1) -eq 0) { Set-PixelSafe $bmp $x $y $emissive }
+            }
+        }
+    }
+
     # optional emissive inlays
     if (-not $emissive.IsEmpty) {
         for ($i = 0; $i -lt 10; $i++) {
@@ -194,13 +393,16 @@ function Draw-LogSide {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey,
         [switch]$Smooth
     )
     $rng = New-Rng -seed (Hash-Seed $seedKey)
+    $style = Get-FamilyStyle $familyPrefix
     $w = $bmp.Width
     $h = $bmp.Height
-    $ridge = if ($Smooth) { 5 } else { 3 }
+    $ridge = if ($Smooth) { 5 } else { [int]$style.BarkRidge }
+    $crackChance = [int]$style.BarkCrackChance
 
     for ($y = 0; $y -lt $h; $y++) {
         for ($x = 0; $x -lt $w; $x++) {
@@ -214,11 +416,52 @@ function Draw-LogSide {
             }
 
             # cracks
-            if (-not $Smooth -and (Rng-Range $rng 0 30) -eq 0) {
+            if (-not $Smooth -and $crackChance -lt 900 -and (Rng-Range $rng 0 $crackChance) -eq 0) {
                 $c = Color-Shift $accent -18
             }
 
             $bmp.SetPixel($x, $y, $c)
+        }
+    }
+
+    # family overlays
+    switch ((Get-FamilyStyle $familyPrefix).PlankMotif) {
+        'shards' {
+            for ($i = 0; $i -lt 3; $i++) {
+                $x0 = Rng-Range $rng 0 ($w - 1)
+                $y0 = Rng-Range $rng 0 ($h - 1)
+                $x1 = [Math]::Min($w - 1, [Math]::Max(0, $x0 + (Rng-Range $rng -6 6)))
+                $y1 = [Math]::Min($h - 1, [Math]::Max(0, $y0 + (Rng-Range $rng -6 6)))
+                Draw-LineClamped $bmp $x0 $y0 $x1 $y1 (Color-Shift $accent (Rng-Range $rng -10 6))
+            }
+        }
+        'stone_mosaic' {
+            for ($i = 0; $i -lt 10; $i++) {
+                $x = Rng-Range $rng 0 ($w - 1)
+                $y = Rng-Range $rng 0 ($h - 1)
+                Set-PixelSafe $bmp $x $y (Color-Shift $accent (Rng-Range $rng -20 0))
+            }
+        }
+        'glass_highlight' {
+            for ($y = 0; $y -lt $h; $y++) {
+                Set-PixelSafe $bmp ($w - 2) $y (Color-Shift $accent 10)
+            }
+        }
+        'char_embers' {
+            for ($y = 0; $y -lt $h; $y++) {
+                if ((Rng-Range $rng 0 7) -eq 0) {
+                    Set-PixelSafe $bmp (Rng-Range $rng 1 ($w - 2)) $y (Color-Shift $accent 8)
+                }
+            }
+        }
+        'fault_cracks' {
+            for ($i = 0; $i -lt 2; $i++) {
+                $x0 = Rng-Range $rng 0 ($w - 1)
+                $y0 = 0
+                $x1 = [Math]::Min($w - 1, [Math]::Max(0, $x0 + (Rng-Range $rng -2 2)))
+                $y1 = $h - 1
+                Draw-LineClamped $bmp $x0 $y0 $x1 $y1 (Color-Shift $accent -24)
+            }
         }
     }
 
@@ -358,10 +601,11 @@ function Draw-FlatDerived {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey
     )
     # Use plank look as a baseline for most wood-derived blocks
-    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $familyPrefix -seedKey $seedKey
 
     # add a subtle border so buttons/plates read cleaner
     for ($x = 0; $x -lt $bmp.Width; $x++) {
@@ -380,11 +624,12 @@ function Draw-DoorPart {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey,
         [ValidateSet('top','bottom')]
         [string]$Part
     )
-    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive ([System.Drawing.Color]::Empty) -seedKey ($seedKey + ":door") -Vertical
+    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive ([System.Drawing.Color]::Empty) -familyPrefix $familyPrefix -seedKey ($seedKey + ":door") -Vertical
 
     # frame
     $frame = Color-Shift $base -12
@@ -420,9 +665,10 @@ function Draw-Trapdoor {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey
     )
-    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive ([System.Drawing.Color]::Empty) -seedKey ($seedKey + ":trapdoor")
+    Draw-Planks -bmp $bmp -base $base -accent $accent -emissive ([System.Drawing.Color]::Empty) -familyPrefix $familyPrefix -seedKey ($seedKey + ":trapdoor")
     $bar = Color-Shift $base -14
     for ($x = 0; $x -lt $bmp.Width; $x++) {
         if (($x % 5) -eq 0) {
@@ -443,9 +689,11 @@ function Draw-Leaves {
         [System.Drawing.Color]$base,
         [System.Drawing.Color]$accent,
         [System.Drawing.Color]$emissive,
+        [string]$familyPrefix,
         [string]$seedKey
     )
     $rng = New-Rng -seed (Hash-Seed $seedKey)
+    $style = Get-FamilyStyle $familyPrefix
     $w = $bmp.Width
     $h = $bmp.Height
 
@@ -459,7 +707,7 @@ function Draw-Leaves {
     for ($y = 0; $y -lt $h; $y++) {
         for ($x = 0; $x -lt $w; $x++) {
             $roll = Rng-Range $rng 0 99
-            if ($roll -lt 70) {
+            if ($roll -lt [int]$style.LeavesDensity) {
                 $c = Color-Shift $base (Rng-Range $rng -6 6)
                 if ($roll -lt 12) { $c = Color-Shift $accent (Rng-Range $rng -6 8) }
                 $bmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(220, $c.R, $c.G, $c.B))
@@ -607,9 +855,9 @@ if ($Mode -eq 'palettes') {
         try {
             $baseColor = Color-FromRgb $entry.Base
             $accentColor = Color-FromRgb $entry.Accent
-            $emissiveColor = if ($entry.Emissive) { Color-FromRgb $entry.Emissive } else { $null }
+            $emissiveColor = if ($entry.Emissive) { Color-FromRgb $entry.Emissive } else { [System.Drawing.Color]::Empty }
             Fill $bmp $baseColor
-            Draw-Planks -bmp $bmp -base $baseColor -accent $accentColor -emissive $emissiveColor -seedKey ("palette:" + $nameSlug)
+            Draw-Planks -bmp $bmp -base $baseColor -accent $accentColor -emissive $emissiveColor -familyPrefix $nameSlug -seedKey ("palette:" + $nameSlug)
             if (-not $DryRun) {
                 $bmp.Save($path, [System.Drawing.Imaging.ImageFormat]::Png)
             }
@@ -682,38 +930,38 @@ foreach ($t in $targets) {
         $seedKey = ($t.Prefix + ":" + $name)
 
         if ($name -match '^stripped_') {
-            Draw-LogSide -bmp $bmp -base (Color-Shift $base 4) -accent $accent -emissive $emissive -seedKey $seedKey -Smooth
+            Draw-LogSide -bmp $bmp -base (Color-Shift $base 4) -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey -Smooth
         }
         elseif ($name -match '_log_top$') {
             Draw-LogTop -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_log$') {
-            Draw-LogSide -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+            Draw-LogSide -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_planks$') {
-            Draw-Planks -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+            Draw-Planks -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_door_bottom$') {
-            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey -Part bottom
+            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey -Part bottom
         }
         elseif ($name -match '_door_top$') {
-            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey -Part top
+            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey -Part top
         }
         elseif ($name -match '_trapdoor$') {
-            Draw-Trapdoor -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+            Draw-Trapdoor -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_leaves$') {
-            Draw-Leaves -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+            Draw-Leaves -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_sapling$') {
             Draw-Sapling -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
         }
         elseif ($rel -match '^item/' -and $name -match '_door$') {
             # door inventory icon: derived from door bottom look
-            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey -Part bottom
+            Draw-DoorPart -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey -Part bottom
         }
         else {
-            Draw-FlatDerived -bmp $bmp -base $base -accent $accent -emissive $emissive -seedKey $seedKey
+            Draw-FlatDerived -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
 
         if ($WriteToAssets) {
