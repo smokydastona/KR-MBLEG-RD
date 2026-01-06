@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "kruemblegard:block/voidfelt"
+    "top": "kruemblegard:block/voidfelt_top",
+    "bottom": "kruemblegard:block/fault_dust",
+    "side": "kruemblegard:block/voidfelt_side"
   }
 }

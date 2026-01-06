@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.184 (2026-01-06)
+- Assets: regenerate plant + surface-flora textures from the Plant Material Bible, and add audit scripts to catch missing model texture references + duplicate generated textures.
+- Wayfall surfaces: `runegrowth`/`voidfelt`/`ashfall_loam` now use top/side/bottom textures (podzol-like visuals).
+- Gameplay: `runegrowth` is now grass-like (spreads when powered, reverts to `fault_dust` when unpowered) and drops `fault_dust` unless Silk Touch.
+- Loot: `voidfelt` now drops `fault_dust` unless Silk Touch.
+- Wayfall geology: `ashfall_loam` is now a falling block with sand-like sounds (still treated as dirt/ground via tags).
+
 ## 1.0.183 (2026-01-06)
 - Assets: regenerate wood-family starter textures with strong per-family visual motifs so each wood type reads as distinct in-game.
 - Dev tooling: wood texture generator now threads family style through planks/logs/leaves/doors/trapdoors/derived blocks.

@@ -31,6 +31,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -183,10 +184,10 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> ASHFALL_LOAM = BLOCKS.register(
             "ashfall_loam",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new FallingBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.ROOTED_DIRT))
+                    .sound(SoundType.SAND))
     );
 
     public static final RegistryObject<Block> FAULT_DUST = BLOCKS.register(
@@ -194,7 +195,7 @@ public final class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.SAND)
                     .strength(0.5F, 0.5F)
-                    .sound(SoundType.SAND))
+                    .sound(SoundType.ROOTED_DIRT))
     );
 
     public static final RegistryObject<Block> CRACKED_SCARSTONE = BLOCKS.register(
@@ -431,7 +432,7 @@ public final class ModBlocks {
             () -> new VeilgrowthBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.GRASS)
+                    .sound(SoundType.MOSS_CARPET)
                     .randomTicks())
     );
 
@@ -440,7 +441,7 @@ public final class ModBlocks {
             () -> new AshmossBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.MOSS_CARPET)
+                    .sound(SoundType.MOSS)
                     .randomTicks())
     );
 
@@ -458,7 +459,7 @@ public final class ModBlocks {
             () -> new VoidfeltBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.WOOL)
+                    .sound(SoundType.ROOTED_DIRT)
                     .randomTicks())
     );
 

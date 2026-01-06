@@ -78,7 +78,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.
 
 ### Wayfall surface covers
-- Veilgrowth / Ashmoss / Runegrowth / Voidfelt are full-block “surface cover” blocks.
+- Veilgrowth is a moss-carpet style surface cover with a charged (glimmering) state.
+- Ashmoss is a moss block surface.
+- Runegrowth is a grass block surface.
+- Voidfelt is a podzol-like dirt surface.
 - Runegrowth emerges near blocks tagged as `kruemblegard:waystone_energy_sources`.
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
 - Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.

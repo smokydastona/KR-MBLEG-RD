@@ -2,8 +2,9 @@
   "replace": false,
   "values": [
     "kruemblegard:ashfall_loam",
+    "kruemblegard:ashmoss",
+    "kruemblegard:runegrowth",
     "kruemblegard:voidfelt",
-    "kruemblegard:crushstone",
-    "kruemblegard:fractured_wayrock"
+    "kruemblegard:fault_dust"
   ]
 }

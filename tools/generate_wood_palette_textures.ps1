@@ -18,8 +18,9 @@ if (-not $PSScriptRoot) {
 $repoRoot = Split-Path $PSScriptRoot -Parent
 
 if (-not $MaterialBiblePath) {
-    $preferred = Join-Path $repoRoot "docs\Wood_Material_Bible copy.md"
-    $fallback = Join-Path $repoRoot "docs\Wood_Material_Bible.md"
+    # Canonical source of truth is the non-copy bible.
+    $preferred = Join-Path $repoRoot "docs\Wood_Material_Bible.md"
+    $fallback = Join-Path $repoRoot "docs\Wood_Material_Bible copy.md"
     $MaterialBiblePath = if (Test-Path $preferred) { $preferred } else { $fallback }
 }
 
@@ -104,6 +105,20 @@ function Hash-Seed {
     $md5.Dispose()
     # Use first 4 bytes as UInt32
     return [BitConverter]::ToUInt32($hash, 0)
+}
+
+function Hash-Bytes {
+    param(
+        [string]$text,
+        [ValidateRange(1, 64)]
+        [int]$length = 32
+    )
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($text)
+    $hash = $sha.ComputeHash($bytes)
+    $sha.Dispose()
+    if ($length -ge $hash.Length) { return $hash }
+    return $hash[0..($length - 1)]
 }
 
 function New-Rng {
@@ -196,6 +211,7 @@ function Draw-Planks {
         [string]$seedKey,
         [switch]$Vertical
     )
+    # Use a global RNG for motif placement and other once-per-texture decisions.
     $rng = New-Rng -seed (Hash-Seed $seedKey)
     $style = Get-FamilyStyle $familyPrefix
     $w = $bmp.Width
@@ -204,9 +220,11 @@ function Draw-Planks {
 
     for ($y = 0; $y -lt $h; $y++) {
         for ($x = 0; $x -lt $w; $x++) {
+            # Per-pixel localized RNG avoids directional bias from sequential RNG advancement.
+            $localRng = New-Rng -seed (Hash-Seed ("${seedKey}:$x,$y"))
             $pos = if ($Vertical) { $x } else { $y }
             $boardIndex = [int]([Math]::Floor($pos / $board))
-            $shade = (Rng-Range $rng -2 2) + (($boardIndex % 2) * 1)
+            $shade = (Rng-Range $localRng -2 2) + (($boardIndex % 2) * 1)
             $c = Color-Shift $base $shade
 
             # seam lines
@@ -215,8 +233,8 @@ function Draw-Planks {
             }
 
             # subtle grain
-            if ((Rng-Range $rng 0 24) -eq 0) {
-                $c = Color-Shift $accent (Rng-Range $rng -6 6)
+            if ((Rng-Range $localRng 0 24) -eq 0) {
+                $c = Color-Shift $accent (Rng-Range $localRng -6 6)
             }
 
             $bmp.SetPixel($x, $y, $c)
@@ -631,6 +649,9 @@ function Draw-DoorPart {
     )
     Draw-Planks -bmp $bmp -base $base -accent $accent -emissive ([System.Drawing.Color]::Empty) -familyPrefix $familyPrefix -seedKey ($seedKey + ":door") -Vertical
 
+    $w = $bmp.Width
+    $h = $bmp.Height
+
     # frame
     $frame = Color-Shift $base -12
     for ($x = 0; $x -lt $bmp.Width; $x++) {
@@ -644,18 +665,23 @@ function Draw-DoorPart {
 
     # handle/inlay on bottom part
     if ($Part -eq 'bottom') {
-        Set-PixelSafe $bmp 12 8 (Color-Shift $accent 10)
-        Set-PixelSafe $bmp 12 9 (Color-Shift $accent 6)
+        $hx = [Math]::Min($w - 2, [Math]::Max(1, [int]([Math]::Round(($w - 1) * 0.80))))
+        $hy = [Math]::Min($h - 2, [Math]::Max(1, [int]([Math]::Round(($h - 1) * 0.55))))
+        Set-PixelSafe $bmp $hx $hy (Color-Shift $accent 10)
+        Set-PixelSafe $bmp $hx ([Math]::Min($h - 2, $hy + 1)) (Color-Shift $accent 6)
         if (-not $emissive.IsEmpty) {
-            Set-PixelSafe $bmp 3 8 $emissive
-            Set-PixelSafe $bmp 3 9 $emissive
+            $ix = [Math]::Min($w - 2, [Math]::Max(1, [int]([Math]::Round(($w - 1) * 0.20))))
+            Set-PixelSafe $bmp $ix $hy $emissive
+            Set-PixelSafe $bmp $ix ([Math]::Min($h - 2, $hy + 1)) $emissive
         }
     }
 
     # small inlay on top
     if ($Part -eq 'top' -and (-not $emissive.IsEmpty)) {
-        Set-PixelSafe $bmp 8 4 $emissive
-        Set-PixelSafe $bmp 7 4 $emissive
+        $tx = [Math]::Min($w - 2, [Math]::Max(1, [int]([Math]::Floor($w / 2))))
+        $ty = [Math]::Min($h - 2, [Math]::Max(1, [int]([Math]::Round(($h - 1) * 0.27))))
+        Set-PixelSafe $bmp $tx $ty $emissive
+        Set-PixelSafe $bmp ([Math]::Max(1, $tx - 1)) $ty $emissive
     }
 }
 
@@ -678,8 +704,9 @@ function Draw-Trapdoor {
         }
     }
     if (-not $emissive.IsEmpty) {
-        Set-PixelSafe $bmp 1 1 $emissive
-        Set-PixelSafe $bmp 14 14 $emissive
+        $m = 1
+        Set-PixelSafe $bmp $m $m $emissive
+        Set-PixelSafe $bmp ($bmp.Width - 1 - $m) ($bmp.Height - 1 - $m) $emissive
     }
 }
 
@@ -710,9 +737,23 @@ function Draw-Leaves {
             if ($roll -lt [int]$style.LeavesDensity) {
                 $c = Color-Shift $base (Rng-Range $rng -6 6)
                 if ($roll -lt 12) { $c = Color-Shift $accent (Rng-Range $rng -6 8) }
-                $bmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(220, $c.R, $c.G, $c.B))
+                $bmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(180, $c.R, $c.G, $c.B))
             }
         }
+    }
+
+    # Per-family signature to avoid accidental byte-identical leaves across families.
+    # Uses only base/accent colors to stay within the palette contract.
+    $sig = Hash-Bytes ($familyPrefix + ':leaves_sig') 16
+    $seen = @{}
+    for ($i = 0; $i -lt 3; $i++) {
+        $sx = [int]($sig[$i * 2] % $w)
+        $sy = [int]($sig[$i * 2 + 1] % $h)
+        $key = "$sx,$sy"
+        if ($seen.ContainsKey($key)) { continue }
+        $seen[$key] = $true
+        $sigColor = if (($sig[12 + $i] % 2) -eq 0) { $accent } else { $base }
+        $bmp.SetPixel($sx, $sy, [System.Drawing.Color]::FromArgb(180, $sigColor.R, $sigColor.G, $sigColor.B))
     }
 
     if (-not $emissive.IsEmpty) {
@@ -739,17 +780,28 @@ function Draw-Sapling {
         }
     }
 
+    $w = $bmp.Width
+    $h = $bmp.Height
+
     # stem
     $stem = Color-Shift $base -12
-    for ($y = 9; $y -lt 15; $y++) {
-        Set-PixelSafe $bmp 7 $y ([System.Drawing.Color]::FromArgb(255, $stem.R, $stem.G, $stem.B))
-        Set-PixelSafe $bmp 8 $y ([System.Drawing.Color]::FromArgb(255, $stem.R, $stem.G, $stem.B))
+    $cx = [int]([Math]::Floor($w / 2))
+    $sx0 = [Math]::Max(0, $cx - 1)
+    $sx1 = [Math]::Min($w - 1, $cx)
+    $stemStart = [Math]::Min($h - 2, [Math]::Max(0, [int]([Math]::Round($h * 0.56))))
+    for ($y = $stemStart; $y -lt ($h - 1); $y++) {
+        Set-PixelSafe $bmp $sx0 $y ([System.Drawing.Color]::FromArgb(255, $stem.R, $stem.G, $stem.B))
+        Set-PixelSafe $bmp $sx1 $y ([System.Drawing.Color]::FromArgb(255, $stem.R, $stem.G, $stem.B))
     }
 
     # crown
     $leaf = Color-Shift $accent 4
-    for ($y = 2; $y -lt 9; $y++) {
-        for ($x = 3; $x -lt 13; $x++) {
+    $y0 = [Math]::Min($h - 1, [Math]::Max(0, [int]([Math]::Round($h * 0.12))))
+    $y1 = [Math]::Min($h - 1, [Math]::Max($y0 + 1, [int]([Math]::Round($h * 0.56))))
+    $x0 = [Math]::Min($w - 1, [Math]::Max(0, [int]([Math]::Round($w * 0.20))))
+    $x1 = [Math]::Min($w - 1, [Math]::Max($x0 + 1, [int]([Math]::Round($w * 0.80))))
+    for ($y = $y0; $y -lt $y1; $y++) {
+        for ($x = $x0; $x -lt $x1; $x++) {
             if ((($x + $y) % 3) -ne 0) {
                 $c = Color-Shift $leaf ((($x * 17 + $y * 11) % 5) - 2)
                 $bmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(220, $c.R, $c.G, $c.B))
@@ -758,12 +810,15 @@ function Draw-Sapling {
     }
 
     if (-not $emissive.IsEmpty) {
-        Set-PixelSafe $bmp 8 6 ([System.Drawing.Color]::FromArgb(240, $emissive.R, $emissive.G, $emissive.B))
+        $ex = [Math]::Min($w - 2, [Math]::Max(1, $cx))
+        $ey = [Math]::Min($h - 2, [Math]::Max(1, [int]([Math]::Round($h * 0.38))))
+        Set-PixelSafe $bmp $ex $ey ([System.Drawing.Color]::FromArgb(240, $emissive.R, $emissive.G, $emissive.B))
     }
 }
 
 function Ensure-Dir {
     param([string]$path)
+    if ([string]::IsNullOrWhiteSpace($path)) { return }
     if (-not (Test-Path $path)) {
         New-Item -ItemType Directory -Path $path -Force | Out-Null
     }
@@ -804,9 +859,16 @@ foreach ($line in $lines) {
         if ($cells.Count -lt 4) { continue }
 
         $family  = $cells[0]
-        $baseStr = $cells[1]
-        $accentStr = $cells[2]
-        $emissiveStr = $cells[3]
+        # allow inline comments after values, e.g. "190,190,185 # note"
+        $baseStr = (($cells[1] -split '\s+#', 2)[0]).Trim()
+        $accentStr = (($cells[2] -split '\s+#', 2)[0]).Trim()
+        $emissiveStr = (($cells[3] -split '\s+#', 2)[0]).Trim()
+
+        $rgbRegex = '^\s*\d+\s*,\s*\d+\s*,\s*\d+\s*$'
+        $rgbOrNoneRegex = '^\s*(\d+\s*,\s*\d+\s*,\s*\d+|none)\s*$'
+        if (-not ($baseStr -match $rgbRegex)) { continue }
+        if (-not ($accentStr -match $rgbRegex)) { continue }
+        if (-not ($emissiveStr -match $rgbOrNoneRegex)) { continue }
 
         $base = Parse-RgbString -rgb $baseStr
         $accent = Parse-RgbString -rgb $accentStr
@@ -929,11 +991,17 @@ foreach ($t in $targets) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($rel)
         $seedKey = ($t.Prefix + ":" + $name)
 
-        if ($name -match '^stripped_') {
+        if ($name -match '^stripped_.*_log$') {
             Draw-LogSide -bmp $bmp -base (Color-Shift $base 4) -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey -Smooth
+        }
+        elseif ($name -match '^stripped_.*_wood$') {
+            Draw-Planks -bmp $bmp -base (Color-Shift $base 4) -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_log_top$') {
             Draw-LogTop -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
+        }
+        elseif ($name -match '_wood$') {
+            Draw-Planks -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
         }
         elseif ($name -match '_log$') {
             Draw-LogSide -bmp $bmp -base $base -accent $accent -emissive $emissive -familyPrefix $t.Prefix -seedKey $seedKey
