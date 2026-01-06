@@ -57,10 +57,10 @@
       "tick_chance": 0.0008
     },
     "music": {
-      "sound": "minecraft:music.end",
+      "sound": "kruemblegard:music.wayfall",
       "min_delay": 13000,
       "max_delay": 25000,
-      "replace_current_music": false
+      "replace_current_music": true
     },
     "particle": {
       "options": {

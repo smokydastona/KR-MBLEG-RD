@@ -63,5 +63,10 @@
     "sounds": [
       {"name": "kruemblegard:kruemblegard_theme", "stream": true}
     ]
+  },
+  "music.wayfall": {
+    "sounds": [
+      {"name": "kruemblegard:jungle-ish-beat-for-video-games", "stream": true}
+    ]
   }
 }

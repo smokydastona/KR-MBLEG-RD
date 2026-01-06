@@ -56,11 +56,11 @@
       "sound": "minecraft:ambient.soul_sand_valley.mood",
       "tick_chance": 0.0008
     },
-    "music": {
-      "sound": "minecraft:music.nether.basalt_deltas",
+     "music": {
+       "sound": "kruemblegard:music.wayfall",
       "min_delay": 12000,
       "max_delay": 24000,
-      "replace_current_music": false
+       "replace_current_music": true
     },
     "particle": {
       "options": {

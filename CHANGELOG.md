@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Add Wayfall ambient music (`music.wayfall`) and a matching music disc item.
 - Add a Wayfall-only dynamic custom skybox renderer (client) with 6 placeholder cubemap face textures.
 - Mobs: add Traprock (dormant until disturbed; Blaze-derived GeckoLib mob with editable geo/anim/texture).
 - Mobs: add Pebblit (hostile; tameable with cobblestone; follows owner).

@@ -53,10 +53,10 @@
       "offset": 2.0
     },
     "music": {
-      "sound": "minecraft:music.end",
+      "sound": "kruemblegard:music.wayfall",
       "min_delay": 14000,
       "max_delay": 26000,
-      "replace_current_music": false
+      "replace_current_music": true
     },
     "particle": {
       "options": {

@@ -10,6 +10,8 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -198,4 +200,14 @@ public class ModItems {
             "pebblit_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.PEBBLIT, 0x5a5147, 0xb4aa9d,
                 new Item.Properties()));
+
+    public static final RegistryObject<Item> WAYFALL_MUSIC_DISC = ITEMS.register(
+        "wayfall_music_disc",
+        () -> new RecordItem(
+            7,
+            ModSounds.WAYFALL_MUSIC,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE),
+            4800
+        )
+    );
 }

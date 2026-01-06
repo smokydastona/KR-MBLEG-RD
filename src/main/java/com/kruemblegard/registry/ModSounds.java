@@ -48,6 +48,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_MUSIC = register("music.kruemblegard");
 
+    public static final RegistryObject<SoundEvent> WAYFALL_MUSIC = register("music.wayfall");
+
     private static RegistryObject<SoundEvent> register(String path) {
         return SOUNDS.register(path,
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Kruemblegard.MOD_ID, path)));
