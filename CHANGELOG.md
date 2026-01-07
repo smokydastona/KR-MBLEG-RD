@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.197 (2026-01-07)
+- Fix(worldgen): adjust Wayfall density baseline offsets to create proper void/solid threshold (was filling entire world with blocks due to too-high baseline values).
+
 ## 1.0.196 (2026-01-07)
 - Fix(dimension): set natural=true and has_skylight=true in Wayfall dimension_type (removes experimental features warning on world creation, matches Aether configuration).
 
