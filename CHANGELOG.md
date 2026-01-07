@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+
+## 1.0.221 (2026-01-07)
+- Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
+- Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.
+- Chore(tools): add `tools/audit_item_model_texture_mismatches.ps1` to systematically audit item-model → texture mappings (including duplicate/placeholder detection).
+
 ## 1.0.218 (2026-01-07)
 - Fix(datapack): repair corrupted Wayfall wood recipes (removes `null` fields and invalid item strings) so datapack reload succeeds and recipes load properly.
 - Fix(loot): update `kruemblegard:add_items` global loot modifier JSON to use `ItemStack` codec keys (`id` + `Count`).

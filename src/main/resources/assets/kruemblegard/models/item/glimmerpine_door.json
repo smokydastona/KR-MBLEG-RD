@@ -1,4 +1,4 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": { "layer0": "kruemblegard:item/driftwillow_door" }
+  "textures": { "layer0": "kruemblegard:item/glimmerpine_door" }
 }
