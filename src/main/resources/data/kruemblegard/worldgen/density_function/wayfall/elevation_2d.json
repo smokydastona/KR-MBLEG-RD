@@ -1,9 +1,26 @@
 {
   "type": "minecraft:cache_2d",
   "argument": {
-    "type": "minecraft:noise",
-    "noise": "kruemblegard:wayfall/elevation",
-    "xz_scale": 0.0065,
-    "y_scale": 0.0
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 0.7,
+      "argument2": {
+        "type": "minecraft:noise",
+        "noise": "kruemblegard:wayfall/elevation",
+        "xz_scale": 0.004,
+        "y_scale": 0.0
+      }
+    },
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": 0.4,
+      "argument2": {
+        "type": "minecraft:noise",
+        "noise": "kruemblegard:wayfall/continentalness",
+        "xz_scale": 0.012,
+        "y_scale": 0.0
+      }
+    }
   }
 }
