@@ -25,7 +25,7 @@
           "argument1": {
             "type": "minecraft:mul",
             "argument1": -0.27,
-            "argument2": 1.0
+            "argument2": "kruemblegard:wayfall/factor"
           },
           "argument2": {
             "type": "minecraft:add",
@@ -42,7 +42,7 @@
     "argument1": {
       "type": "minecraft:mul",
       "argument1": -0.27,
-      "argument2": 1.0
+      "argument2": "kruemblegard:wayfall/factor"
     },
     "argument2": {
       "type": "minecraft:add",

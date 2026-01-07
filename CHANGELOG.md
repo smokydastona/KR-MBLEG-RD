@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.202 (2026-01-07)
+- Docs: add WAYFALL_AETHER_MAPPING.md documenting exact match to Aether's proven generation pattern. Wayfall is now a functional Aether-style dimension using Krümblegård blocks.
+
 ## 1.0.201 (2026-01-07)
 - Feat(worldgen): add Aether's amplification system via weird_scaled_sampler (creates dramatic island size variation - some huge, some tiny) and enable mob spawning.
 
