@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+## 1.0.208 (2026-01-08)
+- Fix(worldgen): CRITICAL - add max wrapper to final_density matching Aether's final_islands structure. Aether uses max(terrain_density, range_choice) not just range_choice alone. This ensures terrain generates properly.
+
 ## 1.0.207 (2026-01-08)
 - Fix(worldgen): use Aether's ACTUAL biome parameter pattern - extremely wide ranges like [-1.5, 1.5] for continentalness/depth/humidity. Aether biomes can spawn anywhere, differentiated by narrow temperature/weirdness ranges. This is the REAL Aether pattern.
 
