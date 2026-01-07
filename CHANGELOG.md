@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+## 1.0.217 (2026-01-07)
+- Fix(worldgen): rework Wayfall multi-noise biome parameters into a non-overlapping temperature×humidity grid. Fixes only kruemblegard:crumbled_crossing spawning and allows all 12 Wayfall biomes to appear.
+- Chore: remove unnecessary @SuppressWarnings("deprecation") flagged by diagnostics.
+
 ## 1.0.216 (2026-01-08)
 - Fix(worldgen): CRITICAL - elevation noise definition was completely wrong. Aether uses firstOctave:-7 with amplitudes:[1.0, 0.75, 0.0, 0.0, 0.0] but we had firstOctave:-8 with [1.0, 0.75, 0.5, 0.25]. This noise drives the abs(shifted_noise) in elevation_2d, controlling island shape variation. Wrong octave/amplitudes = no terrain!
 
