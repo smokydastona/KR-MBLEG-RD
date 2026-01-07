@@ -11,8 +11,8 @@
   "noise": {
     "height": 384,
     "min_y": 0,
-    "size_horizontal": 1,
-    "size_vertical": 2
+    "size_horizontal": 2,
+    "size_vertical": 1
   },
   "noise_router": {
     "barrier": 0.0,
@@ -214,5 +214,6 @@
         }
       }
     ]
-  }
+  },
+  "sea_level": -64
 }
