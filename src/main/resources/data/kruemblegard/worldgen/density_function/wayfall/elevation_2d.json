@@ -3,7 +3,7 @@
   "argument": {
     "type": "minecraft:noise",
     "noise": "kruemblegard:wayfall/elevation",
-    "xz_scale": 0.0035,
+    "xz_scale": 0.008,
     "y_scale": 0.0
   }
 }
