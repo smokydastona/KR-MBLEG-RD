@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
-## 1.0.211 (2026-01-08)
+## 1.0.213 (2026-01-08)
 - Fix(worldgen): CRITICAL - match Aether's dimension height (min_y:-32, height:416) and Y-ranges (islands Y=130-202). Our dimension was Y=0-384 but Aether is Y=-32 to Y=384, causing islands to generate at wrong heights. Now matches exactly.
 - Fix(worldgen): CRITICAL - add max wrapper to final_density matching Aether's final_islands structure. Aether uses max(terrain_density, range_choice) not just range_choice alone. This ensures terrain generates properly.
 
