@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.198 (2026-01-07)
+- Fix(dimension): remove fixed_time from Wayfall dimension_type (this was the actual cause of experimental features warning).
+
 ## 1.0.197 (2026-01-07)
 - Fix(worldgen): adjust Wayfall density baseline offsets to create proper void/solid threshold (was filling entire world with blocks due to too-high baseline values).
 
