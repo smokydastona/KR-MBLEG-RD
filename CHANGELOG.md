@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
-
+## 1.0.205 (2026-01-08)
+- Fix(worldgen): widen multi-noise biome parameters with overlap - old ranges were too narrow and non-overlapping (only crumbled_crossing could spawn). Now all 12 biomes use wide, overlapping ranges across full [-1.0, 1.0] spectrum for proper distribution.
 ## 1.0.204 (2026-01-08)
 - Fix(worldgen): CRITICAL noise_router and final_density fixes - set continents/initial_density to 0.0 constants (Aether pattern), added range_choice threshold (islands only above Y=100), added interpolated/blend_density wrappers for proper chunk blending. This was THE root cause of no terrain generating.
 - Fix(worldgen): restore continents noise function for biome variety (Aether uses single biome, but we want multi-noise biome distribution).
