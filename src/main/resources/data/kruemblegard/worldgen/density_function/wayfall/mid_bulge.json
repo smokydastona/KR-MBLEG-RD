@@ -1,4 +1,46 @@
 {
-  "type": "minecraft:constant",
-  "argument": 0.0
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "kruemblegard:wayfall/elevation_2d",
+    "points": [
+      {
+        "location": -1.0,
+        "value": {
+          "coordinate": "minecraft:y",
+          "points": [
+            {
+              "location": 0,
+              "value": 0.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 64,
+              "value": 1.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 1.0,
+        "value": {
+          "coordinate": "minecraft:y",
+          "points": [
+            {
+              "location": 0,
+              "value": 0.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 96,
+              "value": 1.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
 }

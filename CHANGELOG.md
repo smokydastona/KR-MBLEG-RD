@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.195 (2026-01-07)
+- Fix(worldgen): implement Aether's actual spline-based Y-slides for Wayfall (examined real Aether mod files - they use dynamic elevation-based splines, not simple gradients).
+
 ## 1.0.194 (2026-01-07)
 - Fix(worldgen): use End's proven multiplicative Y-slide pattern for Wayfall islands (copy exact approach from vanilla End dimension for reliable floating islands).
 

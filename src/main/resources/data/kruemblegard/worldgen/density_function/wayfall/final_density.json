@@ -1,4 +1,8 @@
 {
   "type": "minecraft:squeeze",
-  "argument": "kruemblegard:wayfall/terrain_density"
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": "kruemblegard:wayfall/terrain_density",
+    "argument2": 0.0
+  }
 }

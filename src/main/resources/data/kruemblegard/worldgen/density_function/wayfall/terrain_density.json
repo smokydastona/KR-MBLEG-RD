@@ -1,37 +1,45 @@
 {
   "type": "minecraft:add",
-  "argument1": -0.15,
-  "argument2": {
+  "argument1": {
     "type": "minecraft:mul",
     "argument1": {
-      "type": "minecraft:y_clamped_gradient",
-      "from_y": 0,
-      "to_y": 64,
-      "from_value": 0.0,
-      "to_value": 1.0
-    },
-    "argument2": {
       "type": "minecraft:add",
       "argument1": 0.15,
       "argument2": {
         "type": "minecraft:add",
-        "argument1": -4.0,
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:add",
+            "argument1": 0.2,
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": -0.05,
+              "argument2": "kruemblegard:wayfall/base_3d_noise"
+            }
+          },
+          "argument2": "kruemblegard:wayfall/top_slide"
+        },
         "argument2": {
           "type": "minecraft:mul",
           "argument1": {
-            "type": "minecraft:y_clamped_gradient",
-            "from_y": 64,
-            "to_y": 192,
-            "from_value": 1.0,
-            "to_value": 0.0
+            "type": "minecraft:mul",
+            "argument1": -0.2,
+            "argument2": 1.0
           },
-          "argument2": {
-            "type": "minecraft:add",
-            "argument1": 4.0,
-            "argument2": "kruemblegard:wayfall/island_shape"
-          }
+          "argument2": "kruemblegard:wayfall/elevation_2d"
         }
       }
-    }
+    },
+    "argument2": "kruemblegard:wayfall/mid_bulge"
+  },
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": -0.2,
+      "argument2": 1.0
+    },
+    "argument2": "kruemblegard:wayfall/elevation_2d"
   }
 }

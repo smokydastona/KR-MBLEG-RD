@@ -1,7 +1,46 @@
 {
-  "type": "minecraft:y_clamped_gradient",
-  "from_y": 288,
-  "to_y": 384,
-  "from_value": 1.0,
-  "to_value": 0.0
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "kruemblegard:wayfall/elevation_2d",
+    "points": [
+      {
+        "location": -1.0,
+        "value": {
+          "coordinate": "minecraft:y",
+          "points": [
+            {
+              "location": 96,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 160,
+              "value": 0.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 1.0,
+        "value": {
+          "coordinate": "minecraft:y",
+          "points": [
+            {
+              "location": 128,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 192,
+              "value": 0.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
 }
