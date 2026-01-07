@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.186 (2026-01-07)
 - Fix(worldgen): rework Wayfall noise sampling + density shaping to produce smoother, larger floating islands (less blocky/shredded terrain).
 
+## 1.0.190 (2026-01-07)
+- Fix(worldgen): correct Wayfall density math to use End-style multiplicative Y-slides (eliminates superflat generation; produces proper distinct floating islands).
+
 ## 1.0.189 (2026-01-07)
 - Fix(worldgen): remodel Wayfall density to match Aether terrain topology (flat-topped islands with tapered bottoms, proper vertical layering, larger coherent landmasses).
 
