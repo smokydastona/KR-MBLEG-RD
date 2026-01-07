@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.193 (2026-01-07)
+- Fix(worldgen): rebuild Wayfall density with additive Y-slides for true floating islands (was creating flat layers with roof due to multiplicative gradient logic).
+
 ## 1.0.186 (2026-01-07)
 - Fix(worldgen): rework Wayfall noise sampling + density shaping to produce smoother, larger floating islands (less blocky/shredded terrain).
 

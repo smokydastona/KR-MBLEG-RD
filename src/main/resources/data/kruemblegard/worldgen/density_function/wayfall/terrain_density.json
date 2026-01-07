@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:mul",
+  "type": "minecraft:add",
   "argument1": "kruemblegard:wayfall/island_shape",
   "argument2": "kruemblegard:wayfall/mid_bulge"
 }
