@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.199 (2026-01-07)
+- Fix(worldgen): correct spline Y-ranges to match Aether (islands form at Y=100-190, not Y=0-192 - this was why no terrain generated).
+
 ## 1.0.198 (2026-01-07)
 - Fix(dimension): remove fixed_time from Wayfall dimension_type (this was the actual cause of experimental features warning).
 
