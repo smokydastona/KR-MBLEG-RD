@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.204 (2026-01-08)
+- Fix(worldgen): CRITICAL noise_router and final_density fixes - set continents/initial_density to 0.0 constants (Aether pattern), added range_choice threshold (islands only above Y=100), added interpolated/blend_density wrappers for proper chunk blending. This was THE root cause of no terrain generating.
+
 ## 1.0.203 (2026-01-07)
 - Fix(worldgen): use Aether's exact factor_shattered spline (triple-nested ridges→erosion→temperature spline with 1.0/2.0/7.5 values for biome-specific terrain drama).
 
