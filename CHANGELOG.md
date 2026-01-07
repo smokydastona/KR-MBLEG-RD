@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.194 (2026-01-07)
+- Fix(worldgen): use End's proven multiplicative Y-slide pattern for Wayfall islands (copy exact approach from vanilla End dimension for reliable floating islands).
+
 ## 1.0.193 (2026-01-07)
 - Fix(worldgen): rebuild Wayfall density with additive Y-slides for true floating islands (was creating flat layers with roof due to multiplicative gradient logic).
 
