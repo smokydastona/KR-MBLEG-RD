@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+## 1.0.215 (2026-01-08)
+- Fix(worldgen): CRITICAL - elevation_2d was using cache_2d with basic noise but Aether uses abs(shifted_noise) with xz_scale:0.5. This abs() makes elevation always positive, creating proper island shape variation. Was using wrong noise type entirely!
+
 ## 1.0.214 (2026-01-08)
 - Fix(worldgen): CRITICAL - change range_choice threshold from Y=100 to Y=130 (Aether's exact value). Was blocking terrain generation between Y=100-130 where islands START forming. This was THE blocker.
 
