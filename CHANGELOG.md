@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.196 (2026-01-07)
+- Fix(dimension): set natural=true and has_skylight=true in Wayfall dimension_type (removes experimental features warning on world creation, matches Aether configuration).
+
 ## 1.0.195 (2026-01-07)
 - Fix(worldgen): implement Aether's actual spline-based Y-slides for Wayfall (examined real Aether mod files - they use dynamic elevation-based splines, not simple gradients).
 
