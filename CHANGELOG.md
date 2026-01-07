@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+## 1.0.207 (2026-01-08)
+- Fix(worldgen): use Aether's ACTUAL biome parameter pattern - extremely wide ranges like [-1.5, 1.5] for continentalness/depth/humidity. Aether biomes can spawn anywhere, differentiated by narrow temperature/weirdness ranges. This is the REAL Aether pattern.
+
 ## 1.0.206 (2026-01-08)
 - Fix(worldgen): set continentalness to 0.0 for terrain (Aether pattern) and use only temperature/humidity/weirdness/erosion for biome variety. Continentalness was being used in both terrain formation AND biome selection, causing conflict.
 
