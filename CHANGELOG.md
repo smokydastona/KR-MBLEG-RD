@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.186 (2026-01-07)
 - Fix(worldgen): rework Wayfall noise sampling + density shaping to produce smoother, larger floating islands (less blocky/shredded terrain).
 
+## 1.0.192 (2026-01-07)
+- Fix(worldgen): replace WORLD_SURFACE_WG with MOTION_BLOCKING heightmap in all 70 Wayfall placed features (fixes feature placement in no-skylight dimension).
+
 ## 1.0.191 (2026-01-07)
 - Fix(worldgen): rebuild Wayfall density for Aether-authentic varied islands (multi-scale noise for size variety, high 3D detail for organic shapes, wider Y-range for height variation).
 

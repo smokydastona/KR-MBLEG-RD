@@ -1,4 +1,4 @@
-﻿{
+{
     "feature":  "kruemblegard:waygrasp_vine_patch",
     "placement":  [
                       {
@@ -10,7 +10,7 @@
                       },
                       {
                           "type":  "minecraft:heightmap",
-                          "heightmap":  "WORLD_SURFACE_WG"
+                          "heightmap":  "MOTION_BLOCKING"
                       },
                       {
                           "type":  "minecraft:biome"
