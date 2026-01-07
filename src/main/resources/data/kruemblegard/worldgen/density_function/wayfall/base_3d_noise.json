@@ -3,8 +3,8 @@
   "argument1": {
     "type": "minecraft:noise",
     "noise": "kruemblegard:wayfall/detail",
-    "xz_scale": 0.02,
-    "y_scale": 0.02
+    "xz_scale": 0.015,
+    "y_scale": 0.015
   },
   "argument2": {
     "type": "minecraft:mul",
@@ -12,8 +12,8 @@
     "argument2": {
       "type": "minecraft:noise",
       "noise": "kruemblegard:wayfall/ridges_3d",
-      "xz_scale": 0.04,
-      "y_scale": 0.03
+      "xz_scale": 0.03,
+      "y_scale": 0.02
     }
   }
 }

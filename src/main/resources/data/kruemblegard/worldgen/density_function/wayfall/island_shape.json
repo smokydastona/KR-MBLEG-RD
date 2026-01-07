@@ -2,12 +2,16 @@
   "type": "minecraft:add",
   "argument1": {
     "type": "minecraft:add",
-    "argument1": "kruemblegard:wayfall/base_3d_noise",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 0.35,
+      "argument2": "kruemblegard:wayfall/base_3d_noise"
+    },
     "argument2": {
       "type": "minecraft:mul",
-      "argument1": 1.25,
+      "argument1": 0.80,
       "argument2": "kruemblegard:wayfall/elevation_2d"
     }
   },
-  "argument2": -0.25
+  "argument2": -0.35
 }

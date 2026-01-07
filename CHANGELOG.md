@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.186 (2026-01-07)
+- Fix(worldgen): rework Wayfall noise sampling + density shaping to produce smoother, larger floating islands (less blocky/shredded terrain).
+
 ## 1.0.184 (2026-01-06)
 - Assets: regenerate plant + surface-flora textures from the Plant Material Bible, and add audit scripts to catch missing model texture references + duplicate generated textures.
 - Wayfall surfaces: `runegrowth`/`voidfelt`/`ashfall_loam` now use top/side/bottom textures (podzol-like visuals).
