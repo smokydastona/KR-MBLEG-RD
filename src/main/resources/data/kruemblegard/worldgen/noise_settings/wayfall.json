@@ -16,7 +16,7 @@
   },
   "noise_router": {
     "barrier": 0.0,
-    "continents": "kruemblegard:wayfall/continentalness",
+    "continents": 0.0,
     "depth": 0.0,
     "erosion": "kruemblegard:wayfall/erosion",
     "final_density": "kruemblegard:wayfall/final_density",

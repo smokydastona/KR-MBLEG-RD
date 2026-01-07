@@ -8,48 +8,48 @@
       "biomes": [
         {
           "parameters": {
-            "temperature": [-1.0, -0.3],
-            "humidity": [-1.0, 0.0],
-            "continentalness": [-1.0, 0.0],
-            "erosion": [-1.0, -0.2],
+            "temperature": [-1.0, -0.5],
+            "humidity": [-1.0, -0.3],
+            "continentalness": 0.0,
+            "erosion": [-1.0, 0.0],
             "depth": 0.0,
-            "weirdness": [-1.0, 0.0],
+            "weirdness": [-1.0, -0.3],
             "offset": 0.0
           },
           "biome": "kruemblegard:driftway_chasm"
         },
         {
           "parameters": {
-            "temperature": [-0.5, 0.2],
-            "humidity": [-0.5, 0.3],
-            "continentalness": [-0.5, 0.3],
-            "erosion": [-0.8, 0.0],
+            "temperature": [-0.7, 0.0],
+            "humidity": [-0.5, 0.2],
+            "continentalness": 0.0,
+            "erosion": [-0.8, 0.2],
             "depth": 0.0,
-            "weirdness": [-0.8, 0.0],
+            "weirdness": [-0.6, 0.0],
             "offset": 0.0
           },
           "biome": "kruemblegard:riven_causeways"
         },
         {
           "parameters": {
-            "temperature": [-0.3, 0.5],
-            "humidity": [-0.3, 0.5],
-            "continentalness": [-0.5, 0.5],
-            "erosion": [-0.5, 0.3],
+            "temperature": [-0.4, 0.4],
+            "humidity": [-0.4, 0.4],
+            "continentalness": 0.0,
+            "erosion": [-0.5, 0.5],
             "depth": 0.0,
-            "weirdness": [-0.5, 0.5],
+            "weirdness": [-0.3, 0.3],
             "offset": 0.0
           },
           "biome": "kruemblegard:crumbled_crossing"
         },
         {
           "parameters": {
-            "temperature": [0.0, 0.7],
-            "humidity": [-0.2, 0.6],
-            "continentalness": [-0.3, 0.6],
-            "erosion": [-0.4, 0.5],
+            "temperature": [0.0, 0.6],
+            "humidity": [-0.2, 0.5],
+            "continentalness": 0.0,
+            "erosion": [-0.3, 0.6],
             "depth": 0.0,
-            "weirdness": [0.0, 0.8],
+            "weirdness": [0.0, 0.7],
             "offset": 0.0
           },
           "biome": "kruemblegard:hollow_transit_plains"
@@ -57,71 +57,71 @@
         {
           "parameters": {
             "temperature": [-1.0, -0.4],
-            "humidity": [-1.0, -0.3],
-            "continentalness": [-0.8, 0.2],
-            "erosion": [-0.6, 0.4],
+            "humidity": [-1.0, -0.2],
+            "continentalness": 0.0,
+            "erosion": [-0.5, 0.5],
             "depth": 0.0,
-            "weirdness": [0.3, 1.0],
+            "weirdness": [0.4, 1.0],
             "offset": 0.0
           },
           "biome": "kruemblegard:betweenlight_void"
         },
         {
           "parameters": {
-            "temperature": [0.2, 0.9],
-            "humidity": [-0.6, 0.2],
-            "continentalness": [-0.8, 0.0],
-            "erosion": [-1.0, -0.3],
+            "temperature": [0.3, 0.9],
+            "humidity": [-0.7, 0.0],
+            "continentalness": 0.0,
+            "erosion": [-1.0, -0.2],
             "depth": 0.0,
-            "weirdness": [-0.6, 0.4],
+            "weirdness": [-0.5, 0.3],
             "offset": 0.0
           },
           "biome": "kruemblegard:faulted_expanse"
         },
         {
           "parameters": {
-            "temperature": [-0.2, 0.5],
-            "humidity": [0.1, 0.9],
-            "continentalness": [-1.0, -0.2],
-            "erosion": [-0.7, 0.2],
+            "temperature": [-0.3, 0.4],
+            "humidity": [0.2, 1.0],
+            "continentalness": 0.0,
+            "erosion": [-0.7, 0.3],
             "depth": 0.0,
-            "weirdness": [-0.2, 0.6],
+            "weirdness": [-0.2, 0.5],
             "offset": 0.0
           },
           "biome": "kruemblegard:fracture_shoals"
         },
         {
           "parameters": {
-            "temperature": [0.1, 0.8],
-            "humidity": [0.3, 1.0],
-            "continentalness": [-0.6, 0.3],
-            "erosion": [-1.0, -0.2],
+            "temperature": [0.2, 0.8],
+            "humidity": [0.4, 1.0],
+            "continentalness": 0.0,
+            "erosion": [-1.0, -0.1],
             "depth": 0.0,
-            "weirdness": [0.1, 0.9],
+            "weirdness": [0.2, 0.8],
             "offset": 0.0
           },
           "biome": "kruemblegard:strata_collapse"
         },
         {
           "parameters": {
-            "temperature": [-0.9, -0.1],
-            "humidity": [0.4, 1.0],
-            "continentalness": [-0.2, 0.6],
-            "erosion": [-0.6, 0.4],
+            "temperature": [-0.8, -0.1],
+            "humidity": [0.5, 1.0],
+            "continentalness": 0.0,
+            "erosion": [-0.5, 0.5],
             "depth": 0.0,
-            "weirdness": [-0.4, 0.5],
+            "weirdness": [-0.3, 0.4],
             "offset": 0.0
           },
           "biome": "kruemblegard:underway_falls"
         },
         {
           "parameters": {
-            "temperature": [0.3, 1.0],
-            "humidity": [0.1, 0.8],
-            "continentalness": [0.1, 0.9],
-            "erosion": [-0.5, 0.6],
+            "temperature": [0.4, 1.0],
+            "humidity": [0.2, 0.8],
+            "continentalness": 0.0,
+            "erosion": [-0.4, 0.7],
             "depth": 0.0,
-            "weirdness": [-0.8, 0.0],
+            "weirdness": [-0.7, -0.1],
             "offset": 0.0
           },
           "biome": "kruemblegard:basin_of_scars"
@@ -129,23 +129,23 @@
         {
           "parameters": {
             "temperature": [0.6, 1.0],
-            "humidity": [-0.4, 0.3],
-            "continentalness": [-0.4, 0.5],
-            "erosion": [-0.2, 0.8],
+            "humidity": [-0.3, 0.3],
+            "continentalness": 0.0,
+            "erosion": [0.0, 1.0],
             "depth": 0.0,
-            "weirdness": [-1.0, -0.3],
+            "weirdness": [-1.0, -0.4],
             "offset": 0.0
           },
           "biome": "kruemblegard:shatterplate_flats"
         },
         {
           "parameters": {
-            "temperature": [-0.6, 0.1],
-            "humidity": [-0.1, 0.6],
-            "continentalness": [0.4, 1.0],
-            "erosion": [-0.8, 0.1],
+            "temperature": [-0.5, 0.2],
+            "humidity": [0.0, 0.6],
+            "continentalness": 0.0,
+            "erosion": [-0.7, 0.2],
             "depth": 0.0,
-            "weirdness": [0.5, 1.0],
+            "weirdness": [0.6, 1.0],
             "offset": 0.0
           },
           "biome": "kruemblegard:glyphscar_reach"
