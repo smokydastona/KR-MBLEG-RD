@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:driftwillow_log"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:driftwillow_planks 4 System.Object[]"
+                   "count":  4,
+                   "item":  "kruemblegard:driftwillow_planks"
                },
     "type":  "minecraft:crafting_shapeless"
 }

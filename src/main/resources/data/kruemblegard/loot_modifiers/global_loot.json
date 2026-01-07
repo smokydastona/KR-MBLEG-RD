@@ -3,8 +3,8 @@
   "conditions": [],
   "items": [
     {
-      "item": "kruemblegard:runic_core",
-      "count": 1
+      "id": "kruemblegard:runic_core",
+      "Count": 1
     }
   ]
 }

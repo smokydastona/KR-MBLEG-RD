@@ -1,9 +1,19 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:stick"
+                      },
+                "X":  {
+                          "item":  "kruemblegard:driftwillow_planks"
+                      }
+            },
+    "pattern":  [
+                    "XSX",
+                    "XSX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:driftwillow_fence 3 System.Object[] System.Collections.Hashtable"
+                   "count":  3,
+                   "item":  "kruemblegard:driftwillow_fence"
                },
     "type":  "minecraft:crafting_shaped"
 }

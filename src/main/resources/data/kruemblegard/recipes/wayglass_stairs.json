@@ -1,9 +1,17 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:wayglass_planks"
+                      }
+            },
+    "pattern":  [
+                    "X  ",
+                    "XX ",
+                    "XXX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:wayglass_stairs 4 System.Object[] System.Collections.Hashtable"
+                   "count":  4,
+                   "item":  "kruemblegard:wayglass_stairs"
                },
     "type":  "minecraft:crafting_shaped"
 }

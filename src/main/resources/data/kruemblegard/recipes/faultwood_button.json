@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:faultwood_planks"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:faultwood_button 1 System.Object[]"
+                   "count":  1,
+                   "item":  "kruemblegard:faultwood_button"
                },
     "type":  "minecraft:crafting_shapeless"
 }

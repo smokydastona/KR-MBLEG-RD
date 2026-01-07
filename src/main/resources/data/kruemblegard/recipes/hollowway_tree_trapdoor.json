@@ -1,9 +1,16 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:hollowway_tree_planks"
+                      }
+            },
+    "pattern":  [
+                    "XXX",
+                    "XXX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:hollowway_tree_trapdoor 2 System.Object[] System.Collections.Hashtable"
+                   "count":  2,
+                   "item":  "kruemblegard:hollowway_tree_trapdoor"
                },
     "type":  "minecraft:crafting_shaped"
 }

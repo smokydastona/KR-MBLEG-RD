@@ -1,9 +1,19 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:stick"
+                      },
+                "X":  {
+                          "item":  "kruemblegard:monument_oak_planks"
+                      }
+            },
+    "pattern":  [
+                    "SXS",
+                    "SXS"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:monument_oak_fence_gate 1 System.Object[] System.Collections.Hashtable"
+                   "count":  1,
+                   "item":  "kruemblegard:monument_oak_fence_gate"
                },
     "type":  "minecraft:crafting_shaped"
 }

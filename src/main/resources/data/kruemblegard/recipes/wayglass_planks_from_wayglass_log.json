@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:wayglass_log"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:wayglass_planks 4 System.Object[]"
+                   "count":  4,
+                   "item":  "kruemblegard:wayglass_planks"
                },
     "type":  "minecraft:crafting_shapeless"
 }

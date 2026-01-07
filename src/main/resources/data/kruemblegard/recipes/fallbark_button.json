@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:fallbark_planks"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:fallbark_button 1 System.Object[]"
+                   "count":  1,
+                   "item":  "kruemblegard:fallbark_button"
                },
     "type":  "minecraft:crafting_shapeless"
 }

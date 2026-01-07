@@ -1,9 +1,15 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:faultwood_planks"
+                      }
+            },
+    "pattern":  [
+                    "XXX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:faultwood_slab 6 System.Object[] System.Collections.Hashtable"
+                   "count":  6,
+                   "item":  "kruemblegard:faultwood_slab"
                },
     "type":  "minecraft:crafting_shaped"
 }

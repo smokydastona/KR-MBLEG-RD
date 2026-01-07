@@ -1,9 +1,16 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:fallbark_planks"
+                      }
+            },
+    "pattern":  [
+                    "XXX",
+                    "XXX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:fallbark_trapdoor 2 System.Object[] System.Collections.Hashtable"
+                   "count":  2,
+                   "item":  "kruemblegard:fallbark_trapdoor"
                },
     "type":  "minecraft:crafting_shaped"
 }

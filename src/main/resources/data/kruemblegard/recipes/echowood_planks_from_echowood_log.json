@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:echowood_log"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:echowood_planks 4 System.Object[]"
+                   "count":  4,
+                   "item":  "kruemblegard:echowood_planks"
                },
     "type":  "minecraft:crafting_shapeless"
 }

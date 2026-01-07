@@ -1,9 +1,15 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:hollowway_tree_planks"
+                      }
+            },
+    "pattern":  [
+                    "XX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:hollowway_tree_pressure_plate 1 System.Object[] System.Collections.Hashtable"
+                   "count":  1,
+                   "item":  "kruemblegard:hollowway_tree_pressure_plate"
                },
     "type":  "minecraft:crafting_shaped"
 }

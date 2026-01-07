@@ -1,9 +1,15 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:monument_oak_planks"
+                      }
+            },
+    "pattern":  [
+                    "XXX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:monument_oak_slab 6 System.Object[] System.Collections.Hashtable"
+                   "count":  6,
+                   "item":  "kruemblegard:monument_oak_slab"
                },
     "type":  "minecraft:crafting_shaped"
 }

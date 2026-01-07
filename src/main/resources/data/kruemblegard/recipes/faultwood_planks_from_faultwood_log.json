@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:faultwood_log"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:faultwood_planks 4 System.Object[]"
+                   "count":  4,
+                   "item":  "kruemblegard:faultwood_planks"
                },
     "type":  "minecraft:crafting_shapeless"
 }

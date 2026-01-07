@@ -1,9 +1,19 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:stick"
+                      },
+                "X":  {
+                          "item":  "kruemblegard:fallbark_planks"
+                      }
+            },
+    "pattern":  [
+                    "XSX",
+                    "XSX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:fallbark_fence 3 System.Object[] System.Collections.Hashtable"
+                   "count":  3,
+                   "item":  "kruemblegard:fallbark_fence"
                },
     "type":  "minecraft:crafting_shaped"
 }

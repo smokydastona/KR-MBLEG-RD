@@ -1,8 +1,12 @@
 ﻿{
-    "ingredients":  null,
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:monument_oak_planks"
+                        }
+                    ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:monument_oak_button 1 System.Object[]"
+                   "count":  1,
+                   "item":  "kruemblegard:monument_oak_button"
                },
     "type":  "minecraft:crafting_shapeless"
 }

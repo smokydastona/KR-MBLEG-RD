@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
+## 1.0.218 (2026-01-07)
+- Fix(datapack): repair corrupted Wayfall wood recipes (removes `null` fields and invalid item strings) so datapack reload succeeds and recipes load properly.
+- Fix(loot): update `kruemblegard:add_items` global loot modifier JSON to use `ItemStack` codec keys (`id` + `Count`).
+
 ## 1.0.217 (2026-01-07)
 - Fix(worldgen): rework Wayfall multi-noise biome parameters into a non-overlapping temperature×humidity grid. Fixes only kruemblegard:crumbled_crossing spawning and allows all 12 Wayfall biomes to appear.
 - Chore: remove unnecessary @SuppressWarnings("deprecation") flagged by diagnostics.

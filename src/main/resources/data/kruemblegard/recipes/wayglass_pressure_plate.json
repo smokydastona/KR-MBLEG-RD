@@ -1,9 +1,15 @@
 ﻿{
-    "key":  null,
-    "pattern":  null,
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:wayglass_planks"
+                      }
+            },
+    "pattern":  [
+                    "XX"
+                ],
     "result":  {
-                   "count":  null,
-                   "item":  "kruemblegard:wayglass_pressure_plate 1 System.Object[] System.Collections.Hashtable"
+                   "count":  1,
+                   "item":  "kruemblegard:wayglass_pressure_plate"
                },
     "type":  "minecraft:crafting_shaped"
 }
