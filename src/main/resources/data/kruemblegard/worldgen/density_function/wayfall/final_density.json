@@ -11,7 +11,7 @@
           "type": "minecraft:range_choice",
           "input": "minecraft:y",
           "min_inclusive": -4064.0,
-          "max_exclusive": 100.0,
+          "max_exclusive": 130.0,
           "when_in_range": -1.0,
           "when_out_of_range": "kruemblegard:wayfall/terrain_density"
         }
