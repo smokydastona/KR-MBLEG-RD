@@ -9,12 +9,12 @@
           "coordinate": "minecraft:y",
           "points": [
             {
-              "location": 100,
+              "location": 130,
               "value": 0.0,
               "derivative": 0.0
             },
             {
-              "location": 140,
+              "location": 162,
               "value": 1.0,
               "derivative": 0.0
             }
@@ -28,12 +28,12 @@
           "coordinate": "minecraft:y",
           "points": [
             {
-              "location": 120,
+              "location": 150,
               "value": 0.0,
               "derivative": 0.0
             },
             {
-              "location": 160,
+              "location": 182,
               "value": 1.0,
               "derivative": 0.0
             }
