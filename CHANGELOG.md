@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.203 (2026-01-07)
+- Fix(worldgen): use Aether's exact factor_shattered spline (triple-nested ridges→erosion→temperature spline with 1.0/2.0/7.5 values for biome-specific terrain drama).
+
 ## 1.0.202 (2026-01-07)
 - Docs: add WAYFALL_AETHER_MAPPING.md documenting exact match to Aether's proven generation pattern. Wayfall is now a functional Aether-style dimension using Krümblegård blocks.
 
