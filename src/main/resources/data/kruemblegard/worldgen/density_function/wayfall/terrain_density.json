@@ -24,10 +24,14 @@
           "type": "minecraft:mul",
           "argument1": {
             "type": "minecraft:mul",
-            "argument1": -0.25,
+            "argument1": -0.27,
             "argument2": 1.0
           },
-          "argument2": "kruemblegard:wayfall/elevation_2d"
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": 0.5,
+            "argument2": "kruemblegard:wayfall/amplification"
+          }
         }
       }
     },
@@ -37,9 +41,13 @@
     "type": "minecraft:mul",
     "argument1": {
       "type": "minecraft:mul",
-      "argument1": -0.25,
+      "argument1": -0.27,
       "argument2": 1.0
     },
-    "argument2": "kruemblegard:wayfall/elevation_2d"
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": 0.5,
+      "argument2": "kruemblegard:wayfall/amplification"
+    }
   }
 }

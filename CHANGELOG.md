@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.201 (2026-01-07)
+- Feat(worldgen): add Aether's amplification system via weird_scaled_sampler (creates dramatic island size variation - some huge, some tiny) and enable mob spawning.
+
 ## 1.0.200 (2026-01-07)
 - Fix(worldgen): apply Aether best practices - swap size_horizontal/vertical (2/1 creates proper chunky islands), lower sea_level to -64 (prevents sky water), use old_blended_noise for smoother organic terrain.
 
