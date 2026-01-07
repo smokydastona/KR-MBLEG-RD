@@ -1,0 +1,8 @@
+{
+    "textures": {
+        "bottom": "/ashbloom_planks",
+        "top": "/ashbloom_planks",
+        "side": "/ashbloom_planks"
+    },
+    "parent": "minecraft:block/inner_stairs"
+}

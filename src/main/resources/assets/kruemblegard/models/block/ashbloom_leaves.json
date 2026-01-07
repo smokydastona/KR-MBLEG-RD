@@ -1,0 +1,4 @@
+{
+    "textures": { "all": "/ashbloom_leaves" },
+    "parent": "minecraft:block/cube_all"
+}

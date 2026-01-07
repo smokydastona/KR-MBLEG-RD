@@ -1,16 +1,16 @@
-﻿{
+{
   "multipart": [
-    { "when": { "up": "true" }, "apply": { "model": "/fractured_wayrock_wall_post" } },
+    { "when": { "up": "true" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_post" } },
 
-    { "when": { "north": "low" }, "apply": { "model": "/fractured_wayrock_wall_side", "uvlock": true } },
-    { "when": { "east": "low" }, "apply": { "model": "/fractured_wayrock_wall_side", "y": 90, "uvlock": true } },
-    { "when": { "south": "low" }, "apply": { "model": "/fractured_wayrock_wall_side", "y": 180, "uvlock": true } },
-    { "when": { "west": "low" }, "apply": { "model": "/fractured_wayrock_wall_side", "y": 270, "uvlock": true } },
+    { "when": { "north": "low" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side", "uvlock": true } },
+    { "when": { "east": "low" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side", "y": 90, "uvlock": true } },
+    { "when": { "south": "low" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side", "y": 180, "uvlock": true } },
+    { "when": { "west": "low" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side", "y": 270, "uvlock": true } },
 
-    { "when": { "north": "tall" }, "apply": { "model": "/fractured_wayrock_wall_side_tall", "uvlock": true } },
-    { "when": { "east": "tall" }, "apply": { "model": "/fractured_wayrock_wall_side_tall", "y": 90, "uvlock": true } },
-    { "when": { "south": "tall" }, "apply": { "model": "/fractured_wayrock_wall_side_tall", "y": 180, "uvlock": true } },
-    { "when": { "west": "tall" }, "apply": { "model": "/fractured_wayrock_wall_side_tall", "y": 270, "uvlock": true } }
+    { "when": { "north": "tall" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side_tall", "uvlock": true } },
+    { "when": { "east": "tall" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side_tall", "y": 90, "uvlock": true } },
+    { "when": { "south": "tall" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side_tall", "y": 180, "uvlock": true } },
+    { "when": { "west": "tall" }, "apply": { "model": "kruemblegard:block/fractured_wayrock_wall_side_tall", "y": 270, "uvlock": true } }
   ]
 }
 

@@ -1,8 +1,8 @@
-﻿{
+{
   "variants": {
-    "type=bottom": { "model": "/crushstone_slab" },
-    "type=top": { "model": "/crushstone_slab_top" },
-    "type=double": { "model": "/crushstone_slab_double" }
+    "type=bottom": { "model": "kruemblegard:block/crushstone_slab" },
+    "type=top": { "model": "kruemblegard:block/crushstone_slab_top" },
+    "type=double": { "model": "kruemblegard:block/crushstone_slab_double" }
   }
 }
 

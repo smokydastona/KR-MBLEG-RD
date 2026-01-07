@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "bottom": "/shardbark_pine_door_bottom",
+        "top": "/shardbark_pine_door_top"
+    },
+    "parent": "minecraft:block/door_top_left_open"
+}

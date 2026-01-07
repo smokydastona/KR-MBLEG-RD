@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "bottom": "/faultwood_door_bottom",
+        "top": "/faultwood_door_top"
+    },
+    "parent": "minecraft:block/door_bottom_left_open"
+}

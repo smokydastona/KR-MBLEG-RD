@@ -1,0 +1,8 @@
+{
+    "textures": {
+        "bottom": "/glimmerpine_planks",
+        "top": "/glimmerpine_planks",
+        "side": "/glimmerpine_planks"
+    },
+    "parent": "minecraft:block/outer_stairs"
+}

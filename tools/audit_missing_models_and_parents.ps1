@@ -1,9 +1,23 @@
 param(
     [string]$AssetsRoot = "src/main/resources/assets",
-    [string]$Namespace = "kruemblegard"
+    [string]$Namespace = "kruemblegard",
+    [int]$MaxToShow = 200,
+    [string]$OutDir = ""
 )
 
 $ErrorActionPreference = 'Stop'
+
+# Windows PowerShell 5.1 does not support ConvertFrom-Json -Depth.
+# PowerShell 6+ does, and it helps parse nested model/blockstate JSON.
+$convertFromJsonParams = @{}
+try {
+    $c = Get-Command ConvertFrom-Json -ErrorAction Stop
+    if ($c.Parameters.ContainsKey('Depth')) {
+        $convertFromJsonParams['Depth'] = 100
+    }
+} catch {
+    # Should never happen, but keep the script robust.
+}
 
 function Normalize-Path([string]$p) {
     return $p -replace '\\','/'
@@ -73,7 +87,7 @@ foreach ($root in $modelRoots) {
 
         $json = $null
         try {
-            $json = Get-Content -Raw -Path $modelFile.FullName | ConvertFrom-Json -Depth 100
+            $json = Get-Content -Raw -Path $modelFile.FullName | ConvertFrom-Json @convertFromJsonParams
         } catch {
             $missingParents.Add([pscustomobject]@{
                 type = 'model_json_invalid'
@@ -123,84 +137,36 @@ foreach ($root in $modelRoots) {
 }
 
 # 2) Scan blockstates for missing model references
+# NOTE: Minecraft blockstate JSON frequently uses an empty-string variant key: { "variants": { "": { ... } } }
+# ConvertFrom-Json cannot represent empty-string object keys as PSCustomObject properties in Windows PowerShell 5.1,
+# and throws: "Cannot process argument because the value of argument 'name' is not valid".
+# To avoid false positives, we do a lightweight regex scan for "model": "..." references.
 if (Test-Path $blockstatesRoot) {
     $blockstates = Get-ChildItem -Path $blockstatesRoot -Recurse -File -Filter '*.json'
     foreach ($bsFile in $blockstates) {
         $relBsFile = Normalize-Path ($bsFile.FullName.Substring($workspaceRoot.Length).TrimStart('\'))
 
-        $json = $null
-        try {
-            $json = Get-Content -Raw -Path $bsFile.FullName | ConvertFrom-Json -Depth 100
-        } catch {
-            $missingBlockstateModels.Add([pscustomobject]@{
-                type = 'blockstate_json_invalid'
-                file = $relBsFile
-                reference = ''
-                expected = ''
-                reason = $_.Exception.Message
-            })
-            continue
+        $raw = Get-Content -Raw -Path $bsFile.FullName
+        $matches = [regex]::Matches($raw, '"model"\s*:\s*"([^"]+)"')
+        if ($matches.Count -eq 0) { continue }
+
+        $modelIds = New-Object System.Collections.Generic.HashSet[string]
+        foreach ($m in $matches) {
+            $id = $m.Groups[1].Value
+            if (-not [string]::IsNullOrWhiteSpace($id)) { [void]$modelIds.Add($id) }
         }
 
-        # Variants
-        if ($null -ne $json.variants) {
-            foreach ($prop in $json.variants.PSObject.Properties) {
-                $variantVal = $prop.Value
-                $modelsToCheck = @()
-
-                if ($variantVal -is [System.Collections.IEnumerable] -and -not ($variantVal -is [string])) {
-                    foreach ($entry in $variantVal) {
-                        if ($null -ne $entry.model) { $modelsToCheck += $entry.model }
-                    }
-                } else {
-                    if ($null -ne $variantVal.model) { $modelsToCheck += $variantVal.model }
-                }
-
-                foreach ($modelId in $modelsToCheck) {
-                    $resolved = Resolve-ModelPath $assetsRootAbs $modelId
-                    if ($resolved -ne $null -and $resolved.kind -eq 'file') {
-                        if (-not (Test-Path $resolved.absPath)) {
-                            $missingBlockstateModels.Add([pscustomobject]@{
-                                type = 'missing_blockstate_model'
-                                file = $relBsFile
-                                reference = $modelId
-                                expected = Normalize-Path ($resolved.relPath)
-                                reason = 'blockstate model json not found'
-                            })
-                        }
-                    }
-                }
-            }
-        }
-
-        # Multipart
-        if ($null -ne $json.multipart) {
-            foreach ($part in $json.multipart) {
-                $apply = $part.apply
-                if ($null -eq $apply) { continue }
-
-                $modelsToCheck = @()
-                if ($apply -is [System.Collections.IEnumerable] -and -not ($apply -is [string])) {
-                    foreach ($entry in $apply) {
-                        if ($null -ne $entry.model) { $modelsToCheck += $entry.model }
-                    }
-                } else {
-                    if ($null -ne $apply.model) { $modelsToCheck += $apply.model }
-                }
-
-                foreach ($modelId in $modelsToCheck) {
-                    $resolved = Resolve-ModelPath $assetsRootAbs $modelId
-                    if ($resolved -ne $null -and $resolved.kind -eq 'file') {
-                        if (-not (Test-Path $resolved.absPath)) {
-                            $missingBlockstateModels.Add([pscustomobject]@{
-                                type = 'missing_blockstate_model'
-                                file = $relBsFile
-                                reference = $modelId
-                                expected = Normalize-Path ($resolved.relPath)
-                                reason = 'blockstate model json not found'
-                            })
-                        }
-                    }
+        foreach ($modelId in $modelIds) {
+            $resolved = Resolve-ModelPath $assetsRootAbs $modelId
+            if ($resolved -ne $null -and $resolved.kind -eq 'file') {
+                if (-not (Test-Path $resolved.absPath)) {
+                    $missingBlockstateModels.Add([pscustomobject]@{
+                        type = 'missing_blockstate_model'
+                        file = $relBsFile
+                        reference = $modelId
+                        expected = Normalize-Path ($resolved.relPath)
+                        reason = 'blockstate model json not found'
+                    })
                 }
             }
         }
@@ -209,20 +175,30 @@ if (Test-Path $blockstatesRoot) {
 
 Write-Host "Missing parent model JSONs: $($missingParents.Count)"
 if ($missingParents.Count -gt 0) {
-    Write-Host "--- Missing parents (first 200) ---"
-    $missingParents | Select-Object -First 200 type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
+    Write-Host "--- Missing parents (first $MaxToShow) ---"
+    $missingParents | Select-Object -First $MaxToShow type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
 }
 
 Write-Host "Missing blockstate model JSONs: $($missingBlockstateModels.Count)"
 if ($missingBlockstateModels.Count -gt 0) {
-    Write-Host "--- Missing blockstate models (first 200) ---"
-    $missingBlockstateModels | Select-Object -First 200 type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
+    Write-Host "--- Missing blockstate models (first $MaxToShow) ---"
+    $missingBlockstateModels | Select-Object -First $MaxToShow type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
 }
 
 Write-Host "Missing item override model JSONs: $($missingItemOverrideModels.Count)"
 if ($missingItemOverrideModels.Count -gt 0) {
-    Write-Host "--- Missing item override models (first 200) ---"
-    $missingItemOverrideModels | Select-Object -First 200 type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
+    Write-Host "--- Missing item override models (first $MaxToShow) ---"
+    $missingItemOverrideModels | Select-Object -First $MaxToShow type,file,reference,expected,reason | Format-Table -AutoSize | Out-String | Write-Host
+}
+
+if (-not [string]::IsNullOrWhiteSpace($OutDir)) {
+    $outAbs = Join-Path $workspaceRoot $OutDir
+    New-Item -ItemType Directory -Force -Path $outAbs | Out-Null
+
+    $missingParents | Export-Csv -NoTypeInformation -Path (Join-Path $outAbs 'missing_parent_models.csv')
+    $missingBlockstateModels | Export-Csv -NoTypeInformation -Path (Join-Path $outAbs 'missing_blockstate_models.csv')
+    $missingItemOverrideModels | Export-Csv -NoTypeInformation -Path (Join-Path $outAbs 'missing_item_override_models.csv')
+    Write-Host "Wrote CSV reports to: $(Normalize-Path ($outAbs.Substring($workspaceRoot.Length).TrimStart('\\')))"
 }
 
 $exitCode = 0

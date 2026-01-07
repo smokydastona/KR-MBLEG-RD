@@ -1,0 +1,4 @@
+{
+    "textures": { "texture": "/ashbloom_planks" },
+    "parent": "minecraft:block/template_fence_gate_wall"
+}

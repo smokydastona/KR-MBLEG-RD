@@ -1,0 +1,4 @@
+{
+    "textures": { "all": "/glimmerpine_leaves" },
+    "parent": "minecraft:block/cube_all"
+}

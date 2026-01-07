@@ -1,0 +1,4 @@
+{
+    "textures": { "texture": "/ashbloom_planks" },
+    "parent": "minecraft:block/button_pressed"
+}

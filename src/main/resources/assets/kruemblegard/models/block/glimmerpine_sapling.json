@@ -1,0 +1,4 @@
+{
+    "textures": { "cross": "/glimmerpine_sapling" },
+    "parent": "minecraft:block/cross"
+}

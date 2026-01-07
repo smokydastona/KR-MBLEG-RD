@@ -1,6 +1,6 @@
 {
   "variants": {
-    "powered=true": { "model": "kruemblegard:block/driftwillow_pressure_plate_down" },
-    "powered=false": { "model": "kruemblegard:block/driftwillow_pressure_plate" }
+    "powered=true": { "model": "kruemblegard:block/ashbloom_pressure_plate_down" },
+    "powered=false": { "model": "kruemblegard:block/ashbloom_pressure_plate" }
   }
 }

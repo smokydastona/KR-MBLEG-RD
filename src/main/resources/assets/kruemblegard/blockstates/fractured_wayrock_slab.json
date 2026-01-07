@@ -1,8 +1,8 @@
-﻿{
+{
   "variants": {
-    "type=bottom": { "model": "/fractured_wayrock_slab" },
-    "type=top": { "model": "/fractured_wayrock_slab_top" },
-    "type=double": { "model": "/fractured_wayrock_slab_double" }
+    "type=bottom": { "model": "kruemblegard:block/fractured_wayrock_slab" },
+    "type=top": { "model": "kruemblegard:block/fractured_wayrock_slab_top" },
+    "type=double": { "model": "kruemblegard:block/fractured_wayrock_slab_double" }
   }
 }
 

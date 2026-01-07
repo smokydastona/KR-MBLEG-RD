@@ -1,0 +1,4 @@
+{
+    "textures": { "texture": "/driftwood_planks" },
+    "parent": "minecraft:block/fence_side"
+}

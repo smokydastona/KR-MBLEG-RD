@@ -1,0 +1,4 @@
+{
+    "textures": { "texture": "/glimmerpine_planks" },
+    "parent": "minecraft:block/fence_side"
+}

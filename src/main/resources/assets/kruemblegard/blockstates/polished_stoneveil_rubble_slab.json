@@ -1,8 +1,8 @@
-﻿{
+{
   "variants": {
-    "type=bottom": { "model": "/polished_stoneveil_rubble_slab" },
-    "type=top": { "model": "/polished_stoneveil_rubble_slab_top" },
-    "type=double": { "model": "/polished_stoneveil_rubble_slab_double" }
+    "type=bottom": { "model": "kruemblegard:block/polished_stoneveil_rubble_slab" },
+    "type=top": { "model": "kruemblegard:block/polished_stoneveil_rubble_slab_top" },
+    "type=double": { "model": "kruemblegard:block/polished_stoneveil_rubble_slab_double" }
   }
 }
 

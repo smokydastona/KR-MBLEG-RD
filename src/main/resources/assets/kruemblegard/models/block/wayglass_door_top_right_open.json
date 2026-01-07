@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "bottom": "/wayglass_door_bottom",
+        "top": "/wayglass_door_top"
+    },
+    "parent": "minecraft:block/door_top_right_open"
+}

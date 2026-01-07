@@ -1,0 +1,8 @@
+{
+    "textures": {
+        "bottom": "/driftwood_planks",
+        "top": "/driftwood_planks",
+        "side": "/driftwood_planks"
+    },
+    "parent": "minecraft:block/slab"
+}

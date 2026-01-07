@@ -1,8 +1,8 @@
-﻿{
+{
   "variants": {
-    "type=bottom": { "model": "/cracked_scarstone_slab" },
-    "type=top": { "model": "/cracked_scarstone_slab_top" },
-    "type=double": { "model": "/cracked_scarstone_slab_double" }
+    "type=bottom": { "model": "kruemblegard:block/cracked_scarstone_slab" },
+    "type=top": { "model": "kruemblegard:block/cracked_scarstone_slab_top" },
+    "type=double": { "model": "kruemblegard:block/cracked_scarstone_slab_double" }
   }
 }
 

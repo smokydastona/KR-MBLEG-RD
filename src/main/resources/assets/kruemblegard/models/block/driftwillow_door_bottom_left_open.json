@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "bottom": "/driftwillow_door_bottom",
+        "top": "/driftwillow_door_top"
+    },
+    "parent": "minecraft:block/door_bottom_left_open"
+}

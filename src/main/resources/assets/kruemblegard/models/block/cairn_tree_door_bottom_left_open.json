@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "bottom": "/cairn_tree_door_bottom",
+        "top": "/cairn_tree_door_top"
+    },
+    "parent": "minecraft:block/door_bottom_left_open"
+}

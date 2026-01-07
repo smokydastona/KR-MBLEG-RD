@@ -1,0 +1,4 @@
+{
+    "textures": { "texture": "/driftwood_trapdoor" },
+    "parent": "minecraft:block/template_trapdoor_bottom"
+}
