@@ -4,6 +4,11 @@ This document is a **complete, living reference** of current Krümblegård featu
 
 Keep it up to date whenever you add/remove/rename content.
 
+## Documentation
+- Block material rules + full block inventory: `docs/Block_Material_Bible.md`
+- Item material rules + full item inventory: `docs/Item_Material_Bible.md`
+- After registry changes, refresh the generated inventories by running: `tools/generate_material_bibles.ps1`
+
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.

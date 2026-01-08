@@ -1,4 +1,4 @@
-# Krümblegård Block Material Bible
+﻿# Krümblegård Block Material Bible
 
 This document is the **single source of truth** for how **non-wood, non-plant blocks** should behave and read as *materials* in Krümblegård.
 
@@ -18,6 +18,7 @@ Out of scope (see instead):
 - [Global Rules](#global-rules)
 - [Block Property Recipes](#block-property-recipes)
 - [Asset & Data Checklist](#asset--data-checklist)
+- [Registry Inventory (Generated)](#registry-inventory-generated)
 - [Material Families](#material-families)
   - [Wayfall Geology](#wayfall-geology)
   - [Scarstone Family](#scarstone-family)
@@ -86,6 +87,800 @@ For a new block material (and its variants), keep these in sync:
   - Block tags (examples): `minecraft:mineable/pickaxe`, `minecraft:walls`, etc.
 - Tooling
   - Run / update audit scripts in `tools/` if you add or rename textures/models.
+
+---
+
+## Registry Inventory (Generated)
+
+This section is **auto-generated** from:
+- `src/main/java/com/kruemblegard/init/ModBlocks.java`
+- `src/main/java/com/kruemblegard/registry/ModItems.java`
+
+Update workflow:
+- After adding/removing/renaming blocks/items, run `tools/generate_material_bibles.ps1`.
+- Commit the resulting doc changes in the same PR/commit as the content change.
+
+<!-- AUTO-GENERATED:BLOCKS:START -->
+
+### Blocks (All Registered)
+
+#### ancient_waystone
+- **ID**: `kruemblegard:ancient_waystone`
+- **Class**: `AncientWaystoneBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `3.5F, 30.0F`
+
+#### ashbloom_leaves
+- **ID**: `kruemblegard:ashbloom_leaves`
+- **Class**: `AshbloomLeavesBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.2F`
+
+#### ashfall_loam
+- **ID**: `kruemblegard:ashfall_loam`
+- **Class**: `FallingBlock`
+- **Map color**: `MapColor.DIRT`
+- **Sound**: `SoundType.SAND`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.6F, 0.6F`
+
+#### ashmoss
+- **ID**: `kruemblegard:ashmoss`
+- **Class**: `AshmossBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.MOSS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.6F, 0.6F`
+
+#### ashpetal
+- **ID**: `kruemblegard:ashpetal`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_GRAY`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### ashveil
+- **ID**: `kruemblegard:ashveil`
+- **Class**: `AshveilBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.MOSS_CARPET`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### attuned_ore
+- **ID**: `kruemblegard:attuned_ore`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `5.0F, 60.0F`
+
+#### attuned_stone
+- **ID**: `kruemblegard:attuned_stone`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `3.0F, 30.0F`
+
+#### attuned_stone_slab
+- **ID**: `kruemblegard:attuned_stone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `3.0F, 30.0F`
+
+#### attuned_stone_stairs
+- **ID**: `kruemblegard:attuned_stone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `3.0F, 30.0F`
+
+#### attuned_stone_wall
+- **ID**: `kruemblegard:attuned_stone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `3.0F, 30.0F`
+
+#### black_echo_fungus
+- **ID**: `kruemblegard:black_echo_fungus`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### cairn_moss
+- **ID**: `kruemblegard:cairn_moss`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.MOSS_CARPET`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### cairnroot
+- **ID**: `kruemblegard:cairnroot`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.ROOTS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### chiseled_scarstone
+- **ID**: `kruemblegard:chiseled_scarstone`
+- **Class**: `Block`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.5F, 60.0F`
+
+#### cracked_scarstone
+- **ID**: `kruemblegard:cracked_scarstone`
+- **Class**: `Block`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.0F, 36.0F`
+
+#### cracked_scarstone_slab
+- **ID**: `kruemblegard:cracked_scarstone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.0F, 36.0F`
+
+#### cracked_scarstone_stairs
+- **ID**: `kruemblegard:cracked_scarstone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.0F, 36.0F`
+
+#### cracked_scarstone_wall
+- **ID**: `kruemblegard:cracked_scarstone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.0F, 36.0F`
+
+#### crushstone
+- **ID**: `kruemblegard:crushstone`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### crushstone_slab
+- **ID**: `kruemblegard:crushstone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### crushstone_stairs
+- **ID**: `kruemblegard:crushstone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### crushstone_wall
+- **ID**: `kruemblegard:crushstone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### driftbloom
+- **ID**: `kruemblegard:driftbloom`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_PINK`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### driftwood_leaves
+- **ID**: `kruemblegard:driftwood_leaves`
+- **Class**: `DriftwoodLeavesBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.2F`
+
+#### dustpetal
+- **ID**: `kruemblegard:dustpetal`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_GRAY`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### echo_puff
+- **ID**: `kruemblegard:echo_puff`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_PURPLE`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### echocap
+- **ID**: `kruemblegard:echocap`
+- **Class**: `EchocapBlock`
+- **Map color**: `MapColor.COLOR_PURPLE`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### fallseed_pods
+- **ID**: `kruemblegard:fallseed_pods`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BROWN`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### falsepath_thorns
+- **ID**: `kruemblegard:falsepath_thorns`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BROWN`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### fault_dust
+- **ID**: `kruemblegard:fault_dust`
+- **Class**: `Block`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.ROOTED_DIRT`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.5F, 0.5F`
+
+#### faultgrass
+- **ID**: `kruemblegard:faultgrass`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### fractured_wayrock
+- **ID**: `kruemblegard:fractured_wayrock`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.0F, 18.0F`
+
+#### fractured_wayrock_slab
+- **ID**: `kruemblegard:fractured_wayrock_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.0F, 18.0F`
+
+#### fractured_wayrock_stairs
+- **ID**: `kruemblegard:fractured_wayrock_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.0F, 18.0F`
+
+#### fractured_wayrock_wall
+- **ID**: `kruemblegard:fractured_wayrock_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.0F, 18.0F`
+
+#### ghoulberry_shrub
+- **ID**: `kruemblegard:ghoulberry_shrub`
+- **Class**: `BerryBushBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.SWEET_BERRY_BUSH`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### glimmerpine_leaves
+- **ID**: `kruemblegard:glimmerpine_leaves`
+- **Class**: `GlimmerpineLeavesBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.2F`
+
+#### glimmerpine_planks
+- **ID**: `kruemblegard:glimmerpine_planks`
+- **Class**: `Block`
+- **Map color**: `MapColor.WOOD`
+- **Sound**: `SoundType.WOOD`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `2.0F, 3.0F`
+
+#### gravemint
+- **ID**: `kruemblegard:gravemint`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### gravevine
+- **ID**: `kruemblegard:gravevine`
+- **Class**: `GravevineBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### griefcap
+- **ID**: `kruemblegard:griefcap`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BROWN`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### memory_rot
+- **ID**: `kruemblegard:memory_rot`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_RED`
+- **Sound**: `SoundType.SLIME_BLOCK`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### milestone_grass
+- **ID**: `kruemblegard:milestone_grass`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### misstep_vine
+- **ID**: `kruemblegard:misstep_vine`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.VINE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### moteshrub
+- **ID**: `kruemblegard:moteshrub`
+- **Class**: `WayfallReactivePlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_GRAY`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### pathreed
+- **ID**: `kruemblegard:pathreed`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### polished_scarstone
+- **ID**: `kruemblegard:polished_scarstone`
+- **Class**: `Block`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.0F, 50.0F`
+
+#### polished_scarstone_slab
+- **ID**: `kruemblegard:polished_scarstone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.0F, 50.0F`
+
+#### polished_scarstone_stairs
+- **ID**: `kruemblegard:polished_scarstone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.0F, 50.0F`
+
+#### polished_scarstone_wall
+- **ID**: `kruemblegard:polished_scarstone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.0F, 50.0F`
+
+#### polished_stoneveil_rubble
+- **ID**: `kruemblegard:polished_stoneveil_rubble`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.6F, 20.0F`
+
+#### polished_stoneveil_rubble_slab
+- **ID**: `kruemblegard:polished_stoneveil_rubble_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.6F, 20.0F`
+
+#### polished_stoneveil_rubble_stairs
+- **ID**: `kruemblegard:polished_stoneveil_rubble_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.6F, 20.0F`
+
+#### polished_stoneveil_rubble_wall
+- **ID**: `kruemblegard:polished_stoneveil_rubble_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.6F, 20.0F`
+
+#### reverse_portal_spores
+- **ID**: `kruemblegard:reverse_portal_spores`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_PURPLE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### ruin_thistle
+- **ID**: `kruemblegard:ruin_thistle`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BROWN`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### rune_sprouts
+- **ID**: `kruemblegard:rune_sprouts`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### runebloom
+- **ID**: `kruemblegard:runebloom`
+- **Class**: `RunebloomBlock`
+- **Map color**: `MapColor.COLOR_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### runeblossom
+- **ID**: `kruemblegard:runeblossom`
+- **Class**: `WayfallReactivePlantBlock`
+- **Map color**: `MapColor.COLOR_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### runed_stoneveil_rubble
+- **ID**: `kruemblegard:runed_stoneveil_rubble`
+- **Class**: `RunedStoneveilRubbleBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.8F, 22.0F`
+
+#### runed_stoneveil_rubble_slab
+- **ID**: `kruemblegard:runed_stoneveil_rubble_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.8F, 22.0F`
+
+#### runed_stoneveil_rubble_stairs
+- **ID**: `kruemblegard:runed_stoneveil_rubble_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.8F, 22.0F`
+
+#### runed_stoneveil_rubble_wall
+- **ID**: `kruemblegard:runed_stoneveil_rubble_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.8F, 22.0F`
+
+#### runedrift_reed
+- **ID**: `kruemblegard:runedrift_reed`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### runegrowth
+- **ID**: `kruemblegard:runegrowth`
+- **Class**: `RunegrowthBlock`
+- **Map color**: `MapColor.COLOR_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.6F, 0.6F`
+
+#### scarstone
+- **ID**: `kruemblegard:scarstone`
+- **Class**: `ScarstoneBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.5F, 42.0F`
+
+#### scarstone_slab
+- **ID**: `kruemblegard:scarstone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.5F, 42.0F`
+
+#### scarstone_stairs
+- **ID**: `kruemblegard:scarstone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.5F, 42.0F`
+
+#### scarstone_wall
+- **ID**: `kruemblegard:scarstone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.DEEPSLATE`
+- **Sound**: `SoundType.DEEPSLATE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.5F, 42.0F`
+
+#### sliproot
+- **ID**: `kruemblegard:sliproot`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GRAY`
+- **Sound**: `SoundType.ROOTS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### soulberry_shrub
+- **ID**: `kruemblegard:soulberry_shrub`
+- **Class**: `SoulberryShrubBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.SWEET_BERRY_BUSH`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### standing_stone
+- **ID**: `kruemblegard:standing_stone`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `4.0F, 60.0F`
+
+#### static_fungus
+- **ID**: `kruemblegard:static_fungus`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_GRAY`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### stoneveil_rubble
+- **ID**: `kruemblegard:stoneveil_rubble`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.2F, 18.0F`
+
+#### stoneveil_rubble_slab
+- **ID**: `kruemblegard:stoneveil_rubble_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.2F, 18.0F`
+
+#### stoneveil_rubble_stairs
+- **ID**: `kruemblegard:stoneveil_rubble_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.2F, 18.0F`
+
+#### stoneveil_rubble_wall
+- **ID**: `kruemblegard:stoneveil_rubble_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `2.2F, 18.0F`
+
+#### transit_bloom
+- **ID**: `kruemblegard:transit_bloom`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_PINK`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### transit_fern
+- **ID**: `kruemblegard:transit_fern`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### twilight_bulb
+- **ID**: `kruemblegard:twilight_bulb`
+- **Class**: `WayfallReactivePlantBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### void_lichen
+- **ID**: `kruemblegard:void_lichen`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_PURPLE`
+- **Sound**: `SoundType.MOSS_CARPET`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### voidcap_briar
+- **ID**: `kruemblegard:voidcap_briar`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### voidfelt
+- **ID**: `kruemblegard:voidfelt`
+- **Class**: `VoidfeltBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.ROOTED_DIRT`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.6F, 0.6F`
+
+#### voidfern
+- **ID**: `kruemblegard:voidfern`
+- **Class**: `WayfallReactivePlantBlock`
+- **Map color**: `MapColor.COLOR_PURPLE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### waybind_creeper
+- **ID**: `kruemblegard:waybind_creeper`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wayburn_fungus
+- **ID**: `kruemblegard:wayburn_fungus`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_ORANGE`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wayfall_portal
+- **ID**: `kruemblegard:wayfall_portal`
+- **Class**: `WayfallPortalBlock`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `2.0F, 18.0F`
+
+#### waygrasp_vine
+- **ID**: `kruemblegard:waygrasp_vine`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.VINE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### waylily
+- **ID**: `kruemblegard:waylily`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BLUE`
+- **Sound**: `SoundType.LILY_PAD`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### waypoint_mold
+- **ID**: `kruemblegard:waypoint_mold`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_BROWN`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wayrot_fungus
+- **ID**: `kruemblegard:wayrot_fungus`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.FUNGUS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wayscar_ivy
+- **ID**: `kruemblegard:wayscar_ivy`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_GREEN`
+- **Sound**: `SoundType.VINE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wayseed_cluster
+- **ID**: `kruemblegard:wayseed_cluster`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_YELLOW`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### waythread
+- **ID**: `kruemblegard:waythread`
+- **Class**: `WayfallPlantBlock`
+- **Map color**: `MapColor.COLOR_LIGHT_BLUE`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### whispervine
+- **ID**: `kruemblegard:whispervine`
+- **Class**: `WayfallReactivePlantBlock`
+- **Map color**: `MapColor.COLOR_BLACK`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### wispstalk
+- **ID**: `kruemblegard:wispstalk`
+- **Class**: `WispstalkBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+<!-- AUTO-GENERATED:BLOCKS:END -->
 
 ---
 
@@ -179,3 +974,4 @@ Rubble is a stone structural palette for ruins.
 - **IDs**: `kruemblegard:runed_stoneveil_rubble` (+ stairs/slab/wall)
 - **Vanilla analog**: `minecraft:chiseled_stone_bricks` (decorative runed stone)
 - **Strength tier**: `2.8F / 22.0F`
+

@@ -14,10 +14,12 @@ docs/**
 !docs/MOD_FEATURES.md
 !docs/FLORA_REFERENCE.md
 !docs/WAYFALL_BIOMES.md
+!docs/WAYFALL_AETHER_MAPPING.md
 !docs/TREES.md
 !docs/Plant_Material_Bible.md
 !docs/Wood_Material_Bible.md
 !docs/Block_Material_Bible.md
+!docs/Item_Material_Bible.md
 
 
 # Local examples / reference content (not committed)

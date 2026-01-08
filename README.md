@@ -6,6 +6,10 @@ Recommended Forge runtime: `1.20.1-47.4.10` (or newer 1.20.1 patch). If you see 
 
 Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 
+Material references:
+- Blocks: [docs/Block_Material_Bible.md](docs/Block_Material_Bible.md)
+- Items: [docs/Item_Material_Bible.md](docs/Item_Material_Bible.md) (refresh generated inventories via `tools/generate_material_bibles.ps1`)
+
 ## What this mod already does
 - **Traprock** can remain dormant until disturbed, then attacks.
 - **Pebblit**: a hostile stone-bug that can be tamed with cobblestone; right-click with empty hand toggles sit, and shift + right-click perches it on your shoulder (granting knockback resistance) until it dies; its attacks apply knockback.
