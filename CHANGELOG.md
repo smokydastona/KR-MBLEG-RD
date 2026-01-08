@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.274 (2026-01-08)
+- Remove(worldgen): delete the Standing Stone scatter placed/configured features and remove their biome injections; Standing Stones are intended to be placed via structures instead.
+
 ## 1.0.273 (2026-01-08)
 - Chore(docs): add a Sound Bible with exact duration (seconds/ticks) requirements and a generator script (`tools/generate_sound_bible.ps1`).
 

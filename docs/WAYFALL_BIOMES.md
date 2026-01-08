@@ -26,8 +26,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Shardbark Pine, Fallbark
   - Plants: Faultgrass, Wayseed Cluster, Dustpetal
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
-- Features:
-  - Dense Standing Stone scatter: `kruemblegard:standing_stone_scatter_dense`
+- Features: (none listed)
 - Ambience:
   - Particles: `minecraft:smoke` (0.0007)
   - Music: `minecraft:music.nether.basalt_deltas`
@@ -70,7 +69,6 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Spawns (monster): Pebblit (weight 8, 1–2), Traprock (weight 4, solo)
 - Features:
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
-  - Sparse Standing Stone scatter: `kruemblegard:standing_stone_scatter_sparse`
 - Ambience:
   - Particles: `minecraft:ash` (0.001)
   - Music: `minecraft:music.end`
@@ -83,8 +81,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Faultwood, Fallbark
   - Plants: Faultgrass, Dustpetal, Waygrasp Vine
 - Spawns (monster): Traprock (weight 9, solo), Pebblit (weight 2, solo)
-- Features:
-  - Dense Standing Stone scatter: `kruemblegard:standing_stone_scatter_dense`
+- Features: (none listed)
 - Ambience:
   - Particles: `minecraft:ash` (0.0008)
   - Music: `minecraft:music.nether.basalt_deltas`
@@ -112,7 +109,6 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Spawns (monster): Traprock (weight 5, solo), Pebblit (weight 5, 1–2)
 - Features:
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`
-  - Sparse Standing Stone scatter: `kruemblegard:standing_stone_scatter_sparse`
 - Ambience:
   - Particles: `minecraft:enchant` (0.001)
   - Music: `minecraft:music.end` (shorter delay)
@@ -125,8 +121,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Hollowway Tree
   - Plants: Cairnroot, Transit Bloom, Waythread
 - Spawns (monster): Traprock (weight 6, solo), Pebblit (weight 2, solo)
-- Features:
-  - Sparse Standing Stone scatter: `kruemblegard:standing_stone_scatter_sparse`
+- Features: (none listed)
 - Ambience:
   - Music: `minecraft:music.end` (longer delay)
 
@@ -137,8 +132,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Faultwood, Driftwillow
   - Plants: Falsepath Thorns, Sliproot, Dustpetal
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
-- Features:
-  - Dense Standing Stone scatter: `kruemblegard:standing_stone_scatter_dense`
+- Features: (none listed)
 - Ambience:
   - Particles: `minecraft:smoke` (0.0006)
   - Music: `minecraft:music.end`
@@ -164,7 +158,6 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Spawns (monster): Traprock (weight 7, solo), Pebblit (weight 6, 1–2)
 - Features:
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`
-  - Sparse Standing Stone scatter: `kruemblegard:standing_stone_scatter_sparse`
 - Ambience:
   - Particles: `minecraft:white_ash` (0.0007)
   - Music: `minecraft:music.end`
