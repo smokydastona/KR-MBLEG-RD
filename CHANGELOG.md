@@ -52,6 +52,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.238 (2026-01-07)
 - Feat(assets): add placeholder `great_hunger.png` texture and point Great Hunger model at it.
 
+## 1.0.239 (2026-01-07)
+- Fix(wayfall): increase portal landing search radius so it more reliably finds island ground (avoids spawning into empty void pockets).
+- Docs: update Wayfall test teleport Y to 160.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.

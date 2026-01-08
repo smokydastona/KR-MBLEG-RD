@@ -109,8 +109,9 @@ public class WayfallPortalBlock extends Block {
         int bestDistSq = Integer.MAX_VALUE;
 
         // Keep it cheap: sample a grid around spawn.
-        final int searchRadius = 96;
-        final int step = 8;
+        // Wayfall islands can be sparse; a small radius can easily miss everything.
+        final int searchRadius = 512;
+        final int step = 16;
 
         for (int dx = -searchRadius; dx <= searchRadius; dx += step) {
             for (int dz = -searchRadius; dz <= searchRadius; dz += step) {

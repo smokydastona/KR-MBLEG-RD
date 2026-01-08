@@ -70,7 +70,7 @@ If your mod id/package differ, update:
 ### Wayfall
 - Enter via the `kruemblegard:wayfall_portal` testing block (place it in creative and walk into it).
 - Or enter via command:
-    - `/execute in kruemblegard:wayfall run tp @s 0 80 0`
+    - `/execute in kruemblegard:wayfall run tp @s 0 160 0`
 
 ## Assets you still need to provide
 This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
