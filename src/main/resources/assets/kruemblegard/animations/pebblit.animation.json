@@ -1,25 +1,95 @@
 {
-  "format_version": "1.8.0",
-  "animations": {
-    "animation.pebblit.idle": {
-      "loop": true,
-      "bones": {}
-    },
-    "animation.pebblit.walk": {
-      "loop": true,
-      "bones": {}
-    },
-    "animation.pebblit.sit": {
-      "loop": true,
-      "bones": {}
-    },
-    "animation.pebblit.perching": {
-      "loop": false,
-      "bones": {}
-    },
-    "animation.pebblit.perched": {
-      "loop": true,
-      "bones": {}
-    }
-  }
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pebblit.idle": {
+			"loop": true,
+			"bones": {}
+		},
+		"animation.pebblit.walk": {
+			"loop": true,
+			"animation_length": 0.625,
+			"bones": {
+				"bone26": {
+					"rotation": {
+						"0.0": [-0.36, 0, -0.23],
+						"0.2083": [-0.36289, 29.97914, -0.22613],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone27": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.0417": [0, 0, -62.5],
+						"0.375": [0, 0, 0]
+					}
+				},
+				"bone20": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, 7.5, 0],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone24": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1667": [5.23619, 14.0761, 20.6469],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone25": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1667": [0, 0, -55]
+					}
+				},
+				"bone18": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1667": [-3.28396, 12.06754, -15.34721],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone19": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1667": [0, 0, 45]
+					}
+				},
+				"bone22": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, 12.5, 0],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone16": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [0, 22.5, 0],
+						"0.625": [0, 0, 0]
+					}
+				},
+				"bone17": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.0417": [0, 0, 52.5],
+						"0.375": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.pebblit.sit": {
+			"loop": true,
+			"bones": {}
+		},
+		"animation.pebblit.perching": {
+			"loop": false,
+			"bones": {}
+		},
+		"animation.pebblit.perched": {
+			"loop": true,
+			"bones": {}
+		}
+	}
 }
