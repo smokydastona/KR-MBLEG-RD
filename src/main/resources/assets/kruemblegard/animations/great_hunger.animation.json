@@ -1,17 +1,167 @@
 {
   "format_version": "1.8.0",
   "animations": {
+
     "animation.great_hunger.idle": {
       "loop": true,
-      "bones": {}
+      "animation_length": 2,
+      "bones": {
+        "upper_mouth": {
+          "rotation": ["math.sin(query.anim_time * 2) * 2", 0, 0]
+        },
+        "lower_jaw": {
+          "rotation": ["math.sin(query.anim_time * 2) * -2", 0, 0]
+        },
+        "body": {
+          "rotation": ["math.sin(query.anim_time * 1.5) * 1", 0, 0]
+        }
+      }
     },
-    "animation.great_hunger.walk": {
+
+    "animation.great_hunger.move": {
       "loop": true,
-      "bones": {}
+      "animation_length": 1,
+      "bones": {
+        "body": {
+          "rotation": ["math.sin(query.anim_time * 6) * 3", 0, 0],
+          "position": [0, "math.sin(query.anim_time * 6) * 0.5", 0]
+        },
+        "upper_mouth": {
+          "rotation": ["math.sin(query.anim_time * 4) * 1", 0, 0]
+        },
+        "lower_jaw": {
+          "rotation": ["math.sin(query.anim_time * 4) * -1", 0, 0]
+        }
+      }
     },
-    "animation.great_hunger.attack": {
+
+    "animation.great_hunger.bite_attack": {
       "loop": false,
-      "bones": {}
+      "animation_length": 0.35,
+      "bones": {
+        "lower_jaw": {
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.10, "value": [-40, 0, 0] },
+            { "time": 0.20, "value": [-55, 0, 0] },
+            { "time": 0.35, "value": [0, 0, 0] }
+          ]
+        },
+        "upper_mouth": {
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.10, "value": [15, 0, 0] },
+            { "time": 0.20, "value": [22, 0, 0] },
+            { "time": 0.35, "value": [0, 0, 0] }
+          ]
+        },
+        "body": {
+          "position": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.10, "value": [0, -1.2, 0] },
+            { "time": 0.20, "value": [0, -1.8, 0] },
+            { "time": 0.35, "value": [0, 0, 0] }
+          ],
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.20, "value": [-5, 0, 0] },
+            { "time": 0.35, "value": [0, 0, 0] }
+          ]
+        }
+      }
+    },
+
+    "animation.great_hunger.enchantment_steal": {
+      "loop": false,
+      "animation_length": 1.2,
+      "bones": {
+        "upper_mouth": {
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.20, "value": [25, 0, 0] },
+            { "time": 0.60, "value": [10, 0, 0] },
+            { "time": 1.20, "value": [0, 0, 0] }
+          ]
+        },
+        "lower_jaw": {
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.20, "value": [-35, 0, 0] },
+            { "time": 0.60, "value": [-10, 0, 0] },
+            { "time": 1.20, "value": [0, 0, 0] }
+          ]
+        },
+        "body": {
+          "rotation": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.20, "value": [-8, 0, 0] },
+            { "time": 0.60, "value": [-3, 0, 0] },
+            { "time": 1.20, "value": [0, 0, 0] }
+          ],
+          "position": [
+            { "time": 0.00, "value": [0, 0, 0] },
+            { "time": 0.20, "value": [0, -1.5, 0] },
+            { "time": 0.60, "value": [0, -0.5, 0] },
+            { "time": 1.20, "value": [0, 0, 0] }
+          ]
+        }
+      }
+    },
+
+    "animation.great_hunger.hid": {
+      "loop": false,
+      "animation_length": 0.5,
+      "bones": {
+        "body": {
+          "position": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 0.5, "value": [0, -6, 0] }
+          ]
+        },
+        "upper_mouth": {
+          "rotation": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 0.5, "value": [-20, 0, 0] }
+          ]
+        },
+        "lower_jaw": {
+          "rotation": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 0.5, "value": [20, 0, 0] }
+          ]
+        }
+      }
+    },
+
+    "animation.great_hunger.die": {
+      "loop": false,
+      "animation_length": 1.0,
+      "bones": {
+        "body": {
+          "rotation": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 0.4, "value": [25, 0, 0] },
+            { "time": 1.0, "value": [90, 0, 0] }
+          ],
+          "position": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 1.0, "value": [0, -4, 0] }
+          ]
+        },
+        "upper_mouth": {
+          "rotation": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 1.0, "value": [-30, 0, 0] }
+          ]
+        },
+        "lower_jaw": {
+          "rotation": [
+            { "time": 0.0, "value": [0, 0, 0] },
+            { "time": 1.0, "value": [30, 0, 0] }
+          ]
+        }
+      }
     }
+
   }
 }
