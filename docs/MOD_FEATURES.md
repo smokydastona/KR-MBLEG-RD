@@ -25,6 +25,13 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/pebblit.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/pebblit.png`
 
+- **The Great Hunger** (`great_hunger`)
+  - Hostile mob (GeckoLib-rendered).
+  - Uses editable resources:
+    - Geo: `assets/kruemblegard/geo/great_hunger.geo.json`
+    - Animations: `assets/kruemblegard/animations/great_hunger.animation.json`
+    - Texture: `assets/kruemblegard/textures/entity/great_hunger.png` (not added yet; model currently points at an existing texture as a placeholder)
+
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
 - **12 unique attacks** across phases (fast/heavy/ranged kits per phase).

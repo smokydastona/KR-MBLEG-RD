@@ -29,10 +29,25 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(pebblit): allow tamed Pebblit to perch on the owner's shoulder (right-click with empty hand), granting knockback resistance while perched.
 - Feat(pebblit): Pebblit attacks now apply knockback.
 
-## 1.0.232 (2026-01-08)
+## 1.0.232 (2026-01-07)
 - Feat(pebblit): shift + right-click with empty hand perches a tamed Pebblit on your shoulder until it dies.
 - Feat(pebblit): right-click with empty hand (non-shift) toggles sit-and-stay.
 - Feat(advancement): add "A little Clingy" for perching a Pebblit.
+
+## 1.0.233 (2026-01-07)
+- Feat(pebblit): add GeckoLib animation hooks for sit/perching/perched states.
+
+## 1.0.234 (2026-01-07)
+- Feat(great_hunger): add initial The Great Hunger mob scaffolding (entity + GeckoLib renderer/model + geo/animations).
+
+## 1.0.235 (2026-01-07)
+- Feat(great_hunger): expand The Great Hunger animation set.
+
+## 1.0.236 (2026-01-07)
+- Tuning(assets): iterate on Great Hunger + Pebblit geo/animation placeholders.
+
+## 1.0.237 (2026-01-07)
+- Feat(great_hunger): register The Great Hunger (entity type, renderer, attributes/spawn placement, spawn egg, lang).
 
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
