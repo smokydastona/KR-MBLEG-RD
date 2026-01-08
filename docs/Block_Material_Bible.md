@@ -99,6 +99,7 @@ For a new block material (and its variants), keep these in sync:
 - **Map color**: `MapColor.STONE`
 - **Sound**: `SoundType.STONE`
 - **Tool rule**: base block is non-colliding portal material elsewhere, but the palette variants use `requiresCorrectToolForDrops()`
+- **Drop/processing**: like vanilla stone — requires Silk Touch to drop itself; otherwise drops `kruemblegard:crushstone`. Smelting/blasting `kruemblegard:crushstone` yields `kruemblegard:fractured_wayrock`.
 - **Strength tier**: `2.0F / 18.0F`
 
 #### Crushstone
@@ -107,6 +108,7 @@ For a new block material (and its variants), keep these in sync:
 - **Map color**: `MapColor.STONE`
 - **Sound**: `SoundType.STONE`
 - **Tool rule**: does not currently require correct tool for drops
+- **Drop/processing**: used as the “cobble” output for Fractured Wayrock; can be smelted/blasted back into Fractured Wayrock.
 - **Strength tier**: `1.2F / 6.0F`
 
 #### Ashfall Loam
