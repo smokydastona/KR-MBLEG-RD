@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.256 (2026-01-08)
+- Fix(worldgen): remove the hard Wayfall terrain cutoff at Y=130 by moving the `final_density` clamp down to the dimension min Y (-32), so island bottoms aren’t perfectly flat.
+
 ## 1.0.255 (2026-01-08)
 - Fix(worldgen): make Wayfall terrain actually generate by using `wayfall/island_shape` in terrain density (positive bias for islands) and removing an extra duplicated factor/amplification subtraction that kept density too negative.
 
