@@ -1,7 +1,6 @@
 package com.kruemblegard;
 
 import com.kruemblegard.config.ModConfig;
-import com.kruemblegard.item.CrumblingCodexItem;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
@@ -93,7 +92,7 @@ public final class Kruemblegard {
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
+            event.accept(ModItems.CRUMBLING_CODEX);
             event.accept(ModItems.RUNIC_PICKAXE);
             event.accept(ModItems.RUNIC_AXE);
             event.accept(ModItems.RUNIC_SHOVEL);

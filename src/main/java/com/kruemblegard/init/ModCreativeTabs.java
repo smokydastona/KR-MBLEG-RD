@@ -2,7 +2,6 @@ package com.kruemblegard.init;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModItems;
-import com.kruemblegard.item.CrumblingCodexItem;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -42,9 +41,6 @@ public final class ModCreativeTabs {
 
                             output.accept(item);
                         }
-
-                        // Also include the filled codex variant for easy testing.
-                        output.accept(CrumblingCodexItem.createFilledStack(ModItems.CRUMBLING_CODEX.get()));
                     })
                     .build()
     );
