@@ -35,6 +35,8 @@ tools/**
 .classpath
 .project
 .settings/
+!.settings/
+!.settings/org.eclipse.jdt.core.prefs
 bin/
 
 # VS Code (keep settings/schemas tracked; ignore generated run configs)
