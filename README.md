@@ -64,7 +64,7 @@ If your mod id/package differ, update:
 - `META-INF/mods.toml`
 - resource folder names: `assets/kruemblegard`, `data/kruemblegard`
 
-## How to test quickly (dev)
+## How to run quickly (dev)
 1. Start a dev world.
 2. Spawn a Traprock:
     - `/summon kruemblegard:traprock`
@@ -75,12 +75,12 @@ If your mod id/package differ, update:
 - Tame: right-click a Pebblit with `minecraft:cobblestone`
 
 ### Wayfall
-- Enter via the `kruemblegard:wayfall_portal` testing block (place it in creative and walk into it).
+- Enter via the `kruemblegard:wayfall_portal` dev portal block (place it in creative and walk into it).
 - Or enter via command:
     - `/execute in kruemblegard:wayfall run tp @s 0 160 0`
 
 ## Assets you still need to provide
-This mod references textures/sounds; some binary assets may still be missing depending on what you’re testing.
+This mod references textures/sounds; some binary assets may still be missing depending on what you’re running.
 
 Note: this repo includes placeholder generators under `tools/` that can backfill missing referenced PNGs for dev so you don’t see purple/black missing-texture spam.
 
