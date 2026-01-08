@@ -2,10 +2,14 @@ package com.kruemblegard.world.grower;
 
 import java.util.Optional;
 
+import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.registry.ModTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -14,6 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.server.level.ServerLevel;
+
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
     private final ResourceKey<ConfiguredFeature<?, ?>> smallFeatureKey;
@@ -99,8 +105,67 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
             for (BlockPos restorePos : cleared) {
                 level.setBlock(restorePos, saplingState, 4);
             }
+        } else if (isMega) {
+            spreadScarestoneLikePodzol(level, random, pos);
         }
 
         return success;
+    }
+
+    private static void spreadScarestoneLikePodzol(ServerLevel level, RandomSource random, BlockPos megaBasePos) {
+        Block scarestone = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "scarstone"));
+        if (scarestone == null || scarestone == Blocks.AIR) {
+            return;
+        }
+
+        // Roughly mimic mega spruce: patch around each trunk corner.
+        placeScarestonePatch(level, random, megaBasePos, scarestone);
+        placeScarestonePatch(level, random, megaBasePos.east(), scarestone);
+        placeScarestonePatch(level, random, megaBasePos.south(), scarestone);
+        placeScarestonePatch(level, random, megaBasePos.south().east(), scarestone);
+    }
+
+    private static void placeScarestonePatch(ServerLevel level, RandomSource random, BlockPos trunkPos, Block scarestone) {
+        BlockPos groundCenter = trunkPos.below();
+
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                int ax = Math.abs(dx);
+                int az = Math.abs(dz);
+
+                float chance;
+                if (ax == 2 && az == 2) {
+                    chance = 0.2F;
+                } else if (ax == 2 || az == 2) {
+                    chance = 0.5F;
+                } else {
+                    chance = 1.0F;
+                }
+
+                if (random.nextFloat() > chance) {
+                    continue;
+                }
+
+                BlockPos groundPos = groundCenter.offset(dx, 0, dz);
+                BlockState groundState = level.getBlockState(groundPos);
+
+                if (!(groundState.is(net.minecraft.tags.BlockTags.DIRT)
+                        || groundState.is(ModTags.Blocks.WAYFALL_GROUND)
+                        || groundState.is(Blocks.ROOTED_DIRT))) {
+                    continue;
+                }
+
+                BlockPos abovePos = groundPos.above();
+                BlockState aboveState = level.getBlockState(abovePos);
+                if (!aboveState.getFluidState().isEmpty()) {
+                    continue;
+                }
+                if (!aboveState.isAir() && !aboveState.canBeReplaced()) {
+                    continue;
+                }
+
+                level.setBlock(groundPos, scarestone.defaultBlockState(), 2);
+            }
+        }
     }
 }
