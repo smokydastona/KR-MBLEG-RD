@@ -22,7 +22,8 @@
   },
   "spawn_costs": {},
   "carvers": {
-    "air": []
+    "air": [],
+    "liquid": []
   },
   "features": [
     [],

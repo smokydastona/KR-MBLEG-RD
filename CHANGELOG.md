@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.248 (2026-01-08)
+- Fix(worldgen): add empty `carvers.liquid` to all Wayfall biomes (matches vanilla biome schema; avoids datapack codec failures on stricter loaders).
+
 ## 1.0.245 (2026-01-08)
 - Fix(codex): remove the extra filled Codex entry from creative tabs so only one Crumbling Codex shows up.
 - Chore(assets): use `textures/gui/menu_tab.png` for the creative-tab icon and delete the unused duplicate texture.
