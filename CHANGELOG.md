@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.264 (2026-01-08)
+- Feature(wayfall): falling into the void in Wayfall now teleports the player to a precomputed safe landing spot in a random dimension (including mod dimensions), then immediately assigns the next destination.
+
 ## 1.0.263 (2026-01-08)
 - Cleanup: physically delete all remaining Veilgrowth / Veilgrowth Charged assets and data files (blockstates/models/textures/loot/worldgen JSON) and remove Veilgrowth references from texture-audit/generation scripts.
 
