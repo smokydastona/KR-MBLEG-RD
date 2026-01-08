@@ -8,21 +8,105 @@
 				"body": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.5": [0, 2, 0],
 						"1.0": [0, 0, 0]
 					}
 				}
 			}
 		},
 		"animation.traprock.awaken": {
-			"loop": false,
-			"animation_length": 0.6,
+			"animation_length": 1,
 			"bones": {
 				"body": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.2": [-10, 0, 0],
+						"0.3": [0, -85, 0],
 						"0.4": [10, 0, 0],
+						"0.5": [0, -175, 0],
+						"0.6": [0, 0, 0],
+						"0.8": [0, -265, 0],
+						"1.0": [0, -355, 0]
+					}
+				},
+				"rod1": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod4": {
+					"rotation": [0, 0, 0],
+					"scale": 1
+				},
+				"rod5": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod8": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod3": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod6": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod7": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod12": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"rod9": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": 1
+				},
+				"head": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": {
+						"0.0": [0, 0, 0],
+						"0.9": [1, 1, 1]
+					}
+				},
+				"top": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": {
+						"0.0": [0, 0, 0],
+						"0.9": [1, 1, 1]
+					}
+				},
+				"middle": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": {
+						"0.0": [0, 0, 0],
+						"0.9": [1, 1, 1]
+					}
+				},
+				"bottom": {
+					"rotation": [0, 0, 0],
+					"position": [0, 0, 0],
+					"scale": {
+						"0.0": [0, 0, 0],
+						"1.0": [1, 1, 1]
+					}
+				},
+				"waystone": {
+					"scale": {
+						"0.0": [1, 1, 1],
 						"0.6": [0, 0, 0]
 					}
 				}
@@ -30,14 +114,19 @@
 		},
 		"animation.traprock.awake": {
 			"loop": true,
-			"animation_length": 0.8,
+			"animation_length": 1,
 			"bones": {
 				"body": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.4": [0, 8, 0],
-						"0.8": [0, 0, 0]
+						"0.3": [0, -85, 0],
+						"0.5": [0, -175, 0],
+						"0.8": [0, -265, 0],
+						"1.0": [0, -355, 0]
 					}
+				},
+				"waystone": {
+					"scale": 0
 				}
 			}
 		}
