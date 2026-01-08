@@ -1,6 +1,9 @@
 package com.kruemblegard.item;
 
 import java.io.Reader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.Level;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 
 public final class CrumblingCodexItem extends WrittenBookItem {
 
@@ -60,21 +67,77 @@ public final class CrumblingCodexItem extends WrittenBookItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (level.isClientSide) {
-            // Creative-search / give commands may hand out an untagged book stack.
-            // Vanilla won't reliably open without the required book NBT.
-            CompoundTag tag = stack.getOrCreateTag();
-            if (!tag.contains(TAG_PAGES, CompoundTag.TAG_LIST)) {
-                markAutofilled(stack);
-                fillWithDefaults(stack);
-            }
-        }
         if (!level.isClientSide) {
             ensureFilledFromServer(level, stack);
+            return InteractionResultHolder.consume(stack);
         }
 
-        // Let vanilla open the book UI.
-        return super.use(level, player, hand);
+        // Creative-search / give commands may hand out an untagged book stack.
+        // Also: vanilla's WrittenBookItem UI opening logic is item-ID specific (minecraft:written_book),
+        // so custom WrittenBookItem subclasses won't automatically open. We open the screen ourselves.
+        CompoundTag tag = stack.getOrCreateTag();
+        if (!tag.contains(TAG_PAGES, CompoundTag.TAG_LIST)) {
+            markAutofilled(stack);
+            fillWithDefaults(stack);
+        }
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.openBookScreen(stack));
+        return InteractionResultHolder.success(stack);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static final class ClientHooks {
+        private ClientHooks() {}
+
+        private static void openBookScreen(ItemStack stack) {
+            try {
+                var mc = net.minecraft.client.Minecraft.getInstance();
+
+                // Try common constructor shape first: new BookViewScreen(ItemStack)
+                Class<?> bookViewScreenClass = Class.forName("net.minecraft.client.gui.screens.inventory.BookViewScreen");
+                for (Constructor<?> ctor : bookViewScreenClass.getConstructors()) {
+                    Class<?>[] params = ctor.getParameterTypes();
+                    if (params.length == 1 && params[0] == ItemStack.class) {
+                        Object screen = ctor.newInstance(stack);
+                        mc.setScreen((net.minecraft.client.gui.screens.Screen) screen);
+                        return;
+                    }
+                }
+
+                // Fallback: look for a static method that can produce a screen from an ItemStack.
+                for (Method m : bookViewScreenClass.getDeclaredMethods()) {
+                    if (!Modifier.isStatic(m.getModifiers())) {
+                        continue;
+                    }
+
+                    Class<?>[] params = m.getParameterTypes();
+                    if (params.length == 1 && params[0] == ItemStack.class) {
+                        m.setAccessible(true);
+                        Object result = m.invoke(null, stack);
+                        if (result instanceof net.minecraft.client.gui.screens.Screen screen) {
+                            mc.setScreen(screen);
+                            return;
+                        }
+                    }
+
+                    if (params.length == 2
+                            && params[0].getName().equals("net.minecraft.client.Minecraft")
+                            && params[1] == ItemStack.class) {
+                        m.setAccessible(true);
+                        Object result = m.invoke(null, mc, stack);
+                        if (result instanceof net.minecraft.client.gui.screens.Screen screen) {
+                            mc.setScreen(screen);
+                            return;
+                        }
+                    }
+                }
+
+                // If we get here, we couldn't find a compatible API shape.
+                Kruemblegard.LOGGER.warn("Unable to open Crumbling Codex book screen (BookViewScreen API mismatch)");
+            } catch (Throwable t) {
+                Kruemblegard.LOGGER.warn("Unable to open Crumbling Codex book screen", t);
+            }
+        }
     }
 
     private static void ensureFilledFromServer(Level level, ItemStack stack) {

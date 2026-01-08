@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(codex): remove the extra filled Codex entry from creative tabs so only one Crumbling Codex shows up.
 - Chore(assets): use `textures/gui/menu_tab.png` for the creative-tab icon and delete the unused duplicate texture.
 
+## 1.0.246 (2026-01-08)
+- Fix(codex): explicitly open the vanilla book screen for the Crumbling Codex (vanilla only auto-opens `minecraft:written_book`).
+
 ## 1.0.243 (2026-01-07)
 - Fix(codex): ensure Crumbling Codex always opens (even when obtained as an untagged creative/search stack).
 - Tuning(assets): make Crumbling Codex render as a simple 3D book item model (less flat in-hand).
