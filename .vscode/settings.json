@@ -4,6 +4,11 @@
     "java.import.gradle.enabled": true,
     "java.import.gradle.wrapper.enabled": true,
     "java.import.gradle.offline.enabled": false,
+    "java.import.exclusions": [
+        "**/_/**",
+        "**/build/**",
+        "**/.gradle/**"
+    ],
     "powershell.scriptAnalysis.enable": false,
     "json.schemas": [
         {

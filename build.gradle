@@ -90,3 +90,12 @@ tasks.named('processResources').configure {
         expand 'file': [jarVersion: project.version]
     }
 }
+
+// This mod does not use unit/integration tests. Disable test source dirs so IDE tooling
+// (Gradle import / JDT) does not treat missing src/test folders as build path errors.
+sourceSets {
+    test {
+        java.setSrcDirs([])
+        resources.setSrcDirs([])
+    }
+}
