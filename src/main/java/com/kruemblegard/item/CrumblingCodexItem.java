@@ -60,6 +60,15 @@ public final class CrumblingCodexItem extends WrittenBookItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        if (level.isClientSide) {
+            // Creative-search / give commands may hand out an untagged book stack.
+            // Vanilla won't reliably open without the required book NBT.
+            CompoundTag tag = stack.getOrCreateTag();
+            if (!tag.contains(TAG_PAGES, CompoundTag.TAG_LIST)) {
+                markAutofilled(stack);
+                fillWithDefaults(stack);
+            }
+        }
         if (!level.isClientSide) {
             ensureFilledFromServer(level, stack);
         }

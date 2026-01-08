@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "minecraft:block/wall_inventory",
   "textures": {
     "wall": "kruemblegard:block/scarstone"

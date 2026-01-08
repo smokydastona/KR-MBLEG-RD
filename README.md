@@ -12,7 +12,7 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
 - **Wayfall surface covers**: Veilgrowth/Ashmoss/Runegrowth/Voidfelt (placeholder textures; basic conversion rules).
-- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join).
+- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join; creative/search stacks auto-fill so it still opens).
 - **Advancements** are granted by code.
 - **Loot table** for unique drops.
 

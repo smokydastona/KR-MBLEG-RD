@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.243 (2026-01-08)
+- Fix(codex): ensure Crumbling Codex always opens (even when obtained as an untagged creative/search stack).
+- Tuning(assets): make Crumbling Codex render as a simple 3D book item model (less flat in-hand).
+- Fix(assets): correct wood-family item model parents that were still pointing at driftwillow placeholders.
+- Fix(assets): add missing placeholder wood door/trapdoor block textures for ashbloom/driftwood/glimmerpine.
+
 ## 1.0.242 (2026-01-08)
 - Fix(compat): harden Waystones BlockEntityType extension (avoids immutable-set crash; uses mutable copy when possible).
 - Fix(assets): add missing `great_hunger_spawn_egg` item model.
