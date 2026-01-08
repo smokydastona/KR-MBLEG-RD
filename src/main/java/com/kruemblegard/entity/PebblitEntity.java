@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,13 +23,34 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-public class PebblitEntity extends Silverfish {
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+public class PebblitEntity extends Silverfish implements GeoEntity {
+
+    private static final String NBT_TAMED = "Tamed";
+    private static final String NBT_OWNER = "Owner";
+
+    private static final float ATTACK_KNOCKBACK_STRENGTH = 0.6F;
 
     private static final EntityDataAccessor<Boolean> TAMED =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+
+        private static final RawAnimation IDLE_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.idle");
+
+        private static final RawAnimation WALK_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.walk");
+
+        private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public PebblitEntity(EntityType<? extends Silverfish> type, Level level) {
         super(type, level);
@@ -86,6 +108,21 @@ public class PebblitEntity extends Silverfish {
     public void tick() {
         super.tick();
 
+        if (!level().isClientSide && isTamed() && isPassenger() && getVehicle() instanceof Player rider) {
+            // Keep the Pebblit visually perched on the player's shoulder.
+            // We use riding mechanics (instead of vanilla shoulder NBT) so it works reliably with our mappings.
+            float yawRad = (float) Math.toRadians(rider.getYRot());
+            double sideOffset = 0.35D;
+            double backOffset = -0.10D;
+
+            double xOff = -Math.sin(yawRad) * backOffset + Math.cos(yawRad) * sideOffset;
+            double zOff = Math.cos(yawRad) * backOffset + Math.sin(yawRad) * sideOffset;
+
+            setPos(rider.getX() + xOff, rider.getY() + rider.getBbHeight() - 0.15D, rider.getZ() + zOff);
+            setYRot(rider.getYRot());
+            setXRot(0.0F);
+        }
+
         if (!level().isClientSide && isTamed()) {
             // Keep it from staying aggressive to players once tamed.
             if (getTarget() instanceof Player) {
@@ -107,7 +144,69 @@ public class PebblitEntity extends Silverfish {
             return InteractionResult.CONSUME;
         }
 
+        if (!level().isClientSide && isTamed() && isAlliedTo(player) && stack.isEmpty()) {
+            // Toggle perching on the owner's shoulder.
+            if (isPassenger() && getVehicle() == player) {
+                stopRiding();
+                moveTo(player.getX(), player.getY(), player.getZ(), getYRot(), getXRot());
+            } else {
+                startRiding(player, true);
+            }
+
+            return InteractionResult.CONSUME;
+        }
+
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean didHurt = super.doHurtTarget(target);
+
+        if (didHurt && target instanceof LivingEntity livingTarget) {
+            double dx = livingTarget.getX() - getX();
+            double dz = livingTarget.getZ() - getZ();
+            livingTarget.knockback(ATTACK_KNOCKBACK_STRENGTH, dx, dz);
+        }
+
+        return didHurt;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean(NBT_TAMED, isTamed());
+
+        UUID owner = getOwnerUUID();
+        if (owner != null) {
+            tag.putUUID(NBT_OWNER, owner);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains(NBT_TAMED)) {
+            this.entityData.set(TAMED, tag.getBoolean(NBT_TAMED));
+        }
+
+        if (tag.hasUUID(NBT_OWNER)) {
+            this.entityData.set(OWNER_UUID, Optional.of(tag.getUUID(NBT_OWNER)));
+        }
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controller", 0, state -> {
+            state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 
     @Override

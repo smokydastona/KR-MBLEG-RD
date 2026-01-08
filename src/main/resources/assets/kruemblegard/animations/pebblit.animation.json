@@ -1,0 +1,13 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.pebblit.idle": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.pebblit.walk": {
+      "loop": true,
+      "bones": {}
+    }
+  }
+}

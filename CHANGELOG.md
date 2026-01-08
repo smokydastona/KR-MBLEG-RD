@@ -24,6 +24,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.230 (2026-01-07)
 - Feat(compat): Ancient Waystone is now a native Waystones variant (extends Waystones' `WaystoneBlock`) with Waystones-style top/bottom models and a dedicated editable texture (`ancient_waystone.png`).
 
+## 1.0.231 (2026-01-07)
+- Feat(pebblit): add GeckoLib model/animations for Pebblit.
+- Feat(pebblit): allow tamed Pebblit to perch on the owner's shoulder (right-click with empty hand), granting knockback resistance while perched.
+- Feat(pebblit): Pebblit attacks now apply knockback.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.
