@@ -208,7 +208,6 @@ foreach ($p in $paletteEntries) {
 }
 
 # Special key mapping for known filenames
-if ($paletteMap.ContainsKey('veilgrowth_charged')) { $paletteMap['veilgrowth_charged'] = $paletteMap['veilgrowth_charged'] }
 if ($paletteMap.ContainsKey('fault_dust')) { $paletteMap['fault_dust'] = $paletteMap['fault_dust'] }
 
 # Scan models to find plant textures in use
@@ -264,8 +263,6 @@ Get-ChildItem -Path $modelsBlockDir -Filter "*.json" -File | ForEach-Object {
 # Ensure palette-defined surface blocks are included even if not cross
 foreach ($k in $paletteMap.Keys) {
     switch ($k) {
-        'veilgrowth' { Add-TextureUse -dict $blockTextures -name 'veilgrowth' -type 'surface' -parent 'bible' }
-        'veilgrowth_charged' { Add-TextureUse -dict $blockTextures -name 'veilgrowth_charged' -type 'surface' -parent 'bible' }
         'ashmoss' { Add-TextureUse -dict $blockTextures -name 'ashmoss' -type 'surface' -parent 'bible' }
         'runegrowth' {
             Add-TextureUse -dict $blockTextures -name 'runegrowth_top' -type 'surface' -parent 'bible'
@@ -338,7 +335,7 @@ function Pick-Palette {
     }
 
     # Fallback: pick from known palettes deterministically (keeps Wayfall vibe).
-    $fallbackKeys = @('veilgrowth','ashmoss','runegrowth','voidfelt','fault_dust','cairn_moss','wispstalk','gravevine','echocap','driftbloom','dustpetal','griefcap','transit_fern','misstep_vine','waygrasp_vine','voidcap_briar')
+    $fallbackKeys = @('ashmoss','runegrowth','voidfelt','fault_dust','cairn_moss','wispstalk','gravevine','echocap','driftbloom','dustpetal','griefcap','transit_fern','misstep_vine','waygrasp_vine','voidcap_briar')
     $present = @($fallbackKeys | Where-Object { $paletteMap.ContainsKey($_) })
     if ($present.Count -gt 0) {
         $idx = [int]((Hash-Seed ("fallback:" + $textureName)) % [uint32]$present.Count)
@@ -492,31 +489,6 @@ function Draw-SurfaceBlock {
     Draw-TileNoise -bmp $bmp -base $base -accent $accent -seedKey $seedKey
 
     switch -Regex ($name) {
-        'veilgrowth' {
-            # subtle frayed blotches
-            $rng = New-Rng -seed (Hash-Seed ($seedKey + ':veil'))
-            for ($i = 0; $i -lt 18; $i++) {
-                $cx = Rng-Range $rng 0 ($bmp.Width - 1)
-                $cy = Rng-Range $rng 0 ($bmp.Height - 1)
-                $r = Rng-Range $rng 2 5
-                for ($y = -$r; $y -le $r; $y++) {
-                    for ($x = -$r; $x -le $r; $x++) {
-                        if (($x*$x + $y*$y) -le ($r*$r) -and (Rng-Range $rng 0 2) -ne 0) {
-                            $px = ($cx + $x + $bmp.Width) % $bmp.Width
-                            $py = ($cy + $y + $bmp.Height) % $bmp.Height
-                            $c = Color-Shift $base (Rng-Range $rng -6 6)
-                            $bmp.SetPixel($px, $py, [System.Drawing.Color]::FromArgb(255, $c.R, $c.G, $c.B))
-                        }
-                    }
-                }
-            }
-            if (-not $emissive.IsEmpty -and $emLevel -ge 1) {
-                Draw-Runes -bmp $bmp -stroke (Color-Shift $accent -8) -emissive $emissive -seedKey $seedKey -count 2 -alpha 220 -emAlpha 200
-            }
-        }
-        '^veilgrowth_charged$' {
-            Draw-Runes -bmp $bmp -stroke $accent -emissive $emissive -seedKey $seedKey -count 7 -alpha 255 -emAlpha 245
-        }
         '^runegrowth_top$' {
             # top face: runes are the primary identity
             Draw-Runes -bmp $bmp -stroke $accent -emissive $emissive -seedKey $seedKey -count 6 -alpha 255 -emAlpha 235

@@ -68,8 +68,6 @@ Get-ChildItem -Path $modelsBlockDir -Filter "*.json" -File | ForEach-Object {
 # Force include bible-defined surface/ground textures
 foreach ($k in $keys) {
     switch ($k) {
-        'veilgrowth' { $blockTextures.Add('veilgrowth') | Out-Null }
-        'veilgrowth_charged' { $blockTextures.Add('veilgrowth_charged') | Out-Null }
         'ashmoss' { $blockTextures.Add('ashmoss') | Out-Null }
         'runegrowth' {
             $blockTextures.Add('runegrowth_top') | Out-Null

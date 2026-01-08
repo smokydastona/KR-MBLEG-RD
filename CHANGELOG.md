@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.263 (2026-01-08)
+- Cleanup: physically delete all remaining Veilgrowth / Veilgrowth Charged assets and data files (blockstates/models/textures/loot/worldgen JSON) and remove Veilgrowth references from texture-audit/generation scripts.
+
 ## 1.0.262 (2026-01-08)
 - Remove: delete Veilgrowth / Veilgrowth Charged from the mod entirely (no block, no item, no worldgen injection). Wayfall surface cover logic now uses Fault Dust as the neutral fallback.
 
