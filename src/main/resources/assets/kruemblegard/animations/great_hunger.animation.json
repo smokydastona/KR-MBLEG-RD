@@ -1,0 +1,17 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.great_hunger.idle": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.great_hunger.walk": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.great_hunger.attack": {
+      "loop": false,
+      "bones": {}
+    }
+  }
+}
