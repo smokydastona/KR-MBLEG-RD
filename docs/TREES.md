@@ -174,7 +174,7 @@ Scope/notes:
 - **IDs**: `kruemblegard:wayroot_*`
 - **Appearance**: Stone-barked tree with exposed, floating roots that don’t touch the ground.
 - **Use**: Logs used for waystone upgrades and teleport stabilizers.
-- **Mechanics**: design target — roots slowly drift; breaking them can destabilize nearby blocks.
+- **Mechanics**: design target — roots slowly drift; breaking them can destabilize nearby blocks. The `wayroot_sapling` also supports a 2x2 (spruce-style) placement to grow a larger Wayroot.
 - **Core textures**:
   - `assets/kruemblegard/textures/block/wayroot_log.png`
   - `assets/kruemblegard/textures/block/wayroot_log_top.png`

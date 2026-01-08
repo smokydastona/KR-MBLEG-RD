@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.265 (2026-01-08)
+- Feature(trees): `wayroot_sapling` now supports 2x2 (spruce-style) placement to grow a larger Wayroot.
+
 ## 1.0.264 (2026-01-08)
 - Feature(wayfall): falling into the void in Wayfall now teleports the player to a precomputed safe landing spot in a random dimension (including mod dimensions), then immediately assigns the next destination.
 

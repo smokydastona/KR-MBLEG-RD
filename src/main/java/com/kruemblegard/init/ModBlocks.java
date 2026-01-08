@@ -23,6 +23,7 @@ import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
+import com.kruemblegard.world.grower.TwoByTwoConfiguredFeatureTreeGrower;
 
 import java.util.function.Supplier;
 
@@ -1067,6 +1068,20 @@ public final class ModBlocks {
                 ));
         }
 
+        private static RegistryObject<Block> registerFeatureSapling2x2(String id,
+                                                                       ResourceKey<ConfiguredFeature<?, ?>> smallFeatureKey,
+                                                                       ResourceKey<ConfiguredFeature<?, ?>> megaFeatureKey) {
+                return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
+                                new TwoByTwoConfiguredFeatureTreeGrower(smallFeatureKey, megaFeatureKey),
+                                BlockBehaviour.Properties.of()
+                                                .mapColor(MapColor.PLANT)
+                                                .noCollission()
+                                                .instabreak()
+                                                .sound(SoundType.GRASS)
+                                                .randomTicks()
+                ));
+        }
+
         private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String path) {
                 return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Kruemblegard.MODID, path));
         }
@@ -1077,9 +1092,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> WAYROOT_WOOD = registerStrippableLog("wayroot_wood", () -> STRIPPED_WAYROOT_WOOD.get());
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
-        public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling2x2(
                         "wayroot_sapling",
-                        configuredFeatureKey("wayroot/sapling")
+                        configuredFeatureKey("wayroot/sapling"),
+                        configuredFeatureKey("wayroot/mega")
         );
 
         public static final RegistryObject<Block> WAYROOT_STAIRS = registerStairs("wayroot_stairs", WAYROOT_PLANKS);
