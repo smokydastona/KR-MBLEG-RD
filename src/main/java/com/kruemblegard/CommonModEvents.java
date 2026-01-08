@@ -1,5 +1,6 @@
 package com.kruemblegard;
 
+import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.registry.ModEntities;
@@ -28,6 +29,7 @@ public final class CommonModEvents {
         event.put(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossEntity.createAttributes().build());
         event.put(ModEntities.TRAPROCK.get(), TraprockEntity.createAttributes().build());
         event.put(ModEntities.PEBBLIT.get(), Silverfish.createAttributes().build());
+        event.put(ModEntities.GREAT_HUNGER.get(), GreatHungerEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -46,6 +48,14 @@ public final class CommonModEvents {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 CommonModEvents::canSpawnOnSolidGround,
                 SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.GREAT_HUNGER.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }
 

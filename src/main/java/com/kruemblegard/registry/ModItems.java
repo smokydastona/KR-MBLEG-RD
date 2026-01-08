@@ -229,6 +229,12 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.PEBBLIT, 0x5a5147, 0xb4aa9d,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> GREAT_HUNGER_SPAWN_EGG =
+        ITEMS.register(
+            "great_hunger_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.GREAT_HUNGER, 0x3a2a20, 0xc6a35d,
+                new Item.Properties()));
+
     public static final RegistryObject<Item> WAYFALL_MUSIC_DISC = ITEMS.register(
         "wayfall_music_disc",
         () -> new RecordItem(

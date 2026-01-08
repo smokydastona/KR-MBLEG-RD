@@ -1,6 +1,7 @@
 package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
@@ -19,5 +20,6 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossRenderer::new);
         event.registerEntityRenderer(ModEntities.TRAPROCK.get(), TraprockRenderer::new);
         event.registerEntityRenderer(ModEntities.PEBBLIT.get(), PebblitRenderer::new);
+        event.registerEntityRenderer(ModEntities.GREAT_HUNGER.get(), GreatHungerRenderer::new);
     }
 }

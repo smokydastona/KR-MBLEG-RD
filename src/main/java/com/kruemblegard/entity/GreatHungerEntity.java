@@ -3,7 +3,6 @@ package com.kruemblegard.entity;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -29,11 +28,11 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.great_hunger.idle");
 
-    private static final RawAnimation WALK_LOOP =
-            RawAnimation.begin().thenLoop("animation.great_hunger.walk");
+        private static final RawAnimation MOVE_LOOP =
+            RawAnimation.begin().thenLoop("animation.great_hunger.move");
 
-    private static final RawAnimation ATTACK_ONCE =
-            RawAnimation.begin().thenPlay("animation.great_hunger.attack");
+        private static final RawAnimation BITE_ATTACK_ONCE =
+            RawAnimation.begin().thenPlay("animation.great_hunger.bite_attack");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -64,7 +63,7 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     public boolean doHurtTarget(Entity target) {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
-            triggerAnim("attackController", "attack");
+            triggerAnim("attackController", "bite");
         }
         return didHurt;
     }
@@ -77,12 +76,12 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
-            state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+            state.setAnimation(state.isMoving() ? MOVE_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
 
         controllers.add(new AnimationController<>(this, "attackController", 0, state -> PlayState.STOP)
-                .triggerableAnim("attack", ATTACK_ONCE));
+                .triggerableAnim("bite", BITE_ATTACK_ONCE));
     }
 
     @Override

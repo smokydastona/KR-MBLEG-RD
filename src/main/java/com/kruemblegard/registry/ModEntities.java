@@ -1,6 +1,7 @@
 package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.TraprockEntity;
@@ -42,5 +43,14 @@ public class ModEntities {
                     PebblitEntity::new, MobCategory.MONSTER)
                 .sized(0.4f, 0.3f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "pebblit").toString())
+        );
+
+    public static final RegistryObject<EntityType<GreatHungerEntity>> GREAT_HUNGER =
+        ENTITIES.register(
+            "great_hunger",
+            () -> EntityType.Builder.<GreatHungerEntity>of(
+                    GreatHungerEntity::new, MobCategory.MONSTER)
+                .sized(1.0f, 0.6f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "great_hunger").toString())
         );
 }
