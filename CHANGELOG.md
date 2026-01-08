@@ -9,6 +9,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(tools): make `tools/audit_missing_models_and_parents.ps1` correctly handle blockstate JSON with empty-string variant keys and add CSV export + configurable output size.
 - Chore(tools): expand `tools/fix_wood_models_and_refs.ps1` to cover more wood families and generate the common missing model templates.
 
+## 1.0.224 (2026-01-07)
+- Fix(assets): split Wayfall portal to a dedicated texture (`wayfall_portal.png`) instead of reusing `reverse_portal_spores.png`.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.
