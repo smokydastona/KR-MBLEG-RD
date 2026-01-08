@@ -15,6 +15,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.227 (2026-01-07)
 - Feat(assets): animate `wayfall_portal.png` via `wayfall_portal.png.mcmeta` (16 frames, frametime=2, interpolate=false).
 
+## 1.0.228 (2026-01-07)
+- Fix(assets): update `wayfall_portal.png` to a vertically stacked 16-frame sheet compatible with `.png.mcmeta` animation.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.
