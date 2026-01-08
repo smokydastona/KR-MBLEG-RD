@@ -15,7 +15,7 @@
                             "decorators": [],
                             "dirt_provider": {
                               "state": {
-                                "Name": "minecraft:rooted_dirt"
+                                    "Name": "kruemblegard:stoneveil_rubble"
                               },
                               "type": "minecraft:simple_state_provider"
                             },
@@ -92,7 +92,7 @@
                             ],
                             "dirt_provider": {
                               "state": {
-                                "Name": "minecraft:rooted_dirt"
+                                    "Name": "kruemblegard:stoneveil_rubble"
                               },
                               "type": "minecraft:simple_state_provider"
                             },
@@ -147,7 +147,7 @@
                             "decorators": [],
                             "dirt_provider": {
                               "state": {
-                                "Name": "minecraft:rooted_dirt"
+                                    "Name": "kruemblegard:stoneveil_rubble"
                               },
                               "type": "minecraft:simple_state_provider"
                             },
@@ -224,7 +224,7 @@
                             ],
                             "dirt_provider": {
                               "state": {
-                                "Name": "minecraft:rooted_dirt"
+                                    "Name": "kruemblegard:stoneveil_rubble"
                               },
                               "type": "minecraft:simple_state_provider"
                             },

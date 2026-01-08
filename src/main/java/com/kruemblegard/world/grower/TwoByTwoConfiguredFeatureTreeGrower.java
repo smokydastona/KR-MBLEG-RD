@@ -106,26 +106,32 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                 level.setBlock(restorePos, saplingState, 4);
             }
         } else if (isMega) {
-            spreadScarestoneLikePodzol(level, random, pos);
+            spreadRunedStoneveilRubbleLikePodzol(level, random, pos);
         }
 
         return success;
     }
 
-    private static void spreadScarestoneLikePodzol(ServerLevel level, RandomSource random, BlockPos megaBasePos) {
-        Block scarestone = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "scarstone"));
-        if (scarestone == null || scarestone == Blocks.AIR) {
+    private static void spreadRunedStoneveilRubbleLikePodzol(ServerLevel level, RandomSource random, BlockPos megaBasePos) {
+        Block runedStoneveilRubble = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "runed_stoneveil_rubble"));
+        if (runedStoneveilRubble == null || runedStoneveilRubble == Blocks.AIR) {
             return;
         }
 
+        Block stoneveilRubble = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "stoneveil_rubble"));
+
         // Roughly mimic mega spruce: patch around each trunk corner.
-        placeScarestonePatch(level, random, megaBasePos, scarestone);
-        placeScarestonePatch(level, random, megaBasePos.east(), scarestone);
-        placeScarestonePatch(level, random, megaBasePos.south(), scarestone);
-        placeScarestonePatch(level, random, megaBasePos.south().east(), scarestone);
+        placeRunedStoneveilRubblePatch(level, random, megaBasePos, runedStoneveilRubble, stoneveilRubble);
+        placeRunedStoneveilRubblePatch(level, random, megaBasePos.east(), runedStoneveilRubble, stoneveilRubble);
+        placeRunedStoneveilRubblePatch(level, random, megaBasePos.south(), runedStoneveilRubble, stoneveilRubble);
+        placeRunedStoneveilRubblePatch(level, random, megaBasePos.south().east(), runedStoneveilRubble, stoneveilRubble);
     }
 
-    private static void placeScarestonePatch(ServerLevel level, RandomSource random, BlockPos trunkPos, Block scarestone) {
+    private static void placeRunedStoneveilRubblePatch(ServerLevel level,
+                                                       RandomSource random,
+                                                       BlockPos trunkPos,
+                                                       Block runedStoneveilRubble,
+                                                       Block stoneveilRubble) {
         BlockPos groundCenter = trunkPos.below();
 
         for (int dx = -2; dx <= 2; dx++) {
@@ -151,7 +157,8 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
 
                 if (!(groundState.is(net.minecraft.tags.BlockTags.DIRT)
                         || groundState.is(ModTags.Blocks.WAYFALL_GROUND)
-                        || groundState.is(Blocks.ROOTED_DIRT))) {
+                        || groundState.is(Blocks.ROOTED_DIRT)
+                        || (stoneveilRubble != null && groundState.is(stoneveilRubble)))) {
                     continue;
                 }
 
@@ -164,7 +171,7 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                     continue;
                 }
 
-                level.setBlock(groundPos, scarestone.defaultBlockState(), 2);
+                level.setBlock(groundPos, runedStoneveilRubble.defaultBlockState(), 2);
             }
         }
     }

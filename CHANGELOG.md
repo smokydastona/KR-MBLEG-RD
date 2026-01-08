@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.270 (2026-01-08)
+- Tuning(trees): Wayroot mega growth now uses Stoneveil Rubble as the dirt provider and spreads Runed Stoneveil Rubble around the trunk (spruce podzol-style), replacing the previous Scarstone spread.
+
 ## 1.0.269 (2026-01-08)
 - Feature(blocks): make `fractured_wayrock` behave like vanilla stone (Silk Touch drops itself, otherwise drops `crushstone`), and add smelting/blasting `crushstone` back into `fractured_wayrock`.
 
