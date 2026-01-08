@@ -26,6 +26,11 @@ docs/**
 # Local examples / reference content (not committed)
 examples/
 
+# Tools (scripts are tracked; generated outputs are not)
+tools/**
+!tools/*.ps1
+!tools/*.md
+
 # Eclipse / IDE metadata
 .classpath
 .project
