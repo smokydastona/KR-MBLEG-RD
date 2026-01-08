@@ -49,6 +49,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.237 (2026-01-07)
 - Feat(great_hunger): register The Great Hunger (entity type, renderer, attributes/spawn placement, spawn egg, lang).
 
+## 1.0.238 (2026-01-07)
+- Feat(assets): add placeholder `great_hunger.png` texture and point Great Hunger model at it.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.

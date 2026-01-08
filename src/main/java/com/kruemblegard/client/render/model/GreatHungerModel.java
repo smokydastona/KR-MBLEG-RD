@@ -16,9 +16,8 @@ public class GreatHungerModel extends GeoModel<GreatHungerEntity> {
 
     @Override
     public ResourceLocation getTextureResource(GreatHungerEntity animatable) {
-        // Placeholder: reuse an existing mod texture so we don't ship a missing texture.
-        // Replace with "textures/entity/great_hunger.png" when you add the real texture.
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/traprock.png");
+        // Placeholder texture (can be replaced later with real art).
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/great_hunger.png");
     }
 
     @Override

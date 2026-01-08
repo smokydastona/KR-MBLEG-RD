@@ -30,7 +30,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/great_hunger.geo.json`
     - Animations: `assets/kruemblegard/animations/great_hunger.animation.json`
-    - Texture: `assets/kruemblegard/textures/entity/great_hunger.png` (not added yet; model currently points at an existing texture as a placeholder)
+    - Texture: `assets/kruemblegard/textures/entity/great_hunger.png` (currently a placeholder)
 
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
