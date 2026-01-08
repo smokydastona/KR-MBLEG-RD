@@ -11,7 +11,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(assets): add missing placeholder wood door/trapdoor block textures for ashbloom/driftwood/glimmerpine.
 
 ## 1.0.244 (2026-01-07)
-- Fix(assets): generate door-format placeholder textures (with the door edge strip baked in) and rewire door block models to use `*_door_{top,bottom}_fixed` when the old textures were plank-copy placeholders.
+- Fix(assets): make door textures follow vanilla’s layout (door edge strip baked into `*_door_{top,bottom}.png`) so the front face renders correctly.
 - Fix(assets): add placeholder `*_log_top` / `*_stem_top` textures when missing (copied from the side texture).
 
 ## 1.0.242 (2026-01-08)
