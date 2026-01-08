@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.246 (2026-01-08)
 - Fix(codex): explicitly open the vanilla book screen for the Crumbling Codex (vanilla only auto-opens `minecraft:written_book`).
 
+## 1.0.247 (2026-01-08)
+- Fix(worldgen): restore Aether-style Wayfall terrain density sliding so islands generate (beyond just the entry platform).
+
 ## 1.0.243 (2026-01-07)
 - Fix(codex): ensure Crumbling Codex always opens (even when obtained as an untagged creative/search stack).
 - Tuning(assets): make Crumbling Codex render as a simple 3D book item model (less flat in-hand).
