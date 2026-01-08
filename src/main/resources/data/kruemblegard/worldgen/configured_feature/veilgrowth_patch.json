@@ -6,10 +6,7 @@
         "config": {
           "to_place": {
             "state": {
-              "Name": "kruemblegard:veilgrowth",
-              "Properties": {
-                "charged": "false"
-              }
+              "Name": "kruemblegard:fault_dust"
             },
             "type": "minecraft:simple_state_provider"
           }
@@ -20,10 +17,7 @@
         {
           "predicate": {
             "state": {
-              "Name": "kruemblegard:veilgrowth",
-              "Properties": {
-                "charged": "false"
-              }
+              "Name": "kruemblegard:fault_dust"
             },
             "type": "minecraft:would_survive"
           },

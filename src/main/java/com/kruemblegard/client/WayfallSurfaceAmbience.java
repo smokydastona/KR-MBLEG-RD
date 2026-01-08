@@ -51,10 +51,7 @@ public final class WayfallSurfaceAmbience {
         float volume = 0.15F;
         float pitch = 0.95F + level.random.nextFloat() * 0.1F;
 
-        if (state.is(ModBlocks.VEILGROWTH.get())) {
-            level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.AMBIENT, volume * 0.6F, pitch, false);
-            nextAmbientTickDelay = 20 * (8 + level.random.nextInt(12));
-        } else if (state.is(ModBlocks.ASHMOSS.get())) {
+        if (state.is(ModBlocks.ASHMOSS.get())) {
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.AMBIENT, volume * 0.6F, pitch, false);
             nextAmbientTickDelay = 20 * (10 + level.random.nextInt(14));
         } else if (state.is(ModBlocks.RUNEGROWTH.get())) {

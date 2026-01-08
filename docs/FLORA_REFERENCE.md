@@ -169,27 +169,13 @@ Full per-tree reference: [TREES.md](TREES.md)
 ### Wayfall surface covers (blocks)
 These are surface materials that define the Wayfall ground language. They are documented here because they are part of the flora/surface ecosystem.
 
-#### Veilgrowth
-- **IDs**
-  - Block: `kruemblegard:veilgrowth`
-  - Item: `kruemblegard:veilgrowth` (BlockItem)
-- **How it behaves**
-  - Has a `charged` blockstate.
-  - Is a moss-carpet style surface layer (charged state swaps texture).
-  - When near Waystone energy sources, it becomes charged and may convert into Runegrowth over time.
-  - When no longer near energy, it returns to uncharged.
-- **Assets**
-  - Blockstate: `assets/kruemblegard/blockstates/veilgrowth.json`
-  - Texture (uncharged): `assets/kruemblegard/textures/block/veilgrowth.png`
-  - Texture (charged state): `assets/kruemblegard/textures/block/veilgrowth_charged.png`
-
 #### Ashmoss
 - **IDs**
   - Block: `kruemblegard:ashmoss`
   - Item: `kruemblegard:ashmoss` (BlockItem)
 - **How it behaves**
-  - Intended for ash-heavy biomes; outside ash-heavy biomes it collapses back into Veilgrowth.
-  - Slowly spreads to nearby Veilgrowth while in ash-heavy biomes.
+  - Intended for ash-heavy biomes; outside ash-heavy biomes it collapses back into Fault Dust.
+  - Slowly spreads to nearby Fault Dust while in ash-heavy biomes.
 - **Assets**
   - Texture: `assets/kruemblegard/textures/block/ashmoss.png`
 
@@ -199,7 +185,7 @@ These are surface materials that define the Wayfall ground language. They are do
   - Item: `kruemblegard:runegrowth` (BlockItem)
 - **How it behaves**
   - Requires nearby Waystone energy; without it, it collapses back into Fault Dust.
-  - When powered, it spreads onto nearby Wayfall dirt blocks (Fault Dust / Ashfall Loam) like vanilla grass.
+  - When powered, it spreads onto nearby Fault Dust like vanilla grass.
   - Drops Fault Dust when broken unless Silk Touch (like vanilla grass).
 - **Assets**
   - Texture (top): `assets/kruemblegard/textures/block/runegrowth_top.png`
@@ -210,7 +196,7 @@ These are surface materials that define the Wayfall ground language. They are do
   - Block: `kruemblegard:voidfelt`
   - Item: `kruemblegard:voidfelt` (BlockItem)
 - **How it behaves**
-  - Generated-only surface; outside void biomes it slowly collapses back into Veilgrowth.
+  - Generated-only surface; outside void biomes it slowly collapses back into Fault Dust.
 - **Assets**
   - Texture (top): `assets/kruemblegard/textures/block/voidfelt_top.png`
   - Texture (side): `assets/kruemblegard/textures/block/voidfelt_side.png`

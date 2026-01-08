@@ -16,9 +16,9 @@ public class VoidfeltBlock extends WayfallSurfaceBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        // Voidfelt is generated only; outside void-biomes it slowly collapses back into Veilgrowth.
+        // Voidfelt is generated only; outside void-biomes it slowly collapses back into Wayfall dirt.
         if (!level.getBiome(pos).is(ModTags.Biomes.VOID_BIOME) && random.nextInt(20) == 0) {
-            level.setBlock(pos, ModBlocks.VEILGROWTH.get().defaultBlockState(), 2);
+            level.setBlock(pos, ModBlocks.FAULT_DUST.get().defaultBlockState(), 2);
         }
     }
 }

@@ -18,7 +18,7 @@ public class AshmossBlock extends WayfallSurfaceBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!level.getBiome(pos).is(ModTags.Biomes.ASH_HEAVY)) {
-            level.setBlock(pos, ModBlocks.VEILGROWTH.get().defaultBlockState(), 2);
+            level.setBlock(pos, ModBlocks.FAULT_DUST.get().defaultBlockState(), 2);
             return;
         }
 
@@ -29,7 +29,7 @@ public class AshmossBlock extends WayfallSurfaceBlock {
         Direction dir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         BlockPos target = pos.relative(dir);
         BlockState targetState = level.getBlockState(target);
-        if (targetState.is(ModBlocks.VEILGROWTH.get())) {
+        if (targetState.is(ModBlocks.FAULT_DUST.get())) {
             level.setBlock(target, ModBlocks.ASHMOSS.get().defaultBlockState(), 2);
         }
     }

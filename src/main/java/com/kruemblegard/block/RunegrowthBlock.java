@@ -1,6 +1,7 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +19,7 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock {
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // Acts like a grass block, but is powered by Waystone energy.
         // If unpowered (or unable to survive), it falls back to Wayfall dirt.
-        if (!VeilgrowthBlock.isNearWaystoneEnergy(level, pos, 6)) {
+        if (!isNearWaystoneEnergy(level, pos, 6)) {
             level.setBlock(pos, ModBlocks.FAULT_DUST.get().defaultBlockState(), 2);
             return;
         }
@@ -57,5 +58,20 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock {
         int light = level.getMaxLocalRawBrightness(abovePos);
         int opacity = above.getLightBlock(level, abovePos);
         return !(light < 4 && opacity > 2);
+    }
+
+    private static boolean isNearWaystoneEnergy(ServerLevel level, BlockPos pos, int radius) {
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                for (int dz = -radius; dz <= radius; dz++) {
+                    cursor.set(pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz);
+                    if (level.getBlockState(cursor).is(ModTags.Blocks.WAYSTONE_ENERGY_SOURCES)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

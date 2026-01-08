@@ -12,7 +12,6 @@ import com.kruemblegard.block.AshmossBlock;
 import com.kruemblegard.block.RunedStoneveilRubbleBlock;
 import com.kruemblegard.block.RunegrowthBlock;
 import com.kruemblegard.block.ScarstoneBlock;
-import com.kruemblegard.block.VeilgrowthBlock;
 import com.kruemblegard.block.VoidfeltBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
 import com.kruemblegard.block.WayfallPortalBlock;
@@ -426,15 +425,6 @@ public final class ModBlocks {
     );
 
     // --- Wayfall surface covers (spread / conversion) ---
-
-    public static final RegistryObject<Block> VEILGROWTH = BLOCKS.register(
-            "veilgrowth",
-            () -> new VeilgrowthBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_GREEN)
-                    .strength(0.6F, 0.6F)
-                    .sound(SoundType.MOSS_CARPET)
-                    .randomTicks())
-    );
 
     public static final RegistryObject<Block> ASHMOSS = BLOCKS.register(
             "ashmoss",

@@ -13,7 +13,7 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 - **Wayfall**: a new void dimension with Aether-inspired floating islands, containing Attuned Ore (custom Wayfall biomes only; spawns restricted to Krümblegård mobs). Terrain palette defaults to **Fractured Wayrock** via custom noise settings, and portal arrivals fall back to a safe platform if the spawn area is void.
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
-- **Wayfall surface covers**: Veilgrowth/Ashmoss/Runegrowth/Voidfelt (placeholder textures; basic conversion rules).
+- **Wayfall surface covers**: Ashmoss/Runegrowth/Voidfelt (placeholder textures; basic conversion rules).
 - **Guidebook (Written Book)**: players are given a vanilla `minecraft:written_book` on first join, pre-filled with your mod’s guide text.
 - **Advancements** are granted by code.
 - **Loot table** for unique drops.
