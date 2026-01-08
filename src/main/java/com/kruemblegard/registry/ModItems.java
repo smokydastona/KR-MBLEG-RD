@@ -3,7 +3,6 @@ package com.kruemblegard.registry;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModTiers;
-import com.kruemblegard.item.CrumblingCodexItem;
 import com.kruemblegard.item.RunePetalItem;
 
 import net.minecraft.world.item.AxeItem;
@@ -173,10 +172,7 @@ public class ModItems {
         () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build()))
     );
 
-    public static final RegistryObject<Item> CRUMBLING_CODEX = ITEMS.register(
-        "crumbling_codex",
-        () -> new CrumblingCodexItem(new Item.Properties().stacksTo(1))
-    );
+
 
     public static final RegistryObject<Item> ATTUNED_RUNE_SHARD = ITEMS.register(
         "attuned_rune_shard",

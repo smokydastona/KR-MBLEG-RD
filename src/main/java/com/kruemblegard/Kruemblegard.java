@@ -4,7 +4,7 @@ import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
-import com.kruemblegard.network.ModNetworking;
+import com.kruemblegard.book.KruemblegardGuidebook;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModFeatures;
 import com.kruemblegard.registry.ModItems;
@@ -37,8 +37,6 @@ public final class Kruemblegard {
 
     public Kruemblegard() {
         GeckoLib.initialize();
-
-        ModNetworking.register();
 
         ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.COMMON_SPEC);
 
@@ -92,7 +90,7 @@ public final class Kruemblegard {
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.CRUMBLING_CODEX);
+            event.accept(KruemblegardGuidebook.createDefaultFilledBook());
             event.accept(ModItems.RUNIC_PICKAXE);
             event.accept(ModItems.RUNIC_AXE);
             event.accept(ModItems.RUNIC_SHOVEL);

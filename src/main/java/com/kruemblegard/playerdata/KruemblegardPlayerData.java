@@ -12,15 +12,15 @@ import net.minecraft.nbt.CompoundTag;
  * <p>Forge doesn't have NeoForge-style attachments, so we store this under
  * player.getPersistentData()[kruemblegard].</p>
  */
-public record KruemblegardPlayerData(boolean givenCrumblingCodex, boolean encounteredTraprock) {
+public record KruemblegardPlayerData(boolean givenGuidebook, boolean encounteredTraprock) {
 
     public static final String ROOT_KEY = Kruemblegard.MOD_ID;
 
-    private static final String TAG_GIVEN_CODEX = "given_crumbling_codex";
+    private static final String TAG_GIVEN_GUIDEBOOK = "given_guidebook";
     private static final String TAG_ENCOUNTERED_TRAPROCK = "encountered_traprock";
 
         public static final Codec<KruemblegardPlayerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.optionalFieldOf(TAG_GIVEN_CODEX, false).forGetter(KruemblegardPlayerData::givenCrumblingCodex),
+            Codec.BOOL.optionalFieldOf(TAG_GIVEN_GUIDEBOOK, false).forGetter(KruemblegardPlayerData::givenGuidebook),
             Codec.BOOL.optionalFieldOf(TAG_ENCOUNTERED_TRAPROCK, false).forGetter(KruemblegardPlayerData::encounteredTraprock)
         ).apply(instance, KruemblegardPlayerData::new));
 
@@ -31,7 +31,7 @@ public record KruemblegardPlayerData(boolean givenCrumblingCodex, boolean encoun
 
         CompoundTag root = playerPersistent.getCompound(ROOT_KEY);
         return new KruemblegardPlayerData(
-            root.getBoolean(TAG_GIVEN_CODEX),
+            root.getBoolean(TAG_GIVEN_GUIDEBOOK),
             root.getBoolean(TAG_ENCOUNTERED_TRAPROCK)
         );
     }
@@ -42,16 +42,16 @@ public record KruemblegardPlayerData(boolean givenCrumblingCodex, boolean encoun
         }
 
         CompoundTag root = playerPersistent.getCompound(ROOT_KEY);
-        root.putBoolean(TAG_GIVEN_CODEX, this.givenCrumblingCodex);
+        root.putBoolean(TAG_GIVEN_GUIDEBOOK, this.givenGuidebook);
         root.putBoolean(TAG_ENCOUNTERED_TRAPROCK, this.encounteredTraprock);
         playerPersistent.put(ROOT_KEY, root);
     }
 
-    public KruemblegardPlayerData withGivenCrumblingCodex(boolean value) {
+    public KruemblegardPlayerData withGivenGuidebook(boolean value) {
         return new KruemblegardPlayerData(value, this.encounteredTraprock);
     }
 
     public KruemblegardPlayerData withEncounteredTraprock(boolean value) {
-        return new KruemblegardPlayerData(this.givenCrumblingCodex, value);
+        return new KruemblegardPlayerData(this.givenGuidebook, value);
     }
 }

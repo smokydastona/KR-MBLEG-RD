@@ -12,11 +12,11 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
 - **Wayfall surface covers**: Veilgrowth/Ashmoss/Runegrowth/Voidfelt (placeholder textures; basic conversion rules).
-- **Crumbling Codex**: an in-game guidebook that opens with pre-written pages (granted once on first join; creative/search stacks auto-fill so it still opens).
+- **Guidebook (Written Book)**: players are given a vanilla `minecraft:written_book` on first join, pre-filled with your mod’s guide text.
 - **Advancements** are granted by code.
 - **Loot table** for unique drops.
 
-Codex page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
+Guidebook page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
 
 ## Worldgen organization
 - Datapack content lives under `src/main/resources/data/kruemblegard/worldgen/**`.

@@ -41,13 +41,15 @@ Keep it up to date whenever you add/remove/rename content.
 Note: Krümblegård is no longer spawned by waystones. It can still be spawned via commands/spawn egg for testing.
 
 ## Items & progression
-- **Crumbling Codex** (`crumbling_codex`)
-  - Given **once per player** on first join.
-  - Opens as a **pre-filled guidebook**.
+- **Guidebook (Written Book)**
+  - Granted once on first join (tracked in player persistent NBT).
+  - Implemented as a vanilla `minecraft:written_book` pre-filled with pages.
   - Text source (editable): `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
+
 - **Runic Core** (`runic_core`)
   - Dropped by Krümblegård.
   - Used to craft Runic tools.
+  - Text source (editable): `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
 - **Runic tool set**
   - Runic Sword (`runic_sword`)
   - Runic Pickaxe (`runic_pickaxe`)
