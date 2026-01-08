@@ -1,4 +1,4 @@
-{
-    "textures": { "texture": "/ashbloom_trapdoor" },
+﻿{
+    "textures": { "texture": "kruemblegard:block/ashbloom_trapdoor" },
     "parent": "minecraft:block/template_trapdoor_top"
 }

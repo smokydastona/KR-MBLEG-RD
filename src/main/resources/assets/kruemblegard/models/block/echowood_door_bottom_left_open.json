@@ -1,7 +1,7 @@
-{
+﻿{
     "textures": {
-        "bottom": "/echowood_door_bottom",
-        "top": "/echowood_door_top"
+        "bottom": "kruemblegard:block/echowood_door_bottom",
+        "top": "kruemblegard:block/echowood_door_top"
     },
     "parent": "minecraft:block/door_bottom_left_open"
 }

@@ -1,4 +1,4 @@
-{
-    "textures": { "cross": "/driftwood_sapling" },
+﻿{
+    "textures": { "cross": "kruemblegard:block/driftwood_sapling" },
     "parent": "minecraft:block/cross"
 }

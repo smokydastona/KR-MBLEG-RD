@@ -1,8 +1,8 @@
-{
+﻿{
     "textures": {
-        "bottom": "/driftwood_planks",
-        "top": "/driftwood_planks",
-        "side": "/driftwood_planks"
+        "bottom": "kruemblegard:block/driftwood_planks",
+        "top": "kruemblegard:block/driftwood_planks",
+        "side": "kruemblegard:block/driftwood_planks"
     },
     "parent": "minecraft:block/slab_top"
 }

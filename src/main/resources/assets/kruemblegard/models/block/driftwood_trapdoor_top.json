@@ -1,4 +1,4 @@
-{
-    "textures": { "texture": "/driftwood_trapdoor" },
+﻿{
+    "textures": { "texture": "kruemblegard:block/driftwood_trapdoor" },
     "parent": "minecraft:block/template_trapdoor_top"
 }

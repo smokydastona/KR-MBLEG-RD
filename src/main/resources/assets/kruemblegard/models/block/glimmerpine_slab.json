@@ -1,8 +1,8 @@
-{
+﻿{
     "textures": {
-        "bottom": "/glimmerpine_planks",
-        "top": "/glimmerpine_planks",
-        "side": "/glimmerpine_planks"
+        "bottom": "kruemblegard:block/glimmerpine_planks",
+        "top": "kruemblegard:block/glimmerpine_planks",
+        "side": "kruemblegard:block/glimmerpine_planks"
     },
     "parent": "minecraft:block/slab"
 }

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -82,7 +83,24 @@ public final class WaystonesVariantInit {
                 }
             }
 
-            return ((Set) set).add(block);
+            if (set.contains(block)) {
+                return true;
+            }
+
+            try {
+                return ((Set) set).add(block);
+            } catch (UnsupportedOperationException ignored) {
+                // Some Waystones versions back this with an immutable set.
+                Set<Block> mutable = new HashSet<>((Set<Block>) set);
+                mutable.add(block);
+                try {
+                    field.set(type, mutable);
+                    return true;
+                } catch (Throwable t) {
+                    Kruemblegard.LOGGER.warn("Waystones BlockEntityType valid blocks set is immutable and could not be replaced; Ancient Waystone may not be recognized as a waystone block", t);
+                    return false;
+                }
+            }
         }
 
         return false;

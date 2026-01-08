@@ -1,4 +1,4 @@
-{
-    "textures": { "all": "/driftwood_planks" },
+﻿{
+    "textures": { "all": "kruemblegard:block/driftwood_planks" },
     "parent": "minecraft:block/cube_all"
 }

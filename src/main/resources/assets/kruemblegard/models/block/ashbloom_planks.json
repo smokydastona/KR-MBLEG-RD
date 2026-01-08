@@ -1,4 +1,4 @@
-{
-    "textures": { "all": "/ashbloom_planks" },
+﻿{
+    "textures": { "all": "kruemblegard:block/ashbloom_planks" },
     "parent": "minecraft:block/cube_all"
 }

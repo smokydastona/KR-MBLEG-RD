@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.242 (2026-01-08)
+- Fix(compat): harden Waystones BlockEntityType extension (avoids immutable-set crash; uses mutable copy when possible).
+- Fix(assets): add missing `great_hunger_spawn_egg` item model.
+- Fix(assets): normalize wood-family block model texture references and fence gate parents to eliminate missing-texture/model spam.
+
 ## 1.0.223 (2026-01-07)
 - Fix(assets): backfill missing wood-family block models (doors, trapdoors, slabs, stairs, pressure plates) so blockstates resolve cleanly and blocks/items stop rendering as missing-model purple/black.
 - Fix(tools): make `tools/audit_missing_models_and_parents.ps1` correctly handle blockstate JSON with empty-string variant keys and add CSV export + configurable output size.

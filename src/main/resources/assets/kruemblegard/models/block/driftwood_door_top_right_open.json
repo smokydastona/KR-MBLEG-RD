@@ -1,7 +1,7 @@
-{
+﻿{
     "textures": {
-        "bottom": "/driftwood_door_bottom",
-        "top": "/driftwood_door_top"
+        "bottom": "kruemblegard:block/driftwood_door_bottom",
+        "top": "kruemblegard:block/driftwood_door_top"
     },
     "parent": "minecraft:block/door_top_right_open"
 }

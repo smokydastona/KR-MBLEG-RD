@@ -1,4 +1,4 @@
-{
-    "textures": { "texture": "/glimmerpine_planks" },
+﻿{
+    "textures": { "texture": "kruemblegard:block/glimmerpine_planks" },
     "parent": "minecraft:block/button_pressed"
 }

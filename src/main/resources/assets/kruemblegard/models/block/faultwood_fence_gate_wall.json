@@ -2,5 +2,6 @@
     "textures":  {
                      "texture":  "kruemblegard:block/faultwood_planks"
                  },
-    "parent":  "minecraft:block/fence_gate_wall"
+    "parent":  "minecraft:block/template_fence_gate_wall"
 }
+

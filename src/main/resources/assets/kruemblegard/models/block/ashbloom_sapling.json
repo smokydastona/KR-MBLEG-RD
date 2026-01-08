@@ -1,4 +1,4 @@
-{
-    "textures": { "cross": "/ashbloom_sapling" },
+﻿{
+    "textures": { "cross": "kruemblegard:block/ashbloom_sapling" },
     "parent": "minecraft:block/cross"
 }
