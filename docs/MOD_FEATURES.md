@@ -48,6 +48,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 - `wayfall_portal`: a simple testing portal block you can place in creative; walking into it sends you to the Wayfall spawn.
 
+- `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
+  - Requires Waystones + Balm.
+  - Editable texture: `assets/kruemblegard/textures/block/ancient_waystone.png`
+  - Models follow Waystones' top/bottom layout: `assets/kruemblegard/models/block/ancient_waystone_{bottom,top}.json`
+
 ## Wayfall Skybox (Client)
 - Wayfall renders a custom sky in-game (client-only).
 - Uses a single equirectangular panorama texture (2:1 aspect ratio):

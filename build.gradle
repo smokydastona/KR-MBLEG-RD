@@ -62,11 +62,21 @@ repositories {
     maven { url = 'https://repo1.maven.org/maven2' }
     maven { url = 'https://maven.minecraftforge.net' }
     maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven {
+        url = 'https://www.cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.1.0'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.8.2')
+
+    // Waystones integration (Forge 1.20.1)
+    implementation fg.deobf('curse.maven:waystones-245755:6856603')
+    implementation fg.deobf('curse.maven:balm-531761:7420617')
 }
 
 tasks.withType(JavaCompile).configureEach {

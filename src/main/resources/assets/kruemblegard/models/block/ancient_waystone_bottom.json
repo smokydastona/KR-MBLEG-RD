@@ -1,5 +1,5 @@
 {
-    "parent": "waystones:item/waystone",
+    "parent": "waystones:block/waystone_bottom",
     "textures": {
         "particle": "kruemblegard:block/ancient_waystone",
         "texture": "kruemblegard:block/ancient_waystone"

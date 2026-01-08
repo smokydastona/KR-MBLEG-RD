@@ -31,6 +31,8 @@ This mod uses **custom advancement triggers** registered in `ModCriteria`:
 ## Dependencies (ForgeGradle)
 You need GeckoLib 4.x for Forge 1.20.1.
 
+This mod also has **native Waystones integration** (the Ancient Waystone is a real Waystones variant). That requires **Waystones + Balm**.
+
 ```gradle
 repositories {
     maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
@@ -38,6 +40,10 @@ repositories {
 
 dependencies {
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.+')
+
+    // Waystones integration
+    implementation fg.deobf('curse.maven:waystones-245755:6856603')
+    implementation fg.deobf('curse.maven:balm-531761:7420617')
 }
 ```
 

@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "kruemblegard:block/ancient_waystone", "y": 270 },
-    "facing=east":  { "model": "kruemblegard:block/ancient_waystone" },
-    "facing=south": { "model": "kruemblegard:block/ancient_waystone", "y": 90 },
-    "facing=west":  { "model": "kruemblegard:block/ancient_waystone", "y": 180 }
+    "facing=east,half=lower":  { "model": "kruemblegard:block/ancient_waystone_bottom" },
+    "facing=south,half=lower": { "model": "kruemblegard:block/ancient_waystone_bottom", "y": 90 },
+    "facing=west,half=lower":  { "model": "kruemblegard:block/ancient_waystone_bottom", "y": 180 },
+    "facing=north,half=lower": { "model": "kruemblegard:block/ancient_waystone_bottom", "y": 270 },
+    "facing=east,half=upper":  { "model": "kruemblegard:block/ancient_waystone_top" },
+    "facing=south,half=upper": { "model": "kruemblegard:block/ancient_waystone_top", "y": 90 },
+    "facing=west,half=upper":  { "model": "kruemblegard:block/ancient_waystone_top", "y": 180 },
+    "facing=north,half=upper": { "model": "kruemblegard:block/ancient_waystone_top", "y": 270 }
   }
 }

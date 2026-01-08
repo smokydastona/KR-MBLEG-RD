@@ -1,4 +1,3 @@
 {
-    "parent": "minecraft:block/cube_all",
-    "textures": { "all": "/standing_stone" }
+    "parent": "kruemblegard:block/ancient_waystone_bottom"
 }
