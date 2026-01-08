@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.268 (2026-01-08)
+- Chore(docs): add vanilla analog notes to the Block Material Bible entries.
+
 ## 1.0.267 (2026-01-08)
 - Chore(docs): add a Block Material Bible to document geology/stone/ground material rules.
 

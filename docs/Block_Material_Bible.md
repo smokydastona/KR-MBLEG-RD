@@ -95,6 +95,7 @@ For a new block material (and its variants), keep these in sync:
 
 #### Fractured Wayrock
 - **IDs**: `kruemblegard:fractured_wayrock` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:stone` (general-purpose stone building block)
 - **Map color**: `MapColor.STONE`
 - **Sound**: `SoundType.STONE`
 - **Tool rule**: base block is non-colliding portal material elsewhere, but the palette variants use `requiresCorrectToolForDrops()`
@@ -102,6 +103,7 @@ For a new block material (and its variants), keep these in sync:
 
 #### Crushstone
 - **IDs**: `kruemblegard:crushstone` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:cobblestone` / `minecraft:stone` (soft-ish stone)
 - **Map color**: `MapColor.STONE`
 - **Sound**: `SoundType.STONE`
 - **Tool rule**: does not currently require correct tool for drops
@@ -109,6 +111,7 @@ For a new block material (and its variants), keep these in sync:
 
 #### Ashfall Loam
 - **IDs**: `kruemblegard:ashfall_loam`
+- **Vanilla analog**: `minecraft:sand` (falling, soft ground)
 - **Type**: `FallingBlock`
 - **Map color**: `MapColor.DIRT`
 - **Sound**: `SoundType.SAND`
@@ -116,6 +119,7 @@ For a new block material (and its variants), keep these in sync:
 
 #### Fault Dust
 - **IDs**: `kruemblegard:fault_dust`
+- **Vanilla analog**: `minecraft:rooted_dirt` (dry soil/ground substrate)
 - **Map color**: `MapColor.SAND`
 - **Sound**: `SoundType.ROOTED_DIRT`
 - **Strength tier**: `0.5F / 0.5F`
@@ -126,6 +130,7 @@ Scarstone is a deepslate-tier stone with special tool gating.
 
 #### Scarstone
 - **IDs**: `kruemblegard:scarstone` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:deepslate` (but with custom “sub-iron tool penalty” behavior)
 - **Map color**: `MapColor.DEEPSLATE`
 - **Sound**: `SoundType.DEEPSLATE`
 - **Tool rule**: `requiresCorrectToolForDrops()` and the `ScarstoneBlock` class further penalizes sub-iron tools.
@@ -135,6 +140,7 @@ Scarstone is a deepslate-tier stone with special tool gating.
 
 #### Cracked Scarstone
 - **IDs**: `kruemblegard:cracked_scarstone` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:deepslate` / `minecraft:cobbled_deepslate` (damaged variant)
 - **Map color**: `MapColor.DEEPSLATE`
 - **Sound**: `SoundType.DEEPSLATE`
 - **Tool rule**: `requiresCorrectToolForDrops()`
@@ -142,10 +148,12 @@ Scarstone is a deepslate-tier stone with special tool gating.
 
 #### Polished Scarstone
 - **IDs**: `kruemblegard:polished_scarstone` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:polished_deepslate`
 - **Strength tier**: `4.0F / 50.0F`
 
 #### Chiseled Scarstone
 - **IDs**: `kruemblegard:chiseled_scarstone`
+- **Vanilla analog**: `minecraft:chiseled_deepslate`
 - **Strength tier**: `4.5F / 60.0F`
 
 ### Stoneveil Rubble
@@ -154,6 +162,7 @@ Rubble is a stone structural palette for ruins.
 
 #### Stoneveil Rubble
 - **IDs**: `kruemblegard:stoneveil_rubble` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:cobblestone` / `minecraft:stone_bricks` (ruin/building stone)
 - **Map color**: `MapColor.STONE`
 - **Sound**: `SoundType.STONE`
 - **Tool rule**: `requiresCorrectToolForDrops()`
@@ -161,8 +170,10 @@ Rubble is a stone structural palette for ruins.
 
 #### Polished Stoneveil Rubble
 - **IDs**: `kruemblegard:polished_stoneveil_rubble` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:stone_bricks`
 - **Strength tier**: `2.6F / 20.0F`
 
 #### Runed Stoneveil Rubble
 - **IDs**: `kruemblegard:runed_stoneveil_rubble` (+ stairs/slab/wall)
+- **Vanilla analog**: `minecraft:chiseled_stone_bricks` (decorative runed stone)
 - **Strength tier**: `2.8F / 22.0F`
