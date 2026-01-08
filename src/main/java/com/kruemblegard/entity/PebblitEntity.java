@@ -61,7 +61,19 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         private static final RawAnimation WALK_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.walk");
 
+        private static final RawAnimation SIT_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.sit");
+
+        private static final RawAnimation PERCHING_ONCE =
+            RawAnimation.begin().thenPlay("animation.pebblit.perching");
+
+        private static final RawAnimation PERCHED_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.perched");
+
         private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    private boolean wasPerchedLastTick = false;
+    private boolean playPerchingOnce = false;
 
     public PebblitEntity(EntityType<? extends Silverfish> type, Level level) {
         super(type, level);
@@ -141,6 +153,12 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
     @Override
     public void tick() {
         super.tick();
+
+        boolean perchedNow = isTamed() && isPassenger() && getVehicle() instanceof Player;
+        if (perchedNow && !wasPerchedLastTick) {
+            playPerchingOnce = true;
+        }
+        wasPerchedLastTick = perchedNow;
 
         if (!level().isClientSide && isTamed() && isSitting() && !isPassenger()) {
             // "Sit and stay" - keep it rooted in place while still allowing it to attack if something comes close.
@@ -275,6 +293,24 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 0, state -> {
+            boolean perched = isTamed() && isPassenger() && getVehicle() instanceof Player;
+
+            if (perched) {
+                if (playPerchingOnce) {
+                    state.setAnimation(PERCHING_ONCE);
+                    playPerchingOnce = false;
+                } else {
+                    state.setAnimation(PERCHED_LOOP);
+                }
+
+                return PlayState.CONTINUE;
+            }
+
+            if (isTamed() && isSitting()) {
+                state.setAnimation(SIT_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));

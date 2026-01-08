@@ -8,6 +8,18 @@
     "animation.pebblit.walk": {
       "loop": true,
       "bones": {}
+    },
+    "animation.pebblit.sit": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.pebblit.perching": {
+      "loop": false,
+      "bones": {}
+    },
+    "animation.pebblit.perched": {
+      "loop": true,
+      "bones": {}
     }
   }
 }
