@@ -1,9 +1,9 @@
 ﻿{
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "kruemblegard:block/fractured_wayrock",
-    "top": "kruemblegard:block/fractured_wayrock",
-    "side": "kruemblegard:block/fractured_wayrock"
+    "bottom": "kruemblegard:block/fractured_wayrock_top",
+    "top": "kruemblegard:block/fractured_wayrock_top",
+    "side": "kruemblegard:block/fractured_wayrock_side"
   }
 }
 

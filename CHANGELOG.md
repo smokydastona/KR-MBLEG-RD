@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.260 (2026-01-08)
+- Fix(assets): wire `fractured_wayrock_top` / `fractured_wayrock_side` into the fractured wayrock block + slab/stairs/wall models (previously everything used the single `fractured_wayrock` texture).
+
 ## 1.0.258 (2026-01-08)
 - Fix(worldgen): move `attuned_ore` placed-feature height range into the floating-island band (Y=130..383) so ores/features actually generate in Wayfall above the cutoff.
 

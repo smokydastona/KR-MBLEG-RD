@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "kruemblegard:block/fractured_wayrock"
+    "end": "kruemblegard:block/fractured_wayrock_top",
+    "side": "kruemblegard:block/fractured_wayrock_side"
   }
 }
