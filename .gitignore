@@ -36,3 +36,7 @@ tools/**
 .project
 .settings/
 bin/
+
+# VS Code (keep settings/schemas tracked; ignore generated run configs)
+.vscode/launch.json
+.vscode/tasks.json
