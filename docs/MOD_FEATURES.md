@@ -7,7 +7,9 @@ Keep it up to date whenever you add/remove/rename content.
 ## Documentation
 - Block material rules + full block inventory: `docs/Block_Material_Bible.md`
 - Item material rules + full item inventory: `docs/Item_Material_Bible.md`
+- Sound rules + full sound inventory (with exact length requirements): `docs/Sound_Bible.md`
 - After registry changes, refresh the generated inventories by running: `tools/generate_material_bibles.ps1`
+- After sound changes, refresh the generated inventory by running: `tools/generate_sound_bible.ps1`
 
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.

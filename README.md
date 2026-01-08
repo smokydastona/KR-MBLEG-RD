@@ -9,6 +9,7 @@ Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 Material references:
 - Blocks: [docs/Block_Material_Bible.md](docs/Block_Material_Bible.md)
 - Items: [docs/Item_Material_Bible.md](docs/Item_Material_Bible.md) (refresh generated inventories via `tools/generate_material_bibles.ps1`)
+- Sounds: [docs/Sound_Bible.md](docs/Sound_Bible.md) (refresh generated inventory via `tools/generate_sound_bible.ps1`)
 
 ## What this mod already does
 - **Traprock** can remain dormant until disturbed, then attacks.

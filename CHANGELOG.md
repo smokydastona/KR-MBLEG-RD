@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.273 (2026-01-08)
+- Chore(docs): add a Sound Bible with exact duration (seconds/ticks) requirements and a generator script (`tools/generate_sound_bible.ps1`).
+
 ## 1.0.272 (2026-01-08)
 - Chore(docs): add an Item Material Bible and auto-generated registry inventories for blocks/items (kept in sync via `tools/generate_material_bibles.ps1`).
 
