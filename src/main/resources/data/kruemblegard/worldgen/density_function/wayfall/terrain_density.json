@@ -15,7 +15,7 @@
             "argument2": {
               "type": "minecraft:add",
               "argument1": -0.1,
-              "argument2": "kruemblegard:wayfall/base_3d_noise"
+              "argument2": "kruemblegard:wayfall/island_shape"
             }
           },
           "argument2": "kruemblegard:wayfall/top_slide"
@@ -37,17 +37,5 @@
     },
     "argument2": "kruemblegard:wayfall/bottom_slide"
   },
-  "argument2": {
-    "type": "minecraft:mul",
-    "argument1": {
-      "type": "minecraft:mul",
-      "argument1": -0.27,
-      "argument2": "kruemblegard:wayfall/factor"
-    },
-    "argument2": {
-      "type": "minecraft:add",
-      "argument1": 0.5,
-      "argument2": "kruemblegard:wayfall/amplification"
-    }
-  }
+  "argument2": 0.0
 }
