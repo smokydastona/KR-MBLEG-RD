@@ -1,7 +1,7 @@
-﻿{
+{
     "textures": {
-        "bottom": "kruemblegard:block/ashbloom_door_bottom",
-        "top": "kruemblegard:block/ashbloom_door_top"
+        "bottom": "kruemblegard:block/ashbloom_door_bottom_fixed",
+        "top": "kruemblegard:block/ashbloom_door_top_fixed"
     },
     "parent": "minecraft:block/door_top_left_open"
 }

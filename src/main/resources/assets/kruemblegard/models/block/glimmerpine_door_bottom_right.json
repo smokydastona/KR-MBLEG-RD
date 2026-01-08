@@ -1,7 +1,7 @@
-﻿{
+{
     "textures": {
-        "bottom": "kruemblegard:block/glimmerpine_door_bottom",
-        "top": "kruemblegard:block/glimmerpine_door_top"
+        "bottom": "kruemblegard:block/glimmerpine_door_bottom_fixed",
+        "top": "kruemblegard:block/glimmerpine_door_top_fixed"
     },
     "parent": "minecraft:block/door_bottom_right"
 }

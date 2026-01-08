@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.243 (2026-01-08)
+## 1.0.243 (2026-01-07)
 - Fix(codex): ensure Crumbling Codex always opens (even when obtained as an untagged creative/search stack).
 - Tuning(assets): make Crumbling Codex render as a simple 3D book item model (less flat in-hand).
 - Fix(assets): correct wood-family item model parents that were still pointing at driftwillow placeholders.
 - Fix(assets): add missing placeholder wood door/trapdoor block textures for ashbloom/driftwood/glimmerpine.
+
+## 1.0.244 (2026-01-07)
+- Fix(assets): generate door-format placeholder textures (with the door edge strip baked in) and rewire door block models to use `*_door_{top,bottom}_fixed` when the old textures were plank-copy placeholders.
+- Fix(assets): add placeholder `*_log_top` / `*_stem_top` textures when missing (copied from the side texture).
 
 ## 1.0.242 (2026-01-08)
 - Fix(compat): harden Waystones BlockEntityType extension (avoids immutable-set crash; uses mutable copy when possible).
