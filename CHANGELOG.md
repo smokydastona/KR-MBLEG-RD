@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.252 (2026-01-08)
+- Fix(assets): render saplings and plants with cutout so transparent pixels don’t appear black.
+
 ## 1.0.251 (2026-01-08)
 - Fix(codex): remove the custom Crumbling Codex item and replace it with a vanilla `minecraft:written_book` guide (given once on first join).
 
