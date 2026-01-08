@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.257 (2026-01-08)
+- Fix(worldgen): enforce Wayfall’s “void below Y=130” cutoff again while biasing terrain upward (via `wayfall/mid_bulge`) so every Wayfall biome reliably spawns floating islands above 130.
+
 ## 1.0.256 (2026-01-08)
 - Fix(worldgen): remove the hard Wayfall terrain cutoff at Y=130 by moving the `final_density` clamp down to the dimension min Y (-32), so island bottoms aren’t perfectly flat.
 
