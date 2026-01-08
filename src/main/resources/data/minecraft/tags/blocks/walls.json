@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:attuned_stone_wall",
+    "kruemblegard:fractured_wayrock_wall",
+    "kruemblegard:crushstone_wall",
+    "kruemblegard:cracked_scarstone_wall",
+    "kruemblegard:scarstone_wall",
+    "kruemblegard:polished_scarstone_wall",
+    "kruemblegard:stoneveil_rubble_wall",
+    "kruemblegard:polished_stoneveil_rubble_wall",
+    "kruemblegard:runed_stoneveil_rubble_wall"
+  ]
+}

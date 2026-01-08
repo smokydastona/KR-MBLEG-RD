@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.250 (2026-01-08)
+- Fix(assets): add Kruemblegard wall blocks to `minecraft:walls` so they connect to each other and vanilla walls.
+
 ## 1.0.249 (2026-01-08)
 - Fix(assets): fix `menu_tab` item icon rendering by using `textures/item/menu_tab.png` (item models can’t sample from `textures/gui`).
 
