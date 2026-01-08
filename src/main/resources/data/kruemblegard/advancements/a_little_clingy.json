@@ -1,0 +1,17 @@
+{
+  "parent": "kruemblegard:root",
+  "display": {
+    "icon": {
+      "item": "kruemblegard:pebblit_spawn_egg"
+    },
+    "title": "A little Clingy",
+    "description": "Perch a tamed Pebblit on your shoulder",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "perch": {
+      "trigger": "kruemblegard:pebblit_shoulder"
+    }
+  }
+}

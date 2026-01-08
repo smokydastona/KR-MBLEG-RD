@@ -3,12 +3,15 @@ package com.kruemblegard.entity;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.kruemblegard.init.ModCriteria;
+
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -35,6 +38,8 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     private static final String NBT_TAMED = "Tamed";
     private static final String NBT_OWNER = "Owner";
+    private static final String NBT_SITTING = "Sitting";
+    private static final String NBT_SHOULDER_LOCKED = "ShoulderLocked";
 
     private static final float ATTACK_KNOCKBACK_STRENGTH = 0.6F;
 
@@ -43,6 +48,12 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+
+        private static final EntityDataAccessor<Boolean> SITTING =
+            SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
+
+        private static final EntityDataAccessor<Boolean> SHOULDER_LOCKED =
+            SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
         private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.idle");
@@ -61,10 +72,33 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         super.defineSynchedData();
         this.entityData.define(TAMED, false);
         this.entityData.define(OWNER_UUID, Optional.empty());
+        this.entityData.define(SITTING, false);
+        this.entityData.define(SHOULDER_LOCKED, false);
     }
 
     public boolean isTamed() {
         return this.entityData.get(TAMED);
+    }
+
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    private void setSitting(boolean sitting) {
+        this.entityData.set(SITTING, sitting);
+
+        if (sitting) {
+            getNavigation().stop();
+            setDeltaMovement(0.0D, getDeltaMovement().y, 0.0D);
+        }
+    }
+
+    public boolean isShoulderLocked() {
+        return this.entityData.get(SHOULDER_LOCKED);
+    }
+
+    private void setShoulderLocked(boolean shoulderLocked) {
+        this.entityData.set(SHOULDER_LOCKED, shoulderLocked);
     }
 
     @Nullable
@@ -108,6 +142,21 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
     public void tick() {
         super.tick();
 
+        if (!level().isClientSide && isTamed() && isSitting() && !isPassenger()) {
+            // "Sit and stay" - keep it rooted in place while still allowing it to attack if something comes close.
+            getNavigation().stop();
+            setDeltaMovement(0.0D, getDeltaMovement().y, 0.0D);
+        }
+
+        if (!level().isClientSide && isTamed() && isShoulderLocked() && !isPassenger()) {
+            LivingEntity owner = getOwner();
+            if (owner instanceof Player ownerPlayer && ownerPlayer.isAlive() && !ownerPlayer.isSpectator()) {
+                if (distanceToSqr(ownerPlayer) < (16.0D * 16.0D)) {
+                    startRiding(ownerPlayer, true);
+                }
+            }
+        }
+
         if (!level().isClientSide && isTamed() && isPassenger() && getVehicle() instanceof Player rider) {
             // Keep the Pebblit visually perched on the player's shoulder.
             // We use riding mechanics (instead of vanilla shoulder NBT) so it works reliably with our mappings.
@@ -145,14 +194,31 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         }
 
         if (!level().isClientSide && isTamed() && isAlliedTo(player) && stack.isEmpty()) {
-            // Toggle perching on the owner's shoulder.
-            if (isPassenger() && getVehicle() == player) {
-                stopRiding();
-                moveTo(player.getX(), player.getY(), player.getZ(), getYRot(), getXRot());
-            } else {
-                startRiding(player, true);
+            // Non-shift: toggle "sit and stay".
+            // Shift: perch on shoulder until death (no manual un-perch).
+
+            if (isPassenger()) {
+                // Don't change behavior while already perched.
+                return InteractionResult.CONSUME;
             }
 
+            if (player.isCrouching()) {
+                // Permanent perch.
+                setSitting(false);
+                setShoulderLocked(true);
+
+                boolean mounted = startRiding(player, true);
+                if (mounted && player instanceof ServerPlayer serverPlayer) {
+                    ModCriteria.PEBBLIT_SHOULDER.trigger(serverPlayer);
+                }
+
+                return InteractionResult.CONSUME;
+            }
+
+            // Toggle sit.
+            if (!isShoulderLocked()) {
+                setSitting(!isSitting());
+            }
             return InteractionResult.CONSUME;
         }
 
@@ -176,6 +242,8 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean(NBT_TAMED, isTamed());
+        tag.putBoolean(NBT_SITTING, isSitting());
+        tag.putBoolean(NBT_SHOULDER_LOCKED, isShoulderLocked());
 
         UUID owner = getOwnerUUID();
         if (owner != null) {
@@ -193,6 +261,14 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
         if (tag.hasUUID(NBT_OWNER)) {
             this.entityData.set(OWNER_UUID, Optional.of(tag.getUUID(NBT_OWNER)));
+        }
+
+        if (tag.contains(NBT_SITTING)) {
+            this.entityData.set(SITTING, tag.getBoolean(NBT_SITTING));
+        }
+
+        if (tag.contains(NBT_SHOULDER_LOCKED)) {
+            this.entityData.set(SHOULDER_LOCKED, tag.getBoolean(NBT_SHOULDER_LOCKED));
         }
     }
 
@@ -240,6 +316,7 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         @Override
         public boolean canUse() {
             if (!pebblit.isTamed()) return false;
+            if (pebblit.isPassenger() || pebblit.isSitting() || pebblit.isShoulderLocked()) return false;
 
             owner = pebblit.getOwner();
             if (owner == null) return false;
@@ -252,6 +329,7 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         @Override
         public boolean canContinueToUse() {
             if (!pebblit.isTamed()) return false;
+            if (pebblit.isPassenger() || pebblit.isSitting() || pebblit.isShoulderLocked()) return false;
             if (owner == null || !owner.isAlive()) return false;
 
             return pebblit.distanceToSqr(owner) > (double) (stopDistance * stopDistance);

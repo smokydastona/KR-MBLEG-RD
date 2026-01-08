@@ -17,7 +17,8 @@ Keep it up to date whenever you add/remove/rename content.
 - **Pebblit** (`pebblit`)
   - Hostile Silverfish-like creature.
   - Can be tamed by right-clicking with cobblestone; follows its owner.
-  - Can perch on the owner's shoulder (right-click with empty hand) and grants the owner **knockback resistance** while perched.
+  - Right-click with empty hand (non-shift): toggles **sit and stay**.
+  - Shift + right-click with empty hand: perches on the owner's shoulder **until it dies**, granting the owner **knockback resistance** while perched.
   - Pebblit attacks apply **knockback**.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/pebblit.geo.json`
@@ -116,7 +117,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ## Advancements / criteria (project-specific)
 - Vanilla advancements are not granted directly.
-- `init/ModCriteria` is the home for custom triggers, but none are currently registered.
+- `init/ModCriteria` is the home for custom triggers.
+- `kruemblegard:pebblit_shoulder` grants the advancement **A little Clingy** when a Pebblit is perched.
 
 ## Loot
 - Krümblegård entity loot table drops Runic Core.

@@ -29,6 +29,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(pebblit): allow tamed Pebblit to perch on the owner's shoulder (right-click with empty hand), granting knockback resistance while perched.
 - Feat(pebblit): Pebblit attacks now apply knockback.
 
+## 1.0.232 (2026-01-08)
+- Feat(pebblit): shift + right-click with empty hand perches a tamed Pebblit on your shoulder until it dies.
+- Feat(pebblit): right-click with empty hand (non-shift) toggles sit-and-stay.
+- Feat(advancement): add "A little Clingy" for perching a Pebblit.
+
 ## 1.0.221 (2026-01-07)
 - Fix(assets): correct `ashbloom_door`, `driftwood_door`, and `glimmerpine_door` item models so they no longer reuse the `driftwillow_door` icon.
 - Fix(assets): add placeholder door item textures for ashbloom/driftwood/glimmerpine (copied from their planks textures) so the icons at least match their wood set.
