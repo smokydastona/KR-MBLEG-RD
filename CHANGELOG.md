@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.306 (2026-01-09)
+- Fix(worldgen): mitigate the Wayfall chunk-gen crash (`Feature order cycle found`) by removing custom tree injections from the two biomes called out as involved sources (`kruemblegard:crumbled_crossing`, `kruemblegard:strata_collapse`). Plant/fungus patches still generate.
+
 ## 1.0.302 (2026-01-08)
 - Fix(worldgen): make Forge 47.4.0 load biome modifiers again by switching `biomes` selectors back to `#tag` string shorthand (the explicit `forge:tag` holder-set form failed registry parsing).
 - Fix(worldgen): replace the unsupported `forge:add_structure` biome modifier for `megalithic_circle` with a harmless no-op (the structure is already governed by its `worldgen/structure` + `worldgen/structure_set` and biome tags).

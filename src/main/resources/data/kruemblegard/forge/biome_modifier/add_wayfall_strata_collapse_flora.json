@@ -2,9 +2,6 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:strata_collapse",
   "features": [
-    "kruemblegard:cairn_tree_tree",
-    "kruemblegard:faultwood_tree",
-
     "kruemblegard:cairnroot_patch",
     "kruemblegard:milestone_grass_patch",
     "kruemblegard:waylily_patch",
