@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen): make Forge 47.4.0 load biome modifiers again by switching `biomes` selectors back to `#tag` string shorthand (the explicit `forge:tag` holder-set form failed registry parsing).
 - Fix(worldgen): replace the unsupported `forge:add_structure` biome modifier for `megalithic_circle` with a harmless no-op (the structure is already governed by its `worldgen/structure` + `worldgen/structure_set` and biome tags).
 
+## 1.0.303 (2026-01-08)
+- Fix(worldgen): prevent a Wayfall chunk-gen crash (`Feature order cycle found`) by ensuring the global Wayfall vegetation injection applies in a consistent order across all Wayfall biomes.
+
 ## 1.0.299 (2026-01-09)
 - Fix(worldgen): Wayfall feature injections now apply on Forge 47.4.0 by using explicit `forge:tag` biome selectors in Forge biome modifiers (instead of `#tag` shorthand).
 
