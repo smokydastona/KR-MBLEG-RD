@@ -98,6 +98,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Saplings can grow via random ticks or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
+  - Glimmerpine has a rare **mega** (2x2) variant that can generate naturally in Wayfall.
+  - Driftwillow has a rare **mega** (2x2) variant that can generate naturally in drift biomes.
+  - Monument Oak has a rare **mega** (2x2) variant that can generate naturally in Glyphscar Reach.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`).
   - Full per-tree reference: [TREES.md](TREES.md)

@@ -13,7 +13,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Sky is always black (`sky_color: 0`).
 - Terrain is floating-island style above the Y=130 cutoff; islands should be common enough that all Wayfall biomes can be found for progression.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets), and density is primarily controlled by each placed feature’s `rarity_filter`.
-  - Wayroot includes a rare mega variant in natural generation.
+  - Some Wayfall trees include rare mega variants in natural generation (Wayroot, Glimmerpine, Driftwillow, Monument Oak).
 - Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.
@@ -52,7 +52,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `crumbled_crossing.json`
 - Description: A windblown crossing of broken island fragments, dusted with white ash and marked by large attuned disks.
 - Intended flora (design target):
-  - Trees: Driftwillow, Cairn Tree
+  - Trees: Driftwillow (rare mega variant), Cairn Tree
   - Plants: Waylily, Milestone Grass, Echo Puff
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
@@ -66,7 +66,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `driftway_chasm.json`
 - Description: A fractured chasm corridor with falling ash and sparse megaliths; small attuned disks appear like waymarkers.
 - Intended flora (design target):
-  - Trees: Driftwillow
+  - Trees: Driftwillow (rare mega variant)
   - Plants: Pathreed, Runedrift Reed, Cairnroot
 - Spawns (monster): Pebblit (weight 8, 1–2), Traprock (weight 4, solo)
 - Features:
@@ -106,7 +106,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `glyphscar_reach.json`
 - Description: A rune-bright reach where enchant motes float and stone structures feel subtly “active.”
 - Intended flora (design target):
-  - Trees: Monument Oak, Waytorch Tree
+  - Trees: Monument Oak (rare mega variant), Waytorch Tree
   - Plants: Runebloom, Rune Sprouts, Wayburn Fungus
 - Spawns (monster): Traprock (weight 5, solo), Pebblit (weight 5, 1–2)
 - Features:
@@ -131,7 +131,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `riven_causeways.json`
 - Description: Broken causeways and riven slabs stitched together by dense standing stones; smoke hangs low.
 - Intended flora (design target):
-  - Trees: Faultwood, Driftwillow
+  - Trees: Faultwood, Driftwillow (rare mega variant)
   - Plants: Falsepath Thorns, Sliproot, Dustpetal
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
 - Features: (none listed)
@@ -168,7 +168,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `underway_falls.json`
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
 - Intended flora (design target):
-  - Trees: Driftwillow, Waytorch Tree
+  - Trees: Driftwillow (rare mega variant), Waytorch Tree
   - Plants: Driftbloom, Reverse Portal Spores (custom particle plant), Waythread
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
 - Features:

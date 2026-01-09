@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.286 (2026-01-08)
+- Feature(worldgen): add 2x2 “mega” natural Wayfall spawning variants for Glimmerpine, Monument Oak, and Driftwillow (new placed features: `kruemblegard:mega_glimmerpine_tree`, `kruemblegard:mega_monument_oak_tree`, `kruemblegard:mega_driftwillow_tree`).
+- Tuning(trees): model the mega variants after Arboria-style giant-tree patterns (giant trunk placer + dense leaf attachments) while keeping each tree’s own logs/leaves.
+
 ## 1.0.285 (2026-01-08)
 - Feature(worldgen): add natural Wayfall spawning for the mega Wayroot tree via a new placed feature (`kruemblegard:mega_wayroot_tree`) using the existing `wayroot/mega` configured feature.
 - Tuning(trees): retune `wayroot/mega` to match Arboria-style “big spruce” proportions (taller trunk and denser crown/leaf attachments) while keeping Wayroot blocks and Stoneveil Rubble dirt.
