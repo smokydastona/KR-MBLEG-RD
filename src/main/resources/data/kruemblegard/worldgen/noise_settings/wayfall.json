@@ -25,8 +25,8 @@
     "initial_density_without_jaggedness": 0.0,
     "lava": 0.0,
     "ridges": "kruemblegard:wayfall/ridges",
-    "temperature": "kruemblegard:wayfall/temperature",
-    "vegetation": "kruemblegard:wayfall/humidity",
+    "temperature": "kruemblegard:wayfall/biome_temperature",
+    "vegetation": "kruemblegard:wayfall/biome_humidity",
     "vein_gap": 0.0,
     "vein_ridged": 0.0,
     "vein_toggle": 0.0

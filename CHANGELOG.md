@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.291 (2026-01-09)
+- Fix(worldgen): Wayfall biome selection now varies across the world more reliably by using higher-frequency climate sampling for the multi-noise biome source.
+
 ## 1.0.287 (2026-01-09)
 - Fix(loot): Wayfall tree leaves now drop their matching saplings and sticks like vanilla (shears/silk touch preserve leaves; fortune affects saplings/sticks; explosion rules match vanilla).
 
