@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": {
-    "type": "forge:tag",
-    "tag": "kruemblegard:wayfall"
-  },
+  "biomes": "#kruemblegard:wayfall",
   "features": [
     "kruemblegard:attuned_ore"
   ],

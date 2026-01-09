@@ -2,8 +2,8 @@
   "type": "minecraft:cache_2d",
   "argument": {
     "type": "minecraft:noise",
-    "noise": "kruemblegard:wayfall/ridges",
-    "xz_scale": 0.05,
+    "noise": "kruemblegard:wayfall/detail",
+    "xz_scale": 0.035,
     "y_scale": 0.0001
   }
 }

@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": {
-    "type": "forge:tag",
-    "tag": "kruemblegard:riven_causeways"
-  },
+  "biomes": "#kruemblegard:riven_causeways",
   "features": [
     "kruemblegard:faultwood_tree",
     "kruemblegard:driftwillow_tree",

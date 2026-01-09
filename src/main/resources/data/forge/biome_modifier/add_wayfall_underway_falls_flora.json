@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": {
-    "type": "forge:tag",
-    "tag": "kruemblegard:underway_falls"
-  },
+  "biomes": "#kruemblegard:underway_falls",
   "features": [
     "kruemblegard:driftwillow_tree",
     "kruemblegard:mega_driftwillow_tree",

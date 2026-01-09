@@ -16,8 +16,8 @@
   },
   "noise_router": {
     "barrier": 0.0,
-    "continents": 0.0,
-    "depth": 0.0,
+    "continents": "kruemblegard:wayfall/continentalness",
+    "depth": "kruemblegard:wayfall/biome_depth",
     "erosion": "kruemblegard:wayfall/erosion",
     "final_density": "kruemblegard:wayfall/final_density",
     "fluid_level_floodedness": 0.0,

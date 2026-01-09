@@ -10,6 +10,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.295 (2026-01-08)
 - Fix(advancements): the mod's root advancement is now granted on first entry to Wayfall (instead of immediately on first world tick).
 
+## 1.0.297 (2026-01-08)
+- Fix(worldgen): Wayfall feature injections now apply correctly by using `#tag` biome selectors in Forge biome modifiers.
+- Tuning(worldgen): reduce Wayfall biome size by enabling additional climate channels (continentalness/depth) and increasing climate sampling frequency.
+
 ## 1.0.293 (2026-01-09)
 - Fix(worldgen): Wayfall vegetation patches now re-sample the surface heightmap per placement attempt, so plant/fungus patches actually generate on floating islands instead of mostly failing over void.
 
