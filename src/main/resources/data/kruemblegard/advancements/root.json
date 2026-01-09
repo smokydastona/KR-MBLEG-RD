@@ -10,8 +10,11 @@
     "announce_to_chat": true
   },
   "criteria": {
-    "tick": {
-      "trigger": "minecraft:tick"
+    "enter_wayfall": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "kruemblegard:wayfall"
+      }
     }
   }
 }
