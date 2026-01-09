@@ -7,8 +7,8 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
-				"visible_bounds_height": 1.5,
-				"visible_bounds_offset": [0, 0.5, 0]
+				"visible_bounds_height": 2.25,
+				"visible_bounds_offset": [0, 0.875, 0]
 			},
 			"bones": [
 				{
@@ -18,49 +18,72 @@
 				{
 					"name": "body",
 					"parent": "root",
+					"pivot": [0, 12.1, -10],
+					"rotation": [90, 0, 0],
+					"cubes": [
+						{"origin": [-3, -1.9, -19], "size": [6, 6, 2], "uv": [48, 24]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, -1, -22],
+					"rotation": [-90, 0, 0]
+				},
+				{
+					"name": "bottom_head",
+					"parent": "head",
+					"pivot": [0, 7.48, -19.46],
+					"cubes": [
+						{"origin": [-4, 4, -32.16], "size": [8, 3, 12.7], "uv": [0, 89]}
+					]
+				},
+				{
+					"name": "top_head",
+					"parent": "head",
+					"pivot": [0, 7.48, -19.46],
+					"cubes": [
+						{"origin": [-4, 7, -32.16], "size": [8, 3, 12.7], "uv": [0, 76]},
+						{"origin": [-4, 7, -32.2275], "size": [8, 3, 12.835], "inflate": 0.25, "uv": [0, 63]},
+						{"origin": [-4, 7, -23.16], "size": [8, 4, 3.7], "uv": [9, 85]}
+					]
+				},
+				{
+					"name": "rotation",
+					"parent": "body",
 					"pivot": [0, 0, 0],
+					"rotation": [-90, 0, 0]
+				},
+				{
+					"name": "hungerfl_leg",
+					"parent": "rotation",
+					"pivot": [2, -18, -3],
 					"cubes": [
-						{"origin": [-8, 0, -8], "size": [16, 2, 16], "uv": [0, 0]}
+						{"origin": [1.1, -22, -4], "size": [2, 4, 2], "uv": [40, 27]}
 					]
 				},
 				{
-					"name": "upper_mouth",
-					"parent": "body",
-					"pivot": [0, 2, 0],
+					"name": "hungerfr_leg",
+					"parent": "rotation",
+					"pivot": [-2, -18, -3],
 					"cubes": [
-						{"origin": [-7, 2, -7], "size": [14, 2, 14], "uv": [0, 18]}
+						{"origin": [-3.1, -22, -4], "size": [2, 4, 2], "uv": [40, 27]}
 					]
 				},
 				{
-					"name": "lower_jaw",
-					"parent": "body",
-					"pivot": [0, 1, -1],
+					"name": "hungerbl_leg",
+					"parent": "rotation",
+					"pivot": [2, -18, 1],
 					"cubes": [
-						{"origin": [-6, 0, -7], "size": [12, 2, 8], "uv": [0, 34]}
+						{"origin": [1.1, -22, 0], "size": [2, 4, 2], "uv": [40, 27]}
 					]
 				},
 				{
-					"name": "inner_gullet",
-					"parent": "body",
-					"pivot": [0, 1, 0],
+					"name": "hungerbr_leg",
+					"parent": "rotation",
+					"pivot": [-2, -18, 1],
 					"cubes": [
-						{"origin": [-4, 0, -4], "size": [8, 2, 8], "uv": [32, 18]}
-					]
-				},
-				{
-					"name": "left_frill",
-					"parent": "body",
-					"pivot": [-8, 1, 0],
-					"cubes": [
-						{"origin": [-10, 0, -6], "size": [2, 2, 12], "uv": [32, 34]}
-					]
-				},
-				{
-					"name": "right_frill",
-					"parent": "body",
-					"pivot": [8, 1, 0],
-					"cubes": [
-						{"origin": [8, 0, -6], "size": [2, 2, 12], "uv": [32, 48]}
+						{"origin": [-3.1, -22, 0], "size": [2, 4, 2], "uv": [40, 27]}
 					]
 				}
 			]
