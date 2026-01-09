@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.285 (2026-01-09)
+- Feature(worldgen): add natural Wayfall spawning for the mega Wayroot tree via a new placed feature (`kruemblegard:mega_wayroot_tree`) using the existing `wayroot/mega` configured feature.
+
 ## 1.0.283 (2026-01-08)
 - Tuning(worldgen): make Wayfall floating islands less sparse (more consistent landmass) and improve biome variety by reducing extreme `wayfall/factor` spikes and increasing the `mid_bulge` contribution above the Y=130 cutoff.
 

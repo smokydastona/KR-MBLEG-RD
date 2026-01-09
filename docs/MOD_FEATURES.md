@@ -97,6 +97,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Axes strip Wayfall logs/wood into their stripped variants.
   - Saplings can grow via random ticks or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
+  - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`).
   - Full per-tree reference: [TREES.md](TREES.md)
