@@ -11,6 +11,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - **No vanilla spawns**: all spawn lists are intentionally limited to Krümblegård mobs.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
+- Terrain is floating-island style above the Y=130 cutoff; islands should be common enough that all Wayfall biomes can be found for progression.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets).
 - Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
