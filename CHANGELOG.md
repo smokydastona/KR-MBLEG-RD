@@ -4,12 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.302 (2026-01-09)
+## 1.0.302 (2026-01-08)
 - Fix(worldgen): make Forge 47.4.0 load biome modifiers again by switching `biomes` selectors back to `#tag` string shorthand (the explicit `forge:tag` holder-set form failed registry parsing).
 - Fix(worldgen): replace the unsupported `forge:add_structure` biome modifier for `megalithic_circle` with a harmless no-op (the structure is already governed by its `worldgen/structure` + `worldgen/structure_set` and biome tags).
 
-## 1.0.304 (2026-01-09)
-- Fix(worldgen): fix Wayfall chunk-gen crash (`Feature order cycle found`) by deleting the old duplicated global Wayfall vegetation biome modifier so placed features are not injected twice.
+## 1.0.305 (2026-01-08)
+- Fix(worldgen): fix Wayfall chunk-gen crash (`Feature order cycle found`) by deleting the duplicated global Wayfall vegetation biome modifier so placed features are not injected twice.
+
+## 1.0.304 (2026-01-08)
+- Docs: correct the changelog history around the Wayfall feature-cycle investigation.
 
 ## 1.0.303 (2026-01-08)
 - Chore(worldgen): rename the global Wayfall vegetation biome modifier to `00_add_wayfall_plants.json` to try to stabilize injection order (subsequent fix removed the duplicate file that was still present).
