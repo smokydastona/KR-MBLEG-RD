@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.300 (2026-01-08)
 - Fix(trees): Wayfall saplings now use vanilla sapling block properties, enabling natural growth via random ticks (bonemeal still works).
 
+## 1.0.301 (2026-01-08)
+- Fix(worldgen): move Forge biome modifiers to `data/kruemblegard/forge/biome_modifier` so Wayfall feature injections load correctly (previously they were under the `forge` namespace).
+
 ## 1.0.298 (2026-01-09)
 - Chore(worldgen): improve startup diagnostics by validating that Wayfall biomes actually contain injected placed features (helps detect biome modifiers not applying).
 

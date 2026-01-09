@@ -169,8 +169,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall flora placement is data-driven via biome modifiers/tags/worldgen JSON.
 - Wayfall flora is injected via Forge biome modifiers:
   - Biome selection is tag-driven via explicit `forge:tag` selectors (for Forge 47.4.0 compatibility).
-  - Global “staple” trees/plants are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
-  - Biome-specific trees/plants are injected via `data/forge/biome_modifier/add_wayfall_*_flora.json`.
+  - Global “staple” trees/plants are injected into all Wayfall biomes via `data/kruemblegard/forge/biome_modifier/add_wayfall_plants.json`.
+  - Biome-specific trees/plants are injected via `data/kruemblegard/forge/biome_modifier/add_wayfall_*_flora.json`.
 
 ## Trees
 - Wayfall saplings grow over time via random ticks like vanilla saplings (bonemeal accelerates growth).
