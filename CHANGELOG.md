@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.287 (2026-01-09)
+- Fix(loot): Wayfall tree leaves now drop their matching saplings and sticks like vanilla (shears/silk touch preserve leaves; fortune affects saplings/sticks; explosion rules match vanilla).
+
 ## 1.0.286 (2026-01-08)
 - Feature(worldgen): add 2x2 “mega” natural Wayfall spawning variants for Glimmerpine, Monument Oak, and Driftwillow (new placed features: `kruemblegard:mega_glimmerpine_tree`, `kruemblegard:mega_monument_oak_tree`, `kruemblegard:mega_driftwillow_tree`).
 - Tuning(trees): model the mega variants after Arboria-style giant-tree patterns (giant trunk placer + dense leaf attachments) while keeping each tree’s own logs/leaves.
