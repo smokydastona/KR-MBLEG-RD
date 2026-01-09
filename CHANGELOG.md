@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.293 (2026-01-09)
+- Fix(worldgen): Wayfall vegetation patches now re-sample the surface heightmap per placement attempt, so plant/fungus patches actually generate on floating islands instead of mostly failing over void.
+
 ## 1.0.292 (2026-01-08)
 - Chore(build): pin the dev/compile Forge dependency back to `1.20.1-47.4.0` (the mod still supports newer Forge 47.x at runtime).
 

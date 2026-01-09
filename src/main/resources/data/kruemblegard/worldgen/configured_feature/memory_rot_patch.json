@@ -15,6 +15,10 @@
                                                },
                                    "placement":  [
                                                      {
+                                                         "type":  "minecraft:heightmap",
+                                                         "heightmap":  "MOTION_BLOCKING"
+                                                     },
+                                                     {
                                                          "predicate":  {
                                                                            "state":  {
                                                                                          "Name":  "kruemblegard:memory_rot"
