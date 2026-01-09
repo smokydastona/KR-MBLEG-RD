@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:wayfall",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:wayfall"
+  },
   "features": [
     "kruemblegard:ashfall_loam_disk",
     "kruemblegard:fault_dust_disk"

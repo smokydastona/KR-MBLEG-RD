@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:basin_of_scars",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:basin_of_scars"
+  },
   "features": [
     "kruemblegard:shardbark_pine_tree",
     "kruemblegard:fallbark_tree",

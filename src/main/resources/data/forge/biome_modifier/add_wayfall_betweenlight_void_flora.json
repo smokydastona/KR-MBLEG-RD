@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:betweenlight_void",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:betweenlight_void"
+  },
   "features": [
     "kruemblegard:hollowway_tree_tree",
 

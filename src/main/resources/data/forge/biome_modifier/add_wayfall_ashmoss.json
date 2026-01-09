@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:wayfall_ash_heavy",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:wayfall_ash_heavy"
+  },
   "features": [
     "kruemblegard:ashmoss_patch"
   ],

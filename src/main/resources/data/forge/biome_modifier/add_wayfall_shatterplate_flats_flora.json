@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:shatterplate_flats",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:shatterplate_flats"
+  },
   "features": [
     "kruemblegard:shardbark_pine_tree",
 

@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:strata_collapse",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:strata_collapse"
+  },
   "features": [
     "kruemblegard:cairn_tree_tree",
     "kruemblegard:faultwood_tree",

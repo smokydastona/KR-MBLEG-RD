@@ -1,5 +1,8 @@
 {
   "type": "forge:add_structure",
   "structure": "kruemblegard:megalithic_circle",
-  "biomes": "#kruemblegard:has_structure/megalithic_circle"
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:has_structure/megalithic_circle"
+  }
 }

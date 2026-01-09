@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:hollow_transit_plains",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:hollow_transit_plains"
+  },
   "features": [
     "kruemblegard:hollowway_tree_tree",
 

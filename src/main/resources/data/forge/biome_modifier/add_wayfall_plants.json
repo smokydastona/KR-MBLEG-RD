@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:wayfall",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:wayfall"
+  },
   "features": [
     "kruemblegard:ashbloom_tree",
     "kruemblegard:glimmerpine_tree",

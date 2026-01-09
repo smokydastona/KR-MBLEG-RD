@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:glyphscar_reach",
+  "biomes": {
+    "type": "forge:tag",
+    "tag": "kruemblegard:glyphscar_reach"
+  },
   "features": [
     "kruemblegard:monument_oak_tree",
     "kruemblegard:mega_monument_oak_tree",
