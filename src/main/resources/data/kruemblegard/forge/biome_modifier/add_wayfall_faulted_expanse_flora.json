@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": {
-    "type": "forge:tag",
-    "tag": "kruemblegard:faulted_expanse"
-  },
+  "biomes": "#kruemblegard:faulted_expanse",
   "features": [
     "kruemblegard:faultwood_tree",
     "kruemblegard:fallbark_tree",

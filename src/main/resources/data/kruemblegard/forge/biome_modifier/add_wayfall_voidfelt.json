@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": {
-    "type": "forge:tag",
-    "tag": "kruemblegard:wayfall_void"
-  },
+  "biomes": "#kruemblegard:wayfall_void",
   "features": [
     "kruemblegard:voidfelt_patch"
   ],
