@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.283 (2026-01-08)
 - Tuning(worldgen): make Wayfall floating islands less sparse (more consistent landmass) and improve biome variety by reducing extreme `wayfall/factor` spikes and increasing the `mid_bulge` contribution above the Y=130 cutoff.
 
+## 1.0.284 (2026-01-08)
+- Tuning(worldgen): increase Wayfall vegetation density by reducing `rarity_filter` chances on Wayfall-injected placed features (trees and plant patches) so islands above Y=130 reliably get biome flora.
+
 ## 1.0.274 (2026-01-08)
 - Remove(worldgen): delete the Standing Stone scatter placed/configured features and remove their biome injections; Standing Stones are intended to be placed via structures instead.
 
