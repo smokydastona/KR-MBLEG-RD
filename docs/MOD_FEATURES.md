@@ -172,6 +172,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Global “staple” trees/plants are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
   - Biome-specific trees/plants are injected via `data/forge/biome_modifier/add_wayfall_*_flora.json`.
 
+## Trees
+- Wayfall saplings grow over time via random ticks like vanilla saplings (bonemeal accelerates growth).
+
 ## Removed / not present (by design)
 - `false_waystone` (block + worldgen + biome modifier/tag) was removed.
 - `radiant_essence` was removed.

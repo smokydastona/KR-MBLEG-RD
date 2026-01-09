@@ -1059,12 +1059,7 @@ public final class ModBlocks {
         private static RegistryObject<Block> registerFeatureSapling(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
                 return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
                                 new FixedConfiguredFeatureTreeGrower(featureKey),
-                                BlockBehaviour.Properties.of()
-                                                .mapColor(MapColor.PLANT)
-                                                .noCollission()
-                                                .instabreak()
-                                                .sound(SoundType.GRASS)
-                                                .randomTicks()
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_SAPLING)
                 ));
         }
 
@@ -1073,12 +1068,7 @@ public final class ModBlocks {
                                                                        ResourceKey<ConfiguredFeature<?, ?>> megaFeatureKey) {
                 return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
                                 new TwoByTwoConfiguredFeatureTreeGrower(smallFeatureKey, megaFeatureKey),
-                                BlockBehaviour.Properties.of()
-                                                .mapColor(MapColor.PLANT)
-                                                .noCollission()
-                                                .instabreak()
-                                                .sound(SoundType.GRASS)
-                                                .randomTicks()
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_SAPLING)
                 ));
         }
 

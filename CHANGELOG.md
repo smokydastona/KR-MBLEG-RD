@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.299 (2026-01-09)
 - Fix(worldgen): Wayfall feature injections now apply on Forge 47.4.0 by using explicit `forge:tag` biome selectors in Forge biome modifiers (instead of `#tag` shorthand).
 
+## 1.0.300 (2026-01-08)
+- Fix(trees): Wayfall saplings now use vanilla sapling block properties, enabling natural growth via random ticks (bonemeal still works).
+
 ## 1.0.298 (2026-01-09)
 - Chore(worldgen): improve startup diagnostics by validating that Wayfall biomes actually contain injected placed features (helps detect biome modifiers not applying).
 
