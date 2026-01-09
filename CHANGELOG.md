@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.294 (2026-01-09)
+- Fix(wayfall): entering Wayfall now prefers spawning on the nearest surface (heightmap-based) and only builds a platform if no terrain is found.
+
 ## 1.0.293 (2026-01-09)
 - Fix(worldgen): Wayfall vegetation patches now re-sample the surface heightmap per placement attempt, so plant/fungus patches actually generate on floating islands instead of mostly failing over void.
 

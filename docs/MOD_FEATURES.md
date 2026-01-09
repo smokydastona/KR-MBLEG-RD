@@ -126,6 +126,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
 - Wayfall terrain shaping is driven by custom `worldgen/noise/**` + `worldgen/density_function/**` entries (instead of End island routing).
 - Safety: entering Wayfall via the portal searches for nearby solid ground and will generate a small platform if the spawn area is void.
+- Safety: Wayfall entry prefers the nearest surface (heightmap) before platform creation.
 - Safety: falling into the Wayfall void teleports you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.

@@ -116,19 +116,29 @@ public class WayfallPortalBlock extends Block {
         for (int dx = -searchRadius; dx <= searchRadius; dx += step) {
             for (int dz = -searchRadius; dz <= searchRadius; dz += step) {
                 BlockPos probe = spawn.offset(dx, 0, dz);
-                BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, probe);
+                // getHeightmapPos returns the first air block above the top-most motion-blocking block.
+                // Treat this as the player's feet position, and validate the block below as ground.
+                BlockPos feet = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, probe);
 
                 // Heightmap can still resolve to the bottom when the column is empty.
-                if (top.getY() <= level.getMinBuildHeight() + 1) {
+                if (feet.getY() <= level.getMinBuildHeight() + 1) {
+                    continue;
+                }
+
+                BlockPos ground = feet.below();
+                if (ground.getY() <= level.getMinBuildHeight()) {
                     continue;
                 }
 
                 // Ensure there's actually something to stand on.
-                if (level.getBlockState(top).isAir()) {
+                if (level.getBlockState(ground).isAir()) {
                     continue;
                 }
 
-                BlockPos feet = top.above();
+                // Must have solid-ish collision below, and space for player at feet + head.
+                if (level.getBlockState(ground).getCollisionShape(level, ground).isEmpty()) {
+                    continue;
+                }
                 if (!level.getBlockState(feet).getCollisionShape(level, feet).isEmpty()) {
                     continue;
                 }
