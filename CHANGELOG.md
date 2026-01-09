@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.298 (2026-01-09)
+- Chore(worldgen): improve startup diagnostics by validating that Wayfall biomes actually contain injected placed features (helps detect biome modifiers not applying).
+
 ## 1.0.294 (2026-01-09)
 - Fix(wayfall): entering Wayfall now prefers spawning on the nearest surface (heightmap-based) and only builds a platform if no terrain is found.
 

@@ -165,7 +165,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Worldgen
 - Worldgen is primarily data-driven under `data/kruemblegard/worldgen/**`.
 - Important worldgen IDs are centralized in `src/main/java/com/kruemblegard/worldgen/ModWorldgenKeys.java`.
-- Critical datapack registry entries/tags are sanity-checked on server start via `com.kruemblegard.worldgen.WorldgenValidator`.
+- Critical datapack registry entries/tags are sanity-checked on server start via `com.kruemblegard.worldgen.WorldgenValidator` (including a check that Wayfall biomes actually contain expected injected placed features).
 - Wayfall flora placement is data-driven via biome modifiers/tags/worldgen JSON.
 - Wayfall flora is injected via Forge biome modifiers:
   - Global “staple” trees/plants are injected into all Wayfall biomes via `data/forge/biome_modifier/add_wayfall_plants.json`.
