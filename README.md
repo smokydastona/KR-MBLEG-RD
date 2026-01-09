@@ -2,7 +2,7 @@
 
 This project contains a Forge 1.20.1 + GeckoLib mod.
 
-Recommended Forge runtime: `1.20.1-47.4.10` (or newer 1.20.1 patch). If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update the instance’s Forge.
+Recommended Forge runtime: `1.20.1-47.4.0` (or newer 1.20.1 patch). If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update the instance’s Forge.
 
 Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 

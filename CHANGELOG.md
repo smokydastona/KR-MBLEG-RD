@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.292 (2026-01-08)
+- Chore(build): pin the dev/compile Forge dependency back to `1.20.1-47.4.0` (the mod still supports newer Forge 47.x at runtime).
+
 ## 1.0.291 (2026-01-09)
 - Fix(worldgen): Wayfall biome selection now varies across the world more reliably by using higher-frequency climate sampling for the multi-noise biome source.
 
