@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.312 (2026-01-10)
+- Tuning(worldgen): make `runegrowth` part of the Wayfall terrain surface palette by generating it as the default top surface (fallback) and as the top cover over `fault_dust` biomes.
+
 ## 1.0.311 (2026-01-10)
 - Tuning(worldgen): make `kruemblegard:crumbled_crossing` and `kruemblegard:strata_collapse` forest-like by restoring baseline Wayfall tree injections and adding extra-dense tree placements.
 

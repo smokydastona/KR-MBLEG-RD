@@ -131,6 +131,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.
+  - Otherwise, the surface defaults to **Runegrowth** (with **Fault Dust** used as a soil layer in some biomes).
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 
 ## Gameplay rules
