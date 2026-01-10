@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.311 (2026-01-10)
+- Tuning(worldgen): make `kruemblegard:crumbled_crossing` and `kruemblegard:strata_collapse` forest-like by restoring baseline Wayfall tree injections and adding extra-dense tree placements.
+
 ## 1.0.310 (2026-01-09)
 - Fix(assets): update texture assets.
 

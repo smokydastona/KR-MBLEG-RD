@@ -1,0 +1,20 @@
+{
+  "feature": {
+    "type": "minecraft:simple_random_selector",
+    "config": {
+      "features": [
+        { "feature": "kruemblegard:driftwood/1", "placement": [] },
+        { "feature": "kruemblegard:driftwood/2", "placement": [] },
+        { "feature": "kruemblegard:driftwood/3", "placement": [] },
+        { "feature": "kruemblegard:driftwood/4", "placement": [] },
+        { "feature": "kruemblegard:driftwood/5", "placement": [] }
+      ]
+    }
+  },
+  "placement": [
+    { "type": "minecraft:rarity_filter", "chance": 3 },
+    { "type": "minecraft:in_square" },
+    { "type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING" },
+    { "type": "minecraft:biome" }
+  ]
+}

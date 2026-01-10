@@ -1,0 +1,13 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall_forests",
+  "features": [
+    "kruemblegard:ashbloom_tree_forest",
+    "kruemblegard:glimmerpine_tree_forest",
+    "kruemblegard:driftwood_tree_forest",
+    "kruemblegard:wayroot_tree_forest",
+    "kruemblegard:echowood_tree_forest",
+    "kruemblegard:wayglass_tree_forest"
+  ],
+  "step": "vegetal_decoration"
+}
