@@ -1,10 +1,5 @@
 {
   "type": "kruemblegard:add_items",
   "conditions": [],
-  "items": [
-    {
-      "id": "kruemblegard:runic_core",
-      "Count": 1
-    }
-  ]
+  "items": []
 }
