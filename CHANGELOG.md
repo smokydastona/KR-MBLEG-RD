@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.308 (2026-01-09)
+- Fix(worldgen): prevent the Wayfall chunk-gen crash (`Feature order cycle found`) by making shared `vegetal_decoration` features use a consistent order across `kruemblegard:crumbled_crossing` and `kruemblegard:strata_collapse`.
+
 ## 1.0.306 (2026-01-09)
 - Fix(worldgen): mitigate the Wayfall chunk-gen crash (`Feature order cycle found`) by removing custom tree injections from the two biomes called out as involved sources (`kruemblegard:crumbled_crossing`, `kruemblegard:strata_collapse`). Plant/fungus patches still generate.
 
