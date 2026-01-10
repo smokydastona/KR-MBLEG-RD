@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.314 (2026-01-10)
+- Chore(docs): add an auto-generated Loot Table Bible (`docs/Loot_Table_Bible.md`) and a generator script (`tools/generate_loot_table_bible.ps1`) to keep it in sync with loot JSON.
+
 ## 1.0.313 (2026-01-10)
 - Fix(assets): render `ashveil` with cutout transparency so it no longer shows a black halo around the texture.
 

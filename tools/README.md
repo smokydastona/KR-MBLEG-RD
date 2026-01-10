@@ -23,3 +23,6 @@ Not tracked:
 
 - `tools/generate_sound_bible.ps1` updates:
   - `docs/Sound_Bible.md`
+
+- `tools/generate_loot_table_bible.ps1` updates:
+  - `docs/Loot_Table_Bible.md`
