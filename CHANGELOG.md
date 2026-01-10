@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.313 (2026-01-10)
+- Fix(assets): render `ashveil` with cutout transparency so it no longer shows a black halo around the texture.
+
 ## 1.0.312 (2026-01-10)
 - Tuning(worldgen): make `runegrowth` part of the Wayfall terrain surface palette by generating it as the default top surface (fallback) and as the top cover over `fault_dust` biomes.
 
