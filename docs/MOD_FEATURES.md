@@ -113,7 +113,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Ashmoss is a moss block surface.
 - Runegrowth is a grass block surface.
 - Voidfelt is a podzol-like dirt surface.
-- Runegrowth emerges near blocks tagged as `kruemblegard:waystone_energy_sources`.
+- Runegrowth spreads over **Fault Dust** under grass-like conditions (sufficient light and not waterlogged).
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
 - Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.
 

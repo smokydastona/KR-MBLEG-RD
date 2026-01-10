@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.309 (2026-01-10)
+- Fix(gameplay): make `runegrowth` behave like a true grass analog by spreading onto `fault_dust` without requiring nearby waystone energy; it still reverts to `fault_dust` when it can’t survive.
+
 ## 1.0.308 (2026-01-09)
 - Fix(worldgen): prevent the Wayfall chunk-gen crash (`Feature order cycle found`) by making shared `vegetal_decoration` features use a consistent order across `kruemblegard:crumbled_crossing` and `kruemblegard:strata_collapse`.
 
