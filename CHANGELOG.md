@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.309 (2026-01-10)
+## 1.0.310 (2026-01-09)
+- Fix(assets): update texture assets.
+
+## 1.0.309 (2026-01-09)
 - Fix(gameplay): make `runegrowth` behave like a true grass analog by spreading onto `fault_dust` without requiring nearby waystone energy; it still reverts to `fault_dust` when it can’t survive.
 
 ## 1.0.308 (2026-01-09)
