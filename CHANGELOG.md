@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.329 (2026-01-10)
+- Fix(mobs): actually remove the stray `scattered_enderman.animation_controllers.json` from `assets/.../animations` (GeckoLib only accepts animation JSON there), preventing the startup crash.
+
 ## 1.0.328 (2026-01-10)
 - Fix(mobs): prevent GeckoLib startup crash by moving the Scattered Enderman animation-controller reference JSON out of `assets/.../animations`.
 
