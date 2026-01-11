@@ -72,6 +72,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
+  - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).
   - Editable texture: `assets/kruemblegard/textures/block/ancient_waystone.png`
   - Models follow Waystones' top/bottom layout: `assets/kruemblegard/models/block/ancient_waystone_{bottom,top}.json`
 

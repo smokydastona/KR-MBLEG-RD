@@ -1,0 +1,23 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        { "type": "forge:mod_loaded", "modid": "waystones" }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "AAA",
+          "AWA",
+          "AAA"
+        ],
+        "key": {
+          "A": { "item": "kruemblegard:attuned_stone" },
+          "W": { "item": "waystones:warp_stone" }
+        },
+        "result": { "item": "kruemblegard:ancient_waystone" }
+      }
+    }
+  ]
+}
