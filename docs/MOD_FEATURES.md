@@ -46,6 +46,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/scattered_enderman.geo.json`
     - Animations: `assets/kruemblegard/animations/scattered_enderman.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/scattered_enderman.png` (placeholder; intended for you to repaint).
+    - Eyes glow mask: `assets/kruemblegard/textures/entity/scattered_enderman_eyes.png` (placeholder; used as an emissive layer).
 
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
