@@ -280,15 +280,23 @@ if ($modifierFiles.Count -eq 0) {
 $begin = '<!-- BEGIN AUTO-GENERATED -->'
 $end = '<!-- END AUTO-GENERATED -->'
 
+$modName = "Kr$([char]0x00FC)mbleg$([char]0x00E5)rd"
+
 $preambleLines = @(
-    '# Krümblegård Loot Table Bible',
+    "# $modName Loot Table Bible",
     '',
-    'This document is the **single source of truth** for loot-table behavior in Krümblegård.',
+    "This document is the **single source of truth** for loot-table behavior in $modName.",
     '',
     'Scope:',
     '- Block loot tables under `data/kruemblegard/loot_tables/blocks/`',
     '- Entity loot tables under `data/kruemblegard/loot_tables/entities/`',
     '- Global loot modifiers under `data/kruemblegard/loot_modifiers/`',
+    '',
+    'Tools used / needed:',
+    '- Windows PowerShell 5.1+ (or PowerShell 7+) to run the generator script',
+    '- Generator script: `tools/generate_loot_table_bible.ps1`',
+    '- Inputs: `src/main/resources/data/kruemblegard/loot_tables/**/*.json`, `src/main/resources/data/kruemblegard/loot_modifiers/**/*.json`',
+    '- Output: `docs/Loot_Table_Bible.md`',
     '',
     'Update workflow:',
     '- After adding/removing/renaming loot tables (or changing drops/conditions)',
@@ -299,18 +307,6 @@ $preambleLines = @(
 
 $prefix = ($preambleLines -join "`r`n") + "`r`n"
 $suffix = "`r`n$end`r`n"
-
-$existing = $null
-if (Test-Path -LiteralPath $docPath) {
-    $existing = Get-Content -LiteralPath $docPath -Raw -Encoding UTF8
-}
-
-if ($null -ne $existing -and $existing.Contains($begin) -and $existing.Contains($end)) {
-    $pre = $existing.Substring(0, $existing.IndexOf($begin) + $begin.Length)
-    $post = $existing.Substring($existing.IndexOf($end))
-    $prefix = $pre + "`r`n"
-    $suffix = "`r`n" + $post
-}
 
 $content = ($generated -join "`r`n")
 $final = $prefix + $content + $suffix
