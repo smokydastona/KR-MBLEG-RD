@@ -4,7 +4,6 @@
 		"animation.scattered_enderman.idle": {
 			"loop": true,
 			"bones": {
-				"head": { "rotation": [0, "query.head_y_rotation", 0] },
 				"body": { "rotation": [0, 0, 0] }
 			}
 		},
