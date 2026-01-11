@@ -47,6 +47,15 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/scattered_enderman.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/scattered_enderman.png` (placeholder; intended for you to repaint).
     - Eyes glow mask: `assets/kruemblegard/textures/entity/scattered_enderman_eyes.png` (placeholder; used as an emissive layer).
+  - Starter animation tracks included:
+    - `animation.scattered_enderman.idle`
+    - `animation.scattered_enderman.move`
+    - `animation.scattered_enderman.angry`
+    - `animation.scattered_enderman.hold_block`
+    - `animation.scattered_enderman.angry_hold_block`
+    - `animation.scattered_enderman.attack`
+    - `animation.scattered_enderman.teleport`
+  - Note: the current geo uses a single `bb_main` bone, so animations are whole-body transforms. If you want vanilla-style limb posing, split the geo into separate bones (head/arms/legs) and animate those.
 
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
