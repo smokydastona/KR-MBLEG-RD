@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.325 (2026-01-11)
+## 1.0.326 (2026-01-10)
+- Feature(mobs): rework `scattered_enderman` geo into Enderman-style bones and import an Enderman-like animation set (idle/look/walk/attack/scream/stare/carry/teleport/vanish/appear/etc.).
+
+## 1.0.325 (2026-01-10)
 - Feature(mobs): expand `scattered_enderman` starter animations (angry/carry/attack/teleport) and drive them from vanilla-ish state (target, carried block, swing, teleport).
 
 ## 1.0.323 (2026-01-10)

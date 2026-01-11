@@ -19,22 +19,24 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
         RawAnimation.begin().thenLoop("animation.scattered_enderman.idle");
 
     private static final RawAnimation MOVE_LOOP =
-        RawAnimation.begin().thenLoop("animation.scattered_enderman.move");
+        RawAnimation.begin().thenLoop("animation.scattered_enderman.walk");
 
     private static final RawAnimation ANGRY_LOOP =
-        RawAnimation.begin().thenLoop("animation.scattered_enderman.angry");
+        RawAnimation.begin().thenLoop("animation.scattered_enderman.scream");
 
     private static final RawAnimation HOLD_BLOCK_LOOP =
-        RawAnimation.begin().thenLoop("animation.scattered_enderman.hold_block");
+        RawAnimation.begin().thenLoop("animation.scattered_enderman.hold_block_idle");
 
     private static final RawAnimation ANGRY_HOLD_BLOCK_LOOP =
-        RawAnimation.begin().thenLoop("animation.scattered_enderman.angry_hold_block");
+        RawAnimation.begin().thenLoop("animation.scattered_enderman.hold_block_idle");
 
     private static final RawAnimation ATTACK_ONESHOT =
         RawAnimation.begin().thenPlay("animation.scattered_enderman.attack");
 
     private static final RawAnimation TELEPORT_ONESHOT =
-        RawAnimation.begin().thenPlay("animation.scattered_enderman.teleport");
+        RawAnimation.begin()
+            .thenPlay("animation.scattered_enderman.vanish")
+            .thenPlay("animation.scattered_enderman.appear");
 
     private static final int ATTACK_ANIM_TICKS = 10;
     private static final int TELEPORT_ANIM_TICKS = 10;
@@ -72,12 +74,17 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
     }
 
     @Override
-    public boolean randomTeleport(double x, double y, double z, boolean showParticles) {
-        boolean success = super.randomTeleport(x, y, z, showParticles);
-        if (success) {
+    public void teleportTo(double x, double y, double z) {
+        double oldX = this.getX();
+        double oldY = this.getY();
+        double oldZ = this.getZ();
+        super.teleportTo(x, y, z);
+        double dx = this.getX() - oldX;
+        double dy = this.getY() - oldY;
+        double dz = this.getZ() - oldZ;
+        if ((dx * dx + dy * dy + dz * dz) > 1.0E-6D) {
             this.teleportAnimTicks = TELEPORT_ANIM_TICKS;
         }
-        return success;
     }
 
     @Override

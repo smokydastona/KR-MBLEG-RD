@@ -3,85 +3,211 @@
 	"animations": {
 		"animation.scattered_enderman.idle": {
 			"loop": true,
-			"animation_length": 2,
 			"bones": {
-				"bb_main": {
-					"position": [0, "math.sin(query.anim_time * 6) * 0.25", 0],
-					"rotation": [0, "math.sin(query.anim_time * 1.4) * 1.5", "math.sin(query.anim_time * 1.1) * 0.5"]
-				}
+				"head": { "rotation": [0, "query.head_y_rotation", 0] },
+				"body": { "rotation": [0, 0, 0] }
 			}
 		},
-		"animation.scattered_enderman.move": {
+
+		"animation.scattered_enderman.look": {
 			"loop": true,
-			"animation_length": 1,
 			"bones": {
-				"bb_main": {
-					"position": [0, "math.abs(math.sin(query.anim_time * 12)) * 0.6", 0],
-					"rotation": ["math.sin(query.anim_time * 12) * 1.2", 0, "math.sin(query.anim_time * 12) * 1.0"]
+				"head": {
+					"rotation": [
+						"query.head_x_rotation",
+						"query.head_y_rotation",
+						0
+					]
 				}
 			}
 		},
-		"animation.scattered_enderman.angry": {
+
+		"animation.scattered_enderman.walk": {
 			"loop": true,
-			"animation_length": 1,
 			"bones": {
-				"bb_main": {
-					"rotation": ["math.sin(query.anim_time * 18) * 1.5", "math.sin(query.anim_time * 22) * 2.5", "math.sin(query.anim_time * 16) * 1.2"],
-					"position": [0, "math.abs(math.sin(query.anim_time * 18)) * 0.2", 0]
+				"rightleg": {
+					"rotation": [
+						"math.sin(query.anim_time * 2.6) * 35",
+						0,
+						0
+					]
+				},
+				"leftleg": {
+					"rotation": [
+						"math.sin(query.anim_time * 2.6 + 3.14) * 35",
+						0,
+						0
+					]
+				},
+				"rightarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 2.6 + 3.14) * 20",
+						0,
+						0
+					]
+				},
+				"leftarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 2.6) * 20",
+						0,
+						0
+					]
 				}
 			}
 		},
-		"animation.scattered_enderman.hold_block": {
-			"loop": true,
-			"animation_length": 1,
-			"bones": {
-				"bb_main": {
-					"rotation": [-6, 0, 0],
-					"position": [0, 0.1, 0]
-				}
-			}
-		},
-		"animation.scattered_enderman.angry_hold_block": {
-			"loop": true,
-			"animation_length": 1,
-			"bones": {
-				"bb_main": {
-					"rotation": ["-6 + math.sin(query.anim_time * 18) * 1.2", "math.sin(query.anim_time * 22) * 2.2", "math.sin(query.anim_time * 16) * 1.0"],
-					"position": [0, "0.1 + math.abs(math.sin(query.anim_time * 18)) * 0.2", 0]
-				}
-			}
-		},
+
 		"animation.scattered_enderman.attack": {
 			"loop": false,
 			"animation_length": 0.5,
 			"bones": {
-				"bb_main": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.15": [-8, 0, 0],
-						"0.3": [6, 0, 0],
-						"0.5": [0, 0, 0]
-					}
+				"rightarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 12) * -90",
+						0,
+						0
+					]
+				},
+				"leftarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 12) * -90",
+						0,
+						0
+					]
 				}
 			}
 		},
+
+		"animation.scattered_enderman.scream": {
+			"loop": true,
+			"bones": {
+				"head": { "rotation": [0, 0, 0] },
+				"body": { "rotation": [0, 0, 0] },
+				"rightarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 40) * 4 - 20",
+						0,
+						0
+					]
+				},
+				"leftarm": {
+					"rotation": [
+						"math.sin(query.anim_time * 40 + 3.14) * 4 - 20",
+						0,
+						0
+					]
+				}
+			}
+		},
+
+		"animation.scattered_enderman.stare": {
+			"loop": true,
+			"bones": {
+				"head": { "rotation": [0, 0, 0] },
+				"body": { "rotation": [0, 0, 0] },
+				"rightarm": { "rotation": [-15, 0, 0] },
+				"leftarm": { "rotation": [-15, 0, 0] }
+			}
+		},
+
+		"animation.scattered_enderman.carry_block": {
+			"loop": true,
+			"bones": {
+				"rightarm": { "rotation": [-60, 0, 0] },
+				"leftarm": { "rotation": [-60, 0, 0] }
+			}
+		},
+
+		"animation.scattered_enderman.hold_block_idle": {
+			"loop": true,
+			"bones": {
+				"rightarm": {
+					"rotation": [
+						"-60 + math.sin(query.anim_time * 2) * 2",
+						0,
+						0
+					]
+				},
+				"leftarm": {
+					"rotation": [
+						"-60 + math.sin(query.anim_time * 2 + 3.14) * 2",
+						0,
+						0
+					]
+				}
+			}
+		},
+
 		"animation.scattered_enderman.teleport": {
 			"loop": false,
-			"animation_length": 0.4,
+			"animation_length": 0.5,
 			"bones": {
-				"bb_main": {
-					"position": {
-						"0.0": [0, 0, 0],
-						"0.1": [0, 1.2, 0],
-						"0.25": [0, -0.4, 0],
-						"0.4": [0, 0, 0]
-					},
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.2": [0, 10, 0],
-						"0.4": [0, 0, 0]
-					}
+				"body": {
+					"scale": [
+						"1 + math.sin(query.anim_time * 20) * 0.2",
+						"1 - math.sin(query.anim_time * 20) * 0.2",
+						1
+					]
 				}
+			}
+		},
+
+		"animation.scattered_enderman.vanish": {
+			"loop": false,
+			"animation_length": 0.3,
+			"bones": {
+				"body": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] },
+				"head": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] },
+				"rightarm": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] },
+				"leftarm": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] },
+				"rightleg": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] },
+				"leftleg": { "scale": ["1 - query.anim_time", "1 - query.anim_time", "1"] }
+			}
+		},
+
+		"animation.scattered_enderman.appear": {
+			"loop": false,
+			"animation_length": 0.3,
+			"bones": {
+				"body": { "scale": ["query.anim_time", "query.anim_time", "1"] },
+				"head": { "scale": ["query.anim_time", "query.anim_time", "1"] },
+				"rightarm": { "scale": ["query.anim_time", "query.anim_time", "1"] },
+				"leftarm": { "scale": ["query.anim_time", "query.anim_time", "1"] },
+				"rightleg": { "scale": ["query.anim_time", "query.anim_time", "1"] },
+				"leftleg": { "scale": ["query.anim_time", "query.anim_time", "1"] }
+			}
+		},
+
+		"animation.scattered_enderman.shake": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						"math.sin(query.anim_time * 60) * 2",
+						0,
+						0
+					]
+				}
+			}
+		},
+
+		"animation.scattered_enderman.flinch": {
+			"loop": false,
+			"animation_length": 0.2,
+			"bones": {
+				"body": { "rotation": [-10, 0, 0] },
+				"head": { "rotation": [-10, 0, 0] }
+			}
+		},
+
+		"animation.scattered_enderman.death": {
+			"loop": false,
+			"animation_length": 0.8,
+			"bones": {
+				"body": { "rotation": [90, 0, 0] },
+				"rightarm": { "rotation": [90, 0, 0] },
+				"leftarm": { "rotation": [90, 0, 0] },
+				"rightleg": { "rotation": [90, 0, 0] },
+				"leftleg": { "rotation": [90, 0, 0] }
 			}
 		}
 	}
