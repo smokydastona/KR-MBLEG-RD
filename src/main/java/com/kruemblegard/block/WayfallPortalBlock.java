@@ -7,7 +7,6 @@ import com.kruemblegard.worldgen.ModWorldgenKeys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -39,21 +38,26 @@ public class WayfallPortalBlock extends Block {
             return;
         }
 
-        if (!(entity instanceof ServerPlayer serverPlayer)) {
+        if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
 
-        if (serverPlayer.isOnPortalCooldown()) {
+        // Match vanilla portal constraints.
+        if (entity.isPassenger() || entity.isVehicle() || !entity.canChangeDimensions()) {
             return;
         }
 
-        ServerLevel target = getTargetLevel(serverPlayer);
+        if (entity.isOnPortalCooldown()) {
+            return;
+        }
+
+        ServerLevel target = getTargetLevel(serverLevel);
         if (target == null) {
             return;
         }
 
-        serverPlayer.setPortalCooldown();
-        teleport(serverPlayer, target);
+        entity.setPortalCooldown();
+        teleport(entity, target);
     }
 
     @Override
@@ -63,11 +67,15 @@ public class WayfallPortalBlock extends Block {
             return InteractionResult.SUCCESS;
         }
 
-        if (!(player instanceof ServerPlayer serverPlayer)) {
+        if (!(level instanceof ServerLevel serverLevel)) {
             return InteractionResult.CONSUME;
         }
 
-        ServerLevel target = getTargetLevel(serverPlayer);
+        if (!(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)) {
+            return InteractionResult.CONSUME;
+        }
+
+        ServerLevel target = getTargetLevel(serverLevel);
         if (target == null) {
             Kruemblegard.LOGGER.warn("Wayfall portal used, but target dimension was not available.");
             return InteractionResult.CONSUME;
@@ -77,28 +85,29 @@ public class WayfallPortalBlock extends Block {
         return InteractionResult.CONSUME;
     }
 
-    private static ServerLevel getTargetLevel(ServerPlayer player) {
-        if (player.getServer() == null) {
+    private static ServerLevel getTargetLevel(ServerLevel fromLevel) {
+        if (fromLevel.getServer() == null) {
             return null;
         }
 
-        if (player.level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+        // Portal is one-way: never re-trigger inside Wayfall.
+        if (fromLevel.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
             return null;
         }
 
-        return player.getServer().getLevel(ModWorldgenKeys.Levels.WAYFALL);
+        return fromLevel.getServer().getLevel(ModWorldgenKeys.Levels.WAYFALL);
     }
 
-    private static void teleport(ServerPlayer player, ServerLevel target) {
+    private static void teleport(Entity entity, ServerLevel target) {
         BlockPos spawn = target.getSharedSpawnPos();
         BlockPos landing = findLandingOrCreatePlatform(target, spawn);
         Vec3 dest = new Vec3(landing.getX() + 0.5D, landing.getY(), landing.getZ() + 0.5D);
 
-        player.changeDimension(target, new ITeleporter() {
+        entity.changeDimension(target, new ITeleporter() {
             @Override
             public net.minecraft.world.level.portal.PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld,
                                                                            java.util.function.Function<ServerLevel, net.minecraft.world.level.portal.PortalInfo> defaultPortalInfo) {
-                return new net.minecraft.world.level.portal.PortalInfo(dest, Vec3.ZERO, entity.getYRot(), entity.getXRot());
+                return new net.minecraft.world.level.portal.PortalInfo(dest, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot());
             }
         });
     }

@@ -68,7 +68,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ## Creative inventory
 
-- `wayfall_portal`: a simple testing portal block you can place in creative; walking into it sends you to the Wayfall spawn.
+- `wayfall_portal`: a simple testing portal block you can place in creative; entities (players/mobs/items) that pass through it are sent to the Wayfall spawn.
 
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
