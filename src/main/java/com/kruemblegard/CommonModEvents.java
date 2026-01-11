@@ -2,6 +2,7 @@ package com.kruemblegard;
 
 import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.registry.ModEntities;
 
@@ -30,6 +31,7 @@ public final class CommonModEvents {
         event.put(ModEntities.TRAPROCK.get(), TraprockEntity.createAttributes().build());
         event.put(ModEntities.PEBBLIT.get(), Silverfish.createAttributes().build());
         event.put(ModEntities.GREAT_HUNGER.get(), GreatHungerEntity.createAttributes().build());
+        event.put(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -52,6 +54,14 @@ public final class CommonModEvents {
 
         event.register(
             ModEntities.GREAT_HUNGER.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.SCATTERED_ENDERMAN.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             CommonModEvents::canSpawnOnSolidGround,

@@ -39,6 +39,14 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/great_hunger.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/great_hunger.png` (currently a placeholder)
 
+- **Scattered Enderman** (`scattered_enderman`)
+  - Enderman-derived hostile mob.
+  - Spawns **uncommonly** in every Wayfall biome.
+  - Rendered via GeckoLib with editable resources:
+    - Geo: `assets/kruemblegard/geo/scattered_enderman.geo.json`
+    - Animations: `assets/kruemblegard/animations/scattered_enderman.animation.json`
+    - Texture: `assets/kruemblegard/textures/entity/scattered_enderman.png` (placeholder; intended for you to repaint).
+
 ## Boss: Krümblegård
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
 - **12 unique attacks** across phases (fast/heavy/ranged kits per phase).

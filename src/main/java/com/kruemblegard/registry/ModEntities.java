@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.PebblitEntity;
+import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
 
 import net.minecraft.resources.ResourceLocation;
@@ -52,5 +53,14 @@ public class ModEntities {
                     GreatHungerEntity::new, MobCategory.MONSTER)
                 .sized(1.0f, 0.6f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "great_hunger").toString())
+        );
+
+    public static final RegistryObject<EntityType<ScatteredEndermanEntity>> SCATTERED_ENDERMAN =
+        ENTITIES.register(
+            "scattered_enderman",
+            () -> EntityType.Builder.<ScatteredEndermanEntity>of(
+                    ScatteredEndermanEntity::new, MobCategory.MONSTER)
+                .sized(0.6f, 2.9f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "scattered_enderman").toString())
         );
 }

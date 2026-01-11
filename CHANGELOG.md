@@ -4,11 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.321 (2026-01-10)
-- Fix(gameplay): Wayfall portal now transports mobs and item entities (not just players), matching vanilla portal behavior.
+## 1.0.323 (2026-01-10)
+- Feature(mobs): add `scattered_enderman`, an Enderman-derived mob that spawns uncommonly in all Wayfall biomes.
 
 ## 1.0.322 (2026-01-10)
 - Feature(recipes): add a craftable Ancient Waystone recipe based on the Waystones-style pattern, using `attuned_stone`.
+
+## 1.0.321 (2026-01-10)
+- Fix(gameplay): Wayfall portal now transports mobs and item entities (not just players), matching vanilla portal behavior.
 
 ## 1.0.315 (2026-01-10)
 - Fix(loot): make `runic_core` drop only from the Krümblegård boss by removing it from global loot modifiers.
