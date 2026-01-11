@@ -45,7 +45,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Rendered via GeckoLib with editable resources:
     - Geo: `assets/kruemblegard/geo/scattered_enderman.geo.json`
     - Animations: `assets/kruemblegard/animations/scattered_enderman.animation.json`
-    - Animation controller reference: `assets/kruemblegard/animations/scattered_enderman.animation_controllers.json`
+    - Animation controller reference: `assets/kruemblegard/controllers/scattered_enderman.animation_controllers.json`
     - Texture: `assets/kruemblegard/textures/entity/scattered_enderman.png` (placeholder; intended for you to repaint).
     - Eyes glow mask: `assets/kruemblegard/textures/entity/scattered_enderman_eyes.png` (placeholder; used as an emissive layer).
   - Starter animation tracks included:

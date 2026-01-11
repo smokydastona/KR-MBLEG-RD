@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.328 (2026-01-10)
+- Fix(mobs): prevent GeckoLib startup crash by moving the Scattered Enderman animation-controller reference JSON out of `assets/.../animations`.
+
 ## 1.0.327 (2026-01-10)
 - Feature(mobs): add an Enderman-style animation state machine for `scattered_enderman` (idle/walk/look/stare/scream/carry/attack/death + teleport sequence) and a reference controller JSON.
 
