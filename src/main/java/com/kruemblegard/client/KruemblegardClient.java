@@ -1,15 +1,18 @@
 package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.client.particle.ArcaneSparkParticle;
 import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.registry.ModParticles;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -23,5 +26,10 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.PEBBLIT.get(), PebblitRenderer::new);
         event.registerEntityRenderer(ModEntities.GREAT_HUNGER.get(), GreatHungerRenderer::new);
         event.registerEntityRenderer(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticles.ARCANE_SPARK.get(), ArcaneSparkParticle.Provider::new);
     }
 }

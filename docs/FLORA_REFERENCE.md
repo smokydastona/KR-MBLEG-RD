@@ -225,12 +225,16 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
     - it’s night with strong moon brightness.
   - Emits subtle End Rod particles in `animateTick`.
 - **Player interaction**
-  - No special right-click behavior.
+  - Right-click harvest when `age` is 2–3:
+    - drops `kruemblegard:wispshoot`
+    - resets the plant back to `age=1`
+  - Prickly: walking through a grown Wispstalk slows you and can deal a small amount of damage (vanilla sweet-berry-bush style).
 - **Drops**
   - Uses loot table: `data/kruemblegard/loot_tables/blocks/wispstalk.json`.
 - **Assets**
-  - Block model: `assets/kruemblegard/models/block/wispstalk.json`
-  - Texture: `assets/kruemblegard/textures/block/wispstalk.png`
+  - Blockstate: `assets/kruemblegard/blockstates/wispstalk.json`
+  - Block models: `assets/kruemblegard/models/block/wispstalk_stage0.json` … `wispstalk_stage3.json`
+  - Block textures: `assets/kruemblegard/textures/block/wispstalk_stage0.png` … `wispstalk_stage3.png`
 
 ### Gravevine
 - **IDs**
@@ -325,6 +329,16 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
   - Block models: `assets/kruemblegard/models/block/ghoulberry_shrub_stage0..3.json`
   - Block textures: `assets/kruemblegard/textures/block/ghoulberry_shrub_stage0..3.png`
   - Item texture: `assets/kruemblegard/textures/item/ghoulberries.png`
+
+### Wayfall staple flora (reactive plants)
+Some Wayfall staple plants are implemented using `WayfallReactivePlantBlock`.
+
+- **Activation (visual-only):**
+  - can activate near players (per-plant radius), and/or
+  - can activate when near blocks tagged `kruemblegard:waystone_energy_sources`.
+- **Particles:** each plant has an idle particle and an “active” particle; active particles are emitted more frequently.
+  - The mod provides a custom particle type: `kruemblegard:arcane_spark`.
+  - Currently, Runeblossom, Twilight Bulb, and Whispervine use `arcane_spark` as their active particle.
 
 ## Additional Wayfall plants (implemented blocks; mechanics WIP)
 These plants exist as blocks/items and are included in Wayfall flora patches.

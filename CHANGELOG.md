@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.335 (2026-01-12)
+- Feature(particles): implement the `kruemblegard:arcane_spark` particle and register its client provider.
+- Tuning(flora): use `arcane_spark` as the “active” particle for select reactive staple plants (Runeblossom, Twilight Bulb, Whispervine).
+
 ## 1.0.334 (2026-01-11)
 - Feature(crafting): add Wayfall stone blocks to vanilla stone-material tags so they can craft stone tools and common stone components (furnace/stonecutter + many redstone recipes).
 

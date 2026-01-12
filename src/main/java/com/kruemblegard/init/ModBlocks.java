@@ -22,6 +22,7 @@ import com.kruemblegard.block.StrippableRotatedPillarBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WispstalkBlock;
+import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
 import com.kruemblegard.world.grower.TwoByTwoConfiguredFeatureTreeGrower;
 
@@ -912,7 +913,7 @@ public final class ModBlocks {
                             .sound(SoundType.GRASS)
                             .randomTicks(),
                     ParticleTypes.ENCHANT,
-                    ParticleTypes.END_ROD,
+                    ModParticles.ARCANE_SPARK.get(),
                     0,
                     6)
     );
@@ -953,7 +954,7 @@ public final class ModBlocks {
                             .lightLevel(s -> 4)
                             .randomTicks(),
                     ParticleTypes.WITCH,
-                    ParticleTypes.END_ROD,
+                    ModParticles.ARCANE_SPARK.get(),
                     6,
                     6)
     );
@@ -968,7 +969,7 @@ public final class ModBlocks {
                             .sound(SoundType.GRASS)
                             .randomTicks(),
                     ParticleTypes.SMOKE,
-                    ParticleTypes.SMOKE,
+                    ModParticles.ARCANE_SPARK.get(),
                     0,
                     0)
     );

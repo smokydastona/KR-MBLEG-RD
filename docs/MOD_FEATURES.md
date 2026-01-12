@@ -138,6 +138,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ### Reactive staple plants
 - Some Wayfall staples use a “reactive” plant base that can activate near blocks tagged as `kruemblegard:waystone_energy_sources`.
+- Reactive staple plants can also activate near players (per-plant radius tuning) and emit different idle vs. active particles.
+- The mod includes a custom particle type (`kruemblegard:arcane_spark`) used by select reactive plants when active.
 
 ### Wayfall surface covers
 - Ashmoss is a moss block surface.
