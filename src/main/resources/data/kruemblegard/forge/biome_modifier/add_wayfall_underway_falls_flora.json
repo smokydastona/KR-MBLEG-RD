@@ -6,9 +6,11 @@
     "kruemblegard:mega_driftwillow_tree",
     "kruemblegard:waytorch_tree_tree",
 
+    "kruemblegard:soulberry_shrub_patch",
+
     "kruemblegard:driftbloom_patch",
     "kruemblegard:reverse_portal_spores_patch",
-    "kruemblegard:waythread_patch"
+    "kruemblegard:whispervine_patch"
   ],
   "step": "vegetal_decoration"
 }

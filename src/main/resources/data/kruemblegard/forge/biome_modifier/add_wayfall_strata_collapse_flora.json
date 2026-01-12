@@ -2,10 +2,10 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:strata_collapse",
   "features": [
-    "kruemblegard:cairnroot_patch",
-    "kruemblegard:milestone_grass_patch",
-    "kruemblegard:waylily_patch",
-    "kruemblegard:griefcap_patch"
+    "kruemblegard:wispstalk_patch",
+
+    "kruemblegard:griefcap_patch",
+    "kruemblegard:ashveil_patch"
   ],
   "step": "vegetal_decoration"
 }

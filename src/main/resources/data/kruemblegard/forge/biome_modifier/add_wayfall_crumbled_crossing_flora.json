@@ -2,9 +2,13 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:crumbled_crossing",
   "features": [
+    "kruemblegard:wispstalk_patch",
+
     "kruemblegard:milestone_grass_patch",
     "kruemblegard:waylily_patch",
-    "kruemblegard:echo_puff_patch"
+    "kruemblegard:echocap_patch",
+    "kruemblegard:memory_rot_patch",
+    "kruemblegard:moteshrub_patch"
   ],
   "step": "vegetal_decoration"
 }

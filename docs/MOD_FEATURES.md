@@ -120,6 +120,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
+  - Biome identity: Wayfall biomes use distinct plant sets (via per-biome biome modifiers); each Wayfall biome still includes at least one food plant.
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly).
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.

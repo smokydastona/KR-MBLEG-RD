@@ -4,9 +4,12 @@
   "features": [
     "kruemblegard:hollowway_tree_tree",
 
-    "kruemblegard:cairnroot_patch",
+    "kruemblegard:soulberry_shrub_patch",
+
     "kruemblegard:transit_bloom_patch",
-    "kruemblegard:waythread_patch"
+    "kruemblegard:transit_fern_patch",
+    "kruemblegard:twilight_bulb_patch",
+    "kruemblegard:cairn_moss_patch"
   ],
   "step": "vegetal_decoration"
 }

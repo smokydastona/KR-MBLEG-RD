@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.335 (2026-01-12)
+## 1.0.335 (2026-01-11)
 - Feature(particles): implement the `kruemblegard:arcane_spark` particle and register its client provider.
 - Tuning(flora): use `arcane_spark` as the “active” particle for select reactive staple plants (Runeblossom, Twilight Bulb, Whispervine).
+
+## 1.0.336 (2026-01-11)
+- Tuning(worldgen): make Wayfall biome flora more distinct by removing the global plant injection and assigning plant patches per-biome.
+- Tuning(worldgen): ensure every Wayfall biome still gets at least one food plant (Soulberry Shrub or Wispstalk).
 
 ## 1.0.334 (2026-01-11)
 - Feature(crafting): add Wayfall stone blocks to vanilla stone-material tags so they can craft stone tools and common stone components (furnace/stonecutter + many redstone recipes).

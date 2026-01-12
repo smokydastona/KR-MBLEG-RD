@@ -4,9 +4,12 @@
   "features": [
     "kruemblegard:shardbark_pine_tree",
 
-    "kruemblegard:wayseed_cluster_patch",
+    "kruemblegard:soulberry_shrub_patch",
+
     "kruemblegard:voidcap_briar_patch",
-    "kruemblegard:echo_puff_patch"
+    "kruemblegard:echo_puff_patch",
+    "kruemblegard:waybind_creeper_patch",
+    "kruemblegard:waypoint_mold_patch"
   ],
   "step": "vegetal_decoration"
 }

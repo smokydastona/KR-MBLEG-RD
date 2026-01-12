@@ -5,9 +5,12 @@
     "kruemblegard:shardbark_pine_tree",
     "kruemblegard:fallbark_tree",
 
+    "kruemblegard:soulberry_shrub_patch",
+
     "kruemblegard:faultgrass_patch",
-    "kruemblegard:wayseed_cluster_patch",
-    "kruemblegard:dustpetal_patch"
+    "kruemblegard:dustpetal_patch",
+    "kruemblegard:gravevine_patch",
+    "kruemblegard:ruin_thistle_patch"
   ],
   "step": "vegetal_decoration"
 }

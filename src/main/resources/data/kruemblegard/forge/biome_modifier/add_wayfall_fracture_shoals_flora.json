@@ -4,9 +4,12 @@
   "features": [
     "kruemblegard:waytorch_tree_tree",
 
-    "kruemblegard:wayseed_cluster_patch",
+    "kruemblegard:soulberry_shrub_patch",
+
     "kruemblegard:black_echo_fungus_patch",
-    "kruemblegard:runebloom_patch"
+    "kruemblegard:runebloom_patch",
+    "kruemblegard:wayseed_cluster_patch",
+    "kruemblegard:fallseed_pods_patch"
   ],
   "step": "vegetal_decoration"
 }

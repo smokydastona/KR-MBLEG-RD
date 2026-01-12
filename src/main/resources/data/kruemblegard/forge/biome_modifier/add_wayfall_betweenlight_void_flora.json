@@ -4,9 +4,11 @@
   "features": [
     "kruemblegard:hollowway_tree_tree",
 
-    "kruemblegard:driftbloom_patch",
+    "kruemblegard:wispstalk_patch",
+
     "kruemblegard:void_lichen_patch",
-    "kruemblegard:waythread_patch"
+    "kruemblegard:waythread_patch",
+    "kruemblegard:voidfern_patch"
   ],
   "step": "vegetal_decoration"
 }

@@ -6,9 +6,12 @@
     "kruemblegard:mega_monument_oak_tree",
     "kruemblegard:waytorch_tree_tree",
 
-    "kruemblegard:runebloom_patch",
+    "kruemblegard:wispstalk_patch",
+
     "kruemblegard:rune_sprouts_patch",
-    "kruemblegard:wayburn_fungus_patch"
+    "kruemblegard:wayburn_fungus_patch",
+    "kruemblegard:runeblossom_patch",
+    "kruemblegard:gravemint_patch"
   ],
   "step": "vegetal_decoration"
 }

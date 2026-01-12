@@ -5,9 +5,11 @@
     "kruemblegard:faultwood_tree",
     "kruemblegard:fallbark_tree",
 
-    "kruemblegard:faultgrass_patch",
-    "kruemblegard:dustpetal_patch",
-    "kruemblegard:waygrasp_vine_patch"
+    "kruemblegard:wispstalk_patch",
+
+    "kruemblegard:waygrasp_vine_patch",
+    "kruemblegard:static_fungus_patch",
+    "kruemblegard:wayscar_ivy_patch"
   ],
   "step": "vegetal_decoration"
 }
