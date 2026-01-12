@@ -4,20 +4,23 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.334 (2026-01-11)
+- Feature(crafting): add Wayfall stone blocks to vanilla stone-material tags so they can craft stone tools and common stone components (furnace/stonecutter + many redstone recipes).
+
+## 1.0.333 (2026-01-11)
+- Chore(assets): add a placeholder `wispshoot` item texture and point the item model at it.
+
+## 1.0.332 (2026-01-11)
+- Chore(assets): remove legacy Wispstalk model/texture (`wispstalk.json` / `wispstalk.png`) after switching to stage visuals.
+
+## 1.0.331 (2026-01-11)
+- Chore(assets): split Wispstalk visuals into 4 growth-stage models/textures (`wispstalk_stage0..3`).
+
 ## 1.0.330 (2026-01-11)
 - Feature(plants): add `wispshoot`, a new edible drop harvested from mature Wispstalk.
 - Feature(plants): make Soulberries/Ghoulberries/Wispshoot plant their matching plants when used on suitable ground.
 - Tuning(plants): make Soulberry Shrub, Ghoulberry Shrub, and Wispstalk prickly when walked through (vanilla sweet-berry-bush style).
 - Note(assets): `wispshoot` currently reuses the Soulberries item texture as a placeholder.
-
-## 1.0.332 (2026-01-11)
-- Chore(assets): remove legacy Wispstalk model/texture (`wispstalk.json` / `wispstalk.png`) after switching to stage visuals.
-
-## 1.0.333 (2026-01-11)
-- Chore(assets): add a placeholder `wispshoot` item texture and point the item model at it.
-
-## 1.0.331 (2026-01-11)
-- Chore(assets): split Wispstalk visuals into 4 growth-stage models/textures (`wispstalk_stage0..3`).
 
 ## 1.0.329 (2026-01-10)
 - Fix(mobs): actually remove the stray `scattered_enderman.animation_controllers.json` from `assets/.../animations` (GeckoLib only accepts animation JSON there), preventing the startup crash.

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:crushstone",
+    "kruemblegard:scarstone",
+    "kruemblegard:cracked_scarstone",
+    "kruemblegard:stoneveil_rubble",
+    "kruemblegard:runed_stoneveil_rubble"
+  ]
+}
