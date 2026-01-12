@@ -18,7 +18,9 @@ public class WayfallFeatureSaplingBlock extends SaplingBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        this.advanceTree(level, pos, state, random);
+        if (random.nextInt(7) == 0) {
+            this.advanceTree(level, pos, state, random);
+        }
     }
 
     @Override
