@@ -4,10 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.342 (2026-01-12)
+## 1.0.343 (2026-01-11)
+- Tuning(composting): make Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) compostable.
+
+## 1.0.342 (2026-01-11)
 - Tuning(trees): keep vanilla-ish sapling growth pacing (random-tick chance) while allowing Wayfall saplings to grow without a light requirement.
 
-## 1.0.341 (2026-01-12)
+## 1.0.341 (2026-01-11)
 - Tuning(trees): remove the light requirement from Wayfall sapling growth so “if it can be placed, it can grow”.
 
 ## 1.0.340 (2026-01-11)
