@@ -897,8 +897,8 @@ public final class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .randomTicks(),
-                    ParticleTypes.REVERSE_PORTAL,
-                    ParticleTypes.REVERSE_PORTAL,
+                    () -> ParticleTypes.REVERSE_PORTAL,
+                    () -> ParticleTypes.REVERSE_PORTAL,
                     0,
                     0)
     );
@@ -912,8 +912,8 @@ public final class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .randomTicks(),
-                    ParticleTypes.ENCHANT,
-                    ModParticles.ARCANE_SPARK.get(),
+                    () -> ParticleTypes.ENCHANT,
+                    ModParticles.ARCANE_SPARK,
                     0,
                     6)
     );
@@ -927,8 +927,8 @@ public final class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .randomTicks(),
-                    ParticleTypes.END_ROD,
-                    ParticleTypes.END_ROD,
+                    () -> ParticleTypes.END_ROD,
+                    () -> ParticleTypes.END_ROD,
                     0,
                     0)
     );
@@ -953,8 +953,8 @@ public final class ModBlocks {
                             .sound(SoundType.GRASS)
                             .lightLevel(s -> 4)
                             .randomTicks(),
-                    ParticleTypes.WITCH,
-                    ModParticles.ARCANE_SPARK.get(),
+                    () -> ParticleTypes.WITCH,
+                    ModParticles.ARCANE_SPARK,
                     6,
                     6)
     );
@@ -968,8 +968,8 @@ public final class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .randomTicks(),
-                    ParticleTypes.SMOKE,
-                    ModParticles.ARCANE_SPARK.get(),
+                    () -> ParticleTypes.SMOKE,
+                    ModParticles.ARCANE_SPARK,
                     0,
                     0)
     );

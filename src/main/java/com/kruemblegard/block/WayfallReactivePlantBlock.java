@@ -1,5 +1,7 @@
 package com.kruemblegard.block;
 
+import java.util.function.Supplier;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.TagKey;
@@ -9,15 +11,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WayfallReactivePlantBlock extends WayfallPlantBlock {
-    private final ParticleOptions idleParticle;
-    private final ParticleOptions activeParticle;
+    private final Supplier<? extends ParticleOptions> idleParticle;
+    private final Supplier<? extends ParticleOptions> activeParticle;
     private final int playerRadius;
     private final int energyRadius;
 
     public WayfallReactivePlantBlock(
             Properties properties,
-            ParticleOptions idleParticle,
-            ParticleOptions activeParticle,
+            Supplier<? extends ParticleOptions> idleParticle,
+            Supplier<? extends ParticleOptions> activeParticle,
             int playerRadius,
             int energyRadius
     ) {
@@ -52,7 +54,8 @@ public class WayfallReactivePlantBlock extends WayfallPlantBlock {
         int chance = active ? 3 : 6;
         if (random.nextInt(chance) != 0) return;
 
-        ParticleOptions particle = active ? activeParticle : idleParticle;
+        ParticleOptions particle = (active ? activeParticle : idleParticle).get();
+        if (particle == null) return;
         level.addParticle(
                 particle,
                 pos.getX() + 0.2 + random.nextDouble() * 0.6,
