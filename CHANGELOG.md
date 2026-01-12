@@ -11,6 +11,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.336 (2026-01-11)
 - Tuning(worldgen): make Wayfall biome flora more distinct by removing the global plant injection and assigning plant patches per-biome.
 - Tuning(worldgen): ensure every Wayfall biome still gets at least one food plant (Soulberry Shrub or Wispstalk).
+- Chore(assets): update Voidfelt block textures.
 
 ## 1.0.334 (2026-01-11)
 - Feature(crafting): add Wayfall stone blocks to vanilla stone-material tags so they can craft stone tools and common stone components (furnace/stonecutter + many redstone recipes).
