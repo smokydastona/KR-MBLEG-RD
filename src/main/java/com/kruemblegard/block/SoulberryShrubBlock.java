@@ -12,7 +12,7 @@ import net.minecraft.world.phys.AABB;
 
 public class SoulberryShrubBlock extends BerryBushBlock {
     public SoulberryShrubBlock(Properties properties) {
-        super(properties, com.kruemblegard.Kruemblegard.MOD_ID, "soulberries", 0.0f);
+        super(properties, com.kruemblegard.Kruemblegard.MOD_ID, "soulberries", 1.0f);
     }
 
     @Override

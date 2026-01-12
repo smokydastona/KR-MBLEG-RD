@@ -87,6 +87,7 @@ public final class Kruemblegard {
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.SOULBERRIES);
             event.accept(ModItems.GHOULBERRIES);
+            event.accept(ModItems.WISPSHOOT);
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {

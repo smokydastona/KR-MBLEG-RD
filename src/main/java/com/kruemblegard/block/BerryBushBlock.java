@@ -1,14 +1,18 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.registry.ModTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -38,6 +43,12 @@ public class BerryBushBlock extends BushBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         builder.add(AGE);
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.is(BlockTags.DIRT)
+            || state.is(ModTags.Blocks.WAYFALL_GROUND);
     }
 
     @Override
@@ -76,7 +87,18 @@ public class BerryBushBlock extends BushBlock {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (damageOnTouch <= 0.0f) return;
         int age = state.getValue(AGE);
-        if (age > 0) {
+        if (age <= 0) return;
+
+        // Vanilla-ish berry behavior: slow the entity, and only deal damage when they actually
+        // move through it (and aren't stepping carefully).
+        entity.makeStuckInBlock(state, new Vec3(0.8D, 0.75D, 0.8D));
+        if (level.isClientSide) return;
+        if (!(entity instanceof LivingEntity living)) return;
+        if (living.isSteppingCarefully()) return;
+
+        double dx = Math.abs(entity.getX() - entity.xOld);
+        double dz = Math.abs(entity.getZ() - entity.zOld);
+        if (dx >= 0.003D || dz >= 0.003D) {
             entity.hurt(level.damageSources().sweetBerryBush(), damageOnTouch);
         }
     }

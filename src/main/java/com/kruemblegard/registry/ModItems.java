@@ -8,6 +8,7 @@ import com.kruemblegard.item.RunePetalItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.RecordItem;
@@ -163,12 +164,26 @@ public class ModItems {
 
     public static final RegistryObject<Item> SOULBERRIES = ITEMS.register(
         "soulberries",
-        () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).build()))
+        () -> new ItemNameBlockItem(
+            ModBlocks.SOULBERRY_SHRUB.get(),
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).build())
+        )
     );
 
     public static final RegistryObject<Item> GHOULBERRIES = ITEMS.register(
         "ghoulberries",
-        () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build()))
+        () -> new ItemNameBlockItem(
+            ModBlocks.GHOULBERRY_SHRUB.get(),
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build())
+        )
+    );
+
+    public static final RegistryObject<Item> WISPSHOOT = ITEMS.register(
+        "wispshoot",
+        () -> new ItemNameBlockItem(
+            ModBlocks.WISPSTALK.get(),
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod(0.2f).build())
+        )
     );
 
 

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.330 (2026-01-11)
+- Feature(plants): add `wispshoot`, a new edible drop harvested from mature Wispstalk.
+- Feature(plants): make Soulberries/Ghoulberries/Wispshoot plant their matching plants when used on suitable ground.
+- Tuning(plants): make Soulberry Shrub, Ghoulberry Shrub, and Wispstalk prickly when walked through (vanilla sweet-berry-bush style).
+- Note(assets): `wispshoot` currently reuses the Soulberries item texture as a placeholder.
+
 ## 1.0.329 (2026-01-10)
 - Fix(mobs): actually remove the stray `scattered_enderman.animation_controllers.json` from `assets/.../animations` (GeckoLib only accepts animation JSON there), preventing the startup crash.
 

@@ -7,6 +7,22 @@
         { "type": "minecraft:item", "name": "kruemblegard:wispstalk" }
       ],
       "conditions": [
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "enchantments": [
+              { "enchantment": "minecraft:silk_touch", "levels": { "min": 1 } }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:item", "name": "kruemblegard:wispshoot" }
+      ],
+      "conditions": [
         { "condition": "minecraft:survives_explosion" }
       ]
     }
