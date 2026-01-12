@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.332 (2026-01-11)
 - Chore(assets): remove legacy Wispstalk model/texture (`wispstalk.json` / `wispstalk.png`) after switching to stage visuals.
 
+## 1.0.333 (2026-01-11)
+- Chore(assets): add a placeholder `wispshoot` item texture and point the item model at it.
+
 ## 1.0.331 (2026-01-11)
 - Chore(assets): split Wispstalk visuals into 4 growth-stage models/textures (`wispstalk_stage0..3`).
 
