@@ -3,7 +3,9 @@ package com.kruemblegard.block;
 import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -12,6 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 public class WayfallFeatureSaplingBlock extends SaplingBlock {
     public WayfallFeatureSaplingBlock(AbstractTreeGrower treeGrower, Properties properties) {
         super(treeGrower, properties);
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        this.advanceTree(level, pos, state, random);
     }
 
     @Override

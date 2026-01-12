@@ -127,7 +127,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
   - Wayfall wood families include `*_log`, `*_wood`, and stripped `stripped_*_{log,wood}` variants.
   - Axes strip Wayfall logs/wood into their stripped variants.
-  - Saplings can grow via random ticks or bonemeal.
+  - Saplings grow over time via random ticks (no light requirement) or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
   - Glimmerpine has a rare **mega** (2x2) variant that can generate naturally in Wayfall.
