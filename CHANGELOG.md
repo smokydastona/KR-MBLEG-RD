@@ -4,13 +4,20 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.350 (2026-01-12)
+- Chore(assets): update Fallbark woodset block textures (log/planks/door/trapdoor).
+
+## 1.0.349 (2026-01-12)
+- Fix(flora): Runegrowth bonemeal now retries multiple nearby patch placements instead of returning after the first attempt.
+
+## 1.0.348 (2026-01-12)
+- Tuning(flora): Runegrowth bonemeal can also grow other local biome plant patches (excluding food plants and saplings) so biome flora is renewable.
+
+## 1.0.347 (2026-01-12)
+- Tuning(paleweft): restore Runegrowth bonemeal as an on-demand bloom burst (no periodic ticking) while keeping Wayfall worldgen patches.
+
 ## 1.0.345 (2026-01-12)
 - Tuning(paleweft): remove the periodic “surface bonemeal/bloom” tick and switch Paleweft spawning to a Wayfall-only worldgen patch (mix of short + tall).
-
-## 1.0.346 (2026-01-12)
-- Tuning(paleweft): restore Runegrowth bonemeal as an on-demand bloom burst (no periodic ticking) while keeping Wayfall worldgen patches.
-- Tuning(flora): Runegrowth bonemeal can also grow other local biome plant patches (excluding food plants and saplings) so biome flora is renewable.
-- Fix(flora): Runegrowth bonemeal now retries multiple nearby patch placements instead of returning after the first attempt.
 
 ## 1.0.344 (2026-01-12)
 - Feature(paleweft): add Paleweft Grass + Tall Paleweft Grass with a “stitched” grass tint.
