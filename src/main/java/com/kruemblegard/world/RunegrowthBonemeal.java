@@ -54,7 +54,9 @@ public final class RunegrowthBonemeal {
             }
 
             Holder<PlacedFeature> chosen = candidates.get(random.nextInt(candidates.size()));
-            return chosen.value().place(level, level.getChunkSource().getGenerator(), random, surface);
+            if (chosen.value().place(level, level.getChunkSource().getGenerator(), random, surface)) {
+                return true;
+            }
         }
 
         return false;
