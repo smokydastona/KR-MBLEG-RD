@@ -19,7 +19,7 @@ Material references:
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
 - **Wayfall surface covers**: Ashmoss/Runegrowth/Voidfelt (placeholder textures; basic conversion rules).
-- **Paleweft (Wayfall farming)**: Runegrowth can trigger “surface blooms” that spawn Paleweft Grass; Paleweft Seeds can be farmed into Paleweft Corn yielding Weftkern + rare Echokern, craftable into Weftmeal.
+- **Paleweft (Wayfall farming)**: Paleweft Grass spawns in Wayfall biomes (worldgen; mix of short + tall); Paleweft Seeds can be farmed into Paleweft Corn yielding Weftkern + rare Echokern, craftable into Weftmeal.
 - **Rubble Tilth**: a Wayfall farmland analog created by hoeing rubble-tillable Wayfall soils.
 - **Guidebook (Written Book)**: players are given a vanilla `minecraft:written_book` on first join, pre-filled with your mod’s guide text.
 - **Advancements** are granted by code.

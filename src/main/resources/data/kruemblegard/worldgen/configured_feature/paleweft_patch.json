@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 24,
+    "xz_spread": 6,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "type": "minecraft:random_selector",
+        "config": {
+          "features": [
+            {
+              "chance": 0.25,
+              "feature": {
+                "type": "minecraft:simple_block",
+                "config": {
+                  "to_place": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                      "Name": "kruemblegard:paleweft_tall_grass"
+                    }
+                  },
+                  "block_placer": {
+                    "type": "minecraft:double_plant_placer"
+                  }
+                }
+              }
+            }
+          ],
+          "default": {
+            "type": "minecraft:simple_block",
+            "config": {
+              "to_place": {
+                "type": "minecraft:simple_state_provider",
+                "state": {
+                  "Name": "kruemblegard:paleweft_grass"
+                }
+              }
+            }
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "kruemblegard:paleweft_grass"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

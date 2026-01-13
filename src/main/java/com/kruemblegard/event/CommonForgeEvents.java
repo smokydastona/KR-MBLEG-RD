@@ -3,24 +3,19 @@ package com.kruemblegard.event;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModTags;
-import com.kruemblegard.world.WayfallSurfaceBloom;
-import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,37 +23,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CommonForgeEvents {
     private CommonForgeEvents() {}
-
-    @SubscribeEvent
-    public static void onWayfallSurfaceBloomTick(TickEvent.LevelTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-        if (!(event.level instanceof ServerLevel level)) {
-            return;
-        }
-        if (level.dimension() != ModWorldgenKeys.Levels.WAYFALL) {
-            return;
-        }
-        if ((level.getGameTime() % 80L) != 0L) {
-            return;
-        }
-
-        RandomSource random = level.random;
-        for (Player player : level.players()) {
-            BlockPos origin = player.blockPosition();
-            for (int i = 0; i < 6; i++) {
-                int x = origin.getX() + random.nextInt(25) - 12;
-                int z = origin.getZ() + random.nextInt(25) - 12;
-                BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos(x, 0, z));
-                BlockPos groundPos = top.below();
-                BlockState ground = level.getBlockState(groundPos);
-                if (ground.is(ModBlocks.RUNEGROWTH.get()) || ground.is(ModTags.Blocks.RUBBLE_TILLABLE)) {
-                    WayfallSurfaceBloom.bloomFromRunegrowth(level, groundPos, random, 4);
-                }
-            }
-        }
-    }
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {

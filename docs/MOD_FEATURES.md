@@ -125,11 +125,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
 - Paleweft farming (Wayfall)
   - **Paleweft Grass** and **Tall Paleweft Grass** use a “stitched” grass tint (samples multiple nearby grass colors).
+  - Paleweft grass patches spawn across Wayfall biomes via worldgen (a random mix of short + tall).
   - **Paleweft Seeds** drop from Paleweft grass (loot tables) and can be planted as **Paleweft Corn**.
   - **Paleweft Corn** is a 4-stage crop that grows on vanilla Farmland or **Rubble Tilth**.
   - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; Weftkern crafts into **Weftmeal** (bread-ish).
   - **Rubble Tilth** is a Wayfall farmland analog created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
-  - **Surface bloom**: Runegrowth bonemeal/ambient ticks (and periodic Wayfall player-proximity ticks) can “bloom” Paleweft flora onto nearby rubble-tillable surfaces.
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly).
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
