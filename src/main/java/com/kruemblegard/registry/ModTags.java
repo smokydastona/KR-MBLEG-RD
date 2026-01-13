@@ -23,6 +23,11 @@ public final class ModTags {
             Registries.BLOCK,
             new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_ground")
         );
+
+        public static final TagKey<Block> RUBBLE_TILLABLE = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "rubble_tillable")
+        );
     }
 
     public static final class Biomes {

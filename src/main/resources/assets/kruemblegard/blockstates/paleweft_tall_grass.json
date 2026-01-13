@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "kruemblegard:block/paleweft_tall_grass_bottom" },
+    "half=upper": { "model": "kruemblegard:block/paleweft_tall_grass_top" }
+  }
+}

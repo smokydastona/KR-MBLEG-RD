@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 
@@ -43,7 +44,7 @@ public final class ModAutoBlockItems {
                 }
 
                 // Common blocks that intentionally don't have a direct item.
-                if (block instanceof FlowerPotBlock || block instanceof LiquidBlock) {
+                if (block instanceof FlowerPotBlock || block instanceof LiquidBlock || block instanceof FarmBlock) {
                     continue;
                 }
 

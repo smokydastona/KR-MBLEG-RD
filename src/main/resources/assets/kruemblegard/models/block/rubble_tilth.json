@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "kruemblegard:block/fault_dust",
+    "top": "kruemblegard:block/ashfall_loam"
+  }
+}

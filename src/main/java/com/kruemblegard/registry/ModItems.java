@@ -137,6 +137,9 @@ public class ModItems {
         "ghoulberry_shrub",
         () -> new BlockItem(ModBlocks.GHOULBERRY_SHRUB.get(), new Item.Properties())
     );
+
+    public static final RegistryObject<Item> PALEWEFT_GRASS_ITEM = registerBlockItem("paleweft_grass", ModBlocks.PALEWEFT_GRASS);
+    public static final RegistryObject<Item> PALEWEFT_TALL_GRASS_ITEM = registerBlockItem("paleweft_tall_grass", ModBlocks.PALEWEFT_TALL_GRASS);
     public static final RegistryObject<Item> DRIFTWOOD_WOOD_ITEM = registerBlockItem("driftwood_wood", ModBlocks.DRIFTWOOD_WOOD);
     public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_LOG_ITEM = registerBlockItem("stripped_driftwood_log", ModBlocks.STRIPPED_DRIFTWOOD_LOG);
     public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_WOOD_ITEM = registerBlockItem("stripped_driftwood_wood", ModBlocks.STRIPPED_DRIFTWOOD_WOOD);
@@ -155,6 +158,26 @@ public class ModItems {
     public static final RegistryObject<Item> REMNANT_SEEDS = ITEMS.register(
         "remnant_seeds",
         () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> PALEWEFT_SEEDS = ITEMS.register(
+        "paleweft_seeds",
+        () -> new ItemNameBlockItem(ModBlocks.PALEWEFT_CORN.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> WEFTKERN = ITEMS.register(
+        "weftkern",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ECHOKERN = ITEMS.register(
+        "echokern",
+        () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON))
+    );
+
+    public static final RegistryObject<Item> WEFTMEAL = ITEMS.register(
+        "weftmeal",
+        () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6f).build()))
     );
 
     public static final RegistryObject<Item> RUNE_PETALS = ITEMS.register(

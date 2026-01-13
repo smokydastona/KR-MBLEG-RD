@@ -11,8 +11,11 @@ import com.kruemblegard.block.DriftwoodLeavesBlock;
 import com.kruemblegard.block.AshmossBlock;
 import com.kruemblegard.block.RunedStoneveilRubbleBlock;
 import com.kruemblegard.block.RunegrowthBlock;
+import com.kruemblegard.block.RubbleTilthBlock;
 import com.kruemblegard.block.ScarstoneBlock;
 import com.kruemblegard.block.VoidfeltBlock;
+import com.kruemblegard.block.PaleweftGrassBlock;
+import com.kruemblegard.block.PaleweftCornCropBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
 import com.kruemblegard.block.WayfallPortalBlock;
 import com.kruemblegard.block.AshveilBlock;
@@ -35,6 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -455,6 +459,15 @@ public final class ModBlocks {
                     .randomTicks())
     );
 
+    public static final RegistryObject<Block> RUBBLE_TILTH = BLOCKS.register(
+            "rubble_tilth",
+            () -> new RubbleTilthBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DIRT)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRAVEL)
+                    .randomTicks())
+    );
+
     public static final RegistryObject<Block> ATTUNED_ORE = BLOCKS.register(
             "attuned_ore",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -613,6 +626,38 @@ public final class ModBlocks {
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.FUNGUS)
+                    .randomTicks())
+    );
+
+    // --- Paleweft flora / crops ---
+
+    public static final RegistryObject<Block> PALEWEFT_GRASS = BLOCKS.register(
+            "paleweft_grass",
+            () -> new PaleweftGrassBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> PALEWEFT_TALL_GRASS = BLOCKS.register(
+            "paleweft_tall_grass",
+            () -> new DoublePlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .randomTicks())
+    );
+
+    public static final RegistryObject<Block> PALEWEFT_CORN = BLOCKS.register(
+            "paleweft_corn",
+            () -> new PaleweftCornCropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.CROP)
                     .randomTicks())
     );
 

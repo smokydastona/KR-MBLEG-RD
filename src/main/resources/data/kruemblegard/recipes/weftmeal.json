@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "kruemblegard:weftkern"
+    }
+  },
+  "result": {
+    "item": "kruemblegard:weftmeal",
+    "count": 1
+  }
+}

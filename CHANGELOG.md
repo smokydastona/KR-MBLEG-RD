@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.344 (2026-01-13)
+- Feature(paleweft): add Paleweft Grass + Tall Paleweft Grass with a “stitched” grass tint.
+- Feature(paleweft): add Paleweft Seeds + Paleweft Corn crop (4 stages) yielding Weftkern + rare Echokern.
+- Feature(paleweft): add Weftmeal (bread-ish food) and a simple recipe.
+- Feature(tilth): add Rubble Tilth (Wayfall farmland) created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
+- Feature(world): add a Wayfall surface-bloom mechanic (Runegrowth bonemeal + ambient bloom) that can spawn Paleweft flora.
+
 ## 1.0.343 (2026-01-11)
 - Tuning(composting): make Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) compostable.
 
