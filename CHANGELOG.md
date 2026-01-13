@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.351 (2026-01-12)
+- Fix(worldgen): fix Paleweft patch configured-feature decoding so world creation no longer fails.
+- Fix(assets): add missing item model for `paleweft_corn` to prevent model-load warnings.
+
 ## 1.0.350 (2026-01-12)
 - Chore(assets): update Fallbark woodset block textures (log/planks/door/trapdoor).
 

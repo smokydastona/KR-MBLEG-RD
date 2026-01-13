@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:paleweft_tall_grass"
+      }
+    },
+    "block_placer": {
+      "type": "minecraft:double_plant_placer"
+    }
+  }
+}

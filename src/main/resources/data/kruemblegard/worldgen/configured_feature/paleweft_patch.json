@@ -11,46 +11,13 @@
           "features": [
             {
               "chance": 0.25,
-              "feature": {
-                "type": "minecraft:simple_block",
-                "config": {
-                  "to_place": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                      "Name": "kruemblegard:paleweft_tall_grass"
-                    }
-                  },
-                  "block_placer": {
-                    "type": "minecraft:double_plant_placer"
-                  }
-                }
-              }
+              "feature": "kruemblegard:paleweft_tall_grass_plant"
             }
           ],
-          "default": {
-            "type": "minecraft:simple_block",
-            "config": {
-              "to_place": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "Name": "kruemblegard:paleweft_grass"
-                }
-              }
-            }
-          }
+          "default": "kruemblegard:paleweft_grass_plant"
         }
       },
-      "placement": [
-        {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:would_survive",
-            "state": {
-              "Name": "kruemblegard:paleweft_grass"
-            }
-          }
-        }
-      ]
+      "placement": []
     }
   }
 }
