@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.345 (2026-01-12)
 - Tuning(paleweft): remove the periodic “surface bonemeal/bloom” tick and switch Paleweft spawning to a Wayfall-only worldgen patch (mix of short + tall).
 
+## 1.0.346 (2026-01-13)
+- Tuning(paleweft): restore Runegrowth bonemeal as an on-demand Paleweft bloom burst (no periodic ticking) while keeping Wayfall worldgen patches.
+
 ## 1.0.344 (2026-01-12)
 - Feature(paleweft): add Paleweft Grass + Tall Paleweft Grass with a “stitched” grass tint.
 - Feature(paleweft): add Paleweft Seeds + Paleweft Corn crop (4 stages) yielding Weftkern + rare Echokern.

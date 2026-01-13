@@ -126,6 +126,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Paleweft farming (Wayfall)
   - **Paleweft Grass** and **Tall Paleweft Grass** use a “stitched” grass tint (samples multiple nearby grass colors).
   - Paleweft grass patches spawn across Wayfall biomes via worldgen (a random mix of short + tall).
+  - Bonemealing **Runegrowth** can also trigger a local Paleweft bloom burst (no periodic ticking).
   - **Paleweft Seeds** drop from Paleweft grass (loot tables) and can be planted as **Paleweft Corn**.
   - **Paleweft Corn** is a 4-stage crop that grows on vanilla Farmland or **Rubble Tilth**.
   - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; Weftkern crafts into **Weftmeal** (bread-ish).

@@ -1,14 +1,18 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.world.PaleweftBloom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class RunegrowthBlock extends SpreadingSnowyDirtBlock {
+public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
 
     public RunegrowthBlock(Properties properties) {
         super(properties);
@@ -32,6 +36,21 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+        return true;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        PaleweftBloom.bloom(level, pos, random, 18);
     }
 
     private static boolean isSpreadableWayfallDirt(BlockState state) {
