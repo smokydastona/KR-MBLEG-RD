@@ -1,7 +1,7 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
-import com.kruemblegard.world.PaleweftBloom;
+import com.kruemblegard.world.RunegrowthBonemeal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -50,7 +50,7 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        PaleweftBloom.bloom(level, pos, random, 18);
+        RunegrowthBonemeal.bonemeal(level, pos, random);
     }
 
     private static boolean isSpreadableWayfallDirt(BlockState state) {
