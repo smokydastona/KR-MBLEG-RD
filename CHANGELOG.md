@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.353 (2026-01-13)
+## 1.0.355 (2026-01-12)
+- Fix(loot): fix Paleweft loot tables failing to load (invalid `minecraft:alternative` condition).
+- Fix(worldgen): prevent Wayfall chunkgen crash from a feature-order cycle by making Paleweft patch injection order consistent.
+
+## 1.0.354 (2026-01-12)
+- Chore(tools): remove legacy unused-texture audit script.
+
+## 1.0.353 (2026-01-12)
 - Chore(assets): normalize all Fallbark textures to 256x256 for proper mipmapping.
 
 ## 1.0.352 (2026-01-12)

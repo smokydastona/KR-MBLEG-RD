@@ -12,30 +12,47 @@
       ],
       "conditions": [
         {
-          "condition": "minecraft:alternative",
-          "terms": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "kruemblegard:paleweft_corn",
-              "properties": {
-                "age": "0"
-              }
-            },
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "kruemblegard:paleweft_corn",
-              "properties": {
-                "age": "1"
-              }
-            },
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "kruemblegard:paleweft_corn",
-              "properties": {
-                "age": "2"
-              }
-            }
-          ]
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:paleweft_corn",
+          "properties": {
+            "age": "0"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kruemblegard:paleweft_seeds"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:paleweft_corn",
+          "properties": {
+            "age": "1"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kruemblegard:paleweft_seeds"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:paleweft_corn",
+          "properties": {
+            "age": "2"
+          }
         }
       ]
     },

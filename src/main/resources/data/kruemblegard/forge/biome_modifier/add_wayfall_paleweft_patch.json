@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#kruemblegard:wayfall",
-  "features": [
-    "kruemblegard:paleweft_patch"
-  ],
-  "step": "vegetal_decoration"
-}

@@ -6,30 +6,36 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "kruemblegard:paleweft_grass"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:alternative",
-          "terms": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "items": ["minecraft:shears"]
-              }
+              "type": "minecraft:item",
+              "name": "kruemblegard:paleweft_grass",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": ["minecraft:shears"]
+                  }
+                }
+              ]
             },
             {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "enchantments": [
-                  {
-                    "enchantment": "minecraft:silk_touch",
-                    "levels": { "min": 1 }
+              "type": "minecraft:item",
+              "name": "kruemblegard:paleweft_grass",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": { "min": 1 }
+                      }
+                    ]
                   }
-                ]
-              }
+                }
+              ]
             }
           ]
         }
