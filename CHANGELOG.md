@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.344 (2026-01-13)
+## 1.0.344 (2026-01-12)
 - Feature(paleweft): add Paleweft Grass + Tall Paleweft Grass with a “stitched” grass tint.
 - Feature(paleweft): add Paleweft Seeds + Paleweft Corn crop (4 stages) yielding Weftkern + rare Echokern.
 - Feature(paleweft): add Weftmeal (bread-ish food) and a simple recipe.

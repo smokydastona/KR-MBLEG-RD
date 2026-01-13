@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "kruemblegard:item/soulberries"
+    "layer0": "kruemblegard:item/weftmeal"
   }
 }

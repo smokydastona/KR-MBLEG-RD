@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/crop",
   "textures": {
-    "crop": "kruemblegard:block/pathreed"
+    "crop": "kruemblegard:block/paleweft_corn_stage2"
   }
 }

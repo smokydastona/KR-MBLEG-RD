@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "kruemblegard:block/transit_fern"
+    "cross": "kruemblegard:block/paleweft_tall_grass_bottom"
   }
 }
