@@ -132,6 +132,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; Weftkern crafts into **Weftmeal** (bread-ish).
   - **Rubble Tilth** is a Wayfall farmland analog created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
     - When it dries out (or gets trampled), it reverts to **Fault Dust**.
+    - Visual feedback: at high moisture, it swaps to a moist top texture (vanilla farmland-style).
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly).
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.

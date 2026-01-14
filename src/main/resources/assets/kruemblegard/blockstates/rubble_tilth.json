@@ -4,9 +4,9 @@
     "moisture=1": { "model": "kruemblegard:block/rubble_tilth" },
     "moisture=2": { "model": "kruemblegard:block/rubble_tilth" },
     "moisture=3": { "model": "kruemblegard:block/rubble_tilth" },
-    "moisture=4": { "model": "kruemblegard:block/rubble_tilth" },
-    "moisture=5": { "model": "kruemblegard:block/rubble_tilth" },
-    "moisture=6": { "model": "kruemblegard:block/rubble_tilth" },
-    "moisture=7": { "model": "kruemblegard:block/rubble_tilth" }
+    "moisture=4": { "model": "kruemblegard:block/rubble_tilth_moist" },
+    "moisture=5": { "model": "kruemblegard:block/rubble_tilth_moist" },
+    "moisture=6": { "model": "kruemblegard:block/rubble_tilth_moist" },
+    "moisture=7": { "model": "kruemblegard:block/rubble_tilth_moist" }
   }
 }

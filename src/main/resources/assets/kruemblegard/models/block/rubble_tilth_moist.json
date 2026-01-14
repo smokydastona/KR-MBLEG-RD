@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "kruemblegard:block/rubble_tilth_dirt",
+    "top": "kruemblegard:block/rubble_tilth_top_moist"
+  }
+}

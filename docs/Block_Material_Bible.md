@@ -925,6 +925,7 @@ Update workflow:
 - **IDs**: `kruemblegard:rubble_tilth`
 - **Vanilla analog**: `minecraft:farmland` (farmland-like soil)
 - **Type**: `FarmBlock` (Wayfall farmland analogue)
+- **Visual moisture**: uses a dry top texture at low moisture and a moist top texture at high moisture (vanilla farmland-style feedback).
 - **Dry-out behavior**: when it dries out (or is trampled / can’t survive), it reverts into `kruemblegard:fault_dust` (not vanilla dirt).
 
 #### Voidfelt
