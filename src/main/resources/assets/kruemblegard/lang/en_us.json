@@ -290,7 +290,7 @@
     "block.kruemblegard.waytorch_tree_wood":  "Waytorch Tree Wood",
     "block.kruemblegard.whispervine":  "Whispervine",
     "block.kruemblegard.wispstalk":  "Wispstalk",
-    "creativetab.kruemblegard":  "KrÃ¼mblegÃ¥rd",
+    "creativetab.kruemblegard":  "Kr\u00fcmbleg\u00e5rd",
     "death.attack.kruemblegard.arcane_storm":  "%1$s was obliterated by arcane storm energy",
     "death.attack.kruemblegard.meteor_arm":  "%1$s was crushed by a falling stone arm",
     "death.attack.kruemblegard.rune_bolt":  "%1$s was struck by a rune bolt",
@@ -413,7 +413,10 @@
     "item.kruemblegard.faultwood_trapdoor":  "Faultwood Trapdoor",
     "item.kruemblegard.faultwood_wood":  "Faultwood Wood",
     "item.kruemblegard.fractured_wayrock":  "Fractured Wayrock",
+    "item.kruemblegard.echokern":  "Echokern",
     "item.kruemblegard.ghoulberries":  "Ghoulberries",
+    "item.kruemblegard.weftkern":  "Weftkern",
+    "item.kruemblegard.weftmeal":  "Weftmeal",
     "item.kruemblegard.wispshoot":  "Wispshoot",
     "item.kruemblegard.ghoulberry_shrub":  "Ghoulberry Shrub",
     "item.kruemblegard.glimmerpine_button":  "Glimmerpine Button",
@@ -445,7 +448,7 @@
     "item.kruemblegard.hollowway_tree_stairs":  "Hollowway Tree Stairs",
     "item.kruemblegard.hollowway_tree_trapdoor":  "Hollowway Tree Trapdoor",
     "item.kruemblegard.hollowway_tree_wood":  "Hollowway Tree Wood",
-    "item.kruemblegard.kruemblegard_spawn_egg":  "KrÃ¼mblegÃ¥rd Spawn Egg",
+    "item.kruemblegard.kruemblegard_spawn_egg":  "Kr\u00fcmbleg\u00e5rd Spawn Egg",
     "item.kruemblegard.memory_rot":  "Memory Rot",
     "item.kruemblegard.menu_tab":  "Menu Tab",
     "item.kruemblegard.milestone_grass":  "Milestone Grass",
@@ -469,6 +472,7 @@
     "item.kruemblegard.great_hunger_spawn_egg":  "The Great Hunger Spawn Egg",
     "item.kruemblegard.polished_scarstone":  "Polished Scarstone",
     "item.kruemblegard.polished_stoneveil_rubble":  "Polished Stoneveil Rubble",
+    "item.kruemblegard.paleweft_seeds":  "Paleweft Seeds",
     "item.kruemblegard.remnant_seeds":  "Remnant Seeds",
     "item.kruemblegard.reverse_portal_spores":  "Reverse Portal Spores",
     "item.kruemblegard.ruin_thistle":  "Ruin Thistle",
@@ -653,10 +657,10 @@
     "item.kruemblegard.stoneveil_rubble_stairs": "Stoneveil Rubble Stairs",
     "item.kruemblegard.stoneveil_rubble_wall": "Stoneveil Rubble Wall",
 
-    "subtitles.kruemblegard.ambient":  "KrÃ¼mblegÃ¥rd rumbles",
-    "subtitles.kruemblegard.attack":  "KrÃ¼mblegÃ¥rd swings",
-    "subtitles.kruemblegard.dash":  "KrÃ¼mblegÃ¥rd dashes",
-    "subtitles.kruemblegard.death":  "KrÃ¼mblegÃ¥rd collapses",
-    "subtitles.kruemblegard.storm":  "KrÃ¼mblegÃ¥rd summons a storm"
+    "subtitles.kruemblegard.ambient":  "Kr\u00fcmbleg\u00e5rd rumbles",
+    "subtitles.kruemblegard.attack":  "Kr\u00fcmbleg\u00e5rd swings",
+    "subtitles.kruemblegard.dash":  "Kr\u00fcmbleg\u00e5rd dashes",
+    "subtitles.kruemblegard.death":  "Kr\u00fcmbleg\u00e5rd collapses",
+    "subtitles.kruemblegard.storm":  "Kr\u00fcmbleg\u00e5rd summons a storm"
 }
 

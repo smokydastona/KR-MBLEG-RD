@@ -81,6 +81,7 @@ public final class Kruemblegard {
             event.accept(ModItems.ATTUNED_RUNE_SHARD);
             event.accept(ModItems.RUNIC_CORE);
             event.accept(ModItems.REMNANT_SEEDS);
+            event.accept(ModItems.PALEWEFT_SEEDS);
             event.accept(ModItems.RUNE_PETALS);
         }
 
@@ -88,6 +89,9 @@ public final class Kruemblegard {
             event.accept(ModItems.SOULBERRIES);
             event.accept(ModItems.GHOULBERRIES);
             event.accept(ModItems.WISPSHOOT);
+            event.accept(ModItems.WEFTKERN);
+            event.accept(ModItems.ECHOKERN);
+            event.accept(ModItems.WEFTMEAL);
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
