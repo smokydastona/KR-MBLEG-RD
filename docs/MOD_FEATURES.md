@@ -131,6 +131,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - **Paleweft Corn** is a 4-stage crop that grows on vanilla Farmland or **Rubble Tilth**.
   - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; Weftkern crafts into **Weftmeal** (bread-ish).
   - **Rubble Tilth** is a Wayfall farmland analog created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
+    - When it dries out (or gets trampled), it reverts to **Fault Dust**.
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly).
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
@@ -154,8 +155,9 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ### Wayfall surface covers
 - Ashmoss is a moss block surface.
 - Runegrowth is a grass block surface.
-- Voidfelt is a podzol-like dirt surface.
+- Voidfelt is a mycelium-like dirt surface.
 - Runegrowth spreads over **Fault Dust** under grass-like conditions (sufficient light and not waterlogged).
+- Voidfelt can spread over **Fault Dust** (void biome only) under similar grass/mycelium-like conditions.
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
 - Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.
 

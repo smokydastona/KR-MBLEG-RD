@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.356 (2026-01-14)
+- Fix(tilth): make Rubble Tilth dry/trample into Fault Dust (not vanilla dirt).
+- Tuning(surface): let Voidfelt spread onto Fault Dust in void biomes (mycelium-like behavior).
+
 ## 1.0.355 (2026-01-12)
 - Fix(loot): fix Paleweft loot tables failing to load (invalid `minecraft:alternative` condition).
 - Fix(worldgen): prevent Wayfall chunkgen crash from a feature-order cycle by making Paleweft patch injection order consistent.

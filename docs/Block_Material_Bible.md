@@ -921,6 +921,19 @@ Update workflow:
 - **Sound**: `SoundType.ROOTED_DIRT`
 - **Strength tier**: `0.5F / 0.5F`
 
+#### Rubble Tilth
+- **IDs**: `kruemblegard:rubble_tilth`
+- **Vanilla analog**: `minecraft:farmland` (farmland-like soil)
+- **Type**: `FarmBlock` (Wayfall farmland analogue)
+- **Dry-out behavior**: when it dries out (or is trampled / can’t survive), it reverts into `kruemblegard:fault_dust` (not vanilla dirt).
+
+#### Voidfelt
+- **IDs**: `kruemblegard:voidfelt`
+- **Vanilla analog**: `minecraft:mycelium` (spreading, biome-flavored soil)
+- **Behavior**:
+  - In void biomes, Voidfelt can spread onto adjacent `kruemblegard:fault_dust` under grass/mycelium-like conditions.
+  - Outside void biomes it slowly collapses back into `kruemblegard:fault_dust`.
+
 ### Scarstone Family
 
 Scarstone is a deepslate-tier stone with special tool gating.
