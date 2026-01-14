@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(lang): fix Krümblegård mojibake strings and add missing translations for Paleweft Seeds, Weftkern, Echokern, and Weftmeal.
 - Fix(creative): add Paleweft Seeds to Ingredients and Weft/Echo foods to Food & Drinks.
 
+## 1.0.367 (2026-01-14)
+- Fix(assets): correct wood stairs/slabs/pressure-plate item models so they no longer render as planks.
+
 ## 1.0.365 (2026-01-14)
 - Tuning(items): make Weftkern and Echokern edible with raw-potato-like saturation; Weftmeal matches baked potato.
 
