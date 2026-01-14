@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.356 (2026-01-14)
-- Fix(tilth): make Rubble Tilth dry/trample into Fault Dust (not vanilla dirt).
-- Tuning(surface): let Voidfelt spread onto Fault Dust in void biomes (mycelium-like behavior).
+## 1.0.363 (2026-01-14)
+- Chore(assets): update Weftmeal item texture.
+
+## 1.0.358 (2026-01-14)
+- Feature(assets): add moist vs. dry visual states for Rubble Tilth based on moisture (vanilla farmland-style).
 
 ## 1.0.357 (2026-01-14)
 - Tuning(worldgen): make Voidfelt rare by limiting surface + patches to Shatterplate Flats; other biomes use Runegrowth on top.
 
-## 1.0.358 (2026-01-14)
-- Feature(assets): add moist vs. dry visual states for Rubble Tilth based on moisture (vanilla farmland-style).
+## 1.0.356 (2026-01-14)
+- Fix(tilth): make Rubble Tilth dry/trample into Fault Dust (not vanilla dirt).
+- Tuning(surface): let Voidfelt spread onto Fault Dust in void biomes (mycelium-like behavior).
 
 ## 1.0.355 (2026-01-12)
 - Fix(loot): fix Paleweft loot tables failing to load (invalid `minecraft:alternative` condition).
