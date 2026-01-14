@@ -129,7 +129,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Bonemealing **Runegrowth** can also trigger a local Paleweft bloom burst and has a chance to grow other biome-specific plants (excluding the food plants and saplings; no periodic ticking).
   - **Paleweft Seeds** drop from Paleweft grass (loot tables) and can be planted as **Paleweft Corn**.
   - **Paleweft Corn** is a 4-stage crop that grows on vanilla Farmland or **Rubble Tilth**.
-  - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; Weftkern crafts into **Weftmeal** (bread-ish).
+  - Mature Paleweft Corn yields potato-like amounts of **Weftkern** and has a very rare **Echokern** bonus drop; both are edible (raw-potato-like). Weftkern crafts into **Weftmeal** (baked-potato-like).
   - **Rubble Tilth** is a Wayfall farmland analog created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
     - When it dries out (or gets trampled), it reverts to **Fault Dust**.
     - Visual feedback: at high moisture, it swaps to a moist top texture (vanilla farmland-style).

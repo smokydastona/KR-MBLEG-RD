@@ -167,12 +167,18 @@ public class ModItems {
 
     public static final RegistryObject<Item> WEFTKERN = ITEMS.register(
         "weftkern",
-        () -> new Item(new Item.Properties())
+        () -> new Item(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.3f).build())
+        )
     );
 
     public static final RegistryObject<Item> ECHOKERN = ITEMS.register(
         "echokern",
-        () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON))
+        () -> new Item(
+            new Item.Properties()
+                .rarity(Rarity.UNCOMMON)
+                .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.3f).build())
+        )
     );
 
     public static final RegistryObject<Item> WEFTMEAL = ITEMS.register(
