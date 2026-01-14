@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.364 (2026-01-14)
+- Chore(assets): update Paleweft Seeds item texture.
+
 ## 1.0.363 (2026-01-14)
 - Chore(assets): update Weftmeal item texture.
 
