@@ -16,7 +16,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - Some Wayfall trees include rare mega variants in natural generation (Wayroot, Glimmerpine, Driftwillow, Monument Oak).
 - Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
-  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.
+  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; currently only **Shatterplate Flats**) with shallow **Crushstone** beneath.
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.

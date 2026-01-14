@@ -159,7 +159,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Runegrowth spreads over **Fault Dust** under grass-like conditions (sufficient light and not waterlogged).
 - Voidfelt can spread over **Fault Dust** (void biome only) under similar grass/mycelium-like conditions.
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
-- Voidfelt is primarily generated in void biomes (tag: `kruemblegard:wayfall_void`) and slowly reverts outside them.
+- Voidfelt is rare: it is primarily generated in **Shatterplate Flats** (tag: `kruemblegard:wayfall_void`) and slowly reverts outside void-biome conditions.
 
 ## Dimensions
   - Void dimension with Aether-inspired floating islands.
@@ -174,7 +174,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Safety: falling into the Wayfall void teleports you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
-  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** with shallow **Crushstone** beneath.
+  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; Shatterplate Flats only) with shallow **Crushstone** beneath.
   - Otherwise, the surface defaults to **Runegrowth** (with **Fault Dust** used as a soil layer in some biomes).
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 

@@ -132,8 +132,7 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "kruemblegard:betweenlight_void",
-            "kruemblegard:underway_falls"
+            "kruemblegard:shatterplate_flats"
           ]
         },
         "then_run": {
@@ -158,8 +157,7 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "kruemblegard:betweenlight_void",
-            "kruemblegard:underway_falls"
+            "kruemblegard:shatterplate_flats"
           ]
         },
         "then_run": {
@@ -185,8 +183,9 @@
           "type": "minecraft:biome",
           "biome_is": [
             "kruemblegard:hollow_transit_plains",
+            "kruemblegard:betweenlight_void",
+            "kruemblegard:underway_falls",
             "kruemblegard:fracture_shoals",
-            "kruemblegard:shatterplate_flats",
             "kruemblegard:glyphscar_reach"
           ]
         },
@@ -213,8 +212,9 @@
           "type": "minecraft:biome",
           "biome_is": [
             "kruemblegard:hollow_transit_plains",
+            "kruemblegard:betweenlight_void",
+            "kruemblegard:underway_falls",
             "kruemblegard:fracture_shoals",
-            "kruemblegard:shatterplate_flats",
             "kruemblegard:glyphscar_reach"
           ]
         },
