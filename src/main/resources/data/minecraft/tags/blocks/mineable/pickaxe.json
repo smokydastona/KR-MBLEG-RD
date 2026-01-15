@@ -4,12 +4,20 @@
     "kruemblegard:attuned_ore",
     "kruemblegard:fractured_wayrock",
     "kruemblegard:crushstone",
+    "kruemblegard:ashfall_stone",
+    "kruemblegard:ashfall_stone_stairs",
+    "kruemblegard:ashfall_stone_slab",
+    "kruemblegard:ashfall_stone_wall",
     "kruemblegard:scarstone",
     "kruemblegard:polished_scarstone",
     "kruemblegard:chiseled_scarstone",
     "kruemblegard:cracked_scarstone",
     "kruemblegard:stoneveil_rubble",
     "kruemblegard:polished_stoneveil_rubble",
-    "kruemblegard:runed_stoneveil_rubble"
+    "kruemblegard:runed_stoneveil_rubble",
+    "kruemblegard:polished_ashfall_stone",
+    "kruemblegard:polished_ashfall_stone_stairs",
+    "kruemblegard:polished_ashfall_stone_slab",
+    "kruemblegard:polished_ashfall_stone_wall"
   ]
 }

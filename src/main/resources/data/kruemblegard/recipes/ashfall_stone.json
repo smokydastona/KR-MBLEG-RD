@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:ashfall_loam" }
+  },
+  "result": { "item": "kruemblegard:ashfall_stone", "count": 1 }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "kruemblegard:block/polished_ashfall_stone",
+    "top": "kruemblegard:block/polished_ashfall_stone",
+    "side": "kruemblegard:block/polished_ashfall_stone"
+  }
+}

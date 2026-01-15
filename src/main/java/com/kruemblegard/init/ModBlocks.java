@@ -195,6 +195,73 @@ public final class ModBlocks {
                     .sound(SoundType.SAND))
     );
 
+    public static final RegistryObject<Block> ASHFALL_STONE = BLOCKS.register(
+            "ashfall_stone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ASHFALL_STONE_STAIRS = BLOCKS.register(
+            "ashfall_stone_stairs",
+            () -> new StairBlock(() -> ASHFALL_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ASHFALL_STONE_SLAB = BLOCKS.register(
+            "ashfall_stone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ASHFALL_STONE_WALL = BLOCKS.register(
+            "ashfall_stone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_ASHFALL_STONE = BLOCKS.register(
+            "polished_ashfall_stone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.5F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_ASHFALL_STONE_STAIRS = BLOCKS.register(
+            "polished_ashfall_stone_stairs",
+            () -> new StairBlock(
+                    () -> POLISHED_ASHFALL_STONE.get().defaultBlockState(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.SAND)
+                            .strength(1.5F, 6.0F)
+                            .sound(SoundType.STONE)
+            )
+    );
+
+    public static final RegistryObject<Block> POLISHED_ASHFALL_STONE_SLAB = BLOCKS.register(
+            "polished_ashfall_stone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.5F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> POLISHED_ASHFALL_STONE_WALL = BLOCKS.register(
+            "polished_ashfall_stone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(1.5F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
     public static final RegistryObject<Block> FAULT_DUST = BLOCKS.register(
             "fault_dust",
             () -> new Block(BlockBehaviour.Properties.of()

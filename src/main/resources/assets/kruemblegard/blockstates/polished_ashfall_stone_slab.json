@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "kruemblegard:block/polished_ashfall_stone_slab" },
+    "type=top": { "model": "kruemblegard:block/polished_ashfall_stone_slab_top" },
+    "type=double": { "model": "kruemblegard:block/polished_ashfall_stone_slab_double" }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:ashfall_stone" }
+  },
+  "result": { "item": "kruemblegard:ashfall_stone_wall", "count": 6 }
+}

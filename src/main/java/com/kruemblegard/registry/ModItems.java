@@ -61,6 +61,14 @@ public class ModItems {
     public static final RegistryObject<Item> CRUSHSTONE_SLAB_ITEM = registerBlockItem("crushstone_slab", ModBlocks.CRUSHSTONE_SLAB);
     public static final RegistryObject<Item> CRUSHSTONE_WALL_ITEM = registerBlockItem("crushstone_wall", ModBlocks.CRUSHSTONE_WALL);
     public static final RegistryObject<Item> ASHFALL_LOAM_ITEM = registerBlockItem("ashfall_loam", ModBlocks.ASHFALL_LOAM);
+    public static final RegistryObject<Item> ASHFALL_STONE_ITEM = registerBlockItem("ashfall_stone", ModBlocks.ASHFALL_STONE);
+    public static final RegistryObject<Item> ASHFALL_STONE_STAIRS_ITEM = registerBlockItem("ashfall_stone_stairs", ModBlocks.ASHFALL_STONE_STAIRS);
+    public static final RegistryObject<Item> ASHFALL_STONE_SLAB_ITEM = registerBlockItem("ashfall_stone_slab", ModBlocks.ASHFALL_STONE_SLAB);
+    public static final RegistryObject<Item> ASHFALL_STONE_WALL_ITEM = registerBlockItem("ashfall_stone_wall", ModBlocks.ASHFALL_STONE_WALL);
+    public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_ITEM = registerBlockItem("polished_ashfall_stone", ModBlocks.POLISHED_ASHFALL_STONE);
+    public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_STAIRS_ITEM = registerBlockItem("polished_ashfall_stone_stairs", ModBlocks.POLISHED_ASHFALL_STONE_STAIRS);
+    public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_SLAB_ITEM = registerBlockItem("polished_ashfall_stone_slab", ModBlocks.POLISHED_ASHFALL_STONE_SLAB);
+    public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_WALL_ITEM = registerBlockItem("polished_ashfall_stone_wall", ModBlocks.POLISHED_ASHFALL_STONE_WALL);
     public static final RegistryObject<Item> FAULT_DUST_ITEM = registerBlockItem("fault_dust", ModBlocks.FAULT_DUST);
     public static final RegistryObject<Item> SCARSTONE_ITEM = registerBlockItem("scarstone", ModBlocks.SCARSTONE);
     public static final RegistryObject<Item> SCARSTONE_STAIRS_ITEM = registerBlockItem("scarstone_stairs", ModBlocks.SCARSTONE_STAIRS);

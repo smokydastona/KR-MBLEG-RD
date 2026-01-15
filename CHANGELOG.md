@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.390 (2026-01-15)
 - Tuning(assets): Runegrowth now uses a snowier side texture when placed near snow.
 
+## 1.0.391 (2026-01-15)
+- Feature(blocks): add Ashfall Stone + Polished Ashfall Stone (stairs/slabs/walls) as Ashfall Loam’s sandstone-style family.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
