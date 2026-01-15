@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "kruemblegard:block/runegrowth" }
+    "snowy=false": { "model": "kruemblegard:block/runegrowth" },
+    "snowy=true": { "model": "kruemblegard:block/runegrowth_snowy" }
   }
 }
