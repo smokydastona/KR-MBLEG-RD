@@ -170,10 +170,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Spawns in Wayfall are limited to Krümblegård mobs (no vanilla mob spawns).
 - Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
 - Wayfall terrain shaping is driven by custom `worldgen/noise/**` + `worldgen/density_function/**` entries (instead of End island routing).
-- Safety: entering Wayfall via the portal searches for nearby solid ground and prefers the nearest surface (heightmap).
-- Safety: landing selection uses a full entity collision check (not just feet/head blocks) to avoid spawning inside walls/blocks.
-- Safety: if the spawn area is void (or no safe surface is found), a small platform is generated with cleared headroom at the landing point.
-- Safety: falling into the Wayfall void teleports you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
+- Safety: entering Wayfall via the portal always lands you on a dedicated spawn platform at Wayfall's shared spawn X/Z (with cleared headroom).
+- Safety: falling into the Wayfall void rescues you back to the Wayfall spawn platform (instead of sending you to a random dimension).
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; Shatterplate Flats only) with shallow **Crushstone** beneath.
