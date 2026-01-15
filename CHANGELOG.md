@@ -19,6 +19,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.388 (2026-01-15)
 - Fix(client): render carried blocks with vanilla Enderman transforms (correct texture + no more side-floating).
 
+## 1.0.389 (2026-01-15)
+- Fix(assets): shift Scattered Enderman UV anchors so the base/eyes textures no longer render as black in-game.
+
 ## 1.0.381 (2026-01-15)
 - Chore(docs): record the exact duration for Wayfall ambient music in the Sound Bible (62.0s / 1240 ticks).
 
