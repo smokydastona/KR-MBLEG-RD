@@ -6,20 +6,17 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RenderShape;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
-import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEndermanEntity> {
     public ScatteredEndermanRenderer(EntityRendererProvider.Context renderManager) {
@@ -27,7 +24,42 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         this.shadowRadius = 0.6f;
 
         addRenderLayer(new EyesLayer(this));
-        addRenderLayer(new CarriedBlockLayer(this));
+    }
+
+    @Override
+    public void render(
+        ScatteredEndermanEntity entity,
+        float entityYaw,
+        float partialTick,
+        PoseStack poseStack,
+        MultiBufferSource bufferSource,
+        int packedLight
+    ) {
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+
+        var carried = entity.getCarriedBlock();
+        if (carried == null || carried.getRenderShape() == RenderShape.INVISIBLE) {
+            return;
+        }
+
+        // Render carried block in a vanilla-Enderman-like pose.
+        poseStack.pushPose();
+        poseStack.translate(0.0D, 0.6875D, -0.75D);
+        poseStack.mulPose(Axis.XP.rotationDegrees(20.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
+        poseStack.translate(0.25D, 0.1875D, 0.25D);
+        poseStack.scale(-0.5F, -0.5F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
+
+        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
+            carried,
+            poseStack,
+            bufferSource,
+            packedLight,
+            OverlayTexture.NO_OVERLAY
+        );
+
+        poseStack.popPose();
     }
 
     private static final class EyesLayer extends AutoGlowingGeoLayer<ScatteredEndermanEntity> {
@@ -41,46 +73,6 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         @Override
         protected ResourceLocation getTextureResource(ScatteredEndermanEntity animatable) {
             return EYES_TEXTURE;
-        }
-    }
-
-    private static final class CarriedBlockLayer extends GeoRenderLayer<ScatteredEndermanEntity> {
-        public CarriedBlockLayer(GeoRenderer<ScatteredEndermanEntity> renderer) {
-            super(renderer);
-        }
-
-        @Override
-        public void render(
-            PoseStack poseStack,
-            ScatteredEndermanEntity animatable,
-            BakedGeoModel bakedModel,
-            RenderType renderType,
-            MultiBufferSource bufferSource,
-            VertexConsumer buffer,
-            float partialTick,
-            int packedLight,
-            int packedOverlay
-        ) {
-            var carried = animatable.getCarriedBlock();
-            if (carried == null || carried.getRenderShape() == RenderShape.INVISIBLE) {
-                return;
-            }
-
-            poseStack.pushPose();
-
-            // Roughly matches vanilla Enderman held-block placement.
-            poseStack.translate(0.0D, 0.6875D, -0.75D);
-            poseStack.scale(-0.5F, -0.5F, 0.5F);
-
-            Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
-                carried,
-                poseStack,
-                bufferSource,
-                packedLight,
-                OverlayTexture.NO_OVERLAY
-            );
-
-            poseStack.popPose();
         }
     }
 }
