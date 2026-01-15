@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
+## 1.0.386 (2026-01-15)
+- Fix(assets): correct Scattered Enderman UVs to match the 64x32 in-game texture.
+
 ## 1.0.381 (2026-01-15)
 - Chore(docs): record the exact duration for Wayfall ambient music in the Sound Bible (62.0s / 1240 ticks).
 
