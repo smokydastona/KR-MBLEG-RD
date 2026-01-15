@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "kruemblegard:block/ashfall_stone"
+    "wall": "kruemblegard:block/ashfall_stone_side"
   }
 }

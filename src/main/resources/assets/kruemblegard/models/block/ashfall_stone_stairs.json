@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "kruemblegard:block/ashfall_stone",
-    "top": "kruemblegard:block/ashfall_stone",
-    "side": "kruemblegard:block/ashfall_stone"
+    "bottom": "kruemblegard:block/ashfall_stone_bottom",
+    "top": "kruemblegard:block/ashfall_stone_top",
+    "side": "kruemblegard:block/ashfall_stone_side"
   }
 }
