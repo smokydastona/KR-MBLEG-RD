@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.384 (2026-01-15)
+- Chore(assets): update Scattered Enderman Geo/Animation JSONs.
+
 ## 1.0.381 (2026-01-15)
 - Chore(docs): record the exact duration for Wayfall ambient music in the Sound Bible (62.0s / 1240 ticks).
 
