@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(wayfall): make Wayfall portal landing deterministic by always placing entities onto a dedicated spawn platform at Wayfall’s shared spawn.
 - Fix(wayfall): stabilize voidfall rescue by rescuing back to the Wayfall spawn platform and intercepting void damage earlier (attack/hurt), with a lower/safer early-trigger threshold.
 
+## 1.0.377 (2026-01-15)
+- Fix(wayfall): restore intended voidfall behavior: falling into Wayfall’s void throws you to a random safe landing spot in a random dimension (instead of keeping you in Wayfall), while keeping earlier void interception for reliability.
+
 ## 1.0.375 (2026-01-15)
 - Fix(wayfall): make Wayfall portal always enter at the Wayfall spawn landing (End-portal style), not the player’s last/old coordinates.
 
