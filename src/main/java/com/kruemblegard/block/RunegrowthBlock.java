@@ -6,20 +6,29 @@ import com.kruemblegard.world.RunegrowthBonemeal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
 
+    public static final EnumProperty<TempBand> TEMP = EnumProperty.create("temp", TempBand.class);
+
     public RunegrowthBlock(Properties properties) {
         super(properties);
+
+        // SpreadingSnowyDirtBlock sets SNOWY's default; we extend defaults with our biome-temperature variant.
+        this.registerDefaultState(this.defaultBlockState().setValue(TEMP, TempBand.TEMPERATE));
     }
 
     @Override
@@ -28,7 +37,8 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         if (placed == null) {
             return null;
         }
-        return placed.setValue(SNOWY, isNearSnow(context.getLevel(), context.getClickedPos()));
+
+        return applyVisualState(placed, context.getLevel(), context.getClickedPos());
     }
 
     @Override
@@ -41,11 +51,24 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
             BlockPos neighborPos
     ) {
         BlockState updated = super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-        return updated.setValue(SNOWY, isNearSnow(level, currentPos));
+        return applyVisualState(updated, level, currentPos);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(TEMP);
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        // Keep the visual state in sync with biome temperature + nearby snow.
+        BlockState desired = applyVisualState(state, level, pos);
+        if (desired != state) {
+            level.setBlock(pos, desired, 2);
+            state = desired;
+        }
+
         // Acts like a grass block. If unable to survive, it falls back to Wayfall dirt.
         if (!canRemainRunegrowth(level, pos)) {
             level.setBlock(pos, ModBlocks.FAULT_DUST.get().defaultBlockState(), 2);
@@ -53,14 +76,53 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         }
 
         if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
-            BlockState spreadState = this.defaultBlockState();
             for (int i = 0; i < 4; i++) {
                 BlockPos targetPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                 BlockState targetState = level.getBlockState(targetPos);
                 if (isSpreadableWayfallDirt(targetState) && canRemainRunegrowth(level, targetPos)) {
+                    BlockState spreadState = applyVisualState(this.defaultBlockState(), level, targetPos);
                     level.setBlock(targetPos, spreadState, 2);
                 }
             }
+        }
+    }
+
+    private static BlockState applyVisualState(BlockState state, LevelReader level, BlockPos pos) {
+        return state
+                .setValue(SNOWY, isNearSnow(level, pos))
+                .setValue(TEMP, TempBand.fromBaseTemperature(level.getBiome(pos).value()));
+    }
+
+    public enum TempBand implements StringRepresentable {
+        COLD("cold"),
+        TEMPERATE("temperate"),
+        WARM("warm"),
+        HOT("hot");
+
+        private final String name;
+
+        TempBand(String name) {
+            this.name = name;
+        }
+
+        public static TempBand fromBaseTemperature(Biome biome) {
+            // Base temperature bands (roughly matching vanilla intuition).
+            float t = biome.getBaseTemperature();
+            if (t < 0.4F) {
+                return COLD;
+            }
+            if (t < 0.9F) {
+                return TEMPERATE;
+            }
+            if (t < 1.5F) {
+                return WARM;
+            }
+            return HOT;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return this.name;
         }
     }
 

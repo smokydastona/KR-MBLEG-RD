@@ -19,6 +19,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.393 (2026-01-15)
 - Chore(assets): remove unused legacy `ashfall_stone.png` textures after switching to top/side/bottom placeholders.
 
+## 1.0.394 (2026-01-15)
+- Feature(assets): Runegrowth now swaps textures by biome base temperature (cold/temperate/warm/hot), layered with the existing near-snow “snowy” variant.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

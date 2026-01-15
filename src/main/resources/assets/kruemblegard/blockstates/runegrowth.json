@@ -1,6 +1,13 @@
 {
   "variants": {
-    "snowy=false": { "model": "kruemblegard:block/runegrowth" },
-    "snowy=true": { "model": "kruemblegard:block/runegrowth_snowy" }
+    "snowy=false,temp=cold": { "model": "kruemblegard:block/runegrowth_cold" },
+    "snowy=false,temp=temperate": { "model": "kruemblegard:block/runegrowth" },
+    "snowy=false,temp=warm": { "model": "kruemblegard:block/runegrowth_warm" },
+    "snowy=false,temp=hot": { "model": "kruemblegard:block/runegrowth_hot" },
+
+    "snowy=true,temp=cold": { "model": "kruemblegard:block/runegrowth_snowy_cold" },
+    "snowy=true,temp=temperate": { "model": "kruemblegard:block/runegrowth_snowy" },
+    "snowy=true,temp=warm": { "model": "kruemblegard:block/runegrowth_snowy_warm" },
+    "snowy=true,temp=hot": { "model": "kruemblegard:block/runegrowth_snowy_hot" }
   }
 }

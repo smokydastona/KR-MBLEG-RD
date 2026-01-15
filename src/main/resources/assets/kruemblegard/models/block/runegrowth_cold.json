@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "kruemblegard:block/runegrowth_top_temperate",
+    "top": "kruemblegard:block/runegrowth_top_cold",
     "bottom": "kruemblegard:block/fault_dust",
-    "side": "minecraft:block/grass_block_snow"
+    "side": "kruemblegard:block/runegrowth_side_cold"
   }
 }
