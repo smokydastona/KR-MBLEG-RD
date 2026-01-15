@@ -200,7 +200,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Sounds
 - Sound events are registered in `registry/ModSounds` and mapped in `assets/kruemblegard/sounds.json`.
 - Includes encounter sounds like `kruemblegard.rise` and `kruemblegard.radiant`.
-- Wayfall ambient music uses `kruemblegard:music.wayfall` (source file: `assets/kruemblegard/sounds/jungle-ish-beat-for-video-games.ogg`).
+- Wayfall ambient music uses `kruemblegard:music.wayfall` (source file: `assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg`).
 
 ## Config
 - Common config: `config/kruemblegard-common.toml`

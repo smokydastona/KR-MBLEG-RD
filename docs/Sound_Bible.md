@@ -198,12 +198,11 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:music.wayfall`
 - **ModSounds field**: `WAYFALL_MUSIC`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:jungle-ish-beat-for-video-games
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/jungle-ish-beat-for-video-games.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
-- **RecordItem lengthTicks**: `4800`
 
 
 <!-- AUTO-GENERATED:SOUNDS:END -->

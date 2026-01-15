@@ -7,6 +7,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.379 (2026-01-15)
 - Chore(items): remove the custom Wayfall music disc.
 
+## 1.0.380 (2026-01-15)
+- Tuning(wayfall): switch the Wayfall ambient music track to `horror-background-atmosphere-09_universfield.ogg`.
+- Chore(assets): remove the old Wayfall ambient track `jungle-ish-beat-for-video-games.ogg`.
+
 ## 1.0.378 (2026-01-15)
 - Fix(wayfall): portal entry now lands on a larger dedicated spawn island (tapered “asteroid” shape) at shared spawn X/Z to prevent spawning over void.
 - Tuning(worldgen): Wayfall island bottoms no longer use a hard flat cutoff at Y=96; terrain now fades smoothly toward air below that band for more asteroid-like undersides.
