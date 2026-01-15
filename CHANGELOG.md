@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.373 (2026-01-15)
 - Tuning(worldgen): lower the Wayfall void cutoff so floating islands taper more naturally (less flat-cut undersides).
 
+## 1.0.374 (2026-01-15)
+- Fix(wayfall): fix voidfall rescue teleport not triggering by correcting heightmap landing logic and robustly detecting void damage.
+
 ## 1.0.371 (2026-01-14)
 - Tuning(worldgen): make the cold Wayfall biomes place snow layers on the surface during worldgen (`minecraft:freeze_top_layer`).
 

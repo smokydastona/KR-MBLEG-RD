@@ -89,8 +89,8 @@ public final class WayfallVoidfallTeleportEvents {
             return;
         }
 
-        // In 1.20.1 the void damage source is exposed via DamageSources.
-        if (event.getSource() != player.damageSources().fellOutOfWorld()) {
+        // Avoid relying on reference equality here; match by damage source id.
+        if (!"fell_out_of_world".equals(event.getSource().getMsgId())) {
             return;
         }
 
@@ -232,12 +232,15 @@ public final class WayfallVoidfallTeleportEvents {
                     continue;
                 }
 
-                BlockState topState = level.getBlockState(top);
-                if (topState.isAir() || !isSafeLandingBlock(level, top, topState)) {
+                // HeightmapPos is the first air block above the top-most motion-blocking block.
+                // So the actual landing surface is the block below.
+                BlockPos ground = top.below();
+                BlockState groundState = level.getBlockState(ground);
+                if (groundState.isAir() || !isSafeLandingBlock(level, ground, groundState)) {
                     continue;
                 }
 
-                BlockPos feet = top.above();
+                BlockPos feet = ground.above();
                 if (!level.getBlockState(feet).getCollisionShape(level, feet).isEmpty()) {
                     continue;
                 }
