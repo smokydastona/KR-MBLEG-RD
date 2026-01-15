@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.370 (2026-01-15)
+- Fix(wayfall): harden portal landing selection to avoid spawning inside blocks (full entity collision check + safer fallback platform headroom).
+
 ## 1.0.369 (2026-01-14)
 - Tuning(worldgen): make Hollow Transit Plains and Underway Falls cold enough for snow cover.
 
