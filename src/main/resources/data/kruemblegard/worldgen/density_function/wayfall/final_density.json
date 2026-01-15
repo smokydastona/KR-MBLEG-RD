@@ -5,15 +5,14 @@
     "argument": {
       "type": "minecraft:blend_density",
       "argument": {
-        "type": "minecraft:min",
+        "type": "minecraft:add",
         "argument1": "kruemblegard:wayfall/terrain_density",
         "argument2": {
-          "type": "minecraft:range_choice",
-          "input": "minecraft:y",
-          "min_inclusive": -4064.0,
-          "max_exclusive": 96.0,
-          "when_in_range": -1.0,
-          "when_out_of_range": "kruemblegard:wayfall/terrain_density"
+          "type": "minecraft:y_clamped_gradient",
+          "from_y": 0.0,
+          "to_y": 96.0,
+          "from_value": -1.0,
+          "to_value": 0.0
         }
       }
     }

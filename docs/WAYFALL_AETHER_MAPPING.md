@@ -30,10 +30,10 @@ This document maps Wayfall's worldgen to the Aether's proven pattern.
 
 #### Terrain Density (`terrain_density.json`)
 - ✅ Uses Aether’s core “shattered” pattern constants (0.1, 0.2, -0.1, -0.27, 0.5)
-- ⚠️ Not an exact copy: Wayfall adds its own `island_shape` (2D elevation + 3D noise) and a `mid_bulge` term that is tuned to keep islands playable above the Y=96 void cutoff while preserving air gaps.
+- ⚠️ Not an exact copy: Wayfall adds its own `island_shape` (2D elevation + 3D noise) and a `mid_bulge` term that is tuned to keep islands playable above the lower void fade band (begins around Y≈96) while preserving air gaps.
 
 #### Splines (Y-Slides)
-- ✅ `mid_bulge.json`: ramps up after the void cutoff, then fades back down at higher Y so the dimension doesn’t fill solidly to build limit.
+- ✅ `mid_bulge.json`: ramps up after the lower void fade band, then fades back down at higher Y so the dimension doesn’t fill solidly to build limit.
 - ✅ Both use elevation_2d as coordinate (simplified from Aether's elevation_shattered)
 
 #### Feature Placement
