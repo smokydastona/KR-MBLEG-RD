@@ -103,12 +103,21 @@ public class WayfallPortalBlock extends Block {
     private static void teleport(Entity entity, ServerLevel target) {
         entity.changeDimension(target, new ITeleporter() {
             @Override
-            public net.minecraft.world.level.portal.PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld,
-                                                                           java.util.function.Function<ServerLevel, net.minecraft.world.level.portal.PortalInfo> defaultPortalInfo) {
+            public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw,
+                                      java.util.function.Function<Boolean, Entity> repositionEntity) {
+                // End-portal style: always enter Wayfall at its spawn landing, never at the source coords.
+                Entity placed = repositionEntity.apply(false);
+
                 BlockPos spawn = destWorld.getSharedSpawnPos();
-                BlockPos landing = findLandingOrCreatePlatform(destWorld, spawn, entity);
-                Vec3 dest = new Vec3(landing.getX() + 0.5D, landing.getY(), landing.getZ() + 0.5D);
-                return new net.minecraft.world.level.portal.PortalInfo(dest, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot());
+                BlockPos landing = findLandingOrCreatePlatform(destWorld, spawn, placed);
+                double x = landing.getX() + 0.5D;
+                double y = landing.getY();
+                double z = landing.getZ() + 0.5D;
+
+                placed.fallDistance = 0;
+                placed.setDeltaMovement(Vec3.ZERO);
+                placed.moveTo(x, y, z, placed.getYRot(), placed.getXRot());
+                return placed;
             }
         });
     }

@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.374 (2026-01-15)
 - Fix(wayfall): fix voidfall rescue teleport not triggering by correcting heightmap landing logic and robustly detecting void damage.
 
+## 1.0.375 (2026-01-15)
+- Fix(wayfall): make Wayfall portal always enter at the Wayfall spawn landing (End-portal style), not the player’s last/old coordinates.
+
 ## 1.0.371 (2026-01-14)
 - Tuning(worldgen): make the cold Wayfall biomes place snow layers on the surface during worldgen (`minecraft:freeze_top_layer`).
 
