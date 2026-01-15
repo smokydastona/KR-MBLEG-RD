@@ -16,6 +16,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.392 (2026-01-15)
 - Tuning(assets): split Ashfall Stone / Polished Ashfall Stone into explicit top/side/bottom textures (placeholder PNGs) and wire models accordingly.
 
+## 1.0.393 (2026-01-15)
+- Chore(assets): remove unused legacy `ashfall_stone.png` textures after switching to top/side/bottom placeholders.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
