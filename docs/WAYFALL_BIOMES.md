@@ -7,7 +7,8 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - If you change a biome’s **spawns**, **particles**, **music**, or **features list**, update the matching entry here.
 
 ## Global Wayfall biome invariants (current)
-- **No precipitation**: all biomes set `has_precipitation: false` and `downfall: 0.0`.
+- **Precipitation is rare**: most biomes set `has_precipitation: false` and `downfall: 0.0`.
+  - Exception: the coldest biomes (currently Hollow Transit Plains and Underway Falls) are cold enough for snow cover.
 - **No vanilla spawns**: all spawn lists are intentionally limited to Krümblegård mobs.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
@@ -119,6 +120,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 ### `kruemblegard:hollow_transit_plains`
 - File: `hollow_transit_plains.json`
 - Description: Quiet, open transit plains with sparse standing stones and long stretches between points of interest.
+- Climate: Cold; generates snow cover.
 - Intended flora (design target):
   - Trees: Hollowway Tree
   - Plants: Soulberry Shrub (food), Transit Bloom, Transit Fern, Twilight Bulb, Cairn Moss
@@ -167,6 +169,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 ### `kruemblegard:underway_falls`
 - File: `underway_falls.json`
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
+- Climate: Cold; generates snow cover.
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant), Waytorch Tree
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine

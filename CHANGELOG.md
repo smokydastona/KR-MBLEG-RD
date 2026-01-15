@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.366 (2026-01-14)
-- Fix(lang): fix Krümblegård mojibake strings and add missing translations for Paleweft Seeds, Weftkern, Echokern, and Weftmeal.
-- Fix(creative): add Paleweft Seeds to Ingredients and Weft/Echo foods to Food & Drinks.
+## 1.0.369 (2026-01-14)
+- Tuning(worldgen): make Hollow Transit Plains and Underway Falls cold enough for snow cover.
+
+## 1.0.368 (2026-01-14)
+- Fix(lang): add missing Paleweft translations (grass, tall grass, corn).
 
 ## 1.0.367 (2026-01-14)
 - Fix(assets): correct wood stairs/slabs/pressure-plate item models so they no longer render as planks.
 
-## 1.0.368 (2026-01-14)
-- Fix(lang): add missing Paleweft translations (grass, tall grass, corn).
+## 1.0.366 (2026-01-14)
+- Fix(lang): fix Krümblegård mojibake strings and add missing translations for Paleweft Seeds, Weftkern, Echokern, and Weftmeal.
+- Fix(creative): add Paleweft Seeds to Ingredients and Weft/Echo foods to Food & Drinks.
 
 ## 1.0.365 (2026-01-14)
 - Tuning(items): make Weftkern and Echokern edible with raw-potato-like saturation; Weftmeal matches baked potato.
