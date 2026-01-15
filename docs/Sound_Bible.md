@@ -60,6 +60,68 @@ For a new sound:
 
 ---
 
+## Mob Sound Checklist (Design Targets)
+
+These are the **mob sound hooks we want to have covered** as Krümblegård mobs get custom audio.
+
+Notes:
+- This section is a **design + production checklist**. Some entries are not registered yet; register them in `ModSounds` + `sounds.json` when audio is added.
+- Recommended naming (vanilla-style): `entity.<mob_id>.<event>`.
+- For every entry: fill `DurationSeconds` + `DurationTicks` once the OGG is final.
+
+### `kruemblegard:kruemblegard` (Boss)
+- Current custom sounds used in code:
+  - `kruemblegard:kruemblegard_ambient` (ambient)
+  - `kruemblegard:kruemblegard_death` (death)
+  - `kruemblegard:kruemblegard_attack` (multiple attacks)
+  - `kruemblegard:kruemblegard_dash` (dash)
+  - `kruemblegard:kruemblegard_storm` (storm)
+- Custom sounds to add next (recommended IDs):
+  - `kruemblegard:entity.kruemblegard.hurt`
+  - `kruemblegard:entity.kruemblegard.step`
+  - `kruemblegard:entity.kruemblegard.roar` (phase change / intro)
+  - `kruemblegard:entity.kruemblegard.cast` (rune/storm wind-up)
+
+### `kruemblegard:traprock`
+- Current sound behavior: inherits Blaze sounds when awakened; dormant state suppresses Blaze client-side `aiStep` effects.
+- Custom sounds to add next (recommended IDs):
+  - `kruemblegard:entity.traprock.sleep_ambient`
+  - `kruemblegard:entity.traprock.awaken`
+  - `kruemblegard:entity.traprock.ambient`
+  - `kruemblegard:entity.traprock.hurt`
+  - `kruemblegard:entity.traprock.death`
+  - `kruemblegard:entity.traprock.attack`
+
+### `kruemblegard:pebblit`
+- Current sound behavior: inherits Silverfish sounds.
+- Custom sounds to add next (recommended IDs):
+  - `kruemblegard:entity.pebblit.ambient`
+  - `kruemblegard:entity.pebblit.hurt`
+  - `kruemblegard:entity.pebblit.death`
+  - `kruemblegard:entity.pebblit.step`
+  - `kruemblegard:entity.pebblit.tame`
+  - `kruemblegard:entity.pebblit.perch`
+
+### `kruemblegard:great_hunger`
+- Current sound behavior: generic LivingEntity sounds (no custom hooks yet).
+- Custom sounds to add next (recommended IDs):
+  - `kruemblegard:entity.great_hunger.ambient`
+  - `kruemblegard:entity.great_hunger.hurt`
+  - `kruemblegard:entity.great_hunger.death`
+  - `kruemblegard:entity.great_hunger.step`
+  - `kruemblegard:entity.great_hunger.bite`
+
+### `kruemblegard:scattered_enderman`
+- Current sound behavior: inherits Enderman sounds (teleport, stare, ambient, etc).
+- Custom sounds to add next (recommended IDs):
+  - `kruemblegard:entity.scattered_enderman.ambient`
+  - `kruemblegard:entity.scattered_enderman.hurt`
+  - `kruemblegard:entity.scattered_enderman.death`
+  - `kruemblegard:entity.scattered_enderman.teleport`
+  - `kruemblegard:entity.scattered_enderman.scream`
+
+---
+
 ## Registry Inventory (Generated)
 
 This section is **auto-generated** from:
