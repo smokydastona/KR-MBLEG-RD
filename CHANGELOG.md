@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.381 (2026-01-15)
 - Chore(docs): record the exact duration for Wayfall ambient music in the Sound Bible (62.0s / 1240 ticks).
 
+## 1.0.383 (2026-01-15)
+- Feature(items): add the missing Scattered Enderman spawn egg.
+
 ## 1.0.382 (2026-01-15)
 - Chore(docs): expand the Sound Bible with a per-mob sound checklist (Traprock, Pebblit, Great Hunger, Scattered Enderman, Boss).
 

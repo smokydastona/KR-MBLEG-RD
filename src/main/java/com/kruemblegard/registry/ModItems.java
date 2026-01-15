@@ -273,4 +273,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.GREAT_HUNGER, 0x3a2a20, 0xc6a35d,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> SCATTERED_ENDERMAN_SPAWN_EGG =
+        ITEMS.register(
+            "scattered_enderman_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.SCATTERED_ENDERMAN, 0x161616, 0x9a30ff,
+                new Item.Properties()));
+
 }
