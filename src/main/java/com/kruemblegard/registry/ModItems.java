@@ -11,7 +11,6 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -274,13 +273,4 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.GREAT_HUNGER, 0x3a2a20, 0xc6a35d,
                 new Item.Properties()));
 
-    public static final RegistryObject<Item> WAYFALL_MUSIC_DISC = ITEMS.register(
-        "wayfall_music_disc",
-        () -> new RecordItem(
-            7,
-            ModSounds.WAYFALL_MUSIC,
-            new Item.Properties().stacksTo(1).rarity(Rarity.RARE),
-            4800
-        )
-    );
 }

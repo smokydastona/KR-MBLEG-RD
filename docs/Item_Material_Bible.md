@@ -464,11 +464,6 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
-#### wayfall_music_disc
-- **ID**: `kruemblegard:wayfall_music_disc`
-- **Type**: `RecordItem`
-- **Details**: stacksTo=1, rarity=Rarity.RARE, comparatorValue=7, sound=ModSounds.WAYFALL_MUSIC, lengthTicks=4800
-
 #### wispstalk
 - **ID**: `kruemblegard:wispstalk`
 - **Type**: `BlockItem`
