@@ -13,6 +13,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
 - Terrain is floating-island style above the Y=130 cutoff; islands should be common enough that all Wayfall biomes can be found for progression.
+- Biome regions are intentionally kept relatively small (more frequent biome transitions) so players can find specific biomes without traveling extreme distances.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets), and density is primarily controlled by each placed feature’s `rarity_filter`.
   - Some Wayfall trees include rare mega variants in natural generation (Wayroot, Glimmerpine, Driftwillow, Monument Oak).
 - Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
