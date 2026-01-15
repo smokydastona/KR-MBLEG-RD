@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.367 (2026-01-14)
 - Fix(assets): correct wood stairs/slabs/pressure-plate item models so they no longer render as planks.
 
+## 1.0.368 (2026-01-14)
+- Fix(lang): add missing Paleweft translations (grass, tall grass, corn).
+
 ## 1.0.365 (2026-01-14)
 - Tuning(items): make Weftkern and Echokern edible with raw-potato-like saturation; Weftmeal matches baked potato.
 
