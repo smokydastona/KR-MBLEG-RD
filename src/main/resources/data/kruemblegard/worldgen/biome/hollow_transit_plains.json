@@ -36,7 +36,9 @@
     [],
     [],
     [],
-    []
+    [
+      "minecraft:freeze_top_layer"
+    ]
   ],
   "temperature": 0.1,
   "downfall": 0.4,
