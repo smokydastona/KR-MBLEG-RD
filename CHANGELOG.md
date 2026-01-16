@@ -68,6 +68,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.408 (2026-01-16)
 - Tuning(worldgen): force Runegrowth to generate as a single surface layer (reduces chunk-load updates from buried Runegrowth converting to Fault Dust).
 
+## 1.0.409 (2026-01-16)
+- Tuning(worldgen): make Basin of Scars feel more volcanic (hotter temperature, denser ash, basalt-deltas ambience).
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

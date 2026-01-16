@@ -39,9 +39,10 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
 - Ambience:
-  - Particles: `minecraft:smoke` (0.0007)
-  - Music: `minecraft:music.nether.basalt_deltas`
-  - Additions: `minecraft:ambient.soul_sand_valley.mood`
+  - Particles: `minecraft:ash` (0.0025)
+  - Music: `kruemblegard:music.wayfall`
+  - Mood: `minecraft:ambient.basalt_deltas.mood`
+  - Additions: `minecraft:ambient.basalt_deltas.additions`
 
 ### `kruemblegard:betweenlight_void`
 - File: `betweenlight_void.json`
