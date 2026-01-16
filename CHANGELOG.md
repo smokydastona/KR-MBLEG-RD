@@ -65,6 +65,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.407 (2026-01-16)
 - Fix(assets): Runegrowth snowy variants now use mod-side textures (no more vanilla grass/dirt side).
 
+## 1.0.408 (2026-01-16)
+- Tuning(worldgen): force Runegrowth to generate as a single surface layer (reduces chunk-load updates from buried Runegrowth converting to Fault Dust).
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
