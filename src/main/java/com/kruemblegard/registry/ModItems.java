@@ -105,6 +105,9 @@ public class ModItems {
     public static final RegistryObject<Item> RUNEGROWTH_ITEM = registerBlockItem("runegrowth", ModBlocks.RUNEGROWTH);
     public static final RegistryObject<Item> VOIDFELT_ITEM = registerBlockItem("voidfelt", ModBlocks.VOIDFELT);
 
+    public static final RegistryObject<Item> WAYFALL_IRON_ORE_ITEM = registerBlockItem("wayfall_iron_ore", ModBlocks.WAYFALL_IRON_ORE);
+    public static final RegistryObject<Item> WAYFALL_DIAMOND_ORE_ITEM = registerBlockItem("wayfall_diamond_ore", ModBlocks.WAYFALL_DIAMOND_ORE);
+
     public static final RegistryObject<Item> ATTUNED_ORE_ITEM = ITEMS.register(
         "attuned_ore",
         () -> new BlockItem(ModBlocks.ATTUNED_ORE.get(), new Item.Properties())

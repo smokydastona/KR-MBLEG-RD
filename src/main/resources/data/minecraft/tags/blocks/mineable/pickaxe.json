@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "kruemblegard:attuned_ore",
+    "kruemblegard:wayfall_iron_ore",
+    "kruemblegard:wayfall_diamond_ore",
     "kruemblegard:fractured_wayrock",
     "kruemblegard:crushstone",
     "kruemblegard:ashfall_stone",

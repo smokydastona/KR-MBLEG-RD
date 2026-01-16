@@ -544,6 +544,24 @@ public final class ModBlocks {
                     .sound(SoundType.STONE))
     );
 
+    public static final RegistryObject<Block> WAYFALL_IRON_ORE = BLOCKS.register(
+            "wayfall_iron_ore",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> WAYFALL_DIAMOND_ORE = BLOCKS.register(
+            "wayfall_diamond_ore",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
     public static final RegistryObject<Block> STANDING_STONE = BLOCKS.register(
             "standing_stone",
             () -> new Block(BlockBehaviour.Properties.of()
