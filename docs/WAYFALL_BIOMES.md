@@ -20,6 +20,8 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - **Default Wayfall surface**: Runegrowth → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Strata Collapse**: Ashfall Loam → Ashfall Stone → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Shatterplate Flats**: Voidfelt → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - **Fracture Shoals**: Fractured Wayrock → Crushstone → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - **Glyphscar Reach**: Fractured Wayrock → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Basin of Scars**: Runegrowth → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
 
 ## Biome index
@@ -97,6 +99,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 ### `kruemblegard:fracture_shoals`
 - File: `fracture_shoals.json`
 - Description: Shallow “shoals” of broken stone islands with faint crimson spores drifting through the air.
+- Terrain surface: Fractured Wayrock → Crushstone, with deeper Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
   - Trees: Waytorch Tree
   - Plants: Soulberry Shrub (food), Wayseed Cluster, Black Echo Fungus, Runebloom, Fallseed Pods
@@ -110,6 +113,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 ### `kruemblegard:glyphscar_reach`
 - File: `glyphscar_reach.json`
 - Description: A rune-bright reach where enchant motes float and stone structures feel subtly “active.”
+- Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
   - Trees: Monument Oak (rare mega variant), Waytorch Tree
   - Plants: Wispstalk (food), Runeblossom, Rune Sprouts, Wayburn Fungus, Gravemint

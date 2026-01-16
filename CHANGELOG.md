@@ -41,6 +41,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen): Basin of Scars terrain now uses a Scarstone/Cracked Scarstone mix as deeper sublayers beneath the default surface stack.
 - Chore(docs): update Wayfall biome reference to reflect current surface stacks.
 
+## 1.0.401 (2026-01-16)
+- Tuning(worldgen): add explicit Wayfall surface stacks for Fracture Shoals and Glyphscar Reach (fractured wayrock + biome-specific deeper mixes).
+- Chore(docs): update Wayfall biome reference to reflect the new stacks.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
