@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall",
+  "features": [
+    "kruemblegard:wayfall_iron_ore",
+    "kruemblegard:wayfall_diamond_ore"
+  ],
+  "step": "underground_ores"
+}
