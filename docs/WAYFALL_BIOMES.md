@@ -35,6 +35,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:basin_of_scars`
 - File: `basin_of_scars.json`
+- Temperature: 2.00
 - Description: A smoke-hazed basin dotted with dense standing stones; feels heavy and volcanic.
 - Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
@@ -52,6 +53,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:betweenlight_void`
 - File: `betweenlight_void.json`
+- Temperature: 0.75
 - Description: A cold, dim void pocket where reverse-portal motes drift around small attuned stone disks.
 - Intended flora (design target):
   - Trees: Hollowway Tree
@@ -66,6 +68,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:crumbled_crossing`
 - File: `crumbled_crossing.json`
+- Temperature: 0.95
 - Description: A windblown crossing of broken island fragments, dusted with white ash and marked by large attuned disks.
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant), Cairn Tree
@@ -80,6 +83,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:driftway_chasm`
 - File: `driftway_chasm.json`
+- Temperature: 0.30
 - Description: A fractured chasm corridor with falling ash and sparse megaliths; small attuned disks appear like waymarkers.
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant)
@@ -94,6 +98,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:faulted_expanse`
 - File: `faulted_expanse.json`
+- Temperature: 0.60
 - Description: A wide, faulted stretch of floating plateaus where dense standing stones break up the ash haze.
 - Intended flora (design target):
   - Trees: Faultwood, Fallbark
@@ -107,6 +112,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:fracture_shoals`
 - File: `fracture_shoals.json`
+- Temperature: 1.00
 - Description: Shallow “shoals” of broken stone islands with faint crimson spores drifting through the air.
 - Terrain surface: Fractured Wayrock → Crushstone, with deeper Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
@@ -121,6 +127,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:glyphscar_reach`
 - File: `glyphscar_reach.json`
+- Temperature: 1.75
 - Description: A rune-bright reach where enchant motes float and stone structures feel subtly “active.”
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
@@ -136,6 +143,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:hollow_transit_plains`
 - File: `hollow_transit_plains.json`
+- Temperature: 0.10
 - Description: Quiet, open transit plains with sparse standing stones and long stretches between points of interest.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):
@@ -148,6 +156,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:riven_causeways`
 - File: `riven_causeways.json`
+- Temperature: 0.50
 - Description: Broken causeways and riven slabs stitched together by dense standing stones; smoke hangs low.
 - Intended flora (design target):
   - Trees: Faultwood, Driftwillow (rare mega variant)
@@ -160,6 +169,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:shatterplate_flats`
 - File: `shatterplate_flats.json`
+- Temperature: 0.90
 - Description: Flat, shattered “plates” of stone with warped spores drifting above the cracks; primarily Pebblit territory.
 - Intended flora (design target):
   - Trees: Shardbark Pine
@@ -172,6 +182,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:strata_collapse`
 - File: `strata_collapse.json`
+- Temperature: 1.50
 - Description: Collapsed strata terraces where white ash gathers around sparse megaliths and large attuned disks.
 - Intended flora (design target):
   - Trees: Cairn Tree, Faultwood
@@ -185,6 +196,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:underway_falls`
 - File: `underway_falls.json`
+- Temperature: 0.20
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):

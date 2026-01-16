@@ -83,6 +83,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.413 (2026-01-16)
 - Chore(structures): add 5-variant template pools for each Wayfall origin-island type (default/ashfall/voidfelt/fractured/glyphscar/basin_of_scars/cold).
 
+## 1.0.414 (2026-01-15)
+- Tuning(worldgen): retune Wayfall biome base temperatures.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
