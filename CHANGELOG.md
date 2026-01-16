@@ -59,6 +59,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.405 (2026-01-16)
 - Feature(worldgen): generate Wayfall Iron Ore + Wayfall Diamond Ore across all Wayfall biomes (diamond spawns lower on average).
 
+## 1.0.406 (2026-01-16)
+- Chore(assets): update Wayfall ore textures.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
