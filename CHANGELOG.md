@@ -22,6 +22,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.394 (2026-01-15)
 - Feature(assets): Runegrowth now swaps textures by biome base temperature (cold/temperate/warm/hot), layered with the existing near-snow “snowy” variant.
 
+## 1.0.395 (2026-01-15)
+- Chore(assets): update block textures (Runegrowth temperature variants + Ashfall Loam/Stone placeholders).
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
