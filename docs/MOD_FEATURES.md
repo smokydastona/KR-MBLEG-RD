@@ -39,6 +39,12 @@ Keep it up to date whenever you add/remove/rename content.
 - `Kruemblegard.Performance.Client.projectileParticleSpawnIntervalTicks`
   - Trail particle spawn interval for Krümblegård projectiles. `1` = every tick.
 
+## Worldgen (Tuning + Validation)
+- Worldgen tuning config file: `config/kruemblegard-worldgen.json5`
+  - Auto-created and auto-extended when new keys are added.
+  - `strictValidation` (default `false`): when enabled, `WorldgenValidator` hard-fails at server start if critical worldgen registry IDs/tags are missing.
+- Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
+
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.

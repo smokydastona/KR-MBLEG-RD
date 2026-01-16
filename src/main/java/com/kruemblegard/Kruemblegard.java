@@ -2,6 +2,7 @@ package com.kruemblegard;
 
 import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.config.ClientConfig;
+import com.kruemblegard.config.worldgen.WorldgenTuningConfig;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
@@ -22,7 +23,10 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import com.kruemblegard.worldgen.terrablender.KruemblegardTerraBlender;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
@@ -58,6 +62,16 @@ public final class Kruemblegard {
         ModPotions.POTIONS.register(modBus);
 
         modBus.addListener(this::addCreative);
+        modBus.addListener(this::commonSetup);
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            // Load the external worldgen tuning file early so TerraBlender region weights
+            // and strict validation behavior are available during world init.
+            WorldgenTuningConfig.loadAndSync();
+            KruemblegardTerraBlender.register();
+        });
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {

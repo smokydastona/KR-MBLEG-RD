@@ -30,7 +30,14 @@ Guidebook page text lives in: `src/main/resources/data/kruemblegard/books/crumbl
 ## Worldgen organization
 - Datapack content lives under `src/main/resources/data/kruemblegard/worldgen/**`.
 - Code references to important worldgen IDs are centralized in `src/main/java/com/kruemblegard/worldgen/ModWorldgenKeys.java`.
-- On server start, `com.kruemblegard.worldgen.WorldgenValidator` logs warnings if critical registry entries/tags are missing.
+- On server start, `com.kruemblegard.worldgen.WorldgenValidator` validates critical registry entries/tags.
+    - Default behavior: **warn-only**.
+    - Optional strict mode: set `strictValidation=true` in `config/kruemblegard-worldgen.json5` to hard-fail early if something is missing.
+
+### Worldgen tuning config
+- File-based tuning config (auto-created + auto-extended): `config/kruemblegard-worldgen.json5`
+    - TerraBlender overworld integration is **safe by default** (all weights default to `0`, so nothing registers).
+    - If you enable TerraBlender overworld mapping, you can control which Krümblegård biomes are eligible and how frequently the regions appear.
 
 ## Asset licensing
 - Don’t copy assets from other mods. See `CONTRIBUTING.md`.
@@ -40,6 +47,8 @@ This mod uses **custom advancement triggers** registered in `ModCriteria`:
 
 ## Dependencies (ForgeGradle)
 You need GeckoLib 4.x for Forge 1.20.1.
+
+Optional: this mod can integrate with **TerraBlender** (for overworld biome region compatibility) when enabled in `config/kruemblegard-worldgen.json5`.
 
 This mod also has **native Waystones integration** (the Ancient Waystone is a real Waystones variant). That requires **Waystones + Balm**.
 

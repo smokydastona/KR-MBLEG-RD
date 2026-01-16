@@ -9,6 +9,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Perf(client): add optional view-cone culling + conservative epsilon for cosmetic effects (reduces false culls / flicker).
 - Refactor(client): centralize cosmetic spawn rules in a shared policy helper (keeps compatibility hooks explicit).
 
+## 1.0.422 (2026-01-16)
+- Feature(worldgen): add optional TerraBlender overworld region scaffolding (config-driven weights + per-biome toggles; safe by default).
+- Feature(worldgen): add `config/kruemblegard-worldgen.json5` (auto-created/extended) for worldgen tuning.
+- Feature(worldgen): support strict worldgen validation (hard-fail at server start when `strictValidation=true`).
+
 ## 1.0.420 (2026-01-16)
 - Fix(world/wayfall): place the Wayfall origin monument only when a player enters Wayfall (avoids force-loading chunks at dimension load).
 - Chore(docs): document “no-tick chunk loading” safety guidance for future long-running world operations.
