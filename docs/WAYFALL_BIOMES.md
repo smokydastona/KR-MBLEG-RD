@@ -27,7 +27,8 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Ores: Wayfall Iron Ore and Wayfall Diamond Ore generate in all Wayfall biomes (diamond generates lower on average).
 - A single biome-themed "origin monument" island is generated once per world at `(0, 190, 0)` in Wayfall.
   - Palette is chosen from the biome at that position (e.g., Strata Collapse uses Ashfall Loam/Stone; Shatterplate Flats uses Voidfelt).
-  - Placeholder structure templates live under `data/kruemblegard/structures/wayfall_origin_island/` (as `.snbt`) and can be replaced later with exported `.nbt` structures.
+  - Placeholder structure templates live under `data/kruemblegard/structures/wayfall_origin_island/` (as `.snbt` + generated raw `.nbt`).
+  - Jigsaw template pools for the per-type 5-variant sets live under `data/kruemblegard/worldgen/template_pool/wayfall_origin_island/`.
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.

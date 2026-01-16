@@ -1,0 +1,21 @@
+{
+  size: [I; 1, 1, 1],
+  palette: [
+    { Name: "minecraft:jigsaw", Properties: { orientation: "down_north" } }
+  ],
+  blocks: [
+    {
+      pos: [I; 0, 0, 0],
+      state: 0,
+      nbt: {
+        name: "kruemblegard:wayfall_origin_island/fractured_5_start",
+        target: "kruemblegard:wayfall_origin_island/fractured_5_terminator",
+        pool: "kruemblegard:wayfall_origin_island/fractured",
+        final_state: "minecraft:air",
+        joint: "rollable"
+      }
+    }
+  ],
+  entities: [],
+  DataVersion: 3465
+}

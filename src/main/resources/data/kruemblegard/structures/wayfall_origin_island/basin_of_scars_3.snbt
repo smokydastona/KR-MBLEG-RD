@@ -1,0 +1,21 @@
+{
+  size: [I; 1, 1, 1],
+  palette: [
+    { Name: "minecraft:jigsaw", Properties: { orientation: "down_north" } }
+  ],
+  blocks: [
+    {
+      pos: [I; 0, 0, 0],
+      state: 0,
+      nbt: {
+        name: "kruemblegard:wayfall_origin_island/basin_of_scars_3_start",
+        target: "kruemblegard:wayfall_origin_island/basin_of_scars_3_terminator",
+        pool: "kruemblegard:wayfall_origin_island/basin_of_scars",
+        final_state: "minecraft:air",
+        joint: "rollable"
+      }
+    }
+  ],
+  entities: [],
+  DataVersion: 3465
+}
