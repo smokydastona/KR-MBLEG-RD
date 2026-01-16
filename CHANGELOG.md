@@ -37,6 +37,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.399 (2026-01-15)
 - Tuning(worldgen): Shatterplate Flats surface stack now uses Voidfelt on top, Fault Dust below, then the Stoneveil/Runed rubble mix.
 
+## 1.0.400 (2026-01-15)
+- Tuning(worldgen): Basin of Scars terrain now uses a Scarstone/Cracked Scarstone mix as deeper sublayers beneath the default surface stack.
+- Chore(docs): update Wayfall biome reference to reflect current surface stacks.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

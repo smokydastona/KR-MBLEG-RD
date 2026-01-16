@@ -16,9 +16,11 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Biome regions are intentionally kept relatively small (more frequent biome transitions) so players can find specific biomes without traveling extreme distances.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets), and density is primarily controlled by each placed feature’s `rarity_filter`.
   - Some Wayfall trees include rare mega variants in natural generation (Wayroot, Glimmerpine, Driftwillow, Monument Oak).
-- Surface palette can be biome-driven via Wayfall noise settings (`kruemblegard:wayfall`) using biome tags:
-  - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
-  - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; currently only **Shatterplate Flats**) with shallow **Crushstone** beneath.
+- Surface palette is defined in Wayfall noise settings (`kruemblegard:wayfall`) with a small set of explicit biome-specific stacks:
+  - **Default Wayfall surface**: Runegrowth → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - **Strata Collapse**: Ashfall Loam → Ashfall Stone → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - **Shatterplate Flats**: Voidfelt → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - **Basin of Scars**: Runegrowth → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
@@ -26,6 +28,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 ### `kruemblegard:basin_of_scars`
 - File: `basin_of_scars.json`
 - Description: A smoke-hazed basin dotted with dense standing stones; feels heavy and volcanic.
+- Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
   - Trees: Shardbark Pine, Fallbark
   - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Gravevine, Ruin Thistle
