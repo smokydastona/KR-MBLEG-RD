@@ -1,0 +1,19 @@
+{
+  "feature": "kruemblegard:basin_of_scars_magma_disk",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 12
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

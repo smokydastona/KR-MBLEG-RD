@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 3,
+        "max_inclusive": 7
+      }
+    },
+    "half_height": 2,
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "kruemblegard:runegrowth",
+        "kruemblegard:fault_dust",
+        "kruemblegard:scarstone",
+        "kruemblegard:cracked_scarstone",
+        "kruemblegard:stoneveil_rubble",
+        "kruemblegard:runed_stoneveil_rubble"
+      ]
+    },
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:smooth_basalt"
+        }
+      },
+      "rules": []
+    }
+  }
+}

@@ -28,7 +28,10 @@
   "features": [
     [],
     [],
-    [],
+    [
+      "kruemblegard:basin_of_scars_basalt_disk",
+      "kruemblegard:basin_of_scars_magma_disk"
+    ],
     [],
     [],
     [],

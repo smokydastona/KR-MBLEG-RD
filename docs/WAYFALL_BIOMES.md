@@ -38,6 +38,8 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Gravevine, Ruin Thistle
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
+- Features:
+  - Volcanic disks: `kruemblegard:basin_of_scars_basalt_disk`, `kruemblegard:basin_of_scars_magma_disk`
 - Ambience:
   - Particles: `minecraft:ash` (0.0025)
   - Music: `kruemblegard:music.wayfall`
