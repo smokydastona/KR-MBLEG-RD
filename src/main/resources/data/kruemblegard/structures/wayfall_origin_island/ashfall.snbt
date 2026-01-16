@@ -1,1 +1,24 @@
-{size:[I;1,1,1],palette:[{Name:"minecraft:air"}],blocks:[{pos:[I;0,0,0],state:0}],entities:[],DataVersion:3465}
+{
+	size: [I; 1, 1, 1],
+	palette: [
+		{
+			Name: "minecraft:jigsaw",
+			Properties: { orientation: "up_north" }
+		}
+	],
+	blocks: [
+		{
+			pos: [I; 0, 0, 0],
+			state: 0,
+			nbt: {
+				name: "kruemblegard:wayfall_origin_island/ashfall_start",
+				target: "kruemblegard:wayfall_origin_island/ashfall_terminator",
+				pool: "kruemblegard:wayfall_origin_island/ashfall",
+				final_state: "minecraft:air",
+				joint: "rollable"
+			}
+		}
+	],
+	entities: [],
+	DataVersion: 3465
+}
