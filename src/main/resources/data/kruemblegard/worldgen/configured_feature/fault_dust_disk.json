@@ -13,7 +13,13 @@
       "type": "minecraft:matching_blocks",
       "blocks": [
         "kruemblegard:fractured_wayrock",
-        "kruemblegard:crushstone"
+        "kruemblegard:crushstone",
+        "kruemblegard:runegrowth",
+        "kruemblegard:stoneveil_rubble",
+        "kruemblegard:runed_stoneveil_rubble",
+        "kruemblegard:voidfelt",
+        "kruemblegard:ashfall_loam",
+        "kruemblegard:ashfall_stone"
       ]
     },
     "state_provider": {

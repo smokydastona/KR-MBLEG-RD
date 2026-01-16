@@ -23,6 +23,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - **Fracture Shoals**: Fractured Wayrock → Crushstone → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Glyphscar Reach**: Fractured Wayrock → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Basin of Scars**: Runegrowth → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
+  - Note: Wayfall’s deep “base stone” no longer defaults to Fractured Wayrock; Fractured Wayrock is now reserved for explicit biome surface identity (currently Fracture Shoals and Glyphscar Reach).
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.

@@ -7,7 +7,16 @@
                                    {
                                        "target":  {
                                                       "predicate_type":  "minecraft:block_match",
-                                                      "block":  "kruemblegard:fractured_wayrock"
+                                                      "block":  "kruemblegard:stoneveil_rubble"
+                                                  },
+                                       "state":  {
+                                                     "Name":  "kruemblegard:attuned_ore"
+                                                 }
+                                   },
+                                   {
+                                       "target":  {
+                                                      "predicate_type":  "minecraft:block_match",
+                                                      "block":  "kruemblegard:runed_stoneveil_rubble"
                                                   },
                                        "state":  {
                                                      "Name":  "kruemblegard:attuned_ore"

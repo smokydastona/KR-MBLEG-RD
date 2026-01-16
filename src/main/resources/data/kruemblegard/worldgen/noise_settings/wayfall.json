@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "kruemblegard:fractured_wayrock"
+    "Name": "kruemblegard:stoneveil_rubble"
   },
   "default_fluid": {
     "Name": "minecraft:water"
@@ -769,7 +769,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "kruemblegard:fractured_wayrock"
+          "Name": "kruemblegard:stoneveil_rubble"
         }
       }
     ]

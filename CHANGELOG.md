@@ -48,6 +48,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.402 (2026-01-16)
 - Chore(assets): update `chiseled_scarstone` texture.
 
+## 1.0.403 (2026-01-16)
+- Tuning(worldgen): remove Fractured Wayrock as Wayfall’s global deep base stone (kept only as explicit surface identity in select biomes).
+- Fix(worldgen): update disk/ore configured features and Wayfall ground tag to match the new base stone.
+- Chore(docs): clarify Wayfall surface/base-stone behavior in the Wayfall biome reference.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
