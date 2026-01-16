@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.420 (2026-01-16)
+- Fix(world/wayfall): place the Wayfall origin monument only when a player enters Wayfall (avoids force-loading chunks at dimension load).
+- Chore(docs): document “no-tick chunk loading” safety guidance for future long-running world operations.
+
 ## 1.0.419 (2026-01-16)
 - Perf(client): add optional distance-culling + throttling for Krümblegård cosmetic effects (projectile trail particles).
 - Perf(server): projectile trail particles are now client-only (reduces server work and particle packet spam).

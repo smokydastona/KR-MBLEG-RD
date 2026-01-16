@@ -121,6 +121,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - A placeholder can be generated via:
   - `tools/generate_wayfall_panorama_placeholder.ps1`
 
+## Wayfall origin monument
+- A single biome-themed origin monument island is generated once at `(0, 190, 0)` per world.
+- It is placed when the first player enters Wayfall (so chunks are naturally ticketed/ticking), to avoid “no-tick chunk load” edge cases during server startup.
+
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).
 - Wayfall Iron Ore + Wayfall Diamond Ore blocks (Wayfall worldgen; diamond spawns lower on average).

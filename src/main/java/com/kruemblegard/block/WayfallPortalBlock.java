@@ -1,6 +1,7 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.world.WayfallOriginMonument;
 import com.kruemblegard.world.WayfallSpawnPlatform;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
@@ -106,6 +107,7 @@ public class WayfallPortalBlock extends Block {
                 Entity placed = repositionEntity.apply(false);
 
                 BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
+                WayfallOriginMonument.ensurePlaced(destWorld);
                 double x = landing.getX() + 0.5D;
                 double y = landing.getY();
                 double z = landing.getZ() + 0.5D;

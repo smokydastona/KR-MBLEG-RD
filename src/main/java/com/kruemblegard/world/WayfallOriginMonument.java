@@ -10,11 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-@Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class WayfallOriginMonument {
     private WayfallOriginMonument() {}
 
@@ -23,21 +18,19 @@ public final class WayfallOriginMonument {
     private static final int ISLAND_RADIUS = 14;
     private static final int ISLAND_DEPTH = 12;
 
-    @SubscribeEvent
-    public static void onLevelLoad(LevelEvent.Load event) {
-        if (!(event.getLevel() instanceof ServerLevel serverLevel)) {
+    /**
+     * Ensures the origin monument island has been placed.
+     *
+     * This is intentionally NOT executed automatically on dimension load, because forcing chunks to load/generate
+     * without a ticking ticket can expose vanilla retention issues when those chunks unload (see MC-272673 class of bugs).
+     *
+     * Call this when a player actually enters Wayfall (chunks are naturally ticketed and will tick).
+     */
+    public static void ensurePlaced(ServerLevel wayfall) {
+        if (wayfall.dimension() != ModWorldgenKeys.Levels.WAYFALL) {
             return;
         }
 
-        if (serverLevel.dimension() != ModWorldgenKeys.Levels.WAYFALL) {
-            return;
-        }
-
-        // Avoid any off-thread world writes.
-        serverLevel.getServer().execute(() -> ensurePlaced(serverLevel));
-    }
-
-    private static void ensurePlaced(ServerLevel wayfall) {
         WayfallOriginMonumentSavedData data = WayfallOriginMonumentSavedData.get(wayfall);
         if (data.isPlaced()) {
             return;
