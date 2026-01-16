@@ -74,6 +74,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.410 (2026-01-16)
 - Feature(worldgen): add volcanic basalt + magma disks to Basin of Scars.
 
+## 1.0.411 (2026-01-16)
+- Feature(wayfall): generate a single biome-themed origin monument island at `(0, 190, 0)` (one per world).
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

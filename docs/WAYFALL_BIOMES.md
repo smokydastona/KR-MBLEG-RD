@@ -25,6 +25,9 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - **Basin of Scars**: Runegrowth → Fault Dust → (Scarstone / Cracked Scarstone mix) → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - Note: Wayfall’s deep “base stone” no longer defaults to Fractured Wayrock; Fractured Wayrock is now reserved for explicit biome surface identity (currently Fracture Shoals and Glyphscar Reach).
 - Ores: Wayfall Iron Ore and Wayfall Diamond Ore generate in all Wayfall biomes (diamond generates lower on average).
+- A single biome-themed "origin monument" island is generated once per world at `(0, 190, 0)` in Wayfall.
+  - Palette is chosen from the biome at that position (e.g., Strata Collapse uses Ashfall Loam/Stone; Shatterplate Flats uses Voidfelt).
+  - Placeholder structure templates live under `data/kruemblegard/structures/wayfall_origin_island/` (as `.snbt`) and can be replaced later with exported `.nbt` structures.
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
