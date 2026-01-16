@@ -28,6 +28,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.396 (2026-01-15)
 - Tuning(worldgen): adjust several Wayfall biome base temperatures (affects Runegrowth temperature-variant textures).
 
+## 1.0.397 (2026-01-15)
+- Tuning(worldgen): Strata Collapse terrain layers now use Ashfall Loam on top, Ashfall Stone below, then a Stoneveil/Runed Stoneveil rubble mix.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
