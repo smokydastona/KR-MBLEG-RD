@@ -31,6 +31,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.397 (2026-01-15)
 - Tuning(worldgen): Strata Collapse terrain layers now use Ashfall Loam on top, Ashfall Stone below, then a Stoneveil/Runed Stoneveil rubble mix.
 
+## 1.0.398 (2026-01-15)
+- Tuning(worldgen): make Strata Collapse the only Wayfall biome that generates Ashfall Loam/Stone in terrain; all other biomes use the default surface stack (Runegrowth → Fault Dust → Stoneveil/Runed rubble mix).
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

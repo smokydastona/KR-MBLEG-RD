@@ -1,8 +1,8 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:wayfall",
+  "biomes": "#kruemblegard:strata_collapse",
   "features": [
-    "kruemblegard:fault_dust_disk"
+    "kruemblegard:ashfall_loam_disk"
   ],
   "step": "top_layer_modification"
 }
