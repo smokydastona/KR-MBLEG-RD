@@ -45,6 +45,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen): add explicit Wayfall surface stacks for Fracture Shoals and Glyphscar Reach (fractured wayrock + biome-specific deeper mixes).
 - Chore(docs): update Wayfall biome reference to reflect the new stacks.
 
+## 1.0.402 (2026-01-16)
+- Chore(assets): update `chiseled_scarstone` texture.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 
