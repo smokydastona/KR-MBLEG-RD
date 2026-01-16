@@ -1,6 +1,7 @@
 package com.kruemblegard;
 
 import com.kruemblegard.config.ModConfig;
+import com.kruemblegard.config.ClientConfig;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
@@ -39,6 +40,7 @@ public final class Kruemblegard {
         GeckoLib.initialize();
 
         ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.CLIENT_SPEC);
 
         ModCriteria.register();
 

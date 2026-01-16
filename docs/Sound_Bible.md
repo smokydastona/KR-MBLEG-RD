@@ -263,8 +263,11 @@ Update workflow:
 - **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
 - **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
-- **DurationSeconds**: `62.0`
-- **DurationTicks**: `1240` (round(seconds*20))
-
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
+
+
+

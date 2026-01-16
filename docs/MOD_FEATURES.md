@@ -11,6 +11,18 @@ Keep it up to date whenever you add/remove/rename content.
 - After registry changes, refresh the generated inventories by running: `tools/generate_material_bibles.ps1`
 - After sound changes, refresh the generated inventory by running: `tools/generate_sound_bible.ps1`
 
+## Performance (Client)
+- Client config file: `config/kruemblegard-client.toml`
+- `Kruemblegard.Performance.Client.enableDistanceCulledCosmetics`
+  - Enables cheap distance-based culling for Krümblegård-only cosmetic effects (particles/local ambience).
+  - Intended to reduce client work without changing gameplay.
+- `Kruemblegard.Performance.Client.cosmeticCullDistanceBlocks`
+  - Max distance (blocks) at which cosmetic effects are spawned.
+- `Kruemblegard.Performance.Client.cosmeticVerticalStretch`
+  - Vertical stretch for culling checks. Effective distance uses: $dx^2 + dz^2 + (dy \cdot stretch)^2$.
+- `Kruemblegard.Performance.Client.projectileParticleSpawnIntervalTicks`
+  - Trail particle spawn interval for Krümblegård projectiles. `1` = every tick.
+
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.

@@ -159,3 +159,16 @@ Common config file: `config/kruemblegard-common.toml`
         bossPhaseTransitionRadius = 10.0
         bossPhaseTransitionKnockback = 1.1
 ```
+
+### Client performance config (cosmetics)
+Client config file: `config/kruemblegard-client.toml`
+
+These options only affect **cosmetic** client-side effects (e.g., projectile trail particles), not gameplay.
+
+```toml
+[Kruemblegard.Performance.Client]
+    enableDistanceCulledCosmetics = true
+    cosmeticCullDistanceBlocks = 64
+    cosmeticVerticalStretch = 1.0
+    projectileParticleSpawnIntervalTicks = 1
+```

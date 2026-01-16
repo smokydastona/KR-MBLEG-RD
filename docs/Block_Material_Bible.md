@@ -128,6 +128,38 @@ Update workflow:
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: `0.6F, 0.6F`
 
+#### ashfall_stone
+- **ID**: `kruemblegard:ashfall_stone`
+- **Class**: `Block`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### ashfall_stone_slab
+- **ID**: `kruemblegard:ashfall_stone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### ashfall_stone_stairs
+- **ID**: `kruemblegard:ashfall_stone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
+#### ashfall_stone_wall
+- **ID**: `kruemblegard:ashfall_stone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.2F, 6.0F`
+
 #### ashmoss
 - **ID**: `kruemblegard:ashmoss`
 - **Class**: `AshmossBlock`
@@ -472,6 +504,30 @@ Update workflow:
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: TBD
 
+#### paleweft_corn
+- **ID**: `kruemblegard:paleweft_corn`
+- **Class**: `PaleweftCornCropBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.CROP`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### paleweft_grass
+- **ID**: `kruemblegard:paleweft_grass`
+- **Class**: `PaleweftGrassBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
+#### paleweft_tall_grass
+- **ID**: `kruemblegard:paleweft_tall_grass`
+- **Class**: `DoublePlantBlock`
+- **Map color**: `MapColor.PLANT`
+- **Sound**: `SoundType.GRASS`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: TBD
+
 #### pathreed
 - **ID**: `kruemblegard:pathreed`
 - **Class**: `WayfallPlantBlock`
@@ -479,6 +535,38 @@ Update workflow:
 - **Sound**: `SoundType.GRASS`
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: TBD
+
+#### polished_ashfall_stone
+- **ID**: `kruemblegard:polished_ashfall_stone`
+- **Class**: `Block`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.5F, 6.0F`
+
+#### polished_ashfall_stone_slab
+- **ID**: `kruemblegard:polished_ashfall_stone_slab`
+- **Class**: `SlabBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.5F, 6.0F`
+
+#### polished_ashfall_stone_stairs
+- **ID**: `kruemblegard:polished_ashfall_stone_stairs`
+- **Class**: `StairBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.5F, 6.0F`
+
+#### polished_ashfall_stone_wall
+- **ID**: `kruemblegard:polished_ashfall_stone_wall`
+- **Class**: `WallBlock`
+- **Map color**: `MapColor.SAND`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `1.5F, 6.0F`
 
 #### polished_scarstone
 - **ID**: `kruemblegard:polished_scarstone`
@@ -551,6 +639,14 @@ Update workflow:
 - **Sound**: `SoundType.GRASS`
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: TBD
+
+#### rubble_tilth
+- **ID**: `kruemblegard:rubble_tilth`
+- **Class**: `RubbleTilthBlock`
+- **Map color**: `MapColor.DIRT`
+- **Sound**: `SoundType.GRAVEL`
+- **Tool rule**: requiresCorrectToolForDrops = `false`
+- **Strength tier**: `0.6F, 0.6F`
 
 #### ruin_thistle
 - **ID**: `kruemblegard:ruin_thistle`
@@ -800,6 +896,22 @@ Update workflow:
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: TBD
 
+#### wayfall_diamond_ore
+- **ID**: `kruemblegard:wayfall_diamond_ore`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `4.0F, 30.0F`
+
+#### wayfall_iron_ore
+- **ID**: `kruemblegard:wayfall_iron_ore`
+- **Class**: `Block`
+- **Map color**: `MapColor.STONE`
+- **Sound**: `SoundType.STONE`
+- **Tool rule**: requiresCorrectToolForDrops = `true`
+- **Strength tier**: `3.0F, 30.0F`
+
 #### wayfall_portal
 - **ID**: `kruemblegard:wayfall_portal`
 - **Class**: `WayfallPortalBlock`
@@ -988,4 +1100,8 @@ Rubble is a stone structural palette for ruins.
 - **IDs**: `kruemblegard:runed_stoneveil_rubble` (+ stairs/slab/wall)
 - **Vanilla analog**: `minecraft:chiseled_stone_bricks` (decorative runed stone)
 - **Strength tier**: `2.8F / 22.0F`
+
+
+
+
 

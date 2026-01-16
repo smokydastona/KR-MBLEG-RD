@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.419 (2026-01-16)
+- Perf(client): add optional distance-culling + throttling for Krümblegård cosmetic effects (projectile trail particles).
+- Perf(server): projectile trail particles are now client-only (reduces server work and particle packet spam).
+
 ## 1.0.384 (2026-01-15)
 - Chore(assets): update Scattered Enderman Geo/Animation JSONs.
 

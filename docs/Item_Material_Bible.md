@@ -74,6 +74,26 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
+#### ashfall_stone
+- **ID**: `kruemblegard:ashfall_stone`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### ashfall_stone_slab
+- **ID**: `kruemblegard:ashfall_stone_slab`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### ashfall_stone_stairs
+- **ID**: `kruemblegard:ashfall_stone_stairs`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### ashfall_stone_wall
+- **ID**: `kruemblegard:ashfall_stone_wall`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
 #### ashmoss
 - **ID**: `kruemblegard:ashmoss`
 - **Type**: `BlockItem`
@@ -219,6 +239,11 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
+#### echokern
+- **ID**: `kruemblegard:echokern`
+- **Type**: `Item`
+- **Details**: nutrition=1, saturationMod=0.3
+
 #### fault_dust
 - **ID**: `kruemblegard:fault_dust`
 - **Type**: `BlockItem`
@@ -246,7 +271,7 @@ Update workflow:
 
 #### ghoulberries
 - **ID**: `kruemblegard:ghoulberries`
-- **Type**: `Item`
+- **Type**: `ItemNameBlockItem`
 - **Details**: nutrition=2, saturationMod=0.1
 
 #### ghoulberry_shrub
@@ -274,10 +299,45 @@ Update workflow:
 - **Type**: `Item`
 - **Details**: (none parsed)
 
+#### paleweft_grass
+- **ID**: `kruemblegard:paleweft_grass`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### paleweft_seeds
+- **ID**: `kruemblegard:paleweft_seeds`
+- **Type**: `ItemNameBlockItem`
+- **Details**: (none parsed)
+
+#### paleweft_tall_grass
+- **ID**: `kruemblegard:paleweft_tall_grass`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
 #### pebblit_spawn_egg
 - **ID**: `kruemblegard:pebblit_spawn_egg`
 - **Type**: `ForgeSpawnEggItem`
 - **Details**: entity=ModEntities.PEBBLIT, primaryColor=0x5a5147, secondaryColor=0xb4aa9d
+
+#### polished_ashfall_stone
+- **ID**: `kruemblegard:polished_ashfall_stone`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### polished_ashfall_stone_slab
+- **ID**: `kruemblegard:polished_ashfall_stone_slab`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### polished_ashfall_stone_stairs
+- **ID**: `kruemblegard:polished_ashfall_stone_stairs`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### polished_ashfall_stone_wall
+- **ID**: `kruemblegard:polished_ashfall_stone_wall`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
 
 #### polished_scarstone
 - **ID**: `kruemblegard:polished_scarstone`
@@ -362,7 +422,7 @@ Update workflow:
 #### runic_axe
 - **ID**: `kruemblegard:runic_axe`
 - **Type**: `AxeItem`
-- **Details**: (none parsed)
+- **Details**: tier=ModTiers.RUNIC, attackDamageBonus=5.0, attackSpeed=-3.0
 
 #### runic_core
 - **ID**: `kruemblegard:runic_core`
@@ -382,7 +442,7 @@ Update workflow:
 #### runic_shovel
 - **ID**: `kruemblegard:runic_shovel`
 - **Type**: `ShovelItem`
-- **Details**: (none parsed)
+- **Details**: tier=ModTiers.RUNIC, attackDamageBonus=1.5, attackSpeed=-3.0
 
 #### runic_sword
 - **ID**: `kruemblegard:runic_sword`
@@ -409,9 +469,14 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
+#### scattered_enderman_spawn_egg
+- **ID**: `kruemblegard:scattered_enderman_spawn_egg`
+- **Type**: `ForgeSpawnEggItem`
+- **Details**: entity=ModEntities.SCATTERED_ENDERMAN, primaryColor=0x161616, secondaryColor=0x9a30ff
+
 #### soulberries
 - **ID**: `kruemblegard:soulberries`
-- **Type**: `Item`
+- **Type**: `ItemNameBlockItem`
 - **Details**: nutrition=4, saturationMod=0.3
 
 #### soulberry_shrub
@@ -464,10 +529,39 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
+#### wayfall_diamond_ore
+- **ID**: `kruemblegard:wayfall_diamond_ore`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### wayfall_iron_ore
+- **ID**: `kruemblegard:wayfall_iron_ore`
+- **Type**: `BlockItem`
+- **Details**: (none parsed)
+
+#### weftkern
+- **ID**: `kruemblegard:weftkern`
+- **Type**: `Item`
+- **Details**: nutrition=1, saturationMod=0.3
+
+#### weftmeal
+- **ID**: `kruemblegard:weftmeal`
+- **Type**: `Item`
+- **Details**: nutrition=5, saturationMod=0.6
+
+#### wispshoot
+- **ID**: `kruemblegard:wispshoot`
+- **Type**: `ItemNameBlockItem`
+- **Details**: nutrition=3, saturationMod=0.2
+
 #### wispstalk
 - **ID**: `kruemblegard:wispstalk`
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
 <!-- AUTO-GENERATED:ITEMS:END -->
+
+
+
+
 
