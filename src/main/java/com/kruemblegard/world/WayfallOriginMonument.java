@@ -1,6 +1,5 @@
 package com.kruemblegard.world;
 
-import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 

@@ -20,6 +20,22 @@ Keep it up to date whenever you add/remove/rename content.
   - Max distance (blocks) at which cosmetic effects are spawned.
 - `Kruemblegard.Performance.Client.cosmeticVerticalStretch`
   - Vertical stretch for culling checks. Effective distance uses: $dx^2 + dz^2 + (dy \cdot stretch)^2$.
+- `Kruemblegard.Performance.Client.cosmeticCullEpsilonBlocks`
+  - Conservative slack (blocks) added to cosmetic culling decisions to reduce flicker/false culls.
+- `Kruemblegard.Performance.Client.enableViewConeCulledCosmetics`
+  - Optional view-cone early-out for cosmetics (cheap frustum-ish check).
+  - Disabled by default because some players prefer effects even when looking away.
+- `Kruemblegard.Performance.Client.cosmeticViewConeHalfAngleDegrees`
+  - Half-angle for the view cone (higher = less culling).
+- `Kruemblegard.Performance.Client.cosmeticViewConeMarginDegrees`
+  - Extra conservative margin added to the cone to reduce false culls.
+- `Kruemblegard.Performance.Client.enableCosmeticParticleBudget`
+  - Enables a per-tick budget for Krümblegård cosmetic particle spawning (caps worst-case spikes).
+- `Kruemblegard.Performance.Client.cosmeticParticleBudgetPerTick`
+  - The per-tick particle cap used by the cosmetic budget.
+- `Kruemblegard.Performance.Client.enableRuntimeChecks`
+  - Enables extra validation for performance helpers (primarily for development/debugging).
+  - Also supports JVM flag: `-Dkruemblegard.checks=true`.
 - `Kruemblegard.Performance.Client.projectileParticleSpawnIntervalTicks`
   - Trail particle spawn interval for Krümblegård projectiles. `1` = every tick.
 

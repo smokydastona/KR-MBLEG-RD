@@ -3,7 +3,7 @@ package com.kruemblegard.entity.projectile;
 import com.kruemblegard.config.ClientConfig;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.util.KruemblegardDamageSources;
-import com.kruemblegard.util.DistanceCulling;
+import com.kruemblegard.util.CosmeticEffectsPolicy;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -38,22 +38,9 @@ public class RuneBoltEntity extends Projectile {
         if (this.level().isClientSide) {
             int interval = ClientConfig.PROJECTILE_PARTICLE_SPAWN_INTERVAL_TICKS.get();
             if (interval <= 1 || this.tickCount % interval == 0) {
-                boolean shouldSpawn = true;
-                if (ClientConfig.ENABLE_DISTANCE_CULLED_COSMETICS.get()) {
-                    double maxDistance = ClientConfig.COSMETIC_CULL_DISTANCE_BLOCKS.get();
-                    var viewer = this.level().getNearestPlayer(this, maxDistance);
-                    shouldSpawn = viewer != null && DistanceCulling.isWithinDistance(
-                        viewer.position(),
-                        this.getX(),
-                        this.getY(),
-                        this.getZ(),
-                        maxDistance,
-                        ClientConfig.COSMETIC_VERTICAL_STRETCH.get()
-                    );
-                }
-
-                if (shouldSpawn) {
-                    for (int i = 0; i < 3; i++) {
+                int particleCount = 3;
+                if (CosmeticEffectsPolicy.shouldSpawnCosmeticParticles(this.level(), this, particleCount)) {
+                    for (int i = 0; i < particleCount; i++) {
                         this.level().addParticle(
                             ParticleTypes.END_ROD,
                             this.getX(),

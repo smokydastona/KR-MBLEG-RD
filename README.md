@@ -170,5 +170,21 @@ These options only affect **cosmetic** client-side effects (e.g., projectile tra
     enableDistanceCulledCosmetics = true
     cosmeticCullDistanceBlocks = 64
     cosmeticVerticalStretch = 1.0
+
+    # Conservative slack to reduce flicker/false culls
+    cosmeticCullEpsilonBlocks = 0.125
+
+    # Optional view-cone culling (off by default)
+    enableViewConeCulledCosmetics = false
+    cosmeticViewConeHalfAngleDegrees = 100.0
+    cosmeticViewConeMarginDegrees = 15.0
+
+    # Sodium-style budget to cap worst-case cosmetic particle work
+    enableCosmeticParticleBudget = true
+    cosmeticParticleBudgetPerTick = 512
+
+    # Extra validation for dev/debug (also supports JVM flag: -Dkruemblegard.checks=true)
+    enableRuntimeChecks = false
+
     projectileParticleSpawnIntervalTicks = 1
 ```

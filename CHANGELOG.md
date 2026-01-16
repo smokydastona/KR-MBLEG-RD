@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.421 (2026-01-16)
+- Perf(client): add a per-tick cosmetic particle budget to cap worst-case FX spikes (Sodium-style “budgeted work”).
+- Perf(client): add optional view-cone culling + conservative epsilon for cosmetic effects (reduces false culls / flicker).
+- Refactor(client): centralize cosmetic spawn rules in a shared policy helper (keeps compatibility hooks explicit).
+
 ## 1.0.420 (2026-01-16)
 - Fix(world/wayfall): place the Wayfall origin monument only when a player enters Wayfall (avoids force-loading chunks at dimension load).
 - Chore(docs): document “no-tick chunk loading” safety guidance for future long-running world operations.
