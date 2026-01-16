@@ -86,6 +86,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.414 (2026-01-15)
 - Tuning(worldgen): retune Wayfall biome base temperatures.
 
+## 1.0.415 (2026-01-15)
+- Tuning(assets): update Runegrowth temperature bands to match the new Wayfall biome temperature range.
+
 ## 1.0.385 (2026-01-15)
 - Fix(client): render the carried block for Scattered Enderman (held blocks no longer appear invisible).
 

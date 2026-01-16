@@ -108,14 +108,15 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         public static TempBand fromBaseTemperature(Biome biome) {
             // Base temperature bands tuned to Kruemblegard's current Wayfall biome temperature range.
             // Goal: make all 4 variants reachable with typical mod biome values.
+            // Current Wayfall range: ~0.10 (coldest) → ~2.00 (hottest).
             float t = biome.getBaseTemperature();
-            if (t < 0.20F) {
+            if (t < 0.25F) {
                 return COLD;
             }
-            if (t < 0.45F) {
+            if (t < 0.70F) {
                 return TEMPERATE;
             }
-            if (t < 0.60F) {
+            if (t < 1.25F) {
                 return WARM;
             }
             return HOT;
