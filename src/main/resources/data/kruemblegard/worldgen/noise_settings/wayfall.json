@@ -222,7 +222,7 @@
           "then_run": {
             "type": "minecraft:block",
             "result_state": {
-              "Name": "kruemblegard:crushstone"
+              "Name": "kruemblegard:fault_dust"
             }
           }
         }
