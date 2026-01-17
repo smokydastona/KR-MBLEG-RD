@@ -72,6 +72,17 @@ public final class WayfallSpawnPlatform {
             RandomSource rng = wayfall.random;
             template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
 
+            Kruemblegard.LOGGER.info(
+                "Wayfall spawn island placed: pool={} template={} anchor={} marker={} size={}x{}x{}",
+                poolJson,
+                structureId,
+                anchor,
+                markerPos,
+                template.getSize().getX(),
+                template.getSize().getY(),
+                template.getSize().getZ()
+            );
+
             data.setPlaced(true);
             data.setAnchor(anchor);
             data.setStructureId(structureId);
@@ -114,6 +125,28 @@ public final class WayfallSpawnPlatform {
         if (landing == null) {
             int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
             landing = new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+        }
+
+        // Final safety check: if there's still no solid floor under the landing, build a tiny invisible pad.
+        // This avoids "fell into the void" even if the template failed to place (or was empty/misaligned).
+        BlockPos floor = landing.below();
+        boolean hasFloor = !wayfall.getBlockState(floor).getCollisionShape(wayfall, floor).isEmpty();
+        if (!hasFloor) {
+            Kruemblegard.LOGGER.error(
+                "Wayfall spawn island did not provide a solid landing floor at {} (floor {}). Creating emergency pad. template={} anchor={}",
+                landing,
+                floor,
+                data.getStructureId(),
+                data.getAnchor()
+            );
+
+            // 3x3 barrier pad one block below the landing.
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    BlockPos pad = floor.offset(dx, 0, dz);
+                    wayfall.setBlockAndUpdate(pad, Blocks.BARRIER.defaultBlockState());
+                }
+            }
         }
 
         // Ensure 3-block headroom.
