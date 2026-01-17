@@ -218,8 +218,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ### Small pools
 
-- Wayfall biomes can generate small water puddles (spring-feature style pools).
-- Basin of Scars can generate rare surface lava lakes.
+- Underway Falls can generate rare high-altitude waterfall sources.
+- Basin of Scars can generate surface lava lakes.
 - Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.

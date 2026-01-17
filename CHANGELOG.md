@@ -716,8 +716,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 
 - Wayfall: place `wayfall_origin_island` once at `(0, 175, 0)` on first Wayfall dimension load.
-- Wayfall: add small water puddles (spring-feature pools) across Wayfall biomes.
-- Basin of Scars: add rare surface lava lakes.
+- Wayfall: add rare high-altitude waterfall sources in Underway Falls.
+- Basin of Scars: add surface lava lakes (custom placement for better visibility).
 - Add Wayfall ambient music (`music.wayfall`) and a matching music disc item.
 - Add a Wayfall-only dynamic custom skybox renderer (client) with 6 placeholder cubemap face textures.
 - Mobs: add Traprock (dormant until disturbed; Blaze-derived GeckoLib mob with editable geo/anim/texture).

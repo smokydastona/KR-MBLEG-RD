@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:underway_falls",
+  "features": [
+    "kruemblegard:underway_falls_waterfall_source"
+  ],
+  "step": "lakes"
+}
