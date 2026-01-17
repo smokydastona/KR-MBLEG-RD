@@ -4,14 +4,17 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.437 (2026-01-17)
+## 1.0.438 (2026-01-16)
+- Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
+
+## 1.0.437 (2026-01-16)
 - Tuning(wayfall): make Wayfall water lakes use a Stoneveil Rubble + Runed Stoneveil Rubble barrier mix, and lava lakes use a Scarstone + Cracked Scarstone barrier mix.
 
 ## 1.0.436 (2026-01-16)
 - Feature(wayfall): add surface water lakes across Wayfall biomes, with Basin of Scars water lakes being rarer.
 - Feature(wayfall): add rare surface lava lakes across non-Basin Wayfall biomes (Basin remains more lava-forward).
 
-## 1.0.435 (2026-01-17)
+## 1.0.435 (2026-01-16)
 - Fix(wayfall): make Wayfall portal entry more reliable by syncing player teleport with `ServerPlayer.teleportTo` and adding a post-dimension-change fail-safe teleport onto the spawn island landing.
 
 ## 1.0.429 (2026-01-16)
@@ -27,7 +30,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Change(wayfall): portal entry now places a `wayfall_origin_island` structure template at Wayfall spawn and teleports the player onto it (no more block-built spawn platform).
 - Tuning(wayfall): origin-island templates can define an explicit landing point using a `minecraft:barrier` marker block (removed after placement).
 
-## 1.0.424 (2026-01-17)
+## 1.0.424 (2026-01-16)
 - Fix(structures): correct Wayfall origin-island template pool `location` paths to match the on-disk palette subfolders.
 - Chore(worldgen): validate origin-island template pools and referenced structure template `.nbt` files at server start (warn by default; strict-fail when enabled).
 

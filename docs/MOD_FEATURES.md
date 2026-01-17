@@ -221,6 +221,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Underway Falls can generate rare high-altitude waterfall sources.
 - Wayfall biomes can generate surface water lakes (lake barriers use a Stoneveil Rubble + Runed Stoneveil Rubble mix).
 - Wayfall biomes can generate rare surface lava lakes (lake barriers use a Scarstone + Cracked Scarstone mix); Basin of Scars is more lava-forward.
+- Lake placement uses a -8 X/Z offset so the generated lake is centered on the placement position.
 - Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
