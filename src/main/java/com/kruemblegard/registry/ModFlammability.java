@@ -1,5 +1,6 @@
 package com.kruemblegard.registry;
 
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 
 import net.minecraft.resources.ResourceLocation;
@@ -33,11 +34,22 @@ public final class ModFlammability {
         final int saplingEncouragement = 60;
         final int saplingFlammability = 100;
 
-        Method setFlammable;
-        try {
-            setFlammable = FireBlock.class.getDeclaredMethod("setFlammable", Block.class, int.class, int.class);
-            setFlammable.setAccessible(true);
-        } catch (ReflectiveOperationException ex) {
+        Method setFlammable = null;
+        for (Method method : FireBlock.class.getDeclaredMethods()) {
+            Class<?>[] params = method.getParameterTypes();
+            if (method.getReturnType() == void.class
+                    && params.length == 3
+                    && params[0] == Block.class
+                    && params[1] == int.class
+                    && params[2] == int.class) {
+                setFlammable = method;
+                setFlammable.setAccessible(true);
+                break;
+            }
+        }
+
+        if (setFlammable == null) {
+            Kruemblegard.LOGGER.warn("Failed to locate FireBlock flammability registration method; mod blocks may not burn.");
             return;
         }
 
@@ -50,31 +62,43 @@ public final class ModFlammability {
             String path = id.getPath();
             Block block = entry.get();
 
+            int encouragement;
+            int flammability;
+
+            if (block instanceof LeavesBlock || path.endsWith("_leaves")) {
+                encouragement = leavesEncouragement;
+                flammability = leavesFlammability;
+            } else if (path.endsWith("_log") || path.endsWith("_wood")) {
+                encouragement = logsEncouragement;
+                flammability = logsFlammability;
+            } else if (path.endsWith("_sapling")) {
+                encouragement = saplingEncouragement;
+                flammability = saplingFlammability;
+            } else if (
+                    path.endsWith("_planks")
+                            || path.endsWith("_slab")
+                            || path.endsWith("_stairs")
+                            || path.endsWith("_fence")
+                            || path.endsWith("_fence_gate")
+                            || path.endsWith("_door")
+                            || path.endsWith("_trapdoor")
+                            || path.endsWith("_pressure_plate")
+                            || path.endsWith("_button")
+                            || path.endsWith("_sign")
+                            || path.endsWith("_wall_sign")
+                            || path.endsWith("_hanging_sign")
+                            || path.endsWith("_wall_hanging_sign")
+            ) {
+                encouragement = woodEncouragement;
+                flammability = woodFlammability;
+            } else {
+                continue;
+            }
+
             try {
-                if (block instanceof LeavesBlock || path.endsWith("_leaves")) {
-                    setFlammable.invoke(fire, block, leavesEncouragement, leavesFlammability);
-                } else if (path.endsWith("_log") || path.endsWith("_wood")) {
-                    setFlammable.invoke(fire, block, logsEncouragement, logsFlammability);
-                } else if (path.endsWith("_sapling")) {
-                    setFlammable.invoke(fire, block, saplingEncouragement, saplingFlammability);
-                } else if (
-                        path.endsWith("_planks")
-                                || path.endsWith("_slab")
-                                || path.endsWith("_stairs")
-                                || path.endsWith("_fence")
-                                || path.endsWith("_fence_gate")
-                                || path.endsWith("_door")
-                                || path.endsWith("_trapdoor")
-                                || path.endsWith("_pressure_plate")
-                                || path.endsWith("_button")
-                                || path.endsWith("_sign")
-                                || path.endsWith("_wall_sign")
-                                || path.endsWith("_hanging_sign")
-                                || path.endsWith("_wall_hanging_sign")
-                ) {
-                    setFlammable.invoke(fire, block, woodEncouragement, woodFlammability);
-                }
-            } catch (ReflectiveOperationException ignored) {
+                setFlammable.invoke(fire, block, encouragement, flammability);
+            } catch (ReflectiveOperationException ex) {
+                Kruemblegard.LOGGER.warn("Failed to set flammability for {}", id, ex);
             }
         }
     }
