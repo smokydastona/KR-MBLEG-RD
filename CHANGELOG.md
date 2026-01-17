@@ -4,12 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.435 (2026-01-17)
-- Fix(wayfall): make Wayfall portal entry more reliable by syncing player teleport with `ServerPlayer.teleportTo` and adding a post-dimension-change fail-safe teleport onto the spawn island landing.
+## 1.0.437 (2026-01-17)
+- Tuning(wayfall): make Wayfall water lakes use a Stoneveil Rubble + Runed Stoneveil Rubble barrier mix, and lava lakes use a Scarstone + Cracked Scarstone barrier mix.
 
 ## 1.0.436 (2026-01-16)
 - Feature(wayfall): add surface water lakes across Wayfall biomes, with Basin of Scars water lakes being rarer.
 - Feature(wayfall): add rare surface lava lakes across non-Basin Wayfall biomes (Basin remains more lava-forward).
+
+## 1.0.435 (2026-01-17)
+- Fix(wayfall): make Wayfall portal entry more reliable by syncing player teleport with `ServerPlayer.teleportTo` and adding a post-dimension-change fail-safe teleport onto the spawn island landing.
 
 ## 1.0.429 (2026-01-16)
 - Fix(wayfall): add logging + a last-resort invisible landing pad if the spawn island template fails to provide a solid floor (prevents void falls).

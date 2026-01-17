@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:lake_water",
+  "feature": "kruemblegard:wayfall_water_lake",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
