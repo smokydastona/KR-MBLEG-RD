@@ -28,14 +28,24 @@ import java.util.List;
 public final class WayfallSpawnPlatform {
     private WayfallSpawnPlatform() {}
 
-    private static final int DEFAULT_PLATFORM_Y = 160;
+    private static final BlockPos SPAWN_ISLAND_ANCHOR = new BlockPos(0, 175, 0);
     private static final int CHUNK_LOAD_PADDING_BLOCKS = 24;
 
     public static BlockPos ensureSpawnLanding(ServerLevel wayfall) {
-        BlockPos spawn = wayfall.getSharedSpawnPos();
+        // Portal entry always targets the fixed Wayfall origin island anchor.
+        BlockPos anchor = SPAWN_ISLAND_ANCHOR;
+        BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
 
-        int platformY = MthClamp.clamp(DEFAULT_PLATFORM_Y, wayfall.getMinBuildHeight() + 8, wayfall.getMaxBuildHeight() - 8);
-        BlockPos anchor = new BlockPos(spawn.getX(), platformY, spawn.getZ());
+        ensureSpawnIslandPlaced(wayfall);
+
+        // Compute landing from marker/heightmap.
+        return computeLanding(wayfall, anchor, spawn);
+    }
+
+    /** Places the origin island structure at the fixed anchor if not already placed. */
+    public static void ensureSpawnIslandPlaced(ServerLevel wayfall) {
+        BlockPos anchor = SPAWN_ISLAND_ANCHOR;
+        BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
 
         WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
         if (!data.isPlaced() || !anchor.equals(data.getAnchor()) || data.getStructureId() == null) {
@@ -97,6 +107,10 @@ public final class WayfallSpawnPlatform {
                 }
             }
         }
+    }
+
+    private static BlockPos computeLanding(ServerLevel wayfall, BlockPos anchor, BlockPos spawn) {
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
 
         // If a marker exists, prefer it; otherwise fall back to the heightmap at spawn X/Z.
         BlockPos landing = null;
@@ -282,13 +296,4 @@ public final class WayfallSpawnPlatform {
         }
     }
 
-    /** Minimal clamp utility to avoid pulling extra math dependencies into world-only helper. */
-    private static final class MthClamp {
-        private static int clamp(int value, int min, int max) {
-            if (value < min) {
-                return min;
-            }
-            return Math.min(value, max);
-        }
-    }
 }

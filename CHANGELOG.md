@@ -714,6 +714,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Repo/process: add a Conventional Commit hook (`.githooks/commit-msg`) and contributing guidance on asset licensing.
 
 ## Unreleased
+
+- Wayfall: place `wayfall_origin_island` once at `(0, 175, 0)` on first Wayfall dimension load.
 - Add Wayfall ambient music (`music.wayfall`) and a matching music disc item.
 - Add a Wayfall-only dynamic custom skybox renderer (client) with 6 placeholder cubemap face textures.
 - Mobs: add Traprock (dormant until disturbed; Blaze-derived GeckoLib mob with editable geo/anim/texture).
