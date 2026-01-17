@@ -180,11 +180,13 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
   - Wayfall wood families include `*_log`, `*_wood`, and stripped `stripped_*_{log,wood}` variants.
+  - Wayfall tree configured features use `kruemblegard:fault_dust` as their `dirt_provider` (no `minecraft:rooted_dirt` placements).
   - Axes strip Wayfall logs/wood into their stripped variants.
   - Saplings grow over time via random ticks (no light requirement) or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
   - Glimmerpine has a rare **mega** (2x2) variant that can generate naturally in Wayfall.
+  - All Kruemblegard `*_log`, `*_wood`, and `*_leaves` blocks are flammable like vanilla (leaves burn fast).
   - Driftwillow has a rare **mega** (2x2) variant that can generate naturally in drift biomes.
   - Monument Oak has a rare **mega** (2x2) variant that can generate naturally in Glyphscar Reach.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.

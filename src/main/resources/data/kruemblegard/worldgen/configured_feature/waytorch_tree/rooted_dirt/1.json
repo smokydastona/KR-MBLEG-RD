@@ -1,11 +1,11 @@
-﻿{
+{
   "config": {
     "feature": {
       "feature": {
         "config": {
           "to_place": {
             "state": {
-              "Name": "minecraft:rooted_dirt"
+              "Name": "kruemblegard:fault_dust"
             },
             "type": "minecraft:simple_state_provider"
           }
@@ -45,3 +45,4 @@
   },
   "type": "minecraft:random_patch"
 }
+

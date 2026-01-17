@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.439 (2026-01-17)
+- Tuning(worldgen): make Wayfall tree configured features use `kruemblegard:fault_dust` as their dirt provider (no more `minecraft:rooted_dirt` placements).
+- Tuning(blocks): make all Kruemblegard `*_log`, `*_wood`, and `*_leaves` blocks flammable like vanilla.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 

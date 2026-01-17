@@ -1,4 +1,4 @@
-﻿{
+{
   "config": {
     "features": [
       {
@@ -37,7 +37,7 @@
                     ],
                     "dirt_provider": {
                       "state": {
-                        "Name": "minecraft:rooted_dirt"
+                        "Name": "kruemblegard:fault_dust"
                       },
                       "type": "minecraft:simple_state_provider"
                     },

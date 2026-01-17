@@ -9,6 +9,7 @@ import com.kruemblegard.init.ModCriteria;
 import com.kruemblegard.book.KruemblegardGuidebook;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModFeatures;
+import com.kruemblegard.registry.ModFlammability;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModLootModifiers;
 import com.kruemblegard.registry.ModParticles;
@@ -71,6 +72,7 @@ public final class Kruemblegard {
             // and strict validation behavior are available during world init.
             WorldgenTuningConfig.loadAndSync();
             KruemblegardTerraBlender.register();
+            ModFlammability.registerFlammables();
         });
     }
 
