@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -22,6 +23,7 @@ import net.minecraft.util.RandomSource;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public final class WayfallSpawnPlatform {
     private WayfallSpawnPlatform() {}
@@ -47,6 +49,10 @@ public final class WayfallSpawnPlatform {
             StructureTemplateManager templates = wayfall.getServer().getStructureManager();
             StructureTemplate template = templates.getOrCreate(structureId);
 
+            // Optional explicit landing marker: put a single minecraft:barrier block in the structure template
+            // at the desired "feet" position, and we'll teleport the player above it and remove the marker.
+            BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
+
             // Ensure affected chunks are fully generated/loaded before placing the template.
             var size = template.getSize();
             int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
@@ -69,11 +75,34 @@ public final class WayfallSpawnPlatform {
             data.setAnchor(anchor);
             data.setStructureId(structureId);
             data.setDirty();
+
+            // Remove the marker after placement so it can't interfere with play.
+            if (markerPos != null) {
+                wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+            }
         }
 
-        // Compute a safe landing point on top of the placed structure at the spawn X/Z.
-        int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
-        BlockPos landing = new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+        // If a marker exists, prefer it; otherwise fall back to the heightmap at spawn X/Z.
+        BlockPos landing = null;
+        ResourceLocation cachedStructure = data.getStructureId();
+        if (cachedStructure != null && wayfall.getServer() != null) {
+            try {
+                StructureTemplate template = wayfall.getServer().getStructureManager().getOrCreate(cachedStructure);
+                BlockPos markerPos = findBestLandingMarker(template, data.getAnchor(), spawn);
+                if (markerPos != null) {
+                    landing = markerPos.above();
+                    // Ensure the marker isn't left behind even if the first placement attempt crashed mid-way.
+                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                }
+            } catch (Exception ignored) {
+                // Heightmap fallback below.
+            }
+        }
+
+        if (landing == null) {
+            int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
+            landing = new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+        }
 
         // Ensure 3-block headroom.
         wayfall.setBlockAndUpdate(landing, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
@@ -81,6 +110,32 @@ public final class WayfallSpawnPlatform {
         wayfall.setBlockAndUpdate(landing.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
 
         return landing;
+    }
+
+    private static BlockPos findBestLandingMarker(StructureTemplate template, BlockPos anchor, BlockPos spawn) {
+        if (template == null) {
+            return null;
+        }
+
+        // This yields world positions as-if the template were placed at `anchor`.
+        List<StructureTemplate.StructureBlockInfo> markers = template.filterBlocks(anchor, new StructurePlaceSettings(), Blocks.BARRIER);
+        if (markers == null || markers.isEmpty()) {
+            return null;
+        }
+
+        BlockPos best = null;
+        long bestDist2 = Long.MAX_VALUE;
+        for (StructureTemplate.StructureBlockInfo info : markers) {
+            BlockPos pos = info.pos();
+            long dx = (long) pos.getX() - (long) spawn.getX();
+            long dz = (long) pos.getZ() - (long) spawn.getZ();
+            long dist2 = dx * dx + dz * dz;
+            if (dist2 < bestDist2) {
+                bestDist2 = dist2;
+                best = pos;
+            }
+        }
+        return best;
     }
 
     private static ResourceLocation selectTemplatePoolJson(ServerLevel wayfall, BlockPos spawn) {

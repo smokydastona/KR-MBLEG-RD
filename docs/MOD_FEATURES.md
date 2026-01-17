@@ -131,6 +131,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - `wayfall_portal`: a simple testing portal block you can place in creative; entities (players/mobs/items) that pass through it are sent to the Wayfall spawn.
   - On entry, Wayfall places a `wayfall_origin_island` structure template at the spawn and teleports the entity onto it (safe landing, no void falls).
   - Templates live under `data/kruemblegard/structures/wayfall_origin_island/` and are selected via the template pools under `data/kruemblegard/worldgen/template_pool/wayfall_origin_island/`.
+  - Template landing marker: put a single `minecraft:barrier` block in the template at the intended **feet** position; the game teleports the player above it and removes the marker.
 
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
