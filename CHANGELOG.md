@@ -20,8 +20,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.443 (2026-01-16)
 - Tuning(mobs): allow bees to treat many Kruemblegard plants as flowers for breeding/pollination by extending `minecraft:flowers`.
 
-## 1.0.444 (2026-01-17)
+## 1.0.444 (2026-01-16)
 - Fix(wayfall): remove the separate block-built Wayfall origin monument island so portal entry only places the `wayfall_origin_island` structure (no extra cone platform).
+
+## 1.0.445 (2026-01-16)
+- Tuning(wayfall): set Wayfall's dimension spawn to the origin-island landing and clamp portal landing to the local surface.
 
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.

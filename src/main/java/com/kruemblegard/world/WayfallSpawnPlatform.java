@@ -41,7 +41,13 @@ public final class WayfallSpawnPlatform {
         ensureSpawnIslandPlaced(wayfall);
 
         // Compute landing from marker/heightmap.
-        return computeLanding(wayfall, anchor, spawn);
+        BlockPos landing = computeLanding(wayfall, anchor, spawn);
+
+        // Keep Wayfall's dimension spawn on the surface of the origin island.
+        // This does NOT override a player's bed/respawn point in other dimensions.
+        wayfall.setDefaultSpawnPos(landing, 0.0F);
+
+        return landing;
     }
 
     /** Places the origin island structure at the fixed anchor if not already placed. */
@@ -209,6 +215,14 @@ public final class WayfallSpawnPlatform {
         if (landing == null) {
             int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
             landing = new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+        }
+
+        // Even if a marker is present, clamp the landing upward to the local surface.
+        // This ensures players spawn on the island's surface rather than inside it.
+        int surfaceYAtLanding = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, landing.getX(), landing.getZ());
+        int surfaceLandingY = Math.min(surfaceYAtLanding + 1, wayfall.getMaxBuildHeight() - 4);
+        if (landing.getY() < surfaceLandingY) {
+            landing = new BlockPos(landing.getX(), surfaceLandingY, landing.getZ());
         }
 
         // Final safety check: if there's still no solid floor under the landing, build a tiny invisible pad.

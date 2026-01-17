@@ -29,6 +29,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - Structure templates live under `data/kruemblegard/structures/wayfall_origin_island/` (as `.snbt` + generated raw `.nbt`).
   - Jigsaw template pools for the per-type 5-variant sets live under `data/kruemblegard/worldgen/template_pool/wayfall_origin_island/`.
   - The pool is selected by the biome at the spawn location (with a temperature-based fallback for cold).
+  - Wayfall's dimension spawn is kept aligned to the origin-island surface landing.
 
 
 ## Biome index
