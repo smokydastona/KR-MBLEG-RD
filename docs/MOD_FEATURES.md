@@ -215,6 +215,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall uses custom noise settings (`kruemblegard:wayfall`) with `kruemblegard:fractured_wayrock` as the base terrain block.
 - Wayfall terrain shaping is driven by custom `worldgen/noise/**` + `worldgen/density_function/**` entries (instead of End island routing).
 - Safety: entering Wayfall via the portal always lands you on a dedicated spawn island (a small tapered "asteroid") placed at **(0, 175, 0)** (with cleared headroom).
+
+### Small pools
+
+- Wayfall biomes can generate small water puddles (spring-feature style pools).
+- Basin of Scars can generate rare surface lava lakes.
 - Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.

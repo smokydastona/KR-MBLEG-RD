@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall",
+  "features": [
+    "kruemblegard:wayfall_water_puddle"
+  ],
+  "step": "lakes"
+}

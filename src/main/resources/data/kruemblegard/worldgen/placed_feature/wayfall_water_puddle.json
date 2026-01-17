@@ -1,0 +1,51 @@
+{
+  "feature": {
+    "type": "minecraft:spring_feature",
+    "config": {
+      "state": {
+        "Name": "minecraft:water",
+        "Properties": {
+          "falling": "true"
+        }
+      },
+      "requires_block_below": true,
+      "rock_count": 5,
+      "hole_count": 0,
+      "valid_blocks": [
+        "minecraft:air",
+
+        "kruemblegard:fractured_wayrock",
+        "kruemblegard:crushstone",
+        "kruemblegard:runegrowth",
+        "kruemblegard:stoneveil_rubble",
+        "kruemblegard:runed_stoneveil_rubble",
+        "kruemblegard:voidfelt",
+        "kruemblegard:ashfall_loam",
+        "kruemblegard:ashfall_stone"
+      ]
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "min_inclusive": 0,
+          "max_inclusive": 2
+        }
+      }
+    },
+    { "type": "minecraft:in_square" },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING_NO_LEAVES"
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 0,
+      "y_spread": -1
+    },
+    { "type": "minecraft:biome" }
+  ]
+}

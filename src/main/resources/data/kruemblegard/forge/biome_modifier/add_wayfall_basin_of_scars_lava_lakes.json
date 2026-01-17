@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:basin_of_scars",
+  "features": [
+    "minecraft:lake_lava_surface"
+  ],
+  "step": "lakes"
+}
