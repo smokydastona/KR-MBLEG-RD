@@ -164,6 +164,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
   - Utility: most Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) can be composted.
+  - Bees: many Kruemblegard plants are tagged as `minecraft:flowers`, so bees can breed/pollinate using them like vanilla flowers.
   - Biome identity: Wayfall biomes use distinct plant sets (via per-biome biome modifiers); each Wayfall biome still includes at least one food plant.
   - Detailed reference (keep updated): docs/FLORA_REFERENCE.md
 - Paleweft farming (Wayfall)

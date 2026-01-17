@@ -13,7 +13,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.441 (2026-01-16)
 - Fix(blocks): ensure Kruemblegard trees/wood actually burn in the built jar by locating the flammability registration method by signature (obfuscation-safe reflection).
+
+## 1.0.442 (2026-01-16)
 - Fix(items): ensure all Kruemblegard logs/wood (including stripped variants) are tagged as `minecraft:logs_that_burn` so they smelt into charcoal like vanilla.
+
+## 1.0.443 (2026-01-16)
+- Tuning(mobs): allow bees to treat many Kruemblegard plants as flowers for breeding/pollination by extending `minecraft:flowers`.
 
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.

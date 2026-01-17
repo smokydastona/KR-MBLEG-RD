@@ -1,0 +1,46 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:wispstalk",
+    "kruemblegard:gravevine",
+    "kruemblegard:runebloom",
+
+    "kruemblegard:pathreed",
+    "kruemblegard:faultgrass",
+    "kruemblegard:driftbloom",
+    "kruemblegard:cairn_moss",
+    "kruemblegard:waylily",
+
+    "kruemblegard:ruin_thistle",
+    "kruemblegard:wayseed_cluster",
+    "kruemblegard:void_lichen",
+    "kruemblegard:transit_fern",
+
+    "kruemblegard:misstep_vine",
+    "kruemblegard:waybind_creeper",
+    "kruemblegard:milestone_grass",
+    "kruemblegard:runedrift_reed",
+    "kruemblegard:wayscar_ivy",
+
+    "kruemblegard:ashpetal",
+    "kruemblegard:transit_bloom",
+    "kruemblegard:cairnroot",
+    "kruemblegard:falsepath_thorns",
+    "kruemblegard:sliproot",
+    "kruemblegard:waygrasp_vine",
+
+    "kruemblegard:dustpetal",
+    "kruemblegard:rune_sprouts",
+    "kruemblegard:waythread",
+    "kruemblegard:gravemint",
+    "kruemblegard:fallseed_pods",
+    "kruemblegard:reverse_portal_spores",
+
+    "kruemblegard:voidfern",
+    "kruemblegard:runeblossom",
+    "kruemblegard:moteshrub",
+    "kruemblegard:ashveil",
+    "kruemblegard:twilight_bulb",
+    "kruemblegard:whispervine"
+  ]
+}
