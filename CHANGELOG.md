@@ -26,6 +26,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.445 (2026-01-16)
 - Tuning(wayfall): set Wayfall's dimension spawn to the origin-island landing and clamp portal landing to the local surface.
 
+## 1.0.446 (2026-01-16)
+- Tuning(wayfall): avoid landing on leaf canopies by clamping to `MOTION_BLOCKING_NO_LEAVES` when possible.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 

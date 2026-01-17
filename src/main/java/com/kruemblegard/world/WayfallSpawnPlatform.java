@@ -218,8 +218,11 @@ public final class WayfallSpawnPlatform {
         }
 
         // Even if a marker is present, clamp the landing upward to the local surface.
-        // This ensures players spawn on the island's surface rather than inside it.
-        int surfaceYAtLanding = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, landing.getX(), landing.getZ());
+        // Prefer a surface that ignores leaves (avoid landing on tree canopies).
+        int surfaceYAtLanding = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, landing.getX(), landing.getZ());
+        if (surfaceYAtLanding <= wayfall.getMinBuildHeight()) {
+            surfaceYAtLanding = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, landing.getX(), landing.getZ());
+        }
         int surfaceLandingY = Math.min(surfaceYAtLanding + 1, wayfall.getMaxBuildHeight() - 4);
         if (landing.getY() < surfaceLandingY) {
             landing = new BlockPos(landing.getX(), surfaceLandingY, landing.getZ());
