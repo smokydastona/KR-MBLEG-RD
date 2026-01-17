@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.425 (2026-01-16)
+- Change(wayfall): portal entry now places a `wayfall_origin_island` structure template at Wayfall spawn and teleports the player onto it (no more block-built spawn platform).
+
 ## 1.0.424 (2026-01-17)
 - Fix(structures): correct Wayfall origin-island template pool `location` paths to match the on-disk palette subfolders.
 - Chore(worldgen): validate origin-island template pools and referenced structure template `.nbt` files at server start (warn by default; strict-fail when enabled).

@@ -1,66 +1,185 @@
 package com.kruemblegard.world;
 
-import com.kruemblegard.init.ModBlocks;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkStatus;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.RandomSource;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public final class WayfallSpawnPlatform {
     private WayfallSpawnPlatform() {}
 
     private static final int DEFAULT_PLATFORM_Y = 160;
-    private static final int ISLAND_RADIUS = 10;
-    private static final int ISLAND_DEPTH = 7;
+    private static final int CHUNK_LOAD_PADDING_BLOCKS = 24;
 
     public static BlockPos ensureSpawnLanding(ServerLevel wayfall) {
         BlockPos spawn = wayfall.getSharedSpawnPos();
 
         int platformY = MthClamp.clamp(DEFAULT_PLATFORM_Y, wayfall.getMinBuildHeight() + 8, wayfall.getMaxBuildHeight() - 8);
-        BlockPos center = new BlockPos(spawn.getX(), platformY, spawn.getZ());
+        BlockPos anchor = new BlockPos(spawn.getX(), platformY, spawn.getZ());
 
-        // Ensure affected chunks are fully generated/loaded before writing blocks.
-        int minChunkX = (center.getX() - ISLAND_RADIUS) >> 4;
-        int maxChunkX = (center.getX() + ISLAND_RADIUS) >> 4;
-        int minChunkZ = (center.getZ() - ISLAND_RADIUS) >> 4;
-        int maxChunkZ = (center.getZ() + ISLAND_RADIUS) >> 4;
-        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
-            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                wayfall.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        if (!data.isPlaced() || !anchor.equals(data.getAnchor()) || data.getStructureId() == null) {
+            ResourceLocation poolJson = selectTemplatePoolJson(wayfall, spawn);
+            ResourceLocation structureId = pickStructureFromTemplatePoolJson(wayfall, poolJson);
+            if (structureId == null) {
+                // Fall back to a deterministic default if the pool can't be read for some reason.
+                structureId = new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_origin_island/default/default_1");
             }
-        }
 
-        BlockState block = ModBlocks.FRACTURED_WAYROCK.get().defaultBlockState();
+            StructureTemplateManager templates = wayfall.getServer().getStructureManager();
+            StructureTemplate template = templates.getOrCreate(structureId);
 
-        // Build a small tapered "asteroid" island rather than a thin flat platform.
-        // This keeps portal entry safe (solid landing) and matches Wayfall's floating-island aesthetics.
-        for (int dx = -ISLAND_RADIUS; dx <= ISLAND_RADIUS; dx++) {
-            for (int dz = -ISLAND_RADIUS; dz <= ISLAND_RADIUS; dz++) {
-                double dist = Math.sqrt((double) dx * dx + (double) dz * dz);
-                if (dist > (double) ISLAND_RADIUS + 0.35D) {
-                    continue;
-                }
-
-                double t = 1.0D - (dist / (double) ISLAND_RADIUS);
-                int columnDepth = 1 + (int) Math.floor(t * (double) ISLAND_DEPTH);
-
-                // Keep the top surface generous and the underside tapered.
-                BlockPos top = center.offset(dx, 0, dz);
-                wayfall.setBlockAndUpdate(top, block);
-                for (int dy = 1; dy <= columnDepth; dy++) {
-                    wayfall.setBlockAndUpdate(top.below(dy), block);
+            // Ensure affected chunks are fully generated/loaded before placing the template.
+            var size = template.getSize();
+            int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
+            int padZ = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getZ());
+            int minChunkX = (anchor.getX() - padX) >> 4;
+            int maxChunkX = (anchor.getX() + padX) >> 4;
+            int minChunkZ = (anchor.getZ() - padZ) >> 4;
+            int maxChunkZ = (anchor.getZ() + padZ) >> 4;
+            for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+                for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                    wayfall.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
                 }
             }
+
+            StructurePlaceSettings settings = new StructurePlaceSettings().setIgnoreEntities(true);
+            RandomSource rng = wayfall.random;
+            template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
+
+            data.setPlaced(true);
+            data.setAnchor(anchor);
+            data.setStructureId(structureId);
+            data.setDirty();
         }
 
-        BlockPos landing = center.above();
-        wayfall.setBlockAndUpdate(landing, Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(landing.above(), Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(landing.above(2), Blocks.AIR.defaultBlockState());
+        // Compute a safe landing point on top of the placed structure at the spawn X/Z.
+        int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
+        BlockPos landing = new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+
+        // Ensure 3-block headroom.
+        wayfall.setBlockAndUpdate(landing, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        wayfall.setBlockAndUpdate(landing.above(), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        wayfall.setBlockAndUpdate(landing.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
 
         return landing;
+    }
+
+    private static ResourceLocation selectTemplatePoolJson(ServerLevel wayfall, BlockPos spawn) {
+        ResourceKey<?> biomeKey = wayfall.getBiome(spawn).unwrapKey().orElse(null);
+        if (biomeKey == ModWorldgenKeys.Biomes.STRATA_COLLAPSE) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/ashfall.json");
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.SHATTERPLATE_FLATS) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/voidfelt.json");
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.FRACTURE_SHOALS) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/fractured.json");
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.GLYPHSCAR_REACH) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/glyphscar.json");
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.BASIN_OF_SCARS) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/basin_of_scars.json");
+        }
+
+        float temp = wayfall.getBiome(spawn).value().getBaseTemperature();
+        if (temp <= 0.25f) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/cold.json");
+        }
+
+        return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/default.json");
+    }
+
+    private static ResourceLocation pickStructureFromTemplatePoolJson(ServerLevel wayfall, ResourceLocation templatePoolJson) {
+        if (wayfall.getServer() == null) {
+            return null;
+        }
+
+        try {
+            ResourceManager resourceManager = wayfall.getServer().getResourceManager();
+            var resourceOpt = resourceManager.getResource(templatePoolJson);
+            if (resourceOpt.isEmpty()) {
+                return null;
+            }
+
+            try (InputStream is = resourceOpt.get().open();
+                 InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+
+                JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+                JsonElement elementsEl = root.get("elements");
+                if (elementsEl == null || !elementsEl.isJsonArray()) {
+                    return null;
+                }
+
+                // Weighted random pick.
+                int totalWeight = 0;
+                for (JsonElement weightedEl : elementsEl.getAsJsonArray()) {
+                    if (!weightedEl.isJsonObject()) {
+                        continue;
+                    }
+                    JsonObject weighted = weightedEl.getAsJsonObject();
+                    int weight = weighted.has("weight") ? weighted.get("weight").getAsInt() : 1;
+                    if (weight > 0) {
+                        totalWeight += weight;
+                    }
+                }
+                if (totalWeight <= 0) {
+                    return null;
+                }
+
+                int roll = wayfall.random.nextInt(totalWeight);
+                for (JsonElement weightedEl : elementsEl.getAsJsonArray()) {
+                    if (!weightedEl.isJsonObject()) {
+                        continue;
+                    }
+                    JsonObject weighted = weightedEl.getAsJsonObject();
+                    int weight = weighted.has("weight") ? weighted.get("weight").getAsInt() : 1;
+                    if (weight <= 0) {
+                        continue;
+                    }
+                    roll -= weight;
+                    if (roll >= 0) {
+                        continue;
+                    }
+
+                    JsonElement elementEl = weighted.get("element");
+                    if (elementEl == null || !elementEl.isJsonObject()) {
+                        return null;
+                    }
+                    JsonObject element = elementEl.getAsJsonObject();
+                    JsonElement locationEl = element.get("location");
+                    if (locationEl == null || !locationEl.isJsonPrimitive()) {
+                        return null;
+                    }
+
+                    return ResourceLocation.tryParse(locationEl.getAsString());
+                }
+
+                return null;
+            }
+        } catch (Exception ex) {
+            Kruemblegard.LOGGER.warn("Failed to pick structure from template pool {}: {}", templatePoolJson, ex.toString());
+            return null;
+        }
     }
 
     /** Minimal clamp utility to avoid pulling extra math dependencies into world-only helper. */
