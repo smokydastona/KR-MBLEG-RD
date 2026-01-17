@@ -49,8 +49,9 @@ public final class WayfallSpawnPlatform {
             StructureTemplateManager templates = wayfall.getServer().getStructureManager();
             StructureTemplate template = templates.getOrCreate(structureId);
 
-            // Optional explicit landing marker: put a single minecraft:barrier block in the structure template
-            // at the desired "feet" position, and we'll teleport the player above it and remove the marker.
+            // Optional explicit landing marker: a single minecraft:barrier block inside the template.
+            // If the marker sits on solid support, treat it as a "feet" marker (we remove it and land at that block).
+            // If it's floating (no support below), treat it as a "support" marker (we keep it and land above it).
             BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
 
             // Ensure affected chunks are fully generated/loaded before placing the template.
@@ -76,9 +77,13 @@ public final class WayfallSpawnPlatform {
             data.setStructureId(structureId);
             data.setDirty();
 
-            // Remove the marker after placement so it can't interfere with play.
+            // Remove the marker after placement only when it's clearly a feet-marker.
             if (markerPos != null) {
-                wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                BlockPos below = markerPos.below();
+                boolean hasSupport = !wayfall.getBlockState(below).getCollisionShape(wayfall, below).isEmpty();
+                if (hasSupport) {
+                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                }
             }
         }
 
@@ -90,9 +95,16 @@ public final class WayfallSpawnPlatform {
                 StructureTemplate template = wayfall.getServer().getStructureManager().getOrCreate(cachedStructure);
                 BlockPos markerPos = findBestLandingMarker(template, data.getAnchor(), spawn);
                 if (markerPos != null) {
-                    landing = markerPos.above();
-                    // Ensure the marker isn't left behind even if the first placement attempt crashed mid-way.
-                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                    BlockPos below = markerPos.below();
+                    boolean hasSupport = !wayfall.getBlockState(below).getCollisionShape(wayfall, below).isEmpty();
+                    if (hasSupport) {
+                        // Feet-marker: remove marker and land in its block space.
+                        wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                        landing = markerPos;
+                    } else {
+                        // Support-marker: keep marker and land above it.
+                        landing = markerPos.above();
+                    }
                 }
             } catch (Exception ignored) {
                 // Heightmap fallback below.

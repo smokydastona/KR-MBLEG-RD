@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.428 (2026-01-16)
+- Fix(wayfall): make portal landing use the origin-island marker safely (won't delete the only support block and drop the player).
+
 ## 1.0.427 (2026-01-16)
 - Chore(structures): add landing marker `minecraft:barrier` blocks to Wayfall origin-island templates for consistent portal-entry spawn placement.
 
