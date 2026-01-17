@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.427 (2026-01-16)
+- Chore(structures): add landing marker `minecraft:barrier` blocks to Wayfall origin-island templates for consistent portal-entry spawn placement.
+
 ## 1.0.426 (2026-01-16)
 - Change(wayfall): portal entry now places a `wayfall_origin_island` structure template at Wayfall spawn and teleports the player onto it (no more block-built spawn platform).
 - Tuning(wayfall): origin-island templates can define an explicit landing point using a `minecraft:barrier` marker block (removed after placement).
