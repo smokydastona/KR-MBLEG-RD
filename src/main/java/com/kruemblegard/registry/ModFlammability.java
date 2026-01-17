@@ -21,6 +21,18 @@ public final class ModFlammability {
             return;
         }
 
+        final int leavesEncouragement = 30;
+        final int leavesFlammability = 60;
+
+        final int logsEncouragement = 5;
+        final int logsFlammability = 5;
+
+        final int woodEncouragement = 5;
+        final int woodFlammability = 20;
+
+        final int saplingEncouragement = 60;
+        final int saplingFlammability = 100;
+
         Method setFlammable;
         try {
             setFlammable = FireBlock.class.getDeclaredMethod("setFlammable", Block.class, int.class, int.class);
@@ -40,9 +52,27 @@ public final class ModFlammability {
 
             try {
                 if (block instanceof LeavesBlock || path.endsWith("_leaves")) {
-                    setFlammable.invoke(fire, block, 30, 60);
+                    setFlammable.invoke(fire, block, leavesEncouragement, leavesFlammability);
                 } else if (path.endsWith("_log") || path.endsWith("_wood")) {
-                    setFlammable.invoke(fire, block, 5, 5);
+                    setFlammable.invoke(fire, block, logsEncouragement, logsFlammability);
+                } else if (path.endsWith("_sapling")) {
+                    setFlammable.invoke(fire, block, saplingEncouragement, saplingFlammability);
+                } else if (
+                        path.endsWith("_planks")
+                                || path.endsWith("_slab")
+                                || path.endsWith("_stairs")
+                                || path.endsWith("_fence")
+                                || path.endsWith("_fence_gate")
+                                || path.endsWith("_door")
+                                || path.endsWith("_trapdoor")
+                                || path.endsWith("_pressure_plate")
+                                || path.endsWith("_button")
+                                || path.endsWith("_sign")
+                                || path.endsWith("_wall_sign")
+                                || path.endsWith("_hanging_sign")
+                                || path.endsWith("_wall_hanging_sign")
+                ) {
+                    setFlammable.invoke(fire, block, woodEncouragement, woodFlammability);
                 }
             } catch (ReflectiveOperationException ignored) {
             }

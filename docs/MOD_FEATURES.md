@@ -186,7 +186,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
   - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
   - Glimmerpine has a rare **mega** (2x2) variant that can generate naturally in Wayfall.
-  - All Kruemblegard `*_log`, `*_wood`, and `*_leaves` blocks are flammable like vanilla (leaves burn fast).
+  - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Driftwillow has a rare **mega** (2x2) variant that can generate naturally in drift biomes.
   - Monument Oak has a rare **mega** (2x2) variant that can generate naturally in Glyphscar Reach.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
