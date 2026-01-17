@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.424 (2026-01-17)
+- Fix(structures): correct Wayfall origin-island template pool `location` paths to match the on-disk palette subfolders.
+- Chore(worldgen): validate origin-island template pools and referenced structure template `.nbt` files at server start (warn by default; strict-fail when enabled).
+
 ## 1.0.421 (2026-01-16)
 - Perf(client): add a per-tick cosmetic particle budget to cap worst-case FX spikes (Sodium-style “budgeted work”).
 - Perf(client): add optional view-cone culling + conservative epsilon for cosmetic effects (reduces false culls / flicker).

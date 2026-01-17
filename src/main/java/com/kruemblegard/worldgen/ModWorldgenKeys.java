@@ -90,6 +90,35 @@ public final class ModWorldgenKeys {
                 Registries.TEMPLATE_POOL,
                 id("megalithic_circle/start")
         );
+
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_DEFAULT = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/default")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_ASHFALL = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/ashfall")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_VOIDFELT = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/voidfelt")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_FRACTURED = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/fractured")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_GLYPHSCAR = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/glyphscar")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_BASIN_OF_SCARS = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/basin_of_scars")
+        );
+        public static final ResourceKey<StructureTemplatePool> WAYFALL_ORIGIN_ISLAND_COLD = ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            id("wayfall_origin_island/cold")
+        );
     }
 
     public static final class ProcessorLists {
