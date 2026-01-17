@@ -73,4 +73,4 @@ If you add any feature that bulk loads/unloads chunks (pregen, large-area struct
 
 Important vanilla pitfall:
 - Some vanilla cleanup paths only run when chunks tick. If you load/generate chunks without a ticking ticket, then unload them, you can expose retained-reference issues (MC-272673 class of bugs; see Chunky/GenMemoryLeakFix investigations).
-- In Krümblegård, Wayfall’s origin monument is intentionally placed when a player enters Wayfall (chunks are ticketed/ticking), not at dimension load.
+- In Krümblegård, keep long-running Wayfall operations player-triggered when possible so chunks are naturally ticketed/ticking.

@@ -29,8 +29,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - Structure templates live under `data/kruemblegard/structures/wayfall_origin_island/` (as `.snbt` + generated raw `.nbt`).
   - Jigsaw template pools for the per-type 5-variant sets live under `data/kruemblegard/worldgen/template_pool/wayfall_origin_island/`.
   - The pool is selected by the biome at the spawn location (with a temperature-based fallback for cold).
-- A single biome-themed "origin monument" island is generated once per world at `(0, 190, 0)` in Wayfall.
-  - Palette is chosen from the biome at that position (e.g., Strata Collapse uses Ashfall Loam/Stone; Shatterplate Flats uses Voidfelt).
+
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.

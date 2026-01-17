@@ -1,7 +1,6 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.world.WayfallOriginMonument;
 import com.kruemblegard.world.WayfallSpawnPlatform;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
@@ -43,7 +42,6 @@ public final class WayfallPortalEntrySafetyEvents {
             }
 
             BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(level);
-            WayfallOriginMonument.ensurePlaced(level);
 
             double x = landing.getX() + 0.5D;
             double y = landing.getY();
