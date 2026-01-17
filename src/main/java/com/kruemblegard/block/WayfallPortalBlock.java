@@ -114,7 +114,13 @@ public class WayfallPortalBlock extends Block {
 
                 placed.fallDistance = 0;
                 placed.setDeltaMovement(Vec3.ZERO);
-                placed.moveTo(x, y, z, placed.getYRot(), placed.getXRot());
+
+                // Use ServerPlayer teleport for correct client synchronization.
+                if (placed instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+                    serverPlayer.teleportTo(destWorld, x, y, z, serverPlayer.getYRot(), serverPlayer.getXRot());
+                } else {
+                    placed.moveTo(x, y, z, placed.getYRot(), placed.getXRot());
+                }
                 return placed;
             }
         });
