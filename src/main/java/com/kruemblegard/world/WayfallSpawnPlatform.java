@@ -19,6 +19,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -48,6 +50,19 @@ public final class WayfallSpawnPlatform {
         BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
 
         WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        // If older saves recorded the island as "placed" while templates were missing/empty, force a rebuild.
+        if (data.isPlaced() && anchor.equals(data.getAnchor()) && data.getStructureId() != null) {
+            if (isSpawnIslandAreaEmpty(wayfall, anchor)) {
+                Kruemblegard.LOGGER.warn(
+                    "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
+                    anchor,
+                    data.getStructureId()
+                );
+                data.setPlaced(false);
+                data.setDirty();
+            }
+        }
+
         if (!data.isPlaced() || !anchor.equals(data.getAnchor()) || data.getStructureId() == null) {
             ResourceLocation poolJson = selectTemplatePoolJson(wayfall, spawn);
             ResourceLocation structureId = pickStructureFromTemplatePoolJson(wayfall, poolJson);
@@ -58,6 +73,15 @@ public final class WayfallSpawnPlatform {
 
             StructureTemplateManager templates = wayfall.getServer().getStructureManager();
             StructureTemplate template = templates.getOrCreate(structureId);
+            // getOrCreate can silently create an empty template if the resource is missing.
+            if (template.getSize().getX() <= 0 || template.getSize().getY() <= 0 || template.getSize().getZ() <= 0) {
+                Kruemblegard.LOGGER.error(
+                    "Wayfall spawn island template appears empty ({}). Falling back to default_1.",
+                    structureId
+                );
+                structureId = new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_origin_island/default/default_1");
+                template = templates.getOrCreate(structureId);
+            }
 
             // Optional explicit landing marker: a single minecraft:barrier block inside the template.
             // If the marker sits on solid support, treat it as a "feet" marker (we remove it and land at that block).
@@ -80,7 +104,7 @@ public final class WayfallSpawnPlatform {
 
             StructurePlaceSettings settings = new StructurePlaceSettings().setIgnoreEntities(true);
             RandomSource rng = wayfall.random;
-            template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
+            boolean placedOk = template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
 
             Kruemblegard.LOGGER.info(
                 "Wayfall spawn island placed: pool={} template={} anchor={} marker={} size={}x{}x{}",
@@ -92,6 +116,16 @@ public final class WayfallSpawnPlatform {
                 template.getSize().getY(),
                 template.getSize().getZ()
             );
+
+            if (!placedOk) {
+                Kruemblegard.LOGGER.error(
+                    "Wayfall spawn island placement returned false (pool={}, template={}, anchor={}). Will not mark as placed.",
+                    poolJson,
+                    structureId,
+                    anchor
+                );
+                return;
+            }
 
             data.setPlaced(true);
             data.setAnchor(anchor);
@@ -107,6 +141,42 @@ public final class WayfallSpawnPlatform {
                 }
             }
         }
+    }
+
+    private static boolean isSpawnIslandAreaEmpty(ServerLevel level, BlockPos anchor) {
+        // Heuristic: the spawn island should contribute at least some solid blocks near the anchor.
+        // If we can't find any collision blocks in a small cube, assume the template never placed.
+        int minX = anchor.getX() - 6;
+        int maxX = anchor.getX() + 6;
+        int minZ = anchor.getZ() - 6;
+        int maxZ = anchor.getZ() + 6;
+        int minY = Math.max(level.getMinBuildHeight(), anchor.getY() - 10);
+        int maxY = Math.min(level.getMaxBuildHeight() - 1, anchor.getY() + 10);
+
+        int solidCount = 0;
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                for (int y = minY; y <= maxY; y++) {
+                    BlockState state = level.getBlockState(new BlockPos(x, y, z));
+                    if (state.isAir()) {
+                        continue;
+                    }
+                    // Ignore emergency pads as evidence of a real island.
+                    if (state.is(Blocks.BARRIER)) {
+                        continue;
+                    }
+                    VoxelShape shape = state.getCollisionShape(level, new BlockPos(x, y, z));
+                    if (!shape.isEmpty()) {
+                        solidCount++;
+                        if (solidCount >= 12) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     private static BlockPos computeLanding(ServerLevel wayfall, BlockPos anchor, BlockPos spawn) {

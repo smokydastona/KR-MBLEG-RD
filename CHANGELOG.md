@@ -716,6 +716,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## Unreleased
 
 - Wayfall: place `wayfall_origin_island` once at `(0, 175, 0)` on first Wayfall dimension load.
+- Fix: Wayfall origin island will re-place itself if an old save marked it placed while templates were missing/empty.
 - Wayfall: add rare high-altitude waterfall sources in Underway Falls.
 - Basin of Scars: add surface lava lakes (custom placement for better visibility).
 - Add Wayfall ambient music (`music.wayfall`) and a matching music disc item.
