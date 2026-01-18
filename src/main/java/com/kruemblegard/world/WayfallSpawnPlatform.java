@@ -167,10 +167,6 @@ public final class WayfallSpawnPlatform {
                     if (state.isAir()) {
                         continue;
                     }
-                    // Ignore emergency pads as evidence of a real island.
-                    if (state.is(Blocks.BARRIER)) {
-                        continue;
-                    }
                     VoxelShape shape = state.getCollisionShape(level, new BlockPos(x, y, z));
                     if (!shape.isEmpty()) {
                         solidCount++;
@@ -228,27 +224,7 @@ public final class WayfallSpawnPlatform {
             landing = new BlockPos(landing.getX(), surfaceLandingY, landing.getZ());
         }
 
-        // Final safety check: if there's still no solid floor under the landing, build a tiny invisible pad.
-        // This avoids "fell into the void" even if the template failed to place (or was empty/misaligned).
-        BlockPos floor = landing.below();
-        boolean hasFloor = !wayfall.getBlockState(floor).getCollisionShape(wayfall, floor).isEmpty();
-        if (!hasFloor) {
-            Kruemblegard.LOGGER.error(
-                "Wayfall spawn island did not provide a solid landing floor at {} (floor {}). Creating emergency pad. template={} anchor={}",
-                landing,
-                floor,
-                data.getStructureId(),
-                data.getAnchor()
-            );
-
-            // 3x3 barrier pad one block below the landing.
-            for (int dx = -1; dx <= 1; dx++) {
-                for (int dz = -1; dz <= 1; dz++) {
-                    BlockPos pad = floor.offset(dx, 0, dz);
-                    wayfall.setBlockAndUpdate(pad, Blocks.BARRIER.defaultBlockState());
-                }
-            }
-        }
+        // Note: do not place any "emergency" blocks here. Portal entry should only place the NBT island.
 
         // Ensure 3-block headroom.
         wayfall.setBlockAndUpdate(landing, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());

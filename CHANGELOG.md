@@ -44,6 +44,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.451 (2026-01-17)
 - Tuning(worldgen): increase Paleweft Grass patch density in warm/temperate Wayfall biomes (and make Underway Falls more jungle-like) using a no-leaves surface heightmap for better ground placement under canopy.
 
+## 1.0.452 (2026-01-17)
+- Fix(wayfall): remove the emergency 3x3 barrier landing pad so portal entry only places the origin-island NBT structure (no extra barrier platform).
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
