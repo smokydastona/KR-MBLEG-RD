@@ -67,6 +67,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.460 (2026-01-17)
 - Tuning(assets): make `ashmoss_carpet` reuse the `ashmoss_top` texture (no separate carpet texture file).
 
+## 1.0.461 (2026-01-17)
+- Fix(worldgen): make Ashmoss patches generate embedded in terrain (no floating placements) by projecting to a no-leaves surface heightmap and only replacing blocks tagged `kruemblegard:ashmoss_spread_targets`.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 

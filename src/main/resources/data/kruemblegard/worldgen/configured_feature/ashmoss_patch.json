@@ -16,6 +16,13 @@
       "placement": [
         {
           "predicate": {
+            "blocks": "#kruemblegard:ashmoss_spread_targets",
+            "type": "minecraft:matching_blocks"
+          },
+          "type": "minecraft:block_predicate_filter"
+        },
+        {
+          "predicate": {
             "state": {
               "Name": "kruemblegard:ashmoss"
             },
@@ -26,7 +33,7 @@
       ]
     },
     "xz_spread": 6,
-    "y_spread": 3
+    "y_spread": 0
   },
   "type": "minecraft:random_patch"
 }

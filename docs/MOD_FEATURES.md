@@ -211,6 +211,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
 - Bonemeal on Ashmoss can spread it onto nearby **Fault Dust**, place Ashmoss Carpet, and grow pale grasses.
 - Ashmoss spread/bonemeal conversion targets are data-driven via the `kruemblegard:ashmoss_spread_targets` block tag (includes Kruemblegard stone blocks).
+- Worldgen: Ashmoss patches project placement to the ground surface (no-leaves heightmap) and only replace blocks in `kruemblegard:ashmoss_spread_targets` (prevents floating patches).
 - Voidfelt is rare: it is primarily generated in **Shatterplate Flats** (tag: `kruemblegard:wayfall_void`) and slowly reverts outside void-biome conditions.
 
 ## Dimensions
