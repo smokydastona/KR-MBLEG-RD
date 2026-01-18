@@ -44,10 +44,15 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
 
         // Render carried block in a vanilla-Enderman-like pose.
         poseStack.pushPose();
+        // GeoEntityRenderer restores the pose stack after rendering the model, so re-apply the yaw rotation
+        // here to keep the carried-block offset in entity-local space (prevents the block drifting behind).
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - entityYaw));
+
         poseStack.translate(0.0D, 0.6875D, -0.75D);
         poseStack.mulPose(Axis.XP.rotationDegrees(20.0F));
         poseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
-        poseStack.translate(0.25D, 0.1875D, 0.25D);
+        // Small nudge up so the block sits in the arms instead of low on the torso.
+        poseStack.translate(0.25D, 0.3125D, 0.25D);
         poseStack.scale(-0.5F, -0.5F, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
 
