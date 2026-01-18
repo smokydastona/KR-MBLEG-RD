@@ -2,9 +2,9 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:crumbled_crossing",
   "features": [
-    "kruemblegard:wispstalk_patch",
-
     "kruemblegard:paleweft_patch_dense",
+
+    "kruemblegard:wispstalk_patch",
 
     "kruemblegard:milestone_grass_patch",
     "kruemblegard:waylily_patch",

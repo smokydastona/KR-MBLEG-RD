@@ -50,6 +50,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.453 (2026-01-17)
 - Fix(wayfall): always remove the origin-island landing marker (`minecraft:barrier`) after computing the portal landing.
 
+## 1.0.456 (2026-01-17)
+- Fix(worldgen): resolve a Wayfall chunkgen crash (FeatureSorter feature-order cycle) by making shared flora features use a consistent ordering between `crumbled_crossing` and `faulted_expanse`.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
