@@ -24,6 +24,11 @@ public final class ModTags {
             new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_ground")
         );
 
+        public static final TagKey<Block> ASHMOSS_SPREAD_TARGETS = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "ashmoss_spread_targets")
+        );
+
         public static final TagKey<Block> RUBBLE_TILLABLE = TagKey.create(
             Registries.BLOCK,
             new ResourceLocation(Kruemblegard.MOD_ID, "rubble_tillable")

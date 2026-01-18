@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:end_stone",
+
+    "kruemblegard:fault_dust",
+
+    "kruemblegard:attuned_stone",
+    "kruemblegard:fractured_wayrock",
+    "kruemblegard:crushstone",
+
+    "kruemblegard:ashfall_stone",
+    "kruemblegard:polished_ashfall_stone",
+
+    "kruemblegard:stoneveil_rubble",
+    "kruemblegard:polished_stoneveil_rubble",
+    "kruemblegard:runed_stoneveil_rubble",
+
+    "kruemblegard:cracked_scarstone",
+    "kruemblegard:scarstone",
+    "kruemblegard:polished_scarstone",
+    "kruemblegard:chiseled_scarstone"
+  ]
+}

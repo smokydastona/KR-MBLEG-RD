@@ -36,7 +36,7 @@ public class AshmossBlock extends Block implements BonemealableBlock {
         Direction dir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         BlockPos target = pos.relative(dir);
         BlockState targetState = level.getBlockState(target);
-        if (targetState.is(ModBlocks.FAULT_DUST.get())) {
+        if (targetState.is(ModTags.Blocks.ASHMOSS_SPREAD_TARGETS)) {
             level.setBlock(target, ModBlocks.ASHMOSS.get().defaultBlockState(), 2);
         }
     }
@@ -65,7 +65,7 @@ public class AshmossBlock extends Block implements BonemealableBlock {
                 continue;
             }
 
-            if (!level.getBlockState(target).is(ModBlocks.FAULT_DUST.get())) {
+            if (!level.getBlockState(target).is(ModTags.Blocks.ASHMOSS_SPREAD_TARGETS)) {
                 continue;
             }
 
