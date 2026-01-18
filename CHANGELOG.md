@@ -74,9 +74,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen): increase Paleweft grass patch density ~3x across Wayfall biomes.
 
 ## 1.0.463 (2026-01-18)
-- Tuning(worldgen): add a secondary Paleweft worldgen pass to bias harder toward **small** Paleweft Grass after the main patch.
 
-## 1.0.464 (2026-01-18)
+## 1.0.467 (2026-01-18)
+- Tweak(worldgen): Increase the secondary small Paleweft grass pass by ~4x (short grass only).
+
 - Fix(assets): rotate all Kruemblegard door blockstate variants +90° on the Y axis so door textures apply with the correct facing.
 
 ## 1.0.465 (2026-01-18)
