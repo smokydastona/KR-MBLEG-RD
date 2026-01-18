@@ -1,4 +1,4 @@
-{
+﻿{
     "config":  {
                    "tries":  24,
                    "feature":  {
@@ -16,10 +16,18 @@
                                    "placement":  [
                                                      {
                                                          "predicate":  {
-                                                                           "state":  {
-                                                                                         "Name":  "kruemblegard:milestone_grass"
-                                                                                     },
-                                                                           "type":  "minecraft:would_survive"
+                                                                           "type":  "minecraft:all_of",
+                                                                           "predicates":  [
+                                                                                              {
+                                                                                                  "type":  "minecraft:replaceable"
+                                                                                              },
+                                                                                              {
+                                                                                                  "state":  {
+                                                                                                                "Name":  "kruemblegard:milestone_grass"
+                                                                                                            },
+                                                                                                  "type":  "minecraft:would_survive"
+                                                                                              }
+                                                                                          ]
                                                                        },
                                                          "type":  "minecraft:block_predicate_filter"
                                                      }
@@ -30,3 +38,4 @@
                },
     "type":  "minecraft:random_patch"
 }
+

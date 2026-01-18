@@ -1,4 +1,4 @@
-{
+﻿{
     "type":  "minecraft:random_patch",
     "config":  {
                    "tries":  32,
@@ -26,13 +26,21 @@
                                                      },
                                                      {
                                                          "predicate":  {
-                                                                           "state":  {
-                                                                                         "Name":  "kruemblegard:wispstalk",
-                                                                                         "Properties":  {
-                                                                                                            "age":  "3"
-                                                                                                        }
-                                                                                     },
-                                                                           "type":  "minecraft:would_survive"
+                                                                           "type":  "minecraft:all_of",
+                                                                           "predicates":  [
+                                                                                              {
+                                                                                                  "type":  "minecraft:replaceable"
+                                                                                              },
+                                                                                              {
+                                                                                                  "state":  {
+                                                                                                                "Name":  "kruemblegard:wispstalk",
+                                                                                                                "Properties":  {
+                                                                                                                                   "age":  "3"
+                                                                                                                               }
+                                                                                                            },
+                                                                                                  "type":  "minecraft:would_survive"
+                                                                                              }
+                                                                                          ]
                                                                        },
                                                          "type":  "minecraft:block_predicate_filter"
                                                      }
@@ -40,3 +48,4 @@
                                }
                }
 }
+

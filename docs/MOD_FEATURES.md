@@ -178,7 +178,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - **Rubble Tilth** is a Wayfall farmland analog created by hoeing blocks tagged as `kruemblegard:rubble_tillable`.
     - When it dries out (or gets trampled), it reverts to **Fault Dust**.
     - Visual feedback: at high moisture, it swaps to a moist top texture (vanilla farmland-style).
-- Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly).
+- Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly) and only place into replaceable blocks (no carving holes in terrain).
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.
   - Wayfall wood families include `*_log`, `*_wood`, and stripped `stripped_*_{log,wood}` variants.

@@ -1,14 +1,23 @@
-{
-  "feature": "kruemblegard:paleweft_grass_plant",
-  "placement": [
-    {
-      "type": "minecraft:block_predicate_filter",
-      "predicate": {
-        "type": "minecraft:would_survive",
-        "state": {
-          "Name": "kruemblegard:paleweft_grass"
-        }
-      }
-    }
-  ]
+﻿{
+    "feature":  "kruemblegard:paleweft_grass_plant",
+    "placement":  [
+                      {
+                          "type":  "minecraft:block_predicate_filter",
+                          "predicate":  {
+                                            "type":  "minecraft:all_of",
+                                            "predicates":  [
+                                                               {
+                                                                   "type":  "minecraft:replaceable"
+                                                               },
+                                                               {
+                                                                   "type":  "minecraft:would_survive",
+                                                                   "state":  {
+                                                                                 "Name":  "kruemblegard:paleweft_grass"
+                                                                             }
+                                                               }
+                                                           ]
+                                        }
+                      }
+                  ]
 }
+

@@ -82,6 +82,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.465 (2026-01-18)
 - Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).
 
+## 1.0.466 (2026-01-18)
+- Fix(worldgen): make Wayfall flora patch placement require replaceable targets (air/replaceables) in addition to survival checks, preventing patches from replacing terrain blocks and cutting holes.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 

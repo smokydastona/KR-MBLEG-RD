@@ -1,4 +1,4 @@
-{
+﻿{
     "type":  "minecraft:random_patch",
     "config":  {
                    "tries":  20,
@@ -22,13 +22,21 @@
                                    "placement":  [
                                                      {
                                                          "predicate":  {
-                                                                           "state":  {
-                                                                                         "Name":  "kruemblegard:runebloom",
-                                                                                         "Properties":  {
-                                                                                                            "variant":  "0"
-                                                                                                        }
-                                                                                     },
-                                                                           "type":  "minecraft:would_survive"
+                                                                           "type":  "minecraft:all_of",
+                                                                           "predicates":  [
+                                                                                              {
+                                                                                                  "type":  "minecraft:replaceable"
+                                                                                              },
+                                                                                              {
+                                                                                                  "state":  {
+                                                                                                                "Name":  "kruemblegard:runebloom",
+                                                                                                                "Properties":  {
+                                                                                                                                   "variant":  "0"
+                                                                                                                               }
+                                                                                                            },
+                                                                                                  "type":  "minecraft:would_survive"
+                                                                                              }
+                                                                                          ]
                                                                        },
                                                          "type":  "minecraft:block_predicate_filter"
                                                      }
@@ -36,3 +44,4 @@
                                }
                }
 }
+
