@@ -38,10 +38,13 @@
     [],
     [],
     [],
-    []
+    [
+      "minecraft:freeze_top_layer"
+    ]
   ],
   "temperature": 0.20,
-  "downfall": 0.0,
+  "temperature_modifier": "frozen",
+  "downfall": 0.4,
   "effects": {
     "sky_color": 0,
     "fog_color": 6636321,
@@ -70,5 +73,5 @@
       "probability": 0.001
     }
   },
-  "has_precipitation": false
+  "has_precipitation": true
 }

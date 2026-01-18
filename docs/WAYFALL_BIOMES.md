@@ -8,7 +8,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 
 ## Global Wayfall biome invariants (current)
 - **Precipitation is rare**: most biomes set `has_precipitation: false` and `downfall: 0.0`.
-  - Exception: the coldest biomes (currently Hollow Transit Plains and Underway Falls) are cold enough for snow cover and include `minecraft:freeze_top_layer` so snow layers generate during worldgen.
+  - Exception: the coldest biomes (currently Hollow Transit Plains and Glyphscar Reach) are cold enough for snow cover and include `minecraft:freeze_top_layer` so snow layers generate during worldgen.
 - **No vanilla spawns**: all spawn lists are intentionally limited to Krümblegård mobs.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
@@ -131,6 +131,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `glyphscar_reach.json`
 - Temperature: 0.20
 - Description: A rune-bright reach where enchant motes float and stone structures feel subtly “active.”
+- Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
   - Trees: Monument Oak (rare mega variant), Waytorch Tree
@@ -200,7 +201,6 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - File: `underway_falls.json`
 - Temperature: 1.00
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
-- Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant), Waytorch Tree
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine

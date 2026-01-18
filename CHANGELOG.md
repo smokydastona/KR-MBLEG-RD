@@ -38,6 +38,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.449 (2026-01-17)
 - Tuning(worldgen): retune Wayfall biome temperatures (glyphscar_reach colder; underway_falls warmer; fracture_shoals warmer).
 
+## 1.0.450 (2026-01-17)
+- Tuning(worldgen): move Wayfall snow cover from `underway_falls` to `glyphscar_reach`.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
