@@ -73,6 +73,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.462 (2026-01-17)
 - Tuning(worldgen): increase Paleweft grass patch density ~3x across Wayfall biomes.
 
+## 1.0.463 (2026-01-18)
+- Tuning(worldgen): add a secondary Paleweft worldgen pass to bias harder toward **small** Paleweft Grass after the main patch.
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
