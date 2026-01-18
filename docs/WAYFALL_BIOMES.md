@@ -114,7 +114,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:fracture_shoals`
 - File: `fracture_shoals.json`
-- Temperature: 1.00
+- Temperature: 1.75
 - Description: Shallow “shoals” of broken stone islands with faint crimson spores drifting through the air.
 - Terrain surface: Fractured Wayrock → Crushstone, with deeper Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
@@ -129,7 +129,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:glyphscar_reach`
 - File: `glyphscar_reach.json`
-- Temperature: 1.75
+- Temperature: 0.20
 - Description: A rune-bright reach where enchant motes float and stone structures feel subtly “active.”
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
@@ -198,7 +198,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 
 ### `kruemblegard:underway_falls`
 - File: `underway_falls.json`
-- Temperature: 0.20
+- Temperature: 1.00
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):

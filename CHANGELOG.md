@@ -35,6 +35,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.448 (2026-01-17)
 - Fix(client): adjust Scattered Enderman carried-block transforms so held blocks sit in its arms (not behind / too low).
 
+## 1.0.449 (2026-01-17)
+- Tuning(worldgen): retune Wayfall biome temperatures (glyphscar_reach colder; underway_falls warmer; fracture_shoals warmer).
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
