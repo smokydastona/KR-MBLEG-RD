@@ -6,9 +6,10 @@ import com.kruemblegard.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class VoidfeltBlock extends WayfallSurfaceBlock {
+public class VoidfeltBlock extends Block {
 
     public VoidfeltBlock(Properties properties) {
         super(properties);

@@ -7,9 +7,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AshmossBlock extends WayfallSurfaceBlock {
+public class AshmossBlock extends Block {
 
     public AshmossBlock(Properties properties) {
         super(properties);
