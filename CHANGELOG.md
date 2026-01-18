@@ -56,6 +56,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.457 (2026-01-17)
 - Fix(blocks): make `voidfelt` and `ashmoss` place like normal blocks (mycelium-style), removing the Wayfall-only survival/placement restriction and preventing them from popping off when unsupported.
 
+## 1.0.458 (2026-01-17)
+- Feature(blocks): make `ashmoss` behave more like a true moss surface: bonemeal can spread it over nearby **Fault Dust**, place matching `ashmoss_carpet`, and bloom pale grasses.
+- Feature(blocks): add `ashmoss_carpet`.
+- Tuning(assets): give `ashmoss` separate top/side texture slots (moss-block style).
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 

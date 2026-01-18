@@ -102,6 +102,7 @@ public class ModItems {
     // --- Wayfall surface covers block items ---
 
     public static final RegistryObject<Item> ASHMOSS_ITEM = registerBlockItem("ashmoss", ModBlocks.ASHMOSS);
+    public static final RegistryObject<Item> ASHMOSS_CARPET_ITEM = registerBlockItem("ashmoss_carpet", ModBlocks.ASHMOSS_CARPET);
     public static final RegistryObject<Item> RUNEGROWTH_ITEM = registerBlockItem("runegrowth", ModBlocks.RUNEGROWTH);
     public static final RegistryObject<Item> VOIDFELT_ITEM = registerBlockItem("voidfelt", ModBlocks.VOIDFELT);
 

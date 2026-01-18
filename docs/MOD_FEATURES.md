@@ -202,12 +202,14 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 ### Wayfall surface covers
 - Ashmoss is a moss block surface.
+- Ashmoss has a matching carpet variant: **Ashmoss Carpet**.
 - Runegrowth is a grass block surface.
 - Voidfelt is a mycelium-like dirt surface.
 - Runegrowth’s visuals vary by biome base temperature (cold/temperate/warm/hot) and can additionally switch to a snowy-side variant when placed near snow.
 - Runegrowth spreads over **Fault Dust** under grass-like conditions (sufficient light and not waterlogged).
 - Voidfelt can spread over **Fault Dust** (void biome only) under similar grass/mycelium-like conditions.
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
+- Bonemeal on Ashmoss can spread it onto nearby **Fault Dust**, place Ashmoss Carpet, and grow pale grasses.
 - Voidfelt is rare: it is primarily generated in **Shatterplate Flats** (tag: `kruemblegard:wayfall_void`) and slowly reverts outside void-biome conditions.
 
 ## Dimensions

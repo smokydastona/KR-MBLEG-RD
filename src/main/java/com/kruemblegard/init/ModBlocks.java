@@ -35,6 +35,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
@@ -506,6 +507,14 @@ public final class ModBlocks {
                     .strength(0.6F, 0.6F)
                     .sound(SoundType.MOSS)
                     .randomTicks())
+    );
+
+    public static final RegistryObject<Block> ASHMOSS_CARPET = BLOCKS.register(
+            "ashmoss_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .strength(0.1F)
+                    .sound(SoundType.MOSS_CARPET))
     );
 
     public static final RegistryObject<Block> RUNEGROWTH = BLOCKS.register(
