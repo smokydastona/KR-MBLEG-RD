@@ -4,6 +4,8 @@
   "features": [
     "kruemblegard:wispstalk_patch",
 
+    "kruemblegard:paleweft_patch_dense",
+
     "kruemblegard:milestone_grass_patch",
     "kruemblegard:waylily_patch",
     "kruemblegard:echocap_patch",
