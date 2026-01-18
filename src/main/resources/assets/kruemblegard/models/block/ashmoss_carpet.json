@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/carpet",
   "textures": {
-    "wool": "kruemblegard:block/ashmoss_carpet"
+    "wool": "kruemblegard:block/ashmoss_top"
   }
 }

@@ -64,6 +64,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.459 (2026-01-17)
 - Tuning(blocks): allow Ashmoss spread/bonemeal conversion to target Kruemblegard stone blocks (data-driven via `kruemblegard:ashmoss_spread_targets`).
 
+## 1.0.460 (2026-01-17)
+- Tuning(assets): make `ashmoss_carpet` reuse the `ashmoss_top` texture (no separate carpet texture file).
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
