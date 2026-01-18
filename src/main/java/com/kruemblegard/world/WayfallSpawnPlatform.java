@@ -138,13 +138,10 @@ public final class WayfallSpawnPlatform {
             data.setStructureId(structureId);
             data.setDirty();
 
-            // Remove the marker after placement only when it's clearly a feet-marker.
+            // Always remove the marker after placement.
+            // The marker is only a placement hint and should never remain in the world.
             if (markerPos != null) {
-                BlockPos below = markerPos.below();
-                boolean hasSupport = !wayfall.getBlockState(below).getCollisionShape(wayfall, below).isEmpty();
-                if (hasSupport) {
-                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
-                }
+                wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
             }
         }
     }
@@ -195,13 +192,15 @@ public final class WayfallSpawnPlatform {
                     BlockPos below = markerPos.below();
                     boolean hasSupport = !wayfall.getBlockState(below).getCollisionShape(wayfall, below).isEmpty();
                     if (hasSupport) {
-                        // Feet-marker: remove marker and land in its block space.
-                        wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                        // Feet-marker: land in its block space.
                         landing = markerPos;
                     } else {
-                        // Support-marker: keep marker and land above it.
+                        // Support-marker: land above it.
                         landing = markerPos.above();
                     }
+
+                    // Always remove the marker after using it.
+                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
                 }
             } catch (Exception ignored) {
                 // Heightmap fallback below.
