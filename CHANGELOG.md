@@ -79,6 +79,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.464 (2026-01-18)
 - Fix(assets): rotate all Kruemblegard door blockstate variants +90° on the Y axis so door textures apply with the correct facing.
 
+## 1.0.465 (2026-01-18)
+- Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).
+
 ## 1.0.438 (2026-01-16)
 - Tuning(wayfall): apply a -8 X/Z placement offset to Wayfall lake placed features so generated lakes are centered.
 
