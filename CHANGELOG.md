@@ -89,6 +89,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 - Fix(assets): rotate all Kruemblegard door blockstate variants +90° on the Y axis so door textures apply with the correct facing.
 
+## 1.0.471 (2026-01-20)
+- Chore(assets): remove unused wood-family textures (stripped log top variants + an unused Wayroot leaves variant).
+
 ## 1.0.465 (2026-01-18)
 - Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).
 
