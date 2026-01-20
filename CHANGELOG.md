@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.486 (2026-01-20)
+- Tuning(assets): update Wayfall Copper Ore texture.
+
 ## 1.0.485 (2026-01-20)
 - Tuning(worldgen): make Wayroot trees use/spread Ashmoss instead of Stoneveil Rubble / Runed Stoneveil Rubble.
 
