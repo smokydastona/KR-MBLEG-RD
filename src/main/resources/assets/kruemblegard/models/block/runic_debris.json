@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "kruemblegard:block/attuned_ore"
+    "all": "kruemblegard:block/runic_debris"
   }
 }
