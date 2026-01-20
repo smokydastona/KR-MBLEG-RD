@@ -92,6 +92,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.471 (2026-01-20)
 - Chore(assets): remove unused wood-family textures (stripped log top variants + an unused Wayroot leaves variant).
 
+## 1.0.472 (2026-01-20)
+- Feature(wayfall): first-time players have a small chance to be pulled into the Wayfall when using a Waystone (shift-use bypasses).
+
 ## 1.0.465 (2026-01-18)
 - Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).
 

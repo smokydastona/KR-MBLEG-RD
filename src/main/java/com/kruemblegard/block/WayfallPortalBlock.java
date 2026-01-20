@@ -1,7 +1,7 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.world.WayfallSpawnPlatform;
+import com.kruemblegard.world.WayfallTravel;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -18,8 +18,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
 
 public class WayfallPortalBlock extends Block {
     public WayfallPortalBlock(Properties properties) {
@@ -56,7 +54,7 @@ public class WayfallPortalBlock extends Block {
         }
 
         entity.setPortalCooldown();
-        teleport(entity, target);
+        WayfallTravel.teleportToWayfallSpawnLanding(entity, serverLevel);
     }
 
     @Override
@@ -80,7 +78,7 @@ public class WayfallPortalBlock extends Block {
             return InteractionResult.CONSUME;
         }
 
-        teleport(serverPlayer, target);
+        WayfallTravel.teleportToWayfallSpawnLanding(serverPlayer, serverLevel);
         return InteractionResult.CONSUME;
     }
 
@@ -97,30 +95,5 @@ public class WayfallPortalBlock extends Block {
         return fromLevel.getServer().getLevel(ModWorldgenKeys.Levels.WAYFALL);
     }
 
-    private static void teleport(Entity entity, ServerLevel target) {
-        entity.changeDimension(target, new ITeleporter() {
-            @Override
-            public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw,
-                                      java.util.function.Function<Boolean, Entity> repositionEntity) {
-                // End-portal style: always enter Wayfall at its spawn landing, never at the source coords.
-                Entity placed = repositionEntity.apply(false);
-
-                BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
-                double x = landing.getX() + 0.5D;
-                double y = landing.getY();
-                double z = landing.getZ() + 0.5D;
-
-                placed.fallDistance = 0;
-                placed.setDeltaMovement(Vec3.ZERO);
-
-                // Use ServerPlayer teleport for correct client synchronization.
-                if (placed instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
-                    serverPlayer.teleportTo(destWorld, x, y, z, serverPlayer.getYRot(), serverPlayer.getXRot());
-                } else {
-                    placed.moveTo(x, y, z, placed.getYRot(), placed.getXRot());
-                }
-                return placed;
-            }
-        });
-    }
+    // Teleport implementation lives in WayfallTravel so other systems can reuse it.
 }

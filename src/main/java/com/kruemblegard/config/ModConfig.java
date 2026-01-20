@@ -10,6 +10,9 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue WAYSTONE_ENABLED;
     public static final ForgeConfigSpec.IntValue WAYSTONE_RARITY;
 
+    public static final ForgeConfigSpec.BooleanValue WAYSTONE_WAYFALL_TELEPORT_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue WAYSTONE_WAYFALL_TELEPORT_CHANCE;
+
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -51,6 +54,14 @@ public final class ModConfig {
         WAYSTONE_RARITY = builder
                 .comment("Average chunks per False Waystone (higher = rarer)")
                 .defineInRange("waystoneRarity", 800, 10, 5000);
+
+        WAYSTONE_WAYFALL_TELEPORT_ENABLED = builder
+            .comment("Allow Waystones to (rarely) pull first-time players into the Wayfall on use. Hold shift to avoid.")
+            .define("waystoneWayfallTeleportEnabled", true);
+
+        WAYSTONE_WAYFALL_TELEPORT_CHANCE = builder
+            .comment("Chance (0..1) per Waystone use to teleport a player who has never visited the Wayfall.")
+            .defineInRange("waystoneWayfallTeleportChance", 0.02D, 0.0D, 1.0D);
 
         builder.push("Boss");
 

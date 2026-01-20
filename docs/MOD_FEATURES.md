@@ -139,6 +139,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).
   - Editable texture: `assets/kruemblegard/textures/block/ancient_waystone.png`
   - Models follow Waystones' top/bottom layout: `assets/kruemblegard/models/block/ancient_waystone_{bottom,top}.json`
+  - Lore hook: if a player has never visited the Wayfall, using a Waystone has a small chance to teleport them to the Wayfall spawn landing (server-side).
+    - Hold shift while using a Waystone to bypass this roll.
 
 ## Wayfall Skybox (Client)
 - Wayfall renders a custom sky in-game (client-only).
@@ -265,6 +267,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ## Config
 - Common config: `config/kruemblegard-common.toml`
 - Includes `enableWaystones` and `waystoneRarity` (see `config/ModConfig`).
+- Also includes `waystoneWayfallTeleportEnabled` and `waystoneWayfallTeleportChance` (see `config/ModConfig`).
 
 ## Worldgen
 - Worldgen is primarily data-driven under `data/kruemblegard/worldgen/**`.

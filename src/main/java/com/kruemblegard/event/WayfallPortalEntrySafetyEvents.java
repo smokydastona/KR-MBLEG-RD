@@ -1,6 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.playerdata.KruemblegardPlayerData;
 import com.kruemblegard.world.WayfallSpawnPlatform;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
@@ -29,6 +30,13 @@ public final class WayfallPortalEntrySafetyEvents {
 
         if (!(player.level() instanceof ServerLevel)) {
             return;
+        }
+
+        // Mark Wayfall as visited the first time we actually enter the dimension.
+        KruemblegardPlayerData data = KruemblegardPlayerData.read(player.getPersistentData());
+        if (!data.visitedWayfall()) {
+            data = data.withVisitedWayfall(true);
+            data.write(player.getPersistentData());
         }
 
         // Post-change fail-safe: ensure the spawn island exists and the player is synced onto it.
