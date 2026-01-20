@@ -1,13 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " R ",
-    " C ",
-    " S "
+    "R",
+    "R",
+    "S"
   ],
   "key": {
-    "R": { "item": "kruemblegard:attuned_ingot" },
-    "C": { "item": "kruemblegard:runic_core" },
+    "R": { "item": "kruemblegard:runic_ingot" },
     "S": { "item": "minecraft:stick" }
   },
   "result": { "item": "kruemblegard:runic_sword" }

@@ -544,8 +544,8 @@ public final class ModBlocks {
                     .randomTicks())
     );
 
-    public static final RegistryObject<Block> ATTUNED_ORE = BLOCKS.register(
-            "attuned_ore",
+    public static final RegistryObject<Block> RUNIC_DEBRIS = BLOCKS.register(
+            "runic_debris",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .requiresCorrectToolForDrops()

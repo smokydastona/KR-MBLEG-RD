@@ -79,7 +79,7 @@ public final class WorldgenValidator {
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.ASHBLOOM_TREE, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.GLIMMERPINE_TREE, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.DRIFTWOOD_TREE, strict);
-        validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.ATTUNED_ORE, strict);
+        validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.RUNIC_DEBRIS, strict);
 
         // Detect whether biome modifiers actually injected those placed features into Wayfall biomes.
         validateWayfallBiomesContainInjectedFeatures(
@@ -217,7 +217,7 @@ public final class WorldgenValidator {
                 ModWorldgenKeys.PlacedFeatures.ASHBLOOM_TREE,
                 ModWorldgenKeys.PlacedFeatures.GLIMMERPINE_TREE,
                 ModWorldgenKeys.PlacedFeatures.DRIFTWOOD_TREE,
-                ModWorldgenKeys.PlacedFeatures.ATTUNED_ORE
+            ModWorldgenKeys.PlacedFeatures.RUNIC_DEBRIS
         );
 
         Set<ResourceLocation> expectedLocations = new HashSet<>();

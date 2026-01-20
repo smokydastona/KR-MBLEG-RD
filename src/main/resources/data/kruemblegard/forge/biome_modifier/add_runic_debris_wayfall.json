@@ -2,7 +2,7 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:wayfall",
   "features": [
-    "kruemblegard:attuned_ore"
+    "kruemblegard:runic_debris"
   ],
   "step": "underground_ores"
 }

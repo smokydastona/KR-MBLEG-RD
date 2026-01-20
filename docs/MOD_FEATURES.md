@@ -124,13 +124,14 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Runic Shovel (`runic_shovel`)
   - Runic Hoe (`runic_hoe`)
   - Tier: Runic tools are Netherite-equivalent.
-  - Crafting: Runic tools require Attuned Ingots + a Runic Core catalyst.
+  - Crafting: Runic tools can be crafted directly using **Runic Ingots**, or upgraded from Diamond tools in a Smithing Table (Netherite-template style), keeping enchantments.
 
-- **Attuned Ore** (`attuned_ore`)
+- **Runic Debris** (`runic_debris`)
   - Wayfall-only worldgen.
-  - Drops **Raw Attuned Ore** when mined with a Diamond/Netherite/Runic pickaxe (Fortune supported).
-  - Smelt/Blast Raw Attuned Ore into **Attuned Ingots**.
-  - Silk Touch yields the Attuned Ore block.
+  - Drops itself when mined with a Diamond-tier pickaxe or better.
+  - Smelt/Blast Runic Debris into **Runic Scrap**.
+  - Combine **4x Copper Ingots + 4x Runic Scrap** to craft a **Runic Ingot**.
+  - Combine **1x Netherite Ingot + 1x Runic Ingot** to craft an **Attuned Ingot**.
 
 ## Creative inventory
 

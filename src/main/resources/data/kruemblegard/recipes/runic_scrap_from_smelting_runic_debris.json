@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "kruemblegard:runic_debris"
+  },
+  "result": "kruemblegard:runic_scrap",
+  "experience": 2.0,
+  "cookingtime": 200
+}

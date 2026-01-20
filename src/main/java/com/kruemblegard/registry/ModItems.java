@@ -109,9 +109,9 @@ public class ModItems {
     public static final RegistryObject<Item> WAYFALL_IRON_ORE_ITEM = registerBlockItem("wayfall_iron_ore", ModBlocks.WAYFALL_IRON_ORE);
     public static final RegistryObject<Item> WAYFALL_DIAMOND_ORE_ITEM = registerBlockItem("wayfall_diamond_ore", ModBlocks.WAYFALL_DIAMOND_ORE);
 
-    public static final RegistryObject<Item> ATTUNED_ORE_ITEM = ITEMS.register(
-        "attuned_ore",
-        () -> new BlockItem(ModBlocks.ATTUNED_ORE.get(), new Item.Properties())
+    public static final RegistryObject<Item> RUNIC_DEBRIS_ITEM = ITEMS.register(
+        "runic_debris",
+        () -> new BlockItem(ModBlocks.RUNIC_DEBRIS.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> STANDING_STONE_ITEM = ITEMS.register(
@@ -233,8 +233,13 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
-    public static final RegistryObject<Item> RAW_ATTUNED_ORE = ITEMS.register(
-        "raw_attuned_ore",
+    public static final RegistryObject<Item> RUNIC_SCRAP = ITEMS.register(
+        "runic_scrap",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNIC_INGOT = ITEMS.register(
+        "runic_ingot",
         () -> new Item(new Item.Properties())
     );
 

@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "R",
-    "S",
-    "S"
+    " RR",
+    " SR",
+    " S "
   ],
   "key": {
     "R": { "item": "kruemblegard:runic_ingot" },
     "S": { "item": "minecraft:stick" }
   },
-  "result": { "item": "kruemblegard:runic_shovel" }
+  "result": { "item": "kruemblegard:runic_axe" }
 }

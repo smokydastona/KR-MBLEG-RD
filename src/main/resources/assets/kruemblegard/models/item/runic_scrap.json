@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "kruemblegard:item/raw_attuned_ore"
+    "layer0": "kruemblegard:item/runic_scrap"
   }
 }

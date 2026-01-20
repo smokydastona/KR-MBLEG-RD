@@ -4,7 +4,7 @@
     "kruemblegard:ancient_waystone",
     "kruemblegard:standing_stone",
     "kruemblegard:attuned_stone",
-    "kruemblegard:attuned_ore",
+    "kruemblegard:runic_debris",
     { "id": "waystones:waystone", "required": false },
     { "id": "waystones:mossy_waystone", "required": false },
     { "id": "waystones:sandy_waystone", "required": false },

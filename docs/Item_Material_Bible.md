@@ -99,8 +99,8 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
-#### attuned_ore
-- **ID**: `kruemblegard:attuned_ore`
+#### runic_debris
+- **ID**: `kruemblegard:runic_debris`
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
@@ -114,8 +114,13 @@ Update workflow:
 - **Type**: `Item`
 - **Details**: (none parsed)
 
-#### raw_attuned_ore
-- **ID**: `kruemblegard:raw_attuned_ore`
+#### runic_ingot
+- **ID**: `kruemblegard:runic_ingot`
+- **Type**: `Item`
+- **Details**: (none parsed)
+
+#### runic_scrap
+- **ID**: `kruemblegard:runic_scrap`
 - **Type**: `Item`
 - **Details**: (none parsed)
 

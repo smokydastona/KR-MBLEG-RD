@@ -97,7 +97,8 @@ public final class Kruemblegard {
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ATTUNED_RUNE_SHARD);
-            event.accept(ModItems.RAW_ATTUNED_ORE);
+            event.accept(ModItems.RUNIC_SCRAP);
+            event.accept(ModItems.RUNIC_INGOT);
             event.accept(ModItems.ATTUNED_INGOT);
             event.accept(ModItems.RUNIC_CORE);
             event.accept(ModItems.REMNANT_SEEDS);

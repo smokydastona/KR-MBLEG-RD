@@ -28,7 +28,7 @@ public final class ModTiers {
         TagKey<Block> emptyTag = TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
                 new ResourceLocation(Kruemblegard.MOD_ID, "mineable/none"));
 
-        Supplier<Ingredient> repair = () -> Ingredient.of(ModItems.ATTUNED_INGOT.get());
+        Supplier<Ingredient> repair = () -> Ingredient.of(ModItems.RUNIC_INGOT.get());
 
         RUNIC = TierSortingRegistry.registerTier(
                 new ForgeTier(
