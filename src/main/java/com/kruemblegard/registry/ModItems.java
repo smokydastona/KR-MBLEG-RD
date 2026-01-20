@@ -233,6 +233,16 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
+    public static final RegistryObject<Item> RAW_ATTUNED_ORE = ITEMS.register(
+        "raw_attuned_ore",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ATTUNED_INGOT = ITEMS.register(
+        "attuned_ingot",
+        () -> new Item(new Item.Properties())
+    );
+
     public static final RegistryObject<Item> RUNIC_CORE =
         ITEMS.register("runic_core", () -> new Item(new Item.Properties()));
 

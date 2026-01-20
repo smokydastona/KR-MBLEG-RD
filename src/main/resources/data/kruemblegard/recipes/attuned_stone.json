@@ -5,7 +5,7 @@
     "SR"
   ],
   "key": {
-    "R": { "item": "kruemblegard:attuned_rune_shard" },
+    "R": { "item": "kruemblegard:attuned_ingot" },
     "S": { "item": "minecraft:stone" }
   },
   "result": { "item": "kruemblegard:attuned_stone", "count": 4 }

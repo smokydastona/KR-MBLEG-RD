@@ -28,6 +28,7 @@
                   "condition": "minecraft:match_tool",
                   "predicate": {
                     "items": [
+                      "minecraft:diamond_pickaxe",
                       "minecraft:netherite_pickaxe",
                       "kruemblegard:runic_pickaxe"
                     ]
@@ -44,7 +45,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "kruemblegard:attuned_rune_shard"
+              "name": "kruemblegard:raw_attuned_ore"
             }
           ]
         }

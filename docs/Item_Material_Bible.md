@@ -109,6 +109,16 @@ Update workflow:
 - **Type**: `Item`
 - **Details**: (none parsed)
 
+#### attuned_ingot
+- **ID**: `kruemblegard:attuned_ingot`
+- **Type**: `Item`
+- **Details**: (none parsed)
+
+#### raw_attuned_ore
+- **ID**: `kruemblegard:raw_attuned_ore`
+- **Type**: `Item`
+- **Details**: (none parsed)
+
 #### attuned_stone
 - **ID**: `kruemblegard:attuned_stone`
 - **Type**: `BlockItem`
