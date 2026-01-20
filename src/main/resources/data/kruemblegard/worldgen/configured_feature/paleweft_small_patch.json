@@ -6,7 +6,25 @@
     "y_spread": 3,
     "feature": {
       "feature": "kruemblegard:paleweft_grass_plant",
-      "placement": []
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:replaceable"
+              },
+              {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "kruemblegard:paleweft_grass"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   }
 }

@@ -171,6 +171,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - **Paleweft Grass** and **Tall Paleweft Grass** use a “stitched” grass tint (samples multiple nearby grass colors).
   - Paleweft grass patches spawn across Wayfall biomes via worldgen (a random mix of short + tall), plus a secondary pass that adds extra **small** Paleweft Grass.
   - Paleweft is intentionally denser in warm/temperate Wayfall biomes (and especially **Underway Falls**) using a canopy-safe surface heightmap so it doesn’t “stick” to treetop leaves.
+  - Worldgen: Paleweft patches only place into replaceable blocks (surface-safe; no terrain replacement).
   - Bonemealing **Runegrowth** can also trigger a local Paleweft bloom burst and has a chance to grow other biome-specific plants (excluding the food plants and saplings; no periodic ticking).
   - **Paleweft Seeds** drop from Paleweft grass (loot tables) and can be planted as **Paleweft Corn**.
   - **Paleweft Corn** is a 4-stage crop that grows on vanilla Farmland or **Rubble Tilth**.
