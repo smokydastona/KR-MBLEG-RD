@@ -107,6 +107,7 @@ public class ModItems {
     public static final RegistryObject<Item> VOIDFELT_ITEM = registerBlockItem("voidfelt", ModBlocks.VOIDFELT);
 
     public static final RegistryObject<Item> WAYFALL_IRON_ORE_ITEM = registerBlockItem("wayfall_iron_ore", ModBlocks.WAYFALL_IRON_ORE);
+    public static final RegistryObject<Item> WAYFALL_COPPER_ORE_ITEM = registerBlockItem("wayfall_copper_ore", ModBlocks.WAYFALL_COPPER_ORE);
     public static final RegistryObject<Item> WAYFALL_DIAMOND_ORE_ITEM = registerBlockItem("wayfall_diamond_ore", ModBlocks.WAYFALL_DIAMOND_ORE);
 
     public static final RegistryObject<Item> RUNIC_DEBRIS_ITEM = ITEMS.register(

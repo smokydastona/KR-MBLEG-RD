@@ -3,6 +3,7 @@
   "biomes": "#kruemblegard:wayfall",
   "features": [
     "kruemblegard:wayfall_iron_ore",
+    "kruemblegard:wayfall_copper_ore",
     "kruemblegard:wayfall_diamond_ore"
   ],
   "step": "underground_ores"

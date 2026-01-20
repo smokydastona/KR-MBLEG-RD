@@ -162,7 +162,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 - Standing Stone + Attuned Stone blocks.
 - Attuned Ore block (Wayfall-only worldgen).
-- Wayfall Iron Ore + Wayfall Diamond Ore blocks (Wayfall worldgen; diamond spawns lower on average).
+- Wayfall Iron Ore + Wayfall Copper Ore + Wayfall Diamond Ore blocks (Wayfall worldgen; diamond spawns lower on average).
 - Wayfall geology palette blocks:
   - Fractured Wayrock, Crushstone, Ashfall Loam, Fault Dust.
   - Scarstone family: Scarstone, Cracked Scarstone, Polished Scarstone, Chiseled Scarstone.

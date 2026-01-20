@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.484 (2026-01-20)
+- Feature(worldgen): add Wayfall Copper Ore (`kruemblegard:wayfall_copper_ore`) which drops Raw Copper (Fortune supported; Silk Touch drops the ore).
+
 ## 1.0.439 (2026-01-16)
 - Tuning(worldgen): make Wayfall tree configured features use `kruemblegard:fault_dust` as their dirt provider (no more `minecraft:rooted_dirt` placements).
 - Tuning(blocks): make all Kruemblegard `*_log`, `*_wood`, and `*_leaves` blocks flammable like vanilla.
