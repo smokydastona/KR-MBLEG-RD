@@ -18,8 +18,9 @@ import net.minecraftforge.common.TierSortingRegistry;
 public final class ModTiers {
     private ModTiers() {}
 
-    // A tier above Netherite.
-    // Used for Runic tools so they're strictly better than Netherite.
+        // Netherite-equivalent tier.
+        // Used for Runic tools so they're not strictly stronger than Netherite,
+        // while still allowing a custom repair ingredient.
     public static final Tier RUNIC;
 
     static {
@@ -31,11 +32,11 @@ public final class ModTiers {
 
         RUNIC = TierSortingRegistry.registerTier(
                 new ForgeTier(
-                        5,      // harvest level (Netherite is 4)
-                        3072,   // uses
-                        10.0f,  // speed
-                        5.0f,   // attack damage bonus
-                        18,     // enchantment value
+                        4,      // harvest level (matches Netherite)
+                        2031,   // uses (matches Netherite)
+                        9.0f,   // speed (matches Netherite)
+                        4.0f,   // attack damage bonus (matches Netherite)
+                        15,     // enchantment value (matches Netherite)
                         emptyTag,
                         repair
                 ),

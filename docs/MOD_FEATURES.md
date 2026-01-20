@@ -123,7 +123,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Runic Axe (`runic_axe`)
   - Runic Shovel (`runic_shovel`)
   - Runic Hoe (`runic_hoe`)
-  - Tier: Runic tools are above Netherite.
+  - Tier: Runic tools are Netherite-equivalent.
   - Crafting: Runic tools require Attuned Ingots + a Runic Core catalyst.
 
 - **Attuned Ore** (`attuned_ore`)

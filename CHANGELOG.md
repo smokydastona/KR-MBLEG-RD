@@ -99,6 +99,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(items): Attuned Ore now drops Raw Attuned Ore (Diamond/Netherite/Runic pickaxes; Fortune supported) and smelts/blasts into Attuned Ingots.
 - Tuning(items): Runic tool crafting + Runic tier repairs now use Attuned Ingots instead of Attuned Rune Shards.
 
+## 1.0.474 (2026-01-20)
+- Tuning(items): Runic tools are now Netherite-equivalent (no longer strictly above Netherite).
+
 ## 1.0.465 (2026-01-18)
 - Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).
 
