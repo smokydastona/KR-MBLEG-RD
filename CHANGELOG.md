@@ -108,6 +108,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(recipes): Attuned Ingots are now crafted from 1x Netherite Ingot + 1x Runic Ingot.
 - Fix(save-compat): remap legacy `attuned_ore` / `raw_attuned_ore` IDs to the new Runic Debris/Scrap IDs so old worlds keep loading.
 - Fix(assets): rename the Runic Debris block texture to `runic_debris.png` and update the model reference.
+- Tuning(assets): Runic Debris now uses dedicated top/side textures (`runic_debris_top.png`, `runic_debris_side.png`).
 
 ## 1.0.465 (2026-01-18)
 - Fix(assets): adjust Kruemblegard door blockstate rotations by an additional +180° (final alignment fix).

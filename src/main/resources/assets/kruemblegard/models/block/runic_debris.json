@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube_column",
   "textures": {
-    "all": "kruemblegard:block/runic_debris"
+    "end": "kruemblegard:block/runic_debris_top",
+    "side": "kruemblegard:block/runic_debris_side"
   }
 }
