@@ -121,7 +121,7 @@
                     ],
                     "dirt_provider": {
                       "state": {
-                        "Name": "kruemblegard:stoneveil_rubble"
+                        "Name": "kruemblegard:ashmoss"
                       },
                       "type": "minecraft:simple_state_provider"
                     },

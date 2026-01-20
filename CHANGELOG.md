@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.485 (2026-01-20)
+- Tuning(worldgen): make Wayroot trees use/spread Ashmoss instead of Stoneveil Rubble / Runed Stoneveil Rubble.
+
 ## 1.0.484 (2026-01-20)
 - Feature(worldgen): add Wayfall Copper Ore (`kruemblegard:wayfall_copper_ore`) which drops Raw Copper (Fortune supported; Silk Touch drops the ore).
 

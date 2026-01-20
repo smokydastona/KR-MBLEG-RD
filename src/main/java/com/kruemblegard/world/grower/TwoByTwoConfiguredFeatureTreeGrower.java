@@ -106,32 +106,29 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                 level.setBlock(restorePos, saplingState, 4);
             }
         } else if (isMega) {
-            spreadRunedStoneveilRubbleLikePodzol(level, random, pos);
+            spreadAshmossLikePodzol(level, random, pos);
         }
 
         return success;
     }
 
-    private static void spreadRunedStoneveilRubbleLikePodzol(ServerLevel level, RandomSource random, BlockPos megaBasePos) {
-        Block runedStoneveilRubble = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "runed_stoneveil_rubble"));
-        if (runedStoneveilRubble == null || runedStoneveilRubble == Blocks.AIR) {
+    private static void spreadAshmossLikePodzol(ServerLevel level, RandomSource random, BlockPos megaBasePos) {
+        Block ashmoss = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "ashmoss"));
+        if (ashmoss == null || ashmoss == Blocks.AIR) {
             return;
         }
 
-        Block stoneveilRubble = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Kruemblegard.MODID, "stoneveil_rubble"));
-
         // Roughly mimic mega spruce: patch around each trunk corner.
-        placeRunedStoneveilRubblePatch(level, random, megaBasePos, runedStoneveilRubble, stoneveilRubble);
-        placeRunedStoneveilRubblePatch(level, random, megaBasePos.east(), runedStoneveilRubble, stoneveilRubble);
-        placeRunedStoneveilRubblePatch(level, random, megaBasePos.south(), runedStoneveilRubble, stoneveilRubble);
-        placeRunedStoneveilRubblePatch(level, random, megaBasePos.south().east(), runedStoneveilRubble, stoneveilRubble);
+        placeAshmossPatch(level, random, megaBasePos, ashmoss);
+        placeAshmossPatch(level, random, megaBasePos.east(), ashmoss);
+        placeAshmossPatch(level, random, megaBasePos.south(), ashmoss);
+        placeAshmossPatch(level, random, megaBasePos.south().east(), ashmoss);
     }
 
-    private static void placeRunedStoneveilRubblePatch(ServerLevel level,
-                                                       RandomSource random,
-                                                       BlockPos trunkPos,
-                                                       Block runedStoneveilRubble,
-                                                       Block stoneveilRubble) {
+    private static void placeAshmossPatch(ServerLevel level,
+                                          RandomSource random,
+                                          BlockPos trunkPos,
+                                          Block ashmoss) {
         BlockPos groundCenter = trunkPos.below();
 
         for (int dx = -2; dx <= 2; dx++) {
@@ -158,7 +155,7 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                 if (!(groundState.is(net.minecraft.tags.BlockTags.DIRT)
                         || groundState.is(ModTags.Blocks.WAYFALL_GROUND)
                         || groundState.is(Blocks.ROOTED_DIRT)
-                        || (stoneveilRubble != null && groundState.is(stoneveilRubble)))) {
+                        || groundState.is(ModTags.Blocks.ASHMOSS_SPREAD_TARGETS))) {
                     continue;
                 }
 
@@ -171,7 +168,7 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                     continue;
                 }
 
-                level.setBlock(groundPos, runedStoneveilRubble.defaultBlockState(), 2);
+                level.setBlock(groundPos, ashmoss.defaultBlockState(), 2);
             }
         }
     }

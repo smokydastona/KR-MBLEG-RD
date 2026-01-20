@@ -132,7 +132,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "kruemblegard:stoneveil_rubble"
+        "Name": "kruemblegard:ashmoss"
       }
     },
     "foliage_placer": {

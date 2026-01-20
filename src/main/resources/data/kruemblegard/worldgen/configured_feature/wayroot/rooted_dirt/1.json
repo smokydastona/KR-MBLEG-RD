@@ -5,7 +5,7 @@
         "config": {
           "to_place": {
             "state": {
-              "Name": "kruemblegard:stoneveil_rubble"
+              "Name": "kruemblegard:ashmoss"
             },
             "type": "minecraft:simple_state_provider"
           }
