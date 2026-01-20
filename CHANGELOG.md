@@ -84,6 +84,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.469 (2026-01-20)
 - Tweak(tags): Food plants are no longer tagged as bee flowers (removed Wispstalk from `minecraft:flowers`).
 
+## 1.0.470 (2026-01-20)
+- Tweak(worldgen): Basin of Scars basalt/magma surface "disks" now generate as irregular blobs (less circular).
+
 - Fix(assets): rotate all Kruemblegard door blockstate variants +90° on the Y axis so door textures apply with the correct facing.
 
 ## 1.0.465 (2026-01-18)

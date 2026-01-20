@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:runegrowth",
+    "kruemblegard:fault_dust",
+    "kruemblegard:scarstone",
+    "kruemblegard:cracked_scarstone",
+    "kruemblegard:stoneveil_rubble",
+    "kruemblegard:runed_stoneveil_rubble"
+  ]
+}

@@ -1,33 +1,18 @@
 {
-  "type": "minecraft:disk",
+  "type": "minecraft:ore",
   "config": {
-    "radius": {
-      "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 2,
-        "max_inclusive": 5
-      }
-    },
-    "half_height": 1,
-    "target": {
-      "type": "minecraft:matching_blocks",
-      "blocks": [
-        "kruemblegard:runegrowth",
-        "kruemblegard:fault_dust",
-        "kruemblegard:scarstone",
-        "kruemblegard:cracked_scarstone",
-        "kruemblegard:stoneveil_rubble",
-        "kruemblegard:runed_stoneveil_rubble"
-      ]
-    },
-    "state_provider": {
-      "fallback": {
-        "type": "minecraft:simple_state_provider",
+    "size": 12,
+    "discard_chance_on_air_exposure": 0.0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "kruemblegard:basin_of_scars_disk_replaceables"
+        },
         "state": {
           "Name": "minecraft:magma_block"
         }
-      },
-      "rules": []
-    }
+      }
+    ]
   }
 }
