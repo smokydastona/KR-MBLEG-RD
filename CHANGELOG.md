@@ -16,6 +16,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.503 (2026-01-21)
 - Docs(flora): clarify Gravevine uses vanilla vine rotations + cutout rendering; remove deleted model reference.
 
+## 1.0.504 (2026-01-21)
+- Tuning(assets): rotate Gravevine underside orientation 90° to better align with side texture.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 

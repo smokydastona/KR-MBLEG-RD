@@ -96,7 +96,8 @@
       "apply": {
         "model": "kruemblegard:block/gravevine",
         "uvlock": true,
-        "x": 270
+        "x": 270,
+        "y": 90
       },
       "when": {
         "up": "true"
@@ -106,7 +107,8 @@
       "apply": {
         "model": "kruemblegard:block/gravevine",
         "uvlock": true,
-        "x": 270
+        "x": 270,
+        "y": 90
       },
       "when": {
         "east": "false",
