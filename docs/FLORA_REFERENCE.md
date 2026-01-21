@@ -497,6 +497,7 @@ Current limitations:
 #### Wayburn Fungus
 - Appearance: Glowing cracks, smoldering edges.
 - Use: Fire-resistance crafting.
+- Where it appears: Basin of Scars (worldgen patch placement).
 - Placeholder texture: `assets/kruemblegard/textures/block/wayburn_fungus.png`
 
 #### Memory Rot

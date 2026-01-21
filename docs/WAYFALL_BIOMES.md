@@ -42,7 +42,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
   - Trees: Splinterspore, Fallbark
-  - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Gravevine, Ruin Thistle
+  - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Wayburn Fungus, Gravevine, Ruin Thistle
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
 - Features:
@@ -135,7 +135,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
   - Trees: Monument Oak (rare mega variant), Waytorch Tree
-  - Plants: Wispstalk (food), Runeblossom, Rune Sprouts, Wayburn Fungus, Gravemint
+  - Plants: Wispstalk (food), Runeblossom, Rune Sprouts, Gravemint
 - Spawns (monster): Traprock (weight 5, solo), Pebblit (weight 5, 1–2)
 - Features:
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`

@@ -30,6 +30,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(registry): add missing-mapping remaps so existing worlds with `shardbark_pine_*` blocks/items load and convert to `splinterspore_*`.
 - Tuning(blocks): treat `voidfelt` as a nylium-equivalent substrate so nether tree generation rules can accept it.
 
+## 1.0.509 (2026-01-21)
+- Tuning(worldgen): Wayburn Fungus now generates only in **Basin of Scars**.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 
