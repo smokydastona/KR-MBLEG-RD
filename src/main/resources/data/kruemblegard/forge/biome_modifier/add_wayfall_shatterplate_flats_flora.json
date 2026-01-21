@@ -2,7 +2,7 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:shatterplate_flats",
   "features": [
-    "kruemblegard:shardbark_pine_tree",
+    "kruemblegard:splinterspore_tree",
 
     "kruemblegard:paleweft_patch_dense",
     "kruemblegard:paleweft_small_patch_dense",

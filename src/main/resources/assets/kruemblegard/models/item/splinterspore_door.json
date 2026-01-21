@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "kruemblegard:item/splinterspore_door"
+                 },
+    "parent":  "minecraft:item/generated"
+}

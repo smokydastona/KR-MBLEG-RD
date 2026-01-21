@@ -111,14 +111,14 @@ Full per-tree reference: [TREES.md](TREES.md)
   - `assets/kruemblegard/textures/block/wayglass_leaves.png`
   - `assets/kruemblegard/textures/block/wayglass_sapling.png`
 
-#### Shardbark Pine
+#### Splinterspore
 - Appearance: Tall, needle-like crystal bark.
 - Use: Craft piercing projectiles.
 - Placeholder textures:
-  - `assets/kruemblegard/textures/block/shardbark_pine_log.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_planks.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_leaves.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_sapling.png`
+  - `assets/kruemblegard/textures/block/splinterspore_log.png`
+  - `assets/kruemblegard/textures/block/splinterspore_planks.png`
+  - `assets/kruemblegard/textures/block/splinterspore_leaves.png`
+  - `assets/kruemblegard/textures/block/splinterspore_sapling.png`
 
 #### Hollowway Tree
 - Appearance: Trunk split down the center, empty inside.
@@ -198,6 +198,7 @@ These are surface materials that define the Wayfall ground language. They are do
   - Item: `kruemblegard:voidfelt` (BlockItem)
 - **How it behaves**
   - Generated-only surface; outside void biomes it slowly collapses back into Fault Dust.
+  - Tagged as a `minecraft:nylium` equivalent, so vanilla/nether planting rules can treat it as a valid substrate.
 - **Assets**
   - Texture (top): `assets/kruemblegard/textures/block/voidfelt_top.png`
   - Texture (side): `assets/kruemblegard/textures/block/voidfelt_side.png`

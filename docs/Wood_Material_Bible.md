@@ -47,7 +47,7 @@ This document combines:
 -   Level 0: No glow (Fallbark, Driftwood)
 -   Level 1: Faint (Cairn, Ashbloom)
 -   Level 2: Active (Wayroot, Echowood, Waytorch)
--   Level 3: Luminous (Wayglass, Shardbark)
+-   Level 3: Luminous (Wayglass, Splinterspore)
 
 ---
 
@@ -65,7 +65,7 @@ This document combines:
 | Glimmerpine | 170,185,200 | 140,160,190 | 130,170,210 |
 | Hollowway | 145,145,150 | 90,95,110 | 80,90,120 |
 | Monument Oak | 160,155,150 | 130,120,110 | 110,105,100 |
-| Shardbark | 175,185,195 | 150,170,200 | 150,190,255 |
+| Splinterspore | 175,185,195 | 150,170,200 | 150,190,255 |
 | Wayglass | 200,220,235 | 170,200,230 | 160,210,255 |
 | Wayroot | 155,160,165 | 120,150,160 | 110,170,190 |
 | Waytorch | 130,120,110 | 160,120,80 | 255,170,90 |
@@ -616,7 +616,7 @@ Note: “Rings” must be architectural strata, not circular growth bands.
 
 ---
 
-### 11. Shardbark Pine
+### 11. Splinterspore
 
 **Theme:** Weaponized crystal pine
 

@@ -1,7 +1,0 @@
-﻿{
-    "textures": {
-        "bottom": "kruemblegard:block/shardbark_pine_door_bottom",
-        "top": "kruemblegard:block/shardbark_pine_door_top"
-    },
-    "parent": "minecraft:block/door_bottom_left_open"
-}

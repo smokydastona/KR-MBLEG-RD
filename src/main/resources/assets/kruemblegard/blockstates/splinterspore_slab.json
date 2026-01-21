@@ -1,0 +1,13 @@
+{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/splinterspore_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/splinterspore_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/splinterspore_slab_double"
+                                     }
+                 }
+}

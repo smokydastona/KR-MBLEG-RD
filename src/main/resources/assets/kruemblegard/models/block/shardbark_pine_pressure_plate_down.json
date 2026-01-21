@@ -1,6 +1,0 @@
-{
-    "textures":  {
-                     "texture":  "kruemblegard:block/shardbark_pine_planks"
-                 },
-    "parent":  "minecraft:block/pressure_plate_down"
-}

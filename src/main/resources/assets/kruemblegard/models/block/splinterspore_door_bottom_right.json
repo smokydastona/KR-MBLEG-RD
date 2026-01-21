@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "top":  "kruemblegard:block/splinterspore_door_top",
+                     "bottom":  "kruemblegard:block/splinterspore_door_bottom"
+                 },
+    "parent":  "minecraft:block/door_bottom_right"
+}

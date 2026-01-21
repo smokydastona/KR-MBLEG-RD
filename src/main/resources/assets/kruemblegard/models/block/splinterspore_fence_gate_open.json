@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "texture":  "kruemblegard:block/splinterspore_planks"
+                 },
+    "parent":  "minecraft:block/template_fence_gate_open"
+}
+

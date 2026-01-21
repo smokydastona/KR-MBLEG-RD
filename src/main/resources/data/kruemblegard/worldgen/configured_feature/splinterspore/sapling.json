@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      { "feature": "kruemblegard:splinterspore/1", "placement": [] },
+      { "feature": "kruemblegard:splinterspore/2", "placement": [] },
+      { "feature": "kruemblegard:splinterspore/3", "placement": [] },
+      { "feature": "kruemblegard:splinterspore/4", "placement": [] },
+      { "feature": "kruemblegard:splinterspore/5", "placement": [] }
+    ]
+  }
+}
+

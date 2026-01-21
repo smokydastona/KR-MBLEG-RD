@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "texture":  "kruemblegard:block/splinterspore_planks"
+                 },
+    "parent":  "minecraft:block/button"
+}

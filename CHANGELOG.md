@@ -25,6 +25,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.507 (2026-01-21)
 - Fix(wayfall): apply jigsaw replacement when placing `wayfall_origin_island` templates so jigsaw marker blocks don't remain.
 
+## 1.0.508 (2026-01-21)
+- Feature(worldgen): rename the Shatterplate Flats unique tree from **Shardbark Pine** to **Splinterspore** (full registry rename).
+- Fix(registry): add missing-mapping remaps so existing worlds with `shardbark_pine_*` blocks/items load and convert to `splinterspore_*`.
+- Tuning(blocks): treat `voidfelt` as a nylium-equivalent substrate so nether tree generation rules can accept it.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 

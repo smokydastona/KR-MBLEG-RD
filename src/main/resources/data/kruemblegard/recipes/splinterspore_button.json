@@ -1,0 +1,12 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "kruemblegard:splinterspore_planks"
+                        }
+                    ],
+    "result":  {
+                   "count":  1,
+                   "item":  "kruemblegard:splinterspore_button"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

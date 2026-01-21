@@ -1327,25 +1327,25 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYGLASS_BUTTON = registerButton("wayglass_button", WAYGLASS_PLANKS);
         public static final RegistryObject<Block> WAYGLASS_PRESSURE_PLATE = registerPressurePlate("wayglass_pressure_plate", WAYGLASS_PLANKS);
 
-        public static final RegistryObject<Block> STRIPPED_SHARDBARK_PINE_LOG = registerLog("stripped_shardbark_pine_log");
-        public static final RegistryObject<Block> STRIPPED_SHARDBARK_PINE_WOOD = registerLog("stripped_shardbark_pine_wood");
-        public static final RegistryObject<Block> SHARDBARK_PINE_LOG = registerStrippableLog("shardbark_pine_log", () -> STRIPPED_SHARDBARK_PINE_LOG.get());
-                public static final RegistryObject<Block> SHARDBARK_PINE_WOOD = registerStrippableLog("shardbark_pine_wood", () -> STRIPPED_SHARDBARK_PINE_WOOD.get());
-    public static final RegistryObject<Block> SHARDBARK_PINE_PLANKS = registerPlanks("shardbark_pine_planks");
-    public static final RegistryObject<Block> SHARDBARK_PINE_LEAVES = registerLeaves("shardbark_pine_leaves");
-        public static final RegistryObject<Block> SHARDBARK_PINE_SAPLING = registerFeatureSapling(
-                        "shardbark_pine_sapling",
-                        configuredFeatureKey("shardbark_pine/sapling")
+        public static final RegistryObject<Block> STRIPPED_SPLINTERSPORE_LOG = registerLog("stripped_splinterspore_log");
+        public static final RegistryObject<Block> STRIPPED_SPLINTERSPORE_WOOD = registerLog("stripped_splinterspore_wood");
+        public static final RegistryObject<Block> SPLINTERSPORE_LOG = registerStrippableLog("splinterspore_log", () -> STRIPPED_SPLINTERSPORE_LOG.get());
+                public static final RegistryObject<Block> SPLINTERSPORE_WOOD = registerStrippableLog("splinterspore_wood", () -> STRIPPED_SPLINTERSPORE_WOOD.get());
+    public static final RegistryObject<Block> SPLINTERSPORE_PLANKS = registerPlanks("splinterspore_planks");
+    public static final RegistryObject<Block> SPLINTERSPORE_LEAVES = registerLeaves("splinterspore_leaves");
+        public static final RegistryObject<Block> SPLINTERSPORE_SAPLING = registerFeatureSapling(
+                        "splinterspore_sapling",
+                        configuredFeatureKey("splinterspore/sapling")
         );
 
-        public static final RegistryObject<Block> SHARDBARK_PINE_STAIRS = registerStairs("shardbark_pine_stairs", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_SLAB = registerSlab("shardbark_pine_slab", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_FENCE = registerFence("shardbark_pine_fence", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_FENCE_GATE = registerFenceGate("shardbark_pine_fence_gate", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_DOOR = registerDoor("shardbark_pine_door", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_TRAPDOOR = registerTrapdoor("shardbark_pine_trapdoor", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_BUTTON = registerButton("shardbark_pine_button", SHARDBARK_PINE_PLANKS);
-        public static final RegistryObject<Block> SHARDBARK_PINE_PRESSURE_PLATE = registerPressurePlate("shardbark_pine_pressure_plate", SHARDBARK_PINE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_STAIRS = registerStairs("splinterspore_stairs", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_SLAB = registerSlab("splinterspore_slab", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_FENCE = registerFence("splinterspore_fence", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_FENCE_GATE = registerFenceGate("splinterspore_fence_gate", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_DOOR = registerDoor("splinterspore_door", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_TRAPDOOR = registerTrapdoor("splinterspore_trapdoor", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_BUTTON = registerButton("splinterspore_button", SPLINTERSPORE_PLANKS);
+        public static final RegistryObject<Block> SPLINTERSPORE_PRESSURE_PLATE = registerPressurePlate("splinterspore_pressure_plate", SPLINTERSPORE_PLANKS);
 
         public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_LOG = registerLog("stripped_hollowway_tree_log");
         public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_WOOD = registerLog("stripped_hollowway_tree_wood");

@@ -1,0 +1,16 @@
+{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/stripped_splinterspore_log"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/stripped_splinterspore_log",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/stripped_splinterspore_log",
+                                    "x":  90
+                                }
+                 }
+}

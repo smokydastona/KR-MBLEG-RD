@@ -1,0 +1,19 @@
+{
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:stick"
+                      },
+                "X":  {
+                          "item":  "kruemblegard:splinterspore_planks"
+                      }
+            },
+    "pattern":  [
+                    "SXS",
+                    "SXS"
+                ],
+    "result":  {
+                   "count":  1,
+                   "item":  "kruemblegard:splinterspore_fence_gate"
+               },
+    "type":  "minecraft:crafting_shaped"
+}

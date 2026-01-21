@@ -1,0 +1,15 @@
+{
+    "key":  {
+                "X":  {
+                          "item":  "kruemblegard:splinterspore_planks"
+                      }
+            },
+    "pattern":  [
+                    "XXX"
+                ],
+    "result":  {
+                   "count":  6,
+                   "item":  "kruemblegard:splinterspore_slab"
+               },
+    "type":  "minecraft:crafting_shaped"
+}

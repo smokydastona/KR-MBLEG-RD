@@ -18,7 +18,7 @@ Scope/notes:
 - `glimmerpine`
 - `hollowway_tree`
 - `monument_oak`
-- `shardbark_pine`
+- `splinterspore`
 - `wayglass`
 - `wayroot`
 - `waytorch_tree`
@@ -146,17 +146,17 @@ Scope/notes:
   - `assets/kruemblegard/textures/block/monument_oak_leaves.png`
   - `assets/kruemblegard/textures/block/monument_oak_sapling.png`
 
-### Shardbark Pine
-- **IDs**: `kruemblegard:shardbark_pine_*`
+### Splinterspore
+- **IDs**: `kruemblegard:splinterspore_*`
 - **Appearance**: Tall, needle-like crystal bark.
 - **Use**: Craft piercing projectiles.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
-  - `assets/kruemblegard/textures/block/shardbark_pine_log.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_log_top.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_planks.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_leaves.png`
-  - `assets/kruemblegard/textures/block/shardbark_pine_sapling.png`
+  - `assets/kruemblegard/textures/block/splinterspore_log.png`
+  - `assets/kruemblegard/textures/block/splinterspore_log_top.png`
+  - `assets/kruemblegard/textures/block/splinterspore_planks.png`
+  - `assets/kruemblegard/textures/block/splinterspore_leaves.png`
+  - `assets/kruemblegard/textures/block/splinterspore_sapling.png`
 
 ### Wayglass Tree
 - **IDs**: `kruemblegard:wayglass_*`

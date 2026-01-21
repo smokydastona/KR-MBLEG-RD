@@ -1,0 +1,8 @@
+{
+    "textures":  {
+                     "bottom":  "kruemblegard:block/splinterspore_planks",
+                     "top":  "kruemblegard:block/splinterspore_planks",
+                     "side":  "kruemblegard:block/splinterspore_planks"
+                 },
+    "parent":  "minecraft:block/slab"
+}

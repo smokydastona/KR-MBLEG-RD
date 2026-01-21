@@ -41,7 +41,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Description: A smoke-hazed basin dotted with dense standing stones; feels heavy and volcanic.
 - Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
-  - Trees: Shardbark Pine, Fallbark
+  - Trees: Splinterspore, Fallbark
   - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Gravevine, Ruin Thistle
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
@@ -175,7 +175,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.90
 - Description: Flat, shattered “plates” of stone with warped spores drifting above the cracks; primarily Pebblit territory.
 - Intended flora (design target):
-  - Trees: Shardbark Pine
+  - Trees: Splinterspore
   - Plants: Soulberry Shrub (food), Voidcap Briar, Echo Puff, Waybind Creeper, Waypoint Mold
 - Spawns (monster): Pebblit (weight 6, 1–2)
 - Features: (none listed)
