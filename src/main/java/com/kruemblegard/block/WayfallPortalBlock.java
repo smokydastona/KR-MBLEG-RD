@@ -53,7 +53,6 @@ public class WayfallPortalBlock extends Block {
             return;
         }
 
-        entity.setPortalCooldown();
         WayfallTravel.teleportToWayfallSpawnLanding(entity, serverLevel);
     }
 
