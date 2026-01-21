@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.VineBlock;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,6 +28,9 @@ public final class KruemblegardRenderLayers {
 
                 if (block instanceof LeavesBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutoutMipped());
+                } else if (block instanceof VineBlock) {
+                    // Match vanilla vines: cutout (not solid), so alpha pixels don't render black.
+                    ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof AshveilBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof BushBlock) {
