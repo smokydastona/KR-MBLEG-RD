@@ -245,7 +245,8 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
 - **Where it appears**
   - Worldgen: Wayfall vegetation patches.
 - **How it behaves**
-  - Functions as a **vine-equivalent** block (wall/ceiling attach + climbable) via vanilla vine mechanics.
+  - Functions as a **vanilla-vine-equivalent** block: wall/ceiling attach + climbable + vanilla-style blockstate rotations (including underside placement).
+  - Renders as **cutout** (like vanilla vines).
   - Random ticks produce occasional ash particles when near:
     - skull blocks, and/or
     - Krümblegård stone structures (Ancient Waystone / Standing Stone).
@@ -256,7 +257,6 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
 - **Assets**
   - Blockstate: `assets/kruemblegard/blockstates/gravevine.json`
   - Block model: `assets/kruemblegard/models/block/gravevine.json`
-  - Block model: `assets/kruemblegard/models/block/gravevine_end.json`
   - Block texture: `assets/kruemblegard/textures/block/gravevine.png`
   - Item texture: `assets/kruemblegard/textures/item/remnant_seeds.png`
 
