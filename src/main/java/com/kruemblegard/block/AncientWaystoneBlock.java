@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,10 +17,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.item.ItemStack;
 
 public class AncientWaystoneBlock extends WaystoneBlock {
     public AncientWaystoneBlock(BlockBehaviour.Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+
+        if (level.isClientSide) {
+            return;
+        }
+
+        if (!WaystonesCompat.isWaystonesLoaded()) {
+            return;
+        }
+
+        // Ensure this block becomes a *real* Waystones waystone immediately so it's a stable teleport destination.
+        // If we leave it as a custom block and Waystones doesn't accept it as a valid block entity target,
+        // teleports to it will fail with “being moved or has gone missing”.
+        WaystonesCompat.tryConvertInPlace(level, pos, new ResourceLocation(Kruemblegard.MOD_ID, "ancient_waystone"));
     }
 
     @Override

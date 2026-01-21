@@ -65,6 +65,35 @@ public final class WaystonesCompat {
         }
     }
 
+    /**
+     * Converts the block at {@code pos} into a real Waystones waystone using the requested style (or DEFAULT).
+     * Returns true if the API call completed without throwing.
+     */
+    public static boolean tryConvertInPlace(Level level, BlockPos pos, ResourceLocation styleId) {
+        try {
+            Class<?> waystonesApiClass = Class.forName("net.blay09.mods.waystones.api.WaystonesAPI");
+            Class<?> waystoneStylesClass = Class.forName("net.blay09.mods.waystones.api.WaystoneStyles");
+            Class<?> waystoneStyleClass = Class.forName("net.blay09.mods.waystones.api.WaystoneStyle");
+
+            Object style = null;
+            if (styleId != null) {
+                style = tryResolveStyle(waystoneStylesClass, styleId);
+            }
+
+            if (style == null) {
+                Field defaultStyleField = waystoneStylesClass.getField("DEFAULT");
+                style = defaultStyleField.get(null);
+            }
+
+            Method placeWaystoneMethod = waystonesApiClass.getMethod("placeWaystone", Level.class, BlockPos.class, waystoneStyleClass);
+            placeWaystoneMethod.invoke(null, level, pos, style);
+            return true;
+        } catch (Throwable t) {
+            Kruemblegard.LOGGER.warn("Waystones integration failed to convert Ancient Waystone at {}", pos, t);
+            return false;
+        }
+    }
+
     private static Object tryResolveStyle(Class<?> waystoneStylesClass, ResourceLocation styleId) {
         try {
             for (String methodName : new String[]{"get", "getStyle", "getById", "byId", "getValue"}) {
