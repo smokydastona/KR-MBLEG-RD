@@ -603,8 +603,9 @@ public final class ModBlocks {
             () -> new GravevineBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .noCollission()
+                    .noOcclusion()
                     .instabreak()
-                    .sound(SoundType.GRASS)
+                    .sound(SoundType.VINE)
                     .randomTicks())
     );
 
