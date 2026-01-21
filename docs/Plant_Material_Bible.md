@@ -286,7 +286,7 @@ Gameplay notes (vanilla-like):
 - Stems and leaves must never be emissive.
 
 **Texture file(s)**
-- `assets/kruemblegard/textures/block/runebloom_0.png` … `runebloom_5.png`
+- `assets/kruemblegard/textures/block/runebloom_0.png` (16-frame sprite sheet via `.png.mcmeta`)
 
 **Per-variant emissive suggestions**
 - 0: 120,200,255
