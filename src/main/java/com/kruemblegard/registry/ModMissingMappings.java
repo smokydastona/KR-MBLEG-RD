@@ -14,7 +14,7 @@ import net.minecraftforge.registries.MissingMappingsEvent;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ModMissingMappings {
     private ModMissingMappings() {}
 

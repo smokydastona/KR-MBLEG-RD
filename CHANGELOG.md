@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.488 (2026-01-20)
+- Fix(registry): register the missing-mappings remap handler on the Forge event bus so the mod doesn’t crash during CONSTRUCT.
+
+## 1.0.487 (2026-01-20)
+- Tuning(assets): update Runic progression item textures (Attuned Ingot, Runic Ingot, Runic Scrap).
+
 ## 1.0.486 (2026-01-20)
 - Tuning(assets): update Wayfall Copper Ore texture.
 
