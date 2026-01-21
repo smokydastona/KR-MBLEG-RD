@@ -245,15 +245,18 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
 - **Where it appears**
   - Worldgen: Wayfall vegetation patches.
 - **How it behaves**
+  - Functions as a **vine-equivalent** block (wall/ceiling attach + climbable) via vanilla vine mechanics.
   - Random ticks produce occasional ash particles when near:
     - skull blocks, and/or
     - Krümblegård stone structures (Ancient Waystone / Standing Stone).
 - **Drops (important)**
-  - Implemented in code (not a loot table):
+  - Uses loot table: `data/kruemblegard/loot_tables/blocks/gravevine.json`:
     - With Silk Touch: drops the block.
     - Without Silk Touch: drops `remnant_seeds`.
 - **Assets**
+  - Blockstate: `assets/kruemblegard/blockstates/gravevine.json`
   - Block model: `assets/kruemblegard/models/block/gravevine.json`
+  - Block model: `assets/kruemblegard/models/block/gravevine_end.json`
   - Block texture: `assets/kruemblegard/textures/block/gravevine.png`
   - Item texture: `assets/kruemblegard/textures/item/remnant_seeds.png`
 

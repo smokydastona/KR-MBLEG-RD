@@ -1,36 +1,25 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
-import com.kruemblegard.registry.ModTags;
-import com.kruemblegard.registry.ModItems;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GravevineBlock extends BushBlock {
+public class GravevineBlock extends VineBlock {
     public GravevineBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BlockTags.DIRT)
-                || state.is(ModTags.Blocks.WAYFALL_GROUND);
-    }
-
-    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.randomTick(state, level, pos, random);
+
         // "Grows faster near skull blocks or Crumbling Codex structures".
         // We interpret "Codex structures" as the mod's ancient/standing stone cluster pieces.
         int bonus = 0;
@@ -47,17 +36,6 @@ public class GravevineBlock extends BushBlock {
                     0.0,
                     0.01,
                     0.0);
-        }
-    }
-
-    @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, net.minecraft.world.level.block.entity.BlockEntity blockEntity, ItemStack tool) {
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
-
-        if (!level.isClientSide) {
-            boolean silkTouch = tool.getEnchantmentLevel(Enchantments.SILK_TOUCH) > 0;
-            ItemStack drop = silkTouch ? new ItemStack(this) : new ItemStack(ModItems.REMNANT_SEEDS.get());
-            popResource(level, pos, drop);
         }
     }
 

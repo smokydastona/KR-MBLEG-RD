@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/vine",
+  "parent": "minecraft:block/vine_end",
   "textures": {
     "vine": "kruemblegard:block/gravevine"
   }

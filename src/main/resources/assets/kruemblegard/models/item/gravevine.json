@@ -1,1 +1,6 @@
-{ "parent": "kruemblegard:block/gravevine" }
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "kruemblegard:block/gravevine"
+	}
+}

@@ -1,5 +1,9 @@
 {
-  "variants": {
-    "": { "model": "kruemblegard:block/gravevine" }
-  }
+  "multipart": [
+    { "when": { "north": "true" }, "apply": { "model": "kruemblegard:block/gravevine", "uvlock": true } },
+    { "when": { "east": "true" }, "apply": { "model": "kruemblegard:block/gravevine", "uvlock": true, "y": 90 } },
+    { "when": { "south": "true" }, "apply": { "model": "kruemblegard:block/gravevine", "uvlock": true, "y": 180 } },
+    { "when": { "west": "true" }, "apply": { "model": "kruemblegard:block/gravevine", "uvlock": true, "y": 270 } },
+    { "when": { "up": "true" }, "apply": { "model": "kruemblegard:block/gravevine_end" } }
+  ]
 }

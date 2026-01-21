@@ -1,19 +1,39 @@
 {
-    "pools":  [
-                  {
-                      "entries":  [
-                                      {
-                                          "name":  "kruemblegard:gravevine",
-                                          "type":  "minecraft:item"
-                                      }
-                                  ],
-                      "rolls":  1,
-                      "conditions":  [
-                                         {
-                                             "condition":  "minecraft:survives_explosion"
-                                         }
-                                     ]
-                  }
-              ],
-    "type":  "minecraft:block"
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:item",
+                            "name": "kruemblegard:gravevine",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "enchantments": [
+                                            {
+                                                "enchantment": "minecraft:silk_touch",
+                                                "levels": { "min": 1 }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "name": "kruemblegard:remnant_seeds"
+                        }
+                    ]
+                }
+            ],
+            "conditions": [
+                { "condition": "minecraft:survives_explosion" }
+            ]
+        }
+    ]
 }

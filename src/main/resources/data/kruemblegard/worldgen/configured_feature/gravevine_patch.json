@@ -1,45 +1,191 @@
 ﻿{
-    "type":  "minecraft:random_patch",
-    "config":  {
-                   "tries":  24,
-                   "xz_spread":  6,
-                   "y_spread":  3,
-                   "feature":  {
-                                   "feature":  {
-                                                   "config":  {
-                                                                  "to_place":  {
-                                                                                   "type":  "minecraft:simple_state_provider",
-                                                                                   "state":  {
-                                                                                                 "Name":  "kruemblegard:gravevine"
-                                                                                             }
-                                                                               }
-                                                              },
-                                                   "type":  "minecraft:simple_block"
-                                               },
-                                   "placement":  [
-                                                     {
-                                                         "type":  "minecraft:heightmap",
-                                                         "heightmap":  "MOTION_BLOCKING"
-                                                     },
-                                                     {
-                                                         "predicate":  {
-                                                                           "type":  "minecraft:all_of",
-                                                                           "predicates":  [
-                                                                                              {
-                                                                                                  "type":  "minecraft:replaceable"
-                                                                                              },
-                                                                                              {
-                                                                                                  "state":  {
-                                                                                                                "Name":  "kruemblegard:gravevine"
-                                                                                                            },
-                                                                                                  "type":  "minecraft:would_survive"
-                                                                                              }
-                                                                                          ]
-                                                                       },
-                                                         "type":  "minecraft:block_predicate_filter"
-                                                     }
-                                                 ]
-                               }
-               }
+    "type": "minecraft:random_patch",
+    "config": {
+        "tries": 64,
+        "xz_spread": 7,
+        "y_spread": 6,
+        "feature": {
+            "feature": {
+                "type": "minecraft:random_selector",
+                "config": {
+                    "features": [
+                        {
+                            "chance": 0.2,
+                            "feature": {
+                                "feature": {
+                                    "type": "minecraft:simple_block",
+                                    "config": {
+                                        "to_place": {
+                                            "type": "minecraft:simple_state_provider",
+                                            "state": {
+                                                "Name": "kruemblegard:gravevine",
+                                                "Properties": { "east": "true" }
+                                            }
+                                        }
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:all_of",
+                                            "predicates": [
+                                                { "type": "minecraft:replaceable" },
+                                                {
+                                                    "type": "minecraft:would_survive",
+                                                    "state": {
+                                                        "Name": "kruemblegard:gravevine",
+                                                        "Properties": { "east": "true" }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "chance": 0.2,
+                            "feature": {
+                                "feature": {
+                                    "type": "minecraft:simple_block",
+                                    "config": {
+                                        "to_place": {
+                                            "type": "minecraft:simple_state_provider",
+                                            "state": {
+                                                "Name": "kruemblegard:gravevine",
+                                                "Properties": { "south": "true" }
+                                            }
+                                        }
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:all_of",
+                                            "predicates": [
+                                                { "type": "minecraft:replaceable" },
+                                                {
+                                                    "type": "minecraft:would_survive",
+                                                    "state": {
+                                                        "Name": "kruemblegard:gravevine",
+                                                        "Properties": { "south": "true" }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "chance": 0.2,
+                            "feature": {
+                                "feature": {
+                                    "type": "minecraft:simple_block",
+                                    "config": {
+                                        "to_place": {
+                                            "type": "minecraft:simple_state_provider",
+                                            "state": {
+                                                "Name": "kruemblegard:gravevine",
+                                                "Properties": { "west": "true" }
+                                            }
+                                        }
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:all_of",
+                                            "predicates": [
+                                                { "type": "minecraft:replaceable" },
+                                                {
+                                                    "type": "minecraft:would_survive",
+                                                    "state": {
+                                                        "Name": "kruemblegard:gravevine",
+                                                        "Properties": { "west": "true" }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "chance": 0.2,
+                            "feature": {
+                                "feature": {
+                                    "type": "minecraft:simple_block",
+                                    "config": {
+                                        "to_place": {
+                                            "type": "minecraft:simple_state_provider",
+                                            "state": {
+                                                "Name": "kruemblegard:gravevine",
+                                                "Properties": { "up": "true" }
+                                            }
+                                        }
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:all_of",
+                                            "predicates": [
+                                                { "type": "minecraft:replaceable" },
+                                                {
+                                                    "type": "minecraft:would_survive",
+                                                    "state": {
+                                                        "Name": "kruemblegard:gravevine",
+                                                        "Properties": { "up": "true" }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "default": {
+                        "feature": {
+                            "type": "minecraft:simple_block",
+                            "config": {
+                                "to_place": {
+                                    "type": "minecraft:simple_state_provider",
+                                    "state": {
+                                        "Name": "kruemblegard:gravevine",
+                                        "Properties": { "north": "true" }
+                                    }
+                                }
+                            }
+                        },
+                        "placement": [
+                            {
+                                "type": "minecraft:block_predicate_filter",
+                                "predicate": {
+                                    "type": "minecraft:all_of",
+                                    "predicates": [
+                                        { "type": "minecraft:replaceable" },
+                                        {
+                                            "type": "minecraft:would_survive",
+                                            "state": {
+                                                "Name": "kruemblegard:gravevine",
+                                                "Properties": { "north": "true" }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "placement": []
+        }
+    }
 }
 

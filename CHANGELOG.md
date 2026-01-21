@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.493 (2026-01-21)
+- Feature(flora): Gravevine is now a vine-equivalent block (wall/ceiling attach + climbable) and its worldgen patch now places it as vines instead of ground plants.
+
 ## 1.0.489 (2026-01-20)
 - Fix(wayfall): Wayfall portal block now teleports when you enter it (cooldown gating bug).
 
