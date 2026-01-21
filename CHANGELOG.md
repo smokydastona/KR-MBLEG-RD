@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.494 (2026-01-20)
+- Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
+
 ## 1.0.493 (2026-01-21)
 - Feature(flora): Gravevine is now a vine-equivalent block (wall/ceiling attach + climbable) and its worldgen patch now places it as vines instead of ground plants.
 

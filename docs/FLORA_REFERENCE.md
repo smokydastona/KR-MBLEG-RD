@@ -293,7 +293,7 @@ These are surface/ground blocks that are part of Wayfall’s material language, 
     - Without Silk Touch: drops 1–2 `rune_petals`.
 - **Assets**
   - Block models: `assets/kruemblegard/models/block/runebloom_0..5.json`
-  - Block textures: `assets/kruemblegard/textures/block/runebloom_0..5.png`
+  - Block texture: `assets/kruemblegard/textures/block/runebloom_0.png` (16-frame sprite sheet via `.png.mcmeta`)
   - Item texture: `assets/kruemblegard/textures/item/rune_petals.png`
 
 ### Soulberry Shrub
