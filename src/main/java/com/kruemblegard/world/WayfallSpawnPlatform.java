@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.structure.templatesystem.JigsawReplacementProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
@@ -108,7 +109,12 @@ public final class WayfallSpawnPlatform {
                 }
             }
 
-            StructurePlaceSettings settings = new StructurePlaceSettings().setIgnoreEntities(true);
+            StructurePlaceSettings settings = new StructurePlaceSettings()
+                .setIgnoreEntities(true)
+                // The origin island templates contain jigsaw blocks as authoring markers.
+                // When placing templates directly (not via the jigsaw structure pipeline), we must
+                // apply the replacement processor so those markers don't remain in the world.
+                .addProcessor(JigsawReplacementProcessor.INSTANCE);
             RandomSource rng = wayfall.random;
             boolean placedOk = template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
 

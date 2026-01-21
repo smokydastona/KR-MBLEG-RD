@@ -22,6 +22,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.505 (2026-01-21)
 - Tuning(blocks): align Gravevine block properties with vanilla vines (no occlusion + vine sound).
 
+## 1.0.507 (2026-01-21)
+- Fix(wayfall): apply jigsaw replacement when placing `wayfall_origin_island` templates so jigsaw marker blocks don't remain.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 
