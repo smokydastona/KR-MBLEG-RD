@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.499 (2026-01-21)
 - Fix(assets): Gravevine underside attachment no longer renders as missing texture (purple/black).
 
+## 1.0.500 (2026-01-21)
+- Fix(assets): Gravevine now uses vanilla vine blockstate rotation for `up=true`, so underside placement shows the correct “top” vine segment.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 
