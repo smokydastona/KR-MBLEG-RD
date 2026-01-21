@@ -2,10 +2,8 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:driftwillow/mega_1",
-      "kruemblegard:driftwillow/mega_2"
+      "kruemblegard:cairn_tree/mega_1",
+      "kruemblegard:cairn_tree/mega_2"
     ]
   }
 }
-
-

@@ -1,0 +1,74 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:monument_oak_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "down"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.35,
+        "required_empty_blocks": 2
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:fault_dust"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:fancy_foliage_placer",
+      "height": 9,
+      "offset": 4,
+      "radius": 3
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:monument_oak_leaves",
+        "Properties": {
+          "distance": "1",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 3,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "minecraft:giant_trunk_placer",
+      "base_height": 24,
+      "height_rand_a": 6,
+      "height_rand_b": 2
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:monument_oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

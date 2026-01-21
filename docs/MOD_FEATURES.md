@@ -196,12 +196,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Axes strip Wayfall logs/wood into their stripped variants.
   - Saplings grow over time via random ticks (no light requirement) or bonemeal.
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
+    - All Wayfall saplings support 2x2 (spruce-style) placement to grow a larger **mega** tree, using Evergreen-style multi-option selectors.
   - Wayroot has a rare **mega** variant that can also generate naturally in Wayfall.
     - Wayroot uses `kruemblegard:ashmoss` as its `dirt_provider`, and mega Wayroot saplings spread Ashmoss around the trunk (podzol-like).
-  - Glimmerpine has a rare **mega** (2x2) variant that can generate naturally in Wayfall.
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
-  - Driftwillow has a rare **mega** (2x2) variant that can generate naturally in drift biomes.
-  - Monument Oak has a rare **mega** (2x2) variant that can generate naturally in Glyphscar Reach.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`).
   - Full per-tree reference: [TREES.md](TREES.md)

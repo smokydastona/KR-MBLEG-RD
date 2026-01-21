@@ -1,0 +1,179 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "down"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.4,
+        "required_empty_blocks": 2
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "east"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.7,
+        "required_empty_blocks": 1
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "south"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.7,
+        "required_empty_blocks": 1
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "west"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.7,
+        "required_empty_blocks": 1
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "north"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.7,
+        "required_empty_blocks": 1
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:driftwillow_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "directions": [
+          "up"
+        ],
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.8,
+        "required_empty_blocks": 1
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:fault_dust"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:fancy_foliage_placer",
+      "height": 8,
+      "offset": 4,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:driftwillow_leaves",
+        "Properties": {
+          "distance": "1",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 3,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "minecraft:giant_trunk_placer",
+      "base_height": 18,
+      "height_rand_a": 4,
+      "height_rand_b": 2
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:driftwillow_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

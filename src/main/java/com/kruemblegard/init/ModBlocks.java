@@ -26,7 +26,6 @@ import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.registry.ModParticles;
-import com.kruemblegard.world.grower.FixedConfiguredFeatureTreeGrower;
 import com.kruemblegard.world.grower.TwoByTwoConfiguredFeatureTreeGrower;
 
 import java.util.function.Supplier;
@@ -1206,13 +1205,6 @@ public final class ModBlocks {
                         .sound(SoundType.WOOD), BlockSetType.OAK));
     }
 
-        private static RegistryObject<Block> registerFeatureSapling(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
-                return BLOCKS.register(id, () -> new WayfallFeatureSaplingBlock(
-                                new FixedConfiguredFeatureTreeGrower(featureKey),
-                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_SAPLING)
-                ));
-        }
-
         private static RegistryObject<Block> registerFeatureSapling2x2(String id,
                                                                        ResourceKey<ConfiguredFeature<?, ?>> smallFeatureKey,
                                                                        ResourceKey<ConfiguredFeature<?, ?>> megaFeatureKey) {
@@ -1253,9 +1245,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> FALLBARK_WOOD = registerStrippableLog("fallbark_wood", () -> STRIPPED_FALLBARK_WOOD.get());
     public static final RegistryObject<Block> FALLBARK_PLANKS = registerPlanks("fallbark_planks");
     public static final RegistryObject<Block> FALLBARK_LEAVES = registerLeaves("fallbark_leaves");
-        public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling2x2(
                         "fallbark_sapling",
-                        configuredFeatureKey("fallbark/sapling")
+                        configuredFeatureKey("fallbark/sapling"),
+                        configuredFeatureKey("fallbark/mega")
         );
 
         public static final RegistryObject<Block> FALLBARK_STAIRS = registerStairs("fallbark_stairs", FALLBARK_PLANKS);
@@ -1273,9 +1266,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> ECHOWOOD_WOOD = registerStrippableLog("echowood_wood", () -> STRIPPED_ECHOWOOD_WOOD.get());
     public static final RegistryObject<Block> ECHOWOOD_PLANKS = registerPlanks("echowood_planks");
     public static final RegistryObject<Block> ECHOWOOD_LEAVES = registerLeaves("echowood_leaves");
-        public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling2x2(
                         "echowood_sapling",
-                        configuredFeatureKey("echowood/sapling")
+                        configuredFeatureKey("echowood/sapling"),
+                        configuredFeatureKey("echowood/mega")
         );
 
         public static final RegistryObject<Block> ECHOWOOD_STAIRS = registerStairs("echowood_stairs", ECHOWOOD_PLANKS);
@@ -1293,9 +1287,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> CAIRN_TREE_WOOD = registerStrippableLog("cairn_tree_wood", () -> STRIPPED_CAIRN_TREE_WOOD.get());
     public static final RegistryObject<Block> CAIRN_TREE_PLANKS = registerPlanks("cairn_tree_planks");
     public static final RegistryObject<Block> CAIRN_TREE_LEAVES = registerLeaves("cairn_tree_leaves");
-        public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling2x2(
                         "cairn_tree_sapling",
-                        configuredFeatureKey("cairn_tree/sapling")
+                        configuredFeatureKey("cairn_tree/sapling"),
+                        configuredFeatureKey("cairn_tree/mega")
         );
 
         public static final RegistryObject<Block> CAIRN_TREE_STAIRS = registerStairs("cairn_tree_stairs", CAIRN_TREE_PLANKS);
@@ -1313,9 +1308,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> WAYGLASS_WOOD = registerStrippableLog("wayglass_wood", () -> STRIPPED_WAYGLASS_WOOD.get());
     public static final RegistryObject<Block> WAYGLASS_PLANKS = registerPlanks("wayglass_planks");
     public static final RegistryObject<Block> WAYGLASS_LEAVES = registerLeaves("wayglass_leaves");
-        public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling2x2(
                         "wayglass_sapling",
-                        configuredFeatureKey("wayglass/sapling")
+                        configuredFeatureKey("wayglass/sapling"),
+                        configuredFeatureKey("wayglass/mega")
         );
 
         public static final RegistryObject<Block> WAYGLASS_STAIRS = registerStairs("wayglass_stairs", WAYGLASS_PLANKS);
@@ -1333,9 +1329,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> SPLINTERSPORE_WOOD = registerStrippableLog("splinterspore_wood", () -> STRIPPED_SPLINTERSPORE_WOOD.get());
     public static final RegistryObject<Block> SPLINTERSPORE_PLANKS = registerPlanks("splinterspore_planks");
     public static final RegistryObject<Block> SPLINTERSPORE_LEAVES = registerLeaves("splinterspore_leaves");
-        public static final RegistryObject<Block> SPLINTERSPORE_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> SPLINTERSPORE_SAPLING = registerFeatureSapling2x2(
                         "splinterspore_sapling",
-                        configuredFeatureKey("splinterspore/sapling")
+                        configuredFeatureKey("splinterspore/sapling"),
+                        configuredFeatureKey("splinterspore/mega")
         );
 
         public static final RegistryObject<Block> SPLINTERSPORE_STAIRS = registerStairs("splinterspore_stairs", SPLINTERSPORE_PLANKS);
@@ -1353,9 +1350,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> HOLLOWWAY_TREE_WOOD = registerStrippableLog("hollowway_tree_wood", () -> STRIPPED_HOLLOWWAY_TREE_WOOD.get());
     public static final RegistryObject<Block> HOLLOWWAY_TREE_PLANKS = registerPlanks("hollowway_tree_planks");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LEAVES = registerLeaves("hollowway_tree_leaves");
-        public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling2x2(
                         "hollowway_tree_sapling",
-                        configuredFeatureKey("hollowway_tree/sapling")
+                        configuredFeatureKey("hollowway_tree/sapling"),
+                        configuredFeatureKey("hollowway_tree/mega")
         );
 
         public static final RegistryObject<Block> HOLLOWWAY_TREE_STAIRS = registerStairs("hollowway_tree_stairs", HOLLOWWAY_TREE_PLANKS);
@@ -1373,9 +1371,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> DRIFTWILLOW_WOOD = registerStrippableLog("driftwillow_wood", () -> STRIPPED_DRIFTWILLOW_WOOD.get());
     public static final RegistryObject<Block> DRIFTWILLOW_PLANKS = registerPlanks("driftwillow_planks");
     public static final RegistryObject<Block> DRIFTWILLOW_LEAVES = registerLeaves("driftwillow_leaves");
-        public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling2x2(
                         "driftwillow_sapling",
-                        configuredFeatureKey("driftwillow/sapling")
+                        configuredFeatureKey("driftwillow/sapling"),
+                        configuredFeatureKey("driftwillow/mega")
         );
 
         public static final RegistryObject<Block> DRIFTWILLOW_STAIRS = registerStairs("driftwillow_stairs", DRIFTWILLOW_PLANKS);
@@ -1393,9 +1392,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> MONUMENT_OAK_WOOD = registerStrippableLog("monument_oak_wood", () -> STRIPPED_MONUMENT_OAK_WOOD.get());
     public static final RegistryObject<Block> MONUMENT_OAK_PLANKS = registerPlanks("monument_oak_planks");
     public static final RegistryObject<Block> MONUMENT_OAK_LEAVES = registerLeaves("monument_oak_leaves");
-        public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling2x2(
                         "monument_oak_sapling",
-                        configuredFeatureKey("monument_oak/sapling")
+                        configuredFeatureKey("monument_oak/sapling"),
+                        configuredFeatureKey("monument_oak/mega")
         );
 
         public static final RegistryObject<Block> MONUMENT_OAK_STAIRS = registerStairs("monument_oak_stairs", MONUMENT_OAK_PLANKS);
@@ -1413,9 +1413,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> WAYTORCH_TREE_WOOD = registerStrippableLog("waytorch_tree_wood", () -> STRIPPED_WAYTORCH_TREE_WOOD.get());
     public static final RegistryObject<Block> WAYTORCH_TREE_PLANKS = registerPlanks("waytorch_tree_planks");
     public static final RegistryObject<Block> WAYTORCH_TREE_LEAVES = registerLeaves("waytorch_tree_leaves");
-        public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling2x2(
                                                 "waytorch_tree_sapling",
-                        configuredFeatureKey("waytorch_tree/sapling")
+                        configuredFeatureKey("waytorch_tree/sapling"),
+                        configuredFeatureKey("waytorch_tree/mega")
         );
 
         public static final RegistryObject<Block> WAYTORCH_TREE_STAIRS = registerStairs("waytorch_tree_stairs", WAYTORCH_TREE_PLANKS);
@@ -1433,9 +1434,10 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> FAULTWOOD_WOOD = registerStrippableLog("faultwood_wood", () -> STRIPPED_FAULTWOOD_WOOD.get());
     public static final RegistryObject<Block> FAULTWOOD_PLANKS = registerPlanks("faultwood_planks");
     public static final RegistryObject<Block> FAULTWOOD_LEAVES = registerLeaves("faultwood_leaves");
-        public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling(
+        public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling2x2(
                         "faultwood_sapling",
-                        configuredFeatureKey("faultwood/sapling")
+                        configuredFeatureKey("faultwood/sapling"),
+                        configuredFeatureKey("faultwood/mega")
         );
 
         public static final RegistryObject<Block> FAULTWOOD_STAIRS = registerStairs("faultwood_stairs", FAULTWOOD_PLANKS);
@@ -1458,9 +1460,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 3))
     );
-    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerFeatureSapling(
+    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerFeatureSapling2x2(
             "ashbloom_sapling",
-            configuredFeatureKey("ashbloom/sapling")
+            configuredFeatureKey("ashbloom/sapling"),
+            configuredFeatureKey("ashbloom/mega")
     );
 
     public static final RegistryObject<Block> ASHBLOOM_STAIRS = registerStairs("ashbloom_stairs", ASHBLOOM_PLANKS);
@@ -1494,9 +1497,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 2))
     );
-    public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerFeatureSapling(
+    public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerFeatureSapling2x2(
             "glimmerpine_sapling",
-            configuredFeatureKey("glimmerpine/sapling")
+            configuredFeatureKey("glimmerpine/sapling"),
+            configuredFeatureKey("glimmerpine/mega")
     );
 
     public static final RegistryObject<Block> GLIMMERPINE_STAIRS = registerStairs("glimmerpine_stairs", GLIMMERPINE_PLANKS);
@@ -1522,9 +1526,10 @@ public final class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.GRASS))
     );
-    public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerFeatureSapling(
+    public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerFeatureSapling2x2(
             "driftwood_sapling",
-            configuredFeatureKey("driftwood/sapling")
+            configuredFeatureKey("driftwood/sapling"),
+            configuredFeatureKey("driftwood/mega")
     );
 
     public static final RegistryObject<Block> DRIFTWOOD_STAIRS = registerStairs("driftwood_stairs", DRIFTWOOD_PLANKS);

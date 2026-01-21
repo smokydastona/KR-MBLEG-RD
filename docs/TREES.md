@@ -5,6 +5,7 @@ This document describes every **tree (wood family)** currently in Krümblegård.
 Scope/notes:
 - All tree content is part of **Wayfall**.
 - “Mechanics” below are either implemented behavior or design targets; if a mechanic isn’t implemented yet, it’s explicitly marked as such.
+- All saplings support 2x2 (spruce-style) placement to grow a larger **mega** variant (Evergreen-style multi-option selectors).
 - For the full plant + tree catalog (including non-tree plants), see [FLORA_REFERENCE.md](FLORA_REFERENCE.md).
 
 ## Tree families (14)
@@ -174,8 +175,8 @@ Scope/notes:
 - **IDs**: `kruemblegard:wayroot_*`
 - **Appearance**: Stone-barked tree with exposed, floating roots that don’t touch the ground.
 - **Use**: Logs used for waystone upgrades and teleport stabilizers.
-- **Mechanics**: design target — roots slowly drift; breaking them can destabilize nearby blocks. The `wayroot_sapling` also supports a 2x2 (spruce-style) placement to grow a larger Wayroot.
-  - Mega growth uses `kruemblegard:stoneveil_rubble` as its dirt provider and may convert nearby ground into `kruemblegard:runed_stoneveil_rubble` (spruce podzol-style).
+- **Mechanics**: design target — roots slowly drift; breaking them can destabilize nearby blocks.
+  - Mega Wayroot uses `kruemblegard:ashmoss` as its dirt provider and may spread Ashmoss around the trunk (spruce podzol-style).
 - **Core textures**:
   - `assets/kruemblegard/textures/block/wayroot_log.png`
   - `assets/kruemblegard/textures/block/wayroot_log_top.png`

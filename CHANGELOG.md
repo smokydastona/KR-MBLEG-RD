@@ -33,6 +33,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.509 (2026-01-21)
 - Tuning(worldgen): Wayburn Fungus now generates only in **Basin of Scars**.
 
+## 1.0.510 (2026-01-21)
+- Feature(worldgen): all tree saplings now support 2x2 (mega) growth using Evergreen-style multi-option `mega` configured features.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 
