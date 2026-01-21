@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.489 (2026-01-20)
 - Fix(wayfall): Wayfall portal block now teleports when you enter it (cooldown gating bug).
 
+## 1.0.490 (2026-01-20)
+- Fix(waystones): Ancient Waystone now delegates to the real Waystones waystone when its block entity is missing, restoring interaction.
+
 ## 1.0.488 (2026-01-20)
 - Fix(registry): register the missing-mappings remap handler on the Forge event bus so the mod doesn’t crash during CONSTRUCT.
 
