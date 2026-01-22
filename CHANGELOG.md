@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.518 (2026-01-22)
+- Tuning(worldgen/trees): rework all mega tree variants to follow an evergreen-style split: `mega_1` uses a spruce-like conical foliage placer and `mega_2` uses a pine-like crowned foliage placer, with stronger trunk-height separation so mega variants no longer look identical.
+
 ## 1.0.517 (2026-01-21)
 - Fix(worldgen/flora): prevent vanilla seagrass / coral fans / sea pickles from generating on land by requiring water at the placement position (and allowing a small vertical spread so patches still find water above the ocean floor heightmap).
 
