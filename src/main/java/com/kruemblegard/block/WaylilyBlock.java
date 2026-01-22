@@ -46,17 +46,13 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
 
-        // Lily-pad-like placement: must be placed into water, with at least one more water block below
-        // for the tail.
+        // Item placement: allow placing directly into water (lily-pad-like).
+        // Tail(s) are created on-place if there is enough depth.
         if (level.getFluidState(pos).getType() != Fluids.WATER) {
             return null;
         }
 
-        if (level.getFluidState(pos.below()).getType() != Fluids.WATER) {
-            return null;
-        }
-
-        return this.defaultBlockState().setValue(PART, Part.UPPER).setValue(WATERLOGGED, Boolean.FALSE);
+        return this.defaultBlockState().setValue(PART, Part.UPPER).setValue(WATERLOGGED, Boolean.TRUE);
     }
 
     @Override
@@ -190,9 +186,14 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
                 return true;
             }
 
-            // During placement/worldgen validation, the pad position is still water.
-            return level.getFluidState(pos).getType() == Fluids.WATER
-                    && level.getFluidState(pos.below()).getType() == Fluids.WATER;
+            // Two supported modes:
+            // - Player/item placement: upper is waterlogged (replaces the water block).
+            // - Worldgen placement: upper sits in air above water.
+            if (state.getValue(WATERLOGGED)) {
+                return level.getFluidState(pos).getType() == Fluids.WATER;
+            }
+
+            return level.getFluidState(pos.below()).getType() == Fluids.WATER;
         }
 
         if (part == Part.LOWER) {
@@ -216,7 +217,7 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public FluidState getFluidState(BlockState state) {
         Part part = state.getValue(PART);
-        if ((part == Part.LOWER || part == Part.LOWER2) && state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(state);
@@ -231,8 +232,17 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos lowerPos = upperPos.below();
 
         if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
-            // Not enough water depth; remove the upper pad.
-            level.destroyBlock(upperPos, true);
+            // Not enough water depth for tails; keep the upper, but remove any existing tails.
+            BlockState lowerState = level.getBlockState(lowerPos);
+            if (lowerState.is(this) && lowerState.getValue(PART) == Part.LOWER) {
+                level.destroyBlock(lowerPos, false);
+            }
+
+            BlockPos lower2Pos = upperPos.below(2);
+            BlockState lower2State = level.getBlockState(lower2Pos);
+            if (lower2State.is(this) && lower2State.getValue(PART) == Part.LOWER2) {
+                level.destroyBlock(lower2Pos, false);
+            }
             return;
         }
 
