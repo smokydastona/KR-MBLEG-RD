@@ -307,4 +307,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.SCATTERED_ENDERMAN, 0x161616, 0x9a30ff,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> MOOGLOOM_SPAWN_EGG =
+        ITEMS.register(
+            "moogloom_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.MOOGLOOM, 0x2b1f33, 0x7d5aa6,
+                new Item.Properties()));
+
 }

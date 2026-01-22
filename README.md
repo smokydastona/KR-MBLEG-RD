@@ -15,6 +15,7 @@ Material references:
 - **Traprock** can remain dormant until disturbed, then attacks.
 - **Pebblit**: a hostile stone-bug that can be tamed with cobblestone; right-click with empty hand toggles sit, and shift + right-click perches it on your shoulder (granting knockback resistance) until it dies; its attacks apply knockback.
 - **The Great Hunger**: a hostile GeckoLib-rendered mob (spawn egg available).
+- **Moogloom**: a Shatterplate Flats-exclusive mooshroom-like creature; shearing it kills it and it can drop Voidcap Briar.
 - **Wayfall**: a new void dimension with Aether-inspired floating islands, containing Attuned Ore (custom Wayfall biomes only; spawns restricted to Krümblegård mobs). Terrain palette defaults to **Fractured Wayrock** via custom noise settings, and portal arrivals fall back to a safe platform if the spawn area is void.
 - **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
 - **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).

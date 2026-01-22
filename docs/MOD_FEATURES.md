@@ -93,6 +93,12 @@ Keep it up to date whenever you add/remove/rename content.
     - `animation.scattered_enderman.hold_block_idle`
     - `animation.scattered_enderman.teleport`
     - `animation.scattered_enderman.vanish`
+
+- **Moogloom** (`moogloom`)
+  - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
+  - Special behavior: using shears on it kills it immediately.
+  - Drops vanilla cow loot, plus a chance to drop **Voidcap Briar**.
+  - Texture: `assets/kruemblegard/textures/entity/moogloom.png`.
     - `animation.scattered_enderman.appear`
     - `animation.scattered_enderman.shake`
     - `animation.scattered_enderman.flinch`

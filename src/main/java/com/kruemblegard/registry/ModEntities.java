@@ -3,6 +3,7 @@ package com.kruemblegard.registry;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.MoogloomEntity;
 import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
@@ -62,5 +63,14 @@ public class ModEntities {
                     ScatteredEndermanEntity::new, MobCategory.MONSTER)
                 .sized(0.6f, 2.9f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "scattered_enderman").toString())
+        );
+
+    public static final RegistryObject<EntityType<MoogloomEntity>> MOOGLOOM =
+        ENTITIES.register(
+            "moogloom",
+            () -> EntityType.Builder.<MoogloomEntity>of(
+                    MoogloomEntity::new, MobCategory.CREATURE)
+                .sized(0.9f, 1.4f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "moogloom").toString())
         );
 }

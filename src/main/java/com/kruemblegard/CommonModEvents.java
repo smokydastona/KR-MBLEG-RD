@@ -11,6 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -32,6 +34,7 @@ public final class CommonModEvents {
         event.put(ModEntities.PEBBLIT.get(), Silverfish.createAttributes().build());
         event.put(ModEntities.GREAT_HUNGER.get(), GreatHungerEntity.createAttributes().build());
         event.put(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanEntity.createAttributes().build());
+        event.put(ModEntities.MOOGLOOM.get(), Cow.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -67,6 +70,14 @@ public final class CommonModEvents {
             CommonModEvents::canSpawnOnSolidGround,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+
+        event.register(
+            ModEntities.MOOGLOOM.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnAnimalOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
     }
 
     private static boolean canSpawnOnSolidGround(
@@ -82,5 +93,20 @@ public final class CommonModEvents {
         }
 
         return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
+    }
+
+    private static boolean canSpawnAnimalOnSolidGround(
+            net.minecraft.world.entity.EntityType<? extends Animal> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        BlockPos below = pos.below();
+        if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+            return false;
+        }
+
+        return Animal.checkAnimalSpawnRules(type, level, spawnType, pos, random);
     }
 }

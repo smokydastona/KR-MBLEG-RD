@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
 import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
+import com.kruemblegard.client.render.MoogloomRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
@@ -29,6 +30,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.PEBBLIT.get(), PebblitRenderer::new);
         event.registerEntityRenderer(ModEntities.GREAT_HUNGER.get(), GreatHungerRenderer::new);
         event.registerEntityRenderer(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanRenderer::new);
+        event.registerEntityRenderer(ModEntities.MOOGLOOM.get(), MoogloomRenderer::new);
     }
 
     @SubscribeEvent
