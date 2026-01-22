@@ -24,25 +24,22 @@ public class WaylilyItem extends BlockItem {
         BlockPos clickedPos = context.getClickedPos();
         Direction clickedFace = context.getClickedFace();
 
-        BlockPos waterPos = null;
-        if (level.getFluidState(clickedPos).getType() == Fluids.WATER) {
-            waterPos = clickedPos;
-        } else {
-            BlockPos adjacent = clickedPos.relative(clickedFace);
-            if (level.getFluidState(adjacent).getType() == Fluids.WATER) {
-                waterPos = adjacent;
-            }
+        // Strict lily-pad behavior: only place when clicking the water surface (top face).
+        // Clicking underwater (sides/bottom) should do nothing.
+        if (clickedFace != Direction.UP) {
+            return InteractionResult.FAIL;
         }
 
-        if (waterPos == null) {
-            return super.useOn(context);
+        if (level.getFluidState(clickedPos).getType() != Fluids.WATER) {
+            return InteractionResult.FAIL;
         }
 
-        // Climb up the water column to find the surface.
-        BlockPos surfaceWaterPos = waterPos;
-        while (level.getFluidState(surfaceWaterPos.above()).getType() == Fluids.WATER) {
-            surfaceWaterPos = surfaceWaterPos.above();
+        // Only allow true surface water.
+        if (level.getFluidState(clickedPos.above()).getType() == Fluids.WATER) {
+            return InteractionResult.FAIL;
         }
+
+        BlockPos surfaceWaterPos = clickedPos;
 
         // Require air (or replaceable) above the surface, and at least one water block below for the tail.
         if (!level.getBlockState(surfaceWaterPos.above()).canBeReplaced()) {

@@ -32,6 +32,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.531 (2026-01-22)
 - Fix(waylily): Waylily item now places on the water surface (vanilla lily-pad behavior) even when you click underwater; the tail hangs underneath as intended.
 
+## 1.0.532 (2026-01-22)
+- Tuning(waylily): Waylily item placement is now surface-only; clicking underwater does nothing.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
