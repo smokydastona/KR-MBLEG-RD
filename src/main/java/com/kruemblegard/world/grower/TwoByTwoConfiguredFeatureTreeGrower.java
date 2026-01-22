@@ -40,11 +40,28 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
     public boolean growTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random) {
         Block saplingBlock = state.getBlock();
 
+        Kruemblegard.LOGGER.info(
+                "SaplingGrow: start block={} pos={} small={} mega={}",
+                ForgeRegistries.BLOCKS.getKey(saplingBlock),
+                pos,
+                smallFeatureKey.location(),
+                megaFeatureKey.location()
+        );
+
         BlockPos megaBasePos = findTwoByTwoSapling(level, pos, saplingBlock);
         if (megaBasePos != null) {
+            Kruemblegard.LOGGER.info(
+                    "SaplingGrow: detected 2x2 base={} block={}",
+                    megaBasePos,
+                    ForgeRegistries.BLOCKS.getKey(saplingBlock)
+            );
             return placeAt(level, generator, random, megaBasePos, saplingBlock, megaFeatureKey, true);
         }
 
+        Kruemblegard.LOGGER.info(
+                "SaplingGrow: no 2x2 detected at {}; placing small",
+                pos
+        );
         return placeAt(level, generator, random, pos, saplingBlock, smallFeatureKey, false);
     }
 
@@ -79,6 +96,12 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
                 .getHolder(featureKey);
 
         if (holder.isEmpty()) {
+            Kruemblegard.LOGGER.warn(
+                "SaplingGrow: missing configured feature key={} at pos={} mega={}",
+                featureKey.location(),
+                pos,
+                isMega
+            );
             return false;
         }
 
@@ -95,11 +118,42 @@ public class TwoByTwoConfiguredFeatureTreeGrower extends AbstractTreeGrower {
             cleared = new BlockPos[]{pos};
         }
 
+        if (isMega) {
+            Kruemblegard.LOGGER.info(
+                    "SaplingGrow: clearing 2x2 at {} for feature={}",
+                    pos,
+                    featureKey.location()
+            );
+            for (BlockPos clearPos : cleared) {
+                BlockState before = level.getBlockState(clearPos);
+                Kruemblegard.LOGGER.info(
+                        "SaplingGrow: clearPos={} beforeBlock={} beforeState={}",
+                        clearPos,
+                        ForgeRegistries.BLOCKS.getKey(before.getBlock()),
+                        before
+                );
+            }
+        } else {
+            Kruemblegard.LOGGER.info(
+                    "SaplingGrow: clearing 1x1 at {} for feature={}",
+                    pos,
+                    featureKey.location()
+            );
+        }
+
         for (BlockPos clearPos : cleared) {
             level.setBlock(clearPos, Blocks.AIR.defaultBlockState(), 4);
         }
 
         boolean success = holder.get().value().place(level, generator, random, pos);
+
+        Kruemblegard.LOGGER.info(
+                "SaplingGrow: placed feature={} mega={} success={} at {}",
+                featureKey.location(),
+                isMega,
+                success,
+                pos
+        );
 
         if (!success) {
             for (BlockPos restorePos : cleared) {
