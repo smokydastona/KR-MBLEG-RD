@@ -62,7 +62,6 @@
                   "minecraft:water"
                 ]
               },
-              { "type": "minecraft:replaceable" },
               {
                 "type": "minecraft:would_survive",
                 "state": { "Name": "minecraft:tube_coral_fan", "Properties": { "waterlogged": "true" } }

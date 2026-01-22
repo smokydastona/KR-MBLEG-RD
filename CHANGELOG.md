@@ -35,6 +35,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.532 (2026-01-22)
 - Tuning(waylily): Waylily item placement is now surface-only; clicking underwater does nothing.
 
+## 1.0.533 (2026-01-22)
+- Fix(waylily): surface-only placement now correctly detects the surface even when the raycast hits the block under the water.
+- Fix(worldgen/flora): Wayfall water flora predicates no longer require `replaceable` in water; Waylily now requires surface water (air above + water at position).
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
