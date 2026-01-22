@@ -48,7 +48,7 @@
                               "base_height": 18,
                               "height_rand_a": 0,
                               "height_rand_b": 0,
-                              "type": "minecraft:straight_trunk_placer"
+                              "type": "minecraft:giant_trunk_placer"
                             },
                             "trunk_provider": {
                               "state": {
@@ -125,7 +125,7 @@
                               "base_height": 18,
                               "height_rand_a": 0,
                               "height_rand_b": 0,
-                              "type": "minecraft:straight_trunk_placer"
+                              "type": "minecraft:giant_trunk_placer"
                             },
                             "trunk_provider": {
                               "state": {
@@ -202,7 +202,7 @@
                               "base_height": 15,
                               "height_rand_a": 0,
                               "height_rand_b": 0,
-                              "type": "minecraft:straight_trunk_placer"
+                              "type": "minecraft:giant_trunk_placer"
                             },
                             "trunk_provider": {
                               "state": {
@@ -279,7 +279,7 @@
                               "base_height": 11,
                               "height_rand_a": 0,
                               "height_rand_b": 0,
-                              "type": "minecraft:straight_trunk_placer"
+                              "type": "minecraft:giant_trunk_placer"
                             },
                             "trunk_provider": {
                               "state": {

@@ -76,7 +76,7 @@
                       "base_height": 12,
                       "height_rand_a": 1,
                       "height_rand_b": 2,
-                      "type": "minecraft:straight_trunk_placer"
+                      "type": "minecraft:giant_trunk_placer"
                     },
                     "trunk_provider": {
                       "state": {

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.521 (2026-01-22)
+- Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
