@@ -5,7 +5,8 @@ import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
 import com.kruemblegard.block.GravevineBlock;
-import com.kruemblegard.block.PyrokelpBlock;
+import com.kruemblegard.block.PyrokelpHeadBlock;
+import com.kruemblegard.block.PyrokelpPlantBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
 import com.kruemblegard.block.AshbloomLeavesBlock;
 import com.kruemblegard.block.DriftwoodLeavesBlock;
@@ -612,12 +613,21 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> PYROKELP = BLOCKS.register(
             "pyrokelp",
-            () -> new PyrokelpBlock(BlockBehaviour.Properties.of()
+            () -> new PyrokelpHeadBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.VINE)
                     .randomTicks())
+    );
+
+    public static final RegistryObject<Block> PYROKELP_PLANT = BLOCKS.register(
+            "pyrokelp_plant",
+            () -> new PyrokelpPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.VINE))
     );
 
     public static final RegistryObject<Block> ECHOCAP = BLOCKS.register(

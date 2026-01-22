@@ -47,6 +47,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.562 (2026-01-22)
 - Art(flora): Pyrokelp now has a second texture variant used randomly (vanilla-like visual variety).
 
+## 1.0.563 (2026-01-22)
+- Feature(flora): Pyrokelp is now a true vanilla-style head/body growing plant (`pyrokelp` + `pyrokelp_plant`) so the top segment uses the “top” texture like twisting vines.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
