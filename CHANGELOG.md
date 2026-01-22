@@ -17,6 +17,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.540 (2026-01-21)
 - Chore(worldgen/lakes): remove unused `basin_of_scars_big_water_lake` placed feature after disabling Basin-of-Scars big water lake injection.
 
+## 1.0.541 (2026-01-21)
+- Fix(worldgen): add a strict validation guard to ensure all lake/pond placed features run in the `lakes` generation step (before any plant/tree placement).
+
 ## 1.0.525 (2026-01-21)
 - Fix(assets): Waylily block now correctly resolves its upper model by matching the full blockstate (`part=upper,waterlogged=false`) instead of falling back to missing-model.
 - Fix(worldgen/flora): Wayfall water flora (Waylily, seagrass, warm-water coral fans + sea pickles) now scan downward from the surface to find water before attempting placement; this makes them generate in floating-island lakes/ponds instead of only in “true ocean” terrain.

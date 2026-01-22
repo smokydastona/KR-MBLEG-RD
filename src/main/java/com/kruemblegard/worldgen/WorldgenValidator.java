@@ -28,6 +28,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WorldgenValidator {
@@ -86,6 +87,54 @@ public final class WorldgenValidator {
             registries.registryOrThrow(Registries.BIOME),
             registries.registryOrThrow(Registries.PLACED_FEATURE)
         );
+
+        // Ordering safety: lakes/ponds must generate before any plants/trees.
+        validateLakeFeaturesRunBeforeVegetation(registries.registryOrThrow(Registries.BIOME), strict);
+    }
+
+    private static void validateLakeFeaturesRunBeforeVegetation(Registry<Biome> biomeRegistry, boolean strict) {
+        // Explicit list: these are the only lake-type placed features we currently ship.
+        // If more are added later (ponds/puddles/etc), add them here so strictValidation catches bad step wiring.
+        Set<ResourceLocation> lakeFeatureIds = Set.of(
+                new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_water_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_lava_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_big_water_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_big_lava_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars_water_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars_lava_lake"),
+                new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars_big_lava_lake")
+        );
+
+        int lakesStepIndex = GenerationStep.Decoration.LAKES.ordinal();
+
+        for (var biomeEntry : biomeRegistry.entrySet()) {
+            ResourceLocation biomeId = biomeEntry.getKey().location();
+            Biome biome = biomeEntry.getValue();
+
+            var stepLists = biome.getGenerationSettings().features();
+            for (int stepIndex = 0; stepIndex < stepLists.size(); stepIndex++) {
+                for (Holder<PlacedFeature> placedFeatureHolder : stepLists.get(stepIndex)) {
+                    var keyOpt = placedFeatureHolder.unwrapKey();
+                    if (keyOpt.isEmpty()) {
+                        continue;
+                    }
+
+                    ResourceLocation placedId = keyOpt.get().location();
+                    if (!lakeFeatureIds.contains(placedId)) {
+                        continue;
+                    }
+
+                    if (stepIndex > lakesStepIndex) {
+                        String message = "Lake/pond feature must run in the 'lakes' step or earlier (before vegetation), but was found later: biome="
+                                + biomeId + ", feature=" + placedId + ", stepIndex=" + stepIndex + ", lakesIndex=" + lakesStepIndex;
+                        if (strict) {
+                            throw new IllegalStateException(message);
+                        }
+                        Kruemblegard.LOGGER.warn(message);
+                    }
+                }
+            }
+        }
     }
 
     private static void validateTemplatePoolStructureTemplates(MinecraftServer server, ResourceLocation templatePoolJson, boolean strict) {
