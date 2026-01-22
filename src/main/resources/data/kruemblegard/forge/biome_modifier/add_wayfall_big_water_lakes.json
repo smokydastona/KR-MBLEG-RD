@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall_except_basin_of_scars",
+  "features": [
+    "kruemblegard:wayfall_big_water_lake"
+  ],
+  "step": "lakes"
+}

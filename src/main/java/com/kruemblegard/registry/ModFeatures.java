@@ -2,6 +2,8 @@ package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.world.feature.WayfallDeepLakeConfiguration;
+import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
 
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -31,6 +33,11 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> DRIFTWOOD_TREE = FEATURES.register(
             "driftwood_tree",
             () -> new WayfallSimpleTreeFeature(NoneFeatureConfiguration.CODEC, ModBlocks.DRIFTWOOD_LOG::get, ModBlocks.DRIFTWOOD_LEAVES::get)
+    );
+
+    public static final RegistryObject<Feature<WayfallDeepLakeConfiguration>> WAYFALL_DEEP_LAKE = FEATURES.register(
+            "wayfall_deep_lake",
+            () -> new WayfallDeepLakeFeature(WayfallDeepLakeConfiguration.CODEC)
     );
 
     public static void register(IEventBus bus) {

@@ -1,0 +1,32 @@
+{
+  "type": "kruemblegard:wayfall_deep_lake",
+  "config": {
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:water"
+      }
+    },
+    "barrier": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "kruemblegard:stoneveil_rubble"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "kruemblegard:runed_stoneveil_rubble"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "min_radius": 18,
+    "max_radius": 28,
+    "min_depth": 10,
+    "max_depth": 15
+  }
+}

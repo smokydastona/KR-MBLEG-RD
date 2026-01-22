@@ -42,6 +42,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.534 (2026-01-22)
 - Fix(worldgen/flora): underwater flora (seagrass/coral fans/sea pickles) now targets the lake/pond floor (`OCEAN_FLOOR_WG` + +1 offset) instead of the surface water block, so it can survive and generate in floating-island lakes.
 
+## 1.0.535 (2026-01-21)
+- Feature(worldgen/lakes): add a very rare large deep Wayfall water lake (10–15 blocks deep) that can span multiple chunks.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
