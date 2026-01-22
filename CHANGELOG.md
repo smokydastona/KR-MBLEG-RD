@@ -59,6 +59,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.566 (2026-01-22)
 - Feature(flora): Pyrokelp now grows naturally and responds to bonemeal like vanilla twisting vines (bonemeal works on any segment; growth comes from the head).
 
+## 1.0.567 (2026-01-22)
+- Fix(flora): Pyrokelp growth/bonemeal no longer requires being in Basin of Scars (vanilla twisting-vines behavior once placed); worldgen still restricts natural generation to Basin of Scars.
+- Fix(creative): hide internal `pyrokelp_plant` item entry from the mod creative tab to prevent duplicate-looking Pyrokelp entries.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 

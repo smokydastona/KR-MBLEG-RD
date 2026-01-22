@@ -35,6 +35,12 @@ public final class ModCreativeTabs {
                                 continue;
                             }
 
+                            // Internal block-items for head/body plants should not appear in the creative menu.
+                            // Pyrokelp is represented by the head item; the body (pyrokelp_plant) is not meant to be obtainable.
+                            if ("pyrokelp_plant".equals(key.getPath())) {
+                                continue;
+                            }
+
                             if (item == ModItems.MENU_TAB.get()) {
                                 continue;
                             }

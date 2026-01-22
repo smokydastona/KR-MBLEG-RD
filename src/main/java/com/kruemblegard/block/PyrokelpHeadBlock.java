@@ -41,15 +41,12 @@ public class PyrokelpHeadBlock extends GrowingPlantHeadBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!level.getBiome(pos).is(ModTags.WorldgenBiomes.BASIN_OF_SCARS)) {
-            return;
-        }
         super.randomTick(state, level, pos, random);
     }
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
-        return level.getBiome(pos).is(ModTags.WorldgenBiomes.BASIN_OF_SCARS) && super.isValidBonemealTarget(level, pos, state, isClient);
+        return super.isValidBonemealTarget(level, pos, state, isClient);
     }
 
     @Override

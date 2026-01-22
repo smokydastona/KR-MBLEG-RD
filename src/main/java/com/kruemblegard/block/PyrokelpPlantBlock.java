@@ -41,10 +41,6 @@ public class PyrokelpPlantBlock extends GrowingPlantBodyBlock {
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
-        if (!level.getBiome(pos).is(ModTags.WorldgenBiomes.BASIN_OF_SCARS)) {
-            return false;
-        }
-
         BlockPos headPos = findHeadPos(level, pos);
         BlockState headState = level.getBlockState(headPos);
         if (!(headState.getBlock() instanceof BonemealableBlock bonemealable)) {
@@ -61,10 +57,6 @@ public class PyrokelpPlantBlock extends GrowingPlantBodyBlock {
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        if (!level.getBiome(pos).is(ModTags.WorldgenBiomes.BASIN_OF_SCARS)) {
-            return;
-        }
-
         BlockPos headPos = findHeadPos(level, pos);
         BlockState headState = level.getBlockState(headPos);
         if (!(headState.getBlock() instanceof BonemealableBlock bonemealable)) {
