@@ -46,13 +46,22 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
 
-        // Item placement: allow placing directly into water (lily-pad-like).
-        // Tail(s) are created on-place if there is enough depth.
+        // Item placement: lily-pad-like behavior.
+        // The upper sits on the surface (replacing the surface water block), and the tail hangs below.
         if (level.getFluidState(pos).getType() != Fluids.WATER) {
             return null;
         }
 
-        return this.defaultBlockState().setValue(PART, Part.UPPER).setValue(WATERLOGGED, Boolean.TRUE);
+        if (level.getFluidState(pos.below()).getType() != Fluids.WATER) {
+            return null;
+        }
+
+        // Must have air above so it's truly on the surface.
+        if (!level.getBlockState(pos.above()).canBeReplaced()) {
+            return null;
+        }
+
+        return this.defaultBlockState().setValue(PART, Part.UPPER).setValue(WATERLOGGED, Boolean.FALSE);
     }
 
     @Override
@@ -186,13 +195,7 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
                 return true;
             }
 
-            // Two supported modes:
-            // - Player/item placement: upper is waterlogged (replaces the water block).
-            // - Worldgen placement: upper sits in air above water.
-            if (state.getValue(WATERLOGGED)) {
-                return level.getFluidState(pos).getType() == Fluids.WATER;
-            }
-
+            // Upper survives when there is water directly beneath it.
             return level.getFluidState(pos.below()).getType() == Fluids.WATER;
         }
 
@@ -217,7 +220,7 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public FluidState getFluidState(BlockState state) {
         Part part = state.getValue(PART);
-        if (state.getValue(WATERLOGGED)) {
+        if ((part == Part.LOWER || part == Part.LOWER2) && state.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(state);

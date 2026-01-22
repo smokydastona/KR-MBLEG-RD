@@ -1,6 +1,7 @@
 package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.item.WaylilyItem;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -45,6 +46,12 @@ public final class ModAutoBlockItems {
 
                 // Common blocks that intentionally don't have a direct item.
                 if (block instanceof FlowerPotBlock || block instanceof LiquidBlock || block instanceof FarmBlock) {
+                    continue;
+                }
+
+                // Special-cased items.
+                if ("waylily".equals(id.getPath())) {
+                    helper.register(id, new WaylilyItem(block, new Item.Properties()));
                     continue;
                 }
 
