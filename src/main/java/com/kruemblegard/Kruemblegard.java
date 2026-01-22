@@ -89,6 +89,7 @@ public final class Kruemblegard {
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModItems.WISPSTALK_ITEM);
             event.accept(ModItems.GRAVEVINE_ITEM);
+            event.accept(ModItems.PYROKELP_ITEM);
             event.accept(ModItems.ECHOCAP_ITEM);
             event.accept(ModItems.RUNEBLOOM_ITEM);
             event.accept(ModItems.SOULBERRY_SHRUB_ITEM);

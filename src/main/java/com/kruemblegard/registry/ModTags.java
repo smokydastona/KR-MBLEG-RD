@@ -66,5 +66,10 @@ public final class ModTags {
                 Registries.BIOME,
                 new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/megalithic_circle")
         );
+
+        public static final TagKey<Biome> BASIN_OF_SCARS = TagKey.create(
+            Registries.BIOME,
+            new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars")
+        );
     }
 }

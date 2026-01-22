@@ -130,6 +130,11 @@ public class ModItems {
         () -> new BlockItem(ModBlocks.GRAVEVINE.get(), new Item.Properties())
     );
 
+    public static final RegistryObject<Item> PYROKELP_ITEM = ITEMS.register(
+        "pyrokelp",
+        () -> new BlockItem(ModBlocks.PYROKELP.get(), new Item.Properties())
+    );
+
     public static final RegistryObject<Item> ECHOCAP_ITEM = ITEMS.register(
         "echocap",
         () -> new BlockItem(ModBlocks.ECHOCAP.get(), new Item.Properties())
