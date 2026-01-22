@@ -1,6 +1,165 @@
 {
-  "parent": "minecraft:block/lily_pad",
-  "textures": {
-    "lily_pad": "kruemblegard:block/waylily"
-  }
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "kruemblegard:block/waylily",
+		"tex": "kruemblegard:block/waylily"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.5, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#tex"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "outter_pedal",
+			"from": [7.9, 1, 0],
+			"to": [8.1, 10, 16],
+			"rotation": {"angle": 39.5, "axis": "z", "origin": [8, 1.1, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "outter_pedal",
+			"from": [7.9, 1, 0],
+			"to": [8.1, 10, 16],
+			"rotation": {"x": -90, "y": -53, "z": 90, "origin": [8, 1.1, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "outter_pedal",
+			"from": [7.9, 1, 0],
+			"to": [8.1, 10, 16],
+			"rotation": {"x": 180, "y": 0, "z": 140.5, "origin": [8, 1.1, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "outter_pedal",
+			"from": [7.9, 1, 0],
+			"to": [8.1, 10, 16],
+			"rotation": {"x": 91.88698, "y": 50.14618, "z": 91.08423, "origin": [8, 1.1, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "inner_pedal",
+			"from": [0, 1, 7.9],
+			"to": [16, 15, 8.1],
+			"rotation": {"x": -56, "y": 0, "z": 0, "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "inner_pedal",
+			"from": [0, 1, 7.9],
+			"to": [16, 15, 8.1],
+			"rotation": {"x": 0, "y": 90, "z": 56, "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "inner_pedal",
+			"from": [0, 1, 7.9],
+			"to": [16, 15, 8.1],
+			"rotation": {"x": 124, "y": 0, "z": 180, "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "inner_pedal",
+			"from": [0, 1, 7.9],
+			"to": [16, 15, 8.1],
+			"rotation": {"x": 0, "y": -90, "z": -56, "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "center",
+			"from": [7, 0, 7],
+			"to": [9, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
+			"color": 8,
+			"faces": {
+				"north": {"uv": [0, 1, 2, 9], "texture": "#missing"},
+				"east": {"uv": [0, 1, 2, 9], "texture": "#missing"},
+				"south": {"uv": [0, 1, 2, 9], "texture": "#missing"},
+				"west": {"uv": [0, 1, 2, 9], "texture": "#missing"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#missing"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "center",
+			"from": [5, 2, 8],
+			"to": [11, 10, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 6, 8]},
+			"color": 8,
+			"faces": {
+				"north": {"uv": [0, 1, 6, 9], "texture": "#missing"},
+				"east": {"uv": [0.7, 1, 0.7, 9], "texture": "#missing"},
+				"south": {"uv": [0.1, 1, 6.1, 9], "texture": "#missing"},
+				"west": {"uv": [1.3, 1, 1.3, 9], "texture": "#missing"},
+				"up": {"uv": [0.1, 1.3, 6.1, 1.3], "texture": "#missing"},
+				"down": {"uv": [0.1, 0.7, 6.1, 0.7], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "center",
+			"from": [5, 2, 8],
+			"to": [11, 10, 8],
+			"rotation": {"x": 0, "y": 90, "z": 0, "origin": [8, 6, 8]},
+			"color": 8,
+			"faces": {
+				"north": {"uv": [0, 1, 6, 9], "texture": "#missing"},
+				"east": {"uv": [0.7, 1, 0.7, 9], "texture": "#missing"},
+				"south": {"uv": [0.1, 1, 6.1, 9], "texture": "#missing"},
+				"west": {"uv": [1.3, 1, 1.3, 9], "texture": "#missing"},
+				"up": {"uv": [0.1, 1.3, 6.1, 1.3], "texture": "#missing"},
+				"down": {"uv": [0.1, 0.7, 6.1, 0.7], "texture": "#missing"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		{
+			"name": "outter_pedal",
+			"origin": [8, 1.1, 8],
+			"color": 0,
+			"children": [1, 2, 3, 4]
+		},
+		{
+			"name": "inner_pedal",
+			"origin": [8, 1, 8],
+			"color": 0,
+			"children": [5, 6, 7, 8]
+		},
+		9,
+		10,
+		11
+	]
 }
