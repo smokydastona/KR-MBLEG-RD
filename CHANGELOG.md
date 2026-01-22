@@ -34,6 +34,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.558 (2026-01-22)
 - Art(moogloom): update Moogloom texture.
 
+## 1.0.559 (2026-01-22)
+- Fix(worldgen/flora): underwater flora patches (seagrass/coral fans/sea pickles) now scan down from the surface to the bottom of water columns so they can generate inside floating-island lakes.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
