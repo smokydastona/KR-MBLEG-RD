@@ -507,8 +507,7 @@ public final class ModBlocks {
             () -> new AshmossBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.MOSS)
-                    .randomTicks())
+                    .sound(SoundType.MOSS))
     );
 
     public static final RegistryObject<Block> ASHMOSS_CARPET = BLOCKS.register(
@@ -524,8 +523,7 @@ public final class ModBlocks {
             () -> new RunegrowthBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLUE)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> VOIDFELT = BLOCKS.register(
@@ -533,8 +531,7 @@ public final class ModBlocks {
             () -> new VoidfeltBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .strength(0.6F, 0.6F)
-                    .sound(SoundType.ROOTED_DIRT)
-                    .randomTicks())
+                    .sound(SoundType.ROOTED_DIRT))
     );
 
     public static final RegistryObject<Block> RUBBLE_TILTH = BLOCKS.register(
@@ -680,8 +677,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.PLANT)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> FAULTGRASS = BLOCKS.register(
@@ -690,8 +686,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.PLANT)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> DRIFTBLOOM = BLOCKS.register(
@@ -700,8 +695,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_PINK)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> CAIRN_MOSS = BLOCKS.register(
@@ -710,8 +704,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_GRAY)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.MOSS_CARPET)
-                    .randomTicks())
+                    .sound(SoundType.MOSS_CARPET))
     );
 
     public static final RegistryObject<Block> WAYLILY = BLOCKS.register(
@@ -720,8 +713,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_BLUE)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.LILY_PAD)
-                    .randomTicks())
+                    .sound(SoundType.LILY_PAD))
     );
 
     public static final RegistryObject<Block> GRIEFCAP = BLOCKS.register(
@@ -730,8 +722,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_BROWN)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .sound(SoundType.FUNGUS))
     );
 
     public static final RegistryObject<Block> STATIC_FUNGUS = BLOCKS.register(
@@ -740,8 +731,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_LIGHT_GRAY)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .sound(SoundType.FUNGUS))
     );
 
     public static final RegistryObject<Block> WAYROT_FUNGUS = BLOCKS.register(
@@ -750,8 +740,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_GREEN)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .sound(SoundType.FUNGUS))
     );
 
     // --- Paleweft flora / crops ---
@@ -762,8 +751,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.PLANT)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> PALEWEFT_TALL_GRASS = BLOCKS.register(
@@ -772,8 +760,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.PLANT)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.GRASS)
-                    .randomTicks())
+                    .sound(SoundType.GRASS))
     );
 
     public static final RegistryObject<Block> PALEWEFT_CORN = BLOCKS.register(

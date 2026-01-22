@@ -1044,8 +1044,7 @@ Update workflow:
 - **IDs**: `kruemblegard:voidfelt`
 - **Vanilla analog**: `minecraft:mycelium` (spreading, biome-flavored soil)
 - **Behavior**:
-  - In void biomes, Voidfelt can spread onto adjacent `kruemblegard:fault_dust` under grass/mycelium-like conditions.
-  - Outside void biomes it slowly collapses back into `kruemblegard:fault_dust`.
+  - As of 1.0.582, natural random-tick spread/collapse is disabled to reduce Wayfall server tick lag.
   - Tagged as a `minecraft:nylium` equivalent so nether planting/generation rules can treat it as a valid substrate.
 
 ### Scarstone Family

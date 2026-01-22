@@ -5,7 +5,6 @@ import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -43,9 +42,8 @@ public class RunebloomBlock extends BushBlock {
         if (level.getBlockState(pos.relative(net.minecraft.core.Direction.NORTH)).is(ModBlocks.STANDING_STONE.get())) nearbySig += 7;
 
         Biome biome = level.getBiome(pos).value();
-        ResourceLocation biomeKey = level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME)
-                .getKey(biome);
-        int biomeHash = biomeKey == null ? 0 : biomeKey.toString().hashCode();
+        int biomeHash = Float.floatToIntBits(biome.getBaseTemperature());
+        biomeHash = 31 * biomeHash + (biome.hasPrecipitation() ? 1 : 0);
 
         int variant = Math.floorMod(biomeHash + nearbySig, 6);
         if (state.getValue(VARIANT) != variant) {

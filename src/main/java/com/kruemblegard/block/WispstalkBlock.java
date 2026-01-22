@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -74,7 +75,7 @@ public class WispstalkBlock extends BushBlock {
         int age = state.getValue(AGE);
         if (age >= 3) return;
 
-        boolean nearEnchanted = isNearEnchantedBlocks(level, pos);
+        boolean nearEnchanted = random.nextInt(4) == 0 && isNearEnchantedBlocksSampled(level, pos, random);
         boolean moonlit = level.dimensionType().hasSkyLight()
                 && level.isNight()
                 && level.getMoonBrightness() > 0.6f;
@@ -116,10 +117,21 @@ public class WispstalkBlock extends BushBlock {
         }
     }
 
-    private static boolean isNearEnchantedBlocks(Level level, BlockPos origin) {
+    private static boolean isNearEnchantedBlocksSampled(Level level, BlockPos origin, RandomSource random) {
+        // Full cube scans are extremely expensive when many plants are loaded.
+        // Sampling gives us the “near enchanted” vibe without the 9^3 block checks.
         int radius = 4;
-        for (BlockPos p : BlockPos.betweenClosed(origin.offset(-radius, -radius, -radius), origin.offset(radius, radius, radius))) {
-            BlockState st = level.getBlockState(p);
+        int samples = 12;
+
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int i = 0; i < samples; i++) {
+            cursor.set(
+                    origin.getX() + Mth.nextInt(random, -radius, radius),
+                    origin.getY() + Mth.nextInt(random, -radius, radius),
+                    origin.getZ() + Mth.nextInt(random, -radius, radius)
+            );
+
+            BlockState st = level.getBlockState(cursor);
             if (st.is(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE)
                     || st.is(net.minecraft.world.level.block.Blocks.CHISELED_BOOKSHELF)
                     || st.is(net.minecraft.world.level.block.Blocks.LECTERN)
@@ -127,6 +139,7 @@ public class WispstalkBlock extends BushBlock {
                 return true;
             }
         }
+
         return false;
     }
 }

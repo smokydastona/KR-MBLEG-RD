@@ -175,8 +175,8 @@ These are surface materials that define the Wayfall ground language. They are do
   - Block: `kruemblegard:ashmoss`
   - Item: `kruemblegard:ashmoss` (BlockItem)
 - **How it behaves**
-  - Intended for ash-heavy biomes; outside ash-heavy biomes it collapses back into Fault Dust.
-  - Slowly spreads to nearby Fault Dust while in ash-heavy biomes.
+  - Intended for ash-heavy biomes.
+  - As of 1.0.582, natural random-tick spread/collapse is disabled to reduce Wayfall server tick lag; Ashmoss can still be spread via bonemeal/worldgen.
 - **Assets**
   - Texture: `assets/kruemblegard/textures/block/ashmoss.png`
 
@@ -185,8 +185,8 @@ These are surface materials that define the Wayfall ground language. They are do
   - Block: `kruemblegard:runegrowth`
   - Item: `kruemblegard:runegrowth` (BlockItem)
 - **How it behaves**
-  - Requires nearby Waystone energy; without it, it collapses back into Fault Dust.
-  - When powered, it spreads onto nearby Fault Dust like vanilla grass.
+  - Visual biome-temperature variants (cold/temperate/warm/hot).
+  - As of 1.0.582, natural random-tick spread/collapse is disabled to reduce Wayfall server tick lag; distribution is driven by worldgen and bonemeal.
   - Drops Fault Dust when broken unless Silk Touch (like vanilla grass).
 - **Assets**
   - Texture (top): `assets/kruemblegard/textures/block/runegrowth_top.png`
@@ -197,7 +197,8 @@ These are surface materials that define the Wayfall ground language. They are do
   - Block: `kruemblegard:voidfelt`
   - Item: `kruemblegard:voidfelt` (BlockItem)
 - **How it behaves**
-  - Generated-only surface; outside void biomes it slowly collapses back into Fault Dust.
+  - Generated-only surface.
+  - As of 1.0.582, natural random-tick spread/collapse is disabled to reduce Wayfall server tick lag.
   - Tagged as a `minecraft:nylium` equivalent, so vanilla/nether planting rules can treat it as a valid substrate.
 - **Assets**
   - Texture (top): `assets/kruemblegard/textures/block/voidfelt_top.png`

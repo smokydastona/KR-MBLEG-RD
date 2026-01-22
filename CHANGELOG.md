@@ -86,6 +86,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.581 (2026-01-22)
 - Tuning(worldgen/wayfall): Underway Falls waterfall sources no longer generate in open air and are less frequent to reduce server tick lag (chunk loading + AI freezes).
 
+## 1.0.582 (2026-01-22)
+- Perf(wayfall): reduce server tick lag by removing random ticks from common Wayfall ground covers and non-ticking flora.
+- Perf(wayfall): optimize Wispstalk growth checks and Runebloom variant updates.
+
 ## 1.0.576 (2026-01-22)
 - Feature(spawns/wayfall): Glow Squid can now spawn at any height and light level in Wayfall (including open air).
 
