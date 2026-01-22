@@ -24,6 +24,7 @@ import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.StrippableRotatedPillarBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
+import com.kruemblegard.block.WaylilyBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.world.grower.TwoByTwoConfiguredFeatureTreeGrower;
@@ -694,7 +695,7 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> WAYLILY = BLOCKS.register(
             "waylily",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new WaylilyBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLUE)
                     .noCollission()
                     .instabreak()

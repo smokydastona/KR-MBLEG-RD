@@ -74,7 +74,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Description: A windblown crossing of broken island fragments, dusted with white ash and marked by large attuned disks.
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant), Cairn Tree (rare mega variant)
-  - Plants: Wispstalk (food), Waylily, Milestone Grass, Echocap, Memory Rot, Moteshrub
+  - Plants: Wispstalk (food), Waylily (water surface), Milestone Grass, Echocap, Memory Rot, Moteshrub
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`

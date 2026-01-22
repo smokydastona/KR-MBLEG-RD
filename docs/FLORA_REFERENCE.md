@@ -382,7 +382,10 @@ Current limitations:
 - Appearance: Flat, rune-marked lily pads over void gaps.
 - Use: Temporary platforms.
 - Mechanic: Disappear after being stepped on too long.
-- Placeholder texture: `assets/kruemblegard/textures/block/waylily.png`
+- Behavior (current): Lily-pad-like water plant; places only on water surfaces and includes a 1-block-deep, waterlogged tail.
+- Placeholder textures:
+  - `assets/kruemblegard/textures/block/waylily.png` (upper pad)
+  - `assets/kruemblegard/textures/block/waylily_tail.png` (lower tail)
 
 ### Fungi & weird growths
 

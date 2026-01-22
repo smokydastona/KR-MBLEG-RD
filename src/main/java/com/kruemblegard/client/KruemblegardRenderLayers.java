@@ -2,6 +2,7 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AshveilBlock;
+import com.kruemblegard.block.WaylilyBlock;
 import com.kruemblegard.init.ModBlocks;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -32,6 +33,8 @@ public final class KruemblegardRenderLayers {
                     // Match vanilla vines: cutout (not solid), so alpha pixels don't render black.
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof AshveilBlock) {
+                    ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
+                } else if (block instanceof WaylilyBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof BushBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());

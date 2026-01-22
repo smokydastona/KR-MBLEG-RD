@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.513 (2026-01-22)
+- Fix(worldgen/flora): rework Waylily into a water-surface lily-pad with a waterlogged tail block below, and update its patch feature to place on water surfaces.
+- Tuning(assets): add placeholder textures for Moogloom and Waylily (upper + tail).
+
 ## 1.0.512 (2026-01-22)
 - Feature(mobs): add **Moogloom** (Shatterplate Flats-exclusive mooshroom-like creature) with a custom texture, shear-to-kill behavior, and cow drops + a chance for Voidcap Briar.
 

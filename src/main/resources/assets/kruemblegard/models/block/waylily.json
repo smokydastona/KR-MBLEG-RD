@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "kruemblegard:block/waylily"
-  }
+  "parent": "kruemblegard:block/waylily_upper"
 }

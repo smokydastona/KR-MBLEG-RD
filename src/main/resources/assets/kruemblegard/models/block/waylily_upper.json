@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/lily_pad",
+  "textures": {
+    "particle": "kruemblegard:block/waylily",
+    "lily_pad": "kruemblegard:block/waylily"
+  }
+}
