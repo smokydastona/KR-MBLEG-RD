@@ -1,0 +1,18 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:wayfall_warm",
+  "spawners": [
+    {
+      "type": "minecraft:tropical_fish",
+      "weight": 12,
+      "minCount": 4,
+      "maxCount": 8
+    },
+    {
+      "type": "minecraft:pufferfish",
+      "weight": 3,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

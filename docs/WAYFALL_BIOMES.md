@@ -9,7 +9,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 ## Global Wayfall biome invariants (current)
 - **Precipitation is rare**: most biomes set `has_precipitation: false` and `downfall: 0.0`.
   - Exception: the coldest biomes (currently Hollow Transit Plains and Glyphscar Reach) are cold enough for snow cover and include `minecraft:freeze_top_layer` so snow layers generate during worldgen.
-- **No vanilla spawns**: all spawn lists are intentionally limited to Krümblegård mobs.
+- Vanilla water spawns: Wayfall biomes include Glow Squid and biome-temperature-tier fish spawns (warm: tropical/puffer; temperate: cod; cold: salmon).
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
 - Terrain is floating-island style with a void fade band that begins around Y≈96; islands should be common enough that all Wayfall biomes can be found for progression.

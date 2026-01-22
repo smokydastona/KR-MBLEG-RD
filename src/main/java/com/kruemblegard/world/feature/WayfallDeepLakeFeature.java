@@ -29,12 +29,12 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         RandomSource random = ctx.random();
         WayfallDeepLakeConfiguration cfg = ctx.config();
 
-        int radius = Mth.nextInt(random, cfg.minRadius(), cfg.maxRadius());
+        int radius = sampleBiasedRadius(random, cfg.minRadius(), cfg.maxRadius());
         int depth = Mth.nextInt(random, cfg.minDepth(), cfg.maxDepth());
 
         // Keep edits within the local generation region to avoid far-chunk writes.
-        // Target: max diameter ~50 blocks.
-        radius = Math.min(radius, 25);
+        // Target: max diameter ~100 blocks.
+        radius = Math.min(radius, 50);
         depth = Math.min(depth, 24);
 
         // Heightmap placement can hand us an air block above the surface; snap down to the first solid.
@@ -60,6 +60,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         // Use the provided placement origin for more natural distribution.
         // Chunk-centering creates visible chunk-grid artifacts (hard shoreline lines at chunk borders).
         BlockPos center = new BlockPos(origin.getX(), waterSurfaceY, origin.getZ());
+
+        // If this placement attempt is near the edge of the current worldgen write region,
+        // clamp radius down so we don't create a visibly "cut off" lake.
+        radius = clampRadiusToWritable(level, center, radius);
 
         long noiseSeed = random.nextLong();
         // Multi-lobed outline (feels less like a circle).
@@ -377,6 +381,36 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         }
 
         level.setBlock(pos, rubble, 2);
+    }
+
+    private static int sampleBiasedRadius(RandomSource random, int min, int max) {
+        if (max <= min) {
+            return min;
+        }
+
+        // Bias toward smaller values so average radius is closer to ~1/3 of the range above min.
+        // With min=10 and max=50 this yields an average around ~23–25.
+        float t = random.nextFloat();
+        t = t * t;
+        return min + Math.round((max - min) * t);
+    }
+
+    private static int clampRadiusToWritable(WorldGenLevel level, BlockPos center, int radius) {
+        // Probe the boundary in 8 directions. This doesn't guarantee every interior block is writable,
+        // but it avoids the common case of the lake being truncated at the region edge.
+        for (int r = radius; r >= 1; r--) {
+            if (canWrite(level, center.offset(r, 0, 0))
+                    && canWrite(level, center.offset(-r, 0, 0))
+                    && canWrite(level, center.offset(0, 0, r))
+                    && canWrite(level, center.offset(0, 0, -r))
+                    && canWrite(level, center.offset(r, 0, r))
+                    && canWrite(level, center.offset(-r, 0, r))
+                    && canWrite(level, center.offset(r, 0, -r))
+                    && canWrite(level, center.offset(-r, 0, -r))) {
+                return r;
+            }
+        }
+        return 1;
     }
 
     private static void tryPlaceWaylily(LevelAccessor level, BlockPos surfacePos, RandomSource random) {

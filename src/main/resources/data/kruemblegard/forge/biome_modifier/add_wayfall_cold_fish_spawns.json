@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:wayfall_cold",
+  "spawners": [
+    {
+      "type": "minecraft:salmon",
+      "weight": 12,
+      "minCount": 3,
+      "maxCount": 6
+    }
+  ]
+}

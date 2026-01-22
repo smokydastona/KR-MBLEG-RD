@@ -17,6 +17,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen/lakes): Underway Falls now has a higher frequency of large deep lakes (water + occasional lava).
 - Tuning(worldgen/lakes): large deep lakes now build a 2-layer Stoneveil Rubble shoreline berm and blend the outer edge downward into terrain to reduce surface spill sheets.
 
+## 1.0.554 (2026-01-22)
+- Tuning(worldgen/lakes): big deep lakes now support up to ~100 block diameter (max radius 50) while biasing toward ~50 block average diameter.
+- Feature(spawns): Glow Squid now spawn in all Wayfall biomes.
+- Feature(spawns): Wayfall fish spawns now follow vanilla-style temperature tiers (warm: tropical/puffer; temperate: cod; cold: salmon).
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
