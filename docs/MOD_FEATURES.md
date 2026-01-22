@@ -97,7 +97,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: using shears on it kills it immediately.
-  - Drops vanilla cow loot, plus a chance to drop **Voidcap Briar**.
+  - Drops vanilla cow loot, plus a chance to drop **Griefcap**.
   - Texture: `assets/kruemblegard/textures/entity/moogloom.png`.
     - `animation.scattered_enderman.appear`
     - `animation.scattered_enderman.shake`

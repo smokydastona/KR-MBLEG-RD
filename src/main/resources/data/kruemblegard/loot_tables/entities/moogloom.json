@@ -15,7 +15,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "kruemblegard:voidcap_briar"
+          "name": "kruemblegard:griefcap"
         }
       ],
       "conditions": [
