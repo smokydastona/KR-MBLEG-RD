@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.519 (2026-01-22)
+- Tuning(worldgen/trees): rework all mega tree variants to follow the Evergreen-0-6-3-style assembly pattern: each tree’s `mega_1`/`mega_2` now delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`, with per-tree exceptions where needed), reducing “mega spruce clone” convergence and preserving each species’ branch/root layering.
+
 ## 1.0.518 (2026-01-22)
 - Tuning(worldgen/trees): rework all mega tree variants to follow an evergreen-style split: `mega_1` uses a spruce-like conical foliage placer and `mega_2` uses a pine-like crowned foliage placer, with stronger trunk-height separation so mega variants no longer look identical.
 

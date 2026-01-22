@@ -1,64 +1,11 @@
 {
-  "type": "minecraft:tree",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "decorators": [],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "kruemblegard:fault_dust"
+    "features": [
+      {
+        "feature": "kruemblegard:wayglass/5",
+        "placement": []
       }
-    },
-    "foliage_placer": {
-      "type": "minecraft:spruce_foliage_placer",
-      "offset": {
-        "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 1,
-          "max_inclusive": 2
-        }
-      },
-      "radius": 2,
-      "trunk_height": {
-        "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 6,
-          "max_inclusive": 8
-        }
-      }
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "kruemblegard:wayglass_leaves",
-        "Properties": {
-          "distance": "1",
-          "persistent": "false",
-          "waterlogged": "false"
-        }
-      }
-    },
-    "force_dirt": false,
-    "ignore_vines": true,
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 3,
-      "lower_size": 0,
-      "upper_size": 1
-    },
-    "trunk_placer": {
-      "type": "minecraft:giant_trunk_placer",
-      "base_height": 20,
-      "height_rand_a": 4,
-      "height_rand_b": 2
-    },
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "kruemblegard:wayglass_log",
-        "Properties": {
-          "axis": "y"
-        }
-      }
-    }
+    ]
   }
 }
