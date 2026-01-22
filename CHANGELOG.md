@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.515 (2026-01-22)
+- Feature(worldgen/flora): warm Wayfall biomes now generate vanilla coral fans and sea pickles underwater.
+- Data(worldgen): add `#kruemblegard:wayfall_warm` biome tag and a dedicated biome modifier for warm-water flora.
+
 ## 1.0.514 (2026-01-22)
 - Tuning(worldgen/flora): Waylily and vanilla seagrass now generate across all Wayfall biomes (only where water exists), with per-biome rarity tiers.
 - Fix(worldgen/flora): stop flora patches from targeting leaf canopies by switching plant placed-feature heightmaps to `MOTION_BLOCKING_NO_LEAVES`.

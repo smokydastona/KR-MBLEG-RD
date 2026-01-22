@@ -17,6 +17,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets), and density is primarily controlled by each placed feature’s `rarity_filter`.
   - All Wayfall trees include rare mega variants in natural generation.
   - Water bodies also get water flora: Waylily (surface) and vanilla seagrass (underwater) across all Wayfall biomes, with per-biome rarity tiers.
+  - Warm Wayfall biomes also get extra underwater decor: vanilla coral fans + sea pickles.
   - Land flora patches use `MOTION_BLOCKING_NO_LEAVES` heightmaps to avoid placing on leaf canopies.
 - Surface palette is defined in Wayfall noise settings (`kruemblegard:wayfall`) with a small set of explicit biome-specific stacks:
   - **Default Wayfall surface**: Runegrowth → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).

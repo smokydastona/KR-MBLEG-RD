@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall_warm",
+  "features": [
+    "kruemblegard:coral_fans_patch_warm",
+    "kruemblegard:sea_pickle_patch_warm"
+  ],
+  "step": "vegetal_decoration"
+}
