@@ -69,6 +69,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.569 (2026-01-22)
 - Feature(worldgen/structures): Underway Falls now includes vanilla jungle temples.
 
+## 1.0.575 (2026-01-22)
+- Fix(moogloom): Moogloom can now reliably breed with vanilla mooshrooms; mixed pairings now produce the intended mixed offspring results.
+
 ## 1.0.574 (2026-01-22)
 - Fix(worldgen/lakes): clamp deep lake writes to within ±1 chunk of the placement origin to stop “setBlock in a far chunk” spam and worldgen lag.
 - Tuning(worldgen/lakes): reduce `wayfall_big_water_lake` max radius to 16 (was 50).
