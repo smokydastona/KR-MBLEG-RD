@@ -207,6 +207,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Intended flora (design target):
   - Trees: Driftwillow (rare mega variant), Waytorch Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine
+- Water bodies: higher frequency of **large deep lakes** (water, plus occasional lava) compared to other Wayfall biomes.
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
 - Features:
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`

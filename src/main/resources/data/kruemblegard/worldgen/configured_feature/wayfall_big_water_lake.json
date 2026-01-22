@@ -25,7 +25,7 @@
       ]
     },
     "min_radius": 18,
-    "max_radius": 24,
+    "max_radius": 25,
     "min_depth": 10,
     "max_depth": 15
   }

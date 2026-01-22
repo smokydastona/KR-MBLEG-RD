@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:underway_falls",
+  "features": [
+    "kruemblegard:underway_falls_big_water_lake",
+    "kruemblegard:underway_falls_big_lava_lake"
+  ],
+  "step": "lakes"
+}

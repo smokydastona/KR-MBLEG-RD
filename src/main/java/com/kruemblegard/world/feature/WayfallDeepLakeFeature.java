@@ -33,7 +33,8 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         int depth = Mth.nextInt(random, cfg.minDepth(), cfg.maxDepth());
 
         // Keep edits within the local generation region to avoid far-chunk writes.
-        radius = Math.min(radius, 24);
+        // Target: max diameter ~50 blocks.
+        radius = Math.min(radius, 25);
         depth = Math.min(depth, 24);
 
         // Heightmap placement can hand us an air block above the surface; snap down to the first solid.
@@ -203,6 +204,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
+                    if (!canWrite(level, p)) {
+                        continue;
+                    }
+
                     BlockState cur = level.getBlockState(p);
                     if (!cur.isAir() && !cur.canBeReplaced()) {
                         continue;
@@ -227,6 +232,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 }
             }
         }
+
+        // Shoreline blending: build a 2-layer Stoneveil Rubble berm around the surface edge
+        // to prevent surface spill sheets and help the lake read as "contained" in floating-island terrain.
+        placeStoneveilRubbleRim(level, center, waterSurfaceY, lakeFluid, radius, random);
 
         // Underwater flora: dress some lake floor blocks and place seagrass.
         // This guarantees lakes don't feel "sterile" even if biome modifiers are sparse.
@@ -263,6 +272,111 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         }
 
         return true;
+    }
+
+    private static void placeStoneveilRubbleRim(
+            WorldGenLevel level,
+            BlockPos center,
+            int waterSurfaceY,
+            Fluid lakeFluid,
+            int radius,
+            RandomSource random
+    ) {
+        BlockState rubble = ModBlocks.STONEVEIL_RUBBLE.get().defaultBlockState();
+        int thickness = 2;
+
+        // Only look around the surface band; we just need to stop surface flow + blend the rim.
+        for (int dx = -radius - 1; dx <= radius + 1; dx++) {
+            for (int dz = -radius - 1; dz <= radius + 1; dz++) {
+                BlockPos surface = new BlockPos(center.getX() + dx, waterSurfaceY, center.getZ() + dz);
+                if (level.isOutsideBuildHeight(surface) || !canWrite(level, surface)) {
+                    continue;
+                }
+
+                // Only operate on true surface-fluid columns.
+                if (level.getFluidState(surface).getType() != lakeFluid) {
+                    continue;
+                }
+
+                if (level.getFluidState(surface.above()).getType() == lakeFluid) {
+                    continue;
+                }
+
+                for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+                    BlockPos neighbor = surface.relative(dir);
+                    if (level.isOutsideBuildHeight(neighbor) || !canWrite(level, neighbor)) {
+                        continue;
+                    }
+
+                    // Only build berms where the lake edge is exposed to air/replaceable blocks.
+                    if (level.getFluidState(neighbor).getType() == lakeFluid) {
+                        continue;
+                    }
+
+                    BlockState neighborState = level.getBlockState(neighbor);
+                    boolean exposed = neighborState.isAir() || neighborState.canBeReplaced() || !neighborState.getFluidState().isEmpty();
+                    if (!exposed) {
+                        continue;
+                    }
+
+                    for (int step = 1; step <= thickness; step++) {
+                        // Feather the outermost ring so the berm blends into terrain.
+                        if (step == thickness && random.nextFloat() < 0.35F) {
+                            continue;
+                        }
+
+                        BlockPos berm = surface.relative(dir, step);
+                        if (level.isOutsideBuildHeight(berm) || !canWrite(level, berm)) {
+                            continue;
+                        }
+
+                        // Always place at water level to stop surface flow.
+                        tryPlaceRubble(level, berm, rubble);
+
+                        // Randomly place a second layer above for a contained "lip".
+                        if (random.nextFloat() < 0.55F) {
+                            tryPlaceRubble(level, berm.above(), rubble);
+                        }
+
+                        // Blend downward if this berm position is hanging over air.
+                        int maxDown = 5;
+                        BlockPos down = berm.below();
+                        for (int d = 0; d < maxDown; d++) {
+                            if (level.isOutsideBuildHeight(down) || !canWrite(level, down)) {
+                                break;
+                            }
+
+                            BlockState downState = level.getBlockState(down);
+                            if (!downState.isAir() && !downState.canBeReplaced()) {
+                                break;
+                            }
+
+                            tryPlaceRubble(level, down, rubble);
+                            down = down.below();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void tryPlaceRubble(WorldGenLevel level, BlockPos pos, BlockState rubble) {
+        if (!canWrite(level, pos)) {
+            return;
+        }
+
+        BlockState state = level.getBlockState(pos);
+        if (!state.isAir() && !state.canBeReplaced() && state.getFluidState().isEmpty()) {
+            return;
+        }
+
+        // Never overwrite the lake fluid itself.
+        if (!state.getFluidState().isEmpty()) {
+            // If this is the lake fluid, do nothing.
+            // If it's some other fluid, treat it as replaceable.
+        }
+
+        level.setBlock(pos, rubble, 2);
     }
 
     private static void tryPlaceWaylily(LevelAccessor level, BlockPos surfacePos, RandomSource random) {

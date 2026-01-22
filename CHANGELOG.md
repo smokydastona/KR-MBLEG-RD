@@ -12,6 +12,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.552 (2026-01-22)
 - Fix(worldgen/lakes): guard deep lake block placement with `ensureCanWrite` to prevent “setBlock in a far chunk” warnings during generation.
 
+## 1.0.553 (2026-01-22)
+- Tuning(worldgen/lakes): increase big deep lake max diameter to ~50 blocks (max radius 25).
+- Tuning(worldgen/lakes): Underway Falls now has a higher frequency of large deep lakes (water + occasional lava).
+- Tuning(worldgen/lakes): large deep lakes now build a 2-layer Stoneveil Rubble shoreline berm and blend the outer edge downward into terrain to reduce surface spill sheets.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
