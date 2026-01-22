@@ -32,6 +32,9 @@ public final class KruemblegardRenderLayers {
                 } else if (block instanceof VineBlock) {
                     // Match vanilla vines: cutout (not solid), so alpha pixels don't render black.
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
+                } else if (block == ModBlocks.PYROKELP.get() || block == ModBlocks.PYROKELP_PLANT.get()) {
+                    // Pyrokelp is a growing-plant (head/body) like twisting vines; it must be cutout for transparency.
+                    ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof AshveilBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof WaylilyBlock) {
