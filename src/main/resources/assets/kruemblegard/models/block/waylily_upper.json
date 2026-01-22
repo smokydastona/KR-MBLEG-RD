@@ -1,85 +1,104 @@
 {
-  "parent": "minecraft:block/block",
-  "ambientocclusion": false,
-  "textures": {
-    "particle": "kruemblegard:block/waylily",
-    "tex": "kruemblegard:block/waylily"
-  },
-  "elements": [
-    {
-      "name": "pad",
-      "from": [0, 0, 0],
-      "to": [16, 1, 16],
-      "shade": false,
-      "faces": {
-        "up": { "texture": "#tex", "uv": [0, 0, 16, 16] },
-        "down": { "texture": "#tex", "uv": [0, 0, 16, 16] }
-      }
-    },
-
-    {
-      "name": "petal_n_s",
-      "from": [0, 1, 7.9],
-      "to": [16, 12, 8.1],
-      "shade": false,
-      "faces": {
-        "north": { "texture": "#tex", "uv": [0, 0, 16, 11] },
-        "south": { "texture": "#tex", "uv": [0, 0, 16, 11] }
-      }
-    },
-    {
-      "name": "petal_e_w",
-      "from": [7.9, 1, 0],
-      "to": [8.1, 12, 16],
-      "shade": false,
-      "faces": {
-        "west": { "texture": "#tex", "uv": [0, 0, 16, 11] },
-        "east": { "texture": "#tex", "uv": [0, 0, 16, 11] }
-      }
-    },
-
-    {
-      "name": "petal_diag_1",
-      "from": [0, 1, 7.9],
-      "to": [16, 11, 8.1],
-      "rotation": { "origin": [8, 6, 8], "axis": "y", "angle": 45 },
-      "shade": false,
-      "faces": {
-        "north": { "texture": "#tex", "uv": [0, 0, 16, 10] },
-        "south": { "texture": "#tex", "uv": [0, 0, 16, 10] }
-      }
-    },
-    {
-      "name": "petal_diag_2",
-      "from": [0, 1, 7.9],
-      "to": [16, 11, 8.1],
-      "rotation": { "origin": [8, 6, 8], "axis": "y", "angle": -45 },
-      "shade": false,
-      "faces": {
-        "north": { "texture": "#tex", "uv": [0, 0, 16, 10] },
-        "south": { "texture": "#tex", "uv": [0, 0, 16, 10] }
-      }
-    },
-
-    {
-      "name": "petal_inner_n_s",
-      "from": [1, 1, 7.95],
-      "to": [15, 9, 8.05],
-      "shade": false,
-      "faces": {
-        "north": { "texture": "#tex", "uv": [1, 0, 15, 8] },
-        "south": { "texture": "#tex", "uv": [1, 0, 15, 8] }
-      }
-    },
-    {
-      "name": "petal_inner_e_w",
-      "from": [7.95, 1, 1],
-      "to": [8.05, 9, 15],
-      "shade": false,
-      "faces": {
-        "west": { "texture": "#tex", "uv": [1, 0, 15, 8] },
-        "east": { "texture": "#tex", "uv": [1, 0, 15, 8] }
-      }
-    }
-  ]
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "kruemblegard:block/waylily",
+		"tex": "kruemblegard:block/waylily"
+	},
+	"elements": [
+		{
+			"name": "pad",
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"shade": false,
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#tex"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_n_s",
+			"from": [6, 1, 7.9],
+			"to": [10, 12, 8.1],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_e_w",
+			"from": [7.9, 1, 6],
+			"to": [8.1, 12, 10],
+			"shade": false,
+			"faces": {
+				"east": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_diag_ns_pos",
+			"from": [6, 1, 7.9],
+			"to": [10, 12, 8.1],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0.75, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_diag_ns_neg",
+			"from": [6, 1, 7.9],
+			"to": [10, 12, 8.1],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0.75, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"south": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_diag_ew_pos",
+			"from": [7.9, 1, 6],
+			"to": [8.1, 12, 10],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0.75, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_diag_ew_neg",
+			"from": [7.9, 1, 6],
+			"to": [8.1, 12, 10],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0.75, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 11], "texture": "#tex"},
+				"west": {"uv": [0, 0, 16, 11], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_inner_n_s",
+			"from": [1, 1, 7.95],
+			"to": [15, 9, 8.05],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [1, 0, 15, 8], "texture": "#tex"},
+				"south": {"uv": [1, 0, 15, 8], "texture": "#tex"}
+			}
+		},
+		{
+			"name": "petal_inner_e_w",
+			"from": [7.95, 1, 1],
+			"to": [8.05, 9, 15],
+			"shade": false,
+			"faces": {
+				"east": {"uv": [1, 0, 15, 8], "texture": "#tex"},
+				"west": {"uv": [1, 0, 15, 8], "texture": "#tex"}
+			}
+		}
+	]
 }
