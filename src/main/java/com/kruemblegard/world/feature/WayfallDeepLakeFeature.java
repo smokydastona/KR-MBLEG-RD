@@ -8,9 +8,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
 public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration> {
@@ -99,9 +102,44 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return false;
         }
 
+        BlockState lakeFluidSample = cfg.fluid().getState(random, center);
+        Fluid lakeFluid = lakeFluidSample.getFluidState().getType();
+
+        // Seal *internal* air pockets below the surface (e.g. cave tunnels that intersect the bowl).
+        // Without this, water can escape through caves even if the outer shell is sealed.
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                for (int dy = 0; dy <= depth + 2; dy++) {
+                    BlockPos p = center.offset(dx, -dy, dz);
+                    if (level.isOutsideBuildHeight(p)) {
+                        continue;
+                    }
+
+                    if (p.getY() > waterSurfaceY) {
+                        continue;
+                    }
+
+                    BlockState cur = level.getBlockState(p);
+                    if (!cur.isAir() && !cur.canBeReplaced()) {
+                        continue;
+                    }
+
+                    if (cur.getFluidState().getType() == lakeFluid) {
+                        continue;
+                    }
+
+                    if (!touchesLakeFluid(level, p, lakeFluid)) {
+                        continue;
+                    }
+
+                    BlockState barrierState = cfg.barrier().getState(random, p);
+                    level.setBlock(p, barrierState, 2);
+                }
+            }
+        }
+
         // Place a barrier shell around the water to prevent leaks into adjacent caves.
         // Important: we *do* fill adjacent air below the surface, otherwise the lake will spill.
-        BlockState lakeFluidSample = cfg.fluid().getState(random, center);
         int shellRadius = radius + 1;
         int shellDepth = depth + 2;
         for (int dx = -shellRadius; dx <= shellRadius; dx++) {
@@ -143,7 +181,6 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         // (but only when there is an overhead ceiling). This makes the shoreline feel embedded instead of
         // cutting cleanly through caves.
         int capUp = 2;
-        var lakeFluid = lakeFluidSample.getFluidState().getType();
         for (int dx = -shellRadius; dx <= shellRadius; dx++) {
             for (int dz = -shellRadius; dz <= shellRadius; dz++) {
                 for (int up = 1; up <= capUp; up++) {
@@ -170,6 +207,24 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                     BlockState barrierState = cfg.barrier().getState(random, p);
                     level.setBlock(p, barrierState, 2);
                 }
+            }
+        }
+
+        // Underwater flora: dress some lake floor blocks and place seagrass.
+        // This guarantees lakes don't feel "sterile" even if biome modifiers are sparse.
+        if (lakeFluid == Fluids.WATER) {
+            int attempts = Mth.clamp(radius * radius / 2, 48, 320);
+            for (int i = 0; i < attempts; i++) {
+                int dx = random.nextInt(radius * 2 + 1) - radius;
+                int dz = random.nextInt(radius * 2 + 1) - radius;
+
+                int localDepth = columnDepths[(dx + radius) + (dz + radius) * diameter];
+                if (localDepth <= 2) {
+                    continue;
+                }
+
+                BlockPos bottomWaterPos = center.offset(dx, -localDepth, dz);
+                tryDressAndPlaceSeagrass(level, bottomWaterPos, random);
             }
         }
 
@@ -252,6 +307,62 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         if (wantsLower2) {
             level.scheduleTick(lower2Pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
+    }
+
+    private static boolean touchesLakeFluid(LevelAccessor level, BlockPos pos, Fluid lakeFluid) {
+        return level.getFluidState(pos.above()).getType() == lakeFluid
+                || level.getFluidState(pos.below()).getType() == lakeFluid
+                || level.getFluidState(pos.north()).getType() == lakeFluid
+                || level.getFluidState(pos.south()).getType() == lakeFluid
+                || level.getFluidState(pos.west()).getType() == lakeFluid
+                || level.getFluidState(pos.east()).getType() == lakeFluid;
+    }
+
+    private static void tryDressAndPlaceSeagrass(LevelAccessor level, BlockPos bottomWaterPos, RandomSource random) {
+        if (level.getFluidState(bottomWaterPos).getType() != Fluids.WATER) {
+            return;
+        }
+
+        BlockPos floorPos = bottomWaterPos.below();
+        if (level.isOutsideBuildHeight(floorPos)) {
+            return;
+        }
+
+        BlockState floor = level.getBlockState(floorPos);
+        if (floor.isAir() || !floor.getFluidState().isEmpty()) {
+            return;
+        }
+
+        // Ensure the floor is something seagrass can survive on.
+        if (!(floor.is(Blocks.SAND) || floor.is(Blocks.GRAVEL) || floor.is(Blocks.CLAY))) {
+            BlockState newFloor;
+            float r = random.nextFloat();
+            if (r < 0.55F) {
+                newFloor = Blocks.SAND.defaultBlockState();
+            } else if (r < 0.90F) {
+                newFloor = Blocks.GRAVEL.defaultBlockState();
+            } else {
+                newFloor = Blocks.CLAY.defaultBlockState();
+            }
+            level.setBlock(floorPos, newFloor, 2);
+            floor = newFloor;
+        }
+
+        // Place seagrass in the bottom water block.
+        BlockState seagrass = Blocks.SEAGRASS.defaultBlockState();
+        if (seagrass.hasProperty(BlockStateProperties.WATERLOGGED)) {
+            seagrass = seagrass.setValue(BlockStateProperties.WATERLOGGED, Boolean.TRUE);
+        }
+
+        if (!seagrass.canSurvive(level, bottomWaterPos)) {
+            return;
+        }
+
+        if (!level.getBlockState(bottomWaterPos).canBeReplaced()) {
+            return;
+        }
+
+        level.setBlock(bottomWaterPos, seagrass, 2);
     }
 
     private static boolean isInsideLake(int[] depths, int diameter, int radius, int dx, int dz, int dy) {
