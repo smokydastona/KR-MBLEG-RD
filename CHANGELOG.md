@@ -14,6 +14,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.526 (2026-01-21)
 - Tuning(assets): Waylily upper now uses a simple built-in 3D flower model (pad + stem + petals) instead of a flat lily-pad parent.
 
+## 1.0.527 (2026-01-21)
+- Feature(waylily): Waylily is now a lotus-like surface flower with hanging waterlogged roots; if water is deep enough it can also spawn a 2-block-long roots chain for variety.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 

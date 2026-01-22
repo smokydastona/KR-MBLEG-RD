@@ -2,6 +2,8 @@
   "variants": {
     "part=upper,waterlogged=false": { "model": "kruemblegard:block/waylily_upper" },
     "part=lower,waterlogged=true": { "model": "kruemblegard:block/waylily_tail" },
-    "part=lower,waterlogged=false": { "model": "kruemblegard:block/waylily_tail" }
+    "part=lower,waterlogged=false": { "model": "kruemblegard:block/waylily_tail" },
+    "part=lower2,waterlogged=true": { "model": "kruemblegard:block/waylily_tail" },
+    "part=lower2,waterlogged=false": { "model": "kruemblegard:block/waylily_tail" }
   }
 }

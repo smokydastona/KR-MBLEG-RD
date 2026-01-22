@@ -68,7 +68,7 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         }
 
         if (state.getValue(PART) == Part.UPPER) {
-            ensureLower(level, pos);
+            ensureTails(level, pos);
         }
     }
 
@@ -80,17 +80,43 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             return;
         }
 
-        if (state.getValue(PART) == Part.UPPER) {
+        Part part = state.getValue(PART);
+        if (part == Part.UPPER) {
             BlockPos below = pos.below();
             BlockState belowState = level.getBlockState(below);
             if (belowState.is(this) && belowState.getValue(PART) == Part.LOWER) {
                 level.destroyBlock(below, false);
             }
-        } else {
+
+            BlockPos below2 = pos.below(2);
+            BlockState below2State = level.getBlockState(below2);
+            if (below2State.is(this) && below2State.getValue(PART) == Part.LOWER2) {
+                level.destroyBlock(below2, false);
+            }
+        } else if (part == Part.LOWER) {
             BlockPos above = pos.above();
             BlockState aboveState = level.getBlockState(above);
             if (aboveState.is(this) && aboveState.getValue(PART) == Part.UPPER) {
                 level.destroyBlock(above, true);
+            }
+
+            BlockPos below = pos.below();
+            BlockState belowState = level.getBlockState(below);
+            if (belowState.is(this) && belowState.getValue(PART) == Part.LOWER2) {
+                level.destroyBlock(below, false);
+            }
+        } else {
+            // LOWER2
+            BlockPos above = pos.above();
+            BlockState aboveState = level.getBlockState(above);
+            if (aboveState.is(this) && aboveState.getValue(PART) == Part.LOWER) {
+                level.destroyBlock(above, false);
+            }
+
+            BlockPos above2 = pos.above(2);
+            BlockState above2State = level.getBlockState(above2);
+            if (above2State.is(this) && above2State.getValue(PART) == Part.UPPER) {
+                level.destroyBlock(above2, true);
             }
         }
     }
@@ -104,12 +130,14 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             BlockPos pos,
             BlockPos neighborPos
     ) {
-        if (state.getValue(PART) == Part.UPPER) {
+        Part part = state.getValue(PART);
+
+        if (part == Part.UPPER) {
             if (direction == net.minecraft.core.Direction.DOWN) {
                 // Keep the tail in sync (and self-destruct if it can't exist).
                 if (!neighborState.is(this) || neighborState.getValue(PART) != Part.LOWER) {
                     if (!level.isClientSide() && level instanceof Level) {
-                        ensureLower((Level) level, pos);
+                        ensureTails((Level) level, pos);
                         neighborState = level.getBlockState(pos.below());
                     }
 
@@ -118,14 +146,32 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
                     }
                 }
             }
-        } else {
+        } else if (part == Part.LOWER) {
             if (direction == net.minecraft.core.Direction.UP) {
                 if (!neighborState.is(this) || neighborState.getValue(PART) != Part.UPPER) {
                     return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
                 }
             }
 
+            if (direction == net.minecraft.core.Direction.DOWN) {
+                if (!level.isClientSide() && level instanceof Level) {
+                    // If there is enough depth below, optionally create/remove the second tail.
+                    ensureTails((Level) level, pos.above());
+                }
+            }
+
             // Tail should remain waterlogged.
+            if (state.getValue(WATERLOGGED)) {
+                level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            }
+        } else {
+            // LOWER2
+            if (direction == net.minecraft.core.Direction.UP) {
+                if (!neighborState.is(this) || neighborState.getValue(PART) != Part.LOWER) {
+                    return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+                }
+            }
+
             if (state.getValue(WATERLOGGED)) {
                 level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
             }
@@ -136,7 +182,9 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (state.getValue(PART) == Part.UPPER) {
+        Part part = state.getValue(PART);
+
+        if (part == Part.UPPER) {
             BlockState below = level.getBlockState(pos.below());
             if (below.is(this) && below.getValue(PART) == Part.LOWER) {
                 return true;
@@ -147,9 +195,18 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
                     && level.getFluidState(pos.below()).getType() == Fluids.WATER;
         }
 
-        // LOWER
+        if (part == Part.LOWER) {
+            BlockState above = level.getBlockState(pos.above());
+            if (!above.is(this) || above.getValue(PART) != Part.UPPER) {
+                return false;
+            }
+
+            return level.getFluidState(pos).getType() == Fluids.WATER;
+        }
+
+        // LOWER2
         BlockState above = level.getBlockState(pos.above());
-        if (!above.is(this) || above.getValue(PART) != Part.UPPER) {
+        if (!above.is(this) || above.getValue(PART) != Part.LOWER) {
             return false;
         }
 
@@ -158,7 +215,8 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        if (state.getValue(PART) == Part.LOWER && state.getValue(WATERLOGGED)) {
+        Part part = state.getValue(PART);
+        if ((part == Part.LOWER || part == Part.LOWER2) && state.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(state);
@@ -169,7 +227,7 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         return super.use(state, level, pos, player, hand, hit);
     }
 
-    private void ensureLower(Level level, BlockPos upperPos) {
+    private void ensureTails(Level level, BlockPos upperPos) {
         BlockPos lowerPos = upperPos.below();
 
         if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
@@ -183,19 +241,43 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             if (!lowerState.getValue(WATERLOGGED)) {
                 level.setBlock(lowerPos, lowerState.setValue(WATERLOGGED, Boolean.TRUE), Block.UPDATE_ALL);
             }
-            return;
+        } else {
+            level.setBlock(
+                    lowerPos,
+                    this.defaultBlockState().setValue(PART, Part.LOWER).setValue(WATERLOGGED, Boolean.TRUE),
+                    Block.UPDATE_ALL
+            );
         }
 
-        level.setBlock(
-                lowerPos,
-                this.defaultBlockState().setValue(PART, Part.LOWER).setValue(WATERLOGGED, Boolean.TRUE),
-                Block.UPDATE_ALL
-        );
+        // Optional second tail segment if there is deeper water.
+        BlockPos lower2Pos = upperPos.below(2);
+        boolean canHaveLower2 = level.getFluidState(lower2Pos).getType() == Fluids.WATER;
+        boolean wantsLower2 = canHaveLower2 && level.random.nextBoolean();
+
+        BlockState lower2State = level.getBlockState(lower2Pos);
+        if (wantsLower2) {
+            if (lower2State.is(this) && lower2State.getValue(PART) == Part.LOWER2) {
+                if (!lower2State.getValue(WATERLOGGED)) {
+                    level.setBlock(lower2Pos, lower2State.setValue(WATERLOGGED, Boolean.TRUE), Block.UPDATE_ALL);
+                }
+            } else {
+                level.setBlock(
+                        lower2Pos,
+                        this.defaultBlockState().setValue(PART, Part.LOWER2).setValue(WATERLOGGED, Boolean.TRUE),
+                        Block.UPDATE_ALL
+                );
+            }
+        } else {
+            if (lower2State.is(this) && lower2State.getValue(PART) == Part.LOWER2) {
+                level.destroyBlock(lower2Pos, false);
+            }
+        }
     }
 
     public enum Part implements StringRepresentable {
         UPPER("upper"),
-        LOWER("lower");
+        LOWER("lower"),
+        LOWER2("lower2");
 
         private final String serializedName;
 
