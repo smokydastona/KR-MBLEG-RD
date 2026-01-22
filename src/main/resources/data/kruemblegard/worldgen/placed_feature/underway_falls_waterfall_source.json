@@ -12,8 +12,6 @@
       "rock_count": 0,
       "hole_count": 0,
       "valid_blocks": [
-        "minecraft:air",
-
         "kruemblegard:fractured_wayrock",
         "kruemblegard:crushstone",
         "kruemblegard:runegrowth",
@@ -28,7 +26,7 @@
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 96
+      "chance": 256
     },
     { "type": "minecraft:in_square" },
     {
