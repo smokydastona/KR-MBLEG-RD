@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.GlowSquid;
@@ -23,6 +24,10 @@ public final class WayfallGlowSquidAirEvents {
     private WayfallGlowSquidAirEvents() {}
 
     private static final String TAG_AIR_SQUID = "kruemblegard_wayfall_air_squid";
+    private static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_swim_ticks";
+    private static final String TAG_AIR_SWIM_VX = "kruemblegard_wayfall_air_swim_vx";
+    private static final String TAG_AIR_SWIM_VY = "kruemblegard_wayfall_air_swim_vy";
+    private static final String TAG_AIR_SWIM_VZ = "kruemblegard_wayfall_air_swim_vz";
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -75,24 +80,42 @@ public final class WayfallGlowSquidAirEvents {
         squid.setNoGravity(true);
         squid.setAirSupply(squid.getMaxAirSupply());
 
-        Vec3 v = squid.getDeltaMovement();
+        // Birdlike roaming: keep a persistent "target swim velocity" and steer toward it.
+        // This makes them actively fly around in open air instead of slowly drifting.
+        var data = squid.getPersistentData();
+        int ticks = data.getInt(TAG_AIR_SWIM_TICKS);
 
-        // Prevent hard falls and keep a gentle buoyant feel.
-        double clampedY = Mth.clamp(v.y, -0.06, 0.06);
-        if (clampedY < 0.0) {
-            clampedY += 0.02;
-        }
-
-        double horizontalSpeed = Math.sqrt(v.x * v.x + v.z * v.z);
-        if (horizontalSpeed < 0.02) {
-            double angle = squid.getRandom().nextDouble() * (Math.PI * 2.0);
-            double speed = 0.05;
-            v = new Vec3(Math.cos(angle) * speed, clampedY, Math.sin(angle) * speed);
+        boolean shouldPickNew = ticks <= 0 || squid.horizontalCollision || squid.verticalCollision;
+        if (shouldPickNew) {
+            pickNewAirSwimVector(squid);
+            ticks = data.getInt(TAG_AIR_SWIM_TICKS);
         } else {
-            v = new Vec3(v.x * 0.98, clampedY, v.z * 0.98);
+            data.putInt(TAG_AIR_SWIM_TICKS, ticks - 1);
         }
 
-        squid.setDeltaMovement(v);
+        Vec3 target = new Vec3(
+                data.getDouble(TAG_AIR_SWIM_VX),
+                data.getDouble(TAG_AIR_SWIM_VY),
+                data.getDouble(TAG_AIR_SWIM_VZ)
+        );
+
+        // Gentle vertical bias: keep them from slowly sinking.
+        target = new Vec3(target.x, target.y + 0.01, target.z);
+
+        Vec3 v = squid.getDeltaMovement();
+        // Steer toward the target while keeping a soft "water-like" damping.
+        Vec3 steered = v.add(target.subtract(v).scale(0.08)).scale(0.965);
+
+        // Cap speed so they feel floaty, not like rockets.
+        double max = 0.16;
+        if (steered.lengthSqr() > max * max) {
+            steered = steered.normalize().scale(max);
+        }
+
+        // Prevent hard falls.
+        steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.10, 0.12), steered.z);
+
+        squid.setDeltaMovement(steered);
         squid.hasImpulse = true;
     }
 
@@ -122,5 +145,27 @@ public final class WayfallGlowSquidAirEvents {
         }
 
         squid.setAirSupply(squid.getMaxAirSupply());
+    }
+
+    private static void pickNewAirSwimVector(GlowSquid squid) {
+        var data = squid.getPersistentData();
+        RandomSource r = squid.getRandom();
+
+        // Hold a direction for a short burst.
+        data.putInt(TAG_AIR_SWIM_TICKS, Mth.nextInt(r, 30, 110));
+
+        double yaw = r.nextDouble() * (Math.PI * 2.0);
+        // Mild pitch: mostly horizontal flight with occasional climbs/dives.
+        double pitch = (r.nextDouble() - 0.5) * 0.7; // [-0.35, 0.35]
+        double speed = Mth.nextDouble(r, 0.06, 0.14);
+
+        double xz = Math.cos(pitch) * speed;
+        double vx = Math.cos(yaw) * xz;
+        double vz = Math.sin(yaw) * xz;
+        double vy = Math.sin(pitch) * speed;
+
+        data.putDouble(TAG_AIR_SWIM_VX, vx);
+        data.putDouble(TAG_AIR_SWIM_VY, vy);
+        data.putDouble(TAG_AIR_SWIM_VZ, vz);
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.level.LightLayer;
@@ -50,7 +51,40 @@ public final class CommonModEvents {
             SpawnPlacements.Type.NO_RESTRICTIONS,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             CommonModEvents::canSpawnGlowSquid,
-            SpawnPlacementRegisterEvent.Operation.REPLACE
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        // Wayfall: fish spawn rules must tolerate high-altitude lakes (no sea-level assumptions).
+        event.register(
+            EntityType.COD,
+            SpawnPlacements.Type.NO_RESTRICTIONS,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWayfallFish,
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        event.register(
+            EntityType.SALMON,
+            SpawnPlacements.Type.NO_RESTRICTIONS,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWayfallFish,
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        event.register(
+            EntityType.TROPICAL_FISH,
+            SpawnPlacements.Type.NO_RESTRICTIONS,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWayfallFish,
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        event.register(
+            EntityType.PUFFERFISH,
+            SpawnPlacements.Type.NO_RESTRICTIONS,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWayfallFish,
+            SpawnPlacementRegisterEvent.Operation.OR
         );
 
         event.register(
@@ -163,5 +197,29 @@ public final class CommonModEvents {
         int sky = level.getLevel().getBrightness(LightLayer.SKY, pos);
         int block = level.getLevel().getBrightness(LightLayer.BLOCK, pos);
         return sky == 0 && block == 0;
+    }
+
+    private static boolean canSpawnWayfallFish(
+            net.minecraft.world.entity.EntityType<? extends AbstractFish> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        // Only loosen in Wayfall; elsewhere vanilla spawn placement stays authoritative (via OR).
+        if (!level.getLevel().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return false;
+        }
+
+        // Fish should still spawn in water, but height/light should not matter in Wayfall.
+        if (level.getFluidState(pos).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        if (level.getFluidState(pos.above()).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        return true;
     }
 }

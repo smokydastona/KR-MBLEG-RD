@@ -69,6 +69,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.569 (2026-01-22)
 - Feature(worldgen/structures): Underway Falls now includes vanilla jungle temples.
 
+## 1.0.577 (2026-01-22)
+- Tuning(wayfall/ambience): Glow Squid now actively roam through open air (squid-bird vibe) instead of slowly drifting.
+- Fix(spawns/wayfall): fish spawn placement no longer assumes sea-level Y; cod/salmon/tropical/puffer can now spawn in high-altitude Wayfall lakes.
+
 ## 1.0.576 (2026-01-22)
 - Feature(spawns/wayfall): Glow Squid can now spawn at any height and light level in Wayfall (including open air).
 
