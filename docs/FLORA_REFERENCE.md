@@ -349,7 +349,7 @@ Some Wayfall staple plants are implemented using `WayfallReactivePlantBlock`.
 These plants exist as blocks/items and are included in Wayfall flora patches.
 
 Current limitations:
-- Placement is currently broad (tag-based across Wayfall); biome-specific distribution is still to-do.
+- Placement is mostly broad (tag-based across Wayfall); some plants now have per-biome distribution via biome modifiers.
 - The "Mechanic" notes below are design targets; most are decorative right now.
 
 ### Medium plants / shrubs
@@ -383,6 +383,7 @@ Current limitations:
 - Use: Temporary platforms.
 - Mechanic: Disappear after being stepped on too long.
 - Behavior (current): Lily-pad-like water plant; places only on water surfaces and includes a 1-block-deep, waterlogged tail.
+- Worldgen (current): Generates near water across all Wayfall biomes (only where water exists), with per-biome rarity tiers.
 - Placeholder textures:
   - `assets/kruemblegard/textures/block/waylily.png` (upper pad)
   - `assets/kruemblegard/textures/block/waylily_tail.png` (lower tail)

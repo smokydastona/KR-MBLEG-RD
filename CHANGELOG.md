@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.514 (2026-01-22)
+- Tuning(worldgen/flora): Waylily and vanilla seagrass now generate across all Wayfall biomes (only where water exists), with per-biome rarity tiers.
+- Fix(worldgen/flora): stop flora patches from targeting leaf canopies by switching plant placed-feature heightmaps to `MOTION_BLOCKING_NO_LEAVES`.
+
 ## 1.0.513 (2026-01-22)
 - Fix(worldgen/flora): rework Waylily into a water-surface lily-pad with a waterlogged tail block below, and update its patch feature to place on water surfaces.
 - Tuning(assets): add placeholder textures for Moogloom and Waylily (upper + tail).

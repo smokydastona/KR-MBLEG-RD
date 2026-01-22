@@ -12,6 +12,9 @@
 
     "kruemblegard:wispstalk_patch",
 
+    "kruemblegard:waylily_patch_sparse",
+    "kruemblegard:seagrass_patch_sparse",
+
     "kruemblegard:waygrasp_vine_patch",
     "kruemblegard:static_fungus_patch",
     "kruemblegard:wayscar_ivy_patch"

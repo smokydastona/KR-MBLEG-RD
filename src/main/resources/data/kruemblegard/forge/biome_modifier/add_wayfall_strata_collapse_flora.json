@@ -4,6 +4,9 @@
   "features": [
     "kruemblegard:wispstalk_patch",
 
+    "kruemblegard:waylily_patch_sparse",
+    "kruemblegard:seagrass_patch_sparse",
+
     "kruemblegard:griefcap_patch",
     "kruemblegard:ashveil_patch"
   ],
