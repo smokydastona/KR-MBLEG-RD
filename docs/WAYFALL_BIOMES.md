@@ -66,6 +66,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Wispstalk (food), Voidfern, Void Lichen, Waythread
 - Spawns (monster): Traprock (weight 4, solo), Pebblit (weight 4, 1–2)
 - Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0005)
@@ -81,6 +82,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Wispstalk (food), Waylily (water surface), Milestone Grass, Echocap, Memory Rot, Moteshrub
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`
 - Ambience:
   - Particles: `minecraft:white_ash` (0.0012)
@@ -96,6 +98,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Soulberry Shrub (food), Pathreed, Runedrift Reed, Cairnroot, Misstep Vine
 - Spawns (monster): Pebblit (weight 8, 1–2), Traprock (weight 4, solo)
 - Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:ash` (0.001)
@@ -157,7 +160,8 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Hollowway Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Transit Bloom, Transit Fern, Twilight Bulb, Cairn Moss
 - Spawns (monster): Traprock (weight 6, solo), Pebblit (weight 2, solo)
-- Features: (none listed)
+- Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
 - Ambience:
   - Music: `minecraft:music.end` (longer delay)
 
@@ -169,7 +173,8 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Trees: Faultwood (rare mega variant), Driftwillow (rare mega variant)
   - Plants: Wispstalk (food), Falsepath Thorns, Sliproot, Ashpetal, Wayrot Fungus
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
-- Features: (none listed)
+- Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
 - Ambience:
   - Particles: `minecraft:smoke` (0.0006)
   - Music: `minecraft:music.end`
@@ -211,6 +216,8 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Water bodies: higher frequency of **large deep lakes** (water, plus occasional lava) compared to other Wayfall biomes.
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
 - Features:
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla jungle temples: `minecraft:jungle_pyramid`
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0009)

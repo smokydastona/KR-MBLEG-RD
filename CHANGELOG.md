@@ -63,6 +63,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(flora): Pyrokelp growth/bonemeal no longer requires being in Basin of Scars (vanilla twisting-vines behavior once placed); worldgen still restricts natural generation to Basin of Scars.
 - Fix(creative): hide internal `pyrokelp_plant` item entry from the mod creative tab to prevent duplicate-looking Pyrokelp entries.
 
+## 1.0.568 (2026-01-22)
+- Feature(worldgen/structures): Wayfall biomes now include vanilla shipwreck structures (Crumbled Crossing, Underway Falls, Riven Causeways, Driftway Chasm, Betweenlight Void, Hollow Transit Plains).
+
+## 1.0.569 (2026-01-22)
+- Feature(worldgen/structures): Underway Falls now includes vanilla jungle temples.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 

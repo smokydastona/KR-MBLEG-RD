@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:crumbled_crossing",
+    "kruemblegard:underway_falls",
+    "kruemblegard:riven_causeways",
+    "kruemblegard:driftway_chasm",
+    "kruemblegard:betweenlight_void",
+    "kruemblegard:hollow_transit_plains"
+  ]
+}
