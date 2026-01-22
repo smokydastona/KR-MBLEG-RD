@@ -5,6 +5,7 @@ import com.kruemblegard.init.ModBlocks;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -18,6 +19,9 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
 public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration> {
+    private static final int MAX_SAFE_RADIUS = 16; // stays within ±1 chunk even near chunk edges
+    private static final int MAX_SAFE_DEPTH = 18;
+
     public WayfallDeepLakeFeature(Codec<WayfallDeepLakeConfiguration> codec) {
         super(codec);
     }
@@ -29,13 +33,15 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         RandomSource random = ctx.random();
         WayfallDeepLakeConfiguration cfg = ctx.config();
 
+        ChunkPos originChunk = new ChunkPos(origin);
+
         int radius = sampleBiasedRadius(random, cfg.minRadius(), cfg.maxRadius());
         int depth = Mth.nextInt(random, cfg.minDepth(), cfg.maxDepth());
 
-        // Keep edits within the local generation region to avoid far-chunk writes.
-        // Target: max diameter ~100 blocks.
-        radius = Math.min(radius, 50);
-        depth = Math.min(depth, 24);
+        // Hard safety clamp: placed features are expected to write within a small worldgen region.
+        // Bigger radii will spam "far chunk" warnings and can cause extreme lag during worldgen.
+        radius = Math.min(radius, MAX_SAFE_RADIUS);
+        depth = Math.min(depth, MAX_SAFE_DEPTH);
 
         // Heightmap placement can hand us an air block above the surface; snap down to the first solid.
         BlockPos surface = origin;
@@ -60,10 +66,6 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         // Use the provided placement origin for more natural distribution.
         // Chunk-centering creates visible chunk-grid artifacts (hard shoreline lines at chunk borders).
         BlockPos center = new BlockPos(origin.getX(), waterSurfaceY, origin.getZ());
-
-        // If this placement attempt is near the edge of the current worldgen write region,
-        // clamp radius down so we don't create a visibly "cut off" lake.
-        radius = clampRadiusToWritable(level, center, radius);
 
         long noiseSeed = random.nextLong();
         // Multi-lobed outline (feels less like a circle).
@@ -98,7 +100,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
-                    if (!canWrite(level, p)) {
+                    if (!canWrite(level, originChunk, p)) {
                         continue;
                     }
 
@@ -143,7 +145,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
-                    if (!canWrite(level, p)) {
+                    if (!canWrite(level, originChunk, p)) {
                         continue;
                     }
 
@@ -186,7 +188,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
-                    if (!canWrite(level, p)) {
+                    if (!canWrite(level, originChunk, p)) {
                         continue;
                     }
 
@@ -208,7 +210,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
-                    if (!canWrite(level, p)) {
+                    if (!canWrite(level, originChunk, p)) {
                         continue;
                     }
 
@@ -227,7 +229,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
-                    if (!canWrite(level, p)) {
+                    if (!canWrite(level, originChunk, p)) {
                         continue;
                     }
 
@@ -239,7 +241,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
 
         // Shoreline blending: build a 2-layer Stoneveil Rubble berm around the surface edge
         // to prevent surface spill sheets and help the lake read as "contained" in floating-island terrain.
-        placeStoneveilRubbleRim(level, center, waterSurfaceY, lakeFluid, radius, random);
+        placeStoneveilRubbleRim(level, originChunk, center, waterSurfaceY, lakeFluid, radius, random);
 
         // Underwater flora: dress some lake floor blocks and place seagrass.
         // This guarantees lakes don't feel "sterile" even if biome modifiers are sparse.
@@ -255,7 +257,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 }
 
                 BlockPos bottomWaterPos = center.offset(dx, -localDepth, dz);
-                tryDressAndPlaceSeagrass(level, bottomWaterPos, random);
+                tryDressAndPlaceSeagrass(level, originChunk, bottomWaterPos, random);
             }
         }
 
@@ -272,7 +274,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             }
 
             BlockPos lilyPos = center.offset(dx, 0, dz);
-            tryPlaceWaylily(level, lilyPos, random);
+            tryPlaceWaylily(level, originChunk, lilyPos, random);
         }
 
         return true;
@@ -280,6 +282,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
 
     private static void placeStoneveilRubbleRim(
             WorldGenLevel level,
+            ChunkPos originChunk,
             BlockPos center,
             int waterSurfaceY,
             Fluid lakeFluid,
@@ -293,7 +296,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         for (int dx = -radius - 1; dx <= radius + 1; dx++) {
             for (int dz = -radius - 1; dz <= radius + 1; dz++) {
                 BlockPos surface = new BlockPos(center.getX() + dx, waterSurfaceY, center.getZ() + dz);
-                if (level.isOutsideBuildHeight(surface) || !canWrite(level, surface)) {
+                if (level.isOutsideBuildHeight(surface) || !canWrite(level, originChunk, surface)) {
                     continue;
                 }
 
@@ -308,7 +311,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
 
                 for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.Plane.HORIZONTAL) {
                     BlockPos neighbor = surface.relative(dir);
-                    if (level.isOutsideBuildHeight(neighbor) || !canWrite(level, neighbor)) {
+                    if (level.isOutsideBuildHeight(neighbor) || !canWrite(level, originChunk, neighbor)) {
                         continue;
                     }
 
@@ -330,23 +333,23 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         }
 
                         BlockPos berm = surface.relative(dir, step);
-                        if (level.isOutsideBuildHeight(berm) || !canWrite(level, berm)) {
+                        if (level.isOutsideBuildHeight(berm) || !canWrite(level, originChunk, berm)) {
                             continue;
                         }
 
                         // Always place at water level to stop surface flow.
-                        tryPlaceRubble(level, berm, rubble);
+                        tryPlaceRubble(level, originChunk, berm, rubble);
 
                         // Randomly place a second layer above for a contained "lip".
                         if (random.nextFloat() < 0.55F) {
-                            tryPlaceRubble(level, berm.above(), rubble);
+                            tryPlaceRubble(level, originChunk, berm.above(), rubble);
                         }
 
                         // Blend downward if this berm position is hanging over air.
                         int maxDown = 5;
                         BlockPos down = berm.below();
                         for (int d = 0; d < maxDown; d++) {
-                            if (level.isOutsideBuildHeight(down) || !canWrite(level, down)) {
+                            if (level.isOutsideBuildHeight(down) || !canWrite(level, originChunk, down)) {
                                 break;
                             }
 
@@ -355,7 +358,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                                 break;
                             }
 
-                            tryPlaceRubble(level, down, rubble);
+                            tryPlaceRubble(level, originChunk, down, rubble);
                             down = down.below();
                         }
                     }
@@ -364,8 +367,8 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         }
     }
 
-    private static void tryPlaceRubble(WorldGenLevel level, BlockPos pos, BlockState rubble) {
-        if (!canWrite(level, pos)) {
+    private static void tryPlaceRubble(WorldGenLevel level, ChunkPos originChunk, BlockPos pos, BlockState rubble) {
+        if (!canWrite(level, originChunk, pos)) {
             return;
         }
 
@@ -395,25 +398,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         return min + Math.round((max - min) * t);
     }
 
-    private static int clampRadiusToWritable(WorldGenLevel level, BlockPos center, int radius) {
-        // Probe the boundary in 8 directions. This doesn't guarantee every interior block is writable,
-        // but it avoids the common case of the lake being truncated at the region edge.
-        for (int r = radius; r >= 1; r--) {
-            if (canWrite(level, center.offset(r, 0, 0))
-                    && canWrite(level, center.offset(-r, 0, 0))
-                    && canWrite(level, center.offset(0, 0, r))
-                    && canWrite(level, center.offset(0, 0, -r))
-                    && canWrite(level, center.offset(r, 0, r))
-                    && canWrite(level, center.offset(-r, 0, r))
-                    && canWrite(level, center.offset(r, 0, -r))
-                    && canWrite(level, center.offset(-r, 0, -r))) {
-                return r;
-            }
-        }
-        return 1;
-    }
-
-    private static void tryPlaceWaylily(LevelAccessor level, BlockPos surfacePos, RandomSource random) {
+    private static void tryPlaceWaylily(LevelAccessor level, ChunkPos originChunk, BlockPos surfacePos, RandomSource random) {
         // If our candidate position is submerged, scan up to the true surface.
         while (level.getFluidState(surfacePos).getType() == Fluids.WATER
                 && level.getFluidState(surfacePos.above()).getType() == Fluids.WATER) {
@@ -466,7 +451,9 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
-        if (!canWrite(level, upperPos) || !canWrite(level, lowerPos) || (wantsLower2 && !canWrite(level, lower2Pos))) {
+        if (!canWrite(level, originChunk, upperPos)
+            || !canWrite(level, originChunk, lowerPos)
+            || (wantsLower2 && !canWrite(level, originChunk, lower2Pos))) {
             return;
         }
 
@@ -492,7 +479,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 || level.getFluidState(pos.east()).getType() == lakeFluid;
     }
 
-    private static void tryDressAndPlaceSeagrass(LevelAccessor level, BlockPos bottomWaterPos, RandomSource random) {
+    private static void tryDressAndPlaceSeagrass(LevelAccessor level, ChunkPos originChunk, BlockPos bottomWaterPos, RandomSource random) {
         if (level.getFluidState(bottomWaterPos).getType() != Fluids.WATER) {
             return;
         }
@@ -519,7 +506,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 newFloor = Blocks.CLAY.defaultBlockState();
             }
 
-            if (!canWrite(level, floorPos)) {
+            if (!canWrite(level, originChunk, floorPos)) {
                 return;
             }
             level.setBlock(floorPos, newFloor, 2);
@@ -540,14 +527,22 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
-        if (!canWrite(level, bottomWaterPos)) {
+        if (!canWrite(level, originChunk, bottomWaterPos)) {
             return;
         }
 
         level.setBlock(bottomWaterPos, seagrass, 2);
     }
 
-    private static boolean canWrite(LevelAccessor level, BlockPos pos) {
+    private static boolean canWrite(LevelAccessor level, ChunkPos originChunk, BlockPos pos) {
+        // First: cheap, non-logging guard to keep edits within ±1 chunk of the feature origin.
+        // This prevents both far-chunk writes *and* far-chunk "can write" probes that can spam logs.
+        ChunkPos posChunk = new ChunkPos(pos);
+        if (Math.abs(posChunk.x - originChunk.x) > 1 || Math.abs(posChunk.z - originChunk.z) > 1) {
+            return false;
+        }
+
+        // Second: defer to the worldgen region's own safety check.
         if (level instanceof WorldGenLevel worldGenLevel) {
             return worldGenLevel.ensureCanWrite(pos);
         }

@@ -96,9 +96,9 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
-  - Special behavior: using shears on it kills it immediately.
+  - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.
   - Visual: has **Griefcap** mushrooms on its back and head.
-  - Drops vanilla cow loot, plus a chance to drop **Griefcap**.
+  - Breeding: can cross-breed with vanilla mooshrooms; mixed pairings have a small chance to produce a brown mooshroom baby.
   - Texture: `assets/kruemblegard/textures/entity/moogloom.png`.
     - `animation.scattered_enderman.appear`
     - `animation.scattered_enderman.shake`
@@ -203,6 +203,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall water flora:
   - Waylily (above-water surface flower) + vanilla seagrass (underwater) generate across all Wayfall biomes with per-biome rarity tiers (Waylily uses the `waylily_patch*` placed features).
   - The deep lake feature (`wayfall_big_water_lake`) also adds extra Waylily on exposed lake surfaces and adds underwater seagrass by dressing parts of the lake floor (sand/gravel/clay) during generation.
+  - Deep lakes are clamped to a chunk-safe size during worldgen to avoid “setBlock in a far chunk” warnings and severe world creation lag.
   - Underwater plants scan downward from the surface to the bottom of water columns, so they can survive and generate inside floating-island lakes.
   - Warm Wayfall biomes (tagged `#kruemblegard:wayfall_warm`) also get vanilla coral fans + sea pickles underwater.
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
