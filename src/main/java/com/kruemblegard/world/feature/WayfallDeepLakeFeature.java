@@ -44,7 +44,15 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return false;
         }
 
-        int waterSurfaceY = surface.getY();
+        int waterSurfaceY;
+        if (level.getFluidState(surface).getType() == Fluids.WATER) {
+            // If we somehow landed inside an existing water column, treat this as the surface water block.
+            waterSurfaceY = surface.getY();
+        } else {
+            // Normal case: heightmap gave us terrain, so the water surface should be in the air block above.
+            waterSurfaceY = surface.getY() + 1;
+        }
+
         BlockPos center = new BlockPos((origin.getX() & ~15) + 8, waterSurfaceY, (origin.getZ() & ~15) + 8);
 
         long noiseSeed = random.nextLong();
@@ -137,7 +145,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 continue;
             }
 
-            BlockPos lilyPos = center.offset(dx, 0, dz);
+                BlockPos lilyPos = center.offset(dx, 0, dz);
             tryPlaceWaylily(level, lilyPos, random);
         }
 
@@ -145,6 +153,12 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
     }
 
     private static void tryPlaceWaylily(LevelAccessor level, BlockPos surfacePos, RandomSource random) {
+        // If our candidate position is submerged, scan up to the true surface.
+        while (level.getFluidState(surfacePos).getType() == Fluids.WATER
+                && level.getFluidState(surfacePos.above()).getType() == Fluids.WATER) {
+            surfacePos = surfacePos.above();
+        }
+
         // Must be surface water.
         if (level.getFluidState(surfacePos).getType() != Fluids.WATER) {
             return;

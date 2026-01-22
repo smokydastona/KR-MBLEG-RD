@@ -22,29 +22,23 @@ public class WaylilyItem extends BlockItem {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
-        Direction clickedFace = context.getClickedFace();
 
-        // Strict lily-pad behavior: only place when clicking the water surface (top face).
-        // Clicking underwater (sides/bottom) should do nothing.
-        if (clickedFace != Direction.UP) {
-            return InteractionResult.FAIL;
-        }
+        // Lily-pad-like behavior: allow clicking anywhere in a water column, but always place on the
+        // true surface water block (the highest water block with non-water above it).
 
         // Raycasts against water often report the solid block below the water surface.
-        // Accept either clicking the surface water block itself, or clicking the top face of the block
-        // directly beneath the surface.
-        BlockPos surfaceWaterPos;
+        BlockPos candidateWaterPos;
         if (level.getFluidState(clickedPos).getType() == Fluids.WATER) {
-            surfaceWaterPos = clickedPos;
+            candidateWaterPos = clickedPos;
         } else if (level.getFluidState(clickedPos.above()).getType() == Fluids.WATER) {
-            surfaceWaterPos = clickedPos.above();
+            candidateWaterPos = clickedPos.above();
         } else {
             return InteractionResult.FAIL;
         }
 
-        // Only allow true surface water.
-        if (level.getFluidState(surfaceWaterPos.above()).getType() == Fluids.WATER) {
-            return InteractionResult.FAIL;
+        BlockPos surfaceWaterPos = candidateWaterPos;
+        while (level.getFluidState(surfaceWaterPos.above()).getType() == Fluids.WATER) {
+            surfaceWaterPos = surfaceWaterPos.above();
         }
 
         // Require air (or replaceable) above the surface, and at least one water block below for the tail.
