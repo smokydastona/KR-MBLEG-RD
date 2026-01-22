@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.517 (2026-01-21)
+- Fix(worldgen/flora): prevent vanilla seagrass / coral fans / sea pickles from generating on land by requiring water at the placement position (and allowing a small vertical spread so patches still find water above the ocean floor heightmap).
+
 ## 1.0.516 (2026-01-21)
 - Fix(worldgen/trees): add missing mega-tree placed features (`*/mega_1`, `*/mega_2`) used by the mega selectors; prevents a registry load crash when creating/loading worlds.
 - Fix(assets): add missing Moogloom spawn egg item model to prevent missing-model warnings.

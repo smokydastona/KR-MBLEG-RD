@@ -3,7 +3,7 @@
   "config": {
     "tries": 32,
     "xz_spread": 6,
-    "y_spread": 0,
+    "y_spread": 1,
     "feature": {
       "feature": {
         "type": "minecraft:simple_block",
@@ -22,6 +22,12 @@
           "predicate": {
             "type": "minecraft:all_of",
             "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": [
+                  "minecraft:water"
+                ]
+              },
               {
                 "type": "minecraft:replaceable"
               },
