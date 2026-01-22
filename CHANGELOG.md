@@ -22,6 +22,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(spawns): Glow Squid now spawn in all Wayfall biomes.
 - Feature(spawns): Wayfall fish spawns now follow vanilla-style temperature tiers (warm: tropical/puffer; temperate: cod; cold: salmon).
 
+## 1.0.555 (2026-01-22)
+- Feature(wayfall/spawns): Glow Squid are now air-adapted in Wayfall (they can float/swim through open air without suffocating).
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
