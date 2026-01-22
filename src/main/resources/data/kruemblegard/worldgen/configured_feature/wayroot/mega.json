@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:wayroot/mega_1",
-      "kruemblegard:wayroot/mega_2"
+      {
+        "feature": "kruemblegard:wayroot/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:wayroot/mega_2",
+        "placement": []
+      }
     ]
   }
 }

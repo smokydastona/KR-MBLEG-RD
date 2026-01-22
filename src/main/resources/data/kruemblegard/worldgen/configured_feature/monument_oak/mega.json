@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:monument_oak/mega_1",
-      "kruemblegard:monument_oak/mega_2"
+      {
+        "feature": "kruemblegard:monument_oak/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:monument_oak/mega_2",
+        "placement": []
+      }
     ]
   }
 }

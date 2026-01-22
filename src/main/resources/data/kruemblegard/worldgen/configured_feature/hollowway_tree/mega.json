@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:hollowway_tree/mega_1",
-      "kruemblegard:hollowway_tree/mega_2"
+      {
+        "feature": "kruemblegard:hollowway_tree/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:hollowway_tree/mega_2",
+        "placement": []
+      }
     ]
   }
 }

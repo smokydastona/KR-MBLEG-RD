@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:faultwood/mega_1",
-      "kruemblegard:faultwood/mega_2"
+      {
+        "feature": "kruemblegard:faultwood/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:faultwood/mega_2",
+        "placement": []
+      }
     ]
   }
 }

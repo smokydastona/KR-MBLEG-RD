@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:ashbloom/mega_1",
-      "kruemblegard:ashbloom/mega_2"
+      {
+        "feature": "kruemblegard:ashbloom/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:ashbloom/mega_2",
+        "placement": []
+      }
     ]
   }
 }

@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:fallbark/mega_1",
-      "kruemblegard:fallbark/mega_2"
+      {
+        "feature": "kruemblegard:fallbark/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:fallbark/mega_2",
+        "placement": []
+      }
     ]
   }
 }

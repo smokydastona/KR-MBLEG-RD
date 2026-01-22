@@ -2,8 +2,14 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      "kruemblegard:driftwillow/mega_1",
-      "kruemblegard:driftwillow/mega_2"
+      {
+        "feature": "kruemblegard:driftwillow/mega_1",
+        "placement": []
+      },
+      {
+        "feature": "kruemblegard:driftwillow/mega_2",
+        "placement": []
+      }
     ]
   }
 }
