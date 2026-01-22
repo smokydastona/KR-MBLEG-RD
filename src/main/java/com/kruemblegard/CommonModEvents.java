@@ -176,7 +176,20 @@ public final class CommonModEvents {
             RandomSource random
     ) {
         if (level.getLevel().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
-            // Allow any height/light in Wayfall, but only if the mob has space.
+            // Allow any height/light in Wayfall, but restrict to water bodies so we don't
+            // spawn Glow Squid everywhere in open air (which can explode entity counts).
+            boolean inWater = level.getFluidState(pos).getType() == Fluids.WATER
+                    && level.getFluidState(pos.above()).getType() == Fluids.WATER;
+
+            boolean justAboveWaterSurface = level.getFluidState(pos.below()).getType() == Fluids.WATER
+                    && level.getFluidState(pos).getType() != Fluids.WATER
+                    && level.getFluidState(pos.above()).getType() != Fluids.WATER;
+
+            if (!inWater && !justAboveWaterSurface) {
+                return false;
+            }
+
+            // Require space for the mob.
             if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
                 return false;
             }

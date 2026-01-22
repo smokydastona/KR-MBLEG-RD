@@ -11,7 +11,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - Exception: the coldest biomes (currently Hollow Transit Plains and Glyphscar Reach) are cold enough for snow cover and include `minecraft:freeze_top_layer` so snow layers generate during worldgen.
 - Vanilla water spawns: Wayfall biomes include Glow Squid and biome-temperature-tier fish spawns (warm: tropical/puffer; temperate: cod; cold: salmon).
 - Glow Squid are air-adapted in Wayfall: they can float/swim through open air without suffocating.
-- Wayfall spawn rules: Glow Squid can spawn at any height and light level (including in open air), as long as there is space.
+- Wayfall spawn rules: Glow Squid can spawn at any height and light level in Wayfall, anchored to water bodies (in water or just above the surface), as long as there is space.
 - Underway Falls axolotls are air-adapted in Wayfall: they can swim through open air without drying out.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).

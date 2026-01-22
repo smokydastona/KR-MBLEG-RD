@@ -80,6 +80,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.579 (2026-01-22)
 - Fix(spawns): prevent client crash during spawn placement registration (Forge requires null placement/heightmap when using OR).
 
+## 1.0.580 (2026-01-22)
+- Tuning(spawns/wayfall): Glow Squid spawning is now anchored to Wayfall water bodies (in-water or just above the surface) to avoid runaway open-air spawning and freezes.
+
 ## 1.0.576 (2026-01-22)
 - Feature(spawns/wayfall): Glow Squid can now spawn at any height and light level in Wayfall (including open air).
 
