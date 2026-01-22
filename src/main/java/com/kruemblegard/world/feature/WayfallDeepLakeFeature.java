@@ -7,6 +7,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,7 +24,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
 
     @Override
     public boolean place(FeaturePlaceContext<WayfallDeepLakeConfiguration> ctx) {
-        LevelAccessor level = ctx.level();
+        WorldGenLevel level = ctx.level();
         BlockPos origin = ctx.origin();
         RandomSource random = ctx.random();
         WayfallDeepLakeConfiguration cfg = ctx.config();
@@ -92,6 +93,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
+                    if (!canWrite(level, p)) {
+                        continue;
+                    }
+
                     BlockState fluidState = cfg.fluid().getState(random, p);
                     level.setBlock(p, fluidState, 2);
                     placedAnyWater = true;
@@ -130,6 +135,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                     }
 
                     if (!touchesLakeFluid(level, p, lakeFluid)) {
+                        continue;
+                    }
+
+                    if (!canWrite(level, p)) {
                         continue;
                     }
 
@@ -172,6 +181,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
+                    if (!canWrite(level, p)) {
+                        continue;
+                    }
+
                     BlockState barrierState = cfg.barrier().getState(random, p);
                     level.setBlock(p, barrierState, 2);
                 }
@@ -202,6 +215,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                     BlockPos below = p.below();
                     boolean touchesLake = level.getFluidState(below).getType() == lakeFluid && level.getFluidState(below).isSource();
                     if (!touchesLake) {
+                        continue;
+                    }
+
+                    if (!canWrite(level, p)) {
                         continue;
                     }
 
@@ -301,6 +318,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
+        if (!canWrite(level, upperPos) || !canWrite(level, lowerPos) || (wantsLower2 && !canWrite(level, lower2Pos))) {
+            return;
+        }
+
         level.setBlock(upperPos, upperState, 2);
         level.setBlock(lowerPos, lowerState, 2);
         if (wantsLower2) {
@@ -349,6 +370,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             } else {
                 newFloor = Blocks.CLAY.defaultBlockState();
             }
+
+            if (!canWrite(level, floorPos)) {
+                return;
+            }
             level.setBlock(floorPos, newFloor, 2);
             floor = newFloor;
         }
@@ -367,7 +392,24 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
+        if (!canWrite(level, bottomWaterPos)) {
+            return;
+        }
+
         level.setBlock(bottomWaterPos, seagrass, 2);
+    }
+
+    private static boolean canWrite(LevelAccessor level, BlockPos pos) {
+        if (level instanceof WorldGenLevel worldGenLevel) {
+            return worldGenLevel.ensureCanWrite(pos);
+        }
+
+        // If something ever calls this outside worldgen, avoid writing into unloaded chunks.
+        if (level instanceof net.minecraft.world.level.Level l) {
+            return l.hasChunkAt(pos);
+        }
+
+        return true;
     }
 
     private static boolean isInsideLake(int[] depths, int diameter, int radius, int dx, int dz, int dy) {

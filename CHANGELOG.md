@@ -9,6 +9,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen/flora): align Waylily patch placement + deep lake Waylily placement with the above-water rule.
 - Tuning(worldgen/lakes): stop snapping deep lake centers to chunk centers (reduces chunk-border “hard line” shore seams).
 
+## 1.0.552 (2026-01-22)
+- Fix(worldgen/lakes): guard deep lake block placement with `ensureCanWrite` to prevent “setBlock in a far chunk” warnings during generation.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
