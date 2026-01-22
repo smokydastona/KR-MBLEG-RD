@@ -197,6 +197,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly) and only place into replaceable blocks (no carving holes in terrain).
 - Wayfall water flora:
   - Waylily (surface) + vanilla seagrass (underwater) generate across all Wayfall biomes with per-biome rarity tiers.
+  - Underwater plants target the lake/pond floor (ocean-floor heightmap) so they can actually survive and generate in floating-island water bodies.
   - Warm Wayfall biomes (tagged `#kruemblegard:wayfall_warm`) also get vanilla coral fans + sea pickles underwater.
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
 - Wayfall trees (block sets): logs/planks/leaves/saplings exist as blocks/items.

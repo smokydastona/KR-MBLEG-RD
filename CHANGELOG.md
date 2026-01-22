@@ -39,6 +39,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(waylily): surface-only placement now correctly detects the surface even when the raycast hits the block under the water.
 - Fix(worldgen/flora): Wayfall water flora predicates no longer require `replaceable` in water; Waylily now requires surface water (air above + water at position).
 
+## 1.0.534 (2026-01-22)
+- Fix(worldgen/flora): underwater flora (seagrass/coral fans/sea pickles) now targets the lake/pond floor (`OCEAN_FLOOR_WG` + +1 offset) instead of the surface water block, so it can survive and generate in floating-island lakes.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
