@@ -7,6 +7,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
+## 1.0.525 (2026-01-21)
+- Fix(assets): Waylily block now correctly resolves its upper model by matching the full blockstate (`part=upper,waterlogged=false`) instead of falling back to missing-model.
+- Fix(worldgen/flora): Wayfall water flora (Waylily, seagrass, warm-water coral fans + sea pickles) now scan downward from the surface to find water before attempting placement; this makes them generate in floating-island lakes/ponds instead of only in “true ocean” terrain.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
