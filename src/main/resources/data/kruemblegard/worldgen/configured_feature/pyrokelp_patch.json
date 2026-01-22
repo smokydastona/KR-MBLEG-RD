@@ -6,14 +6,31 @@
     "y_spread": 2,
     "feature": {
       "feature": {
-        "type": "minecraft:simple_block",
+        "type": "minecraft:block_column",
         "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "kruemblegard:pyrokelp"
+          "allowed_placement": {
+            "blocks": "minecraft:air",
+            "type": "minecraft:matching_blocks"
+          },
+          "direction": "up",
+          "layers": [
+            {
+              "height": {
+                "value": {
+                  "min_inclusive": 3,
+                  "max_inclusive": 8
+                },
+                "type": "minecraft:uniform"
+              },
+              "provider": {
+                "state": {
+                  "Name": "kruemblegard:pyrokelp"
+                },
+                "type": "minecraft:simple_state_provider"
+              }
             }
-          }
+          ],
+          "prioritize_tip": false
         }
       },
       "placement": [

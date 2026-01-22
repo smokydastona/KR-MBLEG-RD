@@ -176,7 +176,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Stoneveil Rubble family: Stoneveil Rubble, Polished Stoneveil Rubble, Runed Stoneveil Rubble.
   - Stone-family variants exist for key geology blocks: stairs, slabs, and walls (Attuned Stone, Fractured Wayrock, Crushstone, Scarstone + variants, Stoneveil Rubble + variants).
   - Crafting integration: Wayfall stone blocks are added to vanilla stone material tags so they can be used for stone tools and common stone crafting (furnace/stonecutter + many redstone components).
-- Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine (vines), Pyrokelp, Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
+- Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine (vines), Pyrokelp (generates as pre-grown columns in Basin of Scars), Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
   - Utility: most Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) can be composted.
