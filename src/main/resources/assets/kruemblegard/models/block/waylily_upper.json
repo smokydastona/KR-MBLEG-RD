@@ -1,105 +1,106 @@
 {
-  "parent": "minecraft:block/block",
-  "ambientocclusion": false,
-  "gui_light": "front",
-  "textures": {
-    "particle": "kruemblegard:block/waylily",
-    "pad": "kruemblegard:block/waylily",
-    "flower": "kruemblegard:block/waylily"
-  },
-  "elements": [
-    {
-      "name": "pad",
-      "from": [0, 0, 0],
-      "to": [16, 1, 16],
-      "faces": {
-        "down": { "texture": "#pad" },
-        "up": { "texture": "#pad" },
-        "north": { "texture": "#pad" },
-        "south": { "texture": "#pad" },
-        "west": { "texture": "#pad" },
-        "east": { "texture": "#pad" }
-      }
-    },
-    {
-      "name": "stem",
-      "from": [7, 1, 7],
-      "to": [9, 7, 9],
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    },
-    {
-      "name": "petal_north",
-      "from": [6, 7, 7.5],
-      "to": [10, 10, 8.5],
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    },
-    {
-      "name": "petal_east",
-      "from": [7.5, 7, 6],
-      "to": [8.5, 10, 10],
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    },
-    {
-      "name": "petal_diag_1",
-      "from": [6.5, 7, 6.5],
-      "to": [9.5, 10, 7.5],
-      "rotation": { "origin": [8, 7, 8], "axis": "y", "angle": 45 },
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    },
-    {
-      "name": "petal_diag_2",
-      "from": [6.5, 7, 8.5],
-      "to": [9.5, 10, 9.5],
-      "rotation": { "origin": [8, 7, 8], "axis": "y", "angle": -45 },
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    },
-    {
-      "name": "center",
-      "from": [7.25, 7, 7.25],
-      "to": [8.75, 8.5, 8.75],
-      "faces": {
-        "down": { "texture": "#flower" },
-        "up": { "texture": "#flower" },
-        "north": { "texture": "#flower" },
-        "south": { "texture": "#flower" },
-        "west": { "texture": "#flower" },
-        "east": { "texture": "#flower" }
-      }
-    }
-  ]
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "kruemblegard:block/waylily",
+		"flower": "kruemblegard:block/waylily"
+	},
+	"elements": [
+		{
+			"name": "pad",
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"north": {"uv": [0, 15, 16, 16], "texture": "#flower"},
+				"east": {"uv": [0, 15, 16, 16], "texture": "#flower"},
+				"south": {"uv": [0, 15, 16, 16], "texture": "#flower"},
+				"west": {"uv": [0, 15, 16, 16], "texture": "#flower"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#flower"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "stem",
+			"from": [7, 1, 7],
+			"to": [9, 7, 9],
+			"faces": {
+				"north": {"uv": [7, 9, 9, 15], "texture": "#flower"},
+				"east": {"uv": [7, 9, 9, 15], "texture": "#flower"},
+				"south": {"uv": [7, 9, 9, 15], "texture": "#flower"},
+				"west": {"uv": [7, 9, 9, 15], "texture": "#flower"},
+				"up": {"uv": [7, 7, 9, 9], "texture": "#flower"},
+				"down": {"uv": [7, 7, 9, 9], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "petal_north",
+			"from": [6, 7, 7.5],
+			"to": [10, 10, 8.5],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 9], "texture": "#flower"},
+				"east": {"uv": [7.5, 6, 8.5, 9], "texture": "#flower"},
+				"south": {"uv": [6, 6, 10, 9], "texture": "#flower"},
+				"west": {"uv": [7.5, 6, 8.5, 9], "texture": "#flower"},
+				"up": {"uv": [6, 7.5, 10, 8.5], "texture": "#flower"},
+				"down": {"uv": [6, 7.5, 10, 8.5], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "petal_east",
+			"from": [7.5, 7, 6],
+			"to": [8.5, 10, 10],
+			"faces": {
+				"north": {"uv": [7.5, 6, 8.5, 9], "texture": "#flower"},
+				"east": {"uv": [6, 6, 10, 9], "texture": "#flower"},
+				"south": {"uv": [7.5, 6, 8.5, 9], "texture": "#flower"},
+				"west": {"uv": [6, 6, 10, 9], "texture": "#flower"},
+				"up": {"uv": [7.5, 6, 8.5, 10], "texture": "#flower"},
+				"down": {"uv": [7.5, 6, 8.5, 10], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "petal_diag_1",
+			"from": [6.5, 7, 6.5],
+			"to": [9.5, 10, 7.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6.5, 6, 9.5, 9], "texture": "#flower"},
+				"east": {"uv": [8.5, 6, 9.5, 9], "texture": "#flower"},
+				"south": {"uv": [6.5, 6, 9.5, 9], "texture": "#flower"},
+				"west": {"uv": [6.5, 6, 7.5, 9], "texture": "#flower"},
+				"up": {"uv": [6.5, 6.5, 9.5, 7.5], "texture": "#flower"},
+				"down": {"uv": [6.5, 8.5, 9.5, 9.5], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "petal_diag_2",
+			"from": [6.5, 7, 8.5],
+			"to": [9.5, 10, 9.5],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6.5, 6, 9.5, 9], "texture": "#flower"},
+				"east": {"uv": [6.5, 6, 7.5, 9], "texture": "#flower"},
+				"south": {"uv": [6.5, 6, 9.5, 9], "texture": "#flower"},
+				"west": {"uv": [8.5, 6, 9.5, 9], "texture": "#flower"},
+				"up": {"uv": [6.5, 8.5, 9.5, 9.5], "texture": "#flower"},
+				"down": {"uv": [6.5, 6.5, 9.5, 7.5], "texture": "#flower"}
+			}
+		},
+		{
+			"name": "center",
+			"from": [7.25, 7, 7.25],
+			"to": [8.75, 8.5, 8.75],
+			"faces": {
+				"north": {"uv": [7.25, 7.5, 8.75, 9], "texture": "#flower"},
+				"east": {"uv": [7.25, 7.5, 8.75, 9], "texture": "#flower"},
+				"south": {"uv": [7.25, 7.5, 8.75, 9], "texture": "#flower"},
+				"west": {"uv": [7.25, 7.5, 8.75, 9], "texture": "#flower"},
+				"up": {"uv": [7.25, 7.25, 8.75, 8.75], "texture": "#flower"},
+				"down": {"uv": [7.25, 7.25, 8.75, 8.75], "texture": "#flower"}
+			}
+		}
+	],
+	"gui_light": "front"
 }
