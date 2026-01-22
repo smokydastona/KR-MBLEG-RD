@@ -250,6 +250,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall biomes can generate surface water lakes (lake barriers use a Stoneveil Rubble + Runed Stoneveil Rubble mix).
 - Wayfall biomes can also very rarely generate **large deep water lakes** (10–15 blocks deep) that can span across chunk borders.
 - Wayfall biomes can generate rare surface lava lakes (lake barriers use a Scarstone + Cracked Scarstone mix); Basin of Scars is more lava-forward.
+- Basin of Scars can also very rarely generate **large deep lava lakes** (20–50 radius, 10–15 deep) using Scarstone barriers.
 - Lake placement uses a -8 X/Z offset so the generated lake is centered on the placement position.
 - Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:

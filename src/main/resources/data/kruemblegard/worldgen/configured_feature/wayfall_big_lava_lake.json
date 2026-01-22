@@ -1,0 +1,32 @@
+{
+  "type": "kruemblegard:wayfall_deep_lake",
+  "config": {
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:lava"
+      }
+    },
+    "barrier": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "kruemblegard:scarstone"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "kruemblegard:cracked_scarstone"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "min_radius": 20,
+    "max_radius": 50,
+    "min_depth": 10,
+    "max_depth": 15
+  }
+}
