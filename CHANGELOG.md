@@ -33,6 +33,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen/lakes): seal internal cave air pockets below the lake surface so deep lakes don’t leave exposed side-water or leak into tunnels.
 - Feature(worldgen/lakes): deep water lakes now dress some lake-floor blocks and place seagrass during generation so lakes consistently get underwater flora.
 
+## 1.0.545 (2026-01-22)
+- Fix(assets/waylily): convert the custom Waylily upper model to a vanilla-safe Java block-model (supported rotation format/angles, no `#missing` textures) while keeping a multi-petal 3D look.
+
 ## 1.0.525 (2026-01-21)
 - Fix(assets): Waylily block now correctly resolves its upper model by matching the full blockstate (`part=upper,waterlogged=false`) instead of falling back to missing-model.
 - Fix(worldgen/flora): Wayfall water flora (Waylily, seagrass, warm-water coral fans + sea pickles) now scan downward from the surface to find water before attempting placement; this makes them generate in floating-island lakes/ponds instead of only in “true ocean” terrain.
