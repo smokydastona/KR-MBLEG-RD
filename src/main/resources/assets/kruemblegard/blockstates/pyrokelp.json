@@ -1,7 +1,14 @@
 {
   "variants": {
-    "": {
-      "model": "kruemblegard:block/pyrokelp"
-    }
+    "": [
+      {
+        "model": "kruemblegard:block/pyrokelp",
+        "weight": 3
+      },
+      {
+        "model": "kruemblegard:block/pyrokelp_top",
+        "weight": 1
+      }
+    ]
   }
 }
