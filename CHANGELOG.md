@@ -77,6 +77,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(spawns/wayfall): Axolotls now spawn in Underway Falls.
 - Feature(wayfall/ambience): Axolotls are now air-adapted in Wayfall and can swim through open air.
 
+## 1.0.579 (2026-01-22)
+- Fix(spawns): prevent client crash during spawn placement registration (Forge requires null placement/heightmap when using OR).
+
 ## 1.0.576 (2026-01-22)
 - Feature(spawns/wayfall): Glow Squid can now spawn at any height and light level in Wayfall (including open air).
 

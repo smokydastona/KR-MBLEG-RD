@@ -49,8 +49,8 @@ public final class CommonModEvents {
         // Wayfall: Glow Squid are air swimmers and should be able to spawn at any height/light.
         event.register(
             EntityType.GLOW_SQUID,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnGlowSquid,
             SpawnPlacementRegisterEvent.Operation.OR
         );
@@ -58,32 +58,32 @@ public final class CommonModEvents {
         // Wayfall: fish spawn rules must tolerate high-altitude lakes (no sea-level assumptions).
         event.register(
             EntityType.COD,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnWayfallFish,
             SpawnPlacementRegisterEvent.Operation.OR
         );
 
         event.register(
             EntityType.SALMON,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnWayfallFish,
             SpawnPlacementRegisterEvent.Operation.OR
         );
 
         event.register(
             EntityType.TROPICAL_FISH,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnWayfallFish,
             SpawnPlacementRegisterEvent.Operation.OR
         );
 
         event.register(
             EntityType.PUFFERFISH,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnWayfallFish,
             SpawnPlacementRegisterEvent.Operation.OR
         );
@@ -91,8 +91,8 @@ public final class CommonModEvents {
         // Wayfall: axolotls should be able to spawn in high-altitude lakes (Underway Falls).
         event.register(
             EntityType.AXOLOTL,
-            SpawnPlacements.Type.NO_RESTRICTIONS,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            null,
+            null,
             CommonModEvents::canSpawnWayfallAxolotl,
             SpawnPlacementRegisterEvent.Operation.OR
         );
