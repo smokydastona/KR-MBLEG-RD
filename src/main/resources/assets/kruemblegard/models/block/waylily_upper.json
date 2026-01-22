@@ -1,7 +1,105 @@
 {
-  "parent": "minecraft:block/lily_pad",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "gui_light": "front",
   "textures": {
     "particle": "kruemblegard:block/waylily",
-    "lily_pad": "kruemblegard:block/waylily"
-  }
+    "pad": "kruemblegard:block/waylily",
+    "flower": "kruemblegard:block/waylily"
+  },
+  "elements": [
+    {
+      "name": "pad",
+      "from": [0, 0, 0],
+      "to": [16, 1, 16],
+      "faces": {
+        "down": { "texture": "#pad" },
+        "up": { "texture": "#pad" },
+        "north": { "texture": "#pad" },
+        "south": { "texture": "#pad" },
+        "west": { "texture": "#pad" },
+        "east": { "texture": "#pad" }
+      }
+    },
+    {
+      "name": "stem",
+      "from": [7, 1, 7],
+      "to": [9, 7, 9],
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    },
+    {
+      "name": "petal_north",
+      "from": [6, 7, 7.5],
+      "to": [10, 10, 8.5],
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    },
+    {
+      "name": "petal_east",
+      "from": [7.5, 7, 6],
+      "to": [8.5, 10, 10],
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    },
+    {
+      "name": "petal_diag_1",
+      "from": [6.5, 7, 6.5],
+      "to": [9.5, 10, 7.5],
+      "rotation": { "origin": [8, 7, 8], "axis": "y", "angle": 45 },
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    },
+    {
+      "name": "petal_diag_2",
+      "from": [6.5, 7, 8.5],
+      "to": [9.5, 10, 9.5],
+      "rotation": { "origin": [8, 7, 8], "axis": "y", "angle": -45 },
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    },
+    {
+      "name": "center",
+      "from": [7.25, 7, 7.25],
+      "to": [8.75, 8.5, 8.75],
+      "faces": {
+        "down": { "texture": "#flower" },
+        "up": { "texture": "#flower" },
+        "north": { "texture": "#flower" },
+        "south": { "texture": "#flower" },
+        "west": { "texture": "#flower" },
+        "east": { "texture": "#flower" }
+      }
+    }
+  ]
 }
