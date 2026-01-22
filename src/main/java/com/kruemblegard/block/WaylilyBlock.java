@@ -46,18 +46,13 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
 
-        // Item placement: lily-pad-like behavior.
-        // The upper sits on the surface (replacing the surface water block), and the tail hangs below.
-        if (level.getFluidState(pos).getType() != Fluids.WATER) {
+        // Item placement: surface-flower behavior.
+        // The upper sits in the air block *above* the surface water, and the tail hangs into the water.
+        if (!level.getBlockState(pos).canBeReplaced()) {
             return null;
         }
 
         if (level.getFluidState(pos.below()).getType() != Fluids.WATER) {
-            return null;
-        }
-
-        // Must have air above so it's truly on the surface.
-        if (!level.getBlockState(pos.above()).canBeReplaced()) {
             return null;
         }
 

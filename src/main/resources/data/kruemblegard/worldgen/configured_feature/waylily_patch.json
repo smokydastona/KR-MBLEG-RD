@@ -21,14 +21,14 @@
                                                                                               {
                                                                                                   "type": "minecraft:matching_blocks",
                                                                                                   "blocks": [
-                                                                                                      "minecraft:water"
+                                                                                                      "minecraft:air"
                                                                                                   ]
                                                                                               },
                                                                                               {
                                                                                                   "type": "minecraft:matching_blocks",
-                                                                                                  "offset": [ 0, 1, 0 ],
+                                                                                                  "offset": [ 0, -1, 0 ],
                                                                                                   "blocks": [
-                                                                                                      "minecraft:air"
+                                                                                                      "minecraft:water"
                                                                                                   ]
                                                                                               },
                                                                                               {

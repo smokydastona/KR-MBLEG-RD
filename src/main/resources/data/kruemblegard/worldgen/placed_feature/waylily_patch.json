@@ -17,8 +17,18 @@
                           "direction_of_search": "down",
                           "max_steps": 32,
                           "target_condition": {
-                              "type": "minecraft:matching_blocks",
-                              "blocks": "minecraft:water"
+                              "type": "minecraft:all_of",
+                              "predicates": [
+                                  {
+                                      "type": "minecraft:matching_blocks",
+                                      "blocks": "minecraft:air"
+                                  },
+                                  {
+                                      "type": "minecraft:matching_blocks",
+                                      "offset": [ 0, -1, 0 ],
+                                      "blocks": "minecraft:water"
+                                  }
+                              ]
                           }
                       },
                       {

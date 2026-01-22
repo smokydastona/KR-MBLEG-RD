@@ -41,19 +41,23 @@ public class WaylilyItem extends BlockItem {
             surfaceWaterPos = surfaceWaterPos.above();
         }
 
+        // Place the flower block in the air *above* the surface water block.
+        // This keeps the water surface intact (no "hole" where water got replaced).
+        BlockPos placePos = surfaceWaterPos.above();
+
         // Require air (or replaceable) above the surface, and at least one water block below for the tail.
-        if (!level.getBlockState(surfaceWaterPos.above()).canBeReplaced()) {
+        if (!level.getBlockState(placePos).canBeReplaced()) {
             return InteractionResult.FAIL;
         }
 
-        if (level.getFluidState(surfaceWaterPos.below()).getType() != Fluids.WATER) {
+        if (level.getFluidState(surfaceWaterPos).getType() != Fluids.WATER) {
             return InteractionResult.FAIL;
         }
 
         BlockHitResult hitResult = new BlockHitResult(
                 context.getClickLocation(),
                 Direction.UP,
-                surfaceWaterPos,
+            placePos,
                 false
         );
 

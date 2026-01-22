@@ -32,7 +32,6 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         int depth = Mth.nextInt(random, cfg.minDepth(), cfg.maxDepth());
 
         // Keep edits within the local generation region to avoid far-chunk writes.
-        // We also snap the lake center to the chunk center so large lakes don't drift into 2+ chunks away.
         radius = Math.min(radius, 24);
         depth = Math.min(depth, 24);
 
@@ -56,7 +55,9 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             waterSurfaceY = surface.getY() + 1;
         }
 
-        BlockPos center = new BlockPos((origin.getX() & ~15) + 8, waterSurfaceY, (origin.getZ() & ~15) + 8);
+        // Use the provided placement origin for more natural distribution.
+        // Chunk-centering creates visible chunk-grid artifacts (hard shoreline lines at chunk borders).
+        BlockPos center = new BlockPos(origin.getX(), waterSurfaceY, origin.getZ());
 
         long noiseSeed = random.nextLong();
         // Multi-lobed outline (feels less like a circle).
@@ -263,16 +264,16 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
-        if (!level.getBlockState(surfacePos.above()).canBeReplaced()) {
+        BlockPos upperPos = surfacePos.above();
+        if (!level.getBlockState(upperPos).canBeReplaced()) {
             return;
         }
 
-        BlockPos lowerPos = surfacePos.below();
-        if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
-            return;
-        }
+        // Lower tail sits in the surface water block.
+        BlockPos lowerPos = surfacePos;
 
-        BlockPos lower2Pos = surfacePos.below(2);
+        // Optional second tail block one deeper.
+        BlockPos lower2Pos = surfacePos.below();
         boolean canHaveLower2 = level.getFluidState(lower2Pos).getType() == Fluids.WATER;
         boolean wantsLower2 = canHaveLower2 && random.nextBoolean();
 
@@ -291,12 +292,16 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                 .setValue(WaylilyBlock.PART, WaylilyBlock.Part.LOWER2)
                 .setValue(WaylilyBlock.WATERLOGGED, Boolean.TRUE);
 
-        // Replace only water blocks; don't stomp other worldgen decoration.
-        if (!level.getBlockState(surfacePos).canBeReplaced()) {
+        // Replace only air/replaceable for the upper, and only water for the tails.
+        if (!level.getBlockState(upperPos).canBeReplaced()) {
             return;
         }
 
-        level.setBlock(surfacePos, upperState, 2);
+        if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
+            return;
+        }
+
+        level.setBlock(upperPos, upperState, 2);
         level.setBlock(lowerPos, lowerState, 2);
         if (wantsLower2) {
             level.setBlock(lower2Pos, lower2State, 2);
