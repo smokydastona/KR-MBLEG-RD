@@ -2,12 +2,12 @@ package com.kruemblegard.client.render;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.MoogloomEntity;
+import com.kruemblegard.client.render.layer.MoogloomGriefcapLayer;
 
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.MushroomCowMushroomLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class MoogloomRenderer extends MobRenderer<MoogloomEntity, CowModel<MoogloomEntity>> {
@@ -17,7 +17,7 @@ public class MoogloomRenderer extends MobRenderer<MoogloomEntity, CowModel<Moogl
 
     public MoogloomRenderer(EntityRendererProvider.Context context) {
         super(context, new CowModel<>(context.bakeLayer(ModelLayers.MOOSHROOM)), 0.7F);
-        this.addLayer(new MushroomCowMushroomLayer<>(this, context.getBlockRenderDispatcher()));
+        this.addLayer(new MoogloomGriefcapLayer(this, context.getBlockRenderDispatcher()));
     }
 
     @Override

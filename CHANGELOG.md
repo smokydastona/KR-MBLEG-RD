@@ -28,6 +28,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.556 (2026-01-22)
 - Balance(moogloom): Moogloom now drops Griefcap instead of Voidcap Briar.
 
+## 1.0.557 (2026-01-22)
+- Feature(moogloom): Moogloom now renders Griefcap mushrooms on its back/head instead of vanilla red mushrooms.
+
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
