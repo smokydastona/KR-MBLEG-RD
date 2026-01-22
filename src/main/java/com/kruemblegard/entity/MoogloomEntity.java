@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
@@ -24,6 +25,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class MoogloomEntity extends MushroomCow {
+
+    private static final int MUTATE_CHANCE = 1024;
 
     public MoogloomEntity(EntityType<? extends MushroomCow> type, Level level) {
         super(type, level);
@@ -110,12 +113,30 @@ public class MoogloomEntity extends MushroomCow {
             return super.getBreedOffspring(level, otherParent);
         }
 
+        // Moogloom + Moogloom always produces a Moogloom.
+        if (otherParent instanceof MoogloomEntity) {
+            MoogloomEntity baby = ModEntities.MOOGLOOM.get().create(level);
+            if (baby != null) {
+                baby.setVariant(getOffspringType(this.getVariant(), otherMushroomCow.getVariant(), this.random));
+            }
+            return baby;
+        }
+
+        // Mixed pairing: 5% chance to produce a brown mooshroom.
+        if (this.random.nextInt(20) == 0) {
+            MushroomCow babyBrown = EntityType.MOOSHROOM.create(level);
+            if (babyBrown != null) {
+                babyBrown.setVariant(MushroomCow.MushroomType.BROWN);
+            }
+            return babyBrown;
+        }
+
         boolean babyIsMoogloom = this.random.nextBoolean();
         if (babyIsMoogloom) {
             MoogloomEntity baby = ModEntities.MOOGLOOM.get().create(level);
             if (baby != null) {
                 // Keep the underlying MushroomCow variant consistent, even though Moogloom uses a custom render.
-                baby.setVariant(this.getVariant());
+                baby.setVariant(getOffspringType(this.getVariant(), otherMushroomCow.getVariant(), this.random));
             }
             return baby;
         }
@@ -123,8 +144,20 @@ public class MoogloomEntity extends MushroomCow {
         MushroomCow babyMooshroom = EntityType.MOOSHROOM.create(level);
         if (babyMooshroom != null) {
             // Preserve vanilla variant mixing behavior for the mooshroom child.
-            babyMooshroom.setVariant(this.random.nextBoolean() ? this.getVariant() : otherMushroomCow.getVariant());
+            babyMooshroom.setVariant(getOffspringType(this.getVariant(), otherMushroomCow.getVariant(), this.random));
         }
         return babyMooshroom;
+    }
+
+    private static MushroomCow.MushroomType getOffspringType(
+            MushroomCow.MushroomType parentA,
+            MushroomCow.MushroomType parentB,
+            RandomSource random
+    ) {
+        if (parentA == parentB && random.nextInt(MUTATE_CHANCE) == 0) {
+            return parentA == MushroomCow.MushroomType.BROWN ? MushroomCow.MushroomType.RED : MushroomCow.MushroomType.BROWN;
+        }
+
+        return random.nextBoolean() ? parentA : parentB;
     }
 }

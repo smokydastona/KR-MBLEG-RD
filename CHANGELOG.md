@@ -69,6 +69,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.569 (2026-01-22)
 - Feature(worldgen/structures): Underway Falls now includes vanilla jungle temples.
 
+## 1.0.573 (2026-01-22)
+- Feature(moogloom): mixed Moogloom+Mooshroom breeding now has a 5% chance to produce a brown mooshroom baby.
+- Tuning(moogloom): Moogloom+Moogloom breeding now always produces a Moogloom baby.
+
 ## 1.0.572 (2026-01-22)
 - Fix(moogloom): Mooglooms now shear like vanilla mooshrooms (convert into a normal cow) while dropping Griefcap.
 - Feature(moogloom): Mooglooms can now breed with vanilla mooshrooms; offspring is 50/50 Moogloom vs mooshroom.
