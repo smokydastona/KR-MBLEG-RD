@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.516 (2026-01-21)
+- Fix(worldgen/trees): add missing mega-tree placed features (`*/mega_1`, `*/mega_2`) used by the mega selectors; prevents a registry load crash when creating/loading worlds.
+- Fix(assets): add missing Moogloom spawn egg item model to prevent missing-model warnings.
+
 ## 1.0.515 (2026-01-22)
 - Feature(worldgen/flora): warm Wayfall biomes now generate vanilla coral fans and sea pickles underwater.
 - Data(worldgen): add `#kruemblegard:wayfall_warm` biome tag and a dedicated biome modifier for warm-water flora.
