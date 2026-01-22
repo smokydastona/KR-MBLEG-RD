@@ -1,5 +1,7 @@
 package com.kruemblegard.world.feature;
 
+import com.kruemblegard.block.WaylilyBlock;
+import com.kruemblegard.init.ModBlocks;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
@@ -9,6 +11,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.material.Fluids;
 
 public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration> {
     public WayfallDeepLakeFeature(Codec<WayfallDeepLakeConfiguration> codec) {
@@ -25,6 +28,11 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         int radius = Mth.nextInt(random, cfg.minRadius(), cfg.maxRadius());
         int depth = Mth.nextInt(random, cfg.minDepth(), cfg.maxDepth());
 
+        // Keep edits within the local generation region to avoid far-chunk writes.
+        // We also snap the lake center to the chunk center so large lakes don't drift into 2+ chunks away.
+        radius = Math.min(radius, 24);
+        depth = Math.min(depth, 24);
+
         // Heightmap placement can hand us an air block above the surface; snap down to the first solid.
         BlockPos surface = origin;
         while (surface.getY() > level.getMinBuildHeight() + 2 && level.getBlockState(surface).isAir()) {
@@ -37,28 +45,30 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         }
 
         int waterSurfaceY = surface.getY();
-        BlockPos center = new BlockPos(origin.getX(), waterSurfaceY, origin.getZ());
+        BlockPos center = new BlockPos((origin.getX() & ~15) + 8, waterSurfaceY, (origin.getZ() & ~15) + 8);
 
-        double radiusSq = (double) radius * (double) radius;
-        double depthSq = (double) depth * (double) depth;
+        long noiseSeed = random.nextLong();
+        int diameter = radius * 2 + 1;
+        int[] columnDepths = new int[diameter * diameter];
 
         boolean placedAnyWater = false;
 
-        // Carve a bowl and fill with water.
+        // Carve an irregular bowl: per-column radius + depth jitter for a more natural outline.
         for (int dx = -radius; dx <= radius; dx++) {
             for (int dz = -radius; dz <= radius; dz++) {
-                double horizSq = (double) dx * (double) dx + (double) dz * (double) dz;
-                if (horizSq > radiusSq) {
+                double dist = Mth.sqrt((float) (dx * dx + dz * dz));
+                double colRadius = columnRadius(dx, dz, radius, noiseSeed);
+                if (dist > colRadius) {
                     continue;
                 }
 
-                for (int dy = 0; dy <= depth; dy++) {
-                    double ny = (double) dy * (double) dy / depthSq;
-                    double nxz = horizSq / radiusSq;
-                    if (nxz + ny > 1.0D) {
-                        continue;
-                    }
+                int colDepth = columnDepth(dx, dz, depth, noiseSeed);
+                double t = dist / Math.max(1.0D, colRadius);
+                int localDepth = Mth.clamp((int) Math.round(colDepth * (1.0D - t * t)), 1, colDepth);
 
+                columnDepths[(dx + radius) + (dz + radius) * diameter] = localDepth;
+
+                for (int dy = 0; dy <= localDepth; dy++) {
                     BlockPos p = center.offset(dx, -dy, dz);
                     if (level.isOutsideBuildHeight(p)) {
                         continue;
@@ -76,8 +86,10 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
         }
 
         // Place a barrier shell around the water to prevent leaks into adjacent caves.
+        // Important: we *do* fill adjacent air below the surface, otherwise the lake will spill.
+        BlockState lakeFluidSample = cfg.fluid().getState(random, center);
         int shellRadius = radius + 1;
-        int shellDepth = depth + 1;
+        int shellDepth = depth + 2;
         for (int dx = -shellRadius; dx <= shellRadius; dx++) {
             for (int dz = -shellRadius; dz <= shellRadius; dz++) {
                 for (int dy = 0; dy <= shellDepth; dy++) {
@@ -86,33 +98,155 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
                         continue;
                     }
 
+                    if (p.getY() > waterSurfaceY) {
+                        continue;
+                    }
+
+                    if (isInsideLake(columnDepths, diameter, radius, dx, dz, dy)) {
+                        continue;
+                    }
+
+                    if (!isAdjacentToLake(columnDepths, diameter, radius, dx, dz, dy)) {
+                        continue;
+                    }
+
                     BlockState current = level.getBlockState(p);
-                    if (current.isAir()) {
+                    if (current.getFluidState().isSource() && current.getFluidState().getType() == lakeFluidSample.getFluidState().getType()) {
                         continue;
                     }
 
-                    if (current.getFluidState().isSource()) {
+                    if (!(current.isAir() || current.canBeReplaced() || !current.getFluidState().isEmpty())) {
                         continue;
                     }
 
-                    if (isAdjacentToWater(level, p)) {
-                        BlockState barrierState = cfg.barrier().getState(random, p);
-                        level.setBlock(p, barrierState, 2);
-                    }
+                    BlockState barrierState = cfg.barrier().getState(random, p);
+                    level.setBlock(p, barrierState, 2);
                 }
             }
+        }
+
+        // Surface decoration: place waylilies on the lake surface.
+        // This is done after the barrier pass so the barrier shell doesn't overwrite the lily blocks.
+        // Keep density modest even for very large lakes.
+        int lilyAttempts = Mth.clamp(radius * 2, 12, 96);
+        for (int i = 0; i < lilyAttempts; i++) {
+            int dx = random.nextInt(radius * 2 + 1) - radius;
+            int dz = random.nextInt(radius * 2 + 1) - radius;
+
+            if (columnDepths[(dx + radius) + (dz + radius) * diameter] <= 0) {
+                continue;
+            }
+
+            BlockPos lilyPos = center.offset(dx, 0, dz);
+            tryPlaceWaylily(level, lilyPos, random);
         }
 
         return true;
     }
 
-    private static boolean isAdjacentToWater(LevelAccessor level, BlockPos pos) {
-        for (var dir : net.minecraft.core.Direction.values()) {
-            BlockPos n = pos.relative(dir);
-            if (level.getBlockState(n).getFluidState().isSource()) {
-                return true;
-            }
+    private static void tryPlaceWaylily(LevelAccessor level, BlockPos surfacePos, RandomSource random) {
+        // Must be surface water.
+        if (level.getFluidState(surfacePos).getType() != Fluids.WATER) {
+            return;
         }
-        return false;
+
+        if (level.getFluidState(surfacePos.above()).getType() == Fluids.WATER) {
+            return;
+        }
+
+        if (!level.getBlockState(surfacePos.above()).canBeReplaced()) {
+            return;
+        }
+
+        BlockPos lowerPos = surfacePos.below();
+        if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
+            return;
+        }
+
+        BlockPos lower2Pos = surfacePos.below(2);
+        boolean canHaveLower2 = level.getFluidState(lower2Pos).getType() == Fluids.WATER;
+        boolean wantsLower2 = canHaveLower2 && random.nextBoolean();
+
+        BlockState upperState = ModBlocks.WAYLILY.get()
+                .defaultBlockState()
+                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.UPPER)
+                .setValue(WaylilyBlock.WATERLOGGED, Boolean.FALSE);
+
+        BlockState lowerState = ModBlocks.WAYLILY.get()
+                .defaultBlockState()
+                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.LOWER)
+                .setValue(WaylilyBlock.WATERLOGGED, Boolean.TRUE);
+
+        BlockState lower2State = ModBlocks.WAYLILY.get()
+                .defaultBlockState()
+                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.LOWER2)
+                .setValue(WaylilyBlock.WATERLOGGED, Boolean.TRUE);
+
+        // Replace only water blocks; don't stomp other worldgen decoration.
+        if (!level.getBlockState(surfacePos).canBeReplaced()) {
+            return;
+        }
+
+        level.setBlock(surfacePos, upperState, 2);
+        level.setBlock(lowerPos, lowerState, 2);
+        if (wantsLower2) {
+            level.setBlock(lower2Pos, lower2State, 2);
+        }
+
+        // Ensure water ticks for the tails.
+        level.scheduleTick(lowerPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        if (wantsLower2) {
+            level.scheduleTick(lower2Pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+    }
+
+    private static boolean isInsideLake(int[] depths, int diameter, int radius, int dx, int dz, int dy) {
+        if (dx < -radius || dx > radius || dz < -radius || dz > radius) {
+            return false;
+        }
+        int localDepth = depths[(dx + radius) + (dz + radius) * diameter];
+        return localDepth > 0 && dy <= localDepth;
+    }
+
+    private static boolean isAdjacentToLake(int[] depths, int diameter, int radius, int dx, int dz, int dy) {
+        return isInsideLake(depths, diameter, radius, dx + 1, dz, dy)
+                || isInsideLake(depths, diameter, radius, dx - 1, dz, dy)
+                || isInsideLake(depths, diameter, radius, dx, dz + 1, dy)
+                || isInsideLake(depths, diameter, radius, dx, dz - 1, dy)
+                || isInsideLake(depths, diameter, radius, dx, dz, dy + 1)
+                || isInsideLake(depths, diameter, radius, dx, dz, dy - 1);
+    }
+
+    private static double columnRadius(int dx, int dz, int radius, long seed) {
+        double n1 = hashNoise(dx, dz, seed);
+        double n2 = hashNoise(dx * 2, dz * 2, seed ^ 0x9E3779B97F4A7C15L);
+        double noise = n1 * 0.65D + n2 * 0.35D;
+
+        double angle = Math.atan2(dz, dx);
+        double wave = Math.sin(angle * 3.0D + (seed & 0xFFFF) * 0.0007D) * 0.6D
+                + Math.sin(angle * 7.0D + (seed >>> 16 & 0xFFFF) * 0.0011D) * 0.4D;
+
+        double jitter = Mth.clamp((float) (noise * 0.8D + wave * 0.2D), -1.0F, 1.0F);
+        double factor = 1.0D + 0.22D * jitter;
+        factor = Mth.clamp((float) factor, 0.70F, 1.12F);
+        return radius * factor;
+    }
+
+    private static int columnDepth(int dx, int dz, int depth, long seed) {
+        double n = hashNoise(dx, dz, seed ^ 0xD1B54A32D192ED03L);
+        double factor = 1.0D + 0.15D * n;
+        int out = (int) Math.round(depth * factor);
+        return Mth.clamp(out, Math.max(2, depth - 4), depth + 4);
+    }
+
+    private static double hashNoise(int x, int z, long seed) {
+        long h = seed;
+        h ^= (long) x * 341873128712L;
+        h ^= (long) z * 132897987541L;
+        h = (h ^ (h >>> 33)) * 0xff51afd7ed558ccdL;
+        h = (h ^ (h >>> 33)) * 0xc4ceb9fe1a85ec53L;
+        h = h ^ (h >>> 33);
+        // Map to [-1, 1]
+        return ((h >>> 11) * 0x1.0p-53) * 2.0D - 1.0D;
     }
 }

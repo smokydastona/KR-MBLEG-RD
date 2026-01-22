@@ -196,7 +196,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Visual feedback: at high moisture, it swaps to a moist top texture (vanilla farmland-style).
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly) and only place into replaceable blocks (no carving holes in terrain).
 - Wayfall water flora:
-  - Waylily (surface) + vanilla seagrass (underwater) generate across all Wayfall biomes with per-biome rarity tiers.
+  - Waylily (surface) + vanilla seagrass (underwater) generate across all Wayfall biomes with per-biome rarity tiers (Waylily uses the `waylily_patch*` placed features).
+  - The deep lake feature (`wayfall_big_water_lake`) also adds extra Waylily on exposed lake surfaces.
   - Underwater plants target the lake/pond floor (ocean-floor heightmap) so they can actually survive and generate in floating-island water bodies.
   - Warm Wayfall biomes (tagged `#kruemblegard:wayfall_warm`) also get vanilla coral fans + sea pickles underwater.
 - Wayfall staple flora (new): Voidfern, Runeblossom, Moteshrub, Ashveil, Twilight Bulb, Whispervine.
@@ -250,7 +251,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall biomes can generate surface water lakes (lake barriers use a Stoneveil Rubble + Runed Stoneveil Rubble mix).
 - Wayfall biomes can also very rarely generate **large deep water lakes** (10–15 blocks deep) that can span across chunk borders.
 - Wayfall biomes can generate rare surface lava lakes (lake barriers use a Scarstone + Cracked Scarstone mix); Basin of Scars is more lava-forward.
-- Basin of Scars can also very rarely generate **large deep lava lakes** (20–50 radius, 10–15 deep) using Scarstone barriers.
+- Basin of Scars can also very rarely generate **large deep lava lakes** (18–24 radius, 10–15 deep) using Scarstone barriers.
 - Lake placement uses a -8 X/Z offset so the generated lake is centered on the placement position.
 - Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:

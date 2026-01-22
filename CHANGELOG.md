@@ -7,6 +7,13 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.524 (2026-01-22)
 - Fix(worldgen/trees): make the “large assembled” tree variants (`*/4` and `*/5`, used by all mega selectors) generate true 2x2 trunks by switching to `minecraft:giant_trunk_placer`; this makes 2x2 sapling mega growth look properly “mega” instead of like a tall single-trunk tree.
 
+## 1.0.539 (2026-01-22)
+- Fix(assets): repair `waylily_upper.json` so it is valid vanilla block-model JSON (prevents client model parse errors).
+- Fix(worldgen/lakes): deep lake generation is now irregular-shaped and properly sealed by placing barrier blocks into adjacent air pockets below the surface (prevents lakes spilling into caves).
+- Fix(worldgen/lakes): snap deep lake center to chunk center and clamp extreme radii to avoid “setBlock in a far chunk” spam during worldgen.
+- Tuning(worldgen/lakes): reduce large deep lake configured radius from 20–50 to 18–24 for stability.
+- Fix(worldgen/lakes): Basin of Scars no longer injects large deep water lakes.
+
 ## 1.0.525 (2026-01-21)
 - Fix(assets): Waylily block now correctly resolves its upper model by matching the full blockstate (`part=upper,waterlogged=false`) instead of falling back to missing-model.
 - Fix(worldgen/flora): Wayfall water flora (Waylily, seagrass, warm-water coral fans + sea pickles) now scan downward from the surface to find water before attempting placement; this makes them generate in floating-island lakes/ponds instead of only in “true ocean” terrain.

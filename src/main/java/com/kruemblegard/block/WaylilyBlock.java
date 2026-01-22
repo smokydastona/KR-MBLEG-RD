@@ -141,8 +141,8 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             if (direction == net.minecraft.core.Direction.DOWN) {
                 // Keep the tail in sync (and self-destruct if it can't exist).
                 if (!neighborState.is(this) || neighborState.getValue(PART) != Part.LOWER) {
-                    if (!level.isClientSide() && level instanceof Level) {
-                        ensureTails((Level) level, pos);
+                    if (!level.isClientSide()) {
+                        ensureTails(level, pos);
                         neighborState = level.getBlockState(pos.below());
                     }
 
@@ -159,9 +159,9 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             }
 
             if (direction == net.minecraft.core.Direction.DOWN) {
-                if (!level.isClientSide() && level instanceof Level) {
-                    // If there is enough depth below, optionally create/remove the second tail.
-                    ensureTails((Level) level, pos.above());
+                if (!level.isClientSide()) {
+                    // Keep the tail chain in sync.
+                    ensureTails(level, pos.above());
                 }
             }
 
@@ -231,20 +231,20 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
         return super.use(state, level, pos, player, hand, hit);
     }
 
-    private void ensureTails(Level level, BlockPos upperPos) {
+    private void ensureTails(LevelAccessor level, BlockPos upperPos) {
         BlockPos lowerPos = upperPos.below();
 
         if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
             // Not enough water depth for tails; keep the upper, but remove any existing tails.
             BlockState lowerState = level.getBlockState(lowerPos);
             if (lowerState.is(this) && lowerState.getValue(PART) == Part.LOWER) {
-                level.destroyBlock(lowerPos, false);
+                level.setBlock(lowerPos, replacementFluidOrAir(level, lowerPos), Block.UPDATE_ALL);
             }
 
             BlockPos lower2Pos = upperPos.below(2);
             BlockState lower2State = level.getBlockState(lower2Pos);
             if (lower2State.is(this) && lower2State.getValue(PART) == Part.LOWER2) {
-                level.destroyBlock(lower2Pos, false);
+                level.setBlock(lower2Pos, replacementFluidOrAir(level, lower2Pos), Block.UPDATE_ALL);
             }
             return;
         }
@@ -262,10 +262,10 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             );
         }
 
-        // Optional second tail segment if there is deeper water.
+        // Second tail segment if there is deeper water.
         BlockPos lower2Pos = upperPos.below(2);
         boolean canHaveLower2 = level.getFluidState(lower2Pos).getType() == Fluids.WATER;
-        boolean wantsLower2 = canHaveLower2 && level.random.nextBoolean();
+        boolean wantsLower2 = canHaveLower2;
 
         BlockState lower2State = level.getBlockState(lower2Pos);
         if (wantsLower2) {
@@ -282,9 +282,17 @@ public class WaylilyBlock extends Block implements SimpleWaterloggedBlock {
             }
         } else {
             if (lower2State.is(this) && lower2State.getValue(PART) == Part.LOWER2) {
-                level.destroyBlock(lower2Pos, false);
+                level.setBlock(lower2Pos, replacementFluidOrAir(level, lower2Pos), Block.UPDATE_ALL);
             }
         }
+    }
+
+    private static BlockState replacementFluidOrAir(LevelAccessor level, BlockPos pos) {
+        // Prefer restoring water if this position is (or was) waterlogged.
+        if (level.getFluidState(pos).getType() == Fluids.WATER) {
+            return net.minecraft.world.level.block.Blocks.WATER.defaultBlockState();
+        }
+        return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
     }
 
     public enum Part implements StringRepresentable {
