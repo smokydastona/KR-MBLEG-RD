@@ -12,6 +12,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Vanilla water spawns: Wayfall biomes include Glow Squid and biome-temperature-tier fish spawns (warm: tropical/puffer; temperate: cod; cold: salmon).
 - Glow Squid are air-adapted in Wayfall: they can float/swim through open air without suffocating.
 - Wayfall spawn rules: Glow Squid can spawn at any height and light level (including in open air), as long as there is space.
+- Underway Falls axolotls are air-adapted in Wayfall: they can swim through open air without drying out.
 - **No carvers**: `carvers.air` is empty.
 - Sky is always black (`sky_color: 0`).
 - Terrain is floating-island style with a void fade band that begins around Y≈96; islands should be common enough that all Wayfall biomes can be found for progression.
@@ -220,6 +221,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine
 - Water bodies: higher frequency of **large deep lakes** (water, plus occasional lava) compared to other Wayfall biomes.
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
+- Spawns (water): Axolotl (weight 10, 2–4)
 - Features:
   - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Waytorch Tree wood; some vanilla wood remains)
   - Vanilla jungle temples: `minecraft:jungle_pyramid` (rethemed to Scarstone family stone)

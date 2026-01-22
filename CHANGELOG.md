@@ -73,6 +73,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(wayfall/ambience): Glow Squid now actively roam through open air (squid-bird vibe) instead of slowly drifting.
 - Fix(spawns/wayfall): fish spawn placement no longer assumes sea-level Y; cod/salmon/tropical/puffer can now spawn in high-altitude Wayfall lakes.
 
+## 1.0.578 (2026-01-22)
+- Feature(spawns/wayfall): Axolotls now spawn in Underway Falls.
+- Feature(wayfall/ambience): Axolotls are now air-adapted in Wayfall and can swim through open air.
+
 ## 1.0.576 (2026-01-22)
 - Feature(spawns/wayfall): Glow Squid can now spawn at any height and light level in Wayfall (including open air).
 

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -84,6 +85,15 @@ public final class CommonModEvents {
             SpawnPlacements.Type.NO_RESTRICTIONS,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             CommonModEvents::canSpawnWayfallFish,
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        // Wayfall: axolotls should be able to spawn in high-altitude lakes (Underway Falls).
+        event.register(
+            EntityType.AXOLOTL,
+            SpawnPlacements.Type.NO_RESTRICTIONS,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWayfallAxolotl,
             SpawnPlacementRegisterEvent.Operation.OR
         );
 
@@ -212,6 +222,29 @@ public final class CommonModEvents {
         }
 
         // Fish should still spawn in water, but height/light should not matter in Wayfall.
+        if (level.getFluidState(pos).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        if (level.getFluidState(pos.above()).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean canSpawnWayfallAxolotl(
+            net.minecraft.world.entity.EntityType<? extends Axolotl> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        if (!level.getLevel().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return false;
+        }
+
+        // Keep axolotls water-spawned, but ignore height/light constraints in Wayfall.
         if (level.getFluidState(pos).getType() != Fluids.WATER) {
             return false;
         }
