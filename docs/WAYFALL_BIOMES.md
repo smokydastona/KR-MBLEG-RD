@@ -35,6 +35,10 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
   - The pool is selected by the biome at the spawn location (with a temperature-based fallback for cold).
   - Wayfall's dimension spawn is kept aligned to the origin-island surface landing.
 
+- Vanilla structure retheming (Wayfall-only):
+  - Shipwrecks swap vanilla wood blocks to a Wayfall wood palette chosen by the local biome (with a small chance to keep vanilla wood per-block).
+  - Underway Falls jungle temples swap temple stone blocks to the Scarstone family.
+
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
@@ -66,7 +70,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Wispstalk (food), Voidfern, Void Lichen, Waythread
 - Spawns (monster): Traprock (weight 4, solo), Pebblit (weight 4, 1–2)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Hollowway Tree wood; some vanilla wood remains)
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0005)
@@ -82,7 +86,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Wispstalk (food), Waylily (water surface), Milestone Grass, Echocap, Memory Rot, Moteshrub
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Driftwillow wood; some vanilla wood remains)
   - Large Attuned Stone disk: `kruemblegard:attuned_stone_disk_large`
 - Ambience:
   - Particles: `minecraft:white_ash` (0.0012)
@@ -98,7 +102,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Soulberry Shrub (food), Pathreed, Runedrift Reed, Cairnroot, Misstep Vine
 - Spawns (monster): Pebblit (weight 8, 1–2), Traprock (weight 4, solo)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Driftwillow wood; some vanilla wood remains)
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:ash` (0.001)
@@ -161,7 +165,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Soulberry Shrub (food), Transit Bloom, Transit Fern, Twilight Bulb, Cairn Moss
 - Spawns (monster): Traprock (weight 6, solo), Pebblit (weight 2, solo)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Hollowway Tree wood; some vanilla wood remains)
 - Ambience:
   - Music: `minecraft:music.end` (longer delay)
 
@@ -174,7 +178,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
   - Plants: Wispstalk (food), Falsepath Thorns, Sliproot, Ashpetal, Wayrot Fungus
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Faultwood wood; some vanilla wood remains)
 - Ambience:
   - Particles: `minecraft:smoke` (0.0006)
   - Music: `minecraft:music.end`
@@ -216,8 +220,8 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Water bodies: higher frequency of **large deep lakes** (water, plus occasional lava) compared to other Wayfall biomes.
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
 - Features:
-  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached`
-  - Vanilla jungle temples: `minecraft:jungle_pyramid`
+  - Vanilla shipwrecks: `minecraft:shipwreck`, `minecraft:shipwreck_beached` (rethemed to Waytorch Tree wood; some vanilla wood remains)
+  - Vanilla jungle temples: `minecraft:jungle_pyramid` (rethemed to Scarstone family stone)
   - Small Attuned Stone disk: `kruemblegard:attuned_stone_disk_small`
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0009)

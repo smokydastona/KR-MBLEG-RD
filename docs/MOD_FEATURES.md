@@ -148,6 +148,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Template landing marker: put a single `minecraft:barrier` block in the template at the intended **feet** position (i.e., the air block the player occupies), with a solid floor block directly below it.
     - The game removes the marker and teleports the player into that space.
 
+- Wayfall-only vanilla structure retheming:
+  - Vanilla shipwrecks placed in Wayfall swap their wood blocks to a local Wayfall wood palette (with a small chance to keep vanilla wood).
+  - Underway Falls jungle temples swap temple stone blocks to the Scarstone family.
+
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
   - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).
