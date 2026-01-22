@@ -1,0 +1,16 @@
+{
+  "feature": {
+    "type": "minecraft:simple_random_selector",
+    "config": {
+      "features": [
+        { "feature": "kruemblegard:waytorch_tree/mega", "placement": [] }
+      ]
+    }
+  },
+  "placement": [
+    { "type": "minecraft:rarity_filter", "chance": 80 },
+    { "type": "minecraft:in_square" },
+    { "type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING" },
+    { "type": "minecraft:biome" }
+  ]
+}

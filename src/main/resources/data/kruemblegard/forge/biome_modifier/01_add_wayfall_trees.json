@@ -3,14 +3,18 @@
   "biomes": "#kruemblegard:wayfall_trees",
   "features": [
     "kruemblegard:ashbloom_tree",
+    "kruemblegard:mega_ashbloom_tree",
     "kruemblegard:glimmerpine_tree",
     "kruemblegard:mega_glimmerpine_tree",
     "kruemblegard:driftwood_tree",
+	"kruemblegard:mega_driftwood_tree",
 
     "kruemblegard:wayroot_tree",
     "kruemblegard:mega_wayroot_tree",
     "kruemblegard:echowood_tree",
-    "kruemblegard:wayglass_tree"
+    "kruemblegard:mega_echowood_tree",
+    "kruemblegard:wayglass_tree",
+    "kruemblegard:mega_wayglass_tree"
   ],
   "step": "vegetal_decoration"
 }

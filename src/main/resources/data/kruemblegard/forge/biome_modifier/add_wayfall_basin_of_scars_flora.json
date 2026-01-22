@@ -3,7 +3,9 @@
   "biomes": "#kruemblegard:basin_of_scars",
   "features": [
     "kruemblegard:splinterspore_tree",
+    "kruemblegard:mega_splinterspore_tree",
     "kruemblegard:fallbark_tree",
+	"kruemblegard:mega_fallbark_tree",
 
     "kruemblegard:soulberry_shrub_patch",
 

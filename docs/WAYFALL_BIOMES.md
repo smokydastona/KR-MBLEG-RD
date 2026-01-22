@@ -15,7 +15,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 - Terrain is floating-island style with a void fade band that begins around Y≈96; islands should be common enough that all Wayfall biomes can be found for progression.
 - Biome regions are intentionally kept relatively small (more frequent biome transitions) so players can find specific biomes without traveling extreme distances.
 - Flora placement is enforced via Forge biome modifiers (global staples + per-biome sets), and density is primarily controlled by each placed feature’s `rarity_filter`.
-  - Some Wayfall trees include rare mega variants in natural generation (Wayroot, Glimmerpine, Driftwillow, Monument Oak).
+  - All Wayfall trees include rare mega variants in natural generation.
 - Surface palette is defined in Wayfall noise settings (`kruemblegard:wayfall`) with a small set of explicit biome-specific stacks:
   - **Default Wayfall surface**: Runegrowth → Fault Dust → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
   - **Strata Collapse**: Ashfall Loam → Ashfall Stone → (Stoneveil Rubble / Runed Stoneveil Rubble mix).
@@ -41,7 +41,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Description: A smoke-hazed basin dotted with dense standing stones; feels heavy and volcanic.
 - Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
-  - Trees: Splinterspore, Fallbark
+  - Trees: Splinterspore (rare mega variant), Fallbark (rare mega variant)
   - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Wayburn Fungus, Gravevine, Ruin Thistle
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
@@ -58,7 +58,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.75
 - Description: A cold, dim void pocket where reverse-portal motes drift around small attuned stone disks.
 - Intended flora (design target):
-  - Trees: Hollowway Tree
+  - Trees: Hollowway Tree (rare mega variant)
   - Plants: Wispstalk (food), Voidfern, Void Lichen, Waythread
 - Spawns (monster): Traprock (weight 4, solo), Pebblit (weight 4, 1–2)
 - Features:
@@ -73,7 +73,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.95
 - Description: A windblown crossing of broken island fragments, dusted with white ash and marked by large attuned disks.
 - Intended flora (design target):
-  - Trees: Driftwillow (rare mega variant), Cairn Tree
+  - Trees: Driftwillow (rare mega variant), Cairn Tree (rare mega variant)
   - Plants: Wispstalk (food), Waylily, Milestone Grass, Echocap, Memory Rot, Moteshrub
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
@@ -103,7 +103,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.60
 - Description: A wide, faulted stretch of floating plateaus where dense standing stones break up the ash haze.
 - Intended flora (design target):
-  - Trees: Faultwood, Fallbark
+  - Trees: Faultwood (rare mega variant), Fallbark (rare mega variant)
   - Plants: Wispstalk (food), Waygrasp Vine, Static Fungus, Wayscar Ivy
 - Spawns (monster): Traprock (weight 9, solo), Pebblit (weight 2, solo)
 - Features: (none listed)
@@ -118,7 +118,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Description: Shallow “shoals” of broken stone islands with faint crimson spores drifting through the air.
 - Terrain surface: Fractured Wayrock → Crushstone, with deeper Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
-  - Trees: Waytorch Tree
+  - Trees: Waytorch Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Wayseed Cluster, Black Echo Fungus, Runebloom, Fallseed Pods
 - Spawns (monster): Pebblit (weight 7, 1–2), Traprock (weight 3, solo)
 - Features:
@@ -134,7 +134,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
-  - Trees: Monument Oak (rare mega variant), Waytorch Tree
+  - Trees: Monument Oak (rare mega variant), Waytorch Tree (rare mega variant)
   - Plants: Wispstalk (food), Runeblossom, Rune Sprouts, Gravemint
 - Spawns (monster): Traprock (weight 5, solo), Pebblit (weight 5, 1–2)
 - Features:
@@ -150,7 +150,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Description: Quiet, open transit plains with sparse standing stones and long stretches between points of interest.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):
-  - Trees: Hollowway Tree
+  - Trees: Hollowway Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Transit Bloom, Transit Fern, Twilight Bulb, Cairn Moss
 - Spawns (monster): Traprock (weight 6, solo), Pebblit (weight 2, solo)
 - Features: (none listed)
@@ -162,7 +162,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.50
 - Description: Broken causeways and riven slabs stitched together by dense standing stones; smoke hangs low.
 - Intended flora (design target):
-  - Trees: Faultwood, Driftwillow (rare mega variant)
+  - Trees: Faultwood (rare mega variant), Driftwillow (rare mega variant)
   - Plants: Wispstalk (food), Falsepath Thorns, Sliproot, Ashpetal, Wayrot Fungus
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
 - Features: (none listed)
@@ -175,7 +175,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 0.90
 - Description: Flat, shattered “plates” of stone with warped spores drifting above the cracks; primarily Pebblit territory.
 - Intended flora (design target):
-  - Trees: Splinterspore
+  - Trees: Splinterspore (rare mega variant)
   - Plants: Soulberry Shrub (food), Voidcap Briar, Echo Puff, Waybind Creeper, Waypoint Mold
 - Spawns (monster): Pebblit (weight 6, 1–2)
 - Features: (none listed)
@@ -188,7 +188,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 1.50
 - Description: Collapsed strata terraces where white ash gathers around sparse megaliths and large attuned disks.
 - Intended flora (design target):
-  - Trees: Cairn Tree, Faultwood
+  - Trees: Cairn Tree (rare mega variant), Faultwood (rare mega variant)
   - Plants: Wispstalk (food), Griefcap, Ashveil
 - Spawns (monster): Traprock (weight 7, solo), Pebblit (weight 6, 1–2)
 - Features:
@@ -202,7 +202,7 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Temperature: 1.00
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
 - Intended flora (design target):
-  - Trees: Driftwillow (rare mega variant), Waytorch Tree
+  - Trees: Driftwillow (rare mega variant), Waytorch Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
 - Features:

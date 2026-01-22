@@ -6,6 +6,7 @@ Scope/notes:
 - All tree content is part of **Wayfall**.
 - “Mechanics” below are either implemented behavior or design targets; if a mechanic isn’t implemented yet, it’s explicitly marked as such.
 - All saplings support 2x2 (spruce-style) placement to grow a larger **mega** variant (Evergreen-style multi-option selectors).
+- Mega variants can also generate naturally (rare) in the biomes where their normal trees generate.
 - For the full plant + tree catalog (including non-tree plants), see [FLORA_REFERENCE.md](FLORA_REFERENCE.md).
 
 ## Tree families (14)

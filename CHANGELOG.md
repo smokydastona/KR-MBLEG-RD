@@ -36,6 +36,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.510 (2026-01-21)
 - Feature(worldgen): all tree saplings now support 2x2 (mega) growth using Evergreen-style multi-option `mega` configured features.
 
+## 1.0.511 (2026-01-22)
+- Feature(worldgen): mega tree variants now generate naturally (rare) across Wayfall biomes, matching the new per-tree mega selectors.
+
 ## 1.0.494 (2026-01-20)
 - Tuning(assets): Runebloom now uses a single 16-frame sprite-sheet texture (`runebloom_0.png` + `.png.mcmeta`) for animation.
 

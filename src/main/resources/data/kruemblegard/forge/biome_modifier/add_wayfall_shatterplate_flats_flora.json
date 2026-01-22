@@ -3,6 +3,7 @@
   "biomes": "#kruemblegard:shatterplate_flats",
   "features": [
     "kruemblegard:splinterspore_tree",
+    "kruemblegard:mega_splinterspore_tree",
 
     "kruemblegard:paleweft_patch_dense",
     "kruemblegard:paleweft_small_patch_dense",
