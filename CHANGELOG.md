@@ -17,6 +17,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.527 (2026-01-21)
 - Feature(waylily): Waylily is now a lotus-like surface flower with hanging waterlogged roots; if water is deep enough it can also spawn a 2-block-long roots chain for variety.
 
+## 1.0.528 (2026-01-21)
+- Fix(assets): Waylily tail model now uses only vanilla-supported block-model rotation angles (multiples of 22.5°) to prevent model parse errors.
+- Fix(worldgen/flora): water flora placed features now use `environment_scan.max_steps=32` (vanilla codec max) so registries load without crashing.
+- Fix(assets): add a fallback blockstate variant for `part=upper,waterlogged=true` so resource loading never hits a missing variant.
+
 ## 1.0.520 (2026-01-21)
 - Fix(worldgen/trees): make all `*/mega.json` selectors match Evergreen-0-6-3’s object-form `features` entries (`{ "feature": "…", "placement": [] }`) instead of string IDs; this removes ambiguity around placed-feature vs configured-feature resolution during sapling growth and improves 2x2 mega reliability.
 
