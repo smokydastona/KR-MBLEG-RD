@@ -24,6 +24,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(waylily): player placement now snaps to the true water surface even if you click underwater (vanilla lily-pad feel).
 - Fix(worldgen/lakes): deep lake water surface is generated at the correct height (+1 above terrain surface), so Waylilies placed by the lake feature are no longer 1 block too low.
 
+## 1.0.543 (2026-01-21)
+- Tuning(worldgen/lakes): deep lakes now use multi-lobed, smooth-noise outlines for more irregular, natural shapes.
+- Tuning(worldgen/lakes): add a small “cave cap” at lake edges when under a ceiling to help lakes blend into cave roofs/walls instead of cutting clean holes.
+
 ## 1.0.525 (2026-01-21)
 - Fix(assets): Waylily block now correctly resolves its upper model by matching the full blockstate (`part=upper,waterlogged=false`) instead of falling back to missing-model.
 - Fix(worldgen/flora): Wayfall water flora (Waylily, seagrass, warm-water coral fans + sea pickles) now scan downward from the surface to find water before attempting placement; this makes them generate in floating-island lakes/ponds instead of only in “true ocean” terrain.
