@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.GrowingPlantBodyBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,7 +46,10 @@ public final class ModAutoBlockItems {
                 }
 
                 // Common blocks that intentionally don't have a direct item.
-                if (block instanceof FlowerPotBlock || block instanceof LiquidBlock || block instanceof FarmBlock) {
+                if (block instanceof FlowerPotBlock
+                        || block instanceof LiquidBlock
+                        || block instanceof FarmBlock
+                        || block instanceof GrowingPlantBodyBlock) {
                     continue;
                 }
 
