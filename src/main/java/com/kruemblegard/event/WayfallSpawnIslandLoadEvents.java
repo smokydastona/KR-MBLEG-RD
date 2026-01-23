@@ -25,6 +25,6 @@ public final class WayfallSpawnIslandLoadEvents {
         }
 
         // Requirement: place the origin island at (0, 175, 0) on first load of the Wayfall dimension.
-        WayfallSpawnPlatform.ensureSpawnIslandPlaced(level);
+        WayfallSpawnPlatform.ensureSpawnIslandPlaced(level, true);
     }
 }

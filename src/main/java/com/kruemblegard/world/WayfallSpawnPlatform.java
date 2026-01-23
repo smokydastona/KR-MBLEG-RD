@@ -54,6 +54,11 @@ public final class WayfallSpawnPlatform {
 
     /** Places the origin island structure at the fixed anchor if not already placed. */
     public static void ensureSpawnIslandPlaced(ServerLevel wayfall) {
+        ensureSpawnIslandPlaced(wayfall, false);
+    }
+
+    /** Places the origin island structure at the fixed anchor if not already placed. */
+    public static void ensureSpawnIslandPlaced(ServerLevel wayfall, boolean forceChunkLoadForValidation) {
         BlockPos anchor = SPAWN_ISLAND_ANCHOR;
         BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
 
@@ -72,15 +77,29 @@ public final class WayfallSpawnPlatform {
                 data.setPlaced(false);
                 data.setDirty();
             } else {
-                ensureTemplateChunksLoaded(wayfall, anchor, size);
-                if (isSpawnIslandAreaEmpty(wayfall, anchor, size)) {
-                    Kruemblegard.LOGGER.warn(
-                        "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
-                        anchor,
-                        data.getStructureId()
-                    );
-                    data.setPlaced(false);
-                    data.setDirty();
+                // IMPORTANT: do not force chunk generation here. This method can be called during
+                // player travel/teleport; forcing FULL chunk loads can cause multi-second hitches.
+                if (forceChunkLoadForValidation) {
+                    ensureTemplateChunksLoaded(wayfall, anchor, size);
+                    if (isSpawnIslandAreaEmpty(wayfall, anchor, size)) {
+                        Kruemblegard.LOGGER.warn(
+                            "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
+                            anchor,
+                            data.getStructureId()
+                        );
+                        data.setPlaced(false);
+                        data.setDirty();
+                    }
+                } else if (areTemplateChunksLoaded(wayfall, anchor, size)) {
+                    if (isSpawnIslandAreaEmpty(wayfall, anchor, size)) {
+                        Kruemblegard.LOGGER.warn(
+                            "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
+                            anchor,
+                            data.getStructureId()
+                        );
+                        data.setPlaced(false);
+                        data.setDirty();
+                    }
                 }
             }
         }
@@ -168,6 +187,23 @@ public final class WayfallSpawnPlatform {
                 level.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
             }
         }
+    }
+
+    private static boolean areTemplateChunksLoaded(ServerLevel level, BlockPos anchor, Vec3i size) {
+        int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
+        int padZ = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getZ());
+        int minChunkX = (anchor.getX() - padX) >> 4;
+        int maxChunkX = (anchor.getX() + padX) >> 4;
+        int minChunkZ = (anchor.getZ() - padZ) >> 4;
+        int maxChunkZ = (anchor.getZ() + padZ) >> 4;
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                if (level.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, false) == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private static boolean isSpawnIslandAreaEmpty(ServerLevel level, BlockPos anchor, Vec3i size) {
