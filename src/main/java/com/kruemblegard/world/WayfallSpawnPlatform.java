@@ -8,6 +8,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -59,14 +60,28 @@ public final class WayfallSpawnPlatform {
         WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
         // If older saves recorded the island as "placed" while templates were missing/empty, force a rebuild.
         if (data.isPlaced() && anchor.equals(data.getAnchor()) && data.getStructureId() != null) {
-            if (isSpawnIslandAreaEmpty(wayfall, anchor)) {
+            StructureTemplateManager templates = wayfall.getServer().getStructureManager();
+            StructureTemplate existingTemplate = templates.getOrCreate(data.getStructureId());
+            Vec3i size = existingTemplate.getSize();
+            // getOrCreate can silently create an empty template if the resource is missing.
+            if (size.getX() <= 0 || size.getY() <= 0 || size.getZ() <= 0) {
                 Kruemblegard.LOGGER.warn(
-                    "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
-                    anchor,
+                    "Wayfall spawn island marked placed but template appears empty ({}). Forcing re-place.",
                     data.getStructureId()
                 );
                 data.setPlaced(false);
                 data.setDirty();
+            } else {
+                ensureTemplateChunksLoaded(wayfall, anchor, size);
+                if (isSpawnIslandAreaEmpty(wayfall, anchor, size)) {
+                    Kruemblegard.LOGGER.warn(
+                        "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
+                        anchor,
+                        data.getStructureId()
+                    );
+                    data.setPlaced(false);
+                    data.setDirty();
+                }
             }
         }
 
@@ -96,18 +111,7 @@ public final class WayfallSpawnPlatform {
             BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
 
             // Ensure affected chunks are fully generated/loaded before placing the template.
-            var size = template.getSize();
-            int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
-            int padZ = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getZ());
-            int minChunkX = (anchor.getX() - padX) >> 4;
-            int maxChunkX = (anchor.getX() + padX) >> 4;
-            int minChunkZ = (anchor.getZ() - padZ) >> 4;
-            int maxChunkZ = (anchor.getZ() + padZ) >> 4;
-            for (int cx = minChunkX; cx <= maxChunkX; cx++) {
-                for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                    wayfall.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
-                }
-            }
+            ensureTemplateChunksLoaded(wayfall, anchor, template.getSize());
 
             StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setIgnoreEntities(true)
@@ -152,31 +156,52 @@ public final class WayfallSpawnPlatform {
         }
     }
 
-    private static boolean isSpawnIslandAreaEmpty(ServerLevel level, BlockPos anchor) {
-        // Heuristic: the spawn island should contribute at least some solid blocks near the anchor.
-        // If we can't find any collision blocks in a small cube, assume the template never placed.
-        int minX = anchor.getX() - 6;
-        int maxX = anchor.getX() + 6;
-        int minZ = anchor.getZ() - 6;
-        int maxZ = anchor.getZ() + 6;
-        int minY = Math.max(level.getMinBuildHeight(), anchor.getY() - 10);
-        int maxY = Math.min(level.getMaxBuildHeight() - 1, anchor.getY() + 10);
+    private static void ensureTemplateChunksLoaded(ServerLevel level, BlockPos anchor, Vec3i size) {
+        int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
+        int padZ = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getZ());
+        int minChunkX = (anchor.getX() - padX) >> 4;
+        int maxChunkX = (anchor.getX() + padX) >> 4;
+        int minChunkZ = (anchor.getZ() - padZ) >> 4;
+        int maxChunkZ = (anchor.getZ() + padZ) >> 4;
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                level.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
+            }
+        }
+    }
+
+    private static boolean isSpawnIslandAreaEmpty(ServerLevel level, BlockPos anchor, Vec3i size) {
+        // Heuristic: the spawn island template should contribute at least some solid collision blocks.
+        // IMPORTANT: only sample inside the template bounds (the anchor is a template corner).
+        int sizeX = Math.max(1, size.getX());
+        int sizeY = Math.max(1, size.getY());
+        int sizeZ = Math.max(1, size.getZ());
+
+        int minX = anchor.getX();
+        int minY = anchor.getY();
+        int minZ = anchor.getZ();
+        int maxY = Math.min(level.getMaxBuildHeight() - 1, minY + sizeY - 1);
 
         int solidCount = 0;
-        for (int x = minX; x <= maxX; x++) {
-            for (int z = minZ; z <= maxZ; z++) {
-                for (int y = minY; y <= maxY; y++) {
-                    BlockState state = level.getBlockState(new BlockPos(x, y, z));
-                    if (state.isAir()) {
-                        continue;
-                    }
-                    VoxelShape shape = state.getCollisionShape(level, new BlockPos(x, y, z));
-                    if (!shape.isEmpty()) {
-                        solidCount++;
-                        if (solidCount >= 12) {
-                            return false;
-                        }
-                    }
+        // Sample biased toward the lower portion where solid ground should be.
+        int sampleCount = 64;
+        int ySpan = Math.min(10, Math.max(1, sizeY));
+        for (int i = 0; i < sampleCount; i++) {
+            int x = minX + Math.floorMod(i * 7, sizeX);
+            int z = minZ + Math.floorMod(i * 11, sizeZ);
+            int y = Math.min(maxY, minY + Math.floorMod(i * 13, ySpan));
+
+            BlockPos pos = new BlockPos(x, y, z);
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir()) {
+                continue;
+            }
+
+            VoxelShape shape = state.getCollisionShape(level, pos);
+            if (!shape.isEmpty()) {
+                solidCount++;
+                if (solidCount >= 8) {
+                    return false;
                 }
             }
         }
