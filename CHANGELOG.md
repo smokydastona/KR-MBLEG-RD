@@ -19,6 +19,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.584 (2026-01-22)
 - Performance: prevent Wayfall entry hitching by avoiding forced FULL chunk loads during routine spawn-island validation (force-validation now only happens on Wayfall dimension load).
+
+## 1.0.585 (2026-01-22)
+- Stability: disable routine spawn-island validation during Wayfall entry to prevent false-positive re-placement loops (validation only runs on dimension load).
 - Tuning(worldgen/lakes): increase big deep lake max diameter to ~50 blocks (max radius 25).
 - Tuning(worldgen/lakes): Underway Falls now has a higher frequency of large deep lakes (water + occasional lava).
 - Tuning(worldgen/lakes): large deep lakes now build a 2-layer Stoneveil Rubble shoreline berm and blend the outer edge downward into terrain to reduce surface spill sheets.
