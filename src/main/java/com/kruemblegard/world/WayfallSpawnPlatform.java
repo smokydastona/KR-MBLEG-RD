@@ -164,12 +164,22 @@ public final class WayfallSpawnPlatform {
     }
 
     private static void ensureTemplateChunksLoaded(ServerLevel level, BlockPos anchor, Vec3i size) {
-        int padX = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getX());
-        int padZ = Math.max(CHUNK_LOAD_PADDING_BLOCKS, size.getZ());
-        int minChunkX = (anchor.getX() - padX) >> 4;
-        int maxChunkX = (anchor.getX() + padX) >> 4;
-        int minChunkZ = (anchor.getZ() - padZ) >> 4;
-        int maxChunkZ = (anchor.getZ() + padZ) >> 4;
+        // Load only the chunks that the template actually touches, plus a small padding.
+        // Previous logic used the template size as padding, which could synchronously request
+        // thousands of FULL chunks and effectively stall Wayfall generation.
+        int pad = CHUNK_LOAD_PADDING_BLOCKS;
+        int sizeX = Math.max(1, size.getX());
+        int sizeZ = Math.max(1, size.getZ());
+
+        int minBlockX = anchor.getX() - pad;
+        int maxBlockX = anchor.getX() + sizeX + pad;
+        int minBlockZ = anchor.getZ() - pad;
+        int maxBlockZ = anchor.getZ() + sizeZ + pad;
+
+        int minChunkX = minBlockX >> 4;
+        int maxChunkX = maxBlockX >> 4;
+        int minChunkZ = minBlockZ >> 4;
+        int maxChunkZ = maxBlockZ >> 4;
         for (int cx = minChunkX; cx <= maxChunkX; cx++) {
             for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
                 level.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
