@@ -77,24 +77,6 @@ public final class WayfallWorkScheduler {
         enqueue(wayfall, new RemoveTicketsTask(anchor, chunks, true));
     }
 
-    public static void enqueueOriginMonumentPlacement(ServerLevel wayfall) {
-        if (!wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
-            return;
-        }
-
-        if (WayfallOriginMonumentSavedData.get(wayfall).isPlaced()) {
-            return;
-        }
-
-        BlockPos origin = WayfallOriginMonument.getOrigin();
-        int radius = WayfallOriginMonument.getIslandRadius();
-        List<ChunkPos> chunks = computeChunkSquare(origin, radius);
-
-        enqueue(wayfall, new TicketChunksTask(origin, chunks, false));
-        enqueue(wayfall, WayfallOriginMonument.createPlacementTask());
-        enqueue(wayfall, new RemoveTicketsTask(origin, chunks, false));
-    }
-
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) {
@@ -168,21 +150,6 @@ public final class WayfallWorkScheduler {
         return true;
     }
 
-    private static List<ChunkPos> computeChunkSquare(BlockPos center, int radiusBlocks) {
-        int minChunkX = (center.getX() - radiusBlocks) >> 4;
-        int maxChunkX = (center.getX() + radiusBlocks) >> 4;
-        int minChunkZ = (center.getZ() - radiusBlocks) >> 4;
-        int maxChunkZ = (center.getZ() + radiusBlocks) >> 4;
-
-        List<ChunkPos> result = new ArrayList<>((maxChunkX - minChunkX + 1) * (maxChunkZ - minChunkZ + 1));
-        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
-            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                result.add(new ChunkPos(cx, cz));
-            }
-        }
-        return result;
-    }
-
     private static final class TicketChunksTask implements WayfallTask {
         private final BlockPos ticketKey;
         private final List<ChunkPos> chunks;
@@ -232,10 +199,6 @@ public final class WayfallWorkScheduler {
             // Only remove after placement is recorded.
             if (requireSpawnIslandPlaced) {
                 if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
-                    return false;
-                }
-            } else {
-                if (!WayfallOriginMonumentSavedData.get(wayfall).isPlaced()) {
                     return false;
                 }
             }

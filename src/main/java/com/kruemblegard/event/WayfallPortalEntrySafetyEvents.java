@@ -54,7 +54,6 @@ public final class WayfallPortalEntrySafetyEvents {
             // Never do heavy Wayfall init work synchronously on the server thread.
             // Queue it and only complete the safety teleport once the island is actually placed.
             WayfallWorkScheduler.enqueueWayfallInit(level);
-            WayfallWorkScheduler.enqueueOriginMonumentPlacement(level);
 
             final java.util.UUID playerId = player.getUUID();
             WayfallWorkScheduler.enqueue(level, (wayfall) -> {

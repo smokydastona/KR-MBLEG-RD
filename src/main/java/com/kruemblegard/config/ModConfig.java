@@ -15,7 +15,6 @@ public final class ModConfig {
 
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK;
-    public static final ForgeConfigSpec.IntValue WAYFALL_BLOCKS_PER_TICK;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
@@ -82,13 +81,6 @@ public final class ModConfig {
                 "Lower values reduce hitching but can make first-load take longer."
             )
             .defineInRange("wayfallInitChunksTicketedPerTick", 2, 1, 64);
-
-        WAYFALL_BLOCKS_PER_TICK = builder
-            .comment(
-                "Max number of blocks to place per tick for queued Wayfall structure/island builds.",
-                "Lower values reduce hitching but can make builds take longer."
-            )
-            .defineInRange("wayfallBlocksPerTick", 1500, 100, 200_000);
 
         builder.pop();
 
