@@ -14,6 +14,7 @@ public final class ModConfig {
     public static final ForgeConfigSpec.DoubleValue WAYSTONE_WAYFALL_TELEPORT_CHANCE;
 
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
+    public static final ForgeConfigSpec.IntValue WAYFALL_INIT_MAX_MILLIS_PER_TICK;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
@@ -74,6 +75,13 @@ public final class ModConfig {
                 "Lower values reduce hitching but can make first-load take longer."
             )
             .defineInRange("wayfallInitTasksPerTick", 2, 1, 20);
+
+        WAYFALL_INIT_MAX_MILLIS_PER_TICK = builder
+            .comment(
+                "Maximum time budget (ms) per server tick for Wayfall initialization work.",
+                "When the budget is exceeded, remaining Wayfall init work is deferred to later ticks."
+            )
+            .defineInRange("wayfallInitMaxMillisPerTick", 4, 1, 20);
 
         WAYFALL_DEBUG_LOGGING = builder
             .comment("Enable extra Wayfall debug logging (init task progress).")

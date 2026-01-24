@@ -7,6 +7,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.594 (2026-01-23)
 - Fix(wayfall): restore mobs/items going through the Wayfall portal, but prevent non-player entities from bootstrapping expensive Wayfall initialization (they can travel once Wayfall is initialized by a player).
 
+## 1.0.602 (2026-01-23)
+- Perf/Stability(wayfall): add a per-tick time budget for Wayfall init work and defer the heaviest placement step to a later tick if the server is short on time.
+
+## 1.0.601 (2026-01-23)
+- Perf(wayfall): do a one-time pre-player preload/init of the Wayfall spawn-island area on server/world start, then return to player-driven chunk loading.
+
 ## 1.0.600 (2026-01-24)
 - Perf/Stability(wayfall): remove remaining forced FULL-chunk loading and neighbor-update storms from spawn island placement/landing calculation.
 - Fix(wayfall): avoid doing spawn-island placement work inside the portal teleporter; players may be held briefly (no gravity) near the anchor until the queued safety teleport moves them onto the island.

@@ -28,6 +28,17 @@ public final class WayfallWorkScheduler {
 
     private static final Map<ServerLevel, Deque<WayfallTask>> QUEUES = new ConcurrentHashMap<>();
 
+    private static final ThreadLocal<Long> TICK_DEADLINE_NANOS = new ThreadLocal<>();
+
+    private static boolean hasTimeRemainingNanos(long requiredNanos) {
+        Long deadline = TICK_DEADLINE_NANOS.get();
+        if (deadline == null) {
+            // If called outside the scheduler's tick loop, don't block execution.
+            return true;
+        }
+        return (deadline - System.nanoTime()) >= requiredNanos;
+    }
+
     public static void enqueue(ServerLevel level, WayfallTask task) {
         QUEUES.computeIfAbsent(level, ignored -> new ArrayDeque<>()).add(task);
     }
@@ -57,10 +68,10 @@ public final class WayfallWorkScheduler {
             return;
         }
 
-            WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
 
         // If already placed, there is nothing to do.
-            if (data.isPlaced()) {
+        if (data.isPlaced()) {
             return;
         }
 
@@ -71,13 +82,14 @@ public final class WayfallWorkScheduler {
 
         if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
             Kruemblegard.LOGGER.info(
-                "Wayfall init queued: anchor={} templateSize={}x{}x{} chunks={} tasksPerTick={} preloadDone={}",
+                "Wayfall init queued: anchor={} templateSize={}x{}x{} chunks={} tasksPerTick={} maxMillisPerTick={} preloadDone={}",
                 anchor,
                 templateSize.getX(),
                 templateSize.getY(),
                 templateSize.getZ(),
                 chunks.size(),
                 ModConfig.WAYFALL_INIT_TASKS_PER_TICK.get(),
+                ModConfig.WAYFALL_INIT_MAX_MILLIS_PER_TICK.get(),
                 data.isPreloadDone()
             );
         }
@@ -113,6 +125,12 @@ public final class WayfallWorkScheduler {
                 return false;
             }
 
+            // Avoid doing the heaviest work when the tick is already near its budget.
+            // Placement must still happen on the main thread, but we can choose a better tick.
+            if (!hasTimeRemainingNanos(2_000_000L)) { // ~2ms
+                return false;
+            }
+
             WayfallSpawnPlatform.ensureSpawnIslandPlaced(level, true);
             return true;
         });
@@ -137,8 +155,17 @@ public final class WayfallWorkScheduler {
                 continue;
             }
 
-            int budget = Math.max(1, ModConfig.WAYFALL_INIT_TASKS_PER_TICK.get());
-            while (budget-- > 0 && !queue.isEmpty()) {
+            int tasksBudget = Math.max(1, ModConfig.WAYFALL_INIT_TASKS_PER_TICK.get());
+            long maxMillis = Math.max(1L, ModConfig.WAYFALL_INIT_MAX_MILLIS_PER_TICK.get());
+            long deadline = System.nanoTime() + (maxMillis * 1_000_000L);
+
+            TICK_DEADLINE_NANOS.set(deadline);
+            try {
+                while (tasksBudget-- > 0 && !queue.isEmpty()) {
+                    if (!hasTimeRemainingNanos(0L)) {
+                        break;
+                    }
+
                 WayfallTask task = queue.peek();
                 boolean done;
                 try {
@@ -154,6 +181,9 @@ public final class WayfallWorkScheduler {
                     // Current task wants to retry later; stop for this tick.
                     break;
                 }
+            }
+            } finally {
+                TICK_DEADLINE_NANOS.remove();
             }
         }
     }
