@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.593 (2026-01-24)
+- Change(wayfall): Wayfall portal only teleports players to prevent mobs/items from force-loading Wayfall and stalling the integrated server.
+
 ## 1.0.588 (2026-01-24)
 - Tuning(worldgen/wayfall): further reduce Underway Falls waterfall spring lag by requiring a supporting block below, encouraging in-rock placement, and making the feature much rarer.
 
