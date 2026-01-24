@@ -89,7 +89,7 @@ public final class ModConfig {
                 "Minimum remaining time (ms) in the Wayfall init tick budget required before doing the heaviest step (spawn island placement).",
                 "Higher values reduce hitching further but can delay first-time initialization."
             )
-            .defineInRange("wayfallInitPlacementMinRemainingMillis", 4, 0, 20);
+            .defineInRange("wayfallInitPlacementMinRemainingMillis", 3, 0, 20);
 
         WAYFALL_DEBUG_LOGGING = builder
             .comment("Enable extra Wayfall debug logging (init task progress).")

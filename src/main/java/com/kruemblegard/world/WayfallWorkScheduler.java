@@ -129,7 +129,10 @@ public final class WayfallWorkScheduler {
             // Placement must still happen on the main thread, but we can choose a better tick.
             long maxMillis = Math.max(1L, ModConfig.WAYFALL_INIT_MAX_MILLIS_PER_TICK.get());
             long minRemainingMillis = Math.max(0L, ModConfig.WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS.get());
-            long requiredMillis = Math.min(maxMillis, minRemainingMillis);
+            // Never require the entire tick budget; there is always some overhead.
+            // Leave at least 1ms slack so placement can actually happen.
+            long maxAllowedRequiredMillis = Math.max(0L, maxMillis - 1L);
+            long requiredMillis = Math.min(maxAllowedRequiredMillis, minRemainingMillis);
             if (!hasTimeRemainingNanos(requiredMillis * 1_000_000L)) {
                 return false;
             }

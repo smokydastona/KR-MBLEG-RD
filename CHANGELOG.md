@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.603 (2026-01-23)
 - Perf/Stability(wayfall): make spawn island placement even more conservative via COMMON config `wayfallInitPlacementMinRemainingMillis`.
 
+## 1.0.604 (2026-01-23)
+- Fix/Stability(wayfall): prevent spawn island placement from being deferred forever when `wayfallInitPlacementMinRemainingMillis` is set too close to the per-tick budget.
+
 ## 1.0.601 (2026-01-23)
 - Perf(wayfall): do a one-time pre-player preload/init of the Wayfall spawn-island area on server/world start, then return to player-driven chunk loading.
 
