@@ -127,7 +127,10 @@ public final class WayfallWorkScheduler {
 
             // Avoid doing the heaviest work when the tick is already near its budget.
             // Placement must still happen on the main thread, but we can choose a better tick.
-            if (!hasTimeRemainingNanos(2_000_000L)) { // ~2ms
+            long maxMillis = Math.max(1L, ModConfig.WAYFALL_INIT_MAX_MILLIS_PER_TICK.get());
+            long minRemainingMillis = Math.max(0L, ModConfig.WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS.get());
+            long requiredMillis = Math.min(maxMillis, minRemainingMillis);
+            if (!hasTimeRemainingNanos(requiredMillis * 1_000_000L)) {
                 return false;
             }
 

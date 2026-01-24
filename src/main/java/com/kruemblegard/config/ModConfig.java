@@ -15,6 +15,7 @@ public final class ModConfig {
 
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_MAX_MILLIS_PER_TICK;
+    public static final ForgeConfigSpec.IntValue WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
@@ -82,6 +83,13 @@ public final class ModConfig {
                 "When the budget is exceeded, remaining Wayfall init work is deferred to later ticks."
             )
             .defineInRange("wayfallInitMaxMillisPerTick", 4, 1, 20);
+
+        WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS = builder
+            .comment(
+                "Minimum remaining time (ms) in the Wayfall init tick budget required before doing the heaviest step (spawn island placement).",
+                "Higher values reduce hitching further but can delay first-time initialization."
+            )
+            .defineInRange("wayfallInitPlacementMinRemainingMillis", 4, 0, 20);
 
         WAYFALL_DEBUG_LOGGING = builder
             .comment("Enable extra Wayfall debug logging (init task progress).")
