@@ -7,6 +7,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.594 (2026-01-23)
 - Fix(wayfall): restore mobs/items going through the Wayfall portal, but prevent non-player entities from bootstrapping expensive Wayfall initialization (they can travel once Wayfall is initialized by a player).
 
+## 1.0.600 (2026-01-24)
+- Perf/Stability(wayfall): remove remaining forced FULL-chunk loading and neighbor-update storms from spawn island placement/landing calculation.
+- Fix(wayfall): avoid doing spawn-island placement work inside the portal teleporter; players may be held briefly (no gravity) near the anchor until the queued safety teleport moves them onto the island.
+- Debug(wayfall): add COMMON config toggle `wayfallDebugLogging` to emit extra init/ticket progress logs.
+
 ## 1.0.595 (2026-01-23)
 - Perf(wayfall): remove forced FULL-chunk loading during spawn-island validation and origin monument placement; these now only proceed when chunks are already ticketed/loaded.
 

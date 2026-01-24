@@ -294,6 +294,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Common config: `config/kruemblegard-common.toml`
 - Includes `enableWaystones` and `waystoneRarity` (see `config/ModConfig`).
 - Also includes `waystoneWayfallTeleportEnabled` and `waystoneWayfallTeleportChance` (see `config/ModConfig`).
+- Wayfall init performance knobs:
+  - `wayfallInitTasksPerTick`: max queued Wayfall init tasks processed per server tick.
+  - `wayfallInitChunksTicketedPerTick`: chunk ticket add/remove rate per tick during Wayfall init.
+  - `wayfallDebugLogging`: enables extra Wayfall init/ticket progress logging.
 
 ## Worldgen
 - Worldgen is primarily data-driven under `data/kruemblegard/worldgen/**`.

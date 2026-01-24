@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.JigsawReplacementProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -173,8 +173,22 @@ public final class WayfallSpawnPlatform {
             // If it's floating (no support below), treat it as a "support" marker (we keep it and land above it).
             BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
 
-            // Ensure affected chunks are fully generated/loaded before placing the template.
-            ensureTemplateChunksLoaded(wayfall, anchor, template.getSize());
+            // IMPORTANT: Never force-load/generate FULL chunks here. Wayfall init is queued via
+            // WayfallWorkScheduler which tickets chunks gradually.
+            // If chunks aren't ready yet, just skip this tick and let the scheduler retry later.
+            if (!areTemplateChunksLoaded(wayfall, anchor, template.getSize())) {
+                if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+                    Kruemblegard.LOGGER.info(
+                        "Wayfall spawn island placement deferred (chunks not loaded yet): template={} size={}x{}x{} anchor={}",
+                        structureId,
+                        template.getSize().getX(),
+                        template.getSize().getY(),
+                        template.getSize().getZ(),
+                        anchor
+                    );
+                }
+                return;
+            }
 
             StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setIgnoreEntities(true)
@@ -215,30 +229,6 @@ public final class WayfallSpawnPlatform {
             // The marker is only a placement hint and should never remain in the world.
             if (markerPos != null) {
                 wayfall.setBlock(markerPos, Blocks.AIR.defaultBlockState(), 2);
-            }
-        }
-    }
-
-    private static void ensureTemplateChunksLoaded(ServerLevel level, BlockPos anchor, Vec3i size) {
-        // Load only the chunks that the template actually touches, plus a small padding.
-        // Previous logic used the template size as padding, which could synchronously request
-        // thousands of FULL chunks and effectively stall Wayfall generation.
-        int pad = CHUNK_LOAD_PADDING_BLOCKS;
-        int sizeX = Math.max(1, size.getX());
-        int sizeZ = Math.max(1, size.getZ());
-
-        int minBlockX = anchor.getX() - pad;
-        int maxBlockX = anchor.getX() + sizeX + pad;
-        int minBlockZ = anchor.getZ() - pad;
-        int maxBlockZ = anchor.getZ() + sizeZ + pad;
-
-        int minChunkX = minBlockX >> 4;
-        int maxChunkX = maxBlockX >> 4;
-        int minChunkZ = minBlockZ >> 4;
-        int maxChunkZ = maxBlockZ >> 4;
-        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
-            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                level.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
             }
         }
     }
@@ -355,9 +345,10 @@ public final class WayfallSpawnPlatform {
         // Note: do not place any "emergency" blocks here. Portal entry should only place the NBT island.
 
         // Ensure 3-block headroom.
-        wayfall.setBlockAndUpdate(landing, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(landing.above(), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(landing.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        // Avoid neighbor-update storms; we only need the block state changed + client sync.
+        wayfall.setBlock(landing, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 2);
+        wayfall.setBlock(landing.above(), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 2);
+        wayfall.setBlock(landing.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 2);
 
         return landing;
     }

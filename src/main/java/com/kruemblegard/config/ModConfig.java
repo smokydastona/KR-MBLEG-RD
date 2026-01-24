@@ -15,6 +15,7 @@ public final class ModConfig {
 
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK;
+    public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
@@ -81,6 +82,10 @@ public final class ModConfig {
                 "Lower values reduce hitching but can make first-load take longer."
             )
             .defineInRange("wayfallInitChunksTicketedPerTick", 2, 1, 64);
+
+        WAYFALL_DEBUG_LOGGING = builder
+            .comment("Enable extra Wayfall debug logging (chunk tickets, init task progress).")
+            .define("wayfallDebugLogging", false);
 
         builder.pop();
 

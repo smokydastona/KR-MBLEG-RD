@@ -60,6 +60,19 @@ public final class WayfallWorkScheduler {
         Vec3i templateSize = WayfallSpawnPlatform.getSpawnIslandTemplateSizeForPreload(wayfall);
 
         List<ChunkPos> chunks = computeTemplateChunkEnvelope(anchor, templateSize, WayfallSpawnPlatform.getChunkLoadPaddingBlocks());
+
+        if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+            Kruemblegard.LOGGER.info(
+                "Wayfall init queued: anchor={} templateSize={}x{}x{} chunks={} tasksPerTick={} chunksTicketedPerTick={}",
+                anchor,
+                templateSize.getX(),
+                templateSize.getY(),
+                templateSize.getZ(),
+                chunks.size(),
+                ModConfig.WAYFALL_INIT_TASKS_PER_TICK.get(),
+                ModConfig.WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK.get()
+            );
+        }
         enqueue(wayfall, new TicketChunksTask(anchor, chunks, true));
 
         // Once chunks are loaded, do the actual placement (still on main thread, but now the heavy chunk
@@ -165,6 +178,9 @@ public final class WayfallWorkScheduler {
         @Override
         public boolean tick(ServerLevel wayfall) {
             if (requireAllLoaded && areAllLoaded(wayfall, chunks)) {
+                if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+                    Kruemblegard.LOGGER.info("Wayfall init: chunks already loaded ({}).", chunks.size());
+                }
                 return true;
             }
 
@@ -177,6 +193,14 @@ public final class WayfallWorkScheduler {
             for (int i = 0; i < perTick && index < chunks.size(); i++, index++) {
                 ChunkPos pos = chunks.get(index);
                 wayfall.getChunkSource().addRegionTicket(TicketType.PORTAL, pos, 1, ticketKey);
+            }
+
+            if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+                int remaining = Math.max(0, chunks.size() - index);
+                // Log at coarse intervals to avoid spam.
+                if (index == perTick || remaining == 0 || (index % Math.max(1, perTick * 10) == 0)) {
+                    Kruemblegard.LOGGER.info("Wayfall init: ticketed {}/{} chunks (remaining {}).", index, chunks.size(), remaining);
+                }
             }
             return index >= chunks.size();
         }
@@ -211,6 +235,13 @@ public final class WayfallWorkScheduler {
             for (int i = 0; i < perTick && index < chunks.size(); i++, index++) {
                 ChunkPos pos = chunks.get(index);
                 wayfall.getChunkSource().removeRegionTicket(TicketType.PORTAL, pos, 1, ticketKey);
+            }
+
+            if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+                int remaining = Math.max(0, chunks.size() - index);
+                if (index == perTick || remaining == 0 || (index % Math.max(1, perTick * 10) == 0)) {
+                    Kruemblegard.LOGGER.info("Wayfall init: removed tickets for {}/{} chunks (remaining {}).", index, chunks.size(), remaining);
+                }
             }
             return index >= chunks.size();
         }

@@ -55,8 +55,17 @@ public final class WayfallTravel {
 
                 BlockPos landing;
                 if (placed instanceof net.minecraft.server.level.ServerPlayer) {
-                    // Players are allowed to bootstrap Wayfall initialization.
-                    landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
+                    // Players are allowed to bootstrap Wayfall initialization, but do NOT do heavy work
+                    // synchronously here. The safety event queues init + final teleport once ready.
+                    if (WayfallSpawnIslandSavedData.get(destWorld).isPlaced()) {
+                        landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
+                    } else {
+                        // Temporary holding spot: keep them near the anchor and prevent falling until
+                        // the queued safety teleport moves them onto the island.
+                        BlockPos anchor = WayfallSpawnPlatform.getSpawnIslandAnchor();
+                        landing = anchor.above(8);
+                        placed.setNoGravity(true);
+                    }
                 } else {
                     // Prevent mobs/items from triggering heavy initialization while a player is elsewhere.
                     // They can still travel once Wayfall has been initialized by a player.

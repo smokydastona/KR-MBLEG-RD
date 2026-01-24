@@ -75,6 +75,8 @@ public final class WayfallPortalEntrySafetyEvents {
                 double y = landing.getY();
                 double z = landing.getZ() + 0.5D;
 
+                // If the teleporter put the player into a temporary holding state, release it now.
+                p.setNoGravity(false);
                 p.fallDistance = 0;
                 p.setDeltaMovement(Vec3.ZERO);
                 p.teleportTo(wayfall, x, y, z, p.getYRot(), p.getXRot());
