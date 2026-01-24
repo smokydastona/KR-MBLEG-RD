@@ -13,6 +13,10 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue WAYSTONE_WAYFALL_TELEPORT_ENABLED;
     public static final ForgeConfigSpec.DoubleValue WAYSTONE_WAYFALL_TELEPORT_CHANCE;
 
+    public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
+    public static final ForgeConfigSpec.IntValue WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK;
+    public static final ForgeConfigSpec.IntValue WAYFALL_BLOCKS_PER_TICK;
+
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -62,6 +66,31 @@ public final class ModConfig {
         WAYSTONE_WAYFALL_TELEPORT_CHANCE = builder
             .comment("Chance (0..1) per Waystone use to teleport a player who has never visited the Wayfall.")
             .defineInRange("waystoneWayfallTeleportChance", 0.02D, 0.0D, 1.0D);
+
+        builder.push("Wayfall");
+
+        WAYFALL_INIT_TASKS_PER_TICK = builder
+            .comment(
+                "Max number of queued Wayfall initialization tasks to process per server tick.",
+                "Lower values reduce hitching but can make first-load take longer."
+            )
+            .defineInRange("wayfallInitTasksPerTick", 2, 1, 20);
+
+        WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK = builder
+            .comment(
+                "How many chunks to add/remove region tickets for per tick during Wayfall init.",
+                "Lower values reduce hitching but can make first-load take longer."
+            )
+            .defineInRange("wayfallInitChunksTicketedPerTick", 2, 1, 64);
+
+        WAYFALL_BLOCKS_PER_TICK = builder
+            .comment(
+                "Max number of blocks to place per tick for queued Wayfall structure/island builds.",
+                "Lower values reduce hitching but can make builds take longer."
+            )
+            .defineInRange("wayfallBlocksPerTick", 1500, 100, 200_000);
+
+        builder.pop();
 
         builder.push("Boss");
 

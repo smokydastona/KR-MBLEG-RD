@@ -1,6 +1,7 @@
 package com.kruemblegard.world;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
 
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -24,12 +26,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class WayfallWorkScheduler {
     private WayfallWorkScheduler() {}
 
-    private static final int TASKS_PER_SERVER_TICK = 2;
-
     private static final Map<ServerLevel, Deque<WayfallTask>> QUEUES = new ConcurrentHashMap<>();
 
     public static void enqueue(ServerLevel level, WayfallTask task) {
         QUEUES.computeIfAbsent(level, ignored -> new ArrayDeque<>()).add(task);
+    }
+
+    @SubscribeEvent
+    public static void onLevelUnload(LevelEvent.Unload event) {
+        if (event.getLevel() instanceof ServerLevel level) {
+            QUEUES.remove(level);
+        }
     }
 
     /**
@@ -53,7 +60,7 @@ public final class WayfallWorkScheduler {
         Vec3i templateSize = WayfallSpawnPlatform.getSpawnIslandTemplateSizeForPreload(wayfall);
 
         List<ChunkPos> chunks = computeTemplateChunkEnvelope(anchor, templateSize, WayfallSpawnPlatform.getChunkLoadPaddingBlocks());
-        enqueue(wayfall, new TicketChunksTask(anchor, chunks));
+        enqueue(wayfall, new TicketChunksTask(anchor, chunks, true));
 
         // Once chunks are loaded, do the actual placement (still on main thread, but now the heavy chunk
         // generation work has been spread across ticks).
@@ -67,7 +74,25 @@ public final class WayfallWorkScheduler {
         });
 
         // Cleanup: drop tickets after placement.
-        enqueue(wayfall, new RemoveTicketsTask(anchor, chunks));
+        enqueue(wayfall, new RemoveTicketsTask(anchor, chunks, true));
+    }
+
+    public static void enqueueOriginMonumentPlacement(ServerLevel wayfall) {
+        if (!wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return;
+        }
+
+        if (WayfallOriginMonumentSavedData.get(wayfall).isPlaced()) {
+            return;
+        }
+
+        BlockPos origin = WayfallOriginMonument.getOrigin();
+        int radius = WayfallOriginMonument.getIslandRadius();
+        List<ChunkPos> chunks = computeChunkSquare(origin, radius);
+
+        enqueue(wayfall, new TicketChunksTask(origin, chunks, false));
+        enqueue(wayfall, WayfallOriginMonument.createPlacementTask());
+        enqueue(wayfall, new RemoveTicketsTask(origin, chunks, false));
     }
 
     @SubscribeEvent
@@ -84,7 +109,7 @@ public final class WayfallWorkScheduler {
                 continue;
             }
 
-            int budget = TASKS_PER_SERVER_TICK;
+            int budget = Math.max(1, ModConfig.WAYFALL_INIT_TASKS_PER_TICK.get());
             while (budget-- > 0 && !queue.isEmpty()) {
                 WayfallTask task = queue.peek();
                 boolean done;
@@ -143,24 +168,45 @@ public final class WayfallWorkScheduler {
         return true;
     }
 
+    private static List<ChunkPos> computeChunkSquare(BlockPos center, int radiusBlocks) {
+        int minChunkX = (center.getX() - radiusBlocks) >> 4;
+        int maxChunkX = (center.getX() + radiusBlocks) >> 4;
+        int minChunkZ = (center.getZ() - radiusBlocks) >> 4;
+        int maxChunkZ = (center.getZ() + radiusBlocks) >> 4;
+
+        List<ChunkPos> result = new ArrayList<>((maxChunkX - minChunkX + 1) * (maxChunkZ - minChunkZ + 1));
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                result.add(new ChunkPos(cx, cz));
+            }
+        }
+        return result;
+    }
+
     private static final class TicketChunksTask implements WayfallTask {
         private final BlockPos ticketKey;
         private final List<ChunkPos> chunks;
+        private final boolean requireAllLoaded;
         private int index;
 
-        private TicketChunksTask(BlockPos ticketKey, List<ChunkPos> chunks) {
+        private TicketChunksTask(BlockPos ticketKey, List<ChunkPos> chunks, boolean requireAllLoaded) {
             this.ticketKey = ticketKey;
             this.chunks = chunks;
+            this.requireAllLoaded = requireAllLoaded;
         }
 
         @Override
         public boolean tick(ServerLevel wayfall) {
+            if (requireAllLoaded && areAllLoaded(wayfall, chunks)) {
+                return true;
+            }
+
             if (index >= chunks.size()) {
                 return true;
             }
 
-            // Ticket a couple of chunks per tick to spread generation/load cost.
-            int perTick = 2;
+            // Ticket a few chunks per tick to spread generation/load cost.
+            int perTick = Math.max(1, ModConfig.WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK.get());
             for (int i = 0; i < perTick && index < chunks.size(); i++, index++) {
                 ChunkPos pos = chunks.get(index);
                 wayfall.getChunkSource().addRegionTicket(TicketType.PORTAL, pos, 1, ticketKey);
@@ -172,25 +218,33 @@ public final class WayfallWorkScheduler {
     private static final class RemoveTicketsTask implements WayfallTask {
         private final BlockPos ticketKey;
         private final List<ChunkPos> chunks;
+        private final boolean requireSpawnIslandPlaced;
         private int index;
 
-        private RemoveTicketsTask(BlockPos ticketKey, List<ChunkPos> chunks) {
+        private RemoveTicketsTask(BlockPos ticketKey, List<ChunkPos> chunks, boolean requireSpawnIslandPlaced) {
             this.ticketKey = ticketKey;
             this.chunks = chunks;
+            this.requireSpawnIslandPlaced = requireSpawnIslandPlaced;
         }
 
         @Override
         public boolean tick(ServerLevel wayfall) {
             // Only remove after placement is recorded.
-            if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
-                return false;
+            if (requireSpawnIslandPlaced) {
+                if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                    return false;
+                }
+            } else {
+                if (!WayfallOriginMonumentSavedData.get(wayfall).isPlaced()) {
+                    return false;
+                }
             }
 
             if (index >= chunks.size()) {
                 return true;
             }
 
-            int perTick = 4;
+            int perTick = Math.max(1, ModConfig.WAYFALL_INIT_CHUNKS_TICKETED_PER_TICK.get()) * 2;
             for (int i = 0; i < perTick && index < chunks.size(); i++, index++) {
                 ChunkPos pos = chunks.get(index);
                 wayfall.getChunkSource().removeRegionTicket(TicketType.PORTAL, pos, 1, ticketKey);

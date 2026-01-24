@@ -214,7 +214,7 @@ public final class WayfallSpawnPlatform {
             // Always remove the marker after placement.
             // The marker is only a placement hint and should never remain in the world.
             if (markerPos != null) {
-                wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                wayfall.setBlock(markerPos, Blocks.AIR.defaultBlockState(), 2);
             }
         }
     }
@@ -329,7 +329,7 @@ public final class WayfallSpawnPlatform {
                     }
 
                     // Always remove the marker after using it.
-                    wayfall.setBlockAndUpdate(markerPos, Blocks.AIR.defaultBlockState());
+                    wayfall.setBlock(markerPos, Blocks.AIR.defaultBlockState(), 2);
                 }
             } catch (Exception ignored) {
                 // Heightmap fallback below.

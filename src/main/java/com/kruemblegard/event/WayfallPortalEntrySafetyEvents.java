@@ -3,6 +3,8 @@ package com.kruemblegard.event;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.playerdata.KruemblegardPlayerData;
 import com.kruemblegard.world.WayfallSpawnPlatform;
+import com.kruemblegard.world.WayfallWorkScheduler;
+import com.kruemblegard.world.WayfallSpawnIslandSavedData;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -49,17 +51,38 @@ public final class WayfallPortalEntrySafetyEvents {
                 return;
             }
 
-            BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(level);
+            // Never do heavy Wayfall init work synchronously on the server thread.
+            // Queue it and only complete the safety teleport once the island is actually placed.
+            WayfallWorkScheduler.enqueueWayfallInit(level);
+            WayfallWorkScheduler.enqueueOriginMonumentPlacement(level);
 
-            double x = landing.getX() + 0.5D;
-            double y = landing.getY();
-            double z = landing.getZ() + 0.5D;
+            final java.util.UUID playerId = player.getUUID();
+            WayfallWorkScheduler.enqueue(level, (wayfall) -> {
+                ServerPlayer p = wayfall.getServer().getPlayerList().getPlayer(playerId);
+                if (p == null || !p.isAlive()) {
+                    return true;
+                }
+                if (p.level() != wayfall || !wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+                    return true;
+                }
 
-            player.fallDistance = 0;
-            player.setDeltaMovement(Vec3.ZERO);
-            player.teleportTo(level, x, y, z, player.getYRot(), player.getXRot());
+                if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                    return false;
+                }
 
-            Kruemblegard.LOGGER.debug("Wayfall entry safety teleport: {} -> {}", player.getGameProfile().getName(), landing);
+                BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(wayfall);
+
+                double x = landing.getX() + 0.5D;
+                double y = landing.getY();
+                double z = landing.getZ() + 0.5D;
+
+                p.fallDistance = 0;
+                p.setDeltaMovement(Vec3.ZERO);
+                p.teleportTo(wayfall, x, y, z, p.getYRot(), p.getXRot());
+
+                Kruemblegard.LOGGER.debug("Wayfall entry safety teleport: {} -> {}", p.getGameProfile().getName(), landing);
+                return true;
+            });
         });
     }
 }
