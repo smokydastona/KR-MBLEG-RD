@@ -17,6 +17,8 @@ public final class WayfallOriginMonument {
     private static final int ISLAND_RADIUS = 14;
     private static final int ISLAND_DEPTH = 12;
 
+    private static final int BLOCK_PLACE_FLAGS = 2; // notify clients, avoid neighbor updates (prevents huge hitch)
+
     /**
      * Ensures the origin monument island has been placed.
      *
@@ -78,7 +80,7 @@ public final class WayfallOriginMonument {
 
                 BlockPos columnTop = center.offset(dx, 0, dz);
 
-                wayfall.setBlockAndUpdate(columnTop, top);
+                wayfall.setBlock(columnTop, top, BLOCK_PLACE_FLAGS);
 
                 // Soft stratification: mid under the surface, deep at the tapered underside.
                 for (int dy = 1; dy <= columnDepth; dy++) {
@@ -90,15 +92,15 @@ public final class WayfallOriginMonument {
                     } else {
                         state = deep;
                     }
-                    wayfall.setBlockAndUpdate(columnTop.below(dy), state);
+                    wayfall.setBlock(columnTop.below(dy), state, BLOCK_PLACE_FLAGS);
                 }
             }
         }
 
         // Keep a safe 3-block headroom at the center.
-        wayfall.setBlockAndUpdate(center.above(1), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(center.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
-        wayfall.setBlockAndUpdate(center.above(3), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        wayfall.setBlock(center.above(1), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), BLOCK_PLACE_FLAGS);
+        wayfall.setBlock(center.above(2), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), BLOCK_PLACE_FLAGS);
+        wayfall.setBlock(center.above(3), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), BLOCK_PLACE_FLAGS);
     }
 
     private record Palette(BlockState top, BlockState mid, BlockState deep) {
