@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.594 (2026-01-23)
 - Fix(wayfall): restore mobs/items going through the Wayfall portal, but prevent non-player entities from bootstrapping expensive Wayfall initialization (they can travel once Wayfall is initialized by a player).
 
+## 1.0.595 (2026-01-23)
+- Perf(wayfall): remove forced FULL-chunk loading during spawn-island validation and origin monument placement; these now only proceed when chunks are already ticketed/loaded.
+
 ## 1.0.593 (2026-01-23)
 - Reverted: the temporary change that made the Wayfall portal player-only.
 

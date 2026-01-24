@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 public final class WayfallOriginMonument {
     private WayfallOriginMonument() {}
@@ -37,14 +36,17 @@ public final class WayfallOriginMonument {
             return;
         }
 
-        // Ensure chunks are fully generated/loaded before writing blocks.
+        // Avoid forcing chunk generation/loading here. If a player is present, these chunks should already be
+        // ticketed/loaded; if not, return and try again later.
         int minChunkX = (ORIGIN.getX() - ISLAND_RADIUS) >> 4;
         int maxChunkX = (ORIGIN.getX() + ISLAND_RADIUS) >> 4;
         int minChunkZ = (ORIGIN.getZ() - ISLAND_RADIUS) >> 4;
         int maxChunkZ = (ORIGIN.getZ() + ISLAND_RADIUS) >> 4;
         for (int cx = minChunkX; cx <= maxChunkX; cx++) {
             for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                wayfall.getChunkSource().getChunk(cx, cz, ChunkStatus.FULL, true);
+                if (!wayfall.getChunkSource().hasChunk(cx, cz)) {
+                    return;
+                }
             }
         }
 
