@@ -3,14 +3,11 @@
     "type": "minecraft:spring_feature",
     "config": {
       "state": {
-        "Name": "minecraft:water",
-        "Properties": {
-          "falling": "true"
-        }
+        "Name": "minecraft:water"
       },
-      "requires_block_below": false,
-      "rock_count": 0,
-      "hole_count": 0,
+      "requires_block_below": true,
+      "rock_count": 4,
+      "hole_count": 1,
       "valid_blocks": [
         "kruemblegard:fractured_wayrock",
         "kruemblegard:crushstone",
@@ -26,7 +23,7 @@
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 256
+      "chance": 2048
     },
     { "type": "minecraft:in_square" },
     {

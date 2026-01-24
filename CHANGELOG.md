@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.588 (2026-01-24)
+- Tuning(worldgen/wayfall): further reduce Underway Falls waterfall spring lag by requiring a supporting block below, encouraging in-rock placement, and making the feature much rarer.
+
 ## 1.0.587 (2026-01-23)
 - Perf(wayfall): reduce Wayfall entry chunk stalls by only preloading chunks intersecting the spawn-island template (plus small padding) instead of requesting a huge FULL-chunk square.
 
