@@ -4,6 +4,7 @@ import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -11,6 +12,9 @@ import net.minecraftforge.common.util.ITeleporter;
 
 public final class WayfallTravel {
     private WayfallTravel() {}
+
+    /** Marker used to distinguish our portal travel from commands like /tp. */
+    public static final String TAG_WAYFALL_PORTAL_ENTRY = "kruemblegard_wayfall_portal_entry";
 
     public static ServerLevel getWayfallTargetLevel(ServerLevel fromLevel) {
         if (fromLevel.getServer() == null) {
@@ -42,6 +46,12 @@ public final class WayfallTravel {
         ServerLevel target = getWayfallTargetLevel(fromLevel);
         if (target == null) {
             return false;
+        }
+
+        // Mark that this dimension change originated from the Wayfall portal.
+        // Used to avoid overriding /tp destinations in the entry safety handler.
+        if (entity instanceof ServerPlayer player) {
+            player.getPersistentData().putBoolean(TAG_WAYFALL_PORTAL_ENTRY, true);
         }
 
         entity.setPortalCooldown();

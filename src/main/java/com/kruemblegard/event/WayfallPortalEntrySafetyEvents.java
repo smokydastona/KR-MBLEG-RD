@@ -5,6 +5,7 @@ import com.kruemblegard.playerdata.KruemblegardPlayerData;
 import com.kruemblegard.world.WayfallSpawnPlatform;
 import com.kruemblegard.world.WayfallWorkScheduler;
 import com.kruemblegard.world.WayfallSpawnIslandSavedData;
+import com.kruemblegard.world.WayfallTravel;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -31,6 +32,17 @@ public final class WayfallPortalEntrySafetyEvents {
         }
 
         if (!(player.level() instanceof ServerLevel)) {
+            return;
+        }
+
+        // IMPORTANT: this event also fires for command teleports that change dimension.
+        // We only want to enforce the spawn-island safety teleport for actual portal travel
+        // (or if the player is in our temporary holding state).
+        boolean enteredViaPortal = player.getPersistentData().getBoolean(WayfallTravel.TAG_WAYFALL_PORTAL_ENTRY);
+        if (enteredViaPortal) {
+            player.getPersistentData().remove(WayfallTravel.TAG_WAYFALL_PORTAL_ENTRY);
+        }
+        if (!enteredViaPortal && !player.isNoGravity() && !player.isOnPortalCooldown()) {
             return;
         }
 

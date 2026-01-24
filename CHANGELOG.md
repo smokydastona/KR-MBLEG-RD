@@ -16,6 +16,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.604 (2026-01-23)
 - Fix/Stability(wayfall): prevent spawn island placement from being deferred forever when `wayfallInitPlacementMinRemainingMillis` is set too close to the per-tick budget.
 
+## 1.0.605 (2026-01-24)
+- Fix(wayfall): do not override command teleports (/tp) into Wayfall with the spawn-island safety teleport; safety now applies only to actual portal travel (or temporary holding state).
+
 ## 1.0.601 (2026-01-23)
 - Perf(wayfall): do a one-time pre-player preload/init of the Wayfall spawn-island area on server/world start, then return to player-driven chunk loading.
 
