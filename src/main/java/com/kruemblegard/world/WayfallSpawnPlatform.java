@@ -35,6 +35,41 @@ public final class WayfallSpawnPlatform {
     private static final BlockPos SPAWN_ISLAND_ANCHOR = new BlockPos(0, 175, 0);
     private static final int CHUNK_LOAD_PADDING_BLOCKS = 24;
 
+    static BlockPos getSpawnIslandAnchor() {
+        return SPAWN_ISLAND_ANCHOR;
+    }
+
+    static int getChunkLoadPaddingBlocks() {
+        return CHUNK_LOAD_PADDING_BLOCKS;
+    }
+
+    static Vec3i getSpawnIslandTemplateSizeForPreload(ServerLevel wayfall) {
+        ResourceLocation structureId = null;
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        if (data.getStructureId() != null) {
+            structureId = data.getStructureId();
+        }
+
+        // Conservative fallback for first load.
+        if (structureId == null) {
+            structureId = new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_origin_island/default/default_1");
+        }
+
+        try {
+            StructureTemplateManager templates = wayfall.getServer().getStructureManager();
+            StructureTemplate template = templates.getOrCreate(structureId);
+            Vec3i size = template.getSize();
+            if (size.getX() > 0 && size.getY() > 0 && size.getZ() > 0) {
+                return size;
+            }
+        } catch (Exception ignored) {
+            // Fallback below.
+        }
+
+        // Worst-case safety fallback to avoid empty envelopes.
+        return new Vec3i(64, 64, 64);
+    }
+
     public static BlockPos ensureSpawnLanding(ServerLevel wayfall) {
         // Portal entry always targets the fixed Wayfall origin island anchor.
         BlockPos anchor = SPAWN_ISLAND_ANCHOR;

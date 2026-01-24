@@ -1,7 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.world.WayfallSpawnPlatform;
+import com.kruemblegard.world.WayfallWorkScheduler;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +25,6 @@ public final class WayfallSpawnIslandLoadEvents {
         }
 
         // Requirement: place the origin island at (0, 175, 0) on first load of the Wayfall dimension.
-        WayfallSpawnPlatform.ensureSpawnIslandPlaced(level, true);
+        WayfallWorkScheduler.enqueueWayfallInit(level);
     }
 }
