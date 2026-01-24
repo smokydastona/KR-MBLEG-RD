@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.590 (2026-01-23)
 - Fix(moogloom): adjust Griefcap render transforms so scaled caps sit flush on the Moogloom again (no floating).
 
+## 1.0.591 (2026-01-23)
+- Fix(moogloom): lower scaled Griefcaps so they don’t hover above the back/head.
+
 ## 1.0.587 (2026-01-23)
 - Perf(wayfall): reduce Wayfall entry chunk stalls by only preloading chunks intersecting the spawn-island template (plus small padding) instead of requesting a huge FULL-chunk square.
 

@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, CowModel<MoogloomEntity>> {
     private final BlockRenderDispatcher blockRenderer;
     private static final float GRIEFCAP_SCALE = 0.5F;
+    private static final float GRIEFCAP_Y_DROP = 1.0F - GRIEFCAP_SCALE;
 
     public MoogloomGriefcapLayer(RenderLayerParent<MoogloomEntity, CowModel<MoogloomEntity>> parent, BlockRenderDispatcher blockRenderer) {
         super(parent);
@@ -59,7 +60,7 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
 
         // Match vanilla mooshroom positioning so the cap stays attached (especially to the head).
         poseStack.pushPose();
-        poseStack.translate(0.2F, -0.35F, 0.5F);
+        poseStack.translate(0.2F, -0.35F - GRIEFCAP_Y_DROP, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
@@ -68,7 +69,7 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
         poseStack.popPose();
 
         poseStack.pushPose();
-        poseStack.translate(0.2F, -0.35F, 0.5F);
+        poseStack.translate(0.2F, -0.35F - GRIEFCAP_Y_DROP, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(42.0F));
         poseStack.translate(0.1F, 0.0F, -0.6F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
@@ -80,7 +81,7 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
 
         poseStack.pushPose();
         this.getParentModel().getHead().translateAndRotate(poseStack);
-        poseStack.translate(0.0F, -0.7F, -0.2F);
+        poseStack.translate(0.0F, -0.7F - GRIEFCAP_Y_DROP, -0.2F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-78.0F));
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
