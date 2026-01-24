@@ -16,13 +16,16 @@ public final class WayfallSpawnIslandSavedData extends SavedData {
     private static final String TAG_Y = "y";
     private static final String TAG_Z = "z";
     private static final String TAG_STRUCTURE = "structure";
+    private static final String TAG_PRELOAD_DONE = "preload_done";
 
     private boolean placed;
+    private boolean preloadDone;
     private BlockPos anchor;
     private ResourceLocation structureId;
 
     private WayfallSpawnIslandSavedData() {
         this.placed = false;
+        this.preloadDone = false;
         this.anchor = BlockPos.ZERO;
         this.structureId = null;
     }
@@ -38,6 +41,7 @@ public final class WayfallSpawnIslandSavedData extends SavedData {
     public static WayfallSpawnIslandSavedData load(CompoundTag tag) {
         WayfallSpawnIslandSavedData data = new WayfallSpawnIslandSavedData();
         data.placed = tag.getBoolean(TAG_PLACED);
+        data.preloadDone = tag.getBoolean(TAG_PRELOAD_DONE);
         int x = tag.getInt(TAG_X);
         int y = tag.getInt(TAG_Y);
         int z = tag.getInt(TAG_Z);
@@ -50,6 +54,7 @@ public final class WayfallSpawnIslandSavedData extends SavedData {
     @Override
     public CompoundTag save(CompoundTag tag) {
         tag.putBoolean(TAG_PLACED, this.placed);
+        tag.putBoolean(TAG_PRELOAD_DONE, this.preloadDone);
         tag.putInt(TAG_X, this.anchor.getX());
         tag.putInt(TAG_Y, this.anchor.getY());
         tag.putInt(TAG_Z, this.anchor.getZ());
@@ -61,8 +66,16 @@ public final class WayfallSpawnIslandSavedData extends SavedData {
         return placed;
     }
 
+    public boolean isPreloadDone() {
+        return preloadDone;
+    }
+
     public void setPlaced(boolean placed) {
         this.placed = placed;
+    }
+
+    public void setPreloadDone(boolean preloadDone) {
+        this.preloadDone = preloadDone;
     }
 
     public BlockPos getAnchor() {

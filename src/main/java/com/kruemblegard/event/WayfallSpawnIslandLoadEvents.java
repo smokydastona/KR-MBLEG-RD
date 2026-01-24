@@ -24,7 +24,8 @@ public final class WayfallSpawnIslandLoadEvents {
             return;
         }
 
-        // Requirement: place the origin island at (0, 175, 0) on first load of the Wayfall dimension.
+        // Pre-player behavior: queue the one-time Wayfall preload/init as soon as the level exists.
+        // The scheduler performs a one-time small preload and then removes tickets.
         WayfallWorkScheduler.enqueueWayfallInit(level);
     }
 }

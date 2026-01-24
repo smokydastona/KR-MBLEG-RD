@@ -174,7 +174,7 @@ public final class WayfallSpawnPlatform {
             BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
 
             // IMPORTANT: Never force-load/generate FULL chunks here. Wayfall init is queued via
-            // WayfallWorkScheduler which tickets chunks gradually.
+            // WayfallWorkScheduler which (at most) does a one-time preload on first generation/first visit.
             // If chunks aren't ready yet, just skip this tick and let the scheduler retry later.
             if (!areTemplateChunksLoaded(wayfall, anchor, template.getSize())) {
                 if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {

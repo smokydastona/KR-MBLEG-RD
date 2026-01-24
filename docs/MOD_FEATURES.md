@@ -296,7 +296,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Also includes `waystoneWayfallTeleportEnabled` and `waystoneWayfallTeleportChance` (see `config/ModConfig`).
 - Wayfall init performance knobs:
   - `wayfallInitTasksPerTick`: max queued Wayfall init tasks processed per server tick.
-  - `wayfallInitChunksTicketedPerTick`: chunk ticket add/remove rate per tick during Wayfall init.
+  - (Removed) `wayfallInitChunksTicketedPerTick`: Wayfall no longer does ongoing chunk ticketing.
+    - Wayfall does a one-time small preload around the spawn island on world/server start (or when the Wayfall level first exists), then returns to player-driven chunk loading.
   - `wayfallDebugLogging`: enables extra Wayfall init/ticket progress logging.
 
 ## Worldgen
