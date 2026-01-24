@@ -61,9 +61,9 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
         poseStack.pushPose();
         poseStack.translate(0.2F, -0.35F, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
-        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
+        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         this.renderGriefcapBlock(poseStack, buffer, packedLight, glowingOutline, griefcap, overlay, bakedModel);
         poseStack.popPose();
 
@@ -72,9 +72,9 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
         poseStack.mulPose(Axis.YP.rotationDegrees(42.0F));
         poseStack.translate(0.1F, 0.0F, -0.6F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
-        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
+        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         this.renderGriefcapBlock(poseStack, buffer, packedLight, glowingOutline, griefcap, overlay, bakedModel);
         poseStack.popPose();
 
@@ -82,9 +82,9 @@ public final class MoogloomGriefcapLayer extends RenderLayer<MoogloomEntity, Cow
         this.getParentModel().getHead().translateAndRotate(poseStack);
         poseStack.translate(0.0F, -0.7F, -0.2F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-78.0F));
-        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
+        poseStack.scale(GRIEFCAP_SCALE, GRIEFCAP_SCALE, GRIEFCAP_SCALE);
         this.renderGriefcapBlock(poseStack, buffer, packedLight, glowingOutline, griefcap, overlay, bakedModel);
         poseStack.popPose();
     }
