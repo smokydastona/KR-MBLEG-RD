@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -33,12 +32,6 @@ public class WayfallPortalBlock extends Block {
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (level.isClientSide) {
-            return;
-        }
-
-        // Only players can trigger Wayfall travel.
-        // Letting mobs/items force-load a heavy dimension can stall the integrated server ("AI frozen", chunks stop).
-        if (!(entity instanceof ServerPlayer)) {
             return;
         }
 

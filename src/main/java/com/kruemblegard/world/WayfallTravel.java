@@ -53,7 +53,18 @@ public final class WayfallTravel {
                 // End-portal style: always enter Wayfall at its spawn landing, never at the source coords.
                 Entity placed = repositionEntity.apply(false);
 
-                BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
+                BlockPos landing;
+                if (placed instanceof net.minecraft.server.level.ServerPlayer) {
+                    // Players are allowed to bootstrap Wayfall initialization.
+                    landing = WayfallSpawnPlatform.ensureSpawnLanding(destWorld);
+                } else {
+                    // Prevent mobs/items from triggering heavy initialization while a player is elsewhere.
+                    // They can still travel once Wayfall has been initialized by a player.
+                    landing = WayfallSpawnPlatform.getSpawnLandingIfPlaced(destWorld);
+                    if (landing == null) {
+                        return null;
+                    }
+                }
                 double x = landing.getX() + 0.5D;
                 double y = landing.getY();
                 double z = landing.getZ() + 0.5D;

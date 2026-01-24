@@ -52,6 +52,26 @@ public final class WayfallSpawnPlatform {
         return landing;
     }
 
+    /**
+     * Returns a reasonable landing position ONLY if the spawn island is already known/placed.
+     *
+     * This intentionally avoids triggering any placement or forced chunk loading so that mobs/items
+     * entering the portal can't accidentally bootstrap heavy Wayfall initialization while a player
+     * is still in the overworld.
+     */
+    public static BlockPos getSpawnLandingIfPlaced(ServerLevel wayfall) {
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        if (!data.isPlaced()) {
+            return null;
+        }
+
+        BlockPos anchor = SPAWN_ISLAND_ANCHOR;
+        BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
+
+        int surfaceY = wayfall.getHeight(Heightmap.Types.MOTION_BLOCKING, spawn.getX(), spawn.getZ());
+        return new BlockPos(spawn.getX(), Math.min(surfaceY + 1, wayfall.getMaxBuildHeight() - 4), spawn.getZ());
+    }
+
     /** Places the origin island structure at the fixed anchor if not already placed. */
     public static void ensureSpawnIslandPlaced(ServerLevel wayfall) {
         ensureSpawnIslandPlaced(wayfall, false);
