@@ -151,6 +151,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall-only vanilla structure retheming:
   - Vanilla shipwrecks placed in Wayfall swap their wood blocks to a local Wayfall wood palette (with a small chance to keep vanilla wood).
   - Underway Falls jungle temples swap temple stone blocks to the Scarstone family.
+  - Implementation note: retheming runs on chunk load but avoids heavy neighbor-update storms to keep exploration/teleport testing smooth.
 
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.

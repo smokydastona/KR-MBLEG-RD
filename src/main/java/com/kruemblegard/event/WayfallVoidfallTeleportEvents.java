@@ -68,6 +68,11 @@ public final class WayfallVoidfallTeleportEvents {
             return;
         }
 
+        // Don't interfere with admin/testing teleports or creative traversal.
+        if (player.isCreative() || player.isSpectator()) {
+            return;
+        }
+
         if (!player.level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
             return;
         }
@@ -88,6 +93,10 @@ public final class WayfallVoidfallTeleportEvents {
             return;
         }
 
+        if (player.isCreative() || player.isSpectator()) {
+            return;
+        }
+
         if (!player.level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
             return;
         }
@@ -105,6 +114,10 @@ public final class WayfallVoidfallTeleportEvents {
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+
+        if (player.isCreative() || player.isSpectator()) {
             return;
         }
 

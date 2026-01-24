@@ -146,7 +146,8 @@ public final class WayfallVanillaStructureRethemeEvents {
                             }
 
                             if (newState != state) {
-                                level.setBlock(mutablePos, newState, 3);
+                                // Avoid neighbor-update storms during chunk load/gen; we only need the blocks to persist.
+                                chunk.setBlockState(mutablePos, newState, false);
                             }
                         }
                     }

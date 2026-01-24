@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.606 (2026-01-24)
+- Perf(wayfall): reduce lag spikes during Wayfall shipwreck/jungle temple retheming by avoiding neighbor-update storms on chunk load.
+- Tuning(wayfall): voidfall rescue no longer runs for creative/spectator players (helps admin /tp biome/structure testing).
+
 ## 1.0.594 (2026-01-23)
 - Fix(wayfall): restore mobs/items going through the Wayfall portal, but prevent non-player entities from bootstrapping expensive Wayfall initialization (they can travel once Wayfall is initialized by a player).
 
