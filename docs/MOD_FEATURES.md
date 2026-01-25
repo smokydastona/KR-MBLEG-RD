@@ -158,9 +158,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - By default, initialization only runs when it’s actually needed (on entry).
   - Optional: `wayfallPreloadOnServerStart` (COMMON config) can be enabled to attempt a one-time pre-player preload, but may cause startup stutter on some systems.
 
-- Wayfall voidfall rescue:
-  - If a player falls below the island band into the Wayfall void, they are rescued back to the Wayfall spawn landing.
-  - Performance guarantee: rescue logic does not scan/generate far-away chunks as part of “safety”.
+- Wayfall void behavior:
+  - Vanilla behavior (falling into the void kills you / normal respawn rules apply).
 
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
@@ -269,7 +268,6 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall biomes can generate rare surface lava lakes (lake barriers use a Scarstone + Cracked Scarstone mix); Basin of Scars is more lava-forward.
 - Basin of Scars can also very rarely generate **large deep lava lakes** (18–24 radius, 10–15 deep) using Scarstone barriers.
 - Lake placement uses a -8 X/Z offset so the generated lake is centered on the placement position.
-- Safety: falling into the Wayfall void throws you to a precomputed safe landing spot in a random dimension (including mod dimensions), and immediately prepares the next destination.
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; Shatterplate Flats only) with shallow **Crushstone** beneath.
