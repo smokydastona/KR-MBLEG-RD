@@ -5,7 +5,7 @@ import com.kruemblegard.Kruemblegard;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.minecraft.nbt.CompoundTag;
@@ -24,11 +24,30 @@ import net.minecraft.world.level.saveddata.SavedData;
 public final class WayfallStructureRethemeSavedData extends SavedData {
     private static final String DATA_NAME = Kruemblegard.MOD_ID + "_wayfall_structure_retheme";
 
+    /**
+     * Hard caps to prevent this SavedData from growing without bound when a player uses /tp to
+     * rapidly explore huge areas (which can otherwise make autosaves and "Save and Quit" hang).
+     */
+    private static final int MAX_STRUCTURE_START_KEYS = 1024;
+    private static final int MAX_CHUNKS_TRACKED_PER_STRUCTURE = 16;
+
     private static final String TAG_ENTRIES = "entries";
     private static final String TAG_KEY = "key";
+    private static final String TAG_FULLY_PROCESSED = "fully_processed";
     private static final String TAG_CHUNKS = "chunks";
 
-    private final Map<String, LongSet> processedChunksByStructureStart = new HashMap<>();
+    private static final class Entry {
+        private boolean fullyProcessed;
+        private final LongSet processedChunks;
+
+        private Entry(boolean fullyProcessed, LongSet processedChunks) {
+            this.fullyProcessed = fullyProcessed;
+            this.processedChunks = processedChunks;
+        }
+    }
+
+    // accessOrder=true gives us a simple LRU so we can evict old entries.
+    private final Map<String, Entry> processedByStructureStart = new LinkedHashMap<>(64, 0.75f, true);
 
     private WayfallStructureRethemeSavedData() {}
 
@@ -51,10 +70,13 @@ public final class WayfallStructureRethemeSavedData extends SavedData {
                 continue;
             }
 
+            boolean fullyProcessed = entry.getBoolean(TAG_FULLY_PROCESSED);
             long[] chunks = entry.getLongArray(TAG_CHUNKS);
             LongSet set = new LongOpenHashSet(chunks);
-            data.processedChunksByStructureStart.put(key, set);
+            data.processedByStructureStart.put(key, new Entry(fullyProcessed, set));
         }
+
+        data.evictIfNeeded();
 
         return data;
     }
@@ -63,10 +85,12 @@ public final class WayfallStructureRethemeSavedData extends SavedData {
     public CompoundTag save(CompoundTag tag) {
         ListTag entries = new ListTag();
 
-        for (Map.Entry<String, LongSet> e : processedChunksByStructureStart.entrySet()) {
+        for (Map.Entry<String, Entry> e : processedByStructureStart.entrySet()) {
             CompoundTag entry = new CompoundTag();
             entry.putString(TAG_KEY, e.getKey());
-            entry.put(TAG_CHUNKS, new LongArrayTag(e.getValue().toLongArray()));
+            Entry v = e.getValue();
+            entry.putBoolean(TAG_FULLY_PROCESSED, v.fullyProcessed);
+            entry.put(TAG_CHUNKS, new LongArrayTag(v.processedChunks.toLongArray()));
             entries.add(entry);
         }
 
@@ -75,14 +99,51 @@ public final class WayfallStructureRethemeSavedData extends SavedData {
     }
 
     public boolean isChunkProcessed(String structureStartKey, long chunkPosLong) {
-        LongSet set = processedChunksByStructureStart.get(structureStartKey);
-        return set != null && set.contains(chunkPosLong);
+        Entry entry = processedByStructureStart.get(structureStartKey);
+        if (entry == null) {
+            return false;
+        }
+
+        if (entry.fullyProcessed) {
+            return true;
+        }
+
+        return entry.processedChunks.contains(chunkPosLong);
     }
 
     public void markChunkProcessed(String structureStartKey, long chunkPosLong) {
-        LongSet set = processedChunksByStructureStart.computeIfAbsent(structureStartKey, k -> new LongOpenHashSet());
-        if (set.add(chunkPosLong)) {
+        Entry entry = processedByStructureStart.get(structureStartKey);
+        if (entry == null) {
+            entry = new Entry(false, new LongOpenHashSet());
+            processedByStructureStart.put(structureStartKey, entry);
+        }
+
+        if (entry.fullyProcessed) {
+            return;
+        }
+
+        if (entry.processedChunks.add(chunkPosLong)) {
+            // If a structure touches lots of chunks, stop tracking per-chunk and treat it as fully processed.
+            if (entry.processedChunks.size() >= MAX_CHUNKS_TRACKED_PER_STRUCTURE) {
+                entry.fullyProcessed = true;
+                entry.processedChunks.clear();
+            }
+
+            evictIfNeeded();
             setDirty();
+        }
+    }
+
+    private void evictIfNeeded() {
+        if (processedByStructureStart.size() <= MAX_STRUCTURE_START_KEYS) {
+            return;
+        }
+
+        // Evict least-recently-used entries to keep the SavedData bounded.
+        var it = processedByStructureStart.entrySet().iterator();
+        while (processedByStructureStart.size() > MAX_STRUCTURE_START_KEYS && it.hasNext()) {
+            it.next();
+            it.remove();
         }
     }
 }
