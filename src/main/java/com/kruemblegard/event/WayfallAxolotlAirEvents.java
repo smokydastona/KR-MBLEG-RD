@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -111,6 +112,32 @@ public final class WayfallAxolotlAirEvents {
         double speed = hasTarget ? 1.25D : 1.00D;
         axolotl.getMoveControl().setWantedPosition(tx, ty, tz, speed);
         axolotl.getLookControl().setLookAt(tx, ty, tz);
+
+        // Critical: Axolotl water-movement controllers don't actually propel them when not "in water".
+        // Apply our own water-like steering so air feels like water.
+        Vec3 to = new Vec3(tx - axolotl.getX(), ty - axolotl.getY(), tz - axolotl.getZ());
+        double distSq = to.lengthSqr();
+        if (distSq < 1.2 * 1.2 && !hasTarget) {
+            // Reached destination; pick a new one soon.
+            data.putInt(TAG_AIR_SWIM_TICKS, 0);
+        }
+
+        if (distSq > 1.0E-6) {
+            Vec3 desired = to.normalize().scale(hasTarget ? 0.16 : 0.13);
+            Vec3 v = axolotl.getDeltaMovement();
+
+            // Smooth acceleration + mild water-like damping.
+            Vec3 steered = v.add(desired.subtract(v).scale(0.18)).scale(0.94);
+
+            double max = hasTarget ? 0.18 : 0.15;
+            if (steered.lengthSqr() > max * max) {
+                steered = steered.normalize().scale(max);
+            }
+
+            steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.12, 0.14), steered.z);
+            axolotl.setDeltaMovement(steered);
+            axolotl.hasImpulse = true;
+        }
     }
 
     @SubscribeEvent

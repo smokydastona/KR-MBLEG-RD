@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -99,6 +100,29 @@ public final class WayfallGlowSquidAirEvents {
 
         squid.getMoveControl().setWantedPosition(tx, ty, tz, 1.00D);
         squid.getLookControl().setLookAt(tx, ty, tz);
+
+        // Critical: GlowSquid water movement doesn't propel when not "in water".
+        // Apply our own steering so air feels like water.
+        Vec3 to = new Vec3(tx - squid.getX(), ty - squid.getY(), tz - squid.getZ());
+        double distSq = to.lengthSqr();
+        if (distSq < 1.5 * 1.5) {
+            data.putInt(TAG_AIR_SWIM_TICKS, 0);
+        }
+
+        if (distSq > 1.0E-6) {
+            Vec3 desired = to.normalize().scale(0.15);
+            Vec3 v = squid.getDeltaMovement();
+
+            Vec3 steered = v.add(desired.subtract(v).scale(0.14)).scale(0.95);
+            double max = 0.17;
+            if (steered.lengthSqr() > max * max) {
+                steered = steered.normalize().scale(max);
+            }
+
+            steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.12, 0.14), steered.z);
+            squid.setDeltaMovement(steered);
+            squid.hasImpulse = true;
+        }
     }
 
     @SubscribeEvent

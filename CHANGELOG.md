@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.615 (2026-01-25)
 - Fix(wayfall/mobs): Wayfall air-swimming axolotls and glow squid now pick destinations and steer via vanilla `MoveControl` (less slippery; target-chasing works for axolotls).
 
+## 1.0.616 (2026-01-25)
+- Fix(wayfall/mobs): treat air like water for Wayfall “air swimmers” by applying swim-style propulsion in air (they now actually move around instead of stalling).
+
 ## 1.0.614 (2026-01-25)
 - Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
 - Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.
