@@ -8,7 +8,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -19,6 +18,62 @@ public final class WayfallStructureRetheme {
     private WayfallStructureRetheme() {}
 
     public static final float DEFAULT_KEEP_VANILLA_WOOD_CHANCE = 0.25f;
+
+    /**
+     * Extremely hot path (chunk-load retheme): only run shipwreck retheme logic for blocks that can actually change.
+     */
+    public static boolean isVanillaShipwreckWoodCandidate(BlockState state) {
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+        if (!"minecraft".equals(id.getNamespace())) {
+            return false;
+        }
+
+        return state.is(BlockTags.PLANKS)
+                || state.is(BlockTags.WOODEN_STAIRS)
+                || state.is(BlockTags.WOODEN_SLABS)
+                || state.is(BlockTags.WOODEN_FENCES)
+                || state.is(BlockTags.FENCE_GATES)
+                || state.is(BlockTags.WOODEN_DOORS)
+                || state.is(BlockTags.WOODEN_TRAPDOORS)
+                || state.is(BlockTags.WOODEN_BUTTONS)
+                || state.is(BlockTags.WOODEN_PRESSURE_PLATES)
+                || state.is(BlockTags.LOGS);
+    }
+
+    /**
+     * Extremely hot path (chunk-load retheme): only run jungle-temple retheme logic for blocks that can actually change.
+     */
+    public static boolean isJungleTempleStoneCandidate(BlockState state) {
+        return state.is(Blocks.COBBLESTONE)
+                || state.is(Blocks.MOSSY_COBBLESTONE)
+                || state.is(Blocks.CHISELED_STONE_BRICKS)
+                || state.is(Blocks.STONE_BRICKS)
+                || state.is(Blocks.CRACKED_STONE_BRICKS)
+                || state.is(Blocks.MOSSY_STONE_BRICKS)
+                || state.is(Blocks.STONE_BRICK_STAIRS)
+                || state.is(Blocks.STONE_BRICK_SLAB)
+                || state.is(Blocks.STONE_BRICK_WALL)
+                || state.is(Blocks.COBBLESTONE_STAIRS)
+                || state.is(Blocks.COBBLESTONE_SLAB)
+                || state.is(Blocks.COBBLESTONE_WALL);
+    }
+
+    /**
+     * Deterministic pseudo-random decision for "keep vanilla wood" that avoids per-block RandomSource overhead.
+     */
+    public static boolean shouldKeepVanillaWood(long baseSeed, int x, int y, int z, float keepVanillaChance) {
+        if (keepVanillaChance <= 0.0f) {
+            return false;
+        }
+        if (keepVanillaChance >= 1.0f) {
+            return true;
+        }
+
+        long h = mix64(baseSeed ^ packPos(x, y, z));
+        // 24-bit fraction in [0, 1)
+        float f = ((h >>> 40) & 0xFFFFFFL) / (float) 0x1000000;
+        return f < keepVanillaChance;
+    }
 
     public record WoodPalette(
             Block planks,
@@ -57,13 +112,13 @@ public final class WayfallStructureRetheme {
         return driftwood();
     }
 
-    public static BlockState rethemeShipwreckBlock(BlockState original, WoodPalette palette, RandomSource random, float keepVanillaChance) {
+    public static BlockState rethemeShipwreckBlock(BlockState original, WoodPalette palette, boolean keepVanilla) {
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(original.getBlock());
         if (!"minecraft".equals(id.getNamespace())) {
             return original;
         }
 
-        if (random.nextFloat() < keepVanillaChance) {
+        if (keepVanilla) {
             return original;
         }
 
@@ -224,5 +279,16 @@ public final class WayfallStructureRetheme {
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static BlockState copyPropertyUnchecked(BlockState from, BlockState to, Property prop) {
         return to.setValue(prop, from.getValue(prop));
+    }
+
+    private static long packPos(int x, int y, int z) {
+        // Simple reversible-ish packing for hashing (not used for storage).
+        return ((long) x & 0x3FFFFFFL) << 38 | ((long) z & 0x3FFFFFFL) << 12 | ((long) y & 0xFFFL);
+    }
+
+    private static long mix64(long z) {
+        z = (z ^ (z >>> 33)) * 0xff51afd7ed558ccdL;
+        z = (z ^ (z >>> 33)) * 0xc4ceb9fe1a85ec53L;
+        return z ^ (z >>> 33);
     }
 }

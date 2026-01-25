@@ -13,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
@@ -103,7 +102,6 @@ public final class WayfallVanillaStructureRethemeEvents {
             seed ^= (long) start.getChunkPos().x * 341873128712L;
             seed ^= (long) start.getChunkPos().z * 132897987541L;
             seed ^= chunkLong;
-            RandomSource random = RandomSource.create(seed);
 
             boolean isShipwreck = structureId.equals(SHIPWRECK_ID) || structureId.equals(SHIPWRECK_BEACHED_ID);
             boolean isJunglePyramid = structureId.equals(JUNGLE_PYRAMID_ID);
@@ -131,17 +129,31 @@ public final class WayfallVanillaStructureRethemeEvents {
                         for (int x = minX; x <= maxX; x++) {
                             mutablePos.set(x, y, z);
 
-                            var state = level.getBlockState(mutablePos);
-                            var newState = state;
+                            var state = chunk.getBlockState(mutablePos);
+                            if (state.isAir()) {
+                                continue;
+                            }
 
+                            var newState = state;
                             if (isShipwreck) {
-                                newState = WayfallStructureRetheme.rethemeShipwreckBlock(
-                                        state,
-                                        palette,
-                                        random,
+                                if (!WayfallStructureRetheme.isVanillaShipwreckWoodCandidate(state)) {
+                                    continue;
+                                }
+
+                                boolean keepVanilla = WayfallStructureRetheme.shouldKeepVanillaWood(
+                                        seed,
+                                        x,
+                                        y,
+                                        z,
                                         WayfallStructureRetheme.DEFAULT_KEEP_VANILLA_WOOD_CHANCE
                                 );
+
+                                newState = WayfallStructureRetheme.rethemeShipwreckBlock(state, palette, keepVanilla);
                             } else if (isJunglePyramid) {
+                                // Cheap prefilter: only these blocks can change.
+                                if (!WayfallStructureRetheme.isJungleTempleStoneCandidate(state)) {
+                                    continue;
+                                }
                                 newState = WayfallStructureRetheme.rethemeJungleTempleStone(state);
                             }
 

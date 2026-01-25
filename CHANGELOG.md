@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.611 (2026-01-24)
+- Perf(wayfall): reduce chunk-load lag from vanilla-structure retheming by skipping non-candidate blocks, avoiding level lookups, and removing per-block RNG overhead.
+
 ## 1.0.606 (2026-01-24)
 - Perf(wayfall): reduce lag spikes during Wayfall shipwreck/jungle temple retheming by avoiding neighbor-update storms on chunk load.
 - Tuning(wayfall): voidfall rescue no longer runs for creative/spectator players (helps admin /tp biome/structure testing).
