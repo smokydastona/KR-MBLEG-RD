@@ -70,6 +70,7 @@ public class ModItems {
     public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_SLAB_ITEM = registerBlockItem("polished_ashfall_stone_slab", ModBlocks.POLISHED_ASHFALL_STONE_SLAB);
     public static final RegistryObject<Item> POLISHED_ASHFALL_STONE_WALL_ITEM = registerBlockItem("polished_ashfall_stone_wall", ModBlocks.POLISHED_ASHFALL_STONE_WALL);
     public static final RegistryObject<Item> FAULT_DUST_ITEM = registerBlockItem("fault_dust", ModBlocks.FAULT_DUST);
+    public static final RegistryObject<Item> RUBBLE_TILTH_ITEM = registerBlockItem("rubble_tilth", ModBlocks.RUBBLE_TILTH);
     public static final RegistryObject<Item> SCARSTONE_ITEM = registerBlockItem("scarstone", ModBlocks.SCARSTONE);
     public static final RegistryObject<Item> SCARSTONE_STAIRS_ITEM = registerBlockItem("scarstone_stairs", ModBlocks.SCARSTONE_STAIRS);
     public static final RegistryObject<Item> SCARSTONE_SLAB_ITEM = registerBlockItem("scarstone_slab", ModBlocks.SCARSTONE_SLAB);
@@ -104,6 +105,9 @@ public class ModItems {
     public static final RegistryObject<Item> ASHMOSS_ITEM = registerBlockItem("ashmoss", ModBlocks.ASHMOSS);
     public static final RegistryObject<Item> ASHMOSS_CARPET_ITEM = registerBlockItem("ashmoss_carpet", ModBlocks.ASHMOSS_CARPET);
     public static final RegistryObject<Item> RUNEGROWTH_ITEM = registerBlockItem("runegrowth", ModBlocks.RUNEGROWTH);
+    public static final RegistryObject<Item> FROSTBOUND_RUNEGROWTH_ITEM = registerBlockItem("frostbound_runegrowth", ModBlocks.FROSTBOUND_RUNEGROWTH);
+    public static final RegistryObject<Item> VERDANT_RUNEGROWTH_ITEM = registerBlockItem("verdant_runegrowth", ModBlocks.VERDANT_RUNEGROWTH);
+    public static final RegistryObject<Item> EMBERWARMED_RUNEGROWTH_ITEM = registerBlockItem("emberwarmed_runegrowth", ModBlocks.EMBERWARMED_RUNEGROWTH);
     public static final RegistryObject<Item> VOIDFELT_ITEM = registerBlockItem("voidfelt", ModBlocks.VOIDFELT);
 
     public static final RegistryObject<Item> WAYFALL_IRON_ORE_ITEM = registerBlockItem("wayfall_iron_ore", ModBlocks.WAYFALL_IRON_ORE);

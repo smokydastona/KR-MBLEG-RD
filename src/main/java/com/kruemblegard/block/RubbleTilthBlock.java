@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.init.ModBlocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -10,13 +11,18 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
+
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 
 /**
  * Wayfall farmland analogue, created by hoeing Wayfall soils.
@@ -61,8 +67,40 @@ public class RubbleTilthBlock extends FarmBlock {
         }
     }
 
+    @Override
+    public boolean canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, Direction facing, IPlantable plantable) {
+        if (facing != Direction.UP) {
+            return super.canSustainPlant(state, level, pos, facing, plantable);
+        }
+
+        // Let any crop-type IPlantable grow here (covers many modded crops).
+        // Vanilla crops already work because this is a FarmBlock, but modded crops often rely on PlantType.
+        PlantType type = plantable.getPlantType(level, pos.above());
+        if (type == PlantType.CROP) {
+            return true;
+        }
+
+        return super.canSustainPlant(state, level, pos, facing, plantable);
+    }
+
     private static boolean isUnderCrops(LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND);
+        BlockState above = level.getBlockState(pos.above());
+        if (above.isAir()) {
+            return false;
+        }
+
+        // Vanilla uses this tag. Keep it, but broaden to support modded crops too.
+        if (above.is(BlockTags.MAINTAINS_FARMLAND) || above.is(BlockTags.CROPS)) {
+            return true;
+        }
+
+        // Most crop/plant blocks in Forge implement IPlantable (including many modded crops).
+        if (above.getBlock() instanceof IPlantable) {
+            return true;
+        }
+
+        // Conservative fallback: treat any BushBlock (plants) as maintaining tilth.
+        return above.getBlock() instanceof BushBlock;
     }
 
     private static boolean isNearWater(LevelReader level, BlockPos pos) {

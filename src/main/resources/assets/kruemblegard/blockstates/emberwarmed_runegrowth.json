@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "snowy=false": { "model": "kruemblegard:block/runegrowth_hot" },
+    "snowy=true": { "model": "kruemblegard:block/runegrowth_snowy_hot" }
+  }
+}

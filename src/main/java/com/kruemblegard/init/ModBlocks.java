@@ -13,6 +13,7 @@ import com.kruemblegard.block.DriftwoodLeavesBlock;
 import com.kruemblegard.block.AshmossBlock;
 import com.kruemblegard.block.RunedStoneveilRubbleBlock;
 import com.kruemblegard.block.RunegrowthBlock;
+import com.kruemblegard.block.RunegrowthVariantBlock;
 import com.kruemblegard.block.RubbleTilthBlock;
 import com.kruemblegard.block.ScarstoneBlock;
 import com.kruemblegard.block.VoidfeltBlock;
@@ -522,6 +523,30 @@ public final class ModBlocks {
             "runegrowth",
             () -> new RunegrowthBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLUE)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRASS))
+    );
+
+    public static final RegistryObject<Block> FROSTBOUND_RUNEGROWTH = BLOCKS.register(
+            "frostbound_runegrowth",
+            () -> new RunegrowthVariantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRASS))
+    );
+
+    public static final RegistryObject<Block> VERDANT_RUNEGROWTH = BLOCKS.register(
+            "verdant_runegrowth",
+            () -> new RunegrowthVariantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GREEN)
+                    .strength(0.6F, 0.6F)
+                    .sound(SoundType.GRASS))
+    );
+
+    public static final RegistryObject<Block> EMBERWARMED_RUNEGROWTH = BLOCKS.register(
+            "emberwarmed_runegrowth",
+            () -> new RunegrowthVariantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.FIRE)
                     .strength(0.6F, 0.6F)
                     .sound(SoundType.GRASS))
     );

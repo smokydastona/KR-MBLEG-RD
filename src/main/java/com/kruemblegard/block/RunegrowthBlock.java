@@ -39,7 +39,10 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
             return null;
         }
 
-        return applyVisualState(placed, context.getLevel(), context.getClickedPos());
+        // Post-split: the base Runegrowth block is the Resonant (temperate) variant.
+        // Keep the TEMP property for backwards compatibility with old worlds, but do not
+        // auto-switch variants based on biome temperature for new placements.
+        return applySnowyOnly(placed.setValue(TEMP, TempBand.TEMPERATE), context.getLevel(), context.getClickedPos());
     }
 
     @Override
@@ -52,7 +55,8 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
             BlockPos neighborPos
     ) {
         BlockState updated = super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-        return applyVisualState(updated, level, currentPos);
+        // Only SNOWY updates; TEMP stays whatever it already is (legacy chunks).
+        return applySnowyOnly(updated, level, currentPos);
     }
 
     @Override
@@ -62,7 +66,7 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         // Ensure worldgen / programmatic placement gets the correct variant immediately,
         // without relying on random ticks.
         if (!level.isClientSide) {
-            BlockState desired = applyVisualState(state, level, pos);
+            BlockState desired = applySnowyOnly(state, level, pos);
             if (desired != state) {
                 level.setBlock(pos, desired, 2);
             }
@@ -101,17 +105,15 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 
                 BlockState targetState = level.getBlockState(targetPos);
                 if (isSpreadableWayfallDirt(targetState) && canRemainRunegrowth(level, targetPos)) {
-                    BlockState spreadState = applyVisualState(this.defaultBlockState(), level, targetPos);
+                    BlockState spreadState = applySnowyOnly(this.defaultBlockState(), level, targetPos);
                     level.setBlock(targetPos, spreadState, 2);
                 }
             }
         }
     }
 
-    private static BlockState applyVisualState(BlockState state, LevelReader level, BlockPos pos) {
-        return state
-                .setValue(SNOWY, isNearSnow(level, pos))
-                .setValue(TEMP, TempBand.fromBaseTemperature(level.getBiome(pos).value()));
+    static BlockState applySnowyOnly(BlockState state, LevelReader level, BlockPos pos) {
+        return state.setValue(SNOWY, isNearSnow(level, pos));
     }
 
     public enum TempBand implements StringRepresentable {
@@ -164,12 +166,12 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         RunegrowthBonemeal.bonemeal(level, pos, random);
     }
 
-    private static boolean isSpreadableWayfallDirt(BlockState state) {
+    static boolean isSpreadableWayfallDirt(BlockState state) {
         // Explicit whitelist to avoid spreading onto podzol-like or moss blocks.
         return state.is(ModBlocks.FAULT_DUST.get());
     }
 
-    private static boolean canRemainRunegrowth(ServerLevel level, BlockPos pos) {
+    static boolean canRemainRunegrowth(ServerLevel level, BlockPos pos) {
         BlockPos abovePos = pos.above();
         BlockState above = level.getBlockState(abovePos);
 
@@ -183,7 +185,7 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
         return !(light < 4 && opacity > 2);
     }
 
-    private static boolean isNearSnow(LevelReader level, BlockPos pos) {
+    static boolean isNearSnow(LevelReader level, BlockPos pos) {
         // Vanilla grass uses SNOWY when snow is directly above.
         // Avoid checking adjacent blocks here to keep updates cheap and to avoid cross-chunk reads at chunk borders.
         return isSnowLike(level.getBlockState(pos.above()));

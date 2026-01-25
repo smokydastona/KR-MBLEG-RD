@@ -1,0 +1,39 @@
+{
+  "type": "block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "alternatives",
+          "children": [
+            {
+              "type": "item",
+              "name": "kruemblegard:emberwarmed_runegrowth",
+              "conditions": [
+                {
+                  "condition": "match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "silk_touch",
+                        "levels": { "min": 1 }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "name": "kruemblegard:fault_dust"
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        { "condition": "survives_explosion" }
+      ]
+    }
+  ]
+}

@@ -241,9 +241,14 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 ### Wayfall surface covers
 - Ashmoss is a moss block surface.
 - Ashmoss has a matching carpet variant: **Ashmoss Carpet**.
-- Runegrowth is a grass block surface.
+- Runegrowth is a grass-like surface family.
 - Voidfelt is a mycelium-like dirt surface.
-- Runegrowth’s visuals vary by biome base temperature (cold/temperate/warm/hot) and can additionally switch to a snowy-side variant when placed near snow.
+- Runegrowth is split into 4 separate blocks:
+  - **Frostbound Runegrowth** (cold)
+  - **Resonant Runegrowth** (temperate)
+  - **Verdant Runegrowth** (warm)
+  - **Emberwarmed Runegrowth** (hot)
+- Each variant can additionally switch to a snowy-side appearance when snow is directly above.
 - Runegrowth spreads over **Fault Dust** under grass-like conditions (sufficient light and not waterlogged).
 - Voidfelt can spread over **Fault Dust** (void biome only) under similar grass/mycelium-like conditions.
 - Ashmoss prefers “ash-heavy” Wayfall biomes (tag: `kruemblegard:wayfall_ash_heavy`).
@@ -273,7 +278,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall surface palette can vary by biome tag:
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; Shatterplate Flats only) with shallow **Crushstone** beneath.
-  - Otherwise, the surface defaults to **Runegrowth** (with **Fault Dust** used as a soil layer in some biomes).
+  - Otherwise, the surface defaults to **Runegrowth** (the correct Runegrowth variant is chosen per-biome; **Fault Dust** is used as a soil layer in some biomes).
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 
 ## Gameplay rules

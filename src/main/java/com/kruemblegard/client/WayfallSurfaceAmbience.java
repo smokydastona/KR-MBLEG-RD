@@ -54,7 +54,12 @@ public final class WayfallSurfaceAmbience {
         if (state.is(ModBlocks.ASHMOSS.get())) {
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.AMBIENT, volume * 0.6F, pitch, false);
             nextAmbientTickDelay = 20 * (10 + level.random.nextInt(14));
-        } else if (state.is(ModBlocks.RUNEGROWTH.get())) {
+        } else if (
+            state.is(ModBlocks.RUNEGROWTH.get())
+                || state.is(ModBlocks.FROSTBOUND_RUNEGROWTH.get())
+                || state.is(ModBlocks.VERDANT_RUNEGROWTH.get())
+                || state.is(ModBlocks.EMBERWARMED_RUNEGROWTH.get())
+        ) {
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.AMBIENT, volume * 0.4F, pitch, false);
             nextAmbientTickDelay = 20 * (12 + level.random.nextInt(18));
         } else if (state.is(ModBlocks.VOIDFELT.get())) {

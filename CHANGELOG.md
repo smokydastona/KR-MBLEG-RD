@@ -7,6 +7,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.612 (2026-01-25)
 - Perf(runegrowth): reduce server tick load by throttling spread attempts and avoiding any potential sync chunk loads from random ticks.
 - Debug(runegrowth): add optional per-dimension Runegrowth random-tick counter logging (enable with JVM flag `-Dkruemblegard.debug.runegrowthTicks=true`).
+- Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
+- Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.
 
 ## 1.0.611 (2026-01-24)
 - Perf(wayfall): reduce chunk-load lag from vanilla-structure retheming by skipping non-candidate blocks, avoiding level lookups, and removing per-block RNG overhead.

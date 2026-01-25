@@ -17,12 +17,26 @@
         "**/logs/**"
     ],
     "powershell.scriptAnalysis.enable": false,
+    "files.associations": {
+        "**/loot_tables/**/*.json": "json"
+    },
     "json.schemas": [
         {
             "fileMatch": [
-                "src/main/resources/data/**/loot_tables/**/*.json"
+                "**/loot_tables/**/*.json"
             ],
-            "url": "./.vscode/schemas/minecraft-loot-table-permissive.schema.json"
+            "schema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": [
+                    "object",
+                    "array",
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                ],
+                "additionalProperties": true
+            }
         },
         {
             "fileMatch": [

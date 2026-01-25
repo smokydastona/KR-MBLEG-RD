@@ -665,6 +665,86 @@
       {
         "type": "minecraft:condition",
         "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "kruemblegard:hollow_transit_plains",
+            "kruemblegard:glyphscar_reach"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "surface_type": "floor",
+            "offset": 0,
+            "add_surface_depth": false,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:frostbound_runegrowth"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "kruemblegard:betweenlight_void",
+            "kruemblegard:shatterplate_flats",
+            "kruemblegard:crumbled_crossing",
+            "kruemblegard:underway_falls"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "surface_type": "floor",
+            "offset": 0,
+            "add_surface_depth": false,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:verdant_runegrowth"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "kruemblegard:fracture_shoals",
+            "kruemblegard:basin_of_scars"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "surface_type": "floor",
+            "offset": 0,
+            "add_surface_depth": false,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "kruemblegard:emberwarmed_runegrowth"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
           "type": "minecraft:stone_depth",
           "surface_type": "floor",
           "offset": 0,
