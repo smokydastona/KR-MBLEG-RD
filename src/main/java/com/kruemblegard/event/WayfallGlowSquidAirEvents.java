@@ -3,12 +3,13 @@ package com.kruemblegard.event;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.GlowSquid;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -25,9 +26,9 @@ public final class WayfallGlowSquidAirEvents {
 
     private static final String TAG_AIR_SQUID = "kruemblegard_wayfall_air_squid";
     private static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_swim_ticks";
-    private static final String TAG_AIR_SWIM_VX = "kruemblegard_wayfall_air_swim_vx";
-    private static final String TAG_AIR_SWIM_VY = "kruemblegard_wayfall_air_swim_vy";
-    private static final String TAG_AIR_SWIM_VZ = "kruemblegard_wayfall_air_swim_vz";
+    private static final String TAG_AIR_SWIM_TX = "kruemblegard_wayfall_air_target_x";
+    private static final String TAG_AIR_SWIM_TY = "kruemblegard_wayfall_air_target_y";
+    private static final String TAG_AIR_SWIM_TZ = "kruemblegard_wayfall_air_target_z";
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -80,43 +81,24 @@ public final class WayfallGlowSquidAirEvents {
         squid.setNoGravity(true);
         squid.setAirSupply(squid.getMaxAirSupply());
 
-        // Birdlike roaming: keep a persistent "target swim velocity" and steer toward it.
-        // This makes them actively fly around in open air instead of slowly drifting.
+        // Air-swim control: choose a destination and let vanilla MoveControl handle turning/accel.
+        // This preserves the "swim" feel and avoids the slippery inertial drift of manual velocity steering.
         var data = squid.getPersistentData();
         int ticks = data.getInt(TAG_AIR_SWIM_TICKS);
 
         boolean shouldPickNew = ticks <= 0 || squid.horizontalCollision || squid.verticalCollision;
         if (shouldPickNew) {
-            pickNewAirSwimVector(squid);
-            ticks = data.getInt(TAG_AIR_SWIM_TICKS);
+            pickNewAirSwimTarget(squid);
         } else {
             data.putInt(TAG_AIR_SWIM_TICKS, ticks - 1);
         }
 
-        Vec3 target = new Vec3(
-                data.getDouble(TAG_AIR_SWIM_VX),
-                data.getDouble(TAG_AIR_SWIM_VY),
-                data.getDouble(TAG_AIR_SWIM_VZ)
-        );
+        double tx = data.getDouble(TAG_AIR_SWIM_TX);
+        double ty = data.getDouble(TAG_AIR_SWIM_TY) + 0.15D; // small buoyancy bias
+        double tz = data.getDouble(TAG_AIR_SWIM_TZ);
 
-        // Gentle vertical bias: keep them from slowly sinking.
-        target = new Vec3(target.x, target.y + 0.01, target.z);
-
-        Vec3 v = squid.getDeltaMovement();
-        // Steer toward the target while keeping a soft "water-like" damping.
-        Vec3 steered = v.add(target.subtract(v).scale(0.08)).scale(0.965);
-
-        // Cap speed so they feel floaty, not like rockets.
-        double max = 0.16;
-        if (steered.lengthSqr() > max * max) {
-            steered = steered.normalize().scale(max);
-        }
-
-        // Prevent hard falls.
-        steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.10, 0.12), steered.z);
-
-        squid.setDeltaMovement(steered);
-        squid.hasImpulse = true;
+        squid.getMoveControl().setWantedPosition(tx, ty, tz, 1.00D);
+        squid.getLookControl().setLookAt(tx, ty, tz);
     }
 
     @SubscribeEvent
@@ -147,25 +129,43 @@ public final class WayfallGlowSquidAirEvents {
         squid.setAirSupply(squid.getMaxAirSupply());
     }
 
-    private static void pickNewAirSwimVector(GlowSquid squid) {
+    private static void pickNewAirSwimTarget(GlowSquid squid) {
         var data = squid.getPersistentData();
         RandomSource r = squid.getRandom();
 
-        // Hold a direction for a short burst.
-        data.putInt(TAG_AIR_SWIM_TICKS, Mth.nextInt(r, 30, 110));
+        data.putInt(TAG_AIR_SWIM_TICKS, Mth.nextInt(r, 22, 70));
 
-        double yaw = r.nextDouble() * (Math.PI * 2.0);
-        // Mild pitch: mostly horizontal flight with occasional climbs/dives.
-        double pitch = (r.nextDouble() - 0.5) * 0.7; // [-0.35, 0.35]
-        double speed = Mth.nextDouble(r, 0.06, 0.14);
+        Level level = squid.level();
+        for (int i = 0; i < 12; i++) {
+            double dx = Mth.nextDouble(r, -12.0, 12.0);
+            double dy = Mth.nextDouble(r, -8.0, 8.0);
+            double dz = Mth.nextDouble(r, -12.0, 12.0);
 
-        double xz = Math.cos(pitch) * speed;
-        double vx = Math.cos(yaw) * xz;
-        double vz = Math.sin(yaw) * xz;
-        double vy = Math.sin(pitch) * speed;
+            double tx = squid.getX() + dx;
+            double ty = squid.getY() + dy;
+            double tz = squid.getZ() + dz;
 
-        data.putDouble(TAG_AIR_SWIM_VX, vx);
-        data.putDouble(TAG_AIR_SWIM_VY, vy);
-        data.putDouble(TAG_AIR_SWIM_VZ, vz);
+            BlockPos bp = BlockPos.containing(tx, ty, tz);
+            if (!level.isLoaded(bp)) {
+                continue;
+            }
+
+            if (!level.getBlockState(bp).isAir()) {
+                continue;
+            }
+
+            if (!level.noCollision(squid, squid.getBoundingBox().move(tx - squid.getX(), ty - squid.getY(), tz - squid.getZ()))) {
+                continue;
+            }
+
+            data.putDouble(TAG_AIR_SWIM_TX, tx);
+            data.putDouble(TAG_AIR_SWIM_TY, ty);
+            data.putDouble(TAG_AIR_SWIM_TZ, tz);
+            return;
+        }
+
+        data.putDouble(TAG_AIR_SWIM_TX, squid.getX() + Mth.nextDouble(r, -5.0, 5.0));
+        data.putDouble(TAG_AIR_SWIM_TY, squid.getY() + Mth.nextDouble(r, -3.0, 3.0));
+        data.putDouble(TAG_AIR_SWIM_TZ, squid.getZ() + Mth.nextDouble(r, -5.0, 5.0));
     }
 }

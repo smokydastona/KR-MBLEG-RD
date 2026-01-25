@@ -4,14 +4,25 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.612 (2026-01-25)
-- Perf(runegrowth): reduce server tick load by throttling spread attempts and avoiding any potential sync chunk loads from random ticks.
-- Debug(runegrowth): add optional per-dimension Runegrowth random-tick counter logging (enable with JVM flag `-Dkruemblegard.debug.runegrowthTicks=true`).
+## 1.0.615 (2026-01-25)
+- Fix(wayfall/mobs): Wayfall air-swimming axolotls and glow squid now pick destinations and steer via vanilla `MoveControl` (less slippery; target-chasing works for axolotls).
+
+## 1.0.614 (2026-01-25)
 - Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
 - Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.
 
-## 1.0.611 (2026-01-24)
+## 1.0.613 (2026-01-25)
+- Perf(runegrowth): reduce server tick load by throttling spread attempts and avoiding any potential sync chunk loads from random ticks.
+- Debug(runegrowth): add optional per-dimension Runegrowth random-tick counter logging (enable with JVM flag `-Dkruemblegard.debug.runegrowthTicks=true`).
+
+## 1.0.612 (2026-01-24)
 - Perf(wayfall): reduce chunk-load lag from vanilla-structure retheming by skipping non-candidate blocks, avoiding level lookups, and removing per-block RNG overhead.
+
+## 1.0.611 (2026-01-24)
+- Chore(wayfall): remove leftover voidfall rescue code.
+
+## 1.0.610 (2026-01-24)
+- Fix(wayfall): remove Wayfall voidfall rescue (vanilla void) logic.
 
 ## 1.0.606 (2026-01-24)
 - Perf(wayfall): reduce lag spikes during Wayfall shipwreck/jungle temple retheming by avoiding neighbor-update storms on chunk load.
