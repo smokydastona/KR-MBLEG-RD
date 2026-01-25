@@ -149,7 +149,6 @@ public final class CommonModEvents {
         if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
             return false;
         }
-
         return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
     }
 

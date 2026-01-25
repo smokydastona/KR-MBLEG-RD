@@ -1,27 +1,17 @@
 package com.kruemblegard.event;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.world.WayfallSpawnIslandSavedData;
+import com.kruemblegard.world.WayfallSpawnPlatform;
+import com.kruemblegard.world.WayfallWorkScheduler;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.border.WorldBorder;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -38,21 +28,12 @@ public final class WayfallVoidfallTeleportEvents {
     private static final String ROOT_KEY = Kruemblegard.MOD_ID;
 
     private static final String TAG_VOIDFALL = "voidfall";
-    private static final String TAG_TARGET = "target";
-    private static final String TAG_TARGET_DIM = "dim";
-    private static final String TAG_TARGET_X = "x";
-    private static final String TAG_TARGET_Y = "y";
-    private static final String TAG_TARGET_Z = "z";
-
     private static final String TAG_COOLDOWN_UNTIL_TICK = "cooldown_until_tick";
-    private static final String TAG_LAST_ASSIGN_TICK = "last_assign_tick";
 
     // Wayfall void begins below the island band (cutoff currently at Y≈96).
     // Trigger well below that to avoid false positives during normal traversal.
     private static final double VOIDFALL_EARLY_TRIGGER_Y = 80.0;
     private static final int VOIDFALL_CLEARANCE_SCAN = 32;
-
-    private static final int SAFE_TARGET_RADIUS_BLOCKS = 12000;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -76,9 +57,6 @@ public final class WayfallVoidfallTeleportEvents {
         if (!player.level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
             return;
         }
-
-        // Always keep a “next life” target prepared ahead of time.
-        ensureVoidfallTarget(player, player.server);
 
         // Optional early rescue: only when we're clearly falling into empty space below the islands.
         // This avoids the "randomly got yanked" feeling when jumping around on low terrain.
@@ -134,33 +112,6 @@ public final class WayfallVoidfallTeleportEvents {
         }
     }
 
-    private static void ensureVoidfallTarget(ServerPlayer player, MinecraftServer server) {
-        CompoundTag voidfall = getOrCreateVoidfallTag(player);
-
-        long now = server.getTickCount();
-        long lastAssign = voidfall.getLong(TAG_LAST_ASSIGN_TICK);
-
-        if (voidfall.contains(TAG_TARGET, Tag.TAG_COMPOUND)) {
-            return;
-        }
-
-        // Rate-limit expensive scanning/chunk loads.
-        if (now - lastAssign < 200) {
-            return;
-        }
-
-        voidfall.putLong(TAG_LAST_ASSIGN_TICK, now);
-
-        RandomSource rng = RandomSource.create(player.getUUID().getLeastSignificantBits() ^ now);
-        VoidfallTarget target = computeRandomSafeTarget(server, player, rng);
-        if (target == null) {
-            return;
-        }
-
-        writeTarget(voidfall, target);
-        flushVoidfallTag(player, voidfall);
-    }
-
     private static boolean tryTeleportVoidfall(ServerPlayer player, MinecraftServer server) {
         CompoundTag voidfall = getOrCreateVoidfallTag(player);
 
@@ -169,152 +120,37 @@ public final class WayfallVoidfallTeleportEvents {
             return false;
         }
 
-        VoidfallTarget target = readTarget(voidfall);
-        if (target == null) {
-            RandomSource rng = RandomSource.create(player.getUUID().getMostSignificantBits() ^ now);
-            target = computeRandomSafeTarget(server, player, rng);
-            if (target == null) {
-                return false;
-            }
+        if (!(player.level() instanceof ServerLevel wayfall) || !wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return false;
         }
 
-        ServerLevel dest = server.getLevel(target.dimension);
-        if (dest == null) {
-            RandomSource rng = RandomSource.create(player.getUUID().getLeastSignificantBits() ^ (now + 1));
-            target = computeRandomSafeTarget(server, player, rng);
-            if (target == null) {
-                return false;
-            }
-            dest = server.getLevel(target.dimension);
-            if (dest == null) {
-                return false;
-            }
+        // Never generate/load far-away chunks as part of a "safety" mechanic.
+        // Rescuing should be instantaneous and local.
+        BlockPos landing;
+        if (WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+            landing = WayfallSpawnPlatform.ensureSpawnLanding(wayfall);
+        } else {
+            // If the island isn't ready for some reason, queue init and use a temporary holding spot.
+            WayfallWorkScheduler.enqueueWayfallInit(wayfall);
+            landing = WayfallSpawnPlatform.getSpawnIslandAnchor().above(8);
         }
-
-        dest.getChunk(target.pos);
 
         // Teleport.
         player.fallDistance = 0;
         player.setDeltaMovement(Vec3.ZERO);
 
         player.teleportTo(
-                dest,
-                target.pos.getX() + 0.5,
-                target.pos.getY(),
-                target.pos.getZ() + 0.5,
+                wayfall,
+                landing.getX() + 0.5,
+                landing.getY(),
+                landing.getZ() + 0.5,
                 player.getYRot(),
                 player.getXRot()
         );
 
-        // Immediately schedule the next destination.
-        voidfall.remove(TAG_TARGET);
         voidfall.putLong(TAG_COOLDOWN_UNTIL_TICK, now + 40);
-        voidfall.putLong(TAG_LAST_ASSIGN_TICK, now);
-
-        RandomSource rngNext = RandomSource.create(player.getUUID().getLeastSignificantBits() ^ (now + 2));
-        VoidfallTarget next = computeRandomSafeTarget(server, player, rngNext);
-        if (next != null) {
-            writeTarget(voidfall, next);
-        }
 
         flushVoidfallTag(player, voidfall);
-        return true;
-    }
-
-    private static VoidfallTarget computeRandomSafeTarget(MinecraftServer server, ServerPlayer player, RandomSource rng) {
-        List<ResourceKey<Level>> candidates = new ArrayList<>();
-        for (ResourceKey<Level> key : server.levelKeys()) {
-            if (key.equals(ModWorldgenKeys.Levels.WAYFALL)) {
-                continue;
-            }
-            if (server.getLevel(key) == null) {
-                continue;
-            }
-            candidates.add(key);
-        }
-
-        if (candidates.isEmpty()) {
-            return null;
-        }
-
-        int dimAttempts = Math.min(40, candidates.size() * 5);
-        for (int i = 0; i < dimAttempts; i++) {
-            ResourceKey<Level> dimKey = candidates.get(rng.nextInt(candidates.size()));
-            ServerLevel level = server.getLevel(dimKey);
-            if (level == null) {
-                continue;
-            }
-
-            BlockPos spawn = level.getSharedSpawnPos();
-            int radius = SAFE_TARGET_RADIUS_BLOCKS;
-
-            for (int j = 0; j < 30; j++) {
-                int x = spawn.getX() + rng.nextInt(radius * 2 + 1) - radius;
-                int z = spawn.getZ() + rng.nextInt(radius * 2 + 1) - radius;
-
-                WorldBorder border = level.getWorldBorder();
-                if (!border.isWithinBounds(new BlockPos(x, spawn.getY(), z))) {
-                    continue;
-                }
-
-                BlockPos probe = new BlockPos(x, 0, z);
-                BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, probe);
-                if (top.getY() <= level.getMinBuildHeight() + 1) {
-                    continue;
-                }
-
-                BlockPos ground = top.below();
-                if (ground.getY() <= level.getMinBuildHeight()) {
-                    continue;
-                }
-
-                BlockState groundState = level.getBlockState(ground);
-                if (groundState.isAir() || !isSafeLandingBlock(level, ground, groundState)) {
-                    continue;
-                }
-
-                BlockPos feet = ground.above();
-                if (!level.getBlockState(feet).getCollisionShape(level, feet).isEmpty()) {
-                    continue;
-                }
-                if (!level.getBlockState(feet.above()).getCollisionShape(level, feet.above()).isEmpty()) {
-                    continue;
-                }
-
-                Vec3 dest = new Vec3(feet.getX() + 0.5D, feet.getY(), feet.getZ() + 0.5D);
-                var aabb = player.getDimensions(player.getPose()).makeBoundingBox(dest);
-                if (!level.noCollision(player, aabb)) {
-                    continue;
-                }
-
-                int y = Mth.clamp(feet.getY(), level.getMinBuildHeight() + 2, level.getMaxBuildHeight() - 3);
-                return new VoidfallTarget(dimKey, new BlockPos(feet.getX(), y, feet.getZ()));
-            }
-        }
-
-        return null;
-    }
-
-    private static boolean isSafeLandingBlock(ServerLevel level, BlockPos pos, BlockState state) {
-        if (!state.isFaceSturdy(level, pos, Direction.UP)) {
-            return false;
-        }
-
-        if (state.is(Blocks.MAGMA_BLOCK)
-                || state.is(Blocks.CACTUS)
-                || state.is(Blocks.CAMPFIRE)
-                || state.is(Blocks.SOUL_CAMPFIRE)
-                || state.is(Blocks.FIRE)
-                || state.is(Blocks.SOUL_FIRE)
-                || state.is(Blocks.LAVA)
-                || state.is(Blocks.POWDER_SNOW)) {
-            return false;
-        }
-
-        if (!state.getFluidState().isEmpty()) {
-            return false;
-        }
-
         return true;
     }
 
@@ -379,38 +215,5 @@ public final class WayfallVoidfallTeleportEvents {
         root.put(TAG_VOIDFALL, voidfall);
         persistent.put(ROOT_KEY, root);
     }
-
-    private static VoidfallTarget readTarget(CompoundTag voidfall) {
-        if (!voidfall.contains(TAG_TARGET, Tag.TAG_COMPOUND)) {
-            return null;
-        }
-
-        CompoundTag targetTag = voidfall.getCompound(TAG_TARGET);
-        String dimStr = targetTag.getString(TAG_TARGET_DIM);
-        ResourceLocation dimId = ResourceLocation.tryParse(dimStr);
-        if (dimId == null) {
-            return null;
-        }
-
-        ResourceKey<Level> dimKey = ResourceKey.create(Registries.DIMENSION, dimId);
-
-        int x = targetTag.getInt(TAG_TARGET_X);
-        int y = targetTag.getInt(TAG_TARGET_Y);
-        int z = targetTag.getInt(TAG_TARGET_Z);
-
-        return new VoidfallTarget(dimKey, new BlockPos(x, y, z));
-    }
-
-    private static void writeTarget(CompoundTag voidfall, VoidfallTarget target) {
-        CompoundTag targetTag = new CompoundTag();
-        targetTag.putString(TAG_TARGET_DIM, target.dimension.location().toString());
-        targetTag.putInt(TAG_TARGET_X, target.pos.getX());
-        targetTag.putInt(TAG_TARGET_Y, target.pos.getY());
-        targetTag.putInt(TAG_TARGET_Z, target.pos.getZ());
-        voidfall.put(TAG_TARGET, targetTag);
-    }
-
-    private record VoidfallTarget(ResourceKey<Level> dimension, BlockPos pos) {}
-
 
 }

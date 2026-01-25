@@ -158,6 +158,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - By default, initialization only runs when it’s actually needed (on entry).
   - Optional: `wayfallPreloadOnServerStart` (COMMON config) can be enabled to attempt a one-time pre-player preload, but may cause startup stutter on some systems.
 
+- Wayfall voidfall rescue:
+  - If a player falls below the island band into the Wayfall void, they are rescued back to the Wayfall spawn landing.
+  - Performance guarantee: rescue logic does not scan/generate far-away chunks as part of “safety”.
+
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
   - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).

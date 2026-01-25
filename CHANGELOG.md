@@ -14,6 +14,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.608 (2026-01-24)
 - Fix/Perf(wayfall): make pre-player Wayfall preload opt-in (`wayfallPreloadOnServerStart=false` by default) to prevent choppy world startup and stalled chunk loading.
 
+## 1.0.609 (2026-01-24)
+- Fix/Perf(wayfall): remove voidfall “next life” target scanning that could generate far chunks (via heightmap probes) while in Wayfall; voidfall rescue now returns you to the Wayfall spawn landing without forcing remote chunkgen.
+
 ## 1.0.594 (2026-01-23)
 - Fix(wayfall): restore mobs/items going through the Wayfall portal, but prevent non-player entities from bootstrapping expensive Wayfall initialization (they can travel once Wayfall is initialized by a player).
 

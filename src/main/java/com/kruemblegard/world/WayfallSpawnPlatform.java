@@ -35,7 +35,7 @@ public final class WayfallSpawnPlatform {
     private static final BlockPos SPAWN_ISLAND_ANCHOR = new BlockPos(0, 175, 0);
     private static final int CHUNK_LOAD_PADDING_BLOCKS = 24;
 
-    static BlockPos getSpawnIslandAnchor() {
+    public static BlockPos getSpawnIslandAnchor() {
         return SPAWN_ISLAND_ANCHOR;
     }
 
