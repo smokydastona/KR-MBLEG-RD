@@ -25,6 +25,10 @@ public final class WayfallPreloadOnServerStartEvents {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
+        if (!ModConfig.WAYFALL_PRELOAD_ON_SERVER_START.get()) {
+            return;
+        }
+
         MinecraftServer server = event.getServer();
         ServerLevel wayfall = server.getLevel(ModWorldgenKeys.Levels.WAYFALL);
         if (wayfall == null) {

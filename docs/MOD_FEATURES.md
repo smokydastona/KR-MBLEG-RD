@@ -154,6 +154,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Implementation note: retheming runs on chunk load but avoids heavy neighbor-update storms to keep exploration/teleport testing smooth.
   - Stability note: retheme tracking is intentionally capped/evicted so it can’t grow without bound and stall autosaves in long /tp scouting sessions.
 
+- Wayfall initialization (spawn island):
+  - By default, initialization only runs when it’s actually needed (on entry).
+  - Optional: `wayfallPreloadOnServerStart` (COMMON config) can be enabled to attempt a one-time pre-player preload, but may cause startup stutter on some systems.
+
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
   - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).

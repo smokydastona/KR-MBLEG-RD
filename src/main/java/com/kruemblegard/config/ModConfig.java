@@ -16,6 +16,7 @@ public final class ModConfig {
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_TASKS_PER_TICK;
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_MAX_MILLIS_PER_TICK;
     public static final ForgeConfigSpec.IntValue WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS;
+    public static final ForgeConfigSpec.BooleanValue WAYFALL_PRELOAD_ON_SERVER_START;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
@@ -90,6 +91,13 @@ public final class ModConfig {
                 "Higher values reduce hitching further but can delay first-time initialization."
             )
             .defineInRange("wayfallInitPlacementMinRemainingMillis", 3, 0, 20);
+
+        WAYFALL_PRELOAD_ON_SERVER_START = builder
+            .comment(
+                "If true, preloads/initializes the Wayfall spawn island once on server/world start (before any player enters Wayfall).",
+                "WARNING: This can cause noticeable stutter on low-end CPUs or heavy modpacks; leave false for best playability."
+            )
+            .define("wayfallPreloadOnServerStart", false);
 
         WAYFALL_DEBUG_LOGGING = builder
             .comment("Enable extra Wayfall debug logging (init task progress).")
