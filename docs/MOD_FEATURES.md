@@ -39,6 +39,11 @@ Keep it up to date whenever you add/remove/rename content.
 - `Kruemblegard.Performance.Client.projectileParticleSpawnIntervalTicks`
   - Trail particle spawn interval for Krümblegård projectiles. `1` = every tick.
 
+## Performance (Debug)
+- JVM flag: `-Dkruemblegard.debug.runegrowthTicks=true`
+  - Logs Runegrowth `randomTick` counts per second, per dimension (server-side).
+  - Useful for confirming whether Runegrowth spread/ticking is contributing to Wayfall lag.
+
 ## Worldgen (Tuning + Validation)
 - Worldgen tuning config file: `config/kruemblegard-worldgen.json5`
   - Auto-created and auto-extended when new keys are added.

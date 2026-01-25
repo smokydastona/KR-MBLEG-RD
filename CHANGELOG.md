@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.612 (2026-01-25)
+- Perf(runegrowth): reduce server tick load by throttling spread attempts and avoiding any potential sync chunk loads from random ticks.
+- Debug(runegrowth): add optional per-dimension Runegrowth random-tick counter logging (enable with JVM flag `-Dkruemblegard.debug.runegrowthTicks=true`).
+
 ## 1.0.611 (2026-01-24)
 - Perf(wayfall): reduce chunk-load lag from vanilla-structure retheming by skipping non-candidate blocks, avoiding level lookups, and removing per-block RNG overhead.
 

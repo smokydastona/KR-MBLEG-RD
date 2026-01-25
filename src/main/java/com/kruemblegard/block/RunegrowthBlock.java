@@ -1,5 +1,6 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.debug.RunegrowthTickDebug;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.world.RunegrowthBonemeal;
 
@@ -55,6 +56,20 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
     }
 
     @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+
+        // Ensure worldgen / programmatic placement gets the correct variant immediately,
+        // without relying on random ticks.
+        if (!level.isClientSide) {
+            BlockState desired = applyVisualState(state, level, pos);
+            if (desired != state) {
+                level.setBlock(pos, desired, 2);
+            }
+        }
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(TEMP);
@@ -62,12 +77,7 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        // Keep the visual state in sync with biome temperature + nearby snow.
-        BlockState desired = applyVisualState(state, level, pos);
-        if (desired != state) {
-            level.setBlock(pos, desired, 2);
-            state = desired;
-        }
+        RunegrowthTickDebug.record(level);
 
         // Acts like a grass block. If unable to survive, it falls back to Wayfall dirt.
         if (!canRemainRunegrowth(level, pos)) {
@@ -75,9 +85,20 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
             return;
         }
 
+        // Keep spread work low; this block can be abundant.
+        if (random.nextInt(4) != 0) {
+            return;
+        }
+
         if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
             for (int i = 0; i < 4; i++) {
                 BlockPos targetPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+
+                // Never cause synchronous chunk loads from a random tick.
+                if (!level.isLoaded(targetPos)) {
+                    continue;
+                }
+
                 BlockState targetState = level.getBlockState(targetPos);
                 if (isSpreadableWayfallDirt(targetState) && canRemainRunegrowth(level, targetPos)) {
                     BlockState spreadState = applyVisualState(this.defaultBlockState(), level, targetPos);
@@ -164,18 +185,8 @@ public class RunegrowthBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 
     private static boolean isNearSnow(LevelReader level, BlockPos pos) {
         // Vanilla grass uses SNOWY when snow is directly above.
-        // For Runegrowth we also consider immediately-adjacent snow so it can visually “snow up” when placed near snow.
-        if (isSnowLike(level.getBlockState(pos.above()))) {
-            return true;
-        }
-
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            if (isSnowLike(level.getBlockState(pos.relative(direction)))) {
-                return true;
-            }
-        }
-
-        return false;
+        // Avoid checking adjacent blocks here to keep updates cheap and to avoid cross-chunk reads at chunk borders.
+        return isSnowLike(level.getBlockState(pos.above()));
     }
 
     private static boolean isSnowLike(BlockState state) {
