@@ -29,6 +29,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.622 (2026-01-25)
 - Fix(scattered_enderman): remove the auto-glowing eyes layer to avoid shader incompatibilities and better isolate the remaining “all-black” base texture issue.
 
+## 1.0.623 (2026-01-25)
+- Fix(scattered_enderman): add a `held_block` Geo bone and render the carried block anchored to that bone (fixes misalignment and upside-down transforms).
+
 ## 1.0.614 (2026-01-25)
 - Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
 - Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.

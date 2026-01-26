@@ -51,6 +51,11 @@
 					]
 				},
 				{
+					"name": "held_block",
+					"parent": "rightarm",
+					"pivot": [5, 12, -3]
+				},
+				{
 					"name": "leftleg",
 					"parent": "body",
 					"pivot": [-2, 30, 0],
