@@ -26,10 +26,10 @@ public final class WayfallGlowSquidAirEvents {
     private WayfallGlowSquidAirEvents() {}
 
     private static final String TAG_AIR_SQUID = "kruemblegard_wayfall_air_squid";
-    private static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_swim_ticks";
-    private static final String TAG_AIR_SWIM_TX = "kruemblegard_wayfall_air_target_x";
-    private static final String TAG_AIR_SWIM_TY = "kruemblegard_wayfall_air_target_y";
-    private static final String TAG_AIR_SWIM_TZ = "kruemblegard_wayfall_air_target_z";
+    static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_swim_ticks";
+    static final String TAG_AIR_SWIM_TX = "kruemblegard_wayfall_air_target_x";
+    static final String TAG_AIR_SWIM_TY = "kruemblegard_wayfall_air_target_y";
+    static final String TAG_AIR_SWIM_TZ = "kruemblegard_wayfall_air_target_z";
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -81,6 +81,9 @@ public final class WayfallGlowSquidAirEvents {
         // In air: float + drift instead of flopping/dying.
         squid.setNoGravity(true);
         squid.setAirSupply(squid.getMaxAirSupply());
+
+        // Ensure we apply actual propulsion after vanilla AI/ticking.
+        WayfallAirSwimPostTick.queue(squid);
 
         // Air-swim control: choose a destination and let vanilla MoveControl handle turning/accel.
         // This preserves the "swim" feel and avoids the slippery inertial drift of manual velocity steering.

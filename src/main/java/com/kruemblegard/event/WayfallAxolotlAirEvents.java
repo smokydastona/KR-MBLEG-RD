@@ -26,10 +26,10 @@ public final class WayfallAxolotlAirEvents {
     private WayfallAxolotlAirEvents() {}
 
     private static final String TAG_AIR_AXOLOTL = "kruemblegard_wayfall_air_axolotl";
-    private static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_axolotl_swim_ticks";
-    private static final String TAG_AIR_SWIM_TX = "kruemblegard_wayfall_air_axolotl_target_x";
-    private static final String TAG_AIR_SWIM_TY = "kruemblegard_wayfall_air_axolotl_target_y";
-    private static final String TAG_AIR_SWIM_TZ = "kruemblegard_wayfall_air_axolotl_target_z";
+    static final String TAG_AIR_SWIM_TICKS = "kruemblegard_wayfall_air_axolotl_swim_ticks";
+    static final String TAG_AIR_SWIM_TX = "kruemblegard_wayfall_air_axolotl_target_x";
+    static final String TAG_AIR_SWIM_TY = "kruemblegard_wayfall_air_axolotl_target_y";
+    static final String TAG_AIR_SWIM_TZ = "kruemblegard_wayfall_air_axolotl_target_z";
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -81,6 +81,9 @@ public final class WayfallAxolotlAirEvents {
         // In air: float + roam (water-like swimming).
         axolotl.setNoGravity(true);
         axolotl.setAirSupply(axolotl.getMaxAirSupply());
+
+        // Ensure we apply actual propulsion after vanilla AI/ticking.
+        WayfallAirSwimPostTick.queue(axolotl);
 
         var data = axolotl.getPersistentData();
         LivingEntity target = axolotl.getTarget();
