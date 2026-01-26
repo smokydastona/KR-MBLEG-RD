@@ -2,8 +2,10 @@ package com.kruemblegard.entity;
 
 import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.entity.projectile.ArcaneStormProjectileEntity;
-import com.kruemblegard.entity.projectile.MeteorArmEntity;
-import com.kruemblegard.entity.projectile.RuneBoltEntity;
+import com.kruemblegard.entity.projectile.KruemblegardPhase1BoltEntity;
+import com.kruemblegard.entity.projectile.KruemblegardPhase2BoltEntity;
+import com.kruemblegard.entity.projectile.KruemblegardPhase3MeteorEntity;
+import com.kruemblegard.entity.projectile.KruemblegardPhase4BeamBoltEntity;
 import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.core.BlockPos;
@@ -33,11 +35,11 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -1068,7 +1070,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             double angle = (i - mid) * Math.toRadians(spreadDegrees);
             Vec3 dir = rotateY(baseDir, angle).scale(speed);
 
-            RuneBoltEntity bolt = new RuneBoltEntity(this.level(), this);
+            Projectile bolt = (this.getPhase() <= 1)
+                ? new KruemblegardPhase1BoltEntity(this.level(), this)
+                : new KruemblegardPhase2BoltEntity(this.level(), this);
             bolt.setPos(this.getX(), this.getY() + 2, this.getZ());
             bolt.setDeltaMovement(dir);
             this.level().addFreshEntity(bolt);
@@ -1163,10 +1167,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, 0.9f + (this.random.nextFloat() * 0.2f));
         }
 
-        MeteorArmEntity arm = new MeteorArmEntity(this.level(), this);
-        arm.setPos(this.getX(), this.getY() + 4, this.getZ());
-        arm.setDeltaMovement(0, -0.6, 0);
-        this.level().addFreshEntity(arm);
+        KruemblegardPhase3MeteorEntity meteor = new KruemblegardPhase3MeteorEntity(this.level(), this);
+        meteor.setPos(this.getX(), this.getY() + 4, this.getZ());
+        meteor.setDeltaMovement(0, -0.6, 0);
+        this.level().addFreshEntity(meteor);
     }
 
     private void doArcaneStorm() {
@@ -1216,10 +1220,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             double ox = (this.random.nextDouble() - 0.5) * 12;
             double oz = (this.random.nextDouble() - 0.5) * 12;
 
-            MeteorArmEntity arm = new MeteorArmEntity(this.level(), this);
-            arm.setPos(this.getX() + ox, this.getY() + 10, this.getZ() + oz);
-            arm.setDeltaMovement(0, -0.8, 0);
-            this.level().addFreshEntity(arm);
+            KruemblegardPhase3MeteorEntity meteor = new KruemblegardPhase3MeteorEntity(this.level(), this);
+            meteor.setPos(this.getX() + ox, this.getY() + 10, this.getZ() + oz);
+            meteor.setDeltaMovement(0, -0.8, 0);
+            this.level().addFreshEntity(meteor);
         }
     }
 
@@ -1228,43 +1232,16 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         if (target == null) return;
         if (this.level().isClientSide) return;
 
-        Vec3 start = this.position().add(0, 1.8, 0);
-        Vec3 end = target.position().add(0, target.getBbHeight() * 0.5, 0);
-        double range = 22.0;
-        Vec3 dir = end.subtract(start);
+        // Phase 4 ranged: fire a visible beam-bolt projectile.
+        Vec3 dir = target.position().add(0, target.getBbHeight() * 0.5, 0)
+            .subtract(this.position().add(0, 1.8, 0));
         if (dir.lengthSqr() < 1.0E-6) return;
-        dir = dir.normalize();
-        end = start.add(dir.scale(range));
+        dir = dir.normalize().scale(1.25);
 
-        if (this.level() instanceof ServerLevel serverLevel) {
-            for (int i = 0; i <= (int)range; i++) {
-                Vec3 p = start.add(dir.scale(i));
-                serverLevel.sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0.02, 0.02, 0.02, 0.0);
-            }
-        }
-
-        AABB box = new AABB(
-            Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z),
-            Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)
-        ).inflate(1.75);
-
-        for (Player p : this.level().getEntitiesOfClass(Player.class, box)) {
-            double d = distanceToSegment(p.position().add(0, p.getBbHeight() * 0.5, 0), start, end);
-            if (d <= 1.5) {
-                p.hurt(this.damageSources().mobAttack(this), 14.0f);
-                p.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 30, 0, false, true));
-            }
-        }
-    }
-
-    private double distanceToSegment(Vec3 point, Vec3 a, Vec3 b) {
-        Vec3 ab = b.subtract(a);
-        double abLen2 = ab.lengthSqr();
-        if (abLen2 < 1.0E-6) return point.distanceTo(a);
-        double t = point.subtract(a).dot(ab) / abLen2;
-        t = Math.max(0.0, Math.min(1.0, t));
-        Vec3 proj = a.add(ab.scale(t));
-        return point.distanceTo(proj);
+        KruemblegardPhase4BeamBoltEntity bolt = new KruemblegardPhase4BeamBoltEntity(this.level(), this);
+        bolt.setPos(this.getX(), this.getY() + 1.8, this.getZ());
+        bolt.setDeltaMovement(dir);
+        this.level().addFreshEntity(bolt);
     }
 
     // -----------------------------

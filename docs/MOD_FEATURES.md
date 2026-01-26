@@ -117,6 +117,10 @@ Keep it up to date whenever you add/remove/rename content.
 - Phase transitions trigger one-shot transition animations.
 - Boss awards **Ender Dragon XP** on death.
 
+- Phase-specific boss projectiles are GeckoLib-rendered and intended to be edited in Blockbench:
+  - Geo: `assets/kruemblegard/geo/projectiles/kruemblegard_phase{1,2,3,4}_*.geo.json`
+  - Animations: `assets/kruemblegard/animations/projectiles/kruemblegard_phase{1,2,3,4}_*.animation.json`
+
 Note: Krümblegård is no longer spawned by waystones. It can still be spawned via commands/spawn egg for testing.
 
 ## Items & progression
