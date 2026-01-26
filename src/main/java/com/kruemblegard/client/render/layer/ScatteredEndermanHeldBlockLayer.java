@@ -56,8 +56,8 @@ public final class ScatteredEndermanHeldBlockLayer extends BlockAndItemGeoLayer<
         }
 
         poseStack.pushPose();
-        // Match vanilla Enderman held-block scale.
-        poseStack.scale(0.5F, 0.5F, 0.5F);
+        // Double the held-block size to better match the Scattered Enderman model proportions.
+        poseStack.scale(1.0F, 1.0F, 1.0F);
         super.renderForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
         poseStack.popPose();
     }
