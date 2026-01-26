@@ -1,6 +1,5 @@
 package com.kruemblegard.client.render;
 
-import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.render.model.ScatteredEndermanModel;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 
@@ -16,16 +15,12 @@ import net.minecraft.world.level.block.RenderShape;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
-import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEndermanEntity> {
     public ScatteredEndermanRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ScatteredEndermanModel());
         this.shadowRadius = 0.6f;
-
-        addRenderLayer(new EyesLayer(this));
     }
 
     @Override
@@ -81,19 +76,5 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         );
 
         poseStack.popPose();
-    }
-
-    private static final class EyesLayer extends AutoGlowingGeoLayer<ScatteredEndermanEntity> {
-        private static final ResourceLocation EYES_TEXTURE =
-                new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scattered_enderman_eyes.png");
-
-        public EyesLayer(GeoRenderer<ScatteredEndermanEntity> renderer) {
-            super(renderer);
-        }
-
-        @Override
-        protected ResourceLocation getTextureResource(ScatteredEndermanEntity animatable) {
-            return EYES_TEXTURE;
-        }
     }
 }
