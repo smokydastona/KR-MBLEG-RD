@@ -183,9 +183,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     // CUSTOM MELEE TIMING (windup -> impact)
     // -----------------------------
-    private static final int MELEE_TOTAL_TICKS = 10;
+    private static final int MELEE_TOTAL_TICKS = 8;
     // Impact happens when meleeTicksRemaining == MELEE_IMPACT_AT
     private static final int MELEE_IMPACT_AT = 4;
+
+    // Global “pace” tuning. Multiplies most boss cooldown rolls.
+    private static final float ATTACK_COOLDOWN_MULT = 0.75F;
 
     private int meleeCooldown;
     private int meleeTicksRemaining;
@@ -522,7 +525,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         this.meleeTicksRemaining--;
         if (this.meleeTicksRemaining <= 0) {
-            this.meleeCooldown = 20;
+            this.meleeCooldown = 12;
         }
     }
 
@@ -851,7 +854,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         startMeleeAttack();
 
         // Prevent immediate ability chaining right after the melee windup.
-        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 10);
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 6);
         return true;
     }
 
@@ -1024,7 +1027,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     }
 
     private int rollCooldown(int baseTicks) {
-        int base = Math.max(1, baseTicks);
+        int base = Math.max(1, Math.round(baseTicks * ATTACK_COOLDOWN_MULT));
         int jitter = Math.max(1, base / 5);
         return base + this.random.nextInt(jitter + 1);
     }
