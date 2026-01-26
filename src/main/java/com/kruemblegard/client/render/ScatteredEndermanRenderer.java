@@ -6,6 +6,7 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,17 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         this.shadowRadius = 0.6f;
 
         addRenderLayer(new EyesLayer(this));
+    }
+
+    @Override
+    public RenderType getRenderType(
+        ScatteredEndermanEntity animatable,
+        ResourceLocation texture,
+        MultiBufferSource bufferSource,
+        float partialTick
+    ) {
+        // Explicitly use cutout so the base texture renders correctly (avoid the all-black body issue).
+        return RenderType.entityCutoutNoCull(texture);
     }
 
     @Override
@@ -52,7 +64,10 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         poseStack.mulPose(Axis.XP.rotationDegrees(20.0F));
         poseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
         poseStack.translate(0.25D, 0.1875D, 0.25D);
-        poseStack.scale(-0.5F, -0.5F, 0.5F);
+        // Vanilla Enderman uses negative scaling here, but GeoEntityRenderer's coordinate setup differs.
+        // Use a rotation + positive scale to avoid the carried block showing up upside-down.
+        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+        poseStack.scale(0.5F, 0.5F, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
 
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
