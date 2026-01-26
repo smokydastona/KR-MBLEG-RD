@@ -10,13 +10,16 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-public class MeteorArmEntity extends Projectile {
+public class MeteorArmEntity extends Projectile implements ItemSupplier {
 
     public MeteorArmEntity(EntityType<? extends MeteorArmEntity> type, Level level) {
         super(type, level);
@@ -76,6 +79,11 @@ public class MeteorArmEntity extends Projectile {
 
     @Override
     protected void defineSynchedData() {
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(Items.MAGMA_CREAM);
     }
 
     @Override

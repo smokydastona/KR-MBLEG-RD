@@ -2,6 +2,7 @@ package com.kruemblegard.entity.projectile;
 
 import com.kruemblegard.config.ClientConfig;
 import com.kruemblegard.registry.ModProjectileEntities;
+import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.util.KruemblegardDamageSources;
 import com.kruemblegard.util.CosmeticEffectsPolicy;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,13 +11,15 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-public class RuneBoltEntity extends Projectile {
+public class RuneBoltEntity extends Projectile implements ItemSupplier {
 
     public RuneBoltEntity(EntityType<? extends RuneBoltEntity> type, Level level) {
         super(type, level);
@@ -77,6 +80,11 @@ public class RuneBoltEntity extends Projectile {
 
     @Override
     protected void defineSynchedData() {
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(ModItems.RUNE_PETALS.get());
     }
 
     @Override
