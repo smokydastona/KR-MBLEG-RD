@@ -40,16 +40,6 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
     }
 
     @Override
-    public int getPackedLight(ScatteredEndermanEntity entity, float partialTick) {
-        int base = super.getPackedLight(entity, partialTick);
-        // Safety fallback: if something upstream feeds an invalid packed light, force fullbright.
-        if (base <= 0) {
-            return LightTexture.FULL_BRIGHT;
-        }
-        return base;
-    }
-
-    @Override
     public void render(
         ScatteredEndermanEntity entity,
         float entityYaw,
@@ -58,7 +48,8 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
         MultiBufferSource bufferSource,
         int packedLight
     ) {
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        int safePackedLight = packedLight <= 0 ? LightTexture.FULL_BRIGHT : packedLight;
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, safePackedLight);
 
         var carried = entity.getCarriedBlock();
         if (carried == null || carried.getRenderShape() == RenderShape.INVISIBLE) {
@@ -85,7 +76,7 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
             carried,
             poseStack,
             bufferSource,
-            packedLight,
+            safePackedLight,
             OverlayTexture.NO_OVERLAY
         );
 
