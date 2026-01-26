@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.617 (2026-01-25)
 - Fix(wayfall/mobs): apply air-swim propulsion post-tick so axolotls and glow squid reliably move through air (vanilla water movement can stall when not in water).
 
+## 1.0.618 (2026-01-25)
+- Fix(wayfall/worldgen): origin spawn island now applies a biome-aware processor list so Runegrowth blocks in the island template match the biome’s Runegrowth variant.
+
 ## 1.0.614 (2026-01-25)
 - Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
 - Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.

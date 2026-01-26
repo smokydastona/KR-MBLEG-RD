@@ -9,14 +9,18 @@ import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.JigsawReplacementProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -196,6 +200,8 @@ public final class WayfallSpawnPlatform {
                 // When placing templates directly (not via the jigsaw structure pipeline), we must
                 // apply the replacement processor so those markers don't remain in the world.
                 .addProcessor(JigsawReplacementProcessor.INSTANCE);
+
+            applyBiomeRunegrowthProcessors(wayfall, spawn, settings);
             RandomSource rng = wayfall.random;
             boolean placedOk = template.placeInWorld(wayfall, anchor, anchor, settings, rng, 2);
 
@@ -403,6 +409,58 @@ public final class WayfallSpawnPlatform {
         }
 
         return new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/default.json");
+    }
+
+    private static void applyBiomeRunegrowthProcessors(ServerLevel wayfall, BlockPos spawn, StructurePlaceSettings settings) {
+        ResourceKey<StructureProcessorList> processorKey = selectRunegrowthProcessorList(wayfall, spawn);
+        if (processorKey == null) {
+            return;
+        }
+
+        try {
+            Holder<StructureProcessorList> holder = wayfall.registryAccess()
+                .registryOrThrow(Registries.PROCESSOR_LIST)
+                .getHolderOrThrow(processorKey);
+
+            for (StructureProcessor processor : holder.value().list()) {
+                settings.addProcessor(processor);
+            }
+        } catch (Exception ex) {
+            Kruemblegard.LOGGER.warn(
+                "Failed to apply Wayfall origin island runegrowth processor list {}: {}",
+                processorKey.location(),
+                ex.toString()
+            );
+        }
+    }
+
+    private static ResourceKey<StructureProcessorList> selectRunegrowthProcessorList(ServerLevel wayfall, BlockPos spawn) {
+        ResourceKey<?> biomeKey = wayfall.getBiome(spawn).unwrapKey().orElse(null);
+
+        // Explicit biome mappings (preferred over temperature fallback).
+        if (biomeKey == ModWorldgenKeys.Biomes.GLYPHSCAR_REACH || biomeKey == ModWorldgenKeys.Biomes.HOLLOW_TRANSIT_PLAINS) {
+            return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_FROSTBOUND;
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.SHATTERPLATE_FLATS
+            || biomeKey == ModWorldgenKeys.Biomes.BETWEENLIGHT_VOID
+            || biomeKey == ModWorldgenKeys.Biomes.CRUMBLED_CROSSING
+            || biomeKey == ModWorldgenKeys.Biomes.UNDERWAY_FALLS) {
+            return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_VERDANT;
+        }
+        if (biomeKey == ModWorldgenKeys.Biomes.FRACTURE_SHOALS
+            || biomeKey == ModWorldgenKeys.Biomes.BASIN_OF_SCARS
+            || biomeKey == ModWorldgenKeys.Biomes.STRATA_COLLAPSE) {
+            return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_EMBERWARMED;
+        }
+
+        // Temperature fallback for any future cold biomes.
+        float temp = wayfall.getBiome(spawn).value().getBaseTemperature();
+        if (temp <= 0.25f) {
+            return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_FROSTBOUND;
+        }
+
+        // Default: keep the base/resonant runegrowth.
+        return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_RESONANT;
     }
 
     private static ResourceLocation pickStructureFromTemplatePoolJson(ServerLevel wayfall, ResourceLocation templatePoolJson) {

@@ -128,6 +128,23 @@ public final class ModWorldgenKeys {
                 Registries.PROCESSOR_LIST,
                 id("megalithic_ruins")
         );
+
+        public static final ResourceKey<StructureProcessorList> WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_RESONANT = ResourceKey.create(
+            Registries.PROCESSOR_LIST,
+            id("wayfall_origin_island_runegrowth_resonant")
+        );
+        public static final ResourceKey<StructureProcessorList> WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_FROSTBOUND = ResourceKey.create(
+            Registries.PROCESSOR_LIST,
+            id("wayfall_origin_island_runegrowth_frostbound")
+        );
+        public static final ResourceKey<StructureProcessorList> WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_VERDANT = ResourceKey.create(
+            Registries.PROCESSOR_LIST,
+            id("wayfall_origin_island_runegrowth_verdant")
+        );
+        public static final ResourceKey<StructureProcessorList> WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_EMBERWARMED = ResourceKey.create(
+            Registries.PROCESSOR_LIST,
+            id("wayfall_origin_island_runegrowth_emberwarmed")
+        );
     }
 
     public static final class PlacedFeatures {

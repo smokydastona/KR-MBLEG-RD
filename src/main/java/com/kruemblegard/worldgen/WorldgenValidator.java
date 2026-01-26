@@ -76,6 +76,12 @@ public final class WorldgenValidator {
         validateTemplatePoolStructureTemplates(server, new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/basin_of_scars.json"), strict);
         validateTemplatePoolStructureTemplates(server, new ResourceLocation(Kruemblegard.MOD_ID, "worldgen/template_pool/wayfall_origin_island/cold.json"), strict);
 
+        // Wayfall origin island post-processing.
+        validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_RESONANT, strict);
+        validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_FROSTBOUND, strict);
+        validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_VERDANT, strict);
+        validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_EMBERWARMED, strict);
+
         // Representative placed features referenced by biome modifiers.
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.ASHBLOOM_TREE, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.GLIMMERPINE_TREE, strict);
