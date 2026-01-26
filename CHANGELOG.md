@@ -20,6 +20,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(scattered_enderman): force a cutout render type so the base texture no longer renders as solid black.
 - Fix(scattered_enderman): correct carried-block transform so held blocks render right-side-up.
 
+## 1.0.620 (2026-01-25)
+- Fix(scattered_enderman): also force cutout render type from the GeoModel side and add a packed-light safety fallback (addresses cases where the renderer override isn’t hit / light ends up as 0).
+
 ## 1.0.614 (2026-01-25)
 - Content(runegrowth): split Runegrowth into 4 blocks (Resonant/Frostbound/Verdant/Emberwarmed) and update Wayfall surface/worldgen to place the correct variant by biome.
 - Fix(tilth): improve Rubble Tilth crop support (Forge `PlantType.CROP`/`IPlantable`) and register an inventory item for Rubble Tilth.

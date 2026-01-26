@@ -3,6 +3,7 @@ package com.kruemblegard.client.render.model;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.model.GeoModel;
@@ -22,5 +23,11 @@ public class ScatteredEndermanModel extends GeoModel<ScatteredEndermanEntity> {
     @Override
     public ResourceLocation getAnimationResource(ScatteredEndermanEntity animatable) {
         return new ResourceLocation(Kruemblegard.MOD_ID, "animations/scattered_enderman.animation.json");
+    }
+
+    @Override
+    public RenderType getRenderType(ScatteredEndermanEntity animatable, ResourceLocation texture) {
+        // Use cutout for opaque entity textures; avoids the "all black" base render issue.
+        return RenderType.entityCutoutNoCull(texture);
     }
 }

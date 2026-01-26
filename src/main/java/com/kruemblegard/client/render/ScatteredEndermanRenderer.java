@@ -7,6 +7,7 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +37,16 @@ public class ScatteredEndermanRenderer extends GeoEntityRenderer<ScatteredEnderm
     ) {
         // Explicitly use cutout so the base texture renders correctly (avoid the all-black body issue).
         return RenderType.entityCutoutNoCull(texture);
+    }
+
+    @Override
+    public int getPackedLight(ScatteredEndermanEntity entity, float partialTick) {
+        int base = super.getPackedLight(entity, partialTick);
+        // Safety fallback: if something upstream feeds an invalid packed light, force fullbright.
+        if (base <= 0) {
+            return LightTexture.FULL_BRIGHT;
+        }
+        return base;
     }
 
     @Override
