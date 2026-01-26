@@ -188,7 +188,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final int MELEE_IMPACT_AT = 4;
 
     // Global “pace” tuning. Multiplies most boss cooldown rolls.
-    private static final float ATTACK_COOLDOWN_MULT = 0.75F;
+    private static final float ATTACK_COOLDOWN_MULT = 0.65F;
 
     private int meleeCooldown;
     private int meleeTicksRemaining;
@@ -268,7 +268,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, ModConfig.BOSS_MAX_HEALTH.get())
                 .add(Attributes.ARMOR, ModConfig.BOSS_ARMOR.get())
                 .add(Attributes.ARMOR_TOUGHNESS, ModConfig.BOSS_ARMOR_TOUGHNESS.get())
-                .add(Attributes.MOVEMENT_SPEED, 0.22D)
+                .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE, ModConfig.BOSS_ATTACK_DAMAGE.get())
                 .add(Attributes.ATTACK_KNOCKBACK, ModConfig.BOSS_ATTACK_KNOCKBACK.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
@@ -357,8 +357,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         // Movement
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(1.0D));
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
+        this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(1.15D));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0D, 32.0F));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.6D));
 
         // Awareness
@@ -515,9 +515,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             return;
         }
 
+        // Keep the boss facing the target during the windup so the swipe connects more reliably.
+        this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
         if (!this.meleeImpactDone && this.meleeTicksRemaining == MELEE_IMPACT_AT) {
             this.meleeImpactDone = true;
-            double reachSq = getAttackReachSqr(target);
+            double reachSq = getAttackReachSqr(target) * 1.15;
             if (this.distanceToSqr(target) <= reachSq) {
                 this.doHurtTarget(target);
             }
@@ -525,7 +528,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         this.meleeTicksRemaining--;
         if (this.meleeTicksRemaining <= 0) {
-            this.meleeCooldown = 12;
+            this.meleeCooldown = 8;
         }
     }
 
@@ -854,7 +857,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         startMeleeAttack();
 
         // Prevent immediate ability chaining right after the melee windup.
-        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 6);
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 4);
         return true;
     }
 
@@ -900,6 +903,11 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         }
 
         this.getNavigation().stop();
+
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive()) {
+            this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+        }
 
         if (!this.currentAbilityImpactDone && this.currentAbilityTicksRemaining == this.currentAbilityImpactAt) {
             this.currentAbilityImpactDone = true;

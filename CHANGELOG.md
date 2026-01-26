@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.626 (2026-01-26)
+- Tuning(kruemblegard_boss): faster chasing + better target tracking during windups (faces target during melee/abilities; melee hitbox slightly more forgiving).
+
 ## 1.0.625 (2026-01-26)
 - Tuning(kruemblegard_boss): reduce downtime between attacks (global/per-ability cooldowns roll faster; melee windup + post-swing cooldown reduced).
 
