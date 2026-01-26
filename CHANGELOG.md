@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.629 (2026-01-26)
+- Chore(docs): rewrite README.md to reflect current gameplay, required dependencies, and Blockbench/GeckoLib projectile export targets.
+
 ## 1.0.628 (2026-01-26)
 - Feature(kruemblegard_boss): add phase-specific 3D projectile entity scaffolding (4 variants) with GeckoLib model hooks + placeholder Blockbench export targets.
 - Tuning(kruemblegard_boss): phase 4 “beam” is now a real projectile entity (modelable/animatable) instead of particles + ray damage.

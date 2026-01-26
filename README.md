@@ -1,200 +1,117 @@
-# Krümblegård (Forge 1.20.1 + GeckoLib)
+# Krümblegård (Forge 1.20.1)
 
-This project contains a Forge 1.20.1 + GeckoLib mod.
+Krümblegård is a Forge 1.20.1 mod centered around a rune-bound stone guardian boss, Wayfall (a void/floating-islands dimension), and a small bestiary of GeckoLib-rendered mobs.
 
 Recommended Forge runtime: `1.20.1-47.4.0` (or newer 1.20.1 patch). If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update the instance’s Forge.
 
-Feature reference: [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
+Quick references:
+- Feature reference (kept complete): [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
+- Changelog (matches jar version): [CHANGELOG.md](CHANGELOG.md)
 
-Material references:
-- Blocks: [docs/Block_Material_Bible.md](docs/Block_Material_Bible.md)
-- Items: [docs/Item_Material_Bible.md](docs/Item_Material_Bible.md) (refresh generated inventories via `tools/generate_material_bibles.ps1`)
-- Sounds: [docs/Sound_Bible.md](docs/Sound_Bible.md) (refresh generated inventory via `tools/generate_sound_bible.ps1`)
+## Repo basics
+- Mod id: `kruemblegard`
+- Base package: `com.kruemblegard`
+- Real sources: `src/main/java` and `src/main/resources`
+- Jar version format: `major.minor.<git commit count>` (see `build.gradle`)
 
-## What this mod already does
-- **Traprock** can remain dormant until disturbed, then attacks.
-- **Pebblit**: a hostile stone-bug that can be tamed with cobblestone; right-click with empty hand toggles sit, and shift + right-click perches it on your shoulder (granting knockback resistance) until it dies; its attacks apply knockback.
-- **The Great Hunger**: a hostile GeckoLib-rendered mob (spawn egg available).
-- **Moogloom**: a Shatterplate Flats-exclusive mooshroom-like creature; shearing it kills it and it can drop Voidcap Briar.
-- **Wayfall**: a new void dimension with Aether-inspired floating islands, containing Attuned Ore (custom Wayfall biomes only; spawns restricted to Krümblegård mobs). Terrain palette defaults to **Fractured Wayrock** via custom noise settings, and portal arrivals fall back to a safe platform if the spawn area is void.
-- **Attuned Ore**: drops Attuned Rune Shards (Fortune affects drops).
-- **Wayfall staples**: staple flora + Wayfall wood sets are registered as blocks/items and injected into Wayfall worldgen (some client assets may be placeholders).
-- **Wayfall surface covers**: Ashmoss, Runegrowth variants (Frostbound/Resonant/Verdant/Emberwarmed), Voidfelt.
-- **Paleweft (Wayfall farming)**: Paleweft Grass spawns in Wayfall biomes (worldgen; mix of short + tall) and bonemealed Runegrowth can bloom Paleweft + other biome plants (excluding the other food plants and saplings); Paleweft Seeds can be farmed into Paleweft Corn yielding Weftkern + rare Echokern, craftable into Weftmeal.
-- **Rubble Tilth**: a Wayfall farmland analog created by hoeing rubble-tillable Wayfall soils.
-- **Guidebook (Written Book)**: players are given a vanilla `minecraft:written_book` on first join, pre-filled with your mod’s guide text.
-- **Advancements** are granted by code.
-- **Loot table** for unique drops.
+## Dependencies
+This project targets:
+- Minecraft `1.20.1`
+- Java `17`
+- Forge `47.x`
 
-Guidebook page text lives in: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`.
+Runtime dependencies (currently declared in `mods.toml` / Gradle):
+- GeckoLib 4.x
+- TerraBlender 3.x
+- Waystones + Balm
+
+## What’s in the mod (high level)
+- **Traprock**: starts dormant (no AI / no movement); awakens if a player interacts or lingers too close, then attacks.
+- **Pebblit**: hostile stone-bug; tamable with cobblestone; can sit, or perch on your shoulder (granting knockback resistance) until it dies.
+- **The Great Hunger**: hostile GeckoLib-rendered mob.
+- **Scattered Enderman**: Enderman-derived hostile mob (Wayfall biomes).
+- **Moogloom**: Shatterplate Flats-exclusive mooshroom-like creature; shearing converts it to a normal Cow and drops Griefcap.
+- **Wayfall**: a void/floating-islands dimension with its own biomes, palette, flora, and structure retheming.
+- **Guidebook (Crumbling Codex)**: granted once on first join; page text is data-driven.
+    - Text source: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`
+
+## Boss: Krümblegård
+- **4 phases**, phase-specific visuals (bone hiding) and attack kits.
+- **Boss music** is synchronized to the fight (engaged state).
+- **Phase projectiles** support true 3D GeckoLib/Blockbench models (one projectile per phase).
+
+### Blockbench / GeckoLib projectile export targets
+These files are intentionally present as placeholders so you can export directly over them:
+
+- Phase 1 bolt
+    - Geo: `src/main/resources/assets/kruemblegard/geo/projectiles/kruemblegard_phase1_bolt.geo.json`
+    - Animation: `src/main/resources/assets/kruemblegard/animations/projectiles/kruemblegard_phase1_bolt.animation.json`
+- Phase 2 bolt
+    - Geo: `src/main/resources/assets/kruemblegard/geo/projectiles/kruemblegard_phase2_bolt.geo.json`
+    - Animation: `src/main/resources/assets/kruemblegard/animations/projectiles/kruemblegard_phase2_bolt.animation.json`
+- Phase 3 meteor
+    - Geo: `src/main/resources/assets/kruemblegard/geo/projectiles/kruemblegard_phase3_meteor.geo.json`
+    - Animation: `src/main/resources/assets/kruemblegard/animations/projectiles/kruemblegard_phase3_meteor.animation.json`
+- Phase 4 beam bolt
+    - Geo: `src/main/resources/assets/kruemblegard/geo/projectiles/kruemblegard_phase4_beam_bolt.geo.json`
+    - Animation: `src/main/resources/assets/kruemblegard/animations/projectiles/kruemblegard_phase4_beam_bolt.animation.json`
+
+Note: the code currently plays these animation keys:
+- `animation.kruemblegard_phase1_bolt.idle`
+- `animation.kruemblegard_phase2_bolt.idle`
+- `animation.kruemblegard_phase3_meteor.idle`
+- `animation.kruemblegard_phase4_beam_bolt.idle`
+
+## Config files
+Forge configs:
+- COMMON: `config/kruemblegard-common.toml`
+    - `Kruemblegard.enableWaystones`, `Kruemblegard.waystoneRarity`
+    - `Kruemblegard.Wayfall.*` (init budgeting, preload toggles)
+    - `Kruemblegard.Boss.*` (health/armor, ability cooldowns, phase thresholds)
+- CLIENT: `config/kruemblegard-client.toml`
+    - Cosmetic/perf toggles (distance culling, budgets, projectile trail interval)
+
+Worldgen tuning/validation:
+- `config/kruemblegard-worldgen.json5`
+    - `strictValidation` can hard-fail early if critical registry IDs/tags are missing.
 
 ## Worldgen organization
 - Datapack content lives under `src/main/resources/data/kruemblegard/worldgen/**`.
 - Code references to important worldgen IDs are centralized in `src/main/java/com/kruemblegard/worldgen/ModWorldgenKeys.java`.
-- On server start, `com.kruemblegard.worldgen.WorldgenValidator` validates critical registry entries/tags.
-    - Default behavior: **warn-only**.
-    - Optional strict mode: set `strictValidation=true` in `config/kruemblegard-worldgen.json5` to hard-fail early if something is missing.
+- On server start, `com.kruemblegard.worldgen.WorldgenValidator` validates critical registry entries/tags (warn-only by default).
 
-### Worldgen tuning config
-- File-based tuning config (auto-created + auto-extended): `config/kruemblegard-worldgen.json5`
-    - TerraBlender overworld integration is **safe by default** (all weights default to `0`, so nothing registers).
-    - If you enable TerraBlender overworld mapping, you can control which Krümblegård biomes are eligible and how frequently the regions appear.
+## Advancements
+- Prefer custom triggers and fire them from gameplay code.
+- Example trigger: `kruemblegard:pebblit_shoulder` (registered in `ModCriteria`).
 
-## Asset licensing
-- Don’t copy assets from other mods. See `CONTRIBUTING.md`.
+## How to run (dev)
+Common Gradle commands:
+- `./gradlew prepareRunClientCompile`
+- `./gradlew runClient`
 
-This mod uses **custom advancement triggers** registered in `ModCriteria`:
-- `kruemblegard:pebblit_shoulder` (grants the "A little Clingy" advancement)
+Quick in-game testing:
+- Spawn Traprock: `/summon kruemblegard:traprock`
+- Spawn Pebblit: `/summon kruemblegard:pebblit`
+- Teleport to Wayfall: `/execute in kruemblegard:wayfall run tp @s 0 160 0`
 
-## Dependencies (ForgeGradle)
-You need GeckoLib 4.x for Forge 1.20.1.
+## Assets
+This repo may include placeholders for some binary assets; see `CONTRIBUTING.md` for asset rules.
 
-Optional: this mod can integrate with **TerraBlender** (for overworld biome region compatibility) when enabled in `config/kruemblegard-worldgen.json5`.
+### Boss bar
+Boss bar atlas texture:
+- `src/main/resources/assets/kruemblegard/textures/gui/kruemblegard_bossbar.png`
 
-This mod also has **native Waystones integration** (the Ancient Waystone is a real Waystones variant). That requires **Waystones + Balm**.
+Atlas layout (same as vanilla; 256×32):
+- Background: `u=0..181`, `v=0..4`
+- Fill: `u=0..181`, `v=5..9`
+- Overlay/frame: `u=0..181`, `v=10..14`
+- Hit-flash fill: `u=0..181`, `v=15..19`
+- Icon: `u=182..197`, `v=0..15`
 
-```gradle
-repositories {
-    maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
-}
-
-dependencies {
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.+')
-
-    // Waystones integration
-    implementation fg.deobf('curse.maven:waystones-245755:6856603')
-    implementation fg.deobf('curse.maven:balm-531761:7420617')
-}
-```
-
-## Registration checklist (if you rename things)
-- Mod id used here: `kruemblegard`
-- Base package used here: `com.kruemblegard`
-
-If your mod id/package differ, update:
-- `com.kruemblegard.Kruemblegard` (MODID constant)
-- `META-INF/mods.toml`
-- resource folder names: `assets/kruemblegard`, `data/kruemblegard`
-
-## How to run quickly (dev)
-1. Start a dev world.
-2. Spawn a Traprock:
-    - `/summon kruemblegard:traprock`
-3. Right-click it (or linger close) to awaken it.
-
-### Pebblit
-- Spawn: `/summon kruemblegard:pebblit`
-- Tame: right-click a Pebblit with `minecraft:cobblestone`
-
-### Wayfall
-- Enter via the `kruemblegard:wayfall_portal` dev portal block (place it in creative and walk into it).
-- Or enter via command:
-    - `/execute in kruemblegard:wayfall run tp @s 0 160 0`
-
-## Assets you still need to provide
-This mod references textures/sounds; some binary assets may still be missing depending on what you’re running.
-
-Note: this repo includes placeholder generators under `tools/` that can backfill missing referenced PNGs for dev so you don’t see purple/black missing-texture spam.
-
-### Textures
-Add PNGs under:
-
-#### Boss bar atlas layout
-The boss bar uses a single atlas texture: `assets/kruemblegard/textures/gui/kruemblegard_bossbar.png`.
-
-- Texture size: **256×32**
-- Bar size: **182×5** (same as vanilla)
-- Atlas layout:
-    - Background: `u=0..181`, `v=0..4`
-    - Fill: `u=0..181`, `v=5..9`
-    - Overlay/frame: `u=0..181`, `v=10..14`
-    - Hit-flash fill: `u=0..181`, `v=15..19`
-    - Icon (16×16): `u=182..197`, `v=0..15`
-
-You can repaint/replace the PNG anytime as long as those regions stay in the same positions.
-
-### Sounds
-Add OGGs under:
-- `assets/kruemblegard/sounds/`
-
-The `assets/kruemblegard/sounds.json` defines these keys:
-- `kruemblegard.rise`
-- `kruemblegard.core_hum`
-- `kruemblegard.attack_smash`
-- `kruemblegard.attack_slam`
-- `kruemblegard.attack_rune`
-- `kruemblegard.radiant`
-
-## Notes / next upgrades (optional)
-- Replace the rune barrage placeholder damage with real projectiles.
-- Add boss music.
-- Convert the arena boundary from “distance check” to a strict circle and include vertical bounds.
-- Add phase 2/3 arena behaviors (standing stones rising/rotating).
-
-### Boss music (true music layer)
+### Boss music
 - Sound event key: `music.kruemblegard`
-- Expected asset: `assets/kruemblegard/sounds/kruemblegard_theme.ogg`
+- Sound definitions: `src/main/resources/assets/kruemblegard/sounds.json`
 
-### Config-driven waystone rarity
-Common config file: `config/kruemblegard-common.toml`
-
-```toml
-[Krumblegard]
-    enableWaystones = true
-    waystoneRarity = 800
-
-    [Krumblegard.Boss]
-        bossMaxHealth = 1200.0
-        bossArmor = 18.0
-        bossArmorToughness = 10.0
-        bossAttackDamage = 20.0
-        bossAttackKnockback = 1.5
-        bossRegenPerTick = 0.0
-        bossPhase2HealthRatio = 0.7
-        bossPhase3HealthRatio = 0.3
-        bossPhase4HealthRatio = 0.1
-        bossPhase2RuneBoltCooldownTicks = 40
-        bossPhase2GraviticPullCooldownTicks = 60
-        bossPhase3DashCooldownTicks = 80
-        bossPhase3MeteorArmCooldownTicks = 100
-        bossPhase3ArcaneStormCooldownTicks = 120
-		bossPhase1CleaveCooldownTicks = 50
-		bossPhase2RuneVolleyCooldownTicks = 70
-		bossPhase3BlinkStrikeCooldownTicks = 60
-		bossPhase3MeteorShowerCooldownTicks = 140
-		bossPhase4WhirlwindCooldownTicks = 80
-		bossPhase4ArcaneBeamCooldownTicks = 120
-        bossAbilityGlobalCooldownTicks = 20
-        bossPhaseTransitionBuffTicks = 80
-        bossPhaseTransitionRadius = 10.0
-        bossPhaseTransitionKnockback = 1.1
-```
-
-### Client performance config (cosmetics)
-Client config file: `config/kruemblegard-client.toml`
-
-These options only affect **cosmetic** client-side effects (e.g., projectile trail particles), not gameplay.
-
-```toml
-[Kruemblegard.Performance.Client]
-    enableDistanceCulledCosmetics = true
-    cosmeticCullDistanceBlocks = 64
-    cosmeticVerticalStretch = 1.0
-
-    # Conservative slack to reduce flicker/false culls
-    cosmeticCullEpsilonBlocks = 0.125
-
-    # Optional view-cone culling (off by default)
-    enableViewConeCulledCosmetics = false
-    cosmeticViewConeHalfAngleDegrees = 100.0
-    cosmeticViewConeMarginDegrees = 15.0
-
-    # Sodium-style budget to cap worst-case cosmetic particle work
-    enableCosmeticParticleBudget = true
-    cosmeticParticleBudgetPerTick = 512
-
-    # Extra validation for dev/debug (also supports JVM flag: -Dkruemblegard.checks=true)
-    enableRuntimeChecks = false
-
-    projectileParticleSpawnIntervalTicks = 1
-```
+## Contributing
+- Don’t copy assets from other mods.
+- Keep docs up to date when behavior changes: README.md, CHANGELOG.md, and docs/MOD_FEATURES.md.
