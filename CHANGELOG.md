@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.635 (2026-01-26)
+- Chore(kruemblegard_boss): remove unused legacy melee state field (`meleeImpactDone`).
+
 ## 1.0.634 (2026-01-26)
 - Fix(kruemblegard_boss): remove obsolete melee impact-timing reference (`MELEE_IMPACT_AT`) after switching to Warden-style instant-hit melee.
 

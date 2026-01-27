@@ -202,7 +202,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private int meleeCooldown;
     private int meleeTicksRemaining;
-    private boolean meleeImpactDone;
 
     private int globalAbilityCooldown;
 
@@ -266,7 +265,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         this.meleeCooldown = 0;
         this.meleeTicksRemaining = 0;
-        this.meleeImpactDone = false;
     }
 
     // -----------------------------
@@ -515,8 +513,6 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         double distSq = this.distanceToSqr(target);
         double reachSq = getAttackReachSqr(target) * 1.15;
         if (distSq > reachSq) return;
-
-        this.meleeImpactDone = true;
         this.meleeTicksRemaining = 0;
 
         this.swing(InteractionHand.MAIN_HAND);
