@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.648 (2026-01-26)
+- Fix(worldgen): prevent world creation crash by removing invalid top-level placement modifiers embedded inside several mega tree configured features (these modifiers belong in placed features).
+- Fix(worldgen/wayglass): stop `wayglass/4` from incorrectly gating on `driftwood_sapling`.
+
 ## 1.0.645 (2026-01-26)
 - Content(textures): update leaf textures for ashbloom, faultwood, glimmerpine, hollowway_tree, monument_oak, splinterspore, wayglass, and waytorch_tree.
 

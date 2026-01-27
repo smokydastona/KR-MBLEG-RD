@@ -240,24 +240,7 @@
           },
           "type": "minecraft:simple_random_selector"
         },
-        "placement": [
-          {
-            "predicate": {
-              "state": {
-                "Name": "kruemblegard:driftwood_sapling",
-                "Properties": {
-                  "stage": "0"
-                }
-              },
-              "type": "minecraft:would_survive"
-            },
-            "type": "minecraft:block_predicate_filter"
-          },
-          {
-            "count": 64,
-            "type": "minecraft:count"
-          }
-        ]
+        "placement": []
       }
     ]
   },
