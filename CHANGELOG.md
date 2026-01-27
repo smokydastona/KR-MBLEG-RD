@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.650 (2026-01-26)
+- Fix(worldgen): stop registry loading crash by keeping `giant_trunk_placer` height parameters within the `[0..32]` codec bounds for glimmerpine and Wayroot baobab mega configured features.
+
 ## 1.0.649 (2026-01-26)
 - Fix(worldgen): stop world creation crash by simplifying a handful of mega-tree configured features to plain `minecraft:tree` definitions (removes nested inline placed-feature selectors that Forge is failing to decode).
 
