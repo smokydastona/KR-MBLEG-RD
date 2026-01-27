@@ -543,13 +543,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         // Keep the boss facing the target during the windup so the swipe connects more reliably.
         this.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
-        if (!this.meleeImpactDone && this.meleeTicksRemaining == MELEE_IMPACT_AT) {
-            this.meleeImpactDone = true;
-            double reachSq = getAttackReachSqr(target) * 1.15;
-            if (this.distanceToSqr(target) <= reachSq) {
-                this.doHurtTarget(target);
-            }
-        }
+        // Legacy windup/impact timing removed: melee is instant-hit (Warden cadence).
 
         this.meleeTicksRemaining--;
         if (this.meleeTicksRemaining <= 0) {
