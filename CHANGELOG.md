@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.639 (2026-01-27)
+- Tuning(worldgen/wayroot): wire Wayroot baobab (normal + mega) to select among the 3 Arboria-style variants (equal-chance selection).
+
 ## 1.0.638 (2026-01-27)
 - Tuning(worldgen/wayroot): rework Wayroot baobab-style generation into an Arboria-inspired multipart setup (core + canopy + directional branches).
 - Tuning(worldgen/wayroot): retheme Wayroot root patches to place `kruemblegard:wayroot_log` + `kruemblegard:ashmoss_carpet` and loosen ground checks to allow any solid support.
