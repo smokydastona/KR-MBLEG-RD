@@ -8,7 +8,7 @@
               "config": {
                 "to_place": {
                   "state": {
-                    "Name": "minecraft:oak_wood",
+                    "Name": "kruemblegard:wayroot_log",
                     "Properties": {
                       "axis": "y"
                     }
@@ -26,13 +26,26 @@
                       "type": "minecraft:replaceable"
                     },
                     {
-                      "blocks": "minecraft:dirt",
-                      "offset": [
-                        0,
-                        -1,
-                        0
+                      "predicates": [
+                        {
+                          "offset": [
+                            0,
+                            -1,
+                            0
+                          ],
+                          "type": "minecraft:solid"
+                        },
+                        {
+                          "blocks": "kruemblegard:wayroot_log",
+                          "offset": [
+                            0,
+                            -1,
+                            0
+                          ],
+                          "type": "minecraft:matching_blocks"
+                        }
                       ],
-                      "type": "minecraft:matching_blocks"
+                      "type": "minecraft:any_of"
                     }
                   ],
                   "type": "minecraft:all_of"
@@ -49,7 +62,7 @@
                   "config": {
                     "to_place": {
                       "state": {
-                        "Name": "minecraft:moss_carpet"
+                        "Name": "kruemblegard:ashmoss_carpet"
                       },
                       "type": "minecraft:simple_state_provider"
                     }
@@ -73,7 +86,7 @@
                           "type": "minecraft:matching_blocks"
                         },
                         {
-                          "blocks": "minecraft:oak_wood",
+                          "blocks": "kruemblegard:wayroot_log",
                           "offset": [
                             0,
                             -1,

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.638 (2026-01-27)
+- Tuning(worldgen/wayroot): rework Wayroot baobab-style generation into an Arboria-inspired multipart setup (core + canopy + directional branches).
+- Tuning(worldgen/wayroot): retheme Wayroot root patches to place `kruemblegard:wayroot_log` + `kruemblegard:ashmoss_carpet` and loosen ground checks to allow any solid support.
+
 ## 1.0.637 (2026-01-26)
 - Chore(worldgen/wayroot): remove unused legacy configured/placed features (`wayroot/1..5`, `wayroot/mega_1`, `wayroot/mega_2`) after switching Wayroot to baobab-style generation.
 

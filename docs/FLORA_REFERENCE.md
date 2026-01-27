@@ -64,7 +64,7 @@ Full per-tree reference: [TREES.md](TREES.md)
 - Appearance: Stone-barked tree with exposed, floating roots that don’t touch the ground.
 - Use: Logs used for waystone upgrades and teleport stabilizers.
 - Mechanic: Roots slowly drift; breaking them can destabilize nearby blocks.
-- Worldgen: Wayroot uses `kruemblegard:ashmoss` as its dirt provider and is tuned toward a baobab-style silhouette.
+- Worldgen: Wayroot uses `kruemblegard:ashmoss` as its dirt provider and generates as a baobab-style silhouette using multipart canopy/branch placement.
 - Placeholder textures:
   - `assets/kruemblegard/textures/block/wayroot_log.png`
   - `assets/kruemblegard/textures/block/wayroot_planks.png`

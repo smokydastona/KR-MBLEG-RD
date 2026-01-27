@@ -8,7 +8,7 @@
               "config": {
                 "to_place": {
                   "state": {
-                    "Name": "minecraft:oak_wood",
+                    "Name": "kruemblegard:wayroot_log",
                     "Properties": {
                       "axis": "y"
                     }
@@ -28,16 +28,15 @@
                     {
                       "predicates": [
                         {
-                          "blocks": "minecraft:dirt",
                           "offset": [
                             0,
                             -1,
                             0
                           ],
-                          "type": "minecraft:matching_blocks"
+                          "type": "minecraft:solid"
                         },
                         {
-                          "blocks": "minecraft:oak_wood",
+                          "blocks": "kruemblegard:wayroot_log",
                           "offset": [
                             0,
                             -1,
@@ -63,7 +62,7 @@
                   "config": {
                     "to_place": {
                       "state": {
-                        "Name": "minecraft:moss_carpet"
+                        "Name": "kruemblegard:ashmoss_carpet"
                       },
                       "type": "minecraft:simple_state_provider"
                     }
@@ -87,7 +86,7 @@
                           "type": "minecraft:matching_blocks"
                         },
                         {
-                          "blocks": "minecraft:oak_wood",
+                          "blocks": "kruemblegard:wayroot_log",
                           "offset": [
                             0,
                             -1,
