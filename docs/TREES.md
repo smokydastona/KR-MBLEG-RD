@@ -7,6 +7,7 @@ Scope/notes:
 - “Mechanics” below are either implemented behavior or design targets; if a mechanic isn’t implemented yet, it’s explicitly marked as such.
 - All saplings support 2x2 (spruce-style) placement to grow a larger **mega** variant (Evergreen-style multi-option selectors; mega variants delegate to each tree’s large assembled variants, which use a true 2x2 trunk).
 - Mega variants can also generate naturally (rare) in the biomes where their normal trees generate.
+- Mega variants are tuned to be consistently **tall** and visually distinct per species (reduced cross-species “same mega tree” overlap).
 - For the full plant + tree catalog (including non-tree plants), see [FLORA_REFERENCE.md](FLORA_REFERENCE.md).
 
 ## Tree families (14)
@@ -56,7 +57,7 @@ Scope/notes:
 ### Driftwillow
 - **IDs**: `kruemblegard:driftwillow_*`
 - **Appearance**: Hanging branches that never quite touch the ground.
-- **Worldgen silhouette**: Lower, wider canopy (with more “drapey” leaf volume compared to most Wayfall trees).
+- **Worldgen silhouette**: Lower, wider canopy in normal variants (with more “drapey” leaf volume compared to most Wayfall trees); mega variants are tall with extended crown height.
 - **Use**: Slow-fall talismans.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -108,7 +109,7 @@ Scope/notes:
 ### Faultwood
 - **IDs**: `kruemblegard:faultwood_*`
 - **Appearance**: Jagged, cracked trunk constantly shedding chips.
-- **Worldgen silhouette**: Shorter trunk with a broader canopy.
+- **Worldgen silhouette**: Shorter trunk with a broader canopy in normal variants; mega variants are tall and more spire-like.
 - **Use**: Reinforced building blocks.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -159,7 +160,7 @@ Scope/notes:
 ### Splinterspore
 - **IDs**: `kruemblegard:splinterspore_*`
 - **Appearance**: Crystal-barked growths with spore-cap-like canopies.
-- **Worldgen silhouette**: One variant is intentionally short-and-wide (cap), contrasting the taller variants.
+- **Worldgen silhouette**: Normal variants include a short-and-wide (cap) option; mega variants are tall with much larger crowns.
 - **Use**: Craft piercing projectiles.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -172,7 +173,7 @@ Scope/notes:
 ### Wayglass Tree
 - **IDs**: `kruemblegard:wayglass_*`
 - **Appearance**: Crystalline trunk, translucent branches.
-- **Worldgen silhouette**: Mid-height trunk with a wider canopy option among its variants.
+- **Worldgen silhouette**: Normal variants include a mid-height option; mega variants skew very tall with a tighter crown.
 - **Use**: Glass-like wood for light-conducting blocks.
 - **Mechanics**: design target — refracts light and enchantment particles.
 - **Core textures**:
