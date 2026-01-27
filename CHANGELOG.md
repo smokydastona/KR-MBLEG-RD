@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.649 (2026-01-26)
+- Fix(worldgen): stop world creation crash by simplifying a handful of mega-tree configured features to plain `minecraft:tree` definitions (removes nested inline placed-feature selectors that Forge is failing to decode).
+
 ## 1.0.648 (2026-01-26)
 - Fix(worldgen): prevent world creation crash by removing invalid top-level placement modifiers embedded inside several mega tree configured features (these modifiers belong in placed features).
 - Fix(worldgen/wayglass): stop `wayglass/4` from incorrectly gating on `driftwood_sapling`.
