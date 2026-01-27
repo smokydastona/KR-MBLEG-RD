@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.637 (2026-01-26)
+- Chore(worldgen/wayroot): remove unused legacy configured/placed features (`wayroot/1..5`, `wayroot/mega_1`, `wayroot/mega_2`) after switching Wayroot to baobab-style generation.
+
 ## 1.0.636 (2026-01-26)
 - Tuning(worldgen/wayroot): switch Wayroot tree generation to a baobab-style configured feature (including a dedicated mega variant) and align sapling growth with the new feature.
 
