@@ -43,6 +43,7 @@ Scope/notes:
 ### Cairn Tree
 - **IDs**: `kruemblegard:cairn_tree_*`
 - **Appearance**: Tree grown through stacked stones, leaves shaped like memorial flags.
+- **Worldgen silhouette**: Tall, spire-like trunk with a small high canopy.
 - **Use**: Drops Memorial Sap for soul-based crafting.
 - **Mechanics**: design target — grows only near death markers or cairns.
 - **Core textures**:
@@ -55,6 +56,7 @@ Scope/notes:
 ### Driftwillow
 - **IDs**: `kruemblegard:driftwillow_*`
 - **Appearance**: Hanging branches that never quite touch the ground.
+- **Worldgen silhouette**: Lower, wider canopy (with more “drapey” leaf volume compared to most Wayfall trees).
 - **Use**: Slow-fall talismans.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -79,6 +81,7 @@ Scope/notes:
 ### Echowood
 - **IDs**: `kruemblegard:echowood_*`
 - **Appearance**: Smooth gray wood with faint ripple patterns.
+- **Worldgen silhouette**: Tall, slender trunk with a small high canopy.
 - **Use**: Craft sound-reactive blocks or redstone-like devices.
 - **Mechanics**: design target — emits ambient noises tied to nearby player activity.
 - **Core textures**:
@@ -103,6 +106,7 @@ Scope/notes:
 ### Faultwood
 - **IDs**: `kruemblegard:faultwood_*`
 - **Appearance**: Jagged, cracked trunk constantly shedding chips.
+- **Worldgen silhouette**: Shorter trunk with a broader canopy.
 - **Use**: Reinforced building blocks.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -127,6 +131,7 @@ Scope/notes:
 ### Hollowway Tree
 - **IDs**: `kruemblegard:hollowway_tree_*`
 - **Appearance**: Trunk split down the center, empty inside.
+- **Worldgen silhouette**: Very tall trunk with a narrow high canopy.
 - **Use**: Craft storage blocks with void-linked inventory.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -139,6 +144,7 @@ Scope/notes:
 ### Monument Oak
 - **IDs**: `kruemblegard:monument_oak_*`
 - **Appearance**: Massive stone-wood hybrid, bark etched with history.
+- **Worldgen silhouette**: Broad canopy and taller-than-average trunk (more “oak-like” mass).
 - **Use**: Lore crafting, advancement triggers.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -150,7 +156,8 @@ Scope/notes:
 
 ### Splinterspore
 - **IDs**: `kruemblegard:splinterspore_*`
-- **Appearance**: Tall, needle-like crystal bark.
+- **Appearance**: Crystal-barked growths with spore-cap-like canopies.
+- **Worldgen silhouette**: One variant is intentionally short-and-wide (cap), contrasting the taller variants.
 - **Use**: Craft piercing projectiles.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:
@@ -163,6 +170,7 @@ Scope/notes:
 ### Wayglass Tree
 - **IDs**: `kruemblegard:wayglass_*`
 - **Appearance**: Crystalline trunk, translucent branches.
+- **Worldgen silhouette**: Mid-height trunk with a wider canopy option among its variants.
 - **Use**: Glass-like wood for light-conducting blocks.
 - **Mechanics**: design target — refracts light and enchantment particles.
 - **Core textures**:
@@ -188,6 +196,7 @@ Scope/notes:
 ### Waytorch Tree
 - **IDs**: `kruemblegard:waytorch_tree_*`
 - **Appearance**: Glowing nodes along trunk like lanterns.
+- **Worldgen silhouette**: Taller trunk with a higher, tighter canopy.
 - **Use**: Renewable light sources.
 - **Mechanics**: no special mechanics yet.
 - **Core textures**:

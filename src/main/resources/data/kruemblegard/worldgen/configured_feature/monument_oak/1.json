@@ -20,9 +20,9 @@
                               "type": "minecraft:simple_state_provider"
                             },
                             "foliage_placer": {
-                              "height": 6,
-                              "offset": 2,
-                              "radius": 1,
+                              "height": 4,
+                              "offset": 1,
+                              "radius": 3,
                               "type": "minecraft:fancy_foliage_placer"
                             },
                             "foliage_provider": {
@@ -45,7 +45,7 @@
                               "type": "minecraft:two_layers_feature_size"
                             },
                             "trunk_placer": {
-                              "base_height": 9,
+                              "base_height": 11,
                               "height_rand_a": 2,
                               "height_rand_b": 2,
                               "type": "minecraft:straight_trunk_placer"
