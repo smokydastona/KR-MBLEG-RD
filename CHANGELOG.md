@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.644 (2026-01-27)
+- Tuning(worldgen/trees): apply Evergreen-style `surface_water_depth_filter` (no water) and broaden `would_survive` placement gating across tree placed features (normal + mega).
+
 ## 1.0.643 (2026-01-26)
 - Tuning(worldgen/trees): add `would_survive` placement filters to mega placed features (BOP-style placement hygiene).
 
