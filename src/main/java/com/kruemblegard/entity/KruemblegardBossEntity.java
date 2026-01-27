@@ -191,13 +191,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private int arcaneBeamCooldown;
 
     // -----------------------------
-    // CUSTOM MELEE TIMING (windup -> impact)
+    // MELEE
     // -----------------------------
-    // Retained for backwards compatibility with older logic paths, but melee is now Warden-style
-    // (instant hit + cooldown). Keep these as safe defaults for any remaining uses.
-    private static final int MELEE_TOTAL_TICKS = 1;
-    // Impact happens when meleeTicksRemaining == MELEE_IMPACT_AT
-    private static final int MELEE_IMPACT_AT = 1;
+    // Melee is Warden-style (instant hit + cooldown). We keep the state fields so any legacy
+    // code paths that still reference them remain safe/no-op.
 
     // Global “pace” tuning. Multiplies most boss cooldown rolls.
     // For Warden parity, do not accelerate cooldown rolls.
