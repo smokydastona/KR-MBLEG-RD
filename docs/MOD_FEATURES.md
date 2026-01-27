@@ -231,8 +231,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
     - All Wayfall saplings support 2x2 (spruce-style) placement to grow a larger **mega** tree, using Evergreen-style multi-option selectors.
   - All Wayfall trees have a rare **mega** variant that can also generate naturally in Wayfall.
-    - Mega selectors choose between two Evergreen-style mega outcomes; each `mega_1`/`mega_2` delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`), which use a true 2x2 trunk so mega growth both preserves species-specific layering and reads as “mega” in-game.
-    - Wayroot uses `kruemblegard:ashmoss` as its `dirt_provider`, and mega Wayroot saplings spread Ashmoss around the trunk (podzol-like).
+    - Most mega selectors choose between two Evergreen-style mega outcomes; each `mega_1`/`mega_2` delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`).
+    - Wayroot is an exception: its worldgen is currently tuned to a baobab-style silhouette (including a dedicated mega configured feature) and uses `kruemblegard:ashmoss` as its `dirt_provider`.
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - A simple custom tree Feature exists for data-driven placement (`registry/ModFeatures` + `world/feature/WayfallSimpleTreeFeature`).

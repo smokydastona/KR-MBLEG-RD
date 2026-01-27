@@ -3,11 +3,7 @@
   "config": {
     "features": [
       {
-        "feature": "kruemblegard:wayroot/mega_1",
-        "placement": []
-      },
-      {
-        "feature": "kruemblegard:wayroot/mega_2",
+        "feature": "kruemblegard:wayroot/baobab_mega",
         "placement": []
       }
     ]

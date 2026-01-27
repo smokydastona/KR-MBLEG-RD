@@ -4,23 +4,7 @@
         "config": {
             "features": [
                 {
-                    "feature": "kruemblegard:wayroot/1",
-                    "placement": []
-                },
-                {
-                    "feature": "kruemblegard:wayroot/2",
-                    "placement": []
-                },
-                {
-                    "feature": "kruemblegard:wayroot/3",
-                    "placement": []
-                },
-                {
-                    "feature": "kruemblegard:wayroot/4",
-                    "placement": []
-                },
-                {
-                    "feature": "kruemblegard:wayroot/5",
+                    "feature": "kruemblegard:wayroot/baobab",
                     "placement": []
                 }
             ]
