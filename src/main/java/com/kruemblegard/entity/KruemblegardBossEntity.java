@@ -57,6 +57,14 @@ import java.util.EnumSet;
 public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     // -----------------------------
+    // WARDEN PARITY (1.20.1)
+    // -----------------------------
+    private static final double WARDEN_MOVEMENT_SPEED = 0.3D;
+    private static final double WARDEN_FIGHTING_NAV_SPEED = 1.2D;
+    private static final int WARDEN_MELEE_ATTACK_COOLDOWN_TICKS = 18;
+    private static final double WARDEN_ANIMATION_SPEED_MULT = 1.2D;
+
+    // -----------------------------
     // PHASE DATA
     // -----------------------------
     private static final EntityDataAccessor<Integer> PHASE =
@@ -185,12 +193,15 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     // -----------------------------
     // CUSTOM MELEE TIMING (windup -> impact)
     // -----------------------------
-    private static final int MELEE_TOTAL_TICKS = 8;
+    // Retained for backwards compatibility with older logic paths, but melee is now Warden-style
+    // (instant hit + cooldown). Keep these as safe defaults for any remaining uses.
+    private static final int MELEE_TOTAL_TICKS = 1;
     // Impact happens when meleeTicksRemaining == MELEE_IMPACT_AT
-    private static final int MELEE_IMPACT_AT = 4;
+    private static final int MELEE_IMPACT_AT = 1;
 
     // Global “pace” tuning. Multiplies most boss cooldown rolls.
-    private static final float ATTACK_COOLDOWN_MULT = 0.65F;
+    // For Warden parity, do not accelerate cooldown rolls.
+    private static final float ATTACK_COOLDOWN_MULT = 1.0F;
 
     private int meleeCooldown;
     private int meleeTicksRemaining;
@@ -270,7 +281,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, ModConfig.BOSS_MAX_HEALTH.get())
                 .add(Attributes.ARMOR, ModConfig.BOSS_ARMOR.get())
                 .add(Attributes.ARMOR_TOUGHNESS, ModConfig.BOSS_ARMOR_TOUGHNESS.get())
-                .add(Attributes.MOVEMENT_SPEED, 0.26D)
+                .add(Attributes.MOVEMENT_SPEED, WARDEN_MOVEMENT_SPEED)
                 .add(Attributes.ATTACK_DAMAGE, ModConfig.BOSS_ATTACK_DAMAGE.get())
                 .add(Attributes.ATTACK_KNOCKBACK, ModConfig.BOSS_ATTACK_KNOCKBACK.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
@@ -359,8 +370,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         // Movement
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(1.15D));
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0D, 32.0F));
+        this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(WARDEN_FIGHTING_NAV_SPEED));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, WARDEN_FIGHTING_NAV_SPEED, 32.0F));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.6D));
 
         // Awareness
@@ -494,17 +505,32 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private void startMeleeAttack() {
         if (this.level().isClientSide) return;
         if (this.meleeCooldown > 0) return;
+        if (this.globalAbilityCooldown > 0) return;
         if (this.currentAbility != ABILITY_NONE) return;
         if (isMeleeInProgress()) return;
 
-        this.meleeImpactDone = false;
-        this.meleeTicksRemaining = MELEE_TOTAL_TICKS;
+        LivingEntity target = this.getTarget();
+        if (target == null || !target.isAlive()) return;
 
-        // Impact happens at MELEE_TOTAL_TICKS - MELEE_IMPACT_AT ticks after start.
-        // Keep the attack animation active through the impact tick (same pattern as abilities).
-        int telegraphAnimTicks = Math.max(1, (MELEE_TOTAL_TICKS - MELEE_IMPACT_AT) + 2);
+        // Warden-style melee: instant hit if in range, then a fixed cooldown.
+        this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+        double distSq = this.distanceToSqr(target);
+        double reachSq = getAttackReachSqr(target) * 1.15;
+        if (distSq > reachSq) return;
+
+        this.meleeImpactDone = true;
+        this.meleeTicksRemaining = 0;
+
         this.swing(InteractionHand.MAIN_HAND);
-        this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, telegraphAnimTicks);
+
+        this.doHurtTarget(target);
+        // Warden triggers attack animation on-hit; keep ours visible but brisk.
+        this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, 10);
+
+        // Match Warden's melee cadence: 18 ticks between attacks.
+        this.meleeCooldown = WARDEN_MELEE_ATTACK_COOLDOWN_TICKS;
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
     }
 
     private void tickMeleeAttack() {
@@ -530,7 +556,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         this.meleeTicksRemaining--;
         if (this.meleeTicksRemaining <= 0) {
-            this.meleeCooldown = 8;
+            // Should be unused with Warden-style melee, but keep sane defaults.
+            this.meleeCooldown = Math.max(this.meleeCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
+            this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
         }
     }
 
@@ -849,6 +877,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private boolean tryStartMeleeFast(LivingEntity target) {
         if (this.level().isClientSide) return false;
         if (this.meleeCooldown > 0) return false;
+        if (this.globalAbilityCooldown > 0) return false;
         if (this.currentAbility != ABILITY_NONE) return false;
         if (isMeleeInProgress()) return false;
 
@@ -858,8 +887,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         startMeleeAttack();
 
-        // Prevent immediate ability chaining right after the melee windup.
-        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, 4);
+        // Match Warden cadence across attack types.
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
         return true;
     }
 
@@ -1003,10 +1032,19 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             case ABILITY_ARCANE_BEAM -> doArcaneBeam();
             default -> {}
         }
+
+        // Warden-style cadence: once an attack actually fires/lands, enforce a minimum delay
+        // before any other attack (melee or ability) can begin.
+        this.globalAbilityCooldown = Math.max(this.globalAbilityCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
+        this.meleeCooldown = Math.max(this.meleeCooldown, WARDEN_MELEE_ATTACK_COOLDOWN_TICKS);
     }
 
     private void finishAbility(int ability) {
-        this.globalAbilityCooldown = rollCooldown(Math.max(5, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
+        // Never reduce the global cooldown below whatever cadence was set at impact.
+        this.globalAbilityCooldown = Math.max(
+            this.globalAbilityCooldown,
+            rollCooldown(Math.max(5, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()))
+        );
 
         // Set per-ability cooldowns on completion so abilities don't stack.
         switch (ability) {
@@ -1289,6 +1327,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             Vec3 delta = this.getDeltaMovement();
             boolean moving = state.isMoving() && (delta.x * delta.x + delta.z * delta.z) > 1.0E-5;
 
+            // Keep movement animation in sync with Warden-like combat pacing.
+            state.getController().setAnimationSpeed(this.isEngaged() ? WARDEN_ANIMATION_SPEED_MULT : 1.0D);
+
             boolean phase4 = this.getPhase() >= 4;
             RawAnimation moveAnim = phase4 ? MOVE_PHASE4 : MOVE;
             RawAnimation idleAnim = phase4 ? IDLE_PHASE4 : IDLE;
@@ -1302,6 +1343,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         controllers.add(new AnimationController<>(this, "attack", 0, state -> {
             int attackAnim = getAttackAnim();
             if (attackAnim != ATTACK_ANIM_NONE) {
+                state.getController().setAnimationSpeed(WARDEN_ANIMATION_SPEED_MULT);
                 return switch (attackAnim) {
                     case ATTACK_ANIM_MELEE_SWIPE -> state.setAndContinue(ATTACK_MELEE_SWIPE);
                     case ATTACK_ANIM_CLEAVE -> state.setAndContinue(ATTACK_CLEAVE);
@@ -1320,6 +1362,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                     default -> PlayState.STOP;
                 };
             }
+            state.getController().setAnimationSpeed(1.0D);
             return PlayState.STOP;
         }));
 

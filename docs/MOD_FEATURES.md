@@ -115,6 +115,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **4 phases** with phase-specific visuals (bone hiding) and locomotion.
 - **12 unique attacks** across phases (fast/heavy/ranged kits per phase).
 - Phase transitions trigger one-shot transition animations.
+- Combat pacing is tuned to **vanilla Warden** cadence (movement speed and 18-tick melee cooldown), with faster animation playback to match.
 - Boss awards **Ender Dragon XP** on death.
 
 - Phase-specific boss projectiles are GeckoLib-rendered and intended to be edited in Blockbench:

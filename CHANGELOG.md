@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.630 (2026-01-26)
 - Chore(docs): restructure README to be more player-facing (install + gameplay first; pack maker/artist and dev notes moved lower).
 
+## 1.0.631 (2026-01-26)
+- Tuning(kruemblegard_boss): match vanilla Warden movement speed and melee cadence (18-tick cooldown) and speed up animations to match.
+
 ## 1.0.629 (2026-01-26)
 - Chore(docs): rewrite README.md to reflect current gameplay, required dependencies, and Blockbench/GeckoLib projectile export targets.
 
