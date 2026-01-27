@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.641 (2026-01-27)
+- Chore(docs): clarify updated tree silhouette notes and correct the 1.0.640 tree-tuning entry to include driftwood/fallbark.
+
 ## 1.0.640 (2026-01-27)
-- Tuning(worldgen/trees): push stronger per-species silhouettes (less overlap) by retuning the primary tree variant for cairn_tree, driftwillow, echowood, faultwood, hollowway_tree, monument_oak, splinterspore, wayglass, and waytorch_tree.
+- Tuning(worldgen/trees): push stronger per-species silhouettes (less overlap) by retuning the primary tree variant for cairn_tree, driftwillow, driftwood, echowood, fallbark, faultwood, hollowway_tree, monument_oak, splinterspore, wayglass, and waytorch_tree.
 
 ## 1.0.639 (2026-01-27)
 - Tuning(worldgen/wayroot): wire Wayroot baobab (normal + mega) to select among the 3 Arboria-style variants (equal-chance selection).

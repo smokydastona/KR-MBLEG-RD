@@ -70,6 +70,7 @@ Scope/notes:
 - **IDs**: `kruemblegard:driftwood_*`
 - **Worldgen**: `driftwood_tree` (simple tree feature).
 - **Appearance**: Weathered, pale wood intended as a staple Wayfall palette.
+- **Worldgen silhouette**: Taller baseline with a higher canopy compared to the older “stubby” profile.
 - **Mechanics**: no special mechanics yet (standard sapling growth + vanilla-style blocks).
 - **Core textures**:
   - `assets/kruemblegard/textures/block/driftwood_log.png`
@@ -94,6 +95,7 @@ Scope/notes:
 ### Fallbark
 - **IDs**: `kruemblegard:fallbark_*`
 - **Appearance**: Tall, brittle trees that constantly shed slabs of bark downward.
+- **Worldgen silhouette**: Extra-tall trunk with a higher, sparser canopy.
 - **Use**: Bark used for impact-resistant blocks.
 - **Mechanics**: design target — standing under them is dangerous during “Wayfall tremors.”
 - **Core textures**:
