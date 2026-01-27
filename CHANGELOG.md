@@ -4,20 +4,23 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.642 (2026-01-27)
+## 1.0.643 (2026-01-26)
+- Tuning(worldgen/trees): add `would_survive` placement filters to mega placed features (BOP-style placement hygiene).
+
+## 1.0.642 (2026-01-26)
 - Tuning(worldgen/trees): retune all mega tree targets to be consistently tall and more species-distinct (reduced cross-species mega overlap).
 - Tuning(worldgen/wayroot): increase Wayroot baobab mega core trunk heights so mega baobabs are actually tall.
 
-## 1.0.641 (2026-01-27)
+## 1.0.641 (2026-01-26)
 - Chore(docs): clarify updated tree silhouette notes and correct the 1.0.640 tree-tuning entry to include driftwood/fallbark.
 
-## 1.0.640 (2026-01-27)
+## 1.0.640 (2026-01-26)
 - Tuning(worldgen/trees): push stronger per-species silhouettes (less overlap) by retuning the primary tree variant for cairn_tree, driftwillow, driftwood, echowood, fallbark, faultwood, hollowway_tree, monument_oak, splinterspore, wayglass, and waytorch_tree.
 
-## 1.0.639 (2026-01-27)
+## 1.0.639 (2026-01-26)
 - Tuning(worldgen/wayroot): wire Wayroot baobab (normal + mega) to select among the 3 Arboria-style variants (equal-chance selection).
 
-## 1.0.638 (2026-01-27)
+## 1.0.638 (2026-01-26)
 - Tuning(worldgen/wayroot): rework Wayroot baobab-style generation into an Arboria-inspired multipart setup (core + canopy + directional branches).
 - Tuning(worldgen/wayroot): retheme Wayroot root patches to place `kruemblegard:wayroot_log` + `kruemblegard:ashmoss_carpet` and loosen ground checks to allow any solid support.
 
