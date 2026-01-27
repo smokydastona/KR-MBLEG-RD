@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.644 (2026-01-27)
+## 1.0.645 (2026-01-26)
+- Content(textures): update leaf textures for ashbloom, faultwood, glimmerpine, hollowway_tree, monument_oak, splinterspore, wayglass, and waytorch_tree.
+
+## 1.0.644 (2026-01-26)
 - Tuning(worldgen/trees): apply Evergreen-style `surface_water_depth_filter` (no water) and broaden `would_survive` placement gating across tree placed features (normal + mega).
 
 ## 1.0.643 (2026-01-26)
