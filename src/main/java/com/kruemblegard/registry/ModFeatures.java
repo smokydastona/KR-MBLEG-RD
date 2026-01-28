@@ -58,6 +58,14 @@ public final class ModFeatures {
             )
     );
 
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> WAYROOT_MEGA_SCHEMATIC_3 = FEATURES.register(
+            "wayroot_mega_schematic_3",
+            () -> new WayrootMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/wayroot/mega_wayroot_3.schem")
+            )
+    );
+
     public static void register(IEventBus bus) {
         FEATURES.register(bus);
     }

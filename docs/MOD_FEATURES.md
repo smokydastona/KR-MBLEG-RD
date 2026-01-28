@@ -236,7 +236,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Most mega selectors choose between two Evergreen-style mega outcomes; each `mega_1`/`mega_2` delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`).
     - Wayroot is an exception: its worldgen is tuned to a baobab-style silhouette and uses `kruemblegard:ashmoss` as its `dirt_provider`.
       - Normal Wayroot uses the baobab-style configured feature cores.
-      - Mega Wayroot uses 2 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
+      - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):

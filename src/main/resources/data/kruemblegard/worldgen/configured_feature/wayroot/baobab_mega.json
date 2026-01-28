@@ -3,7 +3,8 @@
   "config": {
     "features": [
       { "feature": "kruemblegard:wayroot/baobab_mega_schematic_1", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_mega_schematic_2", "placement": [] }
+      { "feature": "kruemblegard:wayroot/baobab_mega_schematic_2", "placement": [] },
+      { "feature": "kruemblegard:wayroot/baobab_mega_schematic_3", "placement": [] }
     ]
   }
 }
