@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
@@ -53,8 +52,13 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
         int rotationSteps = random.nextInt(4);
         Rotation rotation = Rotation.values()[rotationSteps];
 
-        int surfaceY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin.getX(), origin.getZ());
-        BlockPos start = new BlockPos(origin.getX(), surfaceY, origin.getZ());
+        // Respect the provided origin (works for both placed-feature worldgen and bonemeal growth).
+        // If the origin is a solid block (e.g., heightmap-selected ground), nudge the start up one.
+        BlockPos start = origin;
+        BlockState originState = level.getBlockState(start);
+        if (!originState.isAir() && !originState.canBeReplaced()) {
+            start = start.above();
+        }
 
         return schematic.place(level, start, rotation, cfg.capBlock(), cfg.stemBlock(), cfg.slabBlock());
     }
