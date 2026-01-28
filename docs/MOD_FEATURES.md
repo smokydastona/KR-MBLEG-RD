@@ -242,6 +242,12 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)
     - `world/feature/WayrootMegaSchematicFeature` (places curated mega Wayroot schematics)
+    - `world/feature/GiantMushroomSchematicFeature` (places giant Wayfall fungi from shared schematic templates)
+  - Giant Wayfall fungi (Griefcap, Static Fungus, Wayrot Fungus, Wayburn Fungus, Black Echo Fungus, Echocap, Echo Puff, Voidcap Briar, Memory Rot) use 30 shared schematic variants with palette remapping:
+    - Tinted glass → air (ignored)
+    - Quartz blocks → the species stem
+    - Quartz slabs → the species cap slab
+    - Brown mushroom blocks → the species cap
   - Full per-tree reference: [TREES.md](TREES.md)
 
 ### Reactive staple plants

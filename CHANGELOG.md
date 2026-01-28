@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.668 (2026-01-28)
+- Feature(worldgen/fungi): replace vanilla huge-mushroom giant fungi generation with schematic-based variants (30 shared templates) using palette remaps (tinted glass → air; quartz block → stem; quartz slab → cap slab; brown mushroom block → cap).
+
 ## 1.0.667 (2026-01-28)
 - Feature(fungi): add slab variants for all giant fungi cap blocks (caps only; stems unchanged) with recipes, loot tables, and models.
 

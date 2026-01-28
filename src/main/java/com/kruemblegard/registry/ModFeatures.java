@@ -4,6 +4,8 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.world.feature.WayfallDeepLakeConfiguration;
 import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
+import com.kruemblegard.world.feature.GiantMushroomSchematicConfiguration;
+import com.kruemblegard.world.feature.GiantMushroomSchematicFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
 import com.kruemblegard.world.feature.WayrootMegaSchematicFeature;
 
@@ -64,6 +66,11 @@ public final class ModFeatures {
                     NoneFeatureConfiguration.CODEC,
                     new ResourceLocation(Kruemblegard.MOD_ID, "schematics/wayroot/mega_wayroot_3.schem")
             )
+    );
+
+    public static final RegistryObject<Feature<GiantMushroomSchematicConfiguration>> GIANT_MUSHROOM_SCHEMATIC = FEATURES.register(
+            "giant_mushroom_schematic",
+            () -> new GiantMushroomSchematicFeature(GiantMushroomSchematicConfiguration.CODEC)
     );
 
     public static void register(IEventBus bus) {

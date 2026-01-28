@@ -1,14 +1,40 @@
 {
-  "type": "minecraft:huge_red_mushroom",
+  "type": "kruemblegard:giant_mushroom_schematic",
   "config": {
-    "cap_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": { "Name": "kruemblegard:giant_echo_puff_cap" }
-    },
-    "stem_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": { "Name": "kruemblegard:giant_echo_puff_stem" }
-    },
-    "foliage_radius": 4
+    "schematics": [
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_1.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_2.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_3.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_4.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_5.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_6.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_7.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_8.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_9.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_10.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_11.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_12.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_13.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_14.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_15.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_16.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_17.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_18.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_19.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_20.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_21.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_22.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_23.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_24.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_25.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_26.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_27.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_28.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_29.schem",
+      "kruemblegard:schematics/giant_mushroom/giant_mushroom_30.schem"
+    ],
+    "cap_block": "kruemblegard:giant_echo_puff_cap",
+    "stem_block": "kruemblegard:giant_echo_puff_stem",
+    "slab_block": "kruemblegard:giant_echo_puff_cap_slab"
   }
 }
