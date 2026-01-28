@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen): remove UTF-8 BOM encoding from a batch of worldgen JSONs so Forge/Minecraft can decode them reliably.
 - Fix(worldgen/ashbloom): fix variant 4 generating “leafless” trees by restoring `ashbloom_leaves` as the `foliage_provider`.
 
+## 1.0.653 (2026-01-28)
+- Tuning(worldgen/glimmerpine): rework mega Glimmerpine canopy to use `mega_pine_foliage_placer` + a light `attached_to_leaves` decorator so mega variants read as real conifers instead of tall bare trunks.
+
 ## 1.0.651 (2026-01-28)
 - Fix(worldgen/wayroot): stop mega Wayroot baobab leaves from decaying on chunk load by switching mega variants back to the multipart (core + canopy + branches) setup and reducing the largest mega canopy radius.
 
