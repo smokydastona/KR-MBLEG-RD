@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.669 (2026-01-28)
+- Fix(assets/blocks): Twilight Bulb now points at its own model/texture (and correct the texture filename typo).
+
 ## 1.0.668 (2026-01-28)
 - Feature(worldgen/fungi): replace vanilla huge-mushroom giant fungi generation with schematic-based variants (30 shared templates) using palette remaps (tinted glass → air; quartz block → stem; quartz slab → cap slab; brown mushroom block → cap).
 
