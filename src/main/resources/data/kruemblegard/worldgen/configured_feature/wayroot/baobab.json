@@ -2,9 +2,10 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      { "feature": "kruemblegard:wayroot/baobab/1", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab/2", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab/3", "placement": [] }
+      { "feature": "kruemblegard:wayroot/baobab_core", "placement": [] },
+      { "feature": "kruemblegard:wayroot/baobab_core_1", "placement": [] },
+      { "feature": "kruemblegard:wayroot/baobab_core_2", "placement": [] },
+      { "feature": "kruemblegard:wayroot/baobab_core_3", "placement": [] }
     ]
   }
 }

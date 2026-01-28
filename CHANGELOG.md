@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.660 (2026-01-28)
 - Fix(worldgen/wayroot): stop some Wayroot baobab trees spawning leafless by restoring `wayroot_leaves` as the `foliage_provider` in the core configured features.
 
+## 1.0.661 (2026-01-28)
+- Fix(worldgen/wayroot): normal Wayroot trees now select the leafy baobab core features directly (avoids the multipart selector occasionally picking branch-only pieces).
+
 ## 1.0.659 (2026-01-28)
 - Tuning(worldgen/fungi): diversify giant fungi silhouettes by mixing `huge_red_mushroom`/`huge_brown_mushroom` generators and varying `foliage_radius` per species/variant.
 - Fix(mobs/moogloom): allow Mooglooms to spawn on Wayfall custom ground blocks (spawn placement no longer requires `minecraft:animals_spawnable_on`).
