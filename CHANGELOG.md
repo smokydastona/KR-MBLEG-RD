@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.656 (2026-01-28)
+- Fix(worldgen/trees): correct `would_survive` sapling gating for normal (non-mega) tree configured features so each species checks its own sapling (prevents cross-species driftwood-sapling gating).
+- Tuning(worldgen/trees): reduce normal-tree repeated placement counts (outer placement counts and internal attempt counts) to cut down on over-stacking/log tangles and improve silhouettes.
+
 ## 1.0.655 (2026-01-28)
 - Tuning(worldgen/wayroot): reshape mega Wayroot baobab silhouettes (less core spam, fuller crown layering, and slightly denser branches) to better match the Arboria-style examples while staying within leaf-distance safety.
 

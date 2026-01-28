@@ -230,7 +230,7 @@
                     "type": "minecraft:block_predicate_filter"
                   },
                   {
-                    "count": 20,
+                    "count": 14,
                     "type": "minecraft:count"
                   }
                 ]
@@ -267,7 +267,7 @@
           {
             "predicate": {
               "state": {
-                "Name": "kruemblegard:driftwood_sapling",
+                "Name": "kruemblegard:echowood_sapling",
                 "Properties": {
                   "stage": "0"
                 }
@@ -277,7 +277,7 @@
             "type": "minecraft:block_predicate_filter"
           },
           {
-            "count": 48,
+            "count": 32,
             "type": "minecraft:count"
           }
         ]

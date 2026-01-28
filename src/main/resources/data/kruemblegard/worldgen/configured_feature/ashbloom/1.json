@@ -476,7 +476,7 @@
             "type": "minecraft:block_predicate_filter"
           },
           {
-            "count": 48,
+            "count": 32,
             "type": "minecraft:count"
           }
         ]
