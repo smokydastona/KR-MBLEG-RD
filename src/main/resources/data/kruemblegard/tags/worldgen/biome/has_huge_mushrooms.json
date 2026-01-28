@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mushroom_fields",
+    "#kruemblegard:underway_falls",
+    "#kruemblegard:strata_collapse",
+    "#kruemblegard:shatterplate_flats"
+  ]
+}

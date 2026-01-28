@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:has_huge_mushrooms",
+  "features": [
+    "kruemblegard:vanilla_huge_red_mushroom",
+    "kruemblegard:vanilla_huge_brown_mushroom"
+  ],
+  "step": "vegetal_decoration"
+}
