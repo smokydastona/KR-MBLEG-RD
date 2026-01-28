@@ -42,16 +42,10 @@
                       "type": "minecraft:simple_state_provider"
                     },
                     "foliage_placer": {
-                      "crown_height": {
-                        "value": {
-                          "min_inclusive": 10,
-                          "max_inclusive": 12
-                        },
-                        "type": "minecraft:uniform"
-                      },
+                      "height": 8,
                       "offset": 2,
                       "radius": 3,
-                      "type": "minecraft:mega_pine_foliage_placer"
+                      "type": "minecraft:fancy_foliage_placer"
                     },
                     "foliage_provider": {
                       "state": {
@@ -236,7 +230,7 @@
                     "type": "minecraft:block_predicate_filter"
                   },
                   {
-                    "count": 16,
+                    "count": 8,
                     "type": "minecraft:count"
                   }
                 ]
@@ -269,24 +263,7 @@
           },
           "type": "minecraft:simple_random_selector"
         },
-        "placement": [
-          {
-            "predicate": {
-              "state": {
-                "Name": "kruemblegard:driftwood_sapling",
-                "Properties": {
-                  "stage": "0"
-                }
-              },
-              "type": "minecraft:would_survive"
-            },
-            "type": "minecraft:block_predicate_filter"
-          },
-          {
-            "count": 64,
-            "type": "minecraft:count"
-          }
-        ]
+        "placement": []
       }
     ]
   },

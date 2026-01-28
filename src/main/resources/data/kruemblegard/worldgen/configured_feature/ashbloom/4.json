@@ -59,10 +59,6 @@
                       "type": "minecraft:replaceable"
                     },
                     "type": "minecraft:block_predicate_filter"
-                  },
-                  {
-                    "count": 28,
-                    "type": "minecraft:count"
                   }
                 ]
               },
@@ -208,24 +204,7 @@
           },
           "type": "minecraft:simple_random_selector"
         },
-        "placement": [
-          {
-            "predicate": {
-              "state": {
-                "Name": "kruemblegard:ashbloom_sapling",
-                "Properties": {
-                  "stage": "0"
-                }
-              },
-              "type": "minecraft:would_survive"
-            },
-            "type": "minecraft:block_predicate_filter"
-          },
-          {
-            "count": 64,
-            "type": "minecraft:count"
-          }
-        ]
+        "placement": []
       }
     ]
   },

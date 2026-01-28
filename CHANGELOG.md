@@ -4,12 +4,19 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.652 (2026-01-28)
-- Fix(worldgen): remove UTF-8 BOM encoding from a batch of worldgen JSONs so Forge/Minecraft can decode them reliably.
-- Fix(worldgen/ashbloom): fix variant 4 generating “leafless” trees by restoring `ashbloom_leaves` as the `foliage_provider`.
+## 1.0.654 (2026-01-28)
+- Tuning(worldgen/mega_trees): reshape the non-conifer mega tree families to read as real “trees” by switching their mega canopies away from `mega_pine_foliage_placer` to fuller `fancy_foliage_placer` crowns.
+- Tuning(worldgen/mega_trees): reduce over-spammy branch placement counts (e.g. 16 → 8) so mega variants stop turning into chaotic log tangles.
+- Fix(worldgen/mega_trees): remove redundant internal sapling-gating + `count: 64` placement blocks that were embedded inside several mega configured features (these belong in placed features / were copied from reference packs).
+- Fix(worldgen/ashbloom): stop mega Ashbloom from generating leafless trees by restoring real leaf providers/placers for the `/3` mega path.
+- Tuning(worldgen/wayglass): upgrade `wayglass/4` into a true mega (2×2 trunk + larger canopy + leaf-attachment fullness) so both mega selector routes look correct.
 
 ## 1.0.653 (2026-01-28)
 - Tuning(worldgen/glimmerpine): rework mega Glimmerpine canopy to use `mega_pine_foliage_placer` + a light `attached_to_leaves` decorator so mega variants read as real conifers instead of tall bare trunks.
+
+## 1.0.652 (2026-01-28)
+- Fix(worldgen): remove UTF-8 BOM encoding from a batch of worldgen JSONs so Forge/Minecraft can decode them reliably.
+- Fix(worldgen/ashbloom): fix variant 4 generating “leafless” trees by restoring `ashbloom_leaves` as the `foliage_provider`.
 
 ## 1.0.651 (2026-01-28)
 - Fix(worldgen/wayroot): stop mega Wayroot baobab leaves from decaying on chunk load by switching mega variants back to the multipart (core + canopy + branches) setup and reducing the largest mega canopy radius.
