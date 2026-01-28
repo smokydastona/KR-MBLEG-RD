@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.676 (2026-01-28)
+- Tuning(worldgen/fungi): increase natural generation frequency for all 9 custom giant fungi (placed feature rarity filter `chance` 64 → 32).
+- Feature(worldgen/fungi): expand vanilla huge red/brown mushroom natural generation to additional vanilla biomes where they normally appear (Dark Forest + Old Growth variants), while keeping the Wayfall injections.
+
 ## 1.0.675 (2026-01-28)
 - Feature(worldgen/fungi): add natural worldgen placement for huge red/brown mushrooms in Mushroom Fields and selected Wayfall biomes.
 

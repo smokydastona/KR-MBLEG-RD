@@ -200,7 +200,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Giant fungi: the nine Wayfall fungi can be bonemealed into giant cap/stem variants and also generate naturally as giants in the same biomes as their small variants.
     - Worldgen cohesion: giant fungi silhouettes are schematic-based (30 shared templates) and vanilla huge red/brown mushrooms also use the same schematic system when generated.
-      - Natural generation: huge red/brown mushrooms generate naturally in `minecraft:mushroom_fields` and also in selected Wayfall biomes (Underway Falls, Strata Collapse, Shatterplate Flats).
+      - Natural generation: huge red/brown mushrooms generate naturally in `minecraft:mushroom_fields`, vanilla forest biomes that normally get huge mushrooms (Dark Forest and Old Growth forests/taigas), and selected Wayfall biomes (Underway Falls, Strata Collapse, Shatterplate Flats).
     - Schematic palette remaps use placeholders: tinted glass → air; quartz block → stem; quartz slab → mushroom slab; brown mushroom block → cap.
     - Shatterplate Flats: includes all giant fungi except Wayburn.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
