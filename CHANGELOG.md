@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.658 (2026-01-28)
+- Fix(worldgen/wayroot): stop world creation crash by replacing invalid/fragile `wayroot/baobab_mega/{1,2,3}` configured feature definitions with canonical `minecraft:tree` configured features.
+
 ## 1.0.657 (2026-01-28)
 - Feature(fungi): add 9 Wayfall fungi with bonemeal growth into giant variants (Black Echo Fungus, Echocap, Echo Puff, Griefcap, Static Fungus, Voidcap Briar, Wayburn Fungus, Wayrot Fungus, Memory Rot).
 - Feature(worldgen/fungi): add natural giant fungi generation in the same biomes as their small variants; additionally include all giant fungi except Wayburn in Shatterplate Flats.

@@ -1,174 +1,67 @@
 {
-  "type": "minecraft:simple_random_selector",
+  "type": "minecraft:tree",
   "config": {
-    "features": [
+    "decorators": [
       {
-        "feature": {
-          "type": "minecraft:simple_random_selector",
-          "config": {
-            "features": [
-              {
-                "feature": "kruemblegard:wayroot/baobab_mega_core_3",
-                "placement": [
-                  { "type": "minecraft:count", "count": 7 },
-                  { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 0 }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_mega_core_3",
-                "placement": [
-                  { "type": "minecraft:count", "count": 4 },
-                  { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 4 }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_mega_canopy_3",
-                "placement": [
-                  {
-                    "type": "minecraft:environment_scan",
-                    "direction_of_search": "up",
-                    "max_steps": 72,
-                    "target_condition": {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "kruemblegard:wayroot_log"
-                      }
-                    }
-                  },
-                  {
-                    "type": "minecraft:block_predicate_filter",
-                    "predicate": {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": "kruemblegard:wayroot_log",
-                      "offset": [0, -1, 0]
-                    }
-                  }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_mega_canopy_2",
-                "placement": [
-                  { "type": "minecraft:random_offset", "xz_spread": 1, "y_spread": 12 },
-                  {
-                    "type": "minecraft:environment_scan",
-                    "direction_of_search": "up",
-                    "max_steps": 72,
-                    "target_condition": {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "kruemblegard:wayroot_log"
-                      }
-                    }
-                  },
-                  {
-                    "type": "minecraft:block_predicate_filter",
-                    "predicate": {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": "kruemblegard:wayroot_log",
-                      "offset": [0, -1, 0]
-                    }
-                  }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_parts/branch/up",
-                "placement": [
-                  { "type": "minecraft:count", "count": 2 },
-                  { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 10 },
-                  {
-                    "type": "minecraft:environment_scan",
-                    "direction_of_search": "up",
-                    "max_steps": 72,
-                    "target_condition": {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "kruemblegard:wayroot_log"
-                      }
-                    }
-                  },
-                  {
-                    "type": "minecraft:block_predicate_filter",
-                    "predicate": {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": "kruemblegard:wayroot_log",
-                      "offset": [0, -1, 0]
-                    }
-                  }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_parts/branch/east",
-                "placement": [
-                  { "type": "minecraft:count", "count": 2 },
-                  { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 8 },
-                  {
-                    "type": "minecraft:environment_scan",
-                    "direction_of_search": "up",
-                    "max_steps": 72,
-                    "target_condition": {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "kruemblegard:wayroot_log"
-                      }
-                    }
-                  },
-                  {
-                    "type": "minecraft:block_predicate_filter",
-                    "predicate": {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": "kruemblegard:wayroot_log",
-                      "offset": [0, -1, 0]
-                    }
-                  }
-                ]
-              },
-              {
-                "feature": "kruemblegard:wayroot/baobab_parts/branch/west",
-                "placement": [
-                  { "type": "minecraft:count", "count": 2 },
-                  { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 8 },
-                  {
-                    "type": "minecraft:environment_scan",
-                    "direction_of_search": "up",
-                    "max_steps": 72,
-                    "target_condition": {
-                      "type": "minecraft:not",
-                      "predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "kruemblegard:wayroot_log"
-                      }
-                    }
-                  },
-                  {
-                    "type": "minecraft:block_predicate_filter",
-                    "predicate": {
-                      "type": "minecraft:matching_blocks",
-                      "blocks": "kruemblegard:wayroot_log",
-                      "offset": [0, -1, 0]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:all_of",
-              "predicates": [
-                { "type": "minecraft:replaceable" },
-                { "type": "minecraft:solid", "offset": [0, -1, 0] }
-              ]
+        "type": "minecraft:attached_to_leaves",
+        "probability": 0.20,
+        "directions": ["down"],
+        "required_empty_blocks": 1,
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:wayroot_leaves",
+            "Properties": {
+              "distance": "2",
+              "persistent": "false",
+              "waterlogged": "false"
             }
           }
-        ]
+        }
       }
-    ]
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": { "Name": "kruemblegard:ashmoss" }
+    },
+    "foliage_placer": {
+      "type": "minecraft:acacia_foliage_placer",
+      "radius": 8,
+      "offset": 0
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:wayroot_leaves",
+        "Properties": {
+          "distance": "1",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 0,
+      "lower_size": 0,
+      "upper_size": 0
+    },
+    "trunk_placer": {
+      "type": "minecraft:giant_trunk_placer",
+      "base_height": 28,
+      "height_rand_a": 8,
+      "height_rand_b": 6
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "kruemblegard:wayroot_log",
+        "Properties": { "axis": "y" }
+      }
+    }
   }
 }
