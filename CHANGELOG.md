@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.655 (2026-01-28)
+- Tuning(worldgen/wayroot): reshape mega Wayroot baobab silhouettes (less core spam, fuller crown layering, and slightly denser branches) to better match the Arboria-style examples while staying within leaf-distance safety.
+
 ## 1.0.654 (2026-01-28)
 - Tuning(worldgen/mega_trees): reshape the non-conifer mega tree families to read as real “trees” by switching their mega canopies away from `mega_pine_foliage_placer` to fuller `fancy_foliage_placer` crowns.
 - Tuning(worldgen/mega_trees): reduce over-spammy branch placement counts (e.g. 16 → 8) so mega variants stop turning into chaotic log tangles.

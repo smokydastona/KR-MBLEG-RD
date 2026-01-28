@@ -10,14 +10,14 @@
               {
                 "feature": "kruemblegard:wayroot/baobab_mega_core_1",
                 "placement": [
-                  { "type": "minecraft:count", "count": 18 },
+                  { "type": "minecraft:count", "count": 8 },
                   { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 0 }
                 ]
               },
               {
                 "feature": "kruemblegard:wayroot/baobab_mega_core_1",
                 "placement": [
-                  { "type": "minecraft:count", "count": 10 },
+                  { "type": "minecraft:count", "count": 4 },
                   { "type": "minecraft:random_offset", "xz_spread": 1, "y_spread": 2 }
                 ]
               },
@@ -47,8 +47,35 @@
                 ]
               },
               {
+                "feature": "kruemblegard:wayroot/baobab_mega_canopy_2",
+                "placement": [
+                  { "type": "minecraft:random_offset", "xz_spread": 1, "y_spread": 10 },
+                  {
+                    "type": "minecraft:environment_scan",
+                    "direction_of_search": "up",
+                    "max_steps": 64,
+                    "target_condition": {
+                      "type": "minecraft:not",
+                      "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "kruemblegard:wayroot_log"
+                      }
+                    }
+                  },
+                  {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                      "type": "minecraft:matching_blocks",
+                      "blocks": "kruemblegard:wayroot_log",
+                      "offset": [0, -1, 0]
+                    }
+                  }
+                ]
+              },
+              {
                 "feature": "kruemblegard:wayroot/baobab_parts/branch/north",
                 "placement": [
+                  { "type": "minecraft:count", "count": 2 },
                   { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 6 },
                   {
                     "type": "minecraft:environment_scan",
@@ -75,6 +102,7 @@
               {
                 "feature": "kruemblegard:wayroot/baobab_parts/branch/south",
                 "placement": [
+                  { "type": "minecraft:count", "count": 2 },
                   { "type": "minecraft:random_offset", "xz_spread": 2, "y_spread": 6 },
                   {
                     "type": "minecraft:environment_scan",
