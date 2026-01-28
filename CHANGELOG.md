@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.663 (2026-01-28)
+- Fix(worldgen/wayroot): mega Wayroot schematic placement now snaps to the surface heightmap and centers/rotates correctly; also allows the trunk to replace soil at the base so schematics no longer spawn missing most blocks.
+
 ## 1.0.662 (2026-01-28)
 - Fix(worldgen/wayroot): replace mega Wayroot baobab generation with schematic-based variants (2 curated `.schem` shapes) to stop chunk-load leaf decay/drop spam.
 - Fix(worldgen/wayroot): Wayroot normal tree cores now generate `wayroot_leaves` as `persistent=true` to prevent occasional post-gen leaf loss.

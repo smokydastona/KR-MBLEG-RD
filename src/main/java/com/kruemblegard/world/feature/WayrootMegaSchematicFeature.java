@@ -22,6 +22,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -60,12 +61,9 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
             return false;
         }
 
-        // Try to place on the surface.
-        BlockPos ground = origin;
-        while (ground.getY() > level.getMinBuildHeight() + 2 && level.getBlockState(ground).isAir()) {
-            ground = ground.below();
-        }
-        BlockPos start = ground.above();
+        // Place at the surface (not underground, not on top of leaves).
+        int surfaceY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin.getX(), origin.getZ());
+        BlockPos start = new BlockPos(origin.getX(), surfaceY, origin.getZ());
 
         // Quick sanity: don’t generate submerged mega trees.
         if (!level.getFluidState(start).isEmpty()) {
@@ -137,6 +135,9 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
         boolean place(LevelAccessor level, BlockPos start, int rot) {
             boolean placedAny = false;
 
+            int pivotX = width / 2;
+            int pivotZ = length / 2;
+
             for (int y = 0; y < height; y++) {
                 for (int z = 0; z < length; z++) {
                     for (int x = 0; x < width; x++) {
@@ -151,7 +152,7 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                             state = safeWayrootLeafState();
                         }
 
-                        BlockPos p = applyRotation(start, x, y, z, rot);
+                        BlockPos p = applyRotation(start, x, y, z, rot, pivotX, pivotZ);
                         if (level.isOutsideBuildHeight(p)) {
                             continue;
                         }
@@ -174,14 +175,15 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
             return (y * length + z) * width + x;
         }
 
-        private static BlockPos applyRotation(BlockPos start, int x, int y, int z, int rot) {
-            // Rotate around schematic origin (0,0,0) on the X/Z plane.
-            // rot: 0=0deg, 1=90deg, 2=180deg, 3=270deg
+        private static BlockPos applyRotation(BlockPos center, int x, int y, int z, int rot, int pivotX, int pivotZ) {
+            // Rotate around the schematic center on the X/Z plane.
+            int dx = x - pivotX;
+            int dz = z - pivotZ;
             return switch (rot & 3) {
-                case 1 -> start.offset(z, y, -x);
-                case 2 -> start.offset(-x, y, -z);
-                case 3 -> start.offset(-z, y, x);
-                default -> start.offset(x, y, z);
+                case 1 -> center.offset(dz, y, -dx);
+                case 2 -> center.offset(-dx, y, -dz);
+                case 3 -> center.offset(-dz, y, dx);
+                default -> center.offset(dx, y, dz);
             };
         }
 
@@ -191,7 +193,14 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
             if (existing.canBeReplaced()) return true;
             if (existing.getBlock() instanceof LeavesBlock) return true;
             if (existing.getBlock() instanceof BushBlock) return true;
-            // Allow placing leaves/logs into tall plants / replaceables, but avoid nuking terrain.
+
+            // Allow trunk blocks to punch into soil at the base, otherwise schematics end up missing most of their trunk.
+            boolean isWayrootTrunk = toPlace.is(ModBlocks.WAYROOT_LOG.get()) || toPlace.is(ModBlocks.WAYROOT_WOOD.get());
+            if (isWayrootTrunk && (existing.is(BlockTags.DIRT) || existing.is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK))) {
+                return true;
+            }
+
+            // Avoid nuking terrain.
             return false;
         }
 
