@@ -133,7 +133,7 @@ public final class CommonModEvents {
             ModEntities.MOOGLOOM.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-            CommonModEvents::canSpawnAnimalOnSolidGround,
+            CommonModEvents::canSpawnMoogloom,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }
@@ -152,7 +152,7 @@ public final class CommonModEvents {
         return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
     }
 
-    private static boolean canSpawnAnimalOnSolidGround(
+    private static boolean canSpawnMoogloom(
             net.minecraft.world.entity.EntityType<? extends Animal> type,
             ServerLevelAccessor level,
             MobSpawnType spawnType,
@@ -164,7 +164,22 @@ public final class CommonModEvents {
             return false;
         }
 
-        return Animal.checkAnimalSpawnRules(type, level, spawnType, pos, random);
+        // Require space for the mob.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        // Similar to vanilla animal rules, but without requiring the block below to be in
+        // `minecraft:animals_spawnable_on` (Wayfall biomes use custom ground blocks).
+        if (level.getLevel().getRawBrightness(pos, 0) < 9) {
+            return false;
+        }
+
+        return true;
     }
 
     private static boolean canSpawnGlowSquid(

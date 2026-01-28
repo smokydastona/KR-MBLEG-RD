@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.659 (2026-01-28)
+- Tuning(worldgen/fungi): diversify giant fungi silhouettes by mixing `huge_red_mushroom`/`huge_brown_mushroom` generators and varying `foliage_radius` per species/variant.
+- Fix(mobs/moogloom): allow Mooglooms to spawn on Wayfall custom ground blocks (spawn placement no longer requires `minecraft:animals_spawnable_on`).
+
 ## 1.0.658 (2026-01-28)
 - Fix(worldgen/wayroot): stop world creation crash by replacing invalid/fragile `wayroot/baobab_mega/{1,2,3}` configured feature definitions with canonical `minecraft:tree` configured features.
 

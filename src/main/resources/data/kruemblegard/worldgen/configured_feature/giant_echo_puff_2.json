@@ -9,6 +9,6 @@
       "type": "minecraft:simple_state_provider",
       "state": { "Name": "kruemblegard:giant_echo_puff_stem" }
     },
-    "foliage_radius": 3
+    "foliage_radius": 2
   }
 }

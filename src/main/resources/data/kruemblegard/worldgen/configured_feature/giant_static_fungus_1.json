@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:huge_brown_mushroom",
+  "type": "minecraft:huge_red_mushroom",
   "config": {
     "cap_provider": {
       "type": "minecraft:simple_state_provider",
@@ -9,6 +9,6 @@
       "type": "minecraft:simple_state_provider",
       "state": { "Name": "kruemblegard:giant_static_fungus_stem" }
     },
-    "foliage_radius": 2
+    "foliage_radius": 3
   }
 }
