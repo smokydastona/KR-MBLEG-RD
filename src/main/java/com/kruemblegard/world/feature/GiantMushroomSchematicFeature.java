@@ -54,11 +54,14 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
 
         // Respect the provided origin (works for both placed-feature worldgen and bonemeal growth).
         // If the origin is a solid block (e.g., heightmap-selected ground), nudge the start up one.
-        BlockPos start = origin;
-        BlockState originState = level.getBlockState(start);
+        BlockPos center = origin;
+        BlockState originState = level.getBlockState(center);
         if (!originState.isAir() && !originState.canBeReplaced()) {
-            start = start.above();
+            center = center.above();
         }
+
+        // Place the schematic so its X/Z center is aligned to the provided origin.
+        BlockPos start = schematic.startForCenter(center, rotation);
 
         return schematic.place(level, start, rotation, cfg.capBlock(), cfg.stemBlock(), cfg.slabBlock());
     }
@@ -173,6 +176,39 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             }
 
             return true;
+        }
+
+        private BlockPos startForCenter(BlockPos center, Rotation rotation) {
+            int rot = rotation.ordinal() & 3;
+
+            // Floor center for even sizes; deterministic and close to vanilla feel.
+            int cx = this.width / 2;
+            int cz = this.length / 2;
+
+            int dx;
+            int dz;
+            // These offsets match the rotate() mapping, i.e. they compute the rotated position of the
+            // local (cx, cz) center in world-space relative to the start corner.
+            switch (rot) {
+                case 1 -> {
+                    dx = (this.length - 1 - cz);
+                    dz = cx;
+                }
+                case 2 -> {
+                    dx = (this.width - 1 - cx);
+                    dz = (this.length - 1 - cz);
+                }
+                case 3 -> {
+                    dx = cz;
+                    dz = (this.width - 1 - cx);
+                }
+                default -> {
+                    dx = cx;
+                    dz = cz;
+                }
+            }
+
+            return center.offset(-dx, 0, -dz);
         }
 
         private static BlockPos rotate(BlockPos start, int x, int y, int z, int w, int l, int rot) {

@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.673 (2026-01-28)
 - Fix(worldgen/fungi): giant mushroom schematic placement no longer snaps to a heightmap; it now places relative to the provided origin (restores giant mushroom spawning).
 
+## 1.0.674 (2026-01-28)
+- Fix(worldgen/fungi): center giant mushroom schematics on the placement origin (bonemeal + worldgen now place centered).
+
 ## 1.0.671 (2026-01-28)
 - Tuning(blocks): Twilight Bulb light level adjusted to `8`.
 
