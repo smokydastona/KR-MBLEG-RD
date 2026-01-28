@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../../../../.vscode/schemas/minecraft-loot-table-permissive.schema.json",
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [{ "type": "minecraft:item", "name": "kruemblegard:giant_static_fungus_cap_slab" }],
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "kruemblegard:giant_static_fungus_cap_slab",
+              "properties": { "type": "double" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

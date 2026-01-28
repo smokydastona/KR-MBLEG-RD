@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": { "item": "kruemblegard:giant_static_fungus_cap" }
+  },
+  "result": { "item": "kruemblegard:giant_static_fungus_cap_slab", "count": 6 }
+}

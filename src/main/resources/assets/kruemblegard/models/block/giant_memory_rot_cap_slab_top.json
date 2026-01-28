@@ -1,0 +1,8 @@
+{
+  "textures": {
+    "bottom": "kruemblegard:block/giant_memory_rot_cap",
+    "top": "kruemblegard:block/giant_memory_rot_cap",
+    "side": "kruemblegard:block/giant_memory_rot_cap"
+  },
+  "parent": "minecraft:block/slab_top"
+}

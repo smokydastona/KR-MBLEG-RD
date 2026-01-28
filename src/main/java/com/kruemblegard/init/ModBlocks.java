@@ -1059,6 +1059,10 @@ public final class ModBlocks {
             "giant_black_echo_fungus_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
     );
+    public static final RegistryObject<Block> GIANT_BLACK_ECHO_FUNGUS_CAP_SLAB = BLOCKS.register(
+            "giant_black_echo_fungus_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
     public static final RegistryObject<Block> GIANT_BLACK_ECHO_FUNGUS_STEM = BLOCKS.register(
             "giant_black_echo_fungus_stem",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
@@ -1067,6 +1071,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GIANT_ECHOCAP_CAP = BLOCKS.register(
             "giant_echocap_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<Block> GIANT_ECHOCAP_CAP_SLAB = BLOCKS.register(
+            "giant_echocap_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_PURPLE))
     );
     public static final RegistryObject<Block> GIANT_ECHOCAP_STEM = BLOCKS.register(
             "giant_echocap_stem",
@@ -1077,6 +1085,10 @@ public final class ModBlocks {
             "giant_echo_puff_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
     );
+    public static final RegistryObject<Block> GIANT_ECHO_PUFF_CAP_SLAB = BLOCKS.register(
+            "giant_echo_puff_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
     public static final RegistryObject<Block> GIANT_ECHO_PUFF_STEM = BLOCKS.register(
             "giant_echo_puff_stem",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
@@ -1085,6 +1097,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GIANT_GRIEFCAP_CAP = BLOCKS.register(
             "giant_griefcap_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BROWN))
+    );
+    public static final RegistryObject<Block> GIANT_GRIEFCAP_CAP_SLAB = BLOCKS.register(
+            "giant_griefcap_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_BROWN))
     );
     public static final RegistryObject<Block> GIANT_GRIEFCAP_STEM = BLOCKS.register(
             "giant_griefcap_stem",
@@ -1095,6 +1111,10 @@ public final class ModBlocks {
             "giant_static_fungus_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_LIGHT_GRAY))
     );
+    public static final RegistryObject<Block> GIANT_STATIC_FUNGUS_CAP_SLAB = BLOCKS.register(
+            "giant_static_fungus_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_LIGHT_GRAY))
+    );
     public static final RegistryObject<Block> GIANT_STATIC_FUNGUS_STEM = BLOCKS.register(
             "giant_static_fungus_stem",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_LIGHT_GRAY))
@@ -1103,6 +1123,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GIANT_VOIDCAP_BRIAR_CAP = BLOCKS.register(
             "giant_voidcap_briar_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
+    public static final RegistryObject<Block> GIANT_VOIDCAP_BRIAR_CAP_SLAB = BLOCKS.register(
+            "giant_voidcap_briar_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_BLACK))
     );
     public static final RegistryObject<Block> GIANT_VOIDCAP_BRIAR_STEM = BLOCKS.register(
             "giant_voidcap_briar_stem",
@@ -1113,6 +1137,10 @@ public final class ModBlocks {
             "giant_wayburn_fungus_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE))
     );
+    public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP_SLAB = BLOCKS.register(
+            "giant_wayburn_fungus_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_ORANGE))
+    );
     public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_STEM = BLOCKS.register(
             "giant_wayburn_fungus_stem",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE))
@@ -1122,6 +1150,10 @@ public final class ModBlocks {
             "giant_wayrot_fungus_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_GREEN))
     );
+    public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_CAP_SLAB = BLOCKS.register(
+            "giant_wayrot_fungus_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_GREEN))
+    );
     public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_STEM = BLOCKS.register(
             "giant_wayrot_fungus_stem",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_GREEN))
@@ -1130,6 +1162,10 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GIANT_MEMORY_ROT_CAP = BLOCKS.register(
             "giant_memory_rot_cap",
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_RED))
+    );
+    public static final RegistryObject<Block> GIANT_MEMORY_ROT_CAP_SLAB = BLOCKS.register(
+            "giant_memory_rot_cap_slab",
+            () -> new SlabBlock(giantFungusProps(MapColor.COLOR_RED))
     );
     public static final RegistryObject<Block> GIANT_MEMORY_ROT_STEM = BLOCKS.register(
             "giant_memory_rot_stem",

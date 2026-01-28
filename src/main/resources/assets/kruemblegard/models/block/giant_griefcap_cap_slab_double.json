@@ -1,0 +1,4 @@
+{
+  "textures": { "all": "kruemblegard:block/giant_griefcap_cap" },
+  "parent": "minecraft:block/cube_all"
+}

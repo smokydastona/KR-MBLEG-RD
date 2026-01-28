@@ -1,0 +1,4 @@
+{
+  "textures": { "all": "kruemblegard:block/giant_wayburn_fungus_cap" },
+  "parent": "minecraft:block/cube_all"
+}

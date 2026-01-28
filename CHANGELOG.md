@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.667 (2026-01-28)
+- Feature(fungi): add slab variants for all giant fungi cap blocks (caps only; stems unchanged) with recipes, loot tables, and models.
+
 ## 1.0.666 (2026-01-28)
 - Fix(content/lang): rename giant fungi cap blocks to use “Block” instead of “Cap” (stems unchanged).
 

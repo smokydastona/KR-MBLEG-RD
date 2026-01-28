@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "kruemblegard:block/giant_static_fungus_cap_slab" },
+    "type=top": { "model": "kruemblegard:block/giant_static_fungus_cap_slab_top" },
+    "type=double": { "model": "kruemblegard:block/giant_static_fungus_cap_slab_double" }
+  }
+}

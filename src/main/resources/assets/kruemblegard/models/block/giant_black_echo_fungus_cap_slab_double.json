@@ -1,0 +1,4 @@
+{
+  "textures": { "all": "kruemblegard:block/giant_black_echo_fungus_cap" },
+  "parent": "minecraft:block/cube_all"
+}

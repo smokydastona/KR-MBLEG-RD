@@ -1,0 +1,8 @@
+{
+  "textures": {
+    "bottom": "kruemblegard:block/giant_griefcap_cap",
+    "top": "kruemblegard:block/giant_griefcap_cap",
+    "side": "kruemblegard:block/giant_griefcap_cap"
+  },
+  "parent": "minecraft:block/slab"
+}

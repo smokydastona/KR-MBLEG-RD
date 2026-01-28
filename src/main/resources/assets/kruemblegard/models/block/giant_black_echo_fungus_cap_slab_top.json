@@ -1,0 +1,8 @@
+{
+  "textures": {
+    "bottom": "kruemblegard:block/giant_black_echo_fungus_cap",
+    "top": "kruemblegard:block/giant_black_echo_fungus_cap",
+    "side": "kruemblegard:block/giant_black_echo_fungus_cap"
+  },
+  "parent": "minecraft:block/slab_top"
+}
