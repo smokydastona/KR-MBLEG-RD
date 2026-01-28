@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.651 (2026-01-28)
+- Fix(worldgen/wayroot): stop mega Wayroot baobab leaves from decaying on chunk load by switching mega variants back to the multipart (core + canopy + branches) setup and reducing the largest mega canopy radius.
+
 ## 1.0.650 (2026-01-26)
 - Fix(worldgen): stop registry loading crash by keeping `giant_trunk_placer` height parameters within the `[0..32]` codec bounds for glimmerpine and Wayroot baobab mega configured features.
 
