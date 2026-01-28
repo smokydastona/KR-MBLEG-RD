@@ -41,10 +41,20 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             return false;
         }
 
+        ResourceManager rm;
+        if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            rm = serverLevel.getServer().getResourceManager();
+        } else if (level instanceof net.minecraft.world.level.WorldGenLevel worldGenLevel) {
+            // Feature worldgen runs in a WorldGenLevel/WorldGenRegion; get its backing ServerLevel.
+            rm = worldGenLevel.getLevel().getServer().getResourceManager();
+        } else {
+            return false;
+        }
+
         ResourceLocation chosen = cfg.schematics().get(random.nextInt(cfg.schematics().size()));
         SpongeSchematic schematic;
         try {
-            schematic = SpongeSchematic.load(level, chosen);
+            schematic = SpongeSchematic.load(rm, chosen);
         } catch (IOException e) {
             return false;
         }
@@ -81,12 +91,7 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             this.blockIndices = blockIndices;
         }
 
-        static SpongeSchematic load(LevelAccessor level, ResourceLocation id) throws IOException {
-            if (!(level instanceof net.minecraft.server.level.ServerLevel serverLevel)) {
-                throw new IOException("schematic placement requires server level");
-            }
-
-            ResourceManager rm = serverLevel.getServer().getResourceManager();
+        static SpongeSchematic load(ResourceManager rm, ResourceLocation id) throws IOException {
             Optional<Resource> resOpt = rm.getResource(id);
             if (resOpt.isEmpty()) {
                 throw new IOException("missing schematic resource: " + id);
