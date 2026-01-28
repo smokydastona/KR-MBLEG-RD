@@ -1297,7 +1297,7 @@ public final class ModBlocks {
                             .noCollission()
                             .instabreak()
                             .sound(SoundType.GRASS)
-                            .lightLevel(s -> 4)
+                            .lightLevel(s -> 14)
                             .randomTicks(),
                     () -> ParticleTypes.WITCH,
                     ModParticles.ARCANE_SPARK,

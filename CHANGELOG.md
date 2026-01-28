@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.670 (2026-01-28)
+- Tuning(blocks): Twilight Bulb now emits torch-level light.
+
 ## 1.0.669 (2026-01-28)
 - Fix(assets/blocks): Twilight Bulb now points at its own model/texture (and correct the texture filename typo).
 

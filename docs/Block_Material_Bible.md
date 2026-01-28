@@ -845,6 +845,7 @@ Update workflow:
 - **Class**: `WayfallReactivePlantBlock`
 - **Map color**: `MapColor.COLOR_BLACK`
 - **Sound**: `SoundType.GRASS`
+- **Light level**: `14` (torch brightness)
 - **Tool rule**: requiresCorrectToolForDrops = `false`
 - **Strength tier**: TBD
 
