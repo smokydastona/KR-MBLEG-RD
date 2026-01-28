@@ -5,7 +5,9 @@ import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.world.feature.WayfallDeepLakeConfiguration;
 import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
+import com.kruemblegard.world.feature.WayrootMegaSchematicFeature;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
@@ -38,6 +40,22 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<WayfallDeepLakeConfiguration>> WAYFALL_DEEP_LAKE = FEATURES.register(
             "wayfall_deep_lake",
             () -> new WayfallDeepLakeFeature(WayfallDeepLakeConfiguration.CODEC)
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> WAYROOT_MEGA_SCHEMATIC_1 = FEATURES.register(
+            "wayroot_mega_schematic_1",
+            () -> new WayrootMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/wayroot/mega_wayroot_1.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> WAYROOT_MEGA_SCHEMATIC_2 = FEATURES.register(
+            "wayroot_mega_schematic_2",
+            () -> new WayrootMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/wayroot/mega_wayroot_2.schem")
+            )
     );
 
     public static void register(IEventBus bus) {

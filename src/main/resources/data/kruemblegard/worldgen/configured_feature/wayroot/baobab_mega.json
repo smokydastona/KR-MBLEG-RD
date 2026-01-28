@@ -2,9 +2,8 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      { "feature": "kruemblegard:wayroot/baobab_mega/1", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_mega/2", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_mega/3", "placement": [] }
+      { "feature": "kruemblegard:wayroot/baobab_mega_schematic_1", "placement": [] },
+      { "feature": "kruemblegard:wayroot/baobab_mega_schematic_2", "placement": [] }
     ]
   }
 }
