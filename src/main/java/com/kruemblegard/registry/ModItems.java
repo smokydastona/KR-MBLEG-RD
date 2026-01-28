@@ -188,6 +188,9 @@ public class ModItems {
     public static final RegistryObject<Item> GIANT_MEMORY_ROT_CAP_ITEM = registerBlockItem("giant_memory_rot_cap", ModBlocks.GIANT_MEMORY_ROT_CAP);
     public static final RegistryObject<Item> GIANT_MEMORY_ROT_CAP_SLAB_ITEM = registerBlockItem("giant_memory_rot_cap_slab", ModBlocks.GIANT_MEMORY_ROT_CAP_SLAB);
     public static final RegistryObject<Item> GIANT_MEMORY_ROT_STEM_ITEM = registerBlockItem("giant_memory_rot_stem", ModBlocks.GIANT_MEMORY_ROT_STEM);
+
+    public static final RegistryObject<Item> RED_MUSHROOM_BLOCK_SLAB_ITEM = registerBlockItem("red_mushroom_block_slab", ModBlocks.RED_MUSHROOM_BLOCK_SLAB);
+    public static final RegistryObject<Item> BROWN_MUSHROOM_BLOCK_SLAB_ITEM = registerBlockItem("brown_mushroom_block_slab", ModBlocks.BROWN_MUSHROOM_BLOCK_SLAB);
     public static final RegistryObject<Item> DRIFTWOOD_WOOD_ITEM = registerBlockItem("driftwood_wood", ModBlocks.DRIFTWOOD_WOOD);
     public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_LOG_ITEM = registerBlockItem("stripped_driftwood_log", ModBlocks.STRIPPED_DRIFTWOOD_LOG);
     public static final RegistryObject<Item> STRIPPED_DRIFTWOOD_WOOD_ITEM = registerBlockItem("stripped_driftwood_wood", ModBlocks.STRIPPED_DRIFTWOOD_WOOD);

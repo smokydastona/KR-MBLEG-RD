@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.672 (2026-01-28)
+- Feature(worldgen/fungi): vanilla huge red/brown mushrooms now use the same schematic-based generator (shared 30 templates + palette remaps) as Kruemblegard giant fungi when generating in the overworld.
+- Feature(blocks): add `red_mushroom_block_slab` + `brown_mushroom_block_slab` for schematic integration.
+
 ## 1.0.671 (2026-01-28)
 - Tuning(blocks): Twilight Bulb light level adjusted to `8`.
 

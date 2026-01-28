@@ -199,6 +199,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine (vines), Pyrokelp (vanilla-style head/body plant; generates as pre-grown columns in Basin of Scars), Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub), and Wayfall fungi (Black Echo Fungus, Echocap, Echo Puff, Griefcap, Static Fungus, Voidcap Briar, Wayburn Fungus, Wayrot Fungus, Memory Rot).
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Giant fungi: the nine Wayfall fungi can be bonemealed into giant cap/stem variants and also generate naturally as giants in the same biomes as their small variants.
+    - Worldgen cohesion: giant fungi silhouettes are schematic-based (30 shared templates) and vanilla huge red/brown mushrooms also use the same schematic system when generated.
+    - Schematic palette remaps use placeholders: tinted glass → air; quartz block → stem; quartz slab → mushroom slab; brown mushroom block → cap.
     - Shatterplate Flats: includes all giant fungi except Wayburn.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
   - Utility: most Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) can be composted.

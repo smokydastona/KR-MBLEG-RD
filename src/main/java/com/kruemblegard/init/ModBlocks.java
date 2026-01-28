@@ -1172,6 +1172,18 @@ public final class ModBlocks {
             () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_RED))
     );
 
+    // --- Vanilla mushroom blocks (slab variants; used by schematic-based huge mushrooms) ---
+
+    public static final RegistryObject<Block> RED_MUSHROOM_BLOCK_SLAB = BLOCKS.register(
+            "red_mushroom_block_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.RED_MUSHROOM_BLOCK))
+    );
+
+    public static final RegistryObject<Block> BROWN_MUSHROOM_BLOCK_SLAB = BLOCKS.register(
+            "brown_mushroom_block_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.BROWN_MUSHROOM_BLOCK))
+    );
+
     public static final RegistryObject<Block> DUSTPETAL = BLOCKS.register(
             "dustpetal",
             () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
