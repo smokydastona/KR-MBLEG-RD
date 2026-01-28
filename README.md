@@ -27,6 +27,7 @@ If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to Commen
 - **The Great Hunger**: hostile creature.
 - **Scattered Enderman**: an Enderman variant that stalks Wayfall.
 - **Moogloom**: a Shatterplate Flats mooshroom-like creature; shearing turns it into a normal cow and drops Griefcap.
+- **Wayfall fungi**: nine fungi that can be bonemealed into giant cap/stem variants, with natural giant generation.
 
 ## Guidebook
 Players receive the **Crumbling Codex** once on first join.

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.657 (2026-01-28)
+- Feature(fungi): add 9 Wayfall fungi with bonemeal growth into giant variants (Black Echo Fungus, Echocap, Echo Puff, Griefcap, Static Fungus, Voidcap Briar, Wayburn Fungus, Wayrot Fungus, Memory Rot).
+- Feature(worldgen/fungi): add natural giant fungi generation in the same biomes as their small variants; additionally include all giant fungi except Wayburn in Shatterplate Flats.
+- Content(assets): add giant stem/cap blocks + items with blockstates/models and visually distinct placeholder textures.
+- Content(loot/lang): add block loot tables and `en_us` entries for all giant fungi blocks.
+
 ## 1.0.656 (2026-01-28)
 - Fix(worldgen/trees): correct `would_survive` sapling gating for normal (non-mega) tree configured features so each species checks its own sapling (prevents cross-species driftwood-sapling gating).
 - Tuning(worldgen/trees): reduce normal-tree repeated placement counts (outer placement counts and internal attempt counts) to cut down on over-stacking/log tangles and improve silhouettes.

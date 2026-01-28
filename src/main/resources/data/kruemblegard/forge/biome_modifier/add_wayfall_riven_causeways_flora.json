@@ -18,7 +18,9 @@
     "kruemblegard:falsepath_thorns_patch",
     "kruemblegard:sliproot_patch",
     "kruemblegard:ashpetal_patch",
-    "kruemblegard:wayrot_fungus_patch"
+    "kruemblegard:wayrot_fungus_patch",
+    "kruemblegard:giant_wayrot_fungus_1",
+    "kruemblegard:giant_wayrot_fungus_2"
   ],
   "step": "vegetal_decoration"
 }

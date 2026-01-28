@@ -196,8 +196,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Stoneveil Rubble family: Stoneveil Rubble, Polished Stoneveil Rubble, Runed Stoneveil Rubble.
   - Stone-family variants exist for key geology blocks: stairs, slabs, and walls (Attuned Stone, Fractured Wayrock, Crushstone, Scarstone + variants, Stoneveil Rubble + variants).
   - Crafting integration: Wayfall stone blocks are added to vanilla stone material tags so they can be used for stone tools and common stone crafting (furnace/stonecutter + many redstone components).
-- Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine (vines), Pyrokelp (vanilla-style head/body plant; generates as pre-grown columns in Basin of Scars), Echocap, Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub) and additional Wayfall plants.
+- Wayfall flora (plants + shrubs + fungi), including Wispstalk, Gravevine (vines), Pyrokelp (vanilla-style head/body plant; generates as pre-grown columns in Basin of Scars), Runebloom, Soulberry Shrub (can corrupt into Ghoulberry Shrub), and Wayfall fungi (Black Echo Fungus, Echocap, Echo Puff, Griefcap, Static Fungus, Voidcap Briar, Wayburn Fungus, Wayrot Fungus, Memory Rot).
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
+  - Giant fungi: the nine Wayfall fungi can be bonemealed into giant cap/stem variants and also generate naturally as giants in the same biomes as their small variants.
+    - Shatterplate Flats: includes all giant fungi except Wayburn.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
   - Utility: most Kruemblegard flora (plants, vines, saplings, leaves, and plant foods) can be composted.
   - Bees: many Kruemblegard plants are tagged as `minecraft:flowers`, so bees can breed/pollinate using them like vanilla flowers (food plants are excluded).

@@ -1,0 +1,1 @@
+{ "parent": "minecraft:block/cube_all", "textures": { "all": "kruemblegard:block/giant_wayrot_fungus_stem" } }

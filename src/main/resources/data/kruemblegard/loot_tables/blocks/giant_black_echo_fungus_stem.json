@@ -1,0 +1,20 @@
+{
+    "$schema": "../../../../../../../.vscode/schemas/minecraft-loot-table-permissive.schema.json",
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:giant_black_echo_fungus_stem",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1,
+                      "conditions":  [
+                                         {
+                                             "condition":  "minecraft:survives_explosion"
+                                         }
+                                     ]
+                  }
+              ],
+    "type":  "minecraft:block"
+}

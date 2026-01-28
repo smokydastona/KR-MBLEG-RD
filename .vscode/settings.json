@@ -25,18 +25,7 @@
             "fileMatch": [
                 "**/loot_tables/**/*.json"
             ],
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": [
-                    "object",
-                    "array",
-                    "string",
-                    "number",
-                    "boolean",
-                    "null"
-                ],
-                "additionalProperties": true
-            }
+            "url": "./.vscode/schemas/minecraft-loot-table-permissive.schema.json"
         },
         {
             "fileMatch": [

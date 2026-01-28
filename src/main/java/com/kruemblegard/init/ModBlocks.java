@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
+import com.kruemblegard.block.BonemealableWayfallFungusBlock;
 import com.kruemblegard.block.GravevineBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
@@ -45,6 +46,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -658,7 +660,11 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_PURPLE)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS))
+                    .sound(SoundType.FUNGUS),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_echocap_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_echocap_2")
+                    ))
     );
 
     public static final RegistryObject<Block> RUNEBLOOM = BLOCKS.register(
@@ -743,29 +749,41 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GRIEFCAP = BLOCKS.register(
             "griefcap",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BROWN)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS))
+                    .sound(SoundType.FUNGUS),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_griefcap_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_griefcap_2")
+                    ))
     );
 
     public static final RegistryObject<Block> STATIC_FUNGUS = BLOCKS.register(
             "static_fungus",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_GRAY)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS))
+                    .sound(SoundType.FUNGUS),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_static_fungus_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_static_fungus_2")
+                    ))
     );
 
     public static final RegistryObject<Block> WAYROT_FUNGUS = BLOCKS.register(
             "wayrot_fungus",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)
                     .noCollission()
                     .instabreak()
-                    .sound(SoundType.FUNGUS))
+                    .sound(SoundType.FUNGUS),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_wayrot_fungus_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_wayrot_fungus_2")
+                    ))
     );
 
     // --- Paleweft flora / crops ---
@@ -800,12 +818,16 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> ECHO_PUFF = BLOCKS.register(
             "echo_puff",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_PURPLE)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .randomTicks(),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_echo_puff_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_echo_puff_2")
+                    ))
     );
 
     public static final RegistryObject<Block> RUIN_THISTLE = BLOCKS.register(
@@ -940,32 +962,44 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> BLACK_ECHO_FUNGUS = BLOCKS.register(
             "black_echo_fungus",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .randomTicks(),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_black_echo_fungus_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_black_echo_fungus_2")
+                    ))
     );
 
     public static final RegistryObject<Block> WAYBURN_FUNGUS = BLOCKS.register(
             "wayburn_fungus",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .randomTicks(),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_wayburn_fungus_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_wayburn_fungus_2")
+                    ))
     );
 
     public static final RegistryObject<Block> MEMORY_ROT = BLOCKS.register(
             "memory_rot",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_RED)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.SLIME_BLOCK)
-                    .randomTicks())
+                    .randomTicks(),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_memory_rot_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_memory_rot_2")
+                    ))
     );
 
     public static final RegistryObject<Block> FALSEPATH_THORNS = BLOCKS.register(
@@ -1000,12 +1034,106 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> VOIDCAP_BRIAR = BLOCKS.register(
             "voidcap_briar",
-            () -> new WayfallPlantBlock(BlockBehaviour.Properties.of()
+            () -> new BonemealableWayfallFungusBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.FUNGUS)
-                    .randomTicks())
+                    .randomTicks(),
+                    java.util.List.of(
+                            new ResourceLocation(Kruemblegard.MODID, "giant_voidcap_briar_1"),
+                            new ResourceLocation(Kruemblegard.MODID, "giant_voidcap_briar_2")
+                    ))
+    );
+
+    // --- Giant fungi (stems + caps) ---
+
+    private static BlockBehaviour.Properties giantFungusProps(MapColor mapColor) {
+        return BlockBehaviour.Properties.of()
+                .mapColor(mapColor)
+                .strength(0.2F)
+                .sound(SoundType.WOOD);
+    }
+
+    public static final RegistryObject<Block> GIANT_BLACK_ECHO_FUNGUS_CAP = BLOCKS.register(
+            "giant_black_echo_fungus_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
+    public static final RegistryObject<Block> GIANT_BLACK_ECHO_FUNGUS_STEM = BLOCKS.register(
+            "giant_black_echo_fungus_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
+
+    public static final RegistryObject<Block> GIANT_ECHOCAP_CAP = BLOCKS.register(
+            "giant_echocap_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<Block> GIANT_ECHOCAP_STEM = BLOCKS.register(
+            "giant_echocap_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
+
+    public static final RegistryObject<Block> GIANT_ECHO_PUFF_CAP = BLOCKS.register(
+            "giant_echo_puff_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<Block> GIANT_ECHO_PUFF_STEM = BLOCKS.register(
+            "giant_echo_puff_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+    );
+
+    public static final RegistryObject<Block> GIANT_GRIEFCAP_CAP = BLOCKS.register(
+            "giant_griefcap_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BROWN))
+    );
+    public static final RegistryObject<Block> GIANT_GRIEFCAP_STEM = BLOCKS.register(
+            "giant_griefcap_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BROWN))
+    );
+
+    public static final RegistryObject<Block> GIANT_STATIC_FUNGUS_CAP = BLOCKS.register(
+            "giant_static_fungus_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_LIGHT_GRAY))
+    );
+    public static final RegistryObject<Block> GIANT_STATIC_FUNGUS_STEM = BLOCKS.register(
+            "giant_static_fungus_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_LIGHT_GRAY))
+    );
+
+    public static final RegistryObject<Block> GIANT_VOIDCAP_BRIAR_CAP = BLOCKS.register(
+            "giant_voidcap_briar_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
+    public static final RegistryObject<Block> GIANT_VOIDCAP_BRIAR_STEM = BLOCKS.register(
+            "giant_voidcap_briar_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BLACK))
+    );
+
+    public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP = BLOCKS.register(
+            "giant_wayburn_fungus_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE))
+    );
+    public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_STEM = BLOCKS.register(
+            "giant_wayburn_fungus_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE))
+    );
+
+    public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_CAP = BLOCKS.register(
+            "giant_wayrot_fungus_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_GREEN))
+    );
+    public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_STEM = BLOCKS.register(
+            "giant_wayrot_fungus_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_GREEN))
+    );
+
+    public static final RegistryObject<Block> GIANT_MEMORY_ROT_CAP = BLOCKS.register(
+            "giant_memory_rot_cap",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_RED))
+    );
+    public static final RegistryObject<Block> GIANT_MEMORY_ROT_STEM = BLOCKS.register(
+            "giant_memory_rot_stem",
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_RED))
     );
 
     public static final RegistryObject<Block> DUSTPETAL = BLOCKS.register(

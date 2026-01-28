@@ -11,7 +11,11 @@
     "kruemblegard:waylily_patch",
     "kruemblegard:seagrass_patch_dense",
     "kruemblegard:echocap_patch",
+    "kruemblegard:giant_echocap_1",
+    "kruemblegard:giant_echocap_2",
     "kruemblegard:memory_rot_patch",
+    "kruemblegard:giant_memory_rot_1",
+    "kruemblegard:giant_memory_rot_2",
     "kruemblegard:moteshrub_patch"
   ],
   "step": "vegetal_decoration"
