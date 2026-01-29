@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -152,6 +153,10 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                             state = safeWayrootLeafState();
                         }
 
+                        // Tree Harvester (and other "chop whole tree" mods) commonly ignore stripped logs.
+                        // For worldgen schematics, normalize stripped Wayroot trunk blocks back to their non-stripped forms.
+                        state = normalizeWayrootTrunkState(state);
+
                         BlockPos p = applyRotation(start, x, y, z, rot, pivotX, pivotZ);
                         if (level.isOutsideBuildHeight(p)) {
                             continue;
@@ -207,7 +212,9 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
         private static BlockState safeWayrootLeafState() {
             BlockState state = ModBlocks.WAYROOT_LEAVES.get().defaultBlockState();
             if (state.hasProperty(LeavesBlock.PERSISTENT)) {
-                state = state.setValue(LeavesBlock.PERSISTENT, true);
+                // Treat schematic-placed leaves as natural (non-persistent) so Tree Harvester doesn't classify
+                // the whole tree as player-made by default.
+                state = state.setValue(LeavesBlock.PERSISTENT, false);
             }
             if (state.hasProperty(LeavesBlock.DISTANCE)) {
                 state = state.setValue(LeavesBlock.DISTANCE, 1);
@@ -216,6 +223,23 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                 state = state.setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, false);
             }
             return state;
+        }
+
+        private static BlockState normalizeWayrootTrunkState(BlockState state) {
+            if (state.is(ModBlocks.STRIPPED_WAYROOT_LOG.get())) {
+                return copyAxisIfPresent(state, ModBlocks.WAYROOT_LOG.get().defaultBlockState());
+            }
+            if (state.is(ModBlocks.STRIPPED_WAYROOT_WOOD.get())) {
+                return copyAxisIfPresent(state, ModBlocks.WAYROOT_WOOD.get().defaultBlockState());
+            }
+            return state;
+        }
+
+        private static BlockState copyAxisIfPresent(BlockState from, BlockState to) {
+            if (from.hasProperty(BlockStateProperties.AXIS) && to.hasProperty(BlockStateProperties.AXIS)) {
+                return to.setValue(BlockStateProperties.AXIS, from.getValue(BlockStateProperties.AXIS));
+            }
+            return to;
         }
 
         private static int[] decodeVarints(byte[] data, int expectedCount) {

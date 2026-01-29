@@ -50,6 +50,12 @@ Keep it up to date whenever you add/remove/rename content.
   - `strictValidation` (default `false`): when enabled, `WorldgenValidator` hard-fails at server start if critical worldgen registry IDs/tags are missing.
 - Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
 
+## Compatibility
+- **Tree Harvester (Serilum)**
+  - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
+  - Giant fungi caps/stems are registered as `HugeMushroomBlock` and use vanilla huge-mushroom map-colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
+  - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
+
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.

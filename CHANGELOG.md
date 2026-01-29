@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.685 (2026-01-29)
+- Compat(worldgen): schematic-placed mega Wayroot trees now place leaves as non-persistent so Tree Harvester doesn't treat them as player-made by default.
+- Compat(fungi): giant fungi caps/stems now use vanilla huge-mushroom map colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
+
 ## 1.0.684 (2026-01-29)
 - Content(textures): update leaf textures for Echowood and Wayroot.
 
