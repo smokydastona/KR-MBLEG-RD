@@ -1,1 +1,10 @@
-{ "variants": { "": { "model": "kruemblegard:block/giant_static_fungus_cap" } } }
+{
+	"multipart": [
+		{ "apply": { "model": "kruemblegard:block/mushroom_block_inside_all" } },
+		{ "when": { "up": true }, "apply": { "model": "kruemblegard:block/giant_static_fungus_cap_face_up" } },
+		{ "when": { "north": true }, "apply": { "model": "kruemblegard:block/giant_static_fungus_cap_face_north" } },
+		{ "when": { "south": true }, "apply": { "model": "kruemblegard:block/giant_static_fungus_cap_face_south" } },
+		{ "when": { "east": true }, "apply": { "model": "kruemblegard:block/giant_static_fungus_cap_face_east" } },
+		{ "when": { "west": true }, "apply": { "model": "kruemblegard:block/giant_static_fungus_cap_face_west" } }
+	]
+}

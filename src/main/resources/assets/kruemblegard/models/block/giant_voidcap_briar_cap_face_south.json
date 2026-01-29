@@ -1,0 +1,7 @@
+{
+  "parent": "kruemblegard:block/mushroom_cap_face_south",
+  "textures": {
+    "skin": "kruemblegard:block/giant_voidcap_briar_cap",
+    "particle": "kruemblegard:block/giant_voidcap_briar_cap"
+  }
+}

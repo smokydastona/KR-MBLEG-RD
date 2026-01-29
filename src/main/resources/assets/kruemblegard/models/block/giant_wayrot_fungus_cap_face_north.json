@@ -1,0 +1,7 @@
+{
+  "parent": "kruemblegard:block/mushroom_cap_face_north",
+  "textures": {
+    "skin": "kruemblegard:block/giant_wayrot_fungus_cap",
+    "particle": "kruemblegard:block/giant_wayrot_fungus_cap"
+  }
+}

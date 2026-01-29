@@ -1,0 +1,7 @@
+{
+  "parent": "kruemblegard:block/mushroom_cap_face_up",
+  "textures": {
+    "skin": "kruemblegard:block/giant_griefcap_cap",
+    "particle": "kruemblegard:block/giant_griefcap_cap"
+  }
+}

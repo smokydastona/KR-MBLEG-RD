@@ -1,0 +1,7 @@
+{
+  "parent": "kruemblegard:block/mushroom_cap_face_west",
+  "textures": {
+    "skin": "kruemblegard:block/giant_static_fungus_cap",
+    "particle": "kruemblegard:block/giant_static_fungus_cap"
+  }
+}
