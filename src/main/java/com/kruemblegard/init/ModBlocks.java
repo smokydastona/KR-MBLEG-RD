@@ -1085,7 +1085,18 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GIANT_ECHO_PUFF_CAP = BLOCKS.register(
             "giant_echo_puff_cap",
-            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE))
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_PURPLE)
+                    .lightLevel(state -> {
+                        // Light only when an "inside" face can exist (i.e. at least one face is NOT cap).
+                        // Note: we intentionally ignore DOWN to avoid "always lit" due to underside rules.
+                        boolean hasAnyInsideFace =
+                                !state.getValue(HugeMushroomBlock.UP)
+                                        || !state.getValue(HugeMushroomBlock.NORTH)
+                                        || !state.getValue(HugeMushroomBlock.SOUTH)
+                                        || !state.getValue(HugeMushroomBlock.EAST)
+                                        || !state.getValue(HugeMushroomBlock.WEST);
+                        return hasAnyInsideFace ? 4 : 0;
+                    }))
     );
     public static final RegistryObject<Block> GIANT_ECHO_PUFF_CAP_SLAB = BLOCKS.register(
             "giant_echo_puff_cap_slab",
@@ -1137,7 +1148,18 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP = BLOCKS.register(
             "giant_wayburn_fungus_cap",
-            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE))
+            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE)
+                    .lightLevel(state -> {
+                        // Light only when an "inside" face can exist (i.e. at least one face is NOT cap).
+                        // Note: we intentionally ignore DOWN to avoid "always lit" due to underside rules.
+                        boolean hasAnyInsideFace =
+                                !state.getValue(HugeMushroomBlock.UP)
+                                        || !state.getValue(HugeMushroomBlock.NORTH)
+                                        || !state.getValue(HugeMushroomBlock.SOUTH)
+                                        || !state.getValue(HugeMushroomBlock.EAST)
+                                        || !state.getValue(HugeMushroomBlock.WEST);
+                        return hasAnyInsideFace ? 4 : 0;
+                    }))
     );
     public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP_SLAB = BLOCKS.register(
             "giant_wayburn_fungus_cap_slab",
