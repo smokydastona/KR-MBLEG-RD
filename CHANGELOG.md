@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.681 (2026-01-29)
+- Tuning(blocks): Wayburn Fungus and Echo Puff now emit a small light level (`3`).
+
 ## 1.0.680 (2026-01-29)
 - Fix(assets/blocks): custom giant fungi cap blocks now render like vanilla mushroom blocks (face-aware “cap vs inside” using `HugeMushroomBlock` state + multipart models).
 

@@ -822,6 +822,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_PURPLE)
                     .noCollission()
                     .instabreak()
+                    .lightLevel(state -> 3)
                     .sound(SoundType.FUNGUS)
                     .randomTicks(),
                     java.util.List.of(
@@ -980,6 +981,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_ORANGE)
                     .noCollission()
                     .instabreak()
+                    .lightLevel(state -> 3)
                     .sound(SoundType.FUNGUS)
                     .randomTicks(),
                     java.util.List.of(
