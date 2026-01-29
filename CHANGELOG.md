@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.684 (2026-01-29)
+- Content(textures): update leaf textures for Echowood and Wayroot.
+
 ## 1.0.683 (2026-01-29)
 - Content(particles): Giant Wayburn Fungus Cap now drips lava particles from its underside; Giant Griefcap Cap drips water; Giant Wayrot Fungus Cap emits Spore Blossom-style particles.
 
