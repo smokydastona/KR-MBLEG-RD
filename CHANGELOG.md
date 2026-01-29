@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.686 (2026-01-29)
+- Compat(treeharvester): include giant fungi cap slabs and red/brown mushroom block slabs in `minecraft:leaves` so Tree Harvester also breaks slab cap blocks during harvest.
+
 ## 1.0.685 (2026-01-29)
 - Compat(worldgen): schematic-placed mega Wayroot trees now place leaves as non-persistent so Tree Harvester doesn't treat them as player-made by default.
 - Compat(fungi): giant fungi caps/stems now use vanilla huge-mushroom map colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
