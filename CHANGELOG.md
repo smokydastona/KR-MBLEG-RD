@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.683 (2026-01-29)
+- Content(particles): Giant Wayburn Fungus Cap now drips lava particles from its underside; Giant Griefcap Cap drips water; Giant Wayrot Fungus Cap emits Spore Blossom-style particles.
+
 ## 1.0.682 (2026-01-29)
 - Tuning(blocks): Giant Echo Puff Cap and Giant Wayburn Fungus Cap now emit light level `4` only when at least one cap face is an "inside" face (matches the vanilla cap/inside state logic).
 

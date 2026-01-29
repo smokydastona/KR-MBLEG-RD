@@ -26,6 +26,7 @@ import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.StrippableRotatedPillarBlock;
+import com.kruemblegard.block.UndersideParticleHugeMushroomBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WaylilyBlock;
@@ -1109,7 +1110,11 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GIANT_GRIEFCAP_CAP = BLOCKS.register(
             "giant_griefcap_cap",
-            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_BROWN))
+            () -> new UndersideParticleHugeMushroomBlock(
+                    giantFungusProps(MapColor.COLOR_BROWN),
+                    ParticleTypes.DRIPPING_WATER,
+                    8
+            )
     );
     public static final RegistryObject<Block> GIANT_GRIEFCAP_CAP_SLAB = BLOCKS.register(
             "giant_griefcap_cap_slab",
@@ -1148,7 +1153,7 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP = BLOCKS.register(
             "giant_wayburn_fungus_cap",
-            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE)
+            () -> new UndersideParticleHugeMushroomBlock(giantFungusProps(MapColor.COLOR_ORANGE)
                     .lightLevel(state -> {
                         // Light only when an "inside" face can exist (i.e. at least one face is NOT cap).
                         // Note: we intentionally ignore DOWN to avoid "always lit" due to underside rules.
@@ -1159,7 +1164,10 @@ public final class ModBlocks {
                                         || !state.getValue(HugeMushroomBlock.EAST)
                                         || !state.getValue(HugeMushroomBlock.WEST);
                         return hasAnyInsideFace ? 4 : 0;
-                    }))
+                    }),
+                    ParticleTypes.DRIPPING_LAVA,
+                    8
+            )
     );
     public static final RegistryObject<Block> GIANT_WAYBURN_FUNGUS_CAP_SLAB = BLOCKS.register(
             "giant_wayburn_fungus_cap_slab",
@@ -1172,7 +1180,11 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_CAP = BLOCKS.register(
             "giant_wayrot_fungus_cap",
-            () -> new HugeMushroomBlock(giantFungusProps(MapColor.COLOR_GREEN))
+            () -> new UndersideParticleHugeMushroomBlock(
+                    giantFungusProps(MapColor.COLOR_GREEN),
+                    ParticleTypes.SPORE_BLOSSOM_AIR,
+                    6
+            )
     );
     public static final RegistryObject<Block> GIANT_WAYROT_FUNGUS_CAP_SLAB = BLOCKS.register(
             "giant_wayrot_fungus_cap_slab",
