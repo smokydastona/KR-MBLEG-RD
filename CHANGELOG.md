@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.678 (2026-01-29)
+- Fix(worldgen/fungi): schematic-based huge mushrooms now restore mushroom-cap face states after placement so the “inside” texture only appears on the underside (and cap/slab bottom faces consistently use vanilla `minecraft:block/mushroom_block_inside`).
+
 ## 1.0.677 (2026-01-28)
 - Fix(worldgen/fungi): schematic-based giant mushrooms now load schematics correctly during world generation (support `WorldGenLevel`), not just during bonemeal growth.
 

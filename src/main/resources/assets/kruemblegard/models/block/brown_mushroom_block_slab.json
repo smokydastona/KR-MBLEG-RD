@@ -1,6 +1,6 @@
 {
   "textures": {
-    "bottom": "minecraft:block/brown_mushroom_block",
+    "bottom": "minecraft:block/mushroom_block_inside",
     "top": "minecraft:block/brown_mushroom_block",
     "side": "minecraft:block/brown_mushroom_block"
   },

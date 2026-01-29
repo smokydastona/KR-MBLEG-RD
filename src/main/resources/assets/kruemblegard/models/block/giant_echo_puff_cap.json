@@ -1,1 +1,8 @@
-{ "parent": "minecraft:block/cube_all", "textures": { "all": "kruemblegard:block/giant_echo_puff_cap" } }
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"bottom": "minecraft:block/mushroom_block_inside",
+		"top": "kruemblegard:block/giant_echo_puff_cap",
+		"side": "kruemblegard:block/giant_echo_puff_cap"
+	}
+}

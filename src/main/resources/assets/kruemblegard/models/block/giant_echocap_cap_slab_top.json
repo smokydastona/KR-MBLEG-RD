@@ -1,6 +1,6 @@
 {
   "textures": {
-    "bottom": "kruemblegard:block/giant_echocap_cap",
+    "bottom": "minecraft:block/mushroom_block_inside",
     "top": "kruemblegard:block/giant_echocap_cap",
     "side": "kruemblegard:block/giant_echocap_cap"
   },

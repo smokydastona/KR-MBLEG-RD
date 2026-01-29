@@ -13,6 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -180,7 +181,52 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
                 }
             }
 
+            // Vanilla huge mushroom blocks rely on their face booleans to decide whether a given face
+            // renders as "cap" (true) or "inside" (false). When placing schematics we lose those
+            // per-block face settings unless we rebuild them.
+            updateMushroomCapFaces(level, start, w, h, l, rot, capBlock, stemBlock);
+
             return true;
+        }
+
+        private static void updateMushroomCapFaces(LevelAccessor level, BlockPos start, int w, int h, int l, int rot, Block capBlock, Block stemBlock) {
+            for (int y = 0; y < h; y++) {
+                for (int z = 0; z < l; z++) {
+                    for (int x = 0; x < w; x++) {
+                        BlockPos p = rotate(start, x, y, z, w, l, rot);
+                        BlockState state = level.getBlockState(p);
+
+                        if (!state.is(capBlock) || !(state.getBlock() instanceof HugeMushroomBlock)) {
+                            continue;
+                        }
+
+                        // Show cap texture when exposed; show inside when connected.
+                        boolean up = !isCapOrStem(level, p.above(), capBlock, stemBlock);
+                        boolean north = !isCapOrStem(level, p.north(), capBlock, stemBlock);
+                        boolean south = !isCapOrStem(level, p.south(), capBlock, stemBlock);
+                        boolean west = !isCapOrStem(level, p.west(), capBlock, stemBlock);
+                        boolean east = !isCapOrStem(level, p.east(), capBlock, stemBlock);
+
+                        // Per request: underside should always use vanilla inside texture.
+                        BlockState updated = state
+                                .setValue(HugeMushroomBlock.UP, up)
+                                .setValue(HugeMushroomBlock.NORTH, north)
+                                .setValue(HugeMushroomBlock.SOUTH, south)
+                                .setValue(HugeMushroomBlock.WEST, west)
+                                .setValue(HugeMushroomBlock.EAST, east)
+                                .setValue(HugeMushroomBlock.DOWN, false);
+
+                        if (updated != state) {
+                            level.setBlock(p, updated, 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static boolean isCapOrStem(LevelAccessor level, BlockPos pos, Block capBlock, Block stemBlock) {
+            BlockState neighbor = level.getBlockState(pos);
+            return neighbor.is(capBlock) || neighbor.is(stemBlock);
         }
 
         private BlockPos startForCenter(BlockPos center, Rotation rotation) {

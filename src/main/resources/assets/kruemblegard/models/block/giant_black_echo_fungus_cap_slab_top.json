@@ -1,6 +1,6 @@
 {
   "textures": {
-    "bottom": "kruemblegard:block/giant_black_echo_fungus_cap",
+    "bottom": "minecraft:block/mushroom_block_inside",
     "top": "kruemblegard:block/giant_black_echo_fungus_cap",
     "side": "kruemblegard:block/giant_black_echo_fungus_cap"
   },

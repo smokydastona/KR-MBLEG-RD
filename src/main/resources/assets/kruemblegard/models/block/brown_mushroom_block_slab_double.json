@@ -1,4 +1,9 @@
 {
-  "textures": { "all": "minecraft:block/brown_mushroom_block" },
-  "parent": "minecraft:block/cube_all"
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/mushroom_block_inside",
+    "top": "minecraft:block/brown_mushroom_block",
+    "side": "minecraft:block/brown_mushroom_block"
+  }
 }
+
