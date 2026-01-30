@@ -4,12 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.701 (2026-01-30)
+## 1.0.702 (2026-01-29)
+- Fix(client/render): Kruemblegard leaves now render with vanilla-style cutout transparency again (cutout_mipped).
+
+## 1.0.701 (2026-01-29)
 - Feature(worldgen/wayroot): normal Wayroot trees are now fully schematic-driven using 5 regular templates (3 living + 2 dead, living weighted slightly higher).
 - Feature(worldgen/wayroot): Wayroot saplings now grow only the 3 living schematic variants.
 - Compat(worldgen/wayroot): schematic placement remaps wood/leaves to Wayroot + Wayroot franch blocks, converts tinted glass to structure-void (skips placement), and forces leaves to be non-persistent.
 
-## 1.0.700 (2026-01-30)
+## 1.0.700 (2026-01-29)
 - Tuning(blocks): extend Franch + Kruemblegard leaves decay/connectivity distance from 7 → 10; franch blocks extend the log-connectivity graph but never act as distance-0 anchors.
 
 ## 1.0.699 (2026-01-30)

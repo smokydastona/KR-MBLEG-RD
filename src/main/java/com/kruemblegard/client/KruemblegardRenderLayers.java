@@ -2,6 +2,7 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AshveilBlock;
+import com.kruemblegard.block.KruemblegardLeavesBlock;
 import com.kruemblegard.block.WaylilyBlock;
 import com.kruemblegard.init.ModBlocks;
 
@@ -27,7 +28,7 @@ public final class KruemblegardRenderLayers {
             for (var entry : ModBlocks.BLOCKS.getEntries()) {
                 var block = entry.get();
 
-                if (block instanceof LeavesBlock) {
+                if (block instanceof LeavesBlock || block instanceof KruemblegardLeavesBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutoutMipped());
                 } else if (block instanceof VineBlock) {
                     // Match vanilla vines: cutout (not solid), so alpha pixels don't render black.
