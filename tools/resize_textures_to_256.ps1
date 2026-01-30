@@ -2,7 +2,9 @@ param(
   [switch]$Write,
   [string]$ReportDir,
   [int]$PreviewCount = 50,
-  [switch]$NoReports
+  [switch]$NoReports,
+  # If set, keeps timestamped report history instead of overwriting "*_latest.txt".
+  [switch]$KeepHistory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,6 +21,9 @@ $ErrorActionPreference = 'Stop'
 # Output:
 # - Writes full lists to report files (unless -NoReports).
 # - Prints a short preview in the console.
+# Report behavior:
+# - Default: overwrites "textures_*_latest.txt" and deletes older timestamped reports.
+# - Use -KeepHistory to write timestamped reports and keep older ones.
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 
@@ -150,11 +155,27 @@ foreach ($r in $reports) {
 }
 
 $timestamp = (Get-Date).ToString('yyyyMMdd-HHmmss')
-$changedReportPath = Join-Path $ReportDir ("textures_changed_{0}.txt" -f $timestamp)
-$nonSquareReportPath = Join-Path $ReportDir ("textures_non_square_{0}.txt" -f $timestamp)
+
+if ($KeepHistory) {
+  $changedReportPath = Join-Path $ReportDir ("textures_changed_{0}.txt" -f $timestamp)
+  $nonSquareReportPath = Join-Path $ReportDir ("textures_non_square_{0}.txt" -f $timestamp)
+} else {
+  $changedReportPath = Join-Path $ReportDir 'textures_changed_latest.txt'
+  $nonSquareReportPath = Join-Path $ReportDir 'textures_non_square_latest.txt'
+}
 
 if (-not $NoReports) {
   New-Item -ItemType Directory -Force -Path $ReportDir | Out-Null
+  if (-not $KeepHistory) {
+    # Keep only the newest report by cleaning up old timestamped reports.
+    # (The *_latest.txt files will be overwritten below.)
+    Get-ChildItem -Path $ReportDir -File -Filter 'textures_changed_*.txt' -ErrorAction SilentlyContinue |
+      Where-Object { $_.Name -ne 'textures_changed_latest.txt' } |
+      Remove-Item -Force -ErrorAction SilentlyContinue
+    Get-ChildItem -Path $ReportDir -File -Filter 'textures_non_square_*.txt' -ErrorAction SilentlyContinue |
+      Where-Object { $_.Name -ne 'textures_non_square_latest.txt' } |
+      Remove-Item -Force -ErrorAction SilentlyContinue
+  }
   ($allChanged | Sort-Object) | Set-Content -Encoding UTF8 $changedReportPath
   ($allNonSquare | Sort-Object) | Set-Content -Encoding UTF8 $nonSquareReportPath
 }

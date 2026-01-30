@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.730 (2026-01-30)
+- Chore(assets/textures): resize a small set of square block textures to 256x256 (no cropping).
+- Chore(tools): `tools/resize_textures_to_256.ps1` now keeps only the newest reports by default (`*_latest.txt`).
+
 ## 1.0.729 (2026-01-30)
 - Tuning(blocks/franch_planks): franch planks now behave like normal planks (no decay), pick-block returns the matching normal plank, and default drops are 50/50 planks vs stick.
 - Tuning(loot/leaves): halve sapling + stick drop rates for all 14 Wayfall leaf blocks.
