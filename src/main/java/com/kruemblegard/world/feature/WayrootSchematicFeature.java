@@ -218,6 +218,11 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
                 return Blocks.STRUCTURE_VOID.defaultBlockState();
             }
 
+            // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
+            if (original.is(Blocks.TRIPWIRE)) {
+                return ModBlocks.STRING_FRANCH.get().defaultBlockState();
+            }
+
             // Force wayroot leaves for any leaf-like block, and guarantee they are non-persistent.
             if (original.is(BlockTags.LEAVES) || original.getBlock() instanceof LeavesBlock) {
                 return safeWayrootLeafState();

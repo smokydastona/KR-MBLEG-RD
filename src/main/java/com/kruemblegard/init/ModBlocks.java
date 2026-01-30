@@ -11,6 +11,7 @@ import com.kruemblegard.block.FranchFenceGateBlock;
 import com.kruemblegard.block.FranchPlanksBlock;
 import com.kruemblegard.block.FranchSlabBlock;
 import com.kruemblegard.block.FranchStairBlock;
+import com.kruemblegard.block.FranchStringBlock;
 import com.kruemblegard.block.FranchTrapDoorBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
@@ -1493,6 +1494,16 @@ public final class ModBlocks {
                                 () -> new FranchTrapDoorBlock(BlockBehaviour.Properties.copy(copyFromTrapdoor).randomTicks(), blockSetType));
         }
 
+        private static RegistryObject<Block> registerStringFranch(String id) {
+                return BLOCKS.register(id,
+                                () -> new FranchStringBlock(BlockBehaviour.Properties.of()
+                                                .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                                                .strength(0.0F)
+                                                .noOcclusion()
+                                                .randomTicks()
+                                                .sound(SoundType.WOOL)));
+        }
+
         private static RegistryObject<Block> registerFenceGate(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id, () -> new FenceGateBlock(woodFamilyProperties(), WoodType.OAK));
         }
@@ -1586,6 +1597,9 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> CHERRY_FRANCH_STAIRS = registerVanillaFranchStairs("cherry_franch_stairs", net.minecraft.world.level.block.Blocks.CHERRY_STAIRS, net.minecraft.world.level.block.Blocks.CHERRY_PLANKS);
                 public static final RegistryObject<Block> CHERRY_FRANCH_SLAB = registerVanillaFranchSlab("cherry_franch_slab", net.minecraft.world.level.block.Blocks.CHERRY_SLAB);
                 public static final RegistryObject<Block> CHERRY_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("cherry_franch_trapdoor", net.minecraft.world.level.block.Blocks.CHERRY_TRAPDOOR, BlockSetType.CHERRY);
+
+                // Schematic-only "Franch" string block (for using string/tripwire placeholders in tree schematics).
+                public static final RegistryObject<Block> STRING_FRANCH = registerStringFranch("string_franch");
 
         public static final RegistryObject<Block> STRIPPED_WAYROOT_LOG = registerLog("stripped_wayroot_log");
         public static final RegistryObject<Block> STRIPPED_WAYROOT_WOOD = registerLog("stripped_wayroot_wood");

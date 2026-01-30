@@ -7,6 +7,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.702 (2026-01-29)
 - Fix(client/render): Kruemblegard leaves now render with vanilla-style cutout transparency again (cutout_mipped).
 
+## 1.0.703 (2026-01-29)
+- Feature(blocks): add schematic-only `string_franch` (leaf-style decay/connectivity), intended as a tree-schematic helper.
+- Compat(worldgen/wayroot): Wayroot schematic placement now remaps `minecraft:tripwire` to `kruemblegard:string_franch` so string placeholders can be used in tree templates.
+
 ## 1.0.701 (2026-01-29)
 - Feature(worldgen/wayroot): normal Wayroot trees are now fully schematic-driven using 5 regular templates (3 living + 2 dead, living weighted slightly higher).
 - Feature(worldgen/wayroot): Wayroot saplings now grow only the 3 living schematic variants.
