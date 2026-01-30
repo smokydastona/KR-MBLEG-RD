@@ -53,7 +53,8 @@
 				{
 					"name": "held_block",
 					"parent": "rightarm",
-					"pivot": [5, 12, -3]
+					"pivot": [2.3, 12, -3],
+					"rotation": [22.5, 0, 0]
 				},
 				{
 					"name": "leftleg",
