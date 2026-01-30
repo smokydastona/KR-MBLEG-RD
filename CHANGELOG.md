@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.709 (2026-01-30)
+## 1.0.711 (2026-01-30)
 - Chore(assets/textures): remove unused wood component textures (`*_slab`, `*_stairs`, `*_pressure_plate`, `*_fence`, `*_fence_gate`) that were not referenced by any block models (these blocks reuse their `*_planks` textures).
 
 ## 1.0.707 (2026-01-29)
