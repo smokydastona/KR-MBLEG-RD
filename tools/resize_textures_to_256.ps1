@@ -118,7 +118,12 @@ function Process-TextureTree([string]$label, [string]$dirPath) {
         $tmp = "$($f.FullName).tmp"
         try {
           $resized.Save($tmp, [System.Drawing.Imaging.ImageFormat]::Png)
-          Move-Item -Force $tmp $f.FullName
+          try {
+            [System.IO.File]::SetAttributes($f.FullName, [System.IO.FileAttributes]::Normal)
+          } catch {
+            # Best-effort: some files may not allow attribute changes.
+          }
+          Copy-Item -Force $tmp $f.FullName
         } finally {
           if (Test-Path $tmp) { Remove-Item -Force $tmp }
         }
