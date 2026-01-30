@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.726 (2026-01-30)
+- Compat(treeharvester): when Tree Harvester harvests a tree, Kruemblegård immediately clears nearby leaves + all franch helper blocks and relocates the resulting drops to the harvesting player’s feet.
+
 ## 1.0.725 (2026-01-30)
 - Feature(blocks/franch_wood): add schematic-only `*_franch_wood` trunk blocks (one per wood family, including vanilla woods) that look/names-match normal wood but have special drops.
 - Tuning(worldgen/wayroot): schematic trunk blocks now remap to `wayroot_franch_wood` instead of random 50/50 `wayroot_log`/`wayroot_wood` per placed block.

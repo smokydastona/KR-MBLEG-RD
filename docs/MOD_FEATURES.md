@@ -55,6 +55,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
   - Giant fungi caps/stems are registered as `HugeMushroomBlock` and use vanilla huge-mushroom map-colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
   - Giant fungi cap **slabs** and red/brown mushroom block slabs are included in `minecraft:leaves` so Tree Harvester also clears slab cap blocks during harvest.
+  - When Tree Harvester harvests a tree, Krümblegård additionally forces nearby leaves + all “franch” helper blocks to clear immediately and relocates the resulting drops to the harvesting player’s feet.
   - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
 
 ## Core gameplay loop
