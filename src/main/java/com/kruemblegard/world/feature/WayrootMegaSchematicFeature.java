@@ -135,6 +135,11 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
         boolean place(LevelAccessor level, BlockPos start, int rot, RandomSource random) {
             boolean placedAny = false;
 
+            // Track the lowest placed trunk/log per local X/Z column so we can build a support “beard”
+            // under the schematic footprint and avoid overhangs.
+            int[] minPlacedLogY = new int[width * length];
+            java.util.Arrays.fill(minPlacedLogY, Integer.MAX_VALUE);
+
             int pivotX = width / 2;
             int pivotZ = length / 2;
 
@@ -163,11 +168,98 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
 
                         level.setBlock(p, mapped, 2);
                         placedAny = true;
+
+                        if (mapped.is(BlockTags.LOGS)) {
+                            int col = z * width + x;
+                            if (y < minPlacedLogY[col]) {
+                                minPlacedLogY[col] = y;
+                            }
+                        }
                     }
                 }
             }
 
+            if (placedAny) {
+                applySupportBeard(level, start, rot, pivotX, pivotZ, minPlacedLogY);
+            }
+
             return placedAny;
+        }
+
+        private void applySupportBeard(LevelAccessor level, BlockPos center, int rot, int pivotX, int pivotZ, int[] minPlacedLogY) {
+            final int maxDepth = 16;
+
+            for (int z = 0; z < length; z++) {
+                for (int x = 0; x < width; x++) {
+                    int minY = minPlacedLogY[z * width + x];
+                    if (minY == Integer.MAX_VALUE) {
+                        continue;
+                    }
+
+                    BlockPos base = applyRotation(center, x, minY, z, rot, pivotX, pivotZ);
+                    BlockPos cursor = base.below();
+                    if (level.isOutsideBuildHeight(cursor)) {
+                        continue;
+                    }
+
+                    int fillable = 0;
+                    BlockState anchor = null;
+                    for (int d = 0; d < maxDepth; d++) {
+                        BlockPos p = cursor.below(d);
+                        if (level.isOutsideBuildHeight(p)) {
+                            break;
+                        }
+
+                        if (isFillableForSupport(level, p)) {
+                            fillable++;
+                            continue;
+                        }
+
+                        anchor = level.getBlockState(p);
+                        break;
+                    }
+
+                    if (fillable <= 0) {
+                        continue;
+                    }
+
+                    BlockState fillState = pickSoilFill(anchor);
+                    for (int d = 0; d < fillable; d++) {
+                        BlockPos p = cursor.below(d);
+                        if (!isFillableForSupport(level, p)) {
+                            break;
+                        }
+                        level.setBlock(p, fillState, 2);
+                    }
+                }
+            }
+        }
+
+        private static boolean isFillableForSupport(LevelAccessor level, BlockPos pos) {
+            if (!level.getFluidState(pos).isEmpty()) {
+                return false;
+            }
+
+            BlockState existing = level.getBlockState(pos);
+            if (existing.isAir()) return true;
+            if (existing.canBeReplaced()) return true;
+            if (existing.getBlock() instanceof LeavesBlock) return true;
+            if (existing.getBlock() instanceof BushBlock) return true;
+
+            return false;
+        }
+
+        private static BlockState pickSoilFill(BlockState anchor) {
+            if (anchor != null) {
+                if (anchor.is(net.minecraft.world.level.block.Blocks.MYCELIUM)) {
+                    return net.minecraft.world.level.block.Blocks.MYCELIUM.defaultBlockState();
+                }
+                if (anchor.is(BlockTags.DIRT) || anchor.is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK)) {
+                    return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
+                }
+            }
+
+            return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
         }
 
         private int index(int x, int y, int z) {

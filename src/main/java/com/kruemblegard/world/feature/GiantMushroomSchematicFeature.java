@@ -137,6 +137,11 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             int h = this.height;
             int l = this.length;
 
+            // Track the lowest placed stem/slab per local X/Z column so we can build a support “beard”
+            // under the schematic footprint and avoid overhangs.
+            int[] minPlacedSupportY = new int[w * l];
+            java.util.Arrays.fill(minPlacedSupportY, Integer.MAX_VALUE);
+
             for (int y = 0; y < h; y++) {
                 for (int z = 0; z < l; z++) {
                     for (int x = 0; x < w; x++) {
@@ -177,6 +182,13 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
 
                         BlockPos p = rotate(start, x, y, z, w, l, rot);
                         level.setBlock(p, mapped, 3);
+
+                        if (mapped.is(stemBlock) || mapped.is(slabBlock)) {
+                            int col = z * w + x;
+                            if (y < minPlacedSupportY[col]) {
+                                minPlacedSupportY[col] = y;
+                            }
+                        }
                     }
                 }
             }
@@ -186,7 +198,88 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             // per-block face settings unless we rebuild them.
             updateMushroomCapFaces(level, start, w, h, l, rot, capBlock, stemBlock);
 
+            applySupportBeard(level, start, w, l, rot, minPlacedSupportY);
+
             return true;
+        }
+
+        private static void applySupportBeard(LevelAccessor level, BlockPos start, int w, int l, int rot, int[] minPlacedSupportY) {
+            final int maxDepth = 12;
+
+            for (int z = 0; z < l; z++) {
+                for (int x = 0; x < w; x++) {
+                    int minY = minPlacedSupportY[z * w + x];
+                    if (minY == Integer.MAX_VALUE) {
+                        continue;
+                    }
+
+                    BlockPos base = rotate(start, x, minY, z, w, l, rot);
+                    BlockPos cursor = base.below();
+                    if (level.isOutsideBuildHeight(cursor)) {
+                        continue;
+                    }
+
+                    int fillable = 0;
+                    BlockState anchor = null;
+                    for (int d = 0; d < maxDepth; d++) {
+                        BlockPos p = cursor.below(d);
+                        if (level.isOutsideBuildHeight(p)) {
+                            break;
+                        }
+
+                        if (isFillableForSupport(level, p)) {
+                            fillable++;
+                            continue;
+                        }
+
+                        anchor = level.getBlockState(p);
+                        break;
+                    }
+
+                    if (fillable <= 0) {
+                        continue;
+                    }
+
+                    BlockState fillState = pickSoilFill(anchor);
+                    for (int d = 0; d < fillable; d++) {
+                        BlockPos p = cursor.below(d);
+                        if (!isFillableForSupport(level, p)) {
+                            break;
+                        }
+                        level.setBlock(p, fillState, 2);
+                    }
+                }
+            }
+        }
+
+        private static boolean isFillableForSupport(LevelAccessor level, BlockPos pos) {
+            if (!level.getFluidState(pos).isEmpty()) {
+                return false;
+            }
+
+            BlockState existing = level.getBlockState(pos);
+            if (existing.isAir() || existing.canBeReplaced()) {
+                return true;
+            }
+
+            if (existing.is(BlockTags.LEAVES) || existing.is(BlockTags.REPLACEABLE_BY_TREES)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static BlockState pickSoilFill(BlockState anchor) {
+            if (anchor != null) {
+                if (anchor.is(Blocks.MYCELIUM)) {
+                    return Blocks.MYCELIUM.defaultBlockState();
+                }
+                if (anchor.is(BlockTags.DIRT) || anchor.is(Blocks.GRASS_BLOCK)) {
+                    return Blocks.DIRT.defaultBlockState();
+                }
+            }
+
+            return Blocks.DIRT.defaultBlockState();
         }
 
         private static void updateMushroomCapFaces(LevelAccessor level, BlockPos start, int w, int h, int l, int rot, Block capBlock, Block stemBlock) {

@@ -50,6 +50,9 @@ Keep it up to date whenever you add/remove/rename content.
   - `strictValidation` (default `false`): when enabled, `WorldgenValidator` hard-fails at server start if critical worldgen registry IDs/tags are missing.
 - Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
 
+- Schematic terrain support (“beard”): Wayroot tree schematics (regular + mega) and giant mushroom schematics add a short soil support fill under their trunk/stem footprint when placed on uneven terrain.
+  - Fill rules: replaceables-only, avoids liquids, depth-capped to prevent giant pillars.
+
 ## Compatibility
 - **Tree Harvester (Serilum)**
   - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
