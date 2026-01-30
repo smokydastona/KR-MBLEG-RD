@@ -14,6 +14,7 @@ import com.kruemblegard.block.FranchStairBlock;
 import com.kruemblegard.block.FranchStringBlock;
 import com.kruemblegard.block.FranchTrapDoorBlock;
 import com.kruemblegard.block.FranchWoodBlock;
+import com.kruemblegard.block.MegaFranchLeavesBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
@@ -1417,6 +1418,18 @@ public final class ModBlocks {
                 .sound(SoundType.GRASS)));
     }
 
+        private static RegistryObject<Block> registerMegaFranchLeaves(String id, Supplier<? extends Block> cloneTo) {
+                return BLOCKS.register(id, () -> new MegaFranchLeavesBlock(
+                                cloneTo,
+                                BlockBehaviour.Properties.of()
+                                                .mapColor(MapColor.PLANT)
+                                                .strength(0.2F)
+                                                .randomTicks()
+                                                .noOcclusion()
+                                                .sound(SoundType.GRASS)
+                ));
+        }
+
         private static BlockBehaviour.Properties woodFamilyProperties() {
                 return BlockBehaviour.Properties.of()
                                 .mapColor(MapColor.WOOD)
@@ -1447,7 +1460,7 @@ public final class ModBlocks {
 
         private static RegistryObject<Block> registerFranchPlanks(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id,
-                                () -> new FranchPlanksBlock(BlockBehaviour.Properties.copy(planks.get()).randomTicks()));
+                                () -> new FranchPlanksBlock(planks::get, BlockBehaviour.Properties.copy(planks.get())));
         }
 
         private static RegistryObject<Block> registerFranchStairs(String id, RegistryObject<Block> planks) {
@@ -1476,7 +1489,7 @@ public final class ModBlocks {
 
         private static RegistryObject<Block> registerVanillaFranchPlanks(String id, Block copyFrom) {
                 return BLOCKS.register(id,
-                                () -> new FranchPlanksBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks()));
+                                () -> new FranchPlanksBlock(() -> copyFrom, BlockBehaviour.Properties.copy(copyFrom)));
         }
 
         private static RegistryObject<Block> registerVanillaFranchStairs(String id, Block copyFromStairs, Block copyFromPlanks) {
@@ -1688,6 +1701,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
+        public static final RegistryObject<Block> WAYROOT_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("wayroot_mega_franch_leaves", WAYROOT_LEAVES::get);
         public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling2x2(
                         "wayroot_sapling",
                         configuredFeatureKey("wayroot/sapling"),
@@ -1721,6 +1735,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> FALLBARK_PLANKS = registerPlanks("fallbark_planks");
     public static final RegistryObject<Block> FALLBARK_LEAVES = registerLeaves("fallbark_leaves");
+        public static final RegistryObject<Block> FALLBARK_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("fallbark_mega_franch_leaves", FALLBARK_LEAVES::get);
         public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling2x2(
                         "fallbark_sapling",
                         configuredFeatureKey("fallbark/sapling"),
@@ -1754,6 +1769,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> ECHOWOOD_PLANKS = registerPlanks("echowood_planks");
     public static final RegistryObject<Block> ECHOWOOD_LEAVES = registerLeaves("echowood_leaves");
+        public static final RegistryObject<Block> ECHOWOOD_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("echowood_mega_franch_leaves", ECHOWOOD_LEAVES::get);
         public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling2x2(
                         "echowood_sapling",
                         configuredFeatureKey("echowood/sapling"),
@@ -1787,6 +1803,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> CAIRN_TREE_PLANKS = registerPlanks("cairn_tree_planks");
     public static final RegistryObject<Block> CAIRN_TREE_LEAVES = registerLeaves("cairn_tree_leaves");
+        public static final RegistryObject<Block> CAIRN_TREE_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("cairn_tree_mega_franch_leaves", CAIRN_TREE_LEAVES::get);
         public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling2x2(
                         "cairn_tree_sapling",
                         configuredFeatureKey("cairn_tree/sapling"),
@@ -1820,6 +1837,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> WAYGLASS_PLANKS = registerPlanks("wayglass_planks");
     public static final RegistryObject<Block> WAYGLASS_LEAVES = registerLeaves("wayglass_leaves");
+        public static final RegistryObject<Block> WAYGLASS_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("wayglass_mega_franch_leaves", WAYGLASS_LEAVES::get);
         public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling2x2(
                         "wayglass_sapling",
                         configuredFeatureKey("wayglass/sapling"),
@@ -1853,6 +1871,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> SPLINTERSPORE_PLANKS = registerPlanks("splinterspore_planks");
     public static final RegistryObject<Block> SPLINTERSPORE_LEAVES = registerLeaves("splinterspore_leaves");
+        public static final RegistryObject<Block> SPLINTERSPORE_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("splinterspore_mega_franch_leaves", SPLINTERSPORE_LEAVES::get);
         public static final RegistryObject<Block> SPLINTERSPORE_SAPLING = registerFeatureSapling2x2(
                         "splinterspore_sapling",
                         configuredFeatureKey("splinterspore/sapling"),
@@ -1886,6 +1905,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> HOLLOWWAY_TREE_PLANKS = registerPlanks("hollowway_tree_planks");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LEAVES = registerLeaves("hollowway_tree_leaves");
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("hollowway_tree_mega_franch_leaves", HOLLOWWAY_TREE_LEAVES::get);
         public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling2x2(
                         "hollowway_tree_sapling",
                         configuredFeatureKey("hollowway_tree/sapling"),
@@ -1919,6 +1939,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> DRIFTWILLOW_PLANKS = registerPlanks("driftwillow_planks");
     public static final RegistryObject<Block> DRIFTWILLOW_LEAVES = registerLeaves("driftwillow_leaves");
+        public static final RegistryObject<Block> DRIFTWILLOW_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("driftwillow_mega_franch_leaves", DRIFTWILLOW_LEAVES::get);
         public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling2x2(
                         "driftwillow_sapling",
                         configuredFeatureKey("driftwillow/sapling"),
@@ -1952,6 +1973,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> MONUMENT_OAK_PLANKS = registerPlanks("monument_oak_planks");
     public static final RegistryObject<Block> MONUMENT_OAK_LEAVES = registerLeaves("monument_oak_leaves");
+        public static final RegistryObject<Block> MONUMENT_OAK_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("monument_oak_mega_franch_leaves", MONUMENT_OAK_LEAVES::get);
         public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling2x2(
                         "monument_oak_sapling",
                         configuredFeatureKey("monument_oak/sapling"),
@@ -1985,6 +2007,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> WAYTORCH_TREE_PLANKS = registerPlanks("waytorch_tree_planks");
     public static final RegistryObject<Block> WAYTORCH_TREE_LEAVES = registerLeaves("waytorch_tree_leaves");
+        public static final RegistryObject<Block> WAYTORCH_TREE_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("waytorch_tree_mega_franch_leaves", WAYTORCH_TREE_LEAVES::get);
         public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling2x2(
                                                 "waytorch_tree_sapling",
                         configuredFeatureKey("waytorch_tree/sapling"),
@@ -2018,6 +2041,7 @@ public final class ModBlocks {
         );
     public static final RegistryObject<Block> FAULTWOOD_PLANKS = registerPlanks("faultwood_planks");
     public static final RegistryObject<Block> FAULTWOOD_LEAVES = registerLeaves("faultwood_leaves");
+        public static final RegistryObject<Block> FAULTWOOD_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves("faultwood_mega_franch_leaves", FAULTWOOD_LEAVES::get);
         public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling2x2(
                         "faultwood_sapling",
                         configuredFeatureKey("faultwood/sapling"),

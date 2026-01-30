@@ -152,7 +152,7 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                         BlockState state = palette[paletteId];
                         if (state == null || state.isAir()) continue;
 
-                        BlockState mapped = WayrootSchematicMapping.mapState(state, random);
+                        BlockState mapped = WayrootSchematicMapping.mapStateForMega(state, random);
                         if (mapped == null || mapped.isAir() || mapped.is(net.minecraft.world.level.block.Blocks.STRUCTURE_VOID)) {
                             continue;
                         }

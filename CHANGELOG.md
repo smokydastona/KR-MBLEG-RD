@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.727 (2026-01-30)
-- Tuning(worldgen/schematics): add a short soil support “beard” under schematic-placed Wayroot trees (regular + mega) and giant mushrooms so bases don’t overhang uneven terrain.
+## 1.0.729 (2026-01-30)
+- Tuning(blocks/franch_planks): franch planks now behave like normal planks (no decay), pick-block returns the matching normal plank, and default drops are 50/50 planks vs stick.
+- Tuning(loot/leaves): halve sapling + stick drop rates for all 14 Wayfall leaf blocks.
+- Feature(blocks/mega_franch_leaves): add schematic-only `*_mega_franch_leaves` with half the (new) normal Wayfall leaf drop chances; mega Wayroot schematics place these leaves instead of normal leaves.
 
 ## 1.0.728 (2026-01-30)
 - Tuning(worldgen/schematics): support “beard” now samples nearby terrain blocks so the fill matches the local biome palette instead of defaulting to dirt.
+
+## 1.0.727 (2026-01-30)
+- Tuning(worldgen/schematics): add a short soil support “beard” under schematic-placed Wayroot trees (regular + mega) and giant mushrooms so bases don’t overhang uneven terrain.
 
 ## 1.0.726 (2026-01-30)
 - Compat(treeharvester): when Tree Harvester harvests a tree, Kruemblegård immediately clears nearby leaves + all franch helper blocks and relocates the resulting drops to the harvesting player’s feet.

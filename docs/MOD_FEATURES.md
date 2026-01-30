@@ -254,19 +254,27 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
       - Wayroot saplings only grow into the 3 living schematic variants.
       - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
-  - Schematic-only “Franch” wood blocks: `*_franch`, `*_franch_gate`, `*_franch_planks`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
-    - Behave like fences / fence gates (connectivity + collision + rendering), but also decay like leaves when not persistent.
-    - Not craftable and intentionally has no block item; intended for commands and schematic placement only.
-    - Drops nothing when broken/decayed (schematic helper blocks).
-    - Included in `minecraft:leaves` (block tag) so Tree Harvester treats them like leaves for proximity checks.
-    - Franch blocks participate in an extended 10-block log-distance network and can extend Kruemblegard leaf connectivity without acting as distance-0 "roots" by themselves.
-      - Note: vanilla `minecraft:*_leaves` still use the vanilla 7-block decay rules; the extended 10-block logic applies to Kruemblegard leaves and all franch blocks.
+  - Schematic-only “Franch” helper blocks:
+    - Leaf-network helpers: `*_franch`, `*_franch_gate`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
+      - Behave like fences / fence gates (connectivity + collision + rendering), but also decay like leaves when not persistent.
+      - Not craftable and intentionally has no block item; intended for commands and schematic placement only.
+      - Drops nothing when broken/decayed (schematic helper blocks).
+      - Included in `minecraft:leaves` (block tag) so Tree Harvester treats them like leaves for proximity checks.
+      - Franch blocks participate in an extended 10-block log-distance network and can extend Kruemblegard leaf connectivity without acting as distance-0 "roots" by themselves.
+        - Note: vanilla `minecraft:*_leaves` still use the vanilla 7-block decay rules; the extended 10-block logic applies to Kruemblegard leaves and all franch blocks.
     - `string_franch` is a special schematic helper used as a tripwire placeholder in templates; it is invisible and has no collision.
+    - Schematic-only “Franch planks”: `*_franch_planks` (includes vanilla wood types)
+      - Behave like normal planks (no decay) and pick-block returns the matching normal plank block.
+      - Default drops are 50/50 normal planks vs stick (loot-table driven).
+      - When common tree-harvester mods are present, drops are 1/3 planks, 1/3 stick, 1/3 nothing (to reduce excessive drops during full-tree harvesting).
   - Schematic-only “Franch wood” trunk blocks: `*_franch_wood` (includes vanilla wood types)
     - Behave like normal wood blocks (axis rotation, flammability, no decay).
     - Intended for schematic placement; display name matches normal wood (e.g., “Spruce Wood”) and pick-block returns the normal wood block.
     - Default drops are 50/50 wood vs log (per broken block).
     - When common tree-harvester mods are present, drops are 1/3 wood, 1/3 log, 1/3 nothing (to reduce excessive trunk drops during full-tree harvesting).
+  - Leaf drop tuning:
+    - Wayfall leaves have reduced sapling and stick drop rates (Fortune-scaled chances are halved).
+    - Mega Wayroot schematics place special schematic-only `*_mega_franch_leaves` (not obtainable via pick-block); these have half the normal Wayfall leaf drop chances again.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)

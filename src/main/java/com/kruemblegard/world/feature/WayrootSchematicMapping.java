@@ -77,8 +77,84 @@ final class WayrootSchematicMapping {
         return original;
     }
 
+    static BlockState mapStateForMega(BlockState original, RandomSource random) {
+        // Placeholder: tinted glass in schems means "structure void" (skip placement).
+        if (original.is(Blocks.TINTED_GLASS)) {
+            return Blocks.STRUCTURE_VOID.defaultBlockState();
+        }
+
+        // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
+        if (original.is(Blocks.RED_WOOL)) {
+            return Blocks.STRUCTURE_VOID.defaultBlockState();
+        }
+
+        // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
+        if (original.is(Blocks.TRIPWIRE)) {
+            return ModBlocks.STRING_FRANCH.get().defaultBlockState();
+        }
+
+        // Mega schematics use a special schematic-only leaves variant with reduced drop rates.
+        if (original.is(BlockTags.LEAVES)
+                || original.getBlock() instanceof LeavesBlock
+                || original.hasProperty(LeavesBlock.PERSISTENT)
+                || original.hasProperty(BlockStateProperties.DISTANCE)
+                || original.hasProperty(FranchDecay.DISTANCE)) {
+            return safeWayrootMegaFranchLeafState();
+        }
+
+        // Normalize stripped Wayroot trunk blocks back to their non-stripped forms.
+        original = normalizeWayrootTrunkState(original);
+
+        // Convert any wood/log to Wayroot trunk.
+        if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState());
+        }
+
+        // Convert wood construction pieces into Wayroot franch variants.
+        if (original.is(BlockTags.FENCE_GATES)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_GATE.get().defaultBlockState());
+        }
+        if (original.is(BlockTags.WOODEN_FENCES)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH.get().defaultBlockState());
+        }
+        if (original.is(BlockTags.WOODEN_STAIRS)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_STAIRS.get().defaultBlockState());
+        }
+        if (original.is(BlockTags.WOODEN_SLABS)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_SLAB.get().defaultBlockState());
+        }
+        if (original.is(BlockTags.WOODEN_TRAPDOORS)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_TRAPDOOR.get().defaultBlockState());
+        }
+        if (original.is(BlockTags.PLANKS)) {
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_PLANKS.get().defaultBlockState());
+        }
+
+        return original;
+    }
+
     private static BlockState safeWayrootLeafState() {
         BlockState state = ModBlocks.WAYROOT_LEAVES.get().defaultBlockState();
+
+        if (state.hasProperty(LeavesBlock.PERSISTENT)) {
+            state = state.setValue(LeavesBlock.PERSISTENT, false);
+        }
+
+        if (state.hasProperty(FranchDecay.DISTANCE)) {
+            state = state.setValue(FranchDecay.DISTANCE, 1);
+        } else if (state.hasProperty(BlockStateProperties.DISTANCE)) {
+            state = state.setValue(BlockStateProperties.DISTANCE, 1);
+        }
+
+        if (state.hasProperty(BlockStateProperties.WATERLOGGED)) {
+            state = state.setValue(BlockStateProperties.WATERLOGGED, false);
+        }
+
+        return state;
+    }
+
+    private static BlockState safeWayrootMegaFranchLeafState() {
+        BlockState state = ModBlocks.WAYROOT_MEGA_FRANCH_LEAVES.get().defaultBlockState();
 
         if (state.hasProperty(LeavesBlock.PERSISTENT)) {
             state = state.setValue(LeavesBlock.PERSISTENT, false);
