@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.core.Direction;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -137,6 +138,10 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             int h = this.height;
             int l = this.length;
 
+            if (!hasValidSurfaceUnderBottomFootprint(level, start, w, l, rot)) {
+                return false;
+            }
+
             // Track where the schematic actually places blocks on its bottom layer (y == 0).
             // We will only generate support under the *perimeter* of this footprint so we don't
             // "raise terrain" inside the structure.
@@ -198,6 +203,72 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             applySupportBeard(level, start, w, l, rot, bottomFootprint);
 
             return true;
+        }
+
+        private boolean hasValidSurfaceUnderBottomFootprint(LevelAccessor level, BlockPos start, int w, int l, int rot) {
+            for (int z = 0; z < l; z++) {
+                for (int x = 0; x < w; x++) {
+                    int index = ((0 * l) + z) * w + x;
+                    int paletteIndex = this.blockIndices[index];
+                    if (paletteIndex < 0 || paletteIndex >= this.palette.size()) {
+                        continue;
+                    }
+
+                    BlockState state = this.palette.get(paletteIndex);
+                    if (state == null || state.isAir() || state.is(Blocks.STRUCTURE_VOID)) {
+                        continue;
+                    }
+
+                    BlockPos p = rotate(start, x, 0, z, w, l, rot);
+                    if (level.isOutsideBuildHeight(p)) {
+                        return false;
+                    }
+                    if (!level.getFluidState(p).isEmpty()) {
+                        return false;
+                    }
+
+                    BlockState existingAtP = level.getBlockState(p);
+                    if (isInvalidSchematicSurfaceTop(existingAtP)) {
+                        return false;
+                    }
+
+                    BlockPos below = p.below();
+                    if (level.isOutsideBuildHeight(below)) {
+                        return false;
+                    }
+                    if (!isValidSchematicSupportSurface(level, below)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private static boolean isInvalidSchematicSurfaceTop(BlockState state) {
+            if (state == null) {
+                return true;
+            }
+            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
+                return true;
+            }
+            return state.getBlock() instanceof HugeMushroomBlock;
+        }
+
+        private static boolean isValidSchematicSupportSurface(LevelAccessor level, BlockPos pos) {
+            if (!level.getFluidState(pos).isEmpty()) {
+                return false;
+            }
+
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir() || state.canBeReplaced()) {
+                return false;
+            }
+            if (isInvalidSchematicSurfaceTop(state)) {
+                return false;
+            }
+
+            return state.isFaceSturdy(level, pos, Direction.UP);
         }
 
         private static void applySupportBeard(LevelAccessor level, BlockPos start, int w, int l, int rot, boolean[] bottomFootprint) {

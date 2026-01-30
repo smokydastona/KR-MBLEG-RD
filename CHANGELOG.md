@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.732 (2026-01-30)
+- Fix(worldgen/schematics): schematics now require valid solid ground under their bottom-layer footprint and won't spawn on leaves/logs/huge mushroom blocks; plants remain replaceable and support columns can replace plants.
+
 ## 1.0.731 (2026-01-30)
 - Fix(worldgen/schematics): support-beard now uses only the schematic bottom layer footprint and only supports the perimeter, so terrain isn't filled inside the structure.
 

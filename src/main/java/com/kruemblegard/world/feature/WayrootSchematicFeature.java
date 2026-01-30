@@ -17,11 +17,13 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.core.Direction;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,6 +138,13 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
         boolean place(LevelAccessor level, BlockPos center, int rot, RandomSource random) {
             boolean placedAny = false;
 
+            // Validate that the schematic is being placed on a "real" surface.
+            // - Never place on top of leaves/logs/huge mushroom blocks (other features)
+            // - Allow replacing plants (handled by canReplace), but require solid ground underneath
+            if (!hasValidSurfaceUnderBottomFootprint(level, center, rot)) {
+                return false;
+            }
+
             // Track where the schematic actually places blocks on its bottom layer (y == 0).
             // We will only generate support under the *perimeter* of this footprint so we don't
             // "raise terrain" inside the structure.
@@ -183,6 +192,76 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             }
 
             return placedAny;
+        }
+
+        private boolean hasValidSurfaceUnderBottomFootprint(LevelAccessor level, BlockPos center, int rot) {
+            int pivotX = width / 2;
+            int pivotZ = length / 2;
+
+            for (int z = 0; z < length; z++) {
+                for (int x = 0; x < width; x++) {
+                    int idx = index(x, 0, z);
+                    int paletteId = paletteIndices[idx];
+                    if (paletteId < 0 || paletteId >= palette.length) continue;
+
+                    BlockState state = palette[paletteId];
+                    if (state == null || state.isAir() || state.is(Blocks.STRUCTURE_VOID)) {
+                        continue;
+                    }
+
+                    BlockPos p = applyRotation(center, x, 0, z, rot, pivotX, pivotZ);
+                    if (level.isOutsideBuildHeight(p)) {
+                        return false;
+                    }
+
+                    // Don't place the footprint into fluids.
+                    if (!level.getFluidState(p).isEmpty()) {
+                        return false;
+                    }
+
+                    BlockState existingAtP = level.getBlockState(p);
+                    if (isInvalidSchematicSurfaceTop(existingAtP)) {
+                        return false;
+                    }
+
+                    BlockPos below = p.below();
+                    if (level.isOutsideBuildHeight(below)) {
+                        return false;
+                    }
+                    if (!isValidSchematicSupportSurface(level, below)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private static boolean isInvalidSchematicSurfaceTop(BlockState state) {
+            if (state == null) {
+                return true;
+            }
+            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
+                return true;
+            }
+            return state.getBlock() instanceof HugeMushroomBlock;
+        }
+
+        private static boolean isValidSchematicSupportSurface(LevelAccessor level, BlockPos pos) {
+            if (!level.getFluidState(pos).isEmpty()) {
+                return false;
+            }
+
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir() || state.canBeReplaced()) {
+                return false;
+            }
+            if (isInvalidSchematicSurfaceTop(state)) {
+                return false;
+            }
+
+            // Require a sturdy top face so we don't treat plants/snow layers/etc as a "surface".
+            return state.isFaceSturdy(level, pos, Direction.UP);
         }
 
         private void applySupportBeard(LevelAccessor level, BlockPos center, int rot, int pivotX, int pivotZ, boolean[] bottomFootprint) {
