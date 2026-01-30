@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.713 (2026-01-30)
+- Chore(tools): remove obsolete `tools/resize_fallbark_textures.ps1` (replaced by the block-wide resizer).
+
 ## 1.0.712 (2026-01-30)
 - Chore(tools): add `tools/resize_block_textures_to_256.ps1` to resize all square block textures to 256x256 (no cropping) and report non-square textures.
 
