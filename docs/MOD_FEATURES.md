@@ -245,7 +245,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - All Wayfall trees have a rare **mega** variant that can also generate naturally in Wayfall.
     - Most mega selectors choose between two Evergreen-style mega outcomes; each `mega_1`/`mega_2` delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`).
     - Wayroot is an exception: its worldgen is tuned to a baobab-style silhouette and uses `kruemblegard:ashmoss` as its `dirt_provider`.
-      - Normal Wayroot uses the baobab-style configured feature cores.
+      - Normal Wayroot is fully schematic-driven and selects from 5 templates (3 living + 2 dead), with living variants weighted slightly higher.
+      - Wayroot saplings only grow into the 3 living schematic variants.
       - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Schematic-only “Franch” wood blocks: `*_franch`, `*_franch_gate`, `*_franch_planks`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
@@ -259,6 +260,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)
     - `world/feature/WayrootMegaSchematicFeature` (places curated mega Wayroot schematics)
+    - `world/feature/WayrootSchematicFeature` (places normal Wayroot schematics with palette remaps)
     - `world/feature/GiantMushroomSchematicFeature` (places giant Wayfall fungi from shared schematic templates)
   - Giant Wayfall fungi (Griefcap, Static Fungus, Wayrot Fungus, Wayburn Fungus, Black Echo Fungus, Echocap, Echo Puff, Voidcap Briar, Memory Rot) use 30 shared schematic variants with palette remapping:
     - Tinted glass → air (ignored)

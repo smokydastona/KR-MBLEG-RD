@@ -2,10 +2,23 @@
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      { "feature": "kruemblegard:wayroot/baobab_core", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_core_1", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_core_2", "placement": [] },
-      { "feature": "kruemblegard:wayroot/baobab_core_3", "placement": [] }
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_1", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_1", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_1", "placement": [] },
+
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_2", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_2", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_2", "placement": [] },
+
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_3", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_3", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/wayroot_3", "placement": [] },
+
+      { "feature": "kruemblegard:wayroot/schematic/dead_wayroot_1", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/dead_wayroot_1", "placement": [] },
+
+      { "feature": "kruemblegard:wayroot/schematic/dead_wayroot_2", "placement": [] },
+      { "feature": "kruemblegard:wayroot/schematic/dead_wayroot_2", "placement": [] }
     ]
   }
 }

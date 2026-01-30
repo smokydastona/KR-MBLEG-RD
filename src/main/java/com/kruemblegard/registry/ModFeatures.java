@@ -8,6 +8,8 @@ import com.kruemblegard.world.feature.GiantMushroomSchematicConfiguration;
 import com.kruemblegard.world.feature.GiantMushroomSchematicFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
 import com.kruemblegard.world.feature.WayrootMegaSchematicFeature;
+import com.kruemblegard.world.feature.WayrootSchematicConfiguration;
+import com.kruemblegard.world.feature.WayrootSchematicFeature;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -66,6 +68,11 @@ public final class ModFeatures {
                     NoneFeatureConfiguration.CODEC,
                     new ResourceLocation(Kruemblegard.MOD_ID, "schematics/wayroot/mega_wayroot_3.schem")
             )
+    );
+
+    public static final RegistryObject<Feature<WayrootSchematicConfiguration>> WAYROOT_SCHEMATIC = FEATURES.register(
+            "wayroot_schematic",
+            () -> new WayrootSchematicFeature(WayrootSchematicConfiguration.CODEC)
     );
 
     public static final RegistryObject<Feature<GiantMushroomSchematicConfiguration>> GIANT_MUSHROOM_SCHEMATIC = FEATURES.register(
