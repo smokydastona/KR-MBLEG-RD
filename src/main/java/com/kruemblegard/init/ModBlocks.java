@@ -13,6 +13,7 @@ import com.kruemblegard.block.FranchSlabBlock;
 import com.kruemblegard.block.FranchStairBlock;
 import com.kruemblegard.block.FranchStringBlock;
 import com.kruemblegard.block.FranchTrapDoorBlock;
+import com.kruemblegard.block.FranchWoodBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
@@ -1494,6 +1495,31 @@ public final class ModBlocks {
                                 () -> new FranchTrapDoorBlock(BlockBehaviour.Properties.copy(copyFromTrapdoor).randomTicks(), blockSetType));
         }
 
+        private static RegistryObject<Block> registerVanillaFranchWood(String id, Block woodDrop, Block logDrop, Block strippedWood) {
+                return BLOCKS.register(id,
+                                () -> new FranchWoodBlock(
+                                                () -> strippedWood,
+                                                () -> woodDrop,
+                                                () -> logDrop,
+                                                BlockBehaviour.Properties.copy(woodDrop)
+                                ));
+        }
+
+        private static RegistryObject<Block> registerFranchWood(
+                        String id,
+                        RegistryObject<Block> woodDrop,
+                        RegistryObject<Block> logDrop,
+                        RegistryObject<Block> strippedWood
+        ) {
+                return BLOCKS.register(id,
+                                () -> new FranchWoodBlock(
+                                                strippedWood::get,
+                                                woodDrop::get,
+                                                logDrop::get,
+                                                BlockBehaviour.Properties.copy(woodDrop.get())
+                                ));
+        }
+
         private static RegistryObject<Block> registerStringFranch(String id) {
                 return BLOCKS.register(id,
                                 () -> new FranchStringBlock(BlockBehaviour.Properties.of()
@@ -1552,48 +1578,96 @@ public final class ModBlocks {
                 // Vanilla-wood schematic-only "Franch" fences and gates.
                 public static final RegistryObject<Block> OAK_FRANCH = registerVanillaFranch("oak_franch", net.minecraft.world.level.block.Blocks.OAK_FENCE);
                 public static final RegistryObject<Block> OAK_FRANCH_GATE = registerVanillaFranchGate("oak_franch_gate", net.minecraft.world.level.block.Blocks.OAK_FENCE_GATE, WoodType.OAK);
+                public static final RegistryObject<Block> OAK_FRANCH_WOOD = registerVanillaFranchWood(
+                                "oak_franch_wood",
+                                net.minecraft.world.level.block.Blocks.OAK_WOOD,
+                                net.minecraft.world.level.block.Blocks.OAK_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_OAK_WOOD
+                );
                 public static final RegistryObject<Block> OAK_FRANCH_PLANKS = registerVanillaFranchPlanks("oak_franch_planks", net.minecraft.world.level.block.Blocks.OAK_PLANKS);
                 public static final RegistryObject<Block> OAK_FRANCH_STAIRS = registerVanillaFranchStairs("oak_franch_stairs", net.minecraft.world.level.block.Blocks.OAK_STAIRS, net.minecraft.world.level.block.Blocks.OAK_PLANKS);
                 public static final RegistryObject<Block> OAK_FRANCH_SLAB = registerVanillaFranchSlab("oak_franch_slab", net.minecraft.world.level.block.Blocks.OAK_SLAB);
                 public static final RegistryObject<Block> OAK_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("oak_franch_trapdoor", net.minecraft.world.level.block.Blocks.OAK_TRAPDOOR, BlockSetType.OAK);
                 public static final RegistryObject<Block> SPRUCE_FRANCH = registerVanillaFranch("spruce_franch", net.minecraft.world.level.block.Blocks.SPRUCE_FENCE);
                 public static final RegistryObject<Block> SPRUCE_FRANCH_GATE = registerVanillaFranchGate("spruce_franch_gate", net.minecraft.world.level.block.Blocks.SPRUCE_FENCE_GATE, WoodType.SPRUCE);
+                public static final RegistryObject<Block> SPRUCE_FRANCH_WOOD = registerVanillaFranchWood(
+                                "spruce_franch_wood",
+                                net.minecraft.world.level.block.Blocks.SPRUCE_WOOD,
+                                net.minecraft.world.level.block.Blocks.SPRUCE_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_SPRUCE_WOOD
+                );
                 public static final RegistryObject<Block> SPRUCE_FRANCH_PLANKS = registerVanillaFranchPlanks("spruce_franch_planks", net.minecraft.world.level.block.Blocks.SPRUCE_PLANKS);
                 public static final RegistryObject<Block> SPRUCE_FRANCH_STAIRS = registerVanillaFranchStairs("spruce_franch_stairs", net.minecraft.world.level.block.Blocks.SPRUCE_STAIRS, net.minecraft.world.level.block.Blocks.SPRUCE_PLANKS);
                 public static final RegistryObject<Block> SPRUCE_FRANCH_SLAB = registerVanillaFranchSlab("spruce_franch_slab", net.minecraft.world.level.block.Blocks.SPRUCE_SLAB);
                 public static final RegistryObject<Block> SPRUCE_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("spruce_franch_trapdoor", net.minecraft.world.level.block.Blocks.SPRUCE_TRAPDOOR, BlockSetType.SPRUCE);
                 public static final RegistryObject<Block> BIRCH_FRANCH = registerVanillaFranch("birch_franch", net.minecraft.world.level.block.Blocks.BIRCH_FENCE);
                 public static final RegistryObject<Block> BIRCH_FRANCH_GATE = registerVanillaFranchGate("birch_franch_gate", net.minecraft.world.level.block.Blocks.BIRCH_FENCE_GATE, WoodType.BIRCH);
+                public static final RegistryObject<Block> BIRCH_FRANCH_WOOD = registerVanillaFranchWood(
+                                "birch_franch_wood",
+                                net.minecraft.world.level.block.Blocks.BIRCH_WOOD,
+                                net.minecraft.world.level.block.Blocks.BIRCH_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_BIRCH_WOOD
+                );
                 public static final RegistryObject<Block> BIRCH_FRANCH_PLANKS = registerVanillaFranchPlanks("birch_franch_planks", net.minecraft.world.level.block.Blocks.BIRCH_PLANKS);
                 public static final RegistryObject<Block> BIRCH_FRANCH_STAIRS = registerVanillaFranchStairs("birch_franch_stairs", net.minecraft.world.level.block.Blocks.BIRCH_STAIRS, net.minecraft.world.level.block.Blocks.BIRCH_PLANKS);
                 public static final RegistryObject<Block> BIRCH_FRANCH_SLAB = registerVanillaFranchSlab("birch_franch_slab", net.minecraft.world.level.block.Blocks.BIRCH_SLAB);
                 public static final RegistryObject<Block> BIRCH_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("birch_franch_trapdoor", net.minecraft.world.level.block.Blocks.BIRCH_TRAPDOOR, BlockSetType.BIRCH);
                 public static final RegistryObject<Block> JUNGLE_FRANCH = registerVanillaFranch("jungle_franch", net.minecraft.world.level.block.Blocks.JUNGLE_FENCE);
                 public static final RegistryObject<Block> JUNGLE_FRANCH_GATE = registerVanillaFranchGate("jungle_franch_gate", net.minecraft.world.level.block.Blocks.JUNGLE_FENCE_GATE, WoodType.JUNGLE);
+                public static final RegistryObject<Block> JUNGLE_FRANCH_WOOD = registerVanillaFranchWood(
+                                "jungle_franch_wood",
+                                net.minecraft.world.level.block.Blocks.JUNGLE_WOOD,
+                                net.minecraft.world.level.block.Blocks.JUNGLE_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_JUNGLE_WOOD
+                );
                 public static final RegistryObject<Block> JUNGLE_FRANCH_PLANKS = registerVanillaFranchPlanks("jungle_franch_planks", net.minecraft.world.level.block.Blocks.JUNGLE_PLANKS);
                 public static final RegistryObject<Block> JUNGLE_FRANCH_STAIRS = registerVanillaFranchStairs("jungle_franch_stairs", net.minecraft.world.level.block.Blocks.JUNGLE_STAIRS, net.minecraft.world.level.block.Blocks.JUNGLE_PLANKS);
                 public static final RegistryObject<Block> JUNGLE_FRANCH_SLAB = registerVanillaFranchSlab("jungle_franch_slab", net.minecraft.world.level.block.Blocks.JUNGLE_SLAB);
                 public static final RegistryObject<Block> JUNGLE_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("jungle_franch_trapdoor", net.minecraft.world.level.block.Blocks.JUNGLE_TRAPDOOR, BlockSetType.JUNGLE);
                 public static final RegistryObject<Block> ACACIA_FRANCH = registerVanillaFranch("acacia_franch", net.minecraft.world.level.block.Blocks.ACACIA_FENCE);
                 public static final RegistryObject<Block> ACACIA_FRANCH_GATE = registerVanillaFranchGate("acacia_franch_gate", net.minecraft.world.level.block.Blocks.ACACIA_FENCE_GATE, WoodType.ACACIA);
+                public static final RegistryObject<Block> ACACIA_FRANCH_WOOD = registerVanillaFranchWood(
+                                "acacia_franch_wood",
+                                net.minecraft.world.level.block.Blocks.ACACIA_WOOD,
+                                net.minecraft.world.level.block.Blocks.ACACIA_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_ACACIA_WOOD
+                );
                 public static final RegistryObject<Block> ACACIA_FRANCH_PLANKS = registerVanillaFranchPlanks("acacia_franch_planks", net.minecraft.world.level.block.Blocks.ACACIA_PLANKS);
                 public static final RegistryObject<Block> ACACIA_FRANCH_STAIRS = registerVanillaFranchStairs("acacia_franch_stairs", net.minecraft.world.level.block.Blocks.ACACIA_STAIRS, net.minecraft.world.level.block.Blocks.ACACIA_PLANKS);
                 public static final RegistryObject<Block> ACACIA_FRANCH_SLAB = registerVanillaFranchSlab("acacia_franch_slab", net.minecraft.world.level.block.Blocks.ACACIA_SLAB);
                 public static final RegistryObject<Block> ACACIA_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("acacia_franch_trapdoor", net.minecraft.world.level.block.Blocks.ACACIA_TRAPDOOR, BlockSetType.ACACIA);
                 public static final RegistryObject<Block> DARK_OAK_FRANCH = registerVanillaFranch("dark_oak_franch", net.minecraft.world.level.block.Blocks.DARK_OAK_FENCE);
                 public static final RegistryObject<Block> DARK_OAK_FRANCH_GATE = registerVanillaFranchGate("dark_oak_franch_gate", net.minecraft.world.level.block.Blocks.DARK_OAK_FENCE_GATE, WoodType.DARK_OAK);
+                public static final RegistryObject<Block> DARK_OAK_FRANCH_WOOD = registerVanillaFranchWood(
+                                "dark_oak_franch_wood",
+                                net.minecraft.world.level.block.Blocks.DARK_OAK_WOOD,
+                                net.minecraft.world.level.block.Blocks.DARK_OAK_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_DARK_OAK_WOOD
+                );
                 public static final RegistryObject<Block> DARK_OAK_FRANCH_PLANKS = registerVanillaFranchPlanks("dark_oak_franch_planks", net.minecraft.world.level.block.Blocks.DARK_OAK_PLANKS);
                 public static final RegistryObject<Block> DARK_OAK_FRANCH_STAIRS = registerVanillaFranchStairs("dark_oak_franch_stairs", net.minecraft.world.level.block.Blocks.DARK_OAK_STAIRS, net.minecraft.world.level.block.Blocks.DARK_OAK_PLANKS);
                 public static final RegistryObject<Block> DARK_OAK_FRANCH_SLAB = registerVanillaFranchSlab("dark_oak_franch_slab", net.minecraft.world.level.block.Blocks.DARK_OAK_SLAB);
                 public static final RegistryObject<Block> DARK_OAK_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("dark_oak_franch_trapdoor", net.minecraft.world.level.block.Blocks.DARK_OAK_TRAPDOOR, BlockSetType.DARK_OAK);
                 public static final RegistryObject<Block> MANGROVE_FRANCH = registerVanillaFranch("mangrove_franch", net.minecraft.world.level.block.Blocks.MANGROVE_FENCE);
                 public static final RegistryObject<Block> MANGROVE_FRANCH_GATE = registerVanillaFranchGate("mangrove_franch_gate", net.minecraft.world.level.block.Blocks.MANGROVE_FENCE_GATE, WoodType.MANGROVE);
+                public static final RegistryObject<Block> MANGROVE_FRANCH_WOOD = registerVanillaFranchWood(
+                                "mangrove_franch_wood",
+                                net.minecraft.world.level.block.Blocks.MANGROVE_WOOD,
+                                net.minecraft.world.level.block.Blocks.MANGROVE_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_MANGROVE_WOOD
+                );
                 public static final RegistryObject<Block> MANGROVE_FRANCH_PLANKS = registerVanillaFranchPlanks("mangrove_franch_planks", net.minecraft.world.level.block.Blocks.MANGROVE_PLANKS);
                 public static final RegistryObject<Block> MANGROVE_FRANCH_STAIRS = registerVanillaFranchStairs("mangrove_franch_stairs", net.minecraft.world.level.block.Blocks.MANGROVE_STAIRS, net.minecraft.world.level.block.Blocks.MANGROVE_PLANKS);
                 public static final RegistryObject<Block> MANGROVE_FRANCH_SLAB = registerVanillaFranchSlab("mangrove_franch_slab", net.minecraft.world.level.block.Blocks.MANGROVE_SLAB);
                 public static final RegistryObject<Block> MANGROVE_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("mangrove_franch_trapdoor", net.minecraft.world.level.block.Blocks.MANGROVE_TRAPDOOR, BlockSetType.MANGROVE);
                 public static final RegistryObject<Block> CHERRY_FRANCH = registerVanillaFranch("cherry_franch", net.minecraft.world.level.block.Blocks.CHERRY_FENCE);
                 public static final RegistryObject<Block> CHERRY_FRANCH_GATE = registerVanillaFranchGate("cherry_franch_gate", net.minecraft.world.level.block.Blocks.CHERRY_FENCE_GATE, WoodType.CHERRY);
+                public static final RegistryObject<Block> CHERRY_FRANCH_WOOD = registerVanillaFranchWood(
+                                "cherry_franch_wood",
+                                net.minecraft.world.level.block.Blocks.CHERRY_WOOD,
+                                net.minecraft.world.level.block.Blocks.CHERRY_LOG,
+                                net.minecraft.world.level.block.Blocks.STRIPPED_CHERRY_WOOD
+                );
                 public static final RegistryObject<Block> CHERRY_FRANCH_PLANKS = registerVanillaFranchPlanks("cherry_franch_planks", net.minecraft.world.level.block.Blocks.CHERRY_PLANKS);
                 public static final RegistryObject<Block> CHERRY_FRANCH_STAIRS = registerVanillaFranchStairs("cherry_franch_stairs", net.minecraft.world.level.block.Blocks.CHERRY_STAIRS, net.minecraft.world.level.block.Blocks.CHERRY_PLANKS);
                 public static final RegistryObject<Block> CHERRY_FRANCH_SLAB = registerVanillaFranchSlab("cherry_franch_slab", net.minecraft.world.level.block.Blocks.CHERRY_SLAB);
@@ -1606,6 +1680,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_WAYROOT_WOOD = registerLog("stripped_wayroot_wood");
         public static final RegistryObject<Block> WAYROOT_LOG = registerStrippableLog("wayroot_log", () -> STRIPPED_WAYROOT_LOG.get());
                 public static final RegistryObject<Block> WAYROOT_WOOD = registerStrippableLog("wayroot_wood", () -> STRIPPED_WAYROOT_WOOD.get());
+        public static final RegistryObject<Block> WAYROOT_FRANCH_WOOD = registerFranchWood(
+                        "wayroot_franch_wood",
+                        WAYROOT_WOOD,
+                        WAYROOT_LOG,
+                        STRIPPED_WAYROOT_WOOD
+        );
     public static final RegistryObject<Block> WAYROOT_PLANKS = registerPlanks("wayroot_planks");
     public static final RegistryObject<Block> WAYROOT_LEAVES = registerLeaves("wayroot_leaves");
         public static final RegistryObject<Block> WAYROOT_SAPLING = registerFeatureSapling2x2(
@@ -1633,6 +1713,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_FALLBARK_WOOD = registerLog("stripped_fallbark_wood");
         public static final RegistryObject<Block> FALLBARK_LOG = registerStrippableLog("fallbark_log", () -> STRIPPED_FALLBARK_LOG.get());
                 public static final RegistryObject<Block> FALLBARK_WOOD = registerStrippableLog("fallbark_wood", () -> STRIPPED_FALLBARK_WOOD.get());
+        public static final RegistryObject<Block> FALLBARK_FRANCH_WOOD = registerFranchWood(
+                        "fallbark_franch_wood",
+                        FALLBARK_WOOD,
+                        FALLBARK_LOG,
+                        STRIPPED_FALLBARK_WOOD
+        );
     public static final RegistryObject<Block> FALLBARK_PLANKS = registerPlanks("fallbark_planks");
     public static final RegistryObject<Block> FALLBARK_LEAVES = registerLeaves("fallbark_leaves");
         public static final RegistryObject<Block> FALLBARK_SAPLING = registerFeatureSapling2x2(
@@ -1660,6 +1746,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_ECHOWOOD_WOOD = registerLog("stripped_echowood_wood");
         public static final RegistryObject<Block> ECHOWOOD_LOG = registerStrippableLog("echowood_log", () -> STRIPPED_ECHOWOOD_LOG.get());
                 public static final RegistryObject<Block> ECHOWOOD_WOOD = registerStrippableLog("echowood_wood", () -> STRIPPED_ECHOWOOD_WOOD.get());
+        public static final RegistryObject<Block> ECHOWOOD_FRANCH_WOOD = registerFranchWood(
+                        "echowood_franch_wood",
+                        ECHOWOOD_WOOD,
+                        ECHOWOOD_LOG,
+                        STRIPPED_ECHOWOOD_WOOD
+        );
     public static final RegistryObject<Block> ECHOWOOD_PLANKS = registerPlanks("echowood_planks");
     public static final RegistryObject<Block> ECHOWOOD_LEAVES = registerLeaves("echowood_leaves");
         public static final RegistryObject<Block> ECHOWOOD_SAPLING = registerFeatureSapling2x2(
@@ -1687,6 +1779,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_CAIRN_TREE_WOOD = registerLog("stripped_cairn_tree_wood");
         public static final RegistryObject<Block> CAIRN_TREE_LOG = registerStrippableLog("cairn_tree_log", () -> STRIPPED_CAIRN_TREE_LOG.get());
                 public static final RegistryObject<Block> CAIRN_TREE_WOOD = registerStrippableLog("cairn_tree_wood", () -> STRIPPED_CAIRN_TREE_WOOD.get());
+        public static final RegistryObject<Block> CAIRN_TREE_FRANCH_WOOD = registerFranchWood(
+                        "cairn_tree_franch_wood",
+                        CAIRN_TREE_WOOD,
+                        CAIRN_TREE_LOG,
+                        STRIPPED_CAIRN_TREE_WOOD
+        );
     public static final RegistryObject<Block> CAIRN_TREE_PLANKS = registerPlanks("cairn_tree_planks");
     public static final RegistryObject<Block> CAIRN_TREE_LEAVES = registerLeaves("cairn_tree_leaves");
         public static final RegistryObject<Block> CAIRN_TREE_SAPLING = registerFeatureSapling2x2(
@@ -1714,6 +1812,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_WAYGLASS_WOOD = registerLog("stripped_wayglass_wood");
         public static final RegistryObject<Block> WAYGLASS_LOG = registerStrippableLog("wayglass_log", () -> STRIPPED_WAYGLASS_LOG.get());
                 public static final RegistryObject<Block> WAYGLASS_WOOD = registerStrippableLog("wayglass_wood", () -> STRIPPED_WAYGLASS_WOOD.get());
+        public static final RegistryObject<Block> WAYGLASS_FRANCH_WOOD = registerFranchWood(
+                        "wayglass_franch_wood",
+                        WAYGLASS_WOOD,
+                        WAYGLASS_LOG,
+                        STRIPPED_WAYGLASS_WOOD
+        );
     public static final RegistryObject<Block> WAYGLASS_PLANKS = registerPlanks("wayglass_planks");
     public static final RegistryObject<Block> WAYGLASS_LEAVES = registerLeaves("wayglass_leaves");
         public static final RegistryObject<Block> WAYGLASS_SAPLING = registerFeatureSapling2x2(
@@ -1741,6 +1845,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_SPLINTERSPORE_WOOD = registerLog("stripped_splinterspore_wood");
         public static final RegistryObject<Block> SPLINTERSPORE_LOG = registerStrippableLog("splinterspore_log", () -> STRIPPED_SPLINTERSPORE_LOG.get());
                 public static final RegistryObject<Block> SPLINTERSPORE_WOOD = registerStrippableLog("splinterspore_wood", () -> STRIPPED_SPLINTERSPORE_WOOD.get());
+        public static final RegistryObject<Block> SPLINTERSPORE_FRANCH_WOOD = registerFranchWood(
+                        "splinterspore_franch_wood",
+                        SPLINTERSPORE_WOOD,
+                        SPLINTERSPORE_LOG,
+                        STRIPPED_SPLINTERSPORE_WOOD
+        );
     public static final RegistryObject<Block> SPLINTERSPORE_PLANKS = registerPlanks("splinterspore_planks");
     public static final RegistryObject<Block> SPLINTERSPORE_LEAVES = registerLeaves("splinterspore_leaves");
         public static final RegistryObject<Block> SPLINTERSPORE_SAPLING = registerFeatureSapling2x2(
@@ -1768,6 +1878,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_WOOD = registerLog("stripped_hollowway_tree_wood");
         public static final RegistryObject<Block> HOLLOWWAY_TREE_LOG = registerStrippableLog("hollowway_tree_log", () -> STRIPPED_HOLLOWWAY_TREE_LOG.get());
                 public static final RegistryObject<Block> HOLLOWWAY_TREE_WOOD = registerStrippableLog("hollowway_tree_wood", () -> STRIPPED_HOLLOWWAY_TREE_WOOD.get());
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_FRANCH_WOOD = registerFranchWood(
+                        "hollowway_tree_franch_wood",
+                        HOLLOWWAY_TREE_WOOD,
+                        HOLLOWWAY_TREE_LOG,
+                        STRIPPED_HOLLOWWAY_TREE_WOOD
+        );
     public static final RegistryObject<Block> HOLLOWWAY_TREE_PLANKS = registerPlanks("hollowway_tree_planks");
     public static final RegistryObject<Block> HOLLOWWAY_TREE_LEAVES = registerLeaves("hollowway_tree_leaves");
         public static final RegistryObject<Block> HOLLOWWAY_TREE_SAPLING = registerFeatureSapling2x2(
@@ -1795,6 +1911,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_DRIFTWILLOW_WOOD = registerLog("stripped_driftwillow_wood");
         public static final RegistryObject<Block> DRIFTWILLOW_LOG = registerStrippableLog("driftwillow_log", () -> STRIPPED_DRIFTWILLOW_LOG.get());
                 public static final RegistryObject<Block> DRIFTWILLOW_WOOD = registerStrippableLog("driftwillow_wood", () -> STRIPPED_DRIFTWILLOW_WOOD.get());
+        public static final RegistryObject<Block> DRIFTWILLOW_FRANCH_WOOD = registerFranchWood(
+                        "driftwillow_franch_wood",
+                        DRIFTWILLOW_WOOD,
+                        DRIFTWILLOW_LOG,
+                        STRIPPED_DRIFTWILLOW_WOOD
+        );
     public static final RegistryObject<Block> DRIFTWILLOW_PLANKS = registerPlanks("driftwillow_planks");
     public static final RegistryObject<Block> DRIFTWILLOW_LEAVES = registerLeaves("driftwillow_leaves");
         public static final RegistryObject<Block> DRIFTWILLOW_SAPLING = registerFeatureSapling2x2(
@@ -1822,6 +1944,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_MONUMENT_OAK_WOOD = registerLog("stripped_monument_oak_wood");
         public static final RegistryObject<Block> MONUMENT_OAK_LOG = registerStrippableLog("monument_oak_log", () -> STRIPPED_MONUMENT_OAK_LOG.get());
                 public static final RegistryObject<Block> MONUMENT_OAK_WOOD = registerStrippableLog("monument_oak_wood", () -> STRIPPED_MONUMENT_OAK_WOOD.get());
+        public static final RegistryObject<Block> MONUMENT_OAK_FRANCH_WOOD = registerFranchWood(
+                        "monument_oak_franch_wood",
+                        MONUMENT_OAK_WOOD,
+                        MONUMENT_OAK_LOG,
+                        STRIPPED_MONUMENT_OAK_WOOD
+        );
     public static final RegistryObject<Block> MONUMENT_OAK_PLANKS = registerPlanks("monument_oak_planks");
     public static final RegistryObject<Block> MONUMENT_OAK_LEAVES = registerLeaves("monument_oak_leaves");
         public static final RegistryObject<Block> MONUMENT_OAK_SAPLING = registerFeatureSapling2x2(
@@ -1849,6 +1977,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_WAYTORCH_TREE_WOOD = registerLog("stripped_waytorch_tree_wood");
         public static final RegistryObject<Block> WAYTORCH_TREE_LOG = registerStrippableLog("waytorch_tree_log", () -> STRIPPED_WAYTORCH_TREE_LOG.get());
                 public static final RegistryObject<Block> WAYTORCH_TREE_WOOD = registerStrippableLog("waytorch_tree_wood", () -> STRIPPED_WAYTORCH_TREE_WOOD.get());
+        public static final RegistryObject<Block> WAYTORCH_TREE_FRANCH_WOOD = registerFranchWood(
+                        "waytorch_tree_franch_wood",
+                        WAYTORCH_TREE_WOOD,
+                        WAYTORCH_TREE_LOG,
+                        STRIPPED_WAYTORCH_TREE_WOOD
+        );
     public static final RegistryObject<Block> WAYTORCH_TREE_PLANKS = registerPlanks("waytorch_tree_planks");
     public static final RegistryObject<Block> WAYTORCH_TREE_LEAVES = registerLeaves("waytorch_tree_leaves");
         public static final RegistryObject<Block> WAYTORCH_TREE_SAPLING = registerFeatureSapling2x2(
@@ -1876,6 +2010,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_FAULTWOOD_WOOD = registerLog("stripped_faultwood_wood");
         public static final RegistryObject<Block> FAULTWOOD_LOG = registerStrippableLog("faultwood_log", () -> STRIPPED_FAULTWOOD_LOG.get());
                 public static final RegistryObject<Block> FAULTWOOD_WOOD = registerStrippableLog("faultwood_wood", () -> STRIPPED_FAULTWOOD_WOOD.get());
+        public static final RegistryObject<Block> FAULTWOOD_FRANCH_WOOD = registerFranchWood(
+                        "faultwood_franch_wood",
+                        FAULTWOOD_WOOD,
+                        FAULTWOOD_LOG,
+                        STRIPPED_FAULTWOOD_WOOD
+        );
     public static final RegistryObject<Block> FAULTWOOD_PLANKS = registerPlanks("faultwood_planks");
     public static final RegistryObject<Block> FAULTWOOD_LEAVES = registerLeaves("faultwood_leaves");
         public static final RegistryObject<Block> FAULTWOOD_SAPLING = registerFeatureSapling2x2(
@@ -1893,6 +2033,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_ASHBLOOM_WOOD = registerLog("stripped_ashbloom_wood");
         public static final RegistryObject<Block> ASHBLOOM_LOG = registerStrippableLog("ashbloom_log", () -> STRIPPED_ASHBLOOM_LOG.get());
                 public static final RegistryObject<Block> ASHBLOOM_WOOD = registerStrippableLog("ashbloom_wood", () -> STRIPPED_ASHBLOOM_WOOD.get());
+        public static final RegistryObject<Block> ASHBLOOM_FRANCH_WOOD = registerFranchWood(
+                        "ashbloom_franch_wood",
+                        ASHBLOOM_WOOD,
+                        ASHBLOOM_LOG,
+                        STRIPPED_ASHBLOOM_WOOD
+        );
     public static final RegistryObject<Block> ASHBLOOM_PLANKS = registerPlanks("ashbloom_planks");
     public static final RegistryObject<Block> ASHBLOOM_LEAVES = BLOCKS.register(
             "ashbloom_leaves",
@@ -1929,6 +2075,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_GLIMMERPINE_WOOD = registerLog("stripped_glimmerpine_wood");
         public static final RegistryObject<Block> GLIMMERPINE_LOG = registerStrippableLog("glimmerpine_log", () -> STRIPPED_GLIMMERPINE_LOG.get());
                 public static final RegistryObject<Block> GLIMMERPINE_WOOD = registerStrippableLog("glimmerpine_wood", () -> STRIPPED_GLIMMERPINE_WOOD.get());
+        public static final RegistryObject<Block> GLIMMERPINE_FRANCH_WOOD = registerFranchWood(
+                        "glimmerpine_franch_wood",
+                        GLIMMERPINE_WOOD,
+                        GLIMMERPINE_LOG,
+                        STRIPPED_GLIMMERPINE_WOOD
+        );
     public static final RegistryObject<Block> GLIMMERPINE_PLANKS = BLOCKS.register(
             "glimmerpine_planks",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -1972,6 +2124,12 @@ public final class ModBlocks {
         public static final RegistryObject<Block> STRIPPED_DRIFTWOOD_WOOD = registerLog("stripped_driftwood_wood");
         public static final RegistryObject<Block> DRIFTWOOD_LOG = registerStrippableLog("driftwood_log", () -> STRIPPED_DRIFTWOOD_LOG.get());
                 public static final RegistryObject<Block> DRIFTWOOD_WOOD = registerStrippableLog("driftwood_wood", () -> STRIPPED_DRIFTWOOD_WOOD.get());
+        public static final RegistryObject<Block> DRIFTWOOD_FRANCH_WOOD = registerFranchWood(
+                        "driftwood_franch_wood",
+                        DRIFTWOOD_WOOD,
+                        DRIFTWOOD_LOG,
+                        STRIPPED_DRIFTWOOD_WOOD
+        );
     public static final RegistryObject<Block> DRIFTWOOD_PLANKS = registerPlanks("driftwood_planks");
     public static final RegistryObject<Block> DRIFTWOOD_LEAVES = BLOCKS.register(
             "driftwood_leaves",

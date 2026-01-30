@@ -1,0 +1,16 @@
+{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "kruemblegard:block/driftwood_franch_wood"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "kruemblegard:block/driftwood_franch_wood",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "kruemblegard:block/driftwood_franch_wood",
+                                    "x":  90
+                                }
+                 }
+}

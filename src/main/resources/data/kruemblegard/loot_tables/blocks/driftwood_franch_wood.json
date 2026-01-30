@@ -1,0 +1,23 @@
+{
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:driftwood_wood",
+                                          "type":  "minecraft:item"
+                                      },
+                                      {
+                                          "name":  "kruemblegard:driftwood_log",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1,
+                      "conditions":  [
+                                         {
+                                             "condition":  "minecraft:survives_explosion"
+                                         }
+                                     ]
+                  }
+              ],
+    "type":  "minecraft:block"
+}

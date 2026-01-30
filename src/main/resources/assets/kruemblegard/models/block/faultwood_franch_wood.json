@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "kruemblegard:block/faultwood_log",
+                     "side":  "kruemblegard:block/faultwood_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

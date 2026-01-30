@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "kruemblegard:block/splinterspore_log",
+                     "side":  "kruemblegard:block/splinterspore_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

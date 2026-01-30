@@ -1,0 +1,23 @@
+{
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "name":  "kruemblegard:cairn_tree_wood",
+                                          "type":  "minecraft:item"
+                                      },
+                                      {
+                                          "name":  "kruemblegard:cairn_tree_log",
+                                          "type":  "minecraft:item"
+                                      }
+                                  ],
+                      "rolls":  1,
+                      "conditions":  [
+                                         {
+                                             "condition":  "minecraft:survives_explosion"
+                                         }
+                                     ]
+                  }
+              ],
+    "type":  "minecraft:block"
+}

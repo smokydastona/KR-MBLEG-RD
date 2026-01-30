@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.725 (2026-01-30)
+- Feature(blocks/franch_wood): add schematic-only `*_franch_wood` trunk blocks (one per wood family, including vanilla woods) that look/names-match normal wood but have special drops.
+- Tuning(worldgen/wayroot): schematic trunk blocks now remap to `wayroot_franch_wood` instead of random 50/50 `wayroot_log`/`wayroot_wood` per placed block.
+
 ## 1.0.724 (2026-01-30)
 - Fix(blocks/franch): all franch blocks now drop nothing (no more stick drops).
 - Fix(blocks/string_franch): string franch is now non-colliding and fully invisible in-world, with a dedicated transparent texture.

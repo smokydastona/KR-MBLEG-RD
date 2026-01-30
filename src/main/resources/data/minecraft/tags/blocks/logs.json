@@ -56,6 +56,30 @@
     "kruemblegard:driftwood_log",
     "kruemblegard:driftwood_wood",
     "kruemblegard:stripped_driftwood_log",
-    "kruemblegard:stripped_driftwood_wood"
+    "kruemblegard:stripped_driftwood_wood",
+
+    "kruemblegard:oak_franch_wood",
+    "kruemblegard:spruce_franch_wood",
+    "kruemblegard:birch_franch_wood",
+    "kruemblegard:jungle_franch_wood",
+    "kruemblegard:acacia_franch_wood",
+    "kruemblegard:dark_oak_franch_wood",
+    "kruemblegard:mangrove_franch_wood",
+    "kruemblegard:cherry_franch_wood",
+
+    "kruemblegard:wayroot_franch_wood",
+    "kruemblegard:fallbark_franch_wood",
+    "kruemblegard:echowood_franch_wood",
+    "kruemblegard:cairn_tree_franch_wood",
+    "kruemblegard:wayglass_franch_wood",
+    "kruemblegard:splinterspore_franch_wood",
+    "kruemblegard:hollowway_tree_franch_wood",
+    "kruemblegard:driftwillow_franch_wood",
+    "kruemblegard:monument_oak_franch_wood",
+    "kruemblegard:waytorch_tree_franch_wood",
+    "kruemblegard:faultwood_franch_wood",
+    "kruemblegard:ashbloom_franch_wood",
+    "kruemblegard:glimmerpine_franch_wood",
+    "kruemblegard:driftwood_franch_wood"
   ]
 }

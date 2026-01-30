@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "kruemblegard:block/driftwillow_log",
+                     "side":  "kruemblegard:block/driftwillow_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

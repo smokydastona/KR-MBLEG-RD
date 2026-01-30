@@ -5,7 +5,6 @@ import com.kruemblegard.init.ModBlocks;
 
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -49,10 +48,9 @@ final class WayrootSchematicMapping {
 
         // Convert any wood/log to Wayroot trunk.
         if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
-            // Make it a 50/50 mix per trunk block. This intentionally ignores whether
-            // the source block was a "log" or "wood" so schematics can be authored freely.
-            Block target = random.nextBoolean() ? ModBlocks.WAYROOT_WOOD.get() : ModBlocks.WAYROOT_LOG.get();
-            return copySharedProperties(original, target.defaultBlockState());
+            // Schematics can be authored with any wood/log; we always place franch wood.
+            // This keeps trunk placement log-like (axis) but avoids franch decay behavior.
+            return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState());
         }
 
         // Convert wood construction pieces into Wayroot franch variants.
