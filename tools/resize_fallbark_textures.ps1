@@ -4,6 +4,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# NOTE: This script is legacy / fallbark-only.
+# Prefer `tools/resize_block_textures_to_256.ps1` for a repo-wide block-texture pass.
+#
 # Resizes all fallbark*.png textures under assets/kruemblegard/textures to 256x256.
 # - If the source is non-square, it center-crops to a square first (avoids distortion).
 # - Uses high-quality downscaling; uses nearest-neighbor when upscaling (keeps pixel art crisp).
