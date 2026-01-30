@@ -4,22 +4,26 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.688 (2026-01-30)
+## 1.0.698 (2026-01-29)
+- Feature(blocks): add vanilla-wood command/schematic-only "Franch" fences and fence gates (oak/spruce/birch/jungle/acacia/dark oak/mangrove/cherry) with leaf-style decay and leaf-style stick drops.
+- Compat(treeharvester): include vanilla-wood franch fences and gates in `minecraft:leaves` so they count as leaves for proximity checks.
+
+## 1.0.697 (2026-01-29)
 - Feature(blocks): add command/schematic-only "Franch" fence gates (one per wood type) that behave like fence gates but decay like leaves and use leaf-style stick drops.
 - Compat(treeharvester): include franch fence gates in `minecraft:leaves` so they count as leaves for proximity checks.
 
-## 1.0.687 (2026-01-29)
+## 1.0.696 (2026-01-29)
 - Feature(blocks): add command/schematic-only "Franch" fences (one per wood type) that behave like fences but decay like leaves and drop sticks when broken.
 - Tuning(blocks): Franch fences now use leaf-style stick drops (fortune-scaled chance) and are included in `minecraft:leaves` so Tree Harvester treats them like leaves.
 
-## 1.0.686 (2026-01-29)
+## 1.0.695 (2026-01-29)
 - Compat(treeharvester): include giant fungi cap slabs and red/brown mushroom block slabs in `minecraft:leaves` so Tree Harvester also breaks slab cap blocks during harvest.
 
-## 1.0.685 (2026-01-29)
+## 1.0.694 (2026-01-29)
 - Compat(worldgen): schematic-placed mega Wayroot trees now place leaves as non-persistent so Tree Harvester doesn't treat them as player-made by default.
 - Compat(fungi): giant fungi caps/stems now use vanilla huge-mushroom map colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
 
-## 1.0.684 (2026-01-29)
+## 1.0.693 (2026-01-29)
 - Content(textures): update leaf textures for Echowood and Wayroot.
 
 ## 1.0.683 (2026-01-29)

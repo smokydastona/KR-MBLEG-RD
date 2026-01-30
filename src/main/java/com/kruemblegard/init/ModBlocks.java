@@ -1419,30 +1419,40 @@ public final class ModBlocks {
                                 .sound(SoundType.WOOD);
         }
 
-    private static RegistryObject<Block> registerStairs(String id, RegistryObject<Block> planks) {
-        return BLOCKS.register(id,
+        private static RegistryObject<Block> registerStairs(String id, RegistryObject<Block> planks) {
+                return BLOCKS.register(id,
                                 () -> new StairBlock(net.minecraft.world.level.block.Blocks.OAK_PLANKS::defaultBlockState, woodFamilyProperties()));
-    }
+        }
 
-    private static RegistryObject<Block> registerSlab(String id, RegistryObject<Block> planks) {
+        private static RegistryObject<Block> registerSlab(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id, () -> new SlabBlock(woodFamilyProperties()));
-    }
+        }
 
-    private static RegistryObject<Block> registerFence(String id, RegistryObject<Block> planks) {
+        private static RegistryObject<Block> registerFence(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id, () -> new FenceBlock(woodFamilyProperties()));
-    }
+        }
 
         private static RegistryObject<Block> registerFranch(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id, () -> new FranchFenceBlock(woodFamilyProperties().randomTicks()));
         }
 
-                private static RegistryObject<Block> registerFranchGate(String id, RegistryObject<Block> planks) {
-                                return BLOCKS.register(id, () -> new FranchFenceGateBlock(woodFamilyProperties().randomTicks(), WoodType.OAK));
-                }
+        private static RegistryObject<Block> registerFranchGate(String id, RegistryObject<Block> planks) {
+                return BLOCKS.register(id, () -> new FranchFenceGateBlock(woodFamilyProperties().randomTicks(), WoodType.OAK));
+        }
 
-    private static RegistryObject<Block> registerFenceGate(String id, RegistryObject<Block> planks) {
+        private static RegistryObject<Block> registerVanillaFranch(String id, Block copyFrom) {
+                return BLOCKS.register(id,
+                                () -> new FranchFenceBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks()));
+        }
+
+        private static RegistryObject<Block> registerVanillaFranchGate(String id, Block copyFrom, WoodType woodType) {
+                return BLOCKS.register(id,
+                                () -> new FranchFenceGateBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks(), woodType));
+        }
+
+        private static RegistryObject<Block> registerFenceGate(String id, RegistryObject<Block> planks) {
                 return BLOCKS.register(id, () -> new FenceGateBlock(woodFamilyProperties(), WoodType.OAK));
-    }
+        }
 
     private static RegistryObject<Block> registerDoor(String id, RegistryObject<Block> planks) {
         return BLOCKS.register(id,
@@ -1483,6 +1493,24 @@ public final class ModBlocks {
         private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String path) {
                 return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Kruemblegard.MODID, path));
         }
+
+                // Vanilla-wood schematic-only "Franch" fences and gates.
+                public static final RegistryObject<Block> OAK_FRANCH = registerVanillaFranch("oak_franch", net.minecraft.world.level.block.Blocks.OAK_FENCE);
+                public static final RegistryObject<Block> OAK_FRANCH_GATE = registerVanillaFranchGate("oak_franch_gate", net.minecraft.world.level.block.Blocks.OAK_FENCE_GATE, WoodType.OAK);
+                public static final RegistryObject<Block> SPRUCE_FRANCH = registerVanillaFranch("spruce_franch", net.minecraft.world.level.block.Blocks.SPRUCE_FENCE);
+                public static final RegistryObject<Block> SPRUCE_FRANCH_GATE = registerVanillaFranchGate("spruce_franch_gate", net.minecraft.world.level.block.Blocks.SPRUCE_FENCE_GATE, WoodType.SPRUCE);
+                public static final RegistryObject<Block> BIRCH_FRANCH = registerVanillaFranch("birch_franch", net.minecraft.world.level.block.Blocks.BIRCH_FENCE);
+                public static final RegistryObject<Block> BIRCH_FRANCH_GATE = registerVanillaFranchGate("birch_franch_gate", net.minecraft.world.level.block.Blocks.BIRCH_FENCE_GATE, WoodType.BIRCH);
+                public static final RegistryObject<Block> JUNGLE_FRANCH = registerVanillaFranch("jungle_franch", net.minecraft.world.level.block.Blocks.JUNGLE_FENCE);
+                public static final RegistryObject<Block> JUNGLE_FRANCH_GATE = registerVanillaFranchGate("jungle_franch_gate", net.minecraft.world.level.block.Blocks.JUNGLE_FENCE_GATE, WoodType.JUNGLE);
+                public static final RegistryObject<Block> ACACIA_FRANCH = registerVanillaFranch("acacia_franch", net.minecraft.world.level.block.Blocks.ACACIA_FENCE);
+                public static final RegistryObject<Block> ACACIA_FRANCH_GATE = registerVanillaFranchGate("acacia_franch_gate", net.minecraft.world.level.block.Blocks.ACACIA_FENCE_GATE, WoodType.ACACIA);
+                public static final RegistryObject<Block> DARK_OAK_FRANCH = registerVanillaFranch("dark_oak_franch", net.minecraft.world.level.block.Blocks.DARK_OAK_FENCE);
+                public static final RegistryObject<Block> DARK_OAK_FRANCH_GATE = registerVanillaFranchGate("dark_oak_franch_gate", net.minecraft.world.level.block.Blocks.DARK_OAK_FENCE_GATE, WoodType.DARK_OAK);
+                public static final RegistryObject<Block> MANGROVE_FRANCH = registerVanillaFranch("mangrove_franch", net.minecraft.world.level.block.Blocks.MANGROVE_FENCE);
+                public static final RegistryObject<Block> MANGROVE_FRANCH_GATE = registerVanillaFranchGate("mangrove_franch_gate", net.minecraft.world.level.block.Blocks.MANGROVE_FENCE_GATE, WoodType.MANGROVE);
+                public static final RegistryObject<Block> CHERRY_FRANCH = registerVanillaFranch("cherry_franch", net.minecraft.world.level.block.Blocks.CHERRY_FENCE);
+                public static final RegistryObject<Block> CHERRY_FRANCH_GATE = registerVanillaFranchGate("cherry_franch_gate", net.minecraft.world.level.block.Blocks.CHERRY_FENCE_GATE, WoodType.CHERRY);
 
         public static final RegistryObject<Block> STRIPPED_WAYROOT_LOG = registerLog("stripped_wayroot_log");
         public static final RegistryObject<Block> STRIPPED_WAYROOT_WOOD = registerLog("stripped_wayroot_wood");

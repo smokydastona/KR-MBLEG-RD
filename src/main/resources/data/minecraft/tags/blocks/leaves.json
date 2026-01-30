@@ -13,6 +13,15 @@
     "kruemblegard:waytorch_tree_leaves",
     "kruemblegard:faultwood_leaves",
 
+    "kruemblegard:oak_franch",
+    "kruemblegard:spruce_franch",
+    "kruemblegard:birch_franch",
+    "kruemblegard:jungle_franch",
+    "kruemblegard:acacia_franch",
+    "kruemblegard:dark_oak_franch",
+    "kruemblegard:mangrove_franch",
+    "kruemblegard:cherry_franch",
+
     "kruemblegard:wayroot_franch",
     "kruemblegard:fallbark_franch",
     "kruemblegard:echowood_franch",
@@ -27,6 +36,15 @@
     "kruemblegard:ashbloom_franch",
     "kruemblegard:glimmerpine_franch",
     "kruemblegard:driftwood_franch",
+
+    "kruemblegard:oak_franch_gate",
+    "kruemblegard:spruce_franch_gate",
+    "kruemblegard:birch_franch_gate",
+    "kruemblegard:jungle_franch_gate",
+    "kruemblegard:acacia_franch_gate",
+    "kruemblegard:dark_oak_franch_gate",
+    "kruemblegard:mangrove_franch_gate",
+    "kruemblegard:cherry_franch_gate",
 
     "kruemblegard:wayroot_franch_gate",
     "kruemblegard:fallbark_franch_gate",
