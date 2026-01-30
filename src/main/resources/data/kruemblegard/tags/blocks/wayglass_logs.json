@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:wayglass_log",
+    "kruemblegard:wayglass_wood",
+    "kruemblegard:stripped_wayglass_log",
+    "kruemblegard:stripped_wayglass_wood",
+    "kruemblegard:wayglass_franch_wood"
+  ]
+}

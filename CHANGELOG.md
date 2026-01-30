@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.733 (2026-01-30)
+- Fix(compat/treeharvester): `minecraft:leaves` is no longer polluted with non-leaf Franch building blocks; only branch helper blocks are treated as leaves via `#kruemblegard:franch_branches`.
+- Fix(blocks/franch): Franch/leaves distance anchoring is now matching-species (Franch only stays valid when connected to the correct `*_logs` / `*_franch_logs` tag).
+
 ## 1.0.732 (2026-01-30)
 - Fix(worldgen/schematics): schematics now require valid solid ground under their bottom-layer footprint and won't spawn on leaves/logs/huge mushroom blocks; plants remain replaceable and support columns can replace plants.
 

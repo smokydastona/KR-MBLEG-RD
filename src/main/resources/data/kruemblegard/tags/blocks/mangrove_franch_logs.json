@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:mangrove_logs",
+    "kruemblegard:mangrove_franch_wood"
+  ]
+}

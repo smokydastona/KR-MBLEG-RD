@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:faultwood_log",
+    "kruemblegard:faultwood_wood",
+    "kruemblegard:stripped_faultwood_log",
+    "kruemblegard:stripped_faultwood_wood",
+    "kruemblegard:faultwood_franch_wood"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:monument_oak_log",
+    "kruemblegard:monument_oak_wood",
+    "kruemblegard:stripped_monument_oak_log",
+    "kruemblegard:stripped_monument_oak_wood",
+    "kruemblegard:monument_oak_franch_wood"
+  ]
+}

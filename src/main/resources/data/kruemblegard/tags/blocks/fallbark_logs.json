@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:fallbark_log",
+    "kruemblegard:fallbark_wood",
+    "kruemblegard:stripped_fallbark_log",
+    "kruemblegard:stripped_fallbark_wood",
+    "kruemblegard:fallbark_franch_wood"
+  ]
+}

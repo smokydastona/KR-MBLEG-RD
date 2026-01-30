@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -23,8 +24,11 @@ public class KruemblegardLeavesBlock extends Block {
     public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
     public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
-    public KruemblegardLeavesBlock(Properties properties) {
+    private final TagKey<Block> anchorLogs;
+
+    public KruemblegardLeavesBlock(Properties properties, TagKey<Block> anchorLogs) {
         super(properties);
+        this.anchorLogs = anchorLogs;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(DISTANCE, FranchDecay.DECAY_DISTANCE)
                 .setValue(PERSISTENT, false));
@@ -42,7 +46,7 @@ public class KruemblegardLeavesBlock extends Block {
             return null;
         }
 
-        int distance = FranchDecay.updateDistance(context.getLevel(), context.getClickedPos());
+        int distance = FranchDecay.updateDistance(context.getLevel(), context.getClickedPos(), anchorLogs);
         return state.setValue(PERSISTENT, true).setValue(DISTANCE, distance);
     }
 
@@ -65,7 +69,12 @@ public class KruemblegardLeavesBlock extends Block {
     ) {
         BlockState updated = super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 
-        int distance = FranchDecay.updateDistance(level, pos);
+        // (Vanilla parity) If the block got replaced with air (e.g., fluid updates), don't try to update/schedule decay.
+        if (updated.isAir()) {
+            return updated;
+        }
+
+        int distance = FranchDecay.updateDistance(level, pos, anchorLogs);
         if (updated.getValue(DISTANCE) != distance) {
             updated = updated.setValue(DISTANCE, distance);
         }
@@ -79,7 +88,7 @@ public class KruemblegardLeavesBlock extends Block {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int distance = FranchDecay.updateDistance(level, pos);
+        int distance = FranchDecay.updateDistance(level, pos, anchorLogs);
         BlockState updated = state;
         if (updated.getValue(DISTANCE) != distance) {
             updated = updated.setValue(DISTANCE, distance);

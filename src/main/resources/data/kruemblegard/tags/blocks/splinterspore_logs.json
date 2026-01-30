@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:splinterspore_log",
+    "kruemblegard:splinterspore_wood",
+    "kruemblegard:stripped_splinterspore_log",
+    "kruemblegard:stripped_splinterspore_wood",
+    "kruemblegard:splinterspore_franch_wood"
+  ]
+}

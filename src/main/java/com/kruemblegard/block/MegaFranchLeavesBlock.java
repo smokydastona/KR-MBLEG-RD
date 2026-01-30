@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import java.util.function.Supplier;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -20,8 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class MegaFranchLeavesBlock extends KruemblegardLeavesBlock {
     private final Supplier<? extends Block> cloneTo;
 
-    public MegaFranchLeavesBlock(Supplier<? extends Block> cloneTo, Properties properties) {
-        super(properties);
+    public MegaFranchLeavesBlock(Supplier<? extends Block> cloneTo, Properties properties, TagKey<Block> anchorLogs) {
+        super(properties, anchorLogs);
         this.cloneTo = cloneTo;
     }
 

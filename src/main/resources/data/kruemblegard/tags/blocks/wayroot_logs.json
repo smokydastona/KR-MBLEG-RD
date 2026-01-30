@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:wayroot_log",
+    "kruemblegard:wayroot_wood",
+    "kruemblegard:stripped_wayroot_log",
+    "kruemblegard:stripped_wayroot_wood",
+    "kruemblegard:wayroot_franch_wood"
+  ]
+}

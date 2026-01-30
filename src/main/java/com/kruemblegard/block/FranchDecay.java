@@ -3,7 +3,9 @@ package com.kruemblegard.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -22,13 +24,17 @@ public final class FranchDecay {
     }
 
     public static int updateDistance(LevelAccessor level, BlockPos pos) {
+        return updateDistance(level, pos, BlockTags.LOGS);
+    }
+
+    public static int updateDistance(LevelAccessor level, BlockPos pos, TagKey<Block> anchorLogs) {
         int minDistance = DECAY_DISTANCE;
 
         for (Direction direction : Direction.values()) {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighborState = level.getBlockState(neighborPos);
 
-            int neighborDistance = getDistanceAt(neighborState) + 1;
+            int neighborDistance = getDistanceAt(neighborState, anchorLogs) + 1;
             if (neighborDistance < minDistance) {
                 minDistance = neighborDistance;
             }
@@ -42,7 +48,11 @@ public final class FranchDecay {
     }
 
     public static int getDistanceAt(BlockState state) {
-        if (state.is(BlockTags.LOGS)) {
+        return getDistanceAt(state, BlockTags.LOGS);
+    }
+
+    public static int getDistanceAt(BlockState state, TagKey<Block> anchorLogs) {
+        if (state.is(anchorLogs)) {
             return 0;
         }
 

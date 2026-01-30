@@ -48,6 +48,8 @@ import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.FallingBlock;
@@ -1388,6 +1390,42 @@ public final class ModBlocks {
 
         // --- Wayfall trees (block sets; saplings grow into matching configured features) ---
 
+        private static final java.util.Set<String> VANILLA_FRANCH_SPECIES = java.util.Set.of(
+                        "oak",
+                        "spruce",
+                        "birch",
+                        "jungle",
+                        "acacia",
+                        "dark_oak",
+                        "mangrove",
+                        "cherry"
+        );
+
+        private static TagKey<Block> blockTag(String path) {
+                return TagKey.create(Registries.BLOCK, new ResourceLocation(Kruemblegard.MODID, path));
+        }
+
+        private static TagKey<Block> leavesAnchorLogsForId(String leavesId) {
+                String base = leavesId;
+                if (leavesId.endsWith("_mega_franch_leaves")) {
+                        base = leavesId.substring(0, leavesId.length() - "_mega_franch_leaves".length());
+                } else if (leavesId.endsWith("_leaves")) {
+                        base = leavesId.substring(0, leavesId.length() - "_leaves".length());
+                }
+                return blockTag(base + "_logs");
+        }
+
+        private static TagKey<Block> franchAnchorLogsForId(String franchId) {
+                int idx = franchId.indexOf("_franch");
+                String base = idx >= 0 ? franchId.substring(0, idx) : franchId;
+
+                if (VANILLA_FRANCH_SPECIES.contains(base)) {
+                        return blockTag(base + "_franch_logs");
+                }
+
+                return blockTag(base + "_logs");
+        }
+
     private static RegistryObject<Block> registerLog(String id) {
         return BLOCKS.register(id, () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.WOOD)
@@ -1410,15 +1448,20 @@ public final class ModBlocks {
     }
 
     private static RegistryObject<Block> registerLeaves(String id) {
-                return BLOCKS.register(id, () -> new com.kruemblegard.block.KruemblegardLeavesBlock(BlockBehaviour.Properties.of()
-                .mapColor(MapColor.PLANT)
-                .strength(0.2F)
-                .randomTicks()
-                .noOcclusion()
-                .sound(SoundType.GRASS)));
+        TagKey<Block> anchorLogs = leavesAnchorLogsForId(id);
+        return BLOCKS.register(id, () -> new com.kruemblegard.block.KruemblegardLeavesBlock(
+                BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.PLANT)
+                        .strength(0.2F)
+                        .randomTicks()
+                        .noOcclusion()
+                        .sound(SoundType.GRASS),
+                anchorLogs
+        ));
     }
 
         private static RegistryObject<Block> registerMegaFranchLeaves(String id, Supplier<? extends Block> cloneTo) {
+                TagKey<Block> anchorLogs = leavesAnchorLogsForId(id);
                 return BLOCKS.register(id, () -> new MegaFranchLeavesBlock(
                                 cloneTo,
                                 BlockBehaviour.Properties.of()
@@ -1426,7 +1469,8 @@ public final class ModBlocks {
                                                 .strength(0.2F)
                                                 .randomTicks()
                                                 .noOcclusion()
-                                                .sound(SoundType.GRASS)
+                                                .sound(SoundType.GRASS),
+                                anchorLogs
                 ));
         }
 
@@ -1451,11 +1495,13 @@ public final class ModBlocks {
         }
 
         private static RegistryObject<Block> registerFranch(String id, RegistryObject<Block> planks) {
-                return BLOCKS.register(id, () -> new FranchFenceBlock(woodFamilyProperties().randomTicks()));
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
+                return BLOCKS.register(id, () -> new FranchFenceBlock(woodFamilyProperties().randomTicks(), anchorLogs));
         }
 
         private static RegistryObject<Block> registerFranchGate(String id, RegistryObject<Block> planks) {
-                return BLOCKS.register(id, () -> new FranchFenceGateBlock(woodFamilyProperties().randomTicks(), WoodType.OAK));
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
+                return BLOCKS.register(id, () -> new FranchFenceGateBlock(woodFamilyProperties().randomTicks(), WoodType.OAK, anchorLogs));
         }
 
         private static RegistryObject<Block> registerFranchPlanks(String id, RegistryObject<Block> planks) {
@@ -1464,27 +1510,32 @@ public final class ModBlocks {
         }
 
         private static RegistryObject<Block> registerFranchStairs(String id, RegistryObject<Block> planks) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchStairBlock(() -> planks.get().defaultBlockState(), woodFamilyProperties().randomTicks()));
+                                () -> new FranchStairBlock(() -> planks.get().defaultBlockState(), woodFamilyProperties().randomTicks(), anchorLogs));
         }
 
         private static RegistryObject<Block> registerFranchSlab(String id, RegistryObject<Block> planks) {
-                return BLOCKS.register(id, () -> new FranchSlabBlock(woodFamilyProperties().randomTicks()));
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
+                return BLOCKS.register(id, () -> new FranchSlabBlock(woodFamilyProperties().randomTicks(), anchorLogs));
         }
 
         private static RegistryObject<Block> registerFranchTrapdoor(String id, RegistryObject<Block> planks) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchTrapDoorBlock(woodFamilyProperties().noOcclusion().randomTicks(), BlockSetType.OAK));
+                                () -> new FranchTrapDoorBlock(woodFamilyProperties().noOcclusion().randomTicks(), BlockSetType.OAK, anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranch(String id, Block copyFrom) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchFenceBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks()));
+                                () -> new FranchFenceBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks(), anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranchGate(String id, Block copyFrom, WoodType woodType) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchFenceGateBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks(), woodType));
+                                () -> new FranchFenceGateBlock(BlockBehaviour.Properties.copy(copyFrom).randomTicks(), woodType, anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranchPlanks(String id, Block copyFrom) {
@@ -1493,19 +1544,23 @@ public final class ModBlocks {
         }
 
         private static RegistryObject<Block> registerVanillaFranchStairs(String id, Block copyFromStairs, Block copyFromPlanks) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
                                 () -> new FranchStairBlock(copyFromPlanks::defaultBlockState,
-                                                BlockBehaviour.Properties.copy(copyFromStairs).randomTicks()));
+                                                BlockBehaviour.Properties.copy(copyFromStairs).randomTicks(),
+                                                anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranchSlab(String id, Block copyFromSlab) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchSlabBlock(BlockBehaviour.Properties.copy(copyFromSlab).randomTicks()));
+                                () -> new FranchSlabBlock(BlockBehaviour.Properties.copy(copyFromSlab).randomTicks(), anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranchTrapdoor(String id, Block copyFromTrapdoor, BlockSetType blockSetType) {
+                TagKey<Block> anchorLogs = franchAnchorLogsForId(id);
                 return BLOCKS.register(id,
-                                () -> new FranchTrapDoorBlock(BlockBehaviour.Properties.copy(copyFromTrapdoor).randomTicks(), blockSetType));
+                                () -> new FranchTrapDoorBlock(BlockBehaviour.Properties.copy(copyFromTrapdoor).randomTicks(), blockSetType, anchorLogs));
         }
 
         private static RegistryObject<Block> registerVanillaFranchWood(String id, Block woodDrop, Block logDrop, Block strippedWood) {
@@ -1541,7 +1596,8 @@ public final class ModBlocks {
                                                 .noCollission()
                                                 .noOcclusion()
                                                 .randomTicks()
-                                                .sound(SoundType.WOOL)));
+                                                .sound(SoundType.WOOL),
+                                        BlockTags.LOGS));
         }
 
         private static RegistryObject<Block> registerFenceGate(String id, RegistryObject<Block> planks) {
@@ -2072,7 +2128,7 @@ public final class ModBlocks {
                     .randomTicks()
                     .noOcclusion()
                     .sound(SoundType.GRASS)
-                    .lightLevel(s -> 3))
+                    .lightLevel(s -> 3), leavesAnchorLogsForId("ashbloom_leaves"))
     );
     public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerFeatureSapling2x2(
             "ashbloom_sapling",
@@ -2121,7 +2177,7 @@ public final class ModBlocks {
                     .randomTicks()
                     .noOcclusion()
                     .sound(SoundType.GRASS)
-                    .lightLevel(s -> 2))
+                    .lightLevel(s -> 2), leavesAnchorLogsForId("glimmerpine_leaves"))
     );
     public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerFeatureSapling2x2(
             "glimmerpine_sapling",
@@ -2162,7 +2218,7 @@ public final class ModBlocks {
                     .strength(0.2F)
                     .randomTicks()
                     .noOcclusion()
-                    .sound(SoundType.GRASS))
+                    .sound(SoundType.GRASS), leavesAnchorLogsForId("driftwood_leaves"))
     );
     public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerFeatureSapling2x2(
             "driftwood_sapling",

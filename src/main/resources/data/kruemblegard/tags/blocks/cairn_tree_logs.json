@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:cairn_tree_log",
+    "kruemblegard:cairn_tree_wood",
+    "kruemblegard:stripped_cairn_tree_log",
+    "kruemblegard:stripped_cairn_tree_wood",
+    "kruemblegard:cairn_tree_franch_wood"
+  ]
+}

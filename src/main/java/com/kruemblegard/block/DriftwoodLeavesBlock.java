@@ -2,13 +2,15 @@ package com.kruemblegard.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DriftwoodLeavesBlock extends KruemblegardLeavesBlock {
-    public DriftwoodLeavesBlock(Properties properties) {
-        super(properties);
+    public DriftwoodLeavesBlock(Properties properties, TagKey<Block> anchorLogs) {
+        super(properties, anchorLogs);
     }
 
     @Override
