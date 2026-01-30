@@ -57,8 +57,8 @@ Keep it up to date whenever you add/remove/rename content.
 ## Compatibility
 - **Tree Harvester (Serilum)**
   - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
-  - “Branch” helper blocks (Franch fences/gates + `string_franch`) are treated as leaves via `#kruemblegard:franch_branches` (included in `minecraft:leaves`).
-  - Tree Harvester compat: **all** Franch blocks are also included in `minecraft:leaves` via `#kruemblegard:treeharvester_clear`, so Tree Harvester will consider them “leaf blocks” during harvest cleanup.
+  - Tree Harvester native tags: Franch fences/gates/stairs/slabs/trapdoors + `string_franch` are included in `minecraft:leaves` so Tree Harvester treats them as leaves.
+  - Tree Harvester native tags: `*_franch_wood` and `*_franch_planks` are included in `minecraft:logs`/`minecraft:logs_that_burn` so Tree Harvester treats them as logs.
   - Franch/leaves validity is **species-aware**: Franch/leaves only stay connected (distance-0 anchor) when linked to matching-species logs (e.g., Ashbloom Franch connects to `#kruemblegard:ashbloom_logs`, Oak Franch connects to `#kruemblegard:oak_franch_logs`).
   - Giant fungi caps/stems are registered as `HugeMushroomBlock` and use vanilla huge-mushroom map-colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
   - Giant fungi cap **slabs** and red/brown mushroom block slabs are included in `minecraft:leaves` so Tree Harvester also clears slab cap blocks during harvest.
