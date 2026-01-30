@@ -1,6 +1,5 @@
 package com.kruemblegard.world.feature;
 
-import com.kruemblegard.block.FranchDecay;
 import com.kruemblegard.init.ModBlocks;
 import com.mojang.serialization.Codec;
 
@@ -16,13 +15,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -153,7 +149,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
                         BlockState state = palette[paletteId];
                         if (state == null || state.isAir()) continue;
 
-                        BlockState mapped = mapState(state, random);
+                        BlockState mapped = WayrootSchematicMapping.mapState(state, random);
                         if (mapped == null || mapped.isAir() || mapped.is(Blocks.STRUCTURE_VOID)) {
                             continue;
                         }
@@ -205,117 +201,6 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             }
 
             return false;
-        }
-
-        private static BlockState mapState(BlockState original, RandomSource random) {
-            // Placeholder: tinted glass in schems means "structure void" (skip placement).
-            if (original.is(Blocks.TINTED_GLASS)) {
-                return Blocks.STRUCTURE_VOID.defaultBlockState();
-            }
-
-            // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
-            if (original.is(Blocks.RED_WOOL)) {
-                return Blocks.STRUCTURE_VOID.defaultBlockState();
-            }
-
-            // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
-            if (original.is(Blocks.TRIPWIRE)) {
-                return ModBlocks.STRING_FRANCH.get().defaultBlockState();
-            }
-
-            // Force wayroot leaves for any leaf-like block, and guarantee they are non-persistent.
-            // Note: some of our leaf-like blocks do not extend vanilla LeavesBlock, so also key off
-            // leaf-specific properties.
-            if (original.is(BlockTags.LEAVES)
-                    || original.getBlock() instanceof LeavesBlock
-                    || original.hasProperty(LeavesBlock.PERSISTENT)
-                    || original.hasProperty(BlockStateProperties.DISTANCE)
-                    || original.hasProperty(FranchDecay.DISTANCE)) {
-                return safeWayrootLeafState();
-            }
-
-            // Normalize stripped Wayroot trunk blocks back to their non-stripped forms.
-            original = normalizeWayrootTrunkState(original);
-
-            // Convert any wood/log to Wayroot trunk.
-            if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
-                // Make it a 50/50 mix per trunk block (requested). This intentionally ignores whether
-                // the source block was a "log" or "wood" so schematics can be authored freely.
-                Block target = random.nextBoolean() ? ModBlocks.WAYROOT_WOOD.get() : ModBlocks.WAYROOT_LOG.get();
-                return copySharedProperties(original, target.defaultBlockState());
-            }
-
-            // Convert wood construction pieces into Wayroot franch variants.
-            if (original.is(BlockTags.FENCE_GATES)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_GATE.get().defaultBlockState());
-            }
-            if (original.is(BlockTags.WOODEN_FENCES)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH.get().defaultBlockState());
-            }
-            if (original.is(BlockTags.WOODEN_STAIRS)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_STAIRS.get().defaultBlockState());
-            }
-            if (original.is(BlockTags.WOODEN_SLABS)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_SLAB.get().defaultBlockState());
-            }
-            if (original.is(BlockTags.WOODEN_TRAPDOORS)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_TRAPDOOR.get().defaultBlockState());
-            }
-
-            if (original.is(BlockTags.PLANKS)) {
-                return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_PLANKS.get().defaultBlockState());
-            }
-
-            // Leave everything else as-is.
-            return original;
-        }
-
-        private static BlockState safeWayrootLeafState() {
-            BlockState state = ModBlocks.WAYROOT_LEAVES.get().defaultBlockState();
-
-            if (state.hasProperty(LeavesBlock.PERSISTENT)) {
-                state = state.setValue(LeavesBlock.PERSISTENT, false);
-            }
-
-            if (state.hasProperty(FranchDecay.DISTANCE)) {
-                state = state.setValue(FranchDecay.DISTANCE, 1);
-            } else if (state.hasProperty(BlockStateProperties.DISTANCE)) {
-                state = state.setValue(BlockStateProperties.DISTANCE, 1);
-            }
-
-            if (state.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                state = state.setValue(BlockStateProperties.WATERLOGGED, false);
-            }
-
-            return state;
-        }
-
-        private static BlockState normalizeWayrootTrunkState(BlockState state) {
-            if (state.is(ModBlocks.STRIPPED_WAYROOT_LOG.get())) {
-                return copyAxisIfPresent(state, ModBlocks.WAYROOT_LOG.get().defaultBlockState());
-            }
-            if (state.is(ModBlocks.STRIPPED_WAYROOT_WOOD.get())) {
-                return copyAxisIfPresent(state, ModBlocks.WAYROOT_WOOD.get().defaultBlockState());
-            }
-            return state;
-        }
-
-        private static BlockState copyAxisIfPresent(BlockState from, BlockState to) {
-            if (from.hasProperty(BlockStateProperties.AXIS) && to.hasProperty(BlockStateProperties.AXIS)) {
-                return to.setValue(BlockStateProperties.AXIS, from.getValue(BlockStateProperties.AXIS));
-            }
-            return to;
-        }
-
-        private static BlockState copySharedProperties(BlockState from, BlockState to) {
-            var toDef = to.getBlock().getStateDefinition();
-            for (Property<?> fromProp : from.getProperties()) {
-                Property<?> toProp = toDef.getProperty(fromProp.getName());
-                if (toProp == null) continue;
-                String value = from.getValue(fromProp).toString();
-                to = setPropertyFromString(to, toProp, value);
-            }
-            return to;
         }
 
         private static <T extends Comparable<T>> BlockState setPropertyFromString(BlockState state, Property<T> prop, String value) {

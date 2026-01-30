@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -74,7 +73,7 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
         // Random rotation around Y for variety.
         int rot = random.nextInt(4);
 
-        return schematic.place(level, start, rot);
+        return schematic.place(level, start, rot, random);
     }
 
     private static CompoundTag loadSchematic(ResourceManager resourceManager, ResourceLocation location) throws IOException {
@@ -133,7 +132,7 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
             return new SpongeSchematic(width, height, length, indices, palette);
         }
 
-        boolean place(LevelAccessor level, BlockPos start, int rot) {
+        boolean place(LevelAccessor level, BlockPos start, int rot, RandomSource random) {
             boolean placedAny = false;
 
             int pivotX = width / 2;
@@ -148,25 +147,21 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                         BlockState state = palette[paletteId];
                         if (state == null || state.isAir()) continue;
 
-                        // Force Wayroot leaves (persistent=true) even if the schematic contains other leaves.
-                        if (state.is(BlockTags.LEAVES) || state.getBlock() instanceof LeavesBlock) {
-                            state = safeWayrootLeafState();
+                        BlockState mapped = WayrootSchematicMapping.mapState(state, random);
+                        if (mapped == null || mapped.isAir() || mapped.is(net.minecraft.world.level.block.Blocks.STRUCTURE_VOID)) {
+                            continue;
                         }
-
-                        // Tree Harvester (and other "chop whole tree" mods) commonly ignore stripped logs.
-                        // For worldgen schematics, normalize stripped Wayroot trunk blocks back to their non-stripped forms.
-                        state = normalizeWayrootTrunkState(state);
 
                         BlockPos p = applyRotation(start, x, y, z, rot, pivotX, pivotZ);
                         if (level.isOutsideBuildHeight(p)) {
                             continue;
                         }
 
-                        if (!canReplace(level, p, state)) {
+                        if (!canReplace(level, p, mapped)) {
                             continue;
                         }
 
-                        level.setBlock(p, state, 2);
+                        level.setBlock(p, mapped, 2);
                         placedAny = true;
                     }
                 }
@@ -207,39 +202,6 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
 
             // Avoid nuking terrain.
             return false;
-        }
-
-        private static BlockState safeWayrootLeafState() {
-            BlockState state = ModBlocks.WAYROOT_LEAVES.get().defaultBlockState();
-            if (state.hasProperty(LeavesBlock.PERSISTENT)) {
-                // Treat schematic-placed leaves as natural (non-persistent) so Tree Harvester doesn't classify
-                // the whole tree as player-made by default.
-                state = state.setValue(LeavesBlock.PERSISTENT, false);
-            }
-            if (state.hasProperty(LeavesBlock.DISTANCE)) {
-                state = state.setValue(LeavesBlock.DISTANCE, 1);
-            }
-            if (state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED)) {
-                state = state.setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, false);
-            }
-            return state;
-        }
-
-        private static BlockState normalizeWayrootTrunkState(BlockState state) {
-            if (state.is(ModBlocks.STRIPPED_WAYROOT_LOG.get())) {
-                return copyAxisIfPresent(state, ModBlocks.WAYROOT_LOG.get().defaultBlockState());
-            }
-            if (state.is(ModBlocks.STRIPPED_WAYROOT_WOOD.get())) {
-                return copyAxisIfPresent(state, ModBlocks.WAYROOT_WOOD.get().defaultBlockState());
-            }
-            return state;
-        }
-
-        private static BlockState copyAxisIfPresent(BlockState from, BlockState to) {
-            if (from.hasProperty(BlockStateProperties.AXIS) && to.hasProperty(BlockStateProperties.AXIS)) {
-                return to.setValue(BlockStateProperties.AXIS, from.getValue(BlockStateProperties.AXIS));
-            }
-            return to;
         }
 
         private static int[] decodeVarints(byte[] data, int expectedCount) {
