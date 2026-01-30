@@ -218,13 +218,24 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
                 return Blocks.STRUCTURE_VOID.defaultBlockState();
             }
 
+            // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
+            if (original.is(Blocks.RED_WOOL)) {
+                return Blocks.STRUCTURE_VOID.defaultBlockState();
+            }
+
             // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
             if (original.is(Blocks.TRIPWIRE)) {
                 return ModBlocks.STRING_FRANCH.get().defaultBlockState();
             }
 
             // Force wayroot leaves for any leaf-like block, and guarantee they are non-persistent.
-            if (original.is(BlockTags.LEAVES) || original.getBlock() instanceof LeavesBlock) {
+            // Note: some of our leaf-like blocks do not extend vanilla LeavesBlock, so also key off
+            // leaf-specific properties.
+            if (original.is(BlockTags.LEAVES)
+                    || original.getBlock() instanceof LeavesBlock
+                    || original.hasProperty(LeavesBlock.PERSISTENT)
+                    || original.hasProperty(BlockStateProperties.DISTANCE)
+                    || original.hasProperty(FranchDecay.DISTANCE)) {
                 return safeWayrootLeafState();
             }
 
@@ -238,19 +249,19 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             }
 
             // Convert wood construction pieces into Wayroot franch variants.
-            if (original.getBlock() instanceof FenceGateBlock) {
+            if (original.is(BlockTags.FENCE_GATES)) {
                 return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_GATE.get().defaultBlockState());
             }
-            if (original.getBlock() instanceof FenceBlock) {
+            if (original.is(BlockTags.WOODEN_FENCES)) {
                 return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH.get().defaultBlockState());
             }
-            if (original.getBlock() instanceof StairBlock) {
+            if (original.is(BlockTags.WOODEN_STAIRS)) {
                 return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_STAIRS.get().defaultBlockState());
             }
-            if (original.getBlock() instanceof SlabBlock) {
+            if (original.is(BlockTags.WOODEN_SLABS)) {
                 return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_SLAB.get().defaultBlockState());
             }
-            if (original.getBlock() instanceof TrapDoorBlock) {
+            if (original.is(BlockTags.WOODEN_TRAPDOORS)) {
                 return copySharedProperties(original, ModBlocks.WAYROOT_FRANCH_TRAPDOOR.get().defaultBlockState());
             }
 
