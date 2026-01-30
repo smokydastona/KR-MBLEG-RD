@@ -137,10 +137,10 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             int h = this.height;
             int l = this.length;
 
-            // Track the lowest placed stem/slab per local X/Z column so we can build a support “beard”
-            // under the schematic footprint and avoid overhangs.
-            int[] minPlacedSupportY = new int[w * l];
-            java.util.Arrays.fill(minPlacedSupportY, Integer.MAX_VALUE);
+            // Track where the schematic actually places blocks on its bottom layer (y == 0).
+            // We will only generate support under the *perimeter* of this footprint so we don't
+            // "raise terrain" inside the structure.
+            boolean[] bottomFootprint = new boolean[w * l];
 
             for (int y = 0; y < h; y++) {
                 for (int z = 0; z < l; z++) {
@@ -183,11 +183,8 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
                         BlockPos p = rotate(start, x, y, z, w, l, rot);
                         level.setBlock(p, mapped, 3);
 
-                        if (mapped.is(stemBlock) || mapped.is(slabBlock)) {
-                            int col = z * w + x;
-                            if (y < minPlacedSupportY[col]) {
-                                minPlacedSupportY[col] = y;
-                            }
+                        if (y == 0) {
+                            bottomFootprint[z * w + x] = true;
                         }
                     }
                 }
@@ -198,22 +195,31 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             // per-block face settings unless we rebuild them.
             updateMushroomCapFaces(level, start, w, h, l, rot, capBlock, stemBlock);
 
-            applySupportBeard(level, start, w, l, rot, minPlacedSupportY);
+            applySupportBeard(level, start, w, l, rot, bottomFootprint);
 
             return true;
         }
 
-        private static void applySupportBeard(LevelAccessor level, BlockPos start, int w, int l, int rot, int[] minPlacedSupportY) {
+        private static void applySupportBeard(LevelAccessor level, BlockPos start, int w, int l, int rot, boolean[] bottomFootprint) {
             final int maxDepth = 12;
 
             for (int z = 0; z < l; z++) {
                 for (int x = 0; x < w; x++) {
-                    int minY = minPlacedSupportY[z * w + x];
-                    if (minY == Integer.MAX_VALUE) {
+                    int col = z * w + x;
+                    if (!bottomFootprint[col]) {
                         continue;
                     }
 
-                    BlockPos base = rotate(start, x, minY, z, w, l, rot);
+                    // Only support the footprint perimeter (avoid modifying terrain inside the structure).
+                    boolean north = (z > 0) && bottomFootprint[(z - 1) * w + x];
+                    boolean south = (z < l - 1) && bottomFootprint[(z + 1) * w + x];
+                    boolean west = (x > 0) && bottomFootprint[z * w + (x - 1)];
+                    boolean east = (x < w - 1) && bottomFootprint[z * w + (x + 1)];
+                    if (north && south && west && east) {
+                        continue;
+                    }
+
+                    BlockPos base = rotate(start, x, 0, z, w, l, rot);
                     BlockPos cursor = base.below();
                     if (level.isOutsideBuildHeight(cursor)) {
                         continue;

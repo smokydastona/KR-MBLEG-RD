@@ -135,10 +135,10 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
         boolean place(LevelAccessor level, BlockPos start, int rot, RandomSource random) {
             boolean placedAny = false;
 
-            // Track the lowest placed trunk/log per local X/Z column so we can build a support “beard”
-            // under the schematic footprint and avoid overhangs.
-            int[] minPlacedLogY = new int[width * length];
-            java.util.Arrays.fill(minPlacedLogY, Integer.MAX_VALUE);
+            // Track where the schematic actually places blocks on its bottom layer (y == 0).
+            // We will only generate support under the *perimeter* of this footprint so we don't
+            // "raise terrain" inside the structure.
+            boolean[] bottomFootprint = new boolean[width * length];
 
             int pivotX = width / 2;
             int pivotZ = length / 2;
@@ -169,34 +169,40 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                         level.setBlock(p, mapped, 2);
                         placedAny = true;
 
-                        if (mapped.is(BlockTags.LOGS)) {
-                            int col = z * width + x;
-                            if (y < minPlacedLogY[col]) {
-                                minPlacedLogY[col] = y;
-                            }
+                        if (y == 0) {
+                            bottomFootprint[z * width + x] = true;
                         }
                     }
                 }
             }
 
             if (placedAny) {
-                applySupportBeard(level, start, rot, pivotX, pivotZ, minPlacedLogY);
+                applySupportBeard(level, start, rot, pivotX, pivotZ, bottomFootprint);
             }
 
             return placedAny;
         }
 
-        private void applySupportBeard(LevelAccessor level, BlockPos center, int rot, int pivotX, int pivotZ, int[] minPlacedLogY) {
+        private void applySupportBeard(LevelAccessor level, BlockPos center, int rot, int pivotX, int pivotZ, boolean[] bottomFootprint) {
             final int maxDepth = 16;
 
             for (int z = 0; z < length; z++) {
                 for (int x = 0; x < width; x++) {
-                    int minY = minPlacedLogY[z * width + x];
-                    if (minY == Integer.MAX_VALUE) {
+                    int col = z * width + x;
+                    if (!bottomFootprint[col]) {
                         continue;
                     }
 
-                    BlockPos base = applyRotation(center, x, minY, z, rot, pivotX, pivotZ);
+                    // Only support the footprint perimeter (avoid modifying terrain inside the structure).
+                    boolean north = (z > 0) && bottomFootprint[(z - 1) * width + x];
+                    boolean south = (z < length - 1) && bottomFootprint[(z + 1) * width + x];
+                    boolean west = (x > 0) && bottomFootprint[z * width + (x - 1)];
+                    boolean east = (x < width - 1) && bottomFootprint[z * width + (x + 1)];
+                    if (north && south && west && east) {
+                        continue;
+                    }
+
+                    BlockPos base = applyRotation(center, x, 0, z, rot, pivotX, pivotZ);
                     BlockPos cursor = base.below();
                     if (level.isOutsideBuildHeight(cursor)) {
                         continue;
