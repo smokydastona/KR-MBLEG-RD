@@ -54,7 +54,7 @@ public final class ModAutoBlockItems {
                 }
 
                 // Command/schematic-only blocks.
-                if (id.getPath().endsWith("_franch")) {
+                if (id.getPath().endsWith("_franch") || id.getPath().endsWith("_franch_gate")) {
                     continue;
                 }
 

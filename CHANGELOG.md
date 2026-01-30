@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.688 (2026-01-30)
+- Feature(blocks): add command/schematic-only "Franch" fence gates (one per wood type) that behave like fence gates but decay like leaves and use leaf-style stick drops.
+- Compat(treeharvester): include franch fence gates in `minecraft:leaves` so they count as leaves for proximity checks.
+
 ## 1.0.687 (2026-01-29)
 - Feature(blocks): add command/schematic-only "Franch" fences (one per wood type) that behave like fences but decay like leaves and drop sticks when broken.
 - Tuning(blocks): Franch fences now use leaf-style stick drops (fortune-scaled chance) and are included in `minecraft:leaves` so Tree Harvester treats them like leaves.

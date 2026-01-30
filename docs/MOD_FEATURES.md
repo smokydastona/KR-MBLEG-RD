@@ -248,8 +248,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
       - Normal Wayroot uses the baobab-style configured feature cores.
       - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
-  - Schematic-only “Franch” fences: `*_franch`
-    - Behave like fences (connectivity + collision + rendering), but also decay like leaves when not persistent.
+  - Schematic-only “Franch” fences and gates: `*_franch`, `*_franch_gate`
+    - Behave like fences / fence gates (connectivity + collision + rendering), but also decay like leaves when not persistent.
     - Not craftable and intentionally has no block item; intended for commands and schematic placement only.
     - Uses leaf-style stick drops (fortune-scaled chance) when broken/decayed.
     - Included in `minecraft:leaves` (block tag) so Tree Harvester treats them like leaves for proximity checks.

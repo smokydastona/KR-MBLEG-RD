@@ -9,31 +9,35 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 /**
- * A fence that behaves like a normal fence, but decays using the same rules as leaves.
+ * A fence gate that behaves like a normal fence gate, but decays using the same rules as leaves.
  *
  * Default state is non-persistent (schematic/command-placed). If placed by a player (if an item
  * is ever added), it becomes persistent like vanilla leaves.
  */
-public class FranchFenceBlock extends FenceBlock {
+public class FranchFenceGateBlock extends FenceGateBlock {
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     private static final int DECAY_DISTANCE = 7;
 
-    public FranchFenceBlock(Properties properties) {
-        super(properties);
+    public FranchFenceGateBlock(Properties properties, WoodType type) {
+        super(properties, type);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(DISTANCE, DECAY_DISTANCE)
                 .setValue(PERSISTENT, false)
-                .setValue(WATERLOGGED, false));
+                .setValue(FACING, Direction.NORTH)
+                .setValue(OPEN, false)
+                .setValue(POWERED, false)
+                .setValue(IN_WALL, false));
     }
 
     @Override
