@@ -148,12 +148,31 @@
 		},
 		"animation.scattered_enderman.carry_block": {
 			"loop": true,
+			"animation_length": 0.7917,
 			"bones": {
 				"rightarm": {
 					"rotation": [-60, 0, 0]
 				},
 				"leftarm": {
 					"rotation": [-60, 0, 0]
+				},
+				"leftleg": {
+					"rotation": {
+						"0.0": ["math.sin(query.anim_time * 2.6 + 3.14) * 35", 0, 0],
+						"0.2083": ["10+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.4167": ["-12.5+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.5833": ["10+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.7917": ["-12.5+math.sin(query.anim_time * 2.6) * 35", 0, 0]
+					}
+				},
+				"rightleg": {
+					"rotation": {
+						"0.0": ["math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.2083": ["-15+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.4167": ["10+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.5833": ["-15+math.sin(query.anim_time * 2.6) * 35", 0, 0],
+						"0.7917": ["10+math.sin(query.anim_time * 2.6) * 35", 0, 0]
+					}
 				}
 			}
 		},
