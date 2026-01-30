@@ -53,6 +53,11 @@ public final class ModAutoBlockItems {
                     continue;
                 }
 
+                // Command/schematic-only blocks.
+                if (id.getPath().endsWith("_franch")) {
+                    continue;
+                }
+
                 // Special-cased items.
                 if ("waylily".equals(id.getPath())) {
                     helper.register(id, new WaylilyItem(block, new Item.Properties()));

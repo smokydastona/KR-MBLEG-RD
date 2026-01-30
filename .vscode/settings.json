@@ -18,9 +18,22 @@
     ],
     "powershell.scriptAnalysis.enable": false,
     "files.associations": {
-        "**/loot_tables/**/*.json": "json"
+        "**/loot_tables/**/*.json": "plaintext",
+        "src/main/resources/assets/kruemblegard/blockstates/faultwood_franch.json": "plaintext"
     },
     "json.schemas": [
+        {
+            "fileMatch": [
+                "src/main/resources/data/kruemblegard/loot_tables/blocks/faultwood_franch.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-loot-table-permissive.schema.json"
+        },
+        {
+            "fileMatch": [
+                "src/main/resources/assets/kruemblegard/blockstates/faultwood_franch.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-blockstate-permissive.schema.json"
+        },
         {
             "fileMatch": [
                 "**/loot_tables/**/*.json"
@@ -29,7 +42,19 @@
         },
         {
             "fileMatch": [
+                "src/main/resources/data/**/loot_tables/**/*.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-loot-table-permissive.schema.json"
+        },
+        {
+            "fileMatch": [
                 "src/main/resources/assets/**/blockstates/**/*.json"
+            ],
+            "url": "./.vscode/schemas/minecraft-blockstate-permissive.schema.json"
+        },
+        {
+            "fileMatch": [
+                "src/main/resources/assets/**/blockstates/*.json"
             ],
             "url": "./.vscode/schemas/minecraft-blockstate-permissive.schema.json"
         }
