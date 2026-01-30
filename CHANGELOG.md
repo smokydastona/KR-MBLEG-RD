@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.716 (2026-01-30)
+- Fix(mobs/scattered_enderman): adjust the `held_block` bone pivot so carried blocks align correctly in-hand.
+
 ## 1.0.715 (2026-01-30)
 - Chore(assets/textures): resize all square block + item textures to 256x256 (no cropping); non-square textures are intentionally left unchanged.
 
