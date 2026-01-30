@@ -19,6 +19,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.739 (2026-01-30)
 - Chore(docs): clean up Tree Harvester changelog notes to match the current vanilla-tag approach.
 
+## 1.0.740 (2026-01-30)
+- Chore(resources): delete obsolete `data/kruemblegard/tags/blocks/franch_branches.json` (no longer referenced).
+
 ## 1.0.734 (2026-01-30)
 - Fix(compat/treeharvester): Tree Harvester cleanup logic improvement (superseded by later native vanilla-tag approach).
 - Fix(compat/treeharvester): restore all mushroom slab blocks (giant fungus cap slabs + red/brown mushroom block slabs) in `minecraft:leaves` so Tree Harvester clears them consistently.
