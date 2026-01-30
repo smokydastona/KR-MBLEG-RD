@@ -240,7 +240,7 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
                         continue;
                     }
 
-                    BlockState fillState = pickSoilFill(anchor);
+                    BlockState fillState = pickLocalFill(level, cursor, anchor);
                     for (int d = 0; d < fillable; d++) {
                         BlockPos p = cursor.below(d);
                         if (!isFillableForSupport(level, p)) {
@@ -269,17 +269,56 @@ public final class GiantMushroomSchematicFeature extends Feature<GiantMushroomSc
             return false;
         }
 
-        private static BlockState pickSoilFill(BlockState anchor) {
-            if (anchor != null) {
-                if (anchor.is(Blocks.MYCELIUM)) {
-                    return Blocks.MYCELIUM.defaultBlockState();
-                }
-                if (anchor.is(BlockTags.DIRT) || anchor.is(Blocks.GRASS_BLOCK)) {
-                    return Blocks.DIRT.defaultBlockState();
+        private static BlockState pickLocalFill(LevelAccessor level, BlockPos reference, BlockState anchor) {
+            BlockState fromAnchor = normalizeTerrainFill(anchor);
+            if (fromAnchor != null) {
+                return fromAnchor;
+            }
+
+            final int radius = 4;
+            final int downScan = 6;
+
+            for (int r = 0; r <= radius; r++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    for (int dx = -r; dx <= r; dx++) {
+                        BlockPos column = reference.offset(dx, 0, dz);
+                        for (int dy = 0; dy <= downScan; dy++) {
+                            BlockPos p = column.below(dy);
+                            if (level.isOutsideBuildHeight(p)) {
+                                break;
+                            }
+                            if (!level.getFluidState(p).isEmpty()) {
+                                continue;
+                            }
+
+                            BlockState found = normalizeTerrainFill(level.getBlockState(p));
+                            if (found != null) {
+                                return found;
+                            }
+                        }
+                    }
                 }
             }
 
             return Blocks.DIRT.defaultBlockState();
+        }
+
+        private static BlockState normalizeTerrainFill(BlockState state) {
+            if (state == null || state.isAir()) {
+                return null;
+            }
+            if (state.canBeReplaced()) {
+                return null;
+            }
+            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
+                return null;
+            }
+
+            if (state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM) || state.is(Blocks.PODZOL)) {
+                return Blocks.DIRT.defaultBlockState();
+            }
+
+            return state;
         }
 
         private static void updateMushroomCapFaces(LevelAccessor level, BlockPos start, int w, int h, int l, int rot, Block capBlock, Block stemBlock) {

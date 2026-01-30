@@ -225,7 +225,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
                         continue;
                     }
 
-                    BlockState fillState = pickSoilFill(anchor);
+                    BlockState fillState = pickLocalFill(level, cursor, anchor);
                     for (int d = 0; d < fillable; d++) {
                         BlockPos p = cursor.below(d);
                         if (!isFillableForSupport(level, p)) {
@@ -251,17 +251,65 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             return false;
         }
 
-        private static BlockState pickSoilFill(BlockState anchor) {
-            if (anchor != null) {
-                if (anchor.is(Blocks.MYCELIUM)) {
-                    return Blocks.MYCELIUM.defaultBlockState();
-                }
-                if (anchor.is(BlockTags.DIRT) || anchor.is(Blocks.GRASS_BLOCK)) {
-                    return Blocks.DIRT.defaultBlockState();
+        private static BlockState pickLocalFill(LevelAccessor level, BlockPos reference, BlockState anchor) {
+            BlockState fromAnchor = normalizeTerrainFill(anchor);
+            if (fromAnchor != null) {
+                return fromAnchor;
+            }
+
+            // Try to match the local surface palette by sampling nearby terrain. This avoids ugly
+            // “dirt pillars” in non-dirt biomes (sand, gravel, custom soils, etc.).
+            final int radius = 4;
+            final int downScan = 6;
+
+            for (int r = 0; r <= radius; r++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    for (int dx = -r; dx <= r; dx++) {
+                        BlockPos column = reference.offset(dx, 0, dz);
+                        for (int dy = 0; dy <= downScan; dy++) {
+                            BlockPos p = column.below(dy);
+                            if (level.isOutsideBuildHeight(p)) {
+                                break;
+                            }
+                            if (!level.getFluidState(p).isEmpty()) {
+                                continue;
+                            }
+
+                            BlockState found = normalizeTerrainFill(level.getBlockState(p));
+                            if (found != null) {
+                                return found;
+                            }
+                        }
+                    }
                 }
             }
 
             return Blocks.DIRT.defaultBlockState();
+        }
+
+        private static BlockState normalizeTerrainFill(BlockState state) {
+            if (state == null || state.isAir()) {
+                return null;
+            }
+            if (state.canBeReplaced()) {
+                return null;
+            }
+            if (state.getBlock() instanceof LeavesBlock) {
+                return null;
+            }
+            if (state.getBlock() instanceof BushBlock) {
+                return null;
+            }
+            if (state.is(BlockTags.LOGS) || state.is(BlockTags.LEAVES)) {
+                return null;
+            }
+
+            // Prefer sub-soil blocks so support columns look natural when exposed.
+            if (state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM) || state.is(Blocks.PODZOL)) {
+                return Blocks.DIRT.defaultBlockState();
+            }
+
+            return state;
         }
 
         private int index(int x, int y, int z) {

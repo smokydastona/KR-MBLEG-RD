@@ -223,7 +223,7 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
                         continue;
                     }
 
-                    BlockState fillState = pickSoilFill(anchor);
+                    BlockState fillState = pickLocalFill(level, cursor, anchor);
                     for (int d = 0; d < fillable; d++) {
                         BlockPos p = cursor.below(d);
                         if (!isFillableForSupport(level, p)) {
@@ -249,17 +249,64 @@ public class WayrootMegaSchematicFeature extends Feature<NoneFeatureConfiguratio
             return false;
         }
 
-        private static BlockState pickSoilFill(BlockState anchor) {
-            if (anchor != null) {
-                if (anchor.is(net.minecraft.world.level.block.Blocks.MYCELIUM)) {
-                    return net.minecraft.world.level.block.Blocks.MYCELIUM.defaultBlockState();
-                }
-                if (anchor.is(BlockTags.DIRT) || anchor.is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK)) {
-                    return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
+        private static BlockState pickLocalFill(LevelAccessor level, BlockPos reference, BlockState anchor) {
+            BlockState fromAnchor = normalizeTerrainFill(anchor);
+            if (fromAnchor != null) {
+                return fromAnchor;
+            }
+
+            final int radius = 5;
+            final int downScan = 8;
+
+            for (int r = 0; r <= radius; r++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    for (int dx = -r; dx <= r; dx++) {
+                        BlockPos column = reference.offset(dx, 0, dz);
+                        for (int dy = 0; dy <= downScan; dy++) {
+                            BlockPos p = column.below(dy);
+                            if (level.isOutsideBuildHeight(p)) {
+                                break;
+                            }
+                            if (!level.getFluidState(p).isEmpty()) {
+                                continue;
+                            }
+
+                            BlockState found = normalizeTerrainFill(level.getBlockState(p));
+                            if (found != null) {
+                                return found;
+                            }
+                        }
+                    }
                 }
             }
 
             return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
+        }
+
+        private static BlockState normalizeTerrainFill(BlockState state) {
+            if (state == null || state.isAir()) {
+                return null;
+            }
+            if (state.canBeReplaced()) {
+                return null;
+            }
+            if (state.getBlock() instanceof LeavesBlock) {
+                return null;
+            }
+            if (state.getBlock() instanceof BushBlock) {
+                return null;
+            }
+            if (state.is(BlockTags.LOGS) || state.is(BlockTags.LEAVES)) {
+                return null;
+            }
+
+            if (state.is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK)
+                    || state.is(net.minecraft.world.level.block.Blocks.MYCELIUM)
+                    || state.is(net.minecraft.world.level.block.Blocks.PODZOL)) {
+                return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
+            }
+
+            return state;
         }
 
         private int index(int x, int y, int z) {

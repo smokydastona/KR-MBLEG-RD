@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.727 (2026-01-30)
 - Tuning(worldgen/schematics): add a short soil support “beard” under schematic-placed Wayroot trees (regular + mega) and giant mushrooms so bases don’t overhang uneven terrain.
 
+## 1.0.728 (2026-01-30)
+- Tuning(worldgen/schematics): support “beard” now samples nearby terrain blocks so the fill matches the local biome palette instead of defaulting to dirt.
+
 ## 1.0.726 (2026-01-30)
 - Compat(treeharvester): when Tree Harvester harvests a tree, Kruemblegård immediately clears nearby leaves + all franch helper blocks and relocates the resulting drops to the harvesting player’s feet.
 
