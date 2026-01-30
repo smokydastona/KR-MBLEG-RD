@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.737 (2026-01-30)
 - Chore(compat/treeharvester): remove leftover `kruemblegard:treeharvester_clear` tag plumbing (now unnecessary since Franch is tagged via vanilla `minecraft:leaves`/`minecraft:logs`).
 
+## 1.0.738 (2026-01-30)
+- Chore(resources): delete obsolete `data/kruemblegard/tags/blocks/treeharvester_clear.json` (no longer used).
+
 ## 1.0.734 (2026-01-30)
 - Fix(compat/treeharvester): Tree Harvester cleanup now clears *all* Franch blocks via `#kruemblegard:treeharvester_clear` (without requiring them to be in `minecraft:leaves`).
 - Fix(compat/treeharvester): restore all mushroom slab blocks (giant fungus cap slabs + red/brown mushroom block slabs) in `minecraft:leaves` so Tree Harvester clears them consistently.
