@@ -224,7 +224,7 @@ public final class TreeHarvesterCompatEvents {
                 continue;
             }
 
-            if (!state.is(BlockTags.LEAVES) && !state.is(ModTags.Blocks.TREEHARVESTER_CLEAR)) {
+            if (!state.is(BlockTags.LEAVES)) {
                 continue;
             }
 

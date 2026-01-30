@@ -33,11 +33,6 @@ public final class ModTags {
             Registries.BLOCK,
             new ResourceLocation(Kruemblegard.MOD_ID, "rubble_tillable")
         );
-
-        public static final TagKey<Block> TREEHARVESTER_CLEAR = TagKey.create(
-            Registries.BLOCK,
-            new ResourceLocation(Kruemblegard.MOD_ID, "treeharvester_clear")
-        );
     }
 
     public static final class Biomes {
