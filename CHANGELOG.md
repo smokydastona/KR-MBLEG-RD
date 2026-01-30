@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.719 (2026-01-30)
+## 1.0.721 (2026-01-30)
+- Docs(changelog): align version entries for 1.0.719–1.0.720 after pushing a pending local commit.
+
+## 1.0.720 (2026-01-30)
 - Fix(worldgen/wayroot): mega Wayroot schematic placement now uses the same palette remaps as normal Wayroot trees (skip `minecraft:red_wool` markers, remap `minecraft:tripwire` → `kruemblegard:string_franch`, and convert wood construction blocks into Wayroot franch variants).
+
+## 1.0.719 (2026-01-30)
+- Content(textures): update `driftwillow_leaves` texture.
 
 ## 1.0.718 (2026-01-30)
 - Docs(changelog): record the 1.0.717 Scattered Enderman animation tweak.
