@@ -8,19 +8,21 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class FranchStringBlock extends Block {
     public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
     public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
+    private static final VoxelShape EMPTY = Shapes.empty();
 
     public FranchStringBlock(Properties properties) {
         super(properties);
@@ -102,13 +104,18 @@ public final class FranchStringBlock extends Block {
     }
 
     @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return EMPTY;
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return EMPTY;
     }
 
     @Override

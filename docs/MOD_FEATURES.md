@@ -252,10 +252,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Schematic-only “Franch” wood blocks: `*_franch`, `*_franch_gate`, `*_franch_planks`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
     - Behave like fences / fence gates (connectivity + collision + rendering), but also decay like leaves when not persistent.
     - Not craftable and intentionally has no block item; intended for commands and schematic placement only.
-    - Uses leaf-style stick drops (fortune-scaled chance) when broken/decayed.
+    - Drops nothing when broken/decayed (schematic helper blocks).
     - Included in `minecraft:leaves` (block tag) so Tree Harvester treats them like leaves for proximity checks.
     - Franch blocks participate in an extended 10-block log-distance network and can extend Kruemblegard leaf connectivity without acting as distance-0 "roots" by themselves.
       - Note: vanilla `minecraft:*_leaves` still use the vanilla 7-block decay rules; the extended 10-block logic applies to Kruemblegard leaves and all franch blocks.
+    - `string_franch` is a special schematic helper used as a tripwire placeholder in templates; it is invisible and has no collision.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)

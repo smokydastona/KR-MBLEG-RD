@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.724 (2026-01-30)
+- Fix(blocks/franch): all franch blocks now drop nothing (no more stick drops).
+- Fix(blocks/string_franch): string franch is now non-colliding and fully invisible in-world, with a dedicated transparent texture.
+
+## 1.0.723 (2026-01-30)
+- Content(textures): update Runebloom, Wayburn Fungus, Wayglass leaves, and Wispstalk textures.
+
+## 1.0.722 (2026-01-30)
+- Content(textures): update multiple leaf textures (Ashbloom/Cairn Tree/Driftwillow/Driftwood/Fallbark/Glimmerpine/Hollowway Tree/Monument Oak).
+
 ## 1.0.721 (2026-01-30)
 - Docs(changelog): align version entries for 1.0.719–1.0.720 after pushing a pending local commit.
 

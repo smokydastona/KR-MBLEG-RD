@@ -1499,6 +1499,7 @@ public final class ModBlocks {
                                 () -> new FranchStringBlock(BlockBehaviour.Properties.of()
                                                 .mapColor(MapColor.COLOR_LIGHT_GRAY)
                                                 .strength(0.0F)
+                                                .noCollission()
                                                 .noOcclusion()
                                                 .randomTicks()
                                                 .sound(SoundType.WOOL)));
