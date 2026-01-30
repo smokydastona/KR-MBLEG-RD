@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import com.kruemblegard.registry.ModTags;
+
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -222,7 +224,7 @@ public final class TreeHarvesterCompatEvents {
                 continue;
             }
 
-            if (!state.is(BlockTags.LEAVES)) {
+            if (!state.is(BlockTags.LEAVES) && !state.is(ModTags.Blocks.TREEHARVESTER_CLEAR)) {
                 continue;
             }
 

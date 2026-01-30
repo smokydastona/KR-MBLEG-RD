@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.734 (2026-01-30)
+- Fix(compat/treeharvester): Tree Harvester cleanup now clears *all* Franch blocks via `#kruemblegard:treeharvester_clear` (without requiring them to be in `minecraft:leaves`).
+- Fix(compat/treeharvester): restore all mushroom slab blocks (giant fungus cap slabs + red/brown mushroom block slabs) in `minecraft:leaves` so Tree Harvester clears them consistently.
+
 ## 1.0.733 (2026-01-30)
 - Fix(compat/treeharvester): `minecraft:leaves` is no longer polluted with non-leaf Franch building blocks; only branch helper blocks are treated as leaves via `#kruemblegard:franch_branches`.
 - Fix(blocks/franch): Franch/leaves distance anchoring is now matching-species (Franch only stays valid when connected to the correct `*_logs` / `*_franch_logs` tag).
