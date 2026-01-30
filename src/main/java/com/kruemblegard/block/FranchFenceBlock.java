@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
@@ -22,8 +21,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * is ever added), it becomes persistent like vanilla leaves.
  */
 public class FranchFenceBlock extends FenceBlock {
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
-    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
+    public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
     public FranchFenceBlock(Properties properties) {
         super(properties);

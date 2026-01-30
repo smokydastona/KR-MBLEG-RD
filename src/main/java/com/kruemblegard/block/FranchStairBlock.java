@@ -11,15 +11,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import java.util.function.Supplier;
 
 public class FranchStairBlock extends StairBlock {
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
-    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
+    public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
     public FranchStairBlock(Supplier<BlockState> baseState, Properties properties) {
         super(baseState, properties);

@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -23,8 +22,8 @@ import net.minecraft.world.level.block.state.properties.WoodType;
  * is ever added), it becomes persistent like vanilla leaves.
  */
 public class FranchFenceGateBlock extends FenceGateBlock {
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
-    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
+    public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
     public FranchFenceGateBlock(Properties properties, WoodType type) {
         super(properties, type);

@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public final class FranchDecay {
-    public static final int DECAY_DISTANCE = 7;
+    public static final int DECAY_DISTANCE = 10;
 
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
+    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, DECAY_DISTANCE);
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     private FranchDecay() {}
@@ -48,6 +48,11 @@ public final class FranchDecay {
 
         if (state.hasProperty(DISTANCE)) {
             return state.getValue(DISTANCE);
+        }
+
+        // Basic interoperability when our blocks neighbor vanilla leaves.
+        if (state.hasProperty(BlockStateProperties.DISTANCE)) {
+            return state.getValue(BlockStateProperties.DISTANCE);
         }
 
         return DECAY_DISTANCE;

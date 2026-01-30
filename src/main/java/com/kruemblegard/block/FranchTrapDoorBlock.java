@@ -11,15 +11,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class FranchTrapDoorBlock extends TrapDoorBlock {
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
-    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
+    public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
     public FranchTrapDoorBlock(Properties properties, BlockSetType type) {
         super(properties, type);

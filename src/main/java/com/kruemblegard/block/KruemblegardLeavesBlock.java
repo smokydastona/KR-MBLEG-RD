@@ -8,26 +8,30 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class FranchSlabBlock extends SlabBlock {
+/**
+ * Leaf-like block that participates in the extended (10-block) log-distance network.
+ *
+ * This is intentionally not a vanilla {@code LeavesBlock} so we can support a larger distance range
+ * and also treat Franch blocks as part of the connectivity graph.
+ */
+public class KruemblegardLeavesBlock extends Block {
     public static final IntegerProperty DISTANCE = FranchDecay.DISTANCE;
     public static final BooleanProperty PERSISTENT = FranchDecay.PERSISTENT;
 
-    public FranchSlabBlock(Properties properties) {
+    public KruemblegardLeavesBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(super.defaultBlockState()
-            .setValue(DISTANCE, FranchDecay.DECAY_DISTANCE)
-            .setValue(PERSISTENT, false));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(DISTANCE, FranchDecay.DECAY_DISTANCE)
+                .setValue(PERSISTENT, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
         builder.add(DISTANCE, PERSISTENT);
     }
 
@@ -94,6 +98,7 @@ public class FranchSlabBlock extends SlabBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (FranchDecay.shouldDecay(state)) {
+            // Drops are controlled by the block loot table.
             level.destroyBlock(pos, true);
         }
     }

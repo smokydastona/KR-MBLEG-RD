@@ -253,6 +253,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Not craftable and intentionally has no block item; intended for commands and schematic placement only.
     - Uses leaf-style stick drops (fortune-scaled chance) when broken/decayed.
     - Included in `minecraft:leaves` (block tag) so Tree Harvester treats them like leaves for proximity checks.
+    - Franch blocks participate in an extended 10-block log-distance network and can extend Kruemblegard leaf connectivity without acting as distance-0 "roots" by themselves.
+      - Note: vanilla `minecraft:*_leaves` still use the vanilla 7-block decay rules; the extended 10-block logic applies to Kruemblegard leaves and all franch blocks.
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)

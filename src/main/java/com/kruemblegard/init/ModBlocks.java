@@ -54,7 +54,6 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -1408,7 +1407,7 @@ public final class ModBlocks {
     }
 
     private static RegistryObject<Block> registerLeaves(String id) {
-        return BLOCKS.register(id, () -> new LeavesBlock(BlockBehaviour.Properties.of()
+                return BLOCKS.register(id, () -> new com.kruemblegard.block.KruemblegardLeavesBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PLANT)
                 .strength(0.2F)
                 .randomTicks()

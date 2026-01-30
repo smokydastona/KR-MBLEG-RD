@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.700 (2026-01-30)
+- Tuning(blocks): extend Franch + Kruemblegard leaves decay/connectivity distance from 7 → 10; franch blocks extend the log-connectivity graph but never act as distance-0 anchors.
+
 ## 1.0.699 (2026-01-30)
 - Feature(blocks): add command/schematic-only “Franch” planks/slabs/stairs/trapdoors (one per wood type, including vanilla woods) with leaf-style decay and leaf-style stick drops.
 - Compat(treeharvester): include franch planks/slabs/stairs/trapdoors in `minecraft:leaves` so they count as leaves for proximity checks.
