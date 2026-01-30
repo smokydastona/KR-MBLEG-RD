@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.699 (2026-01-30)
+- Feature(blocks): add command/schematic-only “Franch” planks/slabs/stairs/trapdoors (one per wood type, including vanilla woods) with leaf-style decay and leaf-style stick drops.
+- Compat(treeharvester): include franch planks/slabs/stairs/trapdoors in `minecraft:leaves` so they count as leaves for proximity checks.
+
 ## 1.0.698 (2026-01-29)
 - Feature(blocks): add vanilla-wood command/schematic-only "Franch" fences and fence gates (oak/spruce/birch/jungle/acacia/dark oak/mangrove/cherry) with leaf-style decay and leaf-style stick drops.
 - Compat(treeharvester): include vanilla-wood franch fences and gates in `minecraft:leaves` so they count as leaves for proximity checks.

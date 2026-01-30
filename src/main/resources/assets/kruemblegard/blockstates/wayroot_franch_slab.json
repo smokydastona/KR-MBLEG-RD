@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/wayroot_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/wayroot_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/wayroot_slab_double"
+                                     }
+                 }
+}

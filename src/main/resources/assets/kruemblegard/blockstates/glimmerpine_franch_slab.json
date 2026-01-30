@@ -1,0 +1,1 @@
+{ "variants": { "type=bottom": { "model": "kruemblegard:block/glimmerpine_slab" }, "type=top": { "model": "kruemblegard:block/glimmerpine_slab_top" }, "type=double": { "model": "kruemblegard:block/glimmerpine_slab_double" } } }

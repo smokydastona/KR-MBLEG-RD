@@ -1,0 +1,13 @@
+﻿{
+    "variants":  {
+                     "type=bottom":  {
+                                         "model":  "kruemblegard:block/wayglass_slab"
+                                     },
+                     "type=top":  {
+                                      "model":  "kruemblegard:block/wayglass_slab_top"
+                                  },
+                     "type=double":  {
+                                         "model":  "kruemblegard:block/wayglass_slab_double"
+                                     }
+                 }
+}

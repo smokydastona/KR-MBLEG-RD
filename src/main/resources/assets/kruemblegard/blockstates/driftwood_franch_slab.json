@@ -1,0 +1,1 @@
+{ "variants": { "type=bottom": { "model": "kruemblegard:block/driftwood_slab" }, "type=top": { "model": "kruemblegard:block/driftwood_slab_top" }, "type=double": { "model": "kruemblegard:block/driftwood_slab_double" } } }
