@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.707 (2026-01-29)
+- Content(lang): all franch blocks now share the display name "Branch".
+
 ## 1.0.706 (2026-01-29)
 - Tuning(worldgen/wayroot): schematic placement now randomizes trunk blocks 50/50 between `wayroot_log` and `wayroot_wood` per placed block.
 
