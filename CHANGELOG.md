@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.735 (2026-01-30)
-- Compat(treeharvester): all Franch blocks are now included in `minecraft:leaves` via `#kruemblegard:treeharvester_clear`, so Tree Harvester considers them leaves during harvest cleanup.
+- Compat(treeharvester): start moving Franch harvesting toward native Tree Harvester behavior (vanilla-tag driven).
 
 ## 1.0.736 (2026-01-30)
 - Compat(treeharvester): native vanilla tagging for Franch blocks: `*_franch_wood` + `*_franch_planks` are now in `minecraft:logs`/`minecraft:logs_that_burn`, and all other Franch blocks are now in `minecraft:leaves`.
@@ -16,8 +16,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.738 (2026-01-30)
 - Chore(resources): delete obsolete `data/kruemblegard/tags/blocks/treeharvester_clear.json` (no longer used).
 
+## 1.0.739 (2026-01-30)
+- Chore(docs): clean up Tree Harvester changelog notes to match the current vanilla-tag approach.
+
 ## 1.0.734 (2026-01-30)
-- Fix(compat/treeharvester): Tree Harvester cleanup now clears *all* Franch blocks via `#kruemblegard:treeharvester_clear` (without requiring them to be in `minecraft:leaves`).
+- Fix(compat/treeharvester): Tree Harvester cleanup logic improvement (superseded by later native vanilla-tag approach).
 - Fix(compat/treeharvester): restore all mushroom slab blocks (giant fungus cap slabs + red/brown mushroom block slabs) in `minecraft:leaves` so Tree Harvester clears them consistently.
 
 ## 1.0.733 (2026-01-30)
