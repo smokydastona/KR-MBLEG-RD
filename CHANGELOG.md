@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.714 (2026-01-30)
+- Chore(tools): rename the texture resizer to `tools/resize_textures_to_256.ps1` and expand it to process both `textures/block` and `textures/item`.
+
 ## 1.0.713 (2026-01-30)
 - Chore(tools): remove obsolete `tools/resize_fallbark_textures.ps1` (replaced by the block-wide resizer).
 
