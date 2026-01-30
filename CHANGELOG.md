@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.718 (2026-01-30)
+- Docs(changelog): record the 1.0.717 Scattered Enderman animation tweak.
+
+## 1.0.717 (2026-01-30)
+- Tuning(mobs/scattered_enderman): carry-block animation now includes leg motion so movement reads correctly while carrying.
+
 ## 1.0.716 (2026-01-30)
 - Fix(mobs/scattered_enderman): adjust the `held_block` bone pivot so carried blocks align correctly in-hand.
 
