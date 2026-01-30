@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.706 (2026-01-29)
+- Tuning(worldgen/wayroot): schematic placement now randomizes trunk blocks 50/50 between `wayroot_log` and `wayroot_wood` per placed block.
+
 ## 1.0.705 (2026-01-29)
 - Fix(blocks): `string_franch` now drops nothing (it is intended purely as a schematic helper block).
 - Compat(worldgen/wayroot): schematic placement now skips `minecraft:red_wool` markers (center point helpers) and more robustly forces schematic leaves to be non-persistent Wayroot leaves.

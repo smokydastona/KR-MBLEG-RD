@@ -19,13 +19,8 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -80,7 +75,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
         }
 
         int rot = random.nextInt(4);
-        return schematic.place(level, center, rot);
+        return schematic.place(level, center, rot, random);
     }
 
     private static CompoundTag loadSchematic(ResourceManager resourceManager, ResourceLocation location) throws IOException {
@@ -142,7 +137,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             return new SpongeSchematic(width, height, length, indices, palette);
         }
 
-        boolean place(LevelAccessor level, BlockPos center, int rot) {
+        boolean place(LevelAccessor level, BlockPos center, int rot, RandomSource random) {
             boolean placedAny = false;
 
             int pivotX = width / 2;
@@ -158,7 +153,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
                         BlockState state = palette[paletteId];
                         if (state == null || state.isAir()) continue;
 
-                        BlockState mapped = mapState(state);
+                        BlockState mapped = mapState(state, random);
                         if (mapped == null || mapped.isAir() || mapped.is(Blocks.STRUCTURE_VOID)) {
                             continue;
                         }
@@ -212,7 +207,7 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
             return false;
         }
 
-        private static BlockState mapState(BlockState original) {
+        private static BlockState mapState(BlockState original, RandomSource random) {
             // Placeholder: tinted glass in schems means "structure void" (skip placement).
             if (original.is(Blocks.TINTED_GLASS)) {
                 return Blocks.STRUCTURE_VOID.defaultBlockState();
@@ -244,7 +239,9 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
 
             // Convert any wood/log to Wayroot trunk.
             if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
-                Block target = shouldMapAsWood(original) ? ModBlocks.WAYROOT_WOOD.get() : ModBlocks.WAYROOT_LOG.get();
+                // Make it a 50/50 mix per trunk block (requested). This intentionally ignores whether
+                // the source block was a "log" or "wood" so schematics can be authored freely.
+                Block target = random.nextBoolean() ? ModBlocks.WAYROOT_WOOD.get() : ModBlocks.WAYROOT_LOG.get();
                 return copySharedProperties(original, target.defaultBlockState());
             }
 
@@ -271,12 +268,6 @@ public final class WayrootSchematicFeature extends Feature<WayrootSchematicConfi
 
             // Leave everything else as-is.
             return original;
-        }
-
-        private static boolean shouldMapAsWood(BlockState state) {
-            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-            String path = id == null ? "" : id.getPath();
-            return path.endsWith("_wood") || path.contains("stripped_") && path.endsWith("_wood");
         }
 
         private static BlockState safeWayrootLeafState() {
