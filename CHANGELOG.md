@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.753 (2026-01-30)
+- Docs(compat/treeharvester): update the Tree Harvester notes to reflect Franch helper blocks now living in vanilla `minecraft:leaves`.
+
 ## 1.0.752 (2026-01-30)
 - Fix(tags): add all non-wood/non-planks `*_franch*` blocks to vanilla `minecraft:leaves`.
 
