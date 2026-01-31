@@ -71,6 +71,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **BotanyPots (Darkhax)**
   - When BotanyPots is installed, Krümblegård saplings and Wayfall fungi can be grown in pots via data-driven `botanypots:block_derived_crop` recipes.
+  - Sapling crops define explicit tree-like drops (logs + leaves) via a `botanypots:items` drop provider.
   - These recipes are gated behind Forge `forge:mod_loaded` conditions so they do not load without BotanyPots.
 
 ## Core gameplay loop

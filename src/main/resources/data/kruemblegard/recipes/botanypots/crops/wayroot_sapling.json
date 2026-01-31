@@ -1,10 +1,15 @@
 {
   "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "botanypots"
-    }
+    { "type": "forge:mod_loaded", "modid": "botanypots" }
   ],
   "type": "botanypots:block_derived_crop",
-  "block": "kruemblegard:wayroot_sapling"
+  "block": "kruemblegard:wayroot_sapling",
+  "drops": {
+    "type": "botanypots:items",
+    "items": [
+      { "result": { "item": "kruemblegard:wayroot_log", "count": 4 } },
+      { "chance": 0.65, "result": { "item": "kruemblegard:wayroot_leaves", "count": 4 } },
+      { "chance": 0.05, "result": { "item": "kruemblegard:wayroot_sapling", "count": 1 } }
+    ]
+  }
 }

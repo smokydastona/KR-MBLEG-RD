@@ -1,10 +1,15 @@
 {
   "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "botanypots"
-    }
+    { "type": "forge:mod_loaded", "modid": "botanypots" }
   ],
   "type": "botanypots:block_derived_crop",
-  "block": "kruemblegard:driftwillow_sapling"
+  "block": "kruemblegard:driftwillow_sapling",
+  "drops": {
+    "type": "botanypots:items",
+    "items": [
+      { "result": { "item": "kruemblegard:driftwillow_log", "count": 4 } },
+      { "chance": 0.65, "result": { "item": "kruemblegard:driftwillow_leaves", "count": 4 } },
+      { "chance": 0.05, "result": { "item": "kruemblegard:driftwillow_sapling", "count": 1 } }
+    ]
+  }
 }
