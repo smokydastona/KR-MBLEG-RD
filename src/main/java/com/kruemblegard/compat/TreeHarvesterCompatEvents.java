@@ -29,8 +29,10 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -113,9 +115,16 @@ public final class TreeHarvesterCompatEvents {
             return;
         }
 
+        if (event.isCanceled()) {
+            PENDING.remove(playerId);
+            return;
+        }
+
         int airLogs = pendingTree.countAirLogs(serverLevel);
         if (airLogs < 2) {
-            // If Tree Harvester didn’t trigger, do nothing.
+            // Tree Harvester sometimes won't trigger on very tall/large custom trees due to its scan limits.
+            // Provide a conservative fallback for Kruemblegard logs only.
+            tryFallbackChop(serverLevel, serverPlayer, pendingTree, event.getPos(), event.getState());
             PENDING.remove(playerId);
             return;
         }
@@ -134,6 +143,91 @@ public final class TreeHarvesterCompatEvents {
         breakLeafLikeIntoPlayer(serverLevel, serverPlayer, treeAabb, pendingTree.type);
 
         PENDING.remove(playerId);
+    }
+
+    private static void tryFallbackChop(ServerLevel level, ServerPlayer player, PendingTree pendingTree, BlockPos brokenPos, BlockState brokenState) {
+        if (pendingTree.type != PendingTreeType.NORMAL_TREE) {
+            return;
+        }
+
+        // Only our own blocks; never try to replace Tree Harvester behavior for vanilla or other mods.
+        if (!isKruemblegardBlock(brokenState)) {
+            return;
+        }
+
+        // Allow players to opt out (useful for building with logs).
+        if (player.isShiftKeyDown()) {
+            return;
+        }
+
+        ItemStack tool = player.getMainHandItem();
+        if (tool.isEmpty() || !tool.canPerformAction(ToolActions.AXE_DIG)) {
+            return;
+        }
+
+        // Avoid nuking connected log structures unless there's clearly a tree canopy nearby.
+        if (!hasNearbyLeaves(level, brokenPos)) {
+            return;
+        }
+
+        AABB treeAabb = pendingTree.leafScanAabb();
+
+        List<ItemStack> mergedDrops = new ArrayList<>();
+        for (BlockPos pos : pendingTree.logs) {
+            if (!level.isLoaded(pos)) {
+                continue;
+            }
+
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir()) {
+                continue;
+            }
+
+            if (!state.is(BlockTags.LOGS)) {
+                continue;
+            }
+
+            BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+            List<ItemStack> drops = Block.getDrops(state, level, pos, blockEntity, player, tool);
+            mergeDrops(mergedDrops, drops);
+
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+
+        // Move the original broken-log drops (and any other just-spawned items) to the player.
+        relocateNearbyNewDrops(level, player, treeAabb);
+
+        // Match our existing "Tree Harvester ran" cleanup: remove leaves + franch helpers immediately.
+        breakLeafLikeIntoPlayer(level, player, treeAabb, pendingTree.type);
+
+        spawnDropsAtPlayer(level, player, mergedDrops);
+    }
+
+    private static boolean hasNearbyLeaves(ServerLevel level, BlockPos center) {
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+
+        // Tree Harvester's own scan height is 30; our tall trees can have foliage above that.
+        // Scan a modest volume upward so we only trigger on real trees.
+        for (int dy = 0; dy <= 64; dy++) {
+            for (int dx = -4; dx <= 4; dx++) {
+                for (int dz = -4; dz <= 4; dz++) {
+                    pos.set(center.getX() + dx, center.getY() + dy, center.getZ() + dz);
+                    if (!level.isLoaded(pos)) {
+                        continue;
+                    }
+                    if (level.getBlockState(pos).is(BlockTags.LEAVES)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean isKruemblegardBlock(BlockState state) {
+        var key = ForgeRegistries.BLOCKS.getKey(state.getBlock());
+        return key != null && Kruemblegard.MOD_ID.equals(key.getNamespace());
     }
 
     @SubscribeEvent
