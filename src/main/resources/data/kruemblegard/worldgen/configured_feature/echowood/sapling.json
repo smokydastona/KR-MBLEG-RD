@@ -5,8 +5,8 @@
       { "feature": "kruemblegard:echowood/1", "placement": [] },
       { "feature": "kruemblegard:echowood/2", "placement": [] },
       { "feature": "kruemblegard:echowood/3", "placement": [] },
-      { "feature": "kruemblegard:echowood/4", "placement": [] },
-      { "feature": "kruemblegard:echowood/5", "placement": [] }
+      { "feature": "kruemblegard:echowood/1", "placement": [] },
+      { "feature": "kruemblegard:echowood/2", "placement": [] }
     ]
   }
 }

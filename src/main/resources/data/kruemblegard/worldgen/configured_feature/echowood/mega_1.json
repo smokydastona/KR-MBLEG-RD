@@ -1,11 +1,4 @@
 {
-  "type": "minecraft:simple_random_selector",
-  "config": {
-    "features": [
-      {
-        "feature": "kruemblegard:echowood/5",
-        "placement": []
-      }
-    ]
-  }
+  "type": "kruemblegard:echowood_mega_schematic_1",
+  "config": {}
 }

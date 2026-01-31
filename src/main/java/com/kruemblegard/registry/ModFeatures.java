@@ -7,6 +7,9 @@ import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
 import com.kruemblegard.world.feature.GiantMushroomSchematicConfiguration;
 import com.kruemblegard.world.feature.GiantMushroomSchematicFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
+import com.kruemblegard.world.feature.EchowoodMegaSchematicFeature;
+import com.kruemblegard.world.feature.EchowoodSchematicConfiguration;
+import com.kruemblegard.world.feature.EchowoodSchematicFeature;
 import com.kruemblegard.world.feature.WayrootMegaSchematicFeature;
 import com.kruemblegard.world.feature.WayrootSchematicConfiguration;
 import com.kruemblegard.world.feature.WayrootSchematicFeature;
@@ -73,6 +76,35 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<WayrootSchematicConfiguration>> WAYROOT_SCHEMATIC = FEATURES.register(
             "wayroot_schematic",
             () -> new WayrootSchematicFeature(WayrootSchematicConfiguration.CODEC)
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ECHOWOOD_MEGA_SCHEMATIC_1 = FEATURES.register(
+            "echowood_mega_schematic_1",
+            () -> new EchowoodMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/echowood/mega_echowood_1.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ECHOWOOD_MEGA_SCHEMATIC_2 = FEATURES.register(
+            "echowood_mega_schematic_2",
+            () -> new EchowoodMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/echowood/mega_echowood_2.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ECHOWOOD_MEGA_SCHEMATIC_3 = FEATURES.register(
+            "echowood_mega_schematic_3",
+            () -> new EchowoodMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/echowood/mega_echowood_3.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<EchowoodSchematicConfiguration>> ECHOWOOD_SCHEMATIC = FEATURES.register(
+            "echowood_schematic",
+            () -> new EchowoodSchematicFeature(EchowoodSchematicConfiguration.CODEC)
     );
 
     public static final RegistryObject<Feature<GiantMushroomSchematicConfiguration>> GIANT_MUSHROOM_SCHEMATIC = FEATURES.register(

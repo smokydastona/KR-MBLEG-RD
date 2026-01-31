@@ -16,11 +16,19 @@
                     "placement": []
                 },
                 {
-                    "feature": "kruemblegard:echowood/4",
+                    "feature": "kruemblegard:echowood/1",
                     "placement": []
                 },
                 {
-                    "feature": "kruemblegard:echowood/5",
+                    "feature": "kruemblegard:echowood/2",
+                    "placement": []
+                },
+                {
+                    "feature": "kruemblegard:echowood/dead_1",
+                    "placement": []
+                },
+                {
+                    "feature": "kruemblegard:echowood/dead_2",
                     "placement": []
                 }
             ]

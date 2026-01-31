@@ -9,6 +9,10 @@
       {
         "feature": "kruemblegard:echowood/mega_2",
         "placement": []
+      },
+      {
+        "feature": "kruemblegard:echowood/mega_3",
+        "placement": []
       }
     ]
   }

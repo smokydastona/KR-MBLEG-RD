@@ -265,10 +265,15 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - All Wayfall saplings support 2x2 (spruce-style) placement to grow a larger **mega** tree, using Evergreen-style multi-option selectors.
   - All Wayfall trees have a rare **mega** variant that can also generate naturally in Wayfall.
     - Most mega selectors choose between two Evergreen-style mega outcomes; each `mega_1`/`mega_2` delegates to that tree’s existing large “assembled” variants (typically `*/5` and `*/4`).
-    - Wayroot is an exception: its worldgen is tuned to a baobab-style silhouette and uses `kruemblegard:ashmoss` as its `dirt_provider`.
-      - Normal Wayroot is fully schematic-driven and selects from 5 templates (3 living + 2 dead), with living variants weighted slightly higher.
-      - Wayroot saplings only grow into the 3 living schematic variants.
-      - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
+    - Wayroot and Echowood are exceptions and are schematic-driven:
+      - Wayroot is tuned to a baobab-style silhouette and uses `kruemblegard:ashmoss` as its `dirt_provider`.
+        - Normal Wayroot is fully schematic-driven and selects from 5 templates (3 living + 2 dead), with living variants weighted slightly higher.
+        - Wayroot saplings only grow into the 3 living schematic variants.
+        - Mega Wayroot uses 3 curated schematic-based variants (to keep the silhouette stable and prevent leaf decay/drop spam on chunk load).
+      - Echowood is fully schematic-driven.
+        - Echowood saplings only grow into the 3 living schematic variants.
+        - Natural Echowood worldgen can also select from 2 dead schematic variants.
+        - Mega Echowood uses 3 curated schematic-based variants.
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Schematic-only “Franch” helper blocks:
     - Leaf-network helpers: `*_franch`, `*_franch_gate`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
@@ -294,6 +299,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Staple wood sets: Ashbloom, Glimmerpine, Driftwood.
   - Custom worldgen Features exist for data-driven placement (`registry/ModFeatures`):
     - `world/feature/WayfallSimpleTreeFeature` (simple tree helper)
+    - `world/feature/EchowoodMegaSchematicFeature` (places curated mega Echowood schematics)
+    - `world/feature/EchowoodSchematicFeature` (places normal Echowood schematics with palette remaps)
     - `world/feature/WayrootMegaSchematicFeature` (places curated mega Wayroot schematics)
     - `world/feature/WayrootSchematicFeature` (places normal Wayroot schematics with palette remaps)
     - `world/feature/GiantMushroomSchematicFeature` (places giant Wayfall fungi from shared schematic templates)
