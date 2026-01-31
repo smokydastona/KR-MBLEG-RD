@@ -65,7 +65,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Caps use **species-specific** map colors so minimap/worldmap mods (e.g., Xaero) show different cap colors per fungus.
   - Giant fungi cap **slabs** and red/brown mushroom block slabs are cleared via `#kruemblegard:tree_harvester_mushroom_cap_slabs` (Tree Harvester doesn't natively detect slab cap blocks).
   - Additionally, when Tree Harvester fells a giant mushroom, Krümblegård clears any nearby `HugeMushroomBlock` caps (non-stem) during cleanup so cap detection doesn't rely on specific cap map colors.
-  - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; for very tall Krümblegård trees where Tree Harvester doesn’t trigger, Krümblegård provides a conservative fallback feller when you break a Krümblegård log with an axe. Hold Shift while breaking a log to opt out.
+  - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
 
 - **FallingTree (RakambdaOrg)**
   - Krümblegård trees work via vanilla tags (`minecraft:logs`, `minecraft:leaves`).

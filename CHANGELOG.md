@@ -4,16 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.745 (2026-01-31)
-- Fix(compat/treeharvester): add a fallback feller for Krümblegård logs when Tree Harvester does not trigger (e.g., very tall trees above its hardcoded scan height). Hold Shift while breaking a log to opt out.
+## 1.0.743 (2026-01-31)
+- Compat(botanypots): add conditional BotanyPots crop recipes for all 14 Wayfall saplings and 4 Wayfall fungi.
+- Compat(botanypots): sapling crops now have tree-like drops (logs + leaves) via explicit `botanypots:items` drops.
 
 ## 1.0.744 (2026-01-31)
 - Fix(client/maps): giant fungi caps/cap-slabs now use species-specific `MapColor` so Xaero's minimap/world map shows distinct colors per mushroom type.
 - Fix(compat/harvestmods): giant mushroom cleanup now breaks `HugeMushroomBlock` caps (non-stem) without relying on cap map colors.
-
-## 1.0.743 (2026-01-31)
-- Compat(botanypots): add conditional BotanyPots crop recipes for all 14 Wayfall saplings and 4 Wayfall fungi.
-- Compat(botanypots): sapling crops now have tree-like drops (logs + leaves) via explicit `botanypots:items` drops.
 
 ## 1.0.735 (2026-01-30)
 - Compat(treeharvester): start moving Franch harvesting toward native Tree Harvester behavior (vanilla-tag driven).
