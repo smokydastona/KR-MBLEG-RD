@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.758 (2026-01-30)
+- Tuning(worldgen/echowood): Echowood schematic “processors” now map red wool markers to Echowood franch wood, tinted glass to structure void, force non-persistent leaves, and convert generic log/wood blocks into 90% franch wood / 10% franch planks.
+
 ## 1.0.757 (2026-01-30)
 - Fix(worldgen/echowood): repair malformed Echowood configured feature JSONs (`echowood/1..5`) that could crash world creation with registry parsing errors.
 

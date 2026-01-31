@@ -22,9 +22,10 @@ final class EchowoodSchematicMapping {
             return Blocks.STRUCTURE_VOID.defaultBlockState();
         }
 
-        // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
+        // Marker: red wool is used to mark the schematic center/pivot.
+        // We still place it, but as Echowood franch wood.
         if (original.is(Blocks.RED_WOOL)) {
-            return Blocks.STRUCTURE_VOID.defaultBlockState();
+            return ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState();
         }
 
         // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
@@ -46,8 +47,12 @@ final class EchowoodSchematicMapping {
 
         // Convert any wood/log to Echowood trunk.
         if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
-            // Schematics can be authored with any wood/log; we always place franch wood.
-            return copySharedProperties(original, ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState());
+            // Schematics can be authored with any wood/log. We mostly place franch wood,
+            // but sprinkle in a small amount of franch planks for visual variety.
+            BlockState chosen = (random.nextFloat() < 0.10f)
+                    ? ModBlocks.ECHOWOOD_FRANCH_PLANKS.get().defaultBlockState()
+                    : ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState();
+            return copySharedProperties(original, chosen);
         }
 
         // Convert wood construction pieces into Echowood franch variants.
@@ -79,7 +84,7 @@ final class EchowoodSchematicMapping {
         }
 
         if (original.is(Blocks.RED_WOOL)) {
-            return Blocks.STRUCTURE_VOID.defaultBlockState();
+            return ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState();
         }
 
         if (original.is(Blocks.TRIPWIRE)) {
@@ -98,7 +103,10 @@ final class EchowoodSchematicMapping {
         original = normalizeEchowoodTrunkState(original);
 
         if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
-            return copySharedProperties(original, ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState());
+            BlockState chosen = (random.nextFloat() < 0.10f)
+                    ? ModBlocks.ECHOWOOD_FRANCH_PLANKS.get().defaultBlockState()
+                    : ModBlocks.ECHOWOOD_FRANCH_WOOD.get().defaultBlockState();
+            return copySharedProperties(original, chosen);
         }
 
         if (original.is(BlockTags.FENCE_GATES)) {

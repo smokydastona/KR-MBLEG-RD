@@ -274,6 +274,12 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
         - Echowood saplings only grow into the 3 living schematic variants.
         - Natural Echowood worldgen can also select from 2 dead schematic variants.
         - Mega Echowood uses 3 curated schematic-based variants.
+        - Echowood schematic “processors” (palette remaps) enforce consistent Echowood materials:
+          - Tinted glass → structure void (ignored)
+          - Tripwire → `string_franch`
+          - Any leaves (any species) → Echowood leaves, forced non-persistent
+          - Red wool (schematic center marker) → Echowood franch wood
+          - Any log/wood (any species) → 90% Echowood franch wood, 10% Echowood franch planks
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Schematic-only “Franch” helper blocks:
     - Leaf-network helpers: `*_franch`, `*_franch_gate`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
