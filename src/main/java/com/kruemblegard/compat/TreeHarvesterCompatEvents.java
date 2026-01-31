@@ -218,7 +218,12 @@ public final class TreeHarvesterCompatEvents {
             }
 
             BlockState state = level.getBlockState(pos);
-            if (state.isAir() || state.is(BlockTags.LOGS) || isGiantMushroomStem(level, pos, state)) {
+            if (state.isAir() || isGiantMushroomStem(level, pos, state)) {
+                continue;
+            }
+
+            boolean leafLikeTag = pendingType == PendingTreeType.NORMAL_TREE && state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE);
+            if (state.is(BlockTags.LOGS) && !leafLikeTag) {
                 continue;
             }
 
@@ -228,7 +233,7 @@ public final class TreeHarvesterCompatEvents {
                 shouldBreak = true;
             }
 
-            if (!shouldBreak && pendingType == PendingTreeType.NORMAL_TREE && state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE)) {
+            if (!shouldBreak && leafLikeTag) {
                 shouldBreak = true;
             }
 

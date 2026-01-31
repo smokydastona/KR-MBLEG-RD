@@ -10,6 +10,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.759 (2026-01-31)
 - Tuning(i18n): rename all `*_franch_wood` blocks to “<Tree Type> Tree Trunk” and align `*_franch_planks` display names to match.
 
+## 1.0.760 (2026-01-31)
+- Fix(compat/treeharvester): Tree Harvester cleanup now clears `*_franch_planks` blocks (even though they are tagged as `minecraft:logs` for tree detection).
+- Fix(resources): repair invalid JSON in `data/kruemblegard/tags/blocks/tree_harvester_leaf_like.json`.
+
 ## 1.0.757 (2026-01-30)
 - Fix(worldgen/echowood): repair malformed Echowood configured feature JSONs (`echowood/1..5`) that could crash world creation with registry parsing errors.
 
