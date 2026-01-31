@@ -229,6 +229,13 @@ public final class FallingTreeCompatEvents {
                 shouldBreak = true;
             }
 
+            if (!shouldBreak
+                    && pendingType == PendingType.GIANT_MUSHROOM
+                    && state.getBlock() instanceof HugeMushroomBlock
+                    && !isGiantMushroomStem(level, pos, state)) {
+                shouldBreak = true;
+            }
+
             if (!shouldBreak) {
                 continue;
             }

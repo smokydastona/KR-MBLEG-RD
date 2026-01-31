@@ -236,6 +236,13 @@ public final class TreeHarvesterCompatEvents {
                 shouldBreak = true;
             }
 
+            if (!shouldBreak
+                    && pendingType == PendingTreeType.GIANT_MUSHROOM
+                    && state.getBlock() instanceof HugeMushroomBlock
+                    && !isGiantMushroomStem(level, pos, state)) {
+                shouldBreak = true;
+            }
+
             if (!shouldBreak) {
                 continue;
             }

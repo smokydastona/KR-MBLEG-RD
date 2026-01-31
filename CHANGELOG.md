@@ -8,6 +8,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Compat(botanypots): add conditional BotanyPots crop recipes for all 14 Wayfall saplings and 4 Wayfall fungi.
 - Compat(botanypots): sapling crops now have tree-like drops (logs + leaves) via explicit `botanypots:items` drops.
 
+## 1.0.744 (2026-01-31)
+- Fix(client/maps): giant fungi caps/cap-slabs now use species-specific `MapColor` so Xaero's minimap/world map shows distinct colors per mushroom type.
+- Fix(compat/harvestmods): giant mushroom cleanup now breaks `HugeMushroomBlock` caps (non-stem) without relying on cap map colors.
+
 ## 1.0.735 (2026-01-30)
 - Compat(treeharvester): start moving Franch harvesting toward native Tree Harvester behavior (vanilla-tag driven).
 

@@ -60,13 +60,16 @@ Keep it up to date whenever you add/remove/rename content.
   - Franch blocks and cap-slab blocks are intentionally **not** added to vanilla `minecraft:leaves`/`minecraft:logs` (to avoid harvest mods treating building blocks as trees).
   - When Tree Harvester harvests a tree, Krümblegård additionally forces nearby leaves + Franch helper blocks (`#kruemblegard:tree_harvester_leaf_like`) to clear immediately and relocates the resulting drops to the harvesting player’s feet.
   - Franch/leaves validity is **species-aware**: Franch/leaves only stay connected (distance-0 anchor) when linked to matching-species logs (e.g., Ashbloom Franch connects to `#kruemblegard:ashbloom_logs`, Oak Franch connects to `#kruemblegard:oak_franch_logs`).
-  - Giant fungi caps/stems are registered as `HugeMushroomBlock` and use vanilla huge-mushroom map-colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
+  - Giant fungi caps/stems are registered as `HugeMushroomBlock`.
+    - Stems use `MapColor.WOOL` so Tree Harvester can detect/harvest them.
+    - Caps use **species-specific** map colors so minimap/worldmap mods (e.g., Xaero) show different cap colors per fungus.
   - Giant fungi cap **slabs** and red/brown mushroom block slabs are cleared via `#kruemblegard:tree_harvester_mushroom_cap_slabs` (Tree Harvester doesn't natively detect slab cap blocks).
+  - Additionally, when Tree Harvester fells a giant mushroom, Krümblegård clears any nearby `HugeMushroomBlock` caps (non-stem) during cleanup so cap detection doesn't rely on specific cap map colors.
   - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
 
 - **FallingTree (RakambdaOrg)**
   - Krümblegård trees work via vanilla tags (`minecraft:logs`, `minecraft:leaves`).
-  - Giant fungi work via `minecraft:logs` (stems) + `minecraft:wart_blocks` (caps and cap slabs).
+  - Giant fungi stems are treated as trunks and detected via harvest-mod logic; Krümblegård then clears nearby caps/cap-slabs during cleanup.
   - When FallingTree fells a tree, Krümblegård also clears nearby leaves + Franch helper blocks and moves the resulting drops to the player.
 
 - **BotanyPots (Darkhax)**
