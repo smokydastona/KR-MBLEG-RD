@@ -4,14 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.747 (2026-01-30)
-- Fix(tags): add `kruemblegard:red_mushroom_block_slab` and `kruemblegard:brown_mushroom_block_slab` to vanilla `minecraft:wart_blocks`.
+## 1.0.749 (2026-01-30)
+- Fix(tags): add all non-wood/non-planks `*_franch*` blocks to vanilla `minecraft:leaves`.
 
 ## 1.0.748 (2026-01-30)
 - Fix(tags): add all `*_franch_wood` blocks to vanilla `minecraft:logs` and `minecraft:logs_that_burn`.
-
-
-## 1.0.744 (2026-01-31)
 
 ## 1.0.747 (2026-01-30)
 - Fix(tags): add `kruemblegard:red_mushroom_block_slab` and `kruemblegard:brown_mushroom_block_slab` to vanilla `minecraft:wart_blocks`.
