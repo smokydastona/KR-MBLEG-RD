@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.750 (2026-01-30)
+## 1.0.752 (2026-01-30)
 - Fix(tags): add all non-wood/non-planks `*_franch*` blocks to vanilla `minecraft:leaves`.
 
 ## 1.0.748 (2026-01-30)
