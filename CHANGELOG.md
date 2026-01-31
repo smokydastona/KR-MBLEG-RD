@@ -7,6 +7,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.735 (2026-01-30)
 - Compat(treeharvester): start moving Franch harvesting toward native Tree Harvester behavior (vanilla-tag driven).
 
+## 1.0.741 (2026-01-31)
+- Fix(compat/treeharvester): stop tagging Franch building blocks as vanilla `minecraft:leaves`; Tree Harvester now clears Franch helper blocks via `#kruemblegard:tree_harvester_leaf_like`.
+- Fix(compat/treeharvester): stop tagging `*_franch_planks`/`*_franch_wood` as vanilla `minecraft:logs`/`minecraft:logs_that_burn` (prevents harvest mods from treating building blocks as trees).
+- Fix(compat/mushrooms): Tree Harvester now clears mushroom cap slab blocks via `#kruemblegard:tree_harvester_mushroom_cap_slabs`.
+- Compat(fallingtree): giant fungi stems are in `minecraft:logs` and caps/cap slabs are in `minecraft:wart_blocks`.
+
 ## 1.0.736 (2026-01-30)
 - Compat(treeharvester): native vanilla tagging for Franch blocks: `*_franch_wood` + `*_franch_planks` are now in `minecraft:logs`/`minecraft:logs_that_burn`, and all other Franch blocks are now in `minecraft:leaves`.
 

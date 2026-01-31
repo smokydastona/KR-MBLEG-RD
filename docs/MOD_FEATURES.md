@@ -57,13 +57,16 @@ Keep it up to date whenever you add/remove/rename content.
 ## Compatibility
 - **Tree Harvester (Serilum)**
   - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
-  - Tree Harvester native tags: Franch fences/gates/stairs/slabs/trapdoors + `string_franch` are included in `minecraft:leaves` so Tree Harvester treats them as leaves.
-  - Tree Harvester native tags: `*_franch_wood` and `*_franch_planks` are included in `minecraft:logs`/`minecraft:logs_that_burn` so Tree Harvester treats them as logs.
+  - Franch blocks and cap-slab blocks are intentionally **not** added to vanilla `minecraft:leaves`/`minecraft:logs` (to avoid harvest mods treating building blocks as trees).
+  - When Tree Harvester harvests a tree, Krümblegård additionally forces nearby leaves + Franch helper blocks (`#kruemblegard:tree_harvester_leaf_like`) to clear immediately and relocates the resulting drops to the harvesting player’s feet.
   - Franch/leaves validity is **species-aware**: Franch/leaves only stay connected (distance-0 anchor) when linked to matching-species logs (e.g., Ashbloom Franch connects to `#kruemblegard:ashbloom_logs`, Oak Franch connects to `#kruemblegard:oak_franch_logs`).
   - Giant fungi caps/stems are registered as `HugeMushroomBlock` and use vanilla huge-mushroom map-colors (caps: `DIRT`, stems: `WOOL`) so Tree Harvester can harvest them when huge mushrooms are enabled.
-  - Giant fungi cap **slabs** and red/brown mushroom block slabs are included in `minecraft:leaves` so Tree Harvester also clears slab cap blocks during harvest.
-  - When Tree Harvester harvests a tree, Krümblegård additionally forces nearby leaves + all “franch” helper blocks to clear immediately and relocates the resulting drops to the harvesting player’s feet.
+  - Giant fungi cap **slabs** and red/brown mushroom block slabs are cleared via `#kruemblegard:tree_harvester_mushroom_cap_slabs` (Tree Harvester doesn't natively detect slab cap blocks).
   - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
+
+- **FallingTree (RakambdaOrg)**
+  - Krümblegård trees work via vanilla tags (`minecraft:logs`, `minecraft:leaves`).
+  - Giant fungi work via `minecraft:logs` (stems) + `minecraft:wart_blocks` (caps and cap slabs).
 
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.

@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:string_franch",
+
+    "kruemblegard:oak_franch",
+    "kruemblegard:spruce_franch",
+    "kruemblegard:birch_franch",
+    "kruemblegard:jungle_franch",
+    "kruemblegard:acacia_franch",
+    "kruemblegard:dark_oak_franch",
+    "kruemblegard:mangrove_franch",
+    "kruemblegard:cherry_franch",
+
+    "kruemblegard:wayroot_franch",
+    "kruemblegard:fallbark_franch",
+    "kruemblegard:echowood_franch",
+    "kruemblegard:cairn_tree_franch",
+    "kruemblegard:wayglass_franch",
+    "kruemblegard:splinterspore_franch",
+    "kruemblegard:hollowway_tree_franch",
+    "kruemblegard:driftwillow_franch",
+    "kruemblegard:monument_oak_franch",
+    "kruemblegard:waytorch_tree_franch",
+    "kruemblegard:faultwood_franch",
+    "kruemblegard:ashbloom_franch",
+    "kruemblegard:glimmerpine_franch",
+    "kruemblegard:driftwood_franch"
+  ]
+}

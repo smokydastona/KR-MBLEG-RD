@@ -33,6 +33,24 @@ public final class ModTags {
             Registries.BLOCK,
             new ResourceLocation(Kruemblegard.MOD_ID, "rubble_tillable")
         );
+
+        /**
+         * Extra blocks that Kruemblegård treats like "leaf clutter" for Tree Harvester cleanup.
+         * Kept as a mod tag to avoid polluting vanilla tags like minecraft:leaves.
+         */
+        public static final TagKey<Block> TREE_HARVESTER_LEAF_LIKE = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "tree_harvester_leaf_like")
+        );
+
+        /**
+         * Slab variants of huge-mushroom / giant-fungus caps that Tree Harvester doesn't detect
+         * (it detects cap blocks by HugeMushroomBlock + MapColor, but slabs are just SlabBlock).
+         */
+        public static final TagKey<Block> TREE_HARVESTER_MUSHROOM_CAP_SLABS = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "tree_harvester_mushroom_cap_slabs")
+        );
     }
 
     public static final class Biomes {

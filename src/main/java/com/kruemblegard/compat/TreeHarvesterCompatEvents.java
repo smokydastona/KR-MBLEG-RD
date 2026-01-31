@@ -17,8 +17,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
 
 import com.kruemblegard.registry.ModTags;
@@ -72,11 +74,7 @@ public final class TreeHarvesterCompatEvents {
         }
 
         BlockState state = event.getState();
-        if (!state.is(BlockTags.LOGS)) {
-            return;
-        }
-
-        PendingTree pendingTree = PendingTree.capture(serverLevel, event.getPos());
+        PendingTree pendingTree = PendingTree.capture(serverLevel, event.getPos(), state);
         if (pendingTree == null) {
             return;
         }
@@ -133,7 +131,7 @@ public final class TreeHarvesterCompatEvents {
 
         // Instantly remove leaves + franches (anything in minecraft:leaves but not logs)
         // and spawn their drops at the player’s feet.
-        breakLeavesIntoPlayer(serverLevel, serverPlayer, treeAabb);
+        breakLeafLikeIntoPlayer(serverLevel, serverPlayer, treeAabb, pendingTree.type);
 
         PENDING.remove(playerId);
     }
@@ -204,7 +202,7 @@ public final class TreeHarvesterCompatEvents {
         itemEntity.setPos(player.getX(), player.getY() + 0.1, player.getZ());
     }
 
-    private static void breakLeavesIntoPlayer(ServerLevel level, ServerPlayer player, AABB aabb) {
+    private static void breakLeafLikeIntoPlayer(ServerLevel level, ServerPlayer player, AABB aabb, PendingTreeType pendingType) {
         int minX = (int) Math.floor(aabb.minX);
         int minY = (int) Math.floor(aabb.minY);
         int minZ = (int) Math.floor(aabb.minZ);
@@ -220,11 +218,25 @@ public final class TreeHarvesterCompatEvents {
             }
 
             BlockState state = level.getBlockState(pos);
-            if (state.isAir() || state.is(BlockTags.LOGS)) {
+            if (state.isAir() || state.is(BlockTags.LOGS) || isGiantMushroomStem(level, pos, state)) {
                 continue;
             }
 
-            if (!state.is(BlockTags.LEAVES)) {
+            boolean shouldBreak = false;
+
+            if (state.is(BlockTags.LEAVES)) {
+                shouldBreak = true;
+            }
+
+            if (!shouldBreak && pendingType == PendingTreeType.NORMAL_TREE && state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE)) {
+                shouldBreak = true;
+            }
+
+            if (!shouldBreak && pendingType == PendingTreeType.GIANT_MUSHROOM && state.is(ModTags.Blocks.TREE_HARVESTER_MUSHROOM_CAP_SLABS)) {
+                shouldBreak = true;
+            }
+
+            if (!shouldBreak) {
                 continue;
             }
 
@@ -236,6 +248,13 @@ public final class TreeHarvesterCompatEvents {
         }
 
         spawnDropsAtPlayer(level, player, mergedDrops);
+    }
+
+    private static boolean isGiantMushroomStem(ServerLevel level, BlockPos pos, BlockState state) {
+        if (!(state.getBlock() instanceof HugeMushroomBlock)) {
+            return false;
+        }
+        return state.getMapColor(level, pos) == MapColor.WOOL;
     }
 
     private static void spawnDropsAtPlayer(ServerLevel level, ServerPlayer player, List<ItemStack> drops) {
@@ -296,9 +315,23 @@ public final class TreeHarvesterCompatEvents {
         }
     }
 
-    private record PendingTree(ResourceKey<Level> dimension, long gameTime, List<BlockPos> logs, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
-        static PendingTree capture(ServerLevel level, BlockPos start) {
+    private enum PendingTreeType {
+        NORMAL_TREE,
+        GIANT_MUSHROOM
+    }
+
+    private record PendingTree(ResourceKey<Level> dimension, long gameTime, PendingTreeType type, List<BlockPos> logs, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        static PendingTree capture(ServerLevel level, BlockPos start, BlockState startState) {
             long now = level.getGameTime();
+
+            PendingTreeType type;
+            if (startState.is(BlockTags.LOGS)) {
+                type = PendingTreeType.NORMAL_TREE;
+            } else if (isGiantMushroomStem(level, start, startState)) {
+                type = PendingTreeType.GIANT_MUSHROOM;
+            } else {
+                return null;
+            }
 
             LongOpenHashSet visited = new LongOpenHashSet();
             ArrayDeque<BlockPos> queue = new ArrayDeque<>();
@@ -325,7 +358,12 @@ public final class TreeHarvesterCompatEvents {
                 }
 
                 BlockState state = level.getBlockState(pos);
-                if (!state.is(BlockTags.LOGS)) {
+                boolean isTrunk = switch (type) {
+                    case NORMAL_TREE -> state.is(BlockTags.LOGS);
+                    case GIANT_MUSHROOM -> isGiantMushroomStem(level, pos, state);
+                };
+
+                if (!isTrunk) {
                     continue;
                 }
 
@@ -352,7 +390,7 @@ public final class TreeHarvesterCompatEvents {
                 return null;
             }
 
-            return new PendingTree(level.dimension(), now, logs, minX, minY, minZ, maxX, maxY, maxZ);
+            return new PendingTree(level.dimension(), now, type, logs, minX, minY, minZ, maxX, maxY, maxZ);
         }
 
         boolean matches(ServerLevel level, long now) {
