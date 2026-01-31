@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.757 (2026-01-30)
+- Fix(worldgen/echowood): repair malformed Echowood configured feature JSONs (`echowood/1..5`) that could crash world creation with registry parsing errors.
+
+## 1.0.756 (2026-01-30)
+- Tuning(worldgen/echowood): bias natural Echowood selection toward living schematics while keeping dead variants available.
+
 ## 1.0.755 (2026-01-30)
 - Feature(worldgen/echowood): migrate Echowood (normal + mega) from procedural tree features to schematic-driven placement with Wayroot-style palette remaps into Echowood Franch blocks.
 

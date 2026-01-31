@@ -1,11 +1,6 @@
-{
+﻿{
+  "type": "kruemblegard:echowood_schematic",
   "config": {
-    "features": [
-      {
-        "type": "kruemblegard:echowood_schematic",
-        "config": {
-          "schematic": "kruemblegard:schematics/echowood/echowood_1.schem"
-        }
-      }
+    "schematic": "kruemblegard:schematics/echowood/echowood_1.schem"
+  }
 }
-
