@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.743 (2026-01-31)
+- Compat(botanypots): add conditional BotanyPots crop recipes for all 14 Wayfall saplings and 4 Wayfall fungi.
+
 ## 1.0.735 (2026-01-30)
 - Compat(treeharvester): start moving Franch harvesting toward native Tree Harvester behavior (vanilla-tag driven).
 

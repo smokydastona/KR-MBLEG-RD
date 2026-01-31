@@ -69,6 +69,10 @@ Keep it up to date whenever you add/remove/rename content.
   - Giant fungi work via `minecraft:logs` (stems) + `minecraft:wart_blocks` (caps and cap slabs).
   - When FallingTree fells a tree, Krümblegård also clears nearby leaves + Franch helper blocks and moves the resulting drops to the player.
 
+- **BotanyPots (Darkhax)**
+  - When BotanyPots is installed, Krümblegård saplings and Wayfall fungi can be grown in pots via data-driven `botanypots:block_derived_crop` recipes.
+  - These recipes are gated behind Forge `forge:mod_loaded` conditions so they do not load without BotanyPots.
+
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.
