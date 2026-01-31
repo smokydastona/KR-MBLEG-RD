@@ -67,6 +67,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **FallingTree (RakambdaOrg)**
   - Krümblegård trees work via vanilla tags (`minecraft:logs`, `minecraft:leaves`).
   - Giant fungi work via `minecraft:logs` (stems) + `minecraft:wart_blocks` (caps and cap slabs).
+  - When FallingTree fells a tree, Krümblegård also clears nearby leaves + Franch helper blocks and moves the resulting drops to the player.
 
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
