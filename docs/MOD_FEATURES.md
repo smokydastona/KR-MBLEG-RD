@@ -57,6 +57,8 @@ Keep it up to date whenever you add/remove/rename content.
 ## Compatibility
 - **Tree Harvester (Serilum)**
   - Krümblegård wood blocks are included in vanilla tags (`minecraft:logs`, `minecraft:logs_that_burn`, `minecraft:leaves`) so they’re treated as normal trees.
+  - Note: Tree Harvester itself defaults to “must hold an axe” and “must sneak to harvest” (configurable in Tree Harvester).
+  - Note: Tree Harvester can ignore player-made trees when leaf blocks have `persistent=true` (also configurable). Krümblegård schematic/worldgen trees force non-persistent leaf states so they’re harvestable by default.
   - Franch helper blocks (everything `*_franch*` **except** `*_franch_wood` and `*_franch_planks`) are included in vanilla `minecraft:leaves` so Tree Harvester treats/clears them like leaves.
   - `*_franch_wood` and `*_franch_planks` blocks are included in vanilla `minecraft:logs` and `minecraft:logs_that_burn`.
   - When Tree Harvester harvests a tree, Krümblegård additionally forces nearby leaves + Franch helper blocks (`#kruemblegard:tree_harvester_leaf_like`) to clear immediately (including `*_franch_planks` if present in the tree) and relocates the resulting drops to the harvesting player’s feet.

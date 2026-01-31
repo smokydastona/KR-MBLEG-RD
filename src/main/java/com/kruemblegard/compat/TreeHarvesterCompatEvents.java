@@ -12,12 +12,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
@@ -115,7 +117,23 @@ public final class TreeHarvesterCompatEvents {
 
         int airLogs = pendingTree.countAirLogs(serverLevel);
         if (airLogs < 2) {
-            // If Tree Harvester didn’t trigger, do nothing.
+            // If Tree Harvester didn’t trigger, try a safe manual fallback.
+            if (shouldManualHarvest(serverPlayer) && pendingTree.isLikelyTree(serverLevel)) {
+                AABB treeAabb = pendingTree.leafScanAabb();
+
+                // Break remaining trunk blocks and merge their drops.
+                List<ItemStack> mergedDrops = new ArrayList<>();
+                pendingTree.breakRemainingLogsIntoPlayer(serverLevel, serverPlayer, mergedDrops);
+
+                // Instantly remove leaves + leaf-like helper blocks and merge their drops.
+                breakLeafLikeIntoMergedDrops(serverLevel, serverPlayer, treeAabb, pendingTree.type, mergedDrops);
+
+                // Relocate any drops spawned during block breaks.
+                relocateNearbyNewDrops(serverLevel, serverPlayer, treeAabb);
+
+                spawnDropsAtPlayer(serverLevel, serverPlayer, mergedDrops);
+            }
+
             PENDING.remove(playerId);
             return;
         }
@@ -203,14 +221,18 @@ public final class TreeHarvesterCompatEvents {
     }
 
     private static void breakLeafLikeIntoPlayer(ServerLevel level, ServerPlayer player, AABB aabb, PendingTreeType pendingType) {
+        List<ItemStack> mergedDrops = new ArrayList<>();
+        breakLeafLikeIntoMergedDrops(level, player, aabb, pendingType, mergedDrops);
+        spawnDropsAtPlayer(level, player, mergedDrops);
+    }
+
+    private static void breakLeafLikeIntoMergedDrops(ServerLevel level, ServerPlayer player, AABB aabb, PendingTreeType pendingType, List<ItemStack> mergedDrops) {
         int minX = (int) Math.floor(aabb.minX);
         int minY = (int) Math.floor(aabb.minY);
         int minZ = (int) Math.floor(aabb.minZ);
         int maxX = (int) Math.floor(aabb.maxX);
         int maxY = (int) Math.floor(aabb.maxY);
         int maxZ = (int) Math.floor(aabb.maxZ);
-
-        List<ItemStack> mergedDrops = new ArrayList<>();
 
         for (BlockPos pos : BlockPos.betweenClosed(minX, minY, minZ, maxX, maxY, maxZ)) {
             if (!level.isLoaded(pos)) {
@@ -258,8 +280,23 @@ public final class TreeHarvesterCompatEvents {
 
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         }
+    }
 
-        spawnDropsAtPlayer(level, player, mergedDrops);
+    private static boolean shouldManualHarvest(ServerPlayer player) {
+        if (player == null) {
+            return false;
+        }
+
+        // Match Tree Harvester defaults: must sneak + must hold an axe.
+        if (!player.isCrouching()) {
+            return false;
+        }
+
+        if (!(player.getMainHandItem().getItem() instanceof AxeItem)) {
+            return false;
+        }
+
+        return true;
     }
 
     private static boolean isGiantMushroomStem(ServerLevel level, BlockPos pos, BlockState state) {
@@ -417,6 +454,58 @@ public final class TreeHarvesterCompatEvents {
                 }
             }
             return air;
+        }
+
+        boolean isLikelyTree(ServerLevel level) {
+            AABB aabb = leafScanAabb();
+            int minX = (int) Math.floor(aabb.minX);
+            int minY = (int) Math.floor(aabb.minY);
+            int minZ = (int) Math.floor(aabb.minZ);
+            int maxX = (int) Math.floor(aabb.maxX);
+            int maxY = (int) Math.floor(aabb.maxY);
+            int maxZ = (int) Math.floor(aabb.maxZ);
+
+            boolean foundAnyLeaf = false;
+
+            for (BlockPos pos : BlockPos.betweenClosed(minX, minY, minZ, maxX, maxY, maxZ)) {
+                if (!level.isLoaded(pos)) {
+                    continue;
+                }
+
+                BlockState state = level.getBlockState(pos);
+                if (state.isAir()) {
+                    continue;
+                }
+
+                if (state.is(BlockTags.LEAVES)) {
+                    // Respect Tree Harvester's default "ignorePlayerMadeTrees" behavior.
+                    if (state.getOptionalValue(LeavesBlock.PERSISTENT).orElse(false)) {
+                        return false;
+                    }
+                    foundAnyLeaf = true;
+                }
+            }
+
+            return foundAnyLeaf;
+        }
+
+        void breakRemainingLogsIntoPlayer(ServerLevel level, ServerPlayer player, List<ItemStack> mergedDrops) {
+            for (BlockPos pos : logs) {
+                if (!level.isLoaded(pos)) {
+                    continue;
+                }
+
+                BlockState state = level.getBlockState(pos);
+                if (state.isAir()) {
+                    continue;
+                }
+
+                BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+                List<ItemStack> drops = Block.getDrops(state, level, pos, blockEntity, player, player.getMainHandItem());
+                mergeDrops(mergedDrops, drops);
+
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            }
         }
 
         AABB leafScanAabb() {

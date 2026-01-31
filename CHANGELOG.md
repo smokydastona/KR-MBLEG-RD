@@ -14,6 +14,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(compat/treeharvester): Tree Harvester cleanup now clears `*_franch_planks` blocks (even though they are tagged as `minecraft:logs` for tree detection).
 - Fix(resources): repair invalid JSON in `data/kruemblegard/tags/blocks/tree_harvester_leaf_like.json`.
 
+## 1.0.761 (2026-01-31)
+- Compat(treeharvester): add a safe manual fallback so Krümblegård trees can still be felled (must sneak + hold axe; skips trees with `persistent=true` leaves).
+
 ## 1.0.757 (2026-01-30)
 - Fix(worldgen/echowood): repair malformed Echowood configured feature JSONs (`echowood/1..5`) that could crash world creation with registry parsing errors.
 
