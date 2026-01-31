@@ -287,16 +287,10 @@ public final class TreeHarvesterCompatEvents {
             return false;
         }
 
-        // Match Tree Harvester defaults: must sneak + must hold an axe.
-        if (!player.isCrouching()) {
-            return false;
-        }
-
-        if (!(player.getMainHandItem().getItem() instanceof AxeItem)) {
-            return false;
-        }
-
-        return true;
+        // Tree Harvester's sneak/axe requirements are configurable.
+        // We can't read their config, so accept either condition.
+        boolean holdingAxe = player.getMainHandItem().getItem() instanceof AxeItem;
+        return holdingAxe || player.isCrouching();
     }
 
     private static boolean isGiantMushroomStem(ServerLevel level, BlockPos pos, BlockState state) {
@@ -477,7 +471,7 @@ public final class TreeHarvesterCompatEvents {
                     continue;
                 }
 
-                if (state.is(BlockTags.LEAVES)) {
+                if (state.is(BlockTags.LEAVES) || state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE)) {
                     // Respect Tree Harvester's default "ignorePlayerMadeTrees" behavior.
                     if (state.getOptionalValue(LeavesBlock.PERSISTENT).orElse(false)) {
                         return false;

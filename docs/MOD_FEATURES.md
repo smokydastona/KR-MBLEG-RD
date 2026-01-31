@@ -66,6 +66,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Giant fungi caps/stems are registered as `HugeMushroomBlock`.
     - Stems use `MapColor.WOOL` so Tree Harvester can detect/harvest them.
     - Caps use **species-specific** map colors so minimap/worldmap mods (e.g., Xaero) show different cap colors per fungus.
+    - Compatibility: caps are additionally included in `minecraft:leaves` so Tree Harvester treats them as leaf blocks even when cap map colors are not vanilla red/brown.
   - Giant fungi cap **slabs** and red/brown mushroom block slabs are cleared via `#kruemblegard:tree_harvester_mushroom_cap_slabs` (Tree Harvester doesn't natively detect slab cap blocks).
   - Additionally, when Tree Harvester fells a giant mushroom, Krümblegård clears any nearby `HugeMushroomBlock` caps (non-stem) during cleanup so cap detection doesn't rely on specific cap map colors.
   - Note: Tree Harvester has a hardcoded “scan up to 30 blocks above base” tree-detection pass; extremely tall trees with all leaves above that height may still not trigger.
