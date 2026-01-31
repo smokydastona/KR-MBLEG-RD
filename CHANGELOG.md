@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.755 (2026-01-31)
+## 1.0.755 (2026-01-30)
 - Feature(worldgen/echowood): migrate Echowood (normal + mega) from procedural tree features to schematic-driven placement with Wayroot-style palette remaps into Echowood Franch blocks.
 
 ## 1.0.754 (2026-01-30)
