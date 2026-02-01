@@ -7,6 +7,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.769 (2026-01-31)
 - Feature(wood): add sign + hanging sign blocks/items and boat + chest boat items for all 14 custom Wayfall wood families (with recipes and placeholder models/textures so everything loads before bespoke art).
 - Chore(resources): remove unused dedicated `*_button.png` block textures (buttons use their matching plank textures via models).
+- Fix(mobs): Scattered Enderman now switches to carry-walk animation while moving with a carried block.
 
 ## 1.0.758 (2026-01-30)
 - Tuning(worldgen/echowood): Echowood schematic “processors” now map red wool markers to Echowood franch wood, tinted glass to structure void, force non-persistent leaves, and convert generic log/wood blocks into 90% franch wood / 10% franch planks.
@@ -92,7 +93,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.739 (2026-01-30)
 - Chore(docs): clean up Tree Harvester changelog notes to match the current vanilla-tag approach.
-
 ## 1.0.740 (2026-01-30)
 - Chore(resources): delete obsolete `data/kruemblegard/tags/blocks/franch_branches.json` (no longer referenced).
 

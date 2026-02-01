@@ -33,7 +33,10 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
     private static final RawAnimation SHAKE_LOOP =
         RawAnimation.begin().thenLoop("animation.scattered_enderman.shake");
 
-    private static final RawAnimation HOLD_BLOCK_LOOP =
+    private static final RawAnimation CARRY_BLOCK_LOOP =
+        RawAnimation.begin().thenLoop("animation.scattered_enderman.carry_block");
+
+    private static final RawAnimation HOLD_BLOCK_IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.scattered_enderman.hold_block_idle");
 
     private static final RawAnimation ATTACK_ONESHOT =
@@ -126,7 +129,7 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
             } else if (this.attackAnimTicks > 0) {
                 state.setAnimation(ATTACK_ONESHOT);
             } else if (carrying) {
-                state.setAnimation(HOLD_BLOCK_LOOP);
+                state.setAnimation(state.isMoving() ? CARRY_BLOCK_LOOP : HOLD_BLOCK_IDLE_LOOP);
             } else if (angry) {
                 state.setAnimation(ANGRY_LOOP);
             } else if (staring) {
