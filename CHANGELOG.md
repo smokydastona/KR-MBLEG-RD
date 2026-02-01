@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.769 (2026-02-01)
+## 1.0.769 (2026-01-31)
 - Feature(wood): add sign + hanging sign blocks/items and boat + chest boat items for all 14 custom Wayfall wood families (with recipes and placeholder models/textures so everything loads before bespoke art).
 
 ## 1.0.758 (2026-01-30)
