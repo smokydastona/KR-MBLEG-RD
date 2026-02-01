@@ -6,6 +6,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.769 (2026-01-31)
 - Feature(wood): add sign + hanging sign blocks/items and boat + chest boat items for all 14 custom Wayfall wood families (with recipes and placeholder models/textures so everything loads before bespoke art).
+- Chore(resources): remove unused dedicated `*_button.png` block textures (buttons use their matching plank textures via models).
 
 ## 1.0.758 (2026-01-30)
 - Tuning(worldgen/echowood): Echowood schematic “processors” now map red wool markers to Echowood franch wood, tinted glass to structure void, force non-persistent leaves, and convert generic log/wood blocks into 90% franch wood / 10% franch planks.
