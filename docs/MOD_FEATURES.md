@@ -289,6 +289,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
           - Any leaves (any species) → Echowood leaves, forced non-persistent
           - Red wool (schematic center marker) → Echowood franch wood
           - Any log/wood (any species) → 90% Echowood franch wood, 10% Echowood franch planks
+        - Implementation checklist / standards: [TREE_SCHEMATICS.md](TREE_SCHEMATICS.md)
   - All Kruemblegard wood-family blocks are flammable like vanilla (logs/wood/leaves + planks and wooden derivatives like slabs/stairs/fences/doors/signs; saplings burn fast).
   - Schematic-only “Franch” helper blocks:
     - Leaf-network helpers: `*_franch`, `*_franch_gate`, `*_franch_slab`, `*_franch_stairs`, `*_franch_trapdoor` (includes vanilla wood types)
