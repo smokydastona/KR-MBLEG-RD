@@ -50,8 +50,12 @@ These are the established placeholders used when building the schematic template
 
 ### Pivot marker
 - `minecraft:red_wool` is used as a **schematic pivot / center marker**.
-  - Recommended standard for new trees: map it to **structure void** so it never appears in the world.
-  - Note: Echowood historically maps red wool to trunk material (see “Existing tree-specific rules”).
+  - Goal: **red wool itself should never appear** in the world after placement.
+  - Recommended standard for new trees: map it to **<type>_franch_wood**.
+    - This guarantees the pivot never leaves red wool in the world, and keeps the center “solid”.
+  - Note: current trees differ:
+    - Wayroot maps it to trunk material
+    - Echowood maps it to trunk material (see “Existing tree-specific rules”)
 
 ### Invisible helper
 - `minecraft:tripwire` can be used as a placeholder for the schematic-only `string_franch` block.
@@ -138,7 +142,7 @@ This avoids:
 ### Wayroot
 - Mapping: `WayrootSchematicMapping`
 - Tinted glass → structure void
-- Red wool pivot marker → structure void
+- Red wool pivot marker → `wayroot_franch_wood`
 - Tripwire → `string_franch`
 - Leaf-like → `wayroot_leaves` (non-persistent)
 - Trunk-like → 90% `wayroot_franch_wood`, 10% `wayroot_franch_planks`

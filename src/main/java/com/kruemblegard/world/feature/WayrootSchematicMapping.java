@@ -24,7 +24,7 @@ final class WayrootSchematicMapping {
 
         // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
         if (original.is(Blocks.RED_WOOL)) {
-            return Blocks.STRUCTURE_VOID.defaultBlockState();
+            return ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState();
         }
 
         // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
@@ -84,7 +84,7 @@ final class WayrootSchematicMapping {
 
         // Marker: red wool is used to mark the schematic center/pivot; it should never be placed.
         if (original.is(Blocks.RED_WOOL)) {
-            return Blocks.STRUCTURE_VOID.defaultBlockState();
+            return ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState();
         }
 
         // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
