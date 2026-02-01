@@ -17,6 +17,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.761 (2026-01-31)
 - Compat(treeharvester): add a safe manual fallback so Krümblegård trees can still be felled (skips trees with `persistent=true` leaves).
 
+## 1.0.764 (2026-01-31)
+- Fix(worldgen/wayroot): Wayroot schematic palette remaps now convert fence / fence gate / trapdoor placeholders into Wayroot `*_franch*` helper blocks (instead of leaving craftable fence/trapdoor blocks embedded).
+
 ## 1.0.763 (2026-01-31)
 - Fix(worldgen/wayroot): Wayroot schematic palette remaps now convert fence / fence gate / trapdoor placeholders into trunk blocks so trees don't spawn with those blocks embedded.
 - Tuning(worldgen/wayroot): Wayroot schematic trunks now use the same 90% `wayroot_franch_wood` / 10% `wayroot_franch_planks` mix as Echowood.

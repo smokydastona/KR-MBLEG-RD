@@ -278,7 +278,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
           - Tripwire → `string_franch`
           - Any leaves (any species) → Wayroot leaves, forced non-persistent
           - Any log/wood (any species) → 90% Wayroot franch wood, 10% Wayroot franch planks
-          - Any wooden fence / fence gate / trapdoor placeholders in the template → remapped into trunk blocks (same 90/10 mix)
+          - Any wooden fence / fence gate / trapdoor placeholders in the template → remapped into Wayroot `*_franch*` helper blocks
       - Echowood is fully schematic-driven.
         - Echowood saplings only grow into the 3 living schematic variants.
         - Natural Echowood worldgen can also select from 2 dead schematic variants.

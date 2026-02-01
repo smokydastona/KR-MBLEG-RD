@@ -3,7 +3,6 @@ package com.kruemblegard.world.feature;
 import com.kruemblegard.block.FranchDecay;
 import com.kruemblegard.init.ModBlocks;
 
-import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -48,22 +47,8 @@ final class WayrootSchematicMapping {
         original = normalizeWayrootTrunkState(original);
 
         // Convert any wood/log to Wayroot trunk.
-        if (original.is(BlockTags.LOGS)
-                || original.getBlock() instanceof RotatedPillarBlock
-                // Wayroot tree schematics are authored with Wayroot fences/trapdoors as placeholders.
-                // When placing the tree, we remap them into trunk blocks so the tree doesn't spawn
-                // with literal fence/trapdoor blocks embedded in it.
-                || original.is(BlockTags.WOODEN_FENCES)
-                || original.is(BlockTags.WOODEN_TRAPDOORS)
-                || original.is(BlockTags.FENCE_GATES)) {
+        if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
             BlockState chosen = chooseWayrootTrunkState(random);
-
-            // If the schematic uses fences as a branch placeholder, infer a horizontal axis from
-            // connection directions so trunks don't always default to vertical.
-            if (chosen.hasProperty(BlockStateProperties.AXIS)) {
-                chosen = chosen.setValue(BlockStateProperties.AXIS, inferAxisFromHorizontalConnections(original));
-            }
-
             return copySharedProperties(original, chosen);
         }
 
@@ -120,17 +105,8 @@ final class WayrootSchematicMapping {
         original = normalizeWayrootTrunkState(original);
 
         // Convert any wood/log to Wayroot trunk.
-        if (original.is(BlockTags.LOGS)
-                || original.getBlock() instanceof RotatedPillarBlock
-                || original.is(BlockTags.WOODEN_FENCES)
-                || original.is(BlockTags.WOODEN_TRAPDOORS)
-                || original.is(BlockTags.FENCE_GATES)) {
+        if (original.is(BlockTags.LOGS) || original.getBlock() instanceof RotatedPillarBlock) {
             BlockState chosen = chooseWayrootTrunkState(random);
-
-            if (chosen.hasProperty(BlockStateProperties.AXIS)) {
-                chosen = chosen.setValue(BlockStateProperties.AXIS, inferAxisFromHorizontalConnections(original));
-            }
-
             return copySharedProperties(original, chosen);
         }
 
@@ -213,20 +189,6 @@ final class WayrootSchematicMapping {
         return (random.nextFloat() < 0.10f)
                 ? ModBlocks.WAYROOT_FRANCH_PLANKS.get().defaultBlockState()
                 : ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState();
-    }
-
-    private static Direction.Axis inferAxisFromHorizontalConnections(BlockState state) {
-        if (state.hasProperty(BlockStateProperties.NORTH)
-                && state.hasProperty(BlockStateProperties.SOUTH)
-                && state.hasProperty(BlockStateProperties.EAST)
-                && state.hasProperty(BlockStateProperties.WEST)) {
-            boolean northSouth = state.getValue(BlockStateProperties.NORTH) || state.getValue(BlockStateProperties.SOUTH);
-            boolean eastWest = state.getValue(BlockStateProperties.EAST) || state.getValue(BlockStateProperties.WEST);
-
-            if (eastWest && !northSouth) return Direction.Axis.X;
-            if (northSouth && !eastWest) return Direction.Axis.Z;
-        }
-        return Direction.Axis.Y;
     }
 
     private static BlockState copyAxisIfPresent(BlockState from, BlockState to) {
