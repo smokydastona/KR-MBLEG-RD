@@ -13,6 +13,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.766 (2026-01-31)
 - Tuning(worldgen/wayroot): Wayroot schematic pivot markers (`minecraft:red_wool`) now remap to `wayroot_franch_wood` (normal + mega), matching the standard for future schematic trees.
+- Chore(textures): resize eligible square block/item textures to 256x256 (no cropping; non-square textures skipped).
 
 ## 1.0.767 (2026-01-31)
 - Fix(worldgen/leaves): include `*_franch_planks` in each species' `*_logs` (anchor) tag so the 90/10 trunk mix doesn't disconnect leaf networks and trigger immediate decay.
