@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#minecraft:spruce_logs",
-    "kruemblegard:spruce_franch_wood"
+    "kruemblegard:spruce_franch_wood",
+    "kruemblegard:spruce_franch_planks"
   ]
 }

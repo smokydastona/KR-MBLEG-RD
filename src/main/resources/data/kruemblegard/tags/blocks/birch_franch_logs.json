@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#minecraft:birch_logs",
-    "kruemblegard:birch_franch_wood"
+    "kruemblegard:birch_franch_wood",
+    "kruemblegard:birch_franch_planks"
   ]
 }

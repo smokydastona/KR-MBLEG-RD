@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#minecraft:dark_oak_logs",
-    "kruemblegard:dark_oak_franch_wood"
+    "kruemblegard:dark_oak_franch_wood",
+    "kruemblegard:dark_oak_franch_planks"
   ]
 }

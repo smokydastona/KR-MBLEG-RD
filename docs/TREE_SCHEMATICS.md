@@ -87,6 +87,12 @@ Standard behavior:
   - **90%** `*_franch_wood`
   - **10%** `*_franch_planks`
 
+Important: anchor tags
+- Because Krümblegård leaves/Franch use a species-specific anchor tag (e.g. `kruemblegard:<type>_logs`), that tag **must include both**:
+  - `*_franch_wood`
+  - `*_franch_planks`
+  Otherwise, a plank “gap” in the trunk mix can disconnect a leaf cluster and cause fast decay right after worldgen.
+
 Why:
 - `*_franch_wood` looks like trunk blocks but has controlled drops
 - `*_franch_planks` adds subtle visual variation without creating full plank “columns”

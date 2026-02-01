@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#minecraft:acacia_logs",
-    "kruemblegard:acacia_franch_wood"
+    "kruemblegard:acacia_franch_wood",
+    "kruemblegard:acacia_franch_planks"
   ]
 }

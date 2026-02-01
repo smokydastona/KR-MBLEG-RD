@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#minecraft:jungle_logs",
-    "kruemblegard:jungle_franch_wood"
+    "kruemblegard:jungle_franch_wood",
+    "kruemblegard:jungle_franch_planks"
   ]
 }
