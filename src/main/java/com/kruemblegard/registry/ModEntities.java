@@ -7,6 +7,8 @@ import com.kruemblegard.entity.MoogloomEntity;
 import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
+import com.kruemblegard.entity.vehicle.KruemblegardBoatEntity;
+import com.kruemblegard.entity.vehicle.KruemblegardChestBoatEntity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -72,5 +74,25 @@ public class ModEntities {
                     MoogloomEntity::new, MobCategory.CREATURE)
                 .sized(0.9f, 1.4f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "moogloom").toString())
+        );
+
+    public static final RegistryObject<EntityType<KruemblegardBoatEntity>> KRUEMBLEGARD_BOAT =
+        ENTITIES.register(
+            "kruemblegard_boat",
+            () -> EntityType.Builder.<KruemblegardBoatEntity>of(KruemblegardBoatEntity::new, MobCategory.MISC)
+                .sized(1.375F, 0.5625F)
+                .clientTrackingRange(10)
+                .updateInterval(3)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "kruemblegard_boat").toString())
+        );
+
+    public static final RegistryObject<EntityType<KruemblegardChestBoatEntity>> KRUEMBLEGARD_CHEST_BOAT =
+        ENTITIES.register(
+            "kruemblegard_chest_boat",
+            () -> EntityType.Builder.<KruemblegardChestBoatEntity>of(KruemblegardChestBoatEntity::new, MobCategory.MISC)
+                .sized(1.375F, 0.5625F)
+                .clientTrackingRange(10)
+                .updateInterval(3)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "kruemblegard_chest_boat").toString())
         );
 }

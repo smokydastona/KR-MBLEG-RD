@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "XXX",
+        "XXX",
+        " S "
+    ],
+    "key": {
+        "X": {
+            "item": "kruemblegard:glimmerpine_planks"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "kruemblegard:glimmerpine_sign",
+        "count": 3
+    }
+}

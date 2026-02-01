@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "kruemblegard:hollowway_tree_boat"
+        },
+        {
+            "item": "minecraft:chest"
+        }
+    ],
+    "result": {
+        "item": "kruemblegard:hollowway_tree_chest_boat"
+    }
+}

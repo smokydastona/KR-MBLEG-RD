@@ -14,6 +14,10 @@ import com.kruemblegard.block.FranchStairBlock;
 import com.kruemblegard.block.FranchStringBlock;
 import com.kruemblegard.block.FranchTrapDoorBlock;
 import com.kruemblegard.block.FranchWoodBlock;
+import com.kruemblegard.block.KruemblegardCeilingHangingSignBlock;
+import com.kruemblegard.block.KruemblegardStandingSignBlock;
+import com.kruemblegard.block.KruemblegardWallHangingSignBlock;
+import com.kruemblegard.block.KruemblegardWallSignBlock;
 import com.kruemblegard.block.MegaFranchLeavesBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
@@ -1632,6 +1636,38 @@ public final class ModBlocks {
                         .sound(SoundType.WOOD), BlockSetType.OAK));
     }
 
+        private static RegistryObject<Block> registerStandingSign(String id, String dropItemId) {
+                return BLOCKS.register(id, () -> new KruemblegardStandingSignBlock(
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_SIGN),
+                                WoodType.OAK,
+                                new ResourceLocation(Kruemblegard.MODID, dropItemId)
+                ));
+        }
+
+        private static RegistryObject<Block> registerWallSign(String id, String dropItemId) {
+                return BLOCKS.register(id, () -> new KruemblegardWallSignBlock(
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_WALL_SIGN),
+                                WoodType.OAK,
+                                new ResourceLocation(Kruemblegard.MODID, dropItemId)
+                ));
+        }
+
+        private static RegistryObject<Block> registerHangingSign(String id, String dropItemId) {
+                return BLOCKS.register(id, () -> new KruemblegardCeilingHangingSignBlock(
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_HANGING_SIGN),
+                                WoodType.OAK,
+                                new ResourceLocation(Kruemblegard.MODID, dropItemId)
+                ));
+        }
+
+        private static RegistryObject<Block> registerWallHangingSign(String id, String dropItemId) {
+                return BLOCKS.register(id, () -> new KruemblegardWallHangingSignBlock(
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_WALL_HANGING_SIGN),
+                                WoodType.OAK,
+                                new ResourceLocation(Kruemblegard.MODID, dropItemId)
+                ));
+        }
+
         private static RegistryObject<Block> registerFeatureSapling2x2(String id,
                                                                        ResourceKey<ConfiguredFeature<?, ?>> smallFeatureKey,
                                                                        ResourceKey<ConfiguredFeature<?, ?>> megaFeatureKey) {
@@ -1780,6 +1816,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYROOT_BUTTON = registerButton("wayroot_button", WAYROOT_PLANKS);
         public static final RegistryObject<Block> WAYROOT_PRESSURE_PLATE = registerPressurePlate("wayroot_pressure_plate", WAYROOT_PLANKS);
 
+        public static final RegistryObject<Block> WAYROOT_SIGN = registerStandingSign("wayroot_sign", "wayroot_sign");
+        public static final RegistryObject<Block> WAYROOT_WALL_SIGN = registerWallSign("wayroot_wall_sign", "wayroot_sign");
+        public static final RegistryObject<Block> WAYROOT_HANGING_SIGN = registerHangingSign("wayroot_hanging_sign", "wayroot_hanging_sign");
+        public static final RegistryObject<Block> WAYROOT_WALL_HANGING_SIGN = registerWallHangingSign("wayroot_wall_hanging_sign", "wayroot_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_FALLBARK_LOG = registerLog("stripped_fallbark_log");
         public static final RegistryObject<Block> STRIPPED_FALLBARK_WOOD = registerLog("stripped_fallbark_wood");
         public static final RegistryObject<Block> FALLBARK_LOG = registerStrippableLog("fallbark_log", () -> STRIPPED_FALLBARK_LOG.get());
@@ -1813,6 +1854,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> FALLBARK_TRAPDOOR = registerTrapdoor("fallbark_trapdoor", FALLBARK_PLANKS);
         public static final RegistryObject<Block> FALLBARK_BUTTON = registerButton("fallbark_button", FALLBARK_PLANKS);
         public static final RegistryObject<Block> FALLBARK_PRESSURE_PLATE = registerPressurePlate("fallbark_pressure_plate", FALLBARK_PLANKS);
+
+        public static final RegistryObject<Block> FALLBARK_SIGN = registerStandingSign("fallbark_sign", "fallbark_sign");
+        public static final RegistryObject<Block> FALLBARK_WALL_SIGN = registerWallSign("fallbark_wall_sign", "fallbark_sign");
+        public static final RegistryObject<Block> FALLBARK_HANGING_SIGN = registerHangingSign("fallbark_hanging_sign", "fallbark_hanging_sign");
+        public static final RegistryObject<Block> FALLBARK_WALL_HANGING_SIGN = registerWallHangingSign("fallbark_wall_hanging_sign", "fallbark_hanging_sign");
 
         public static final RegistryObject<Block> STRIPPED_ECHOWOOD_LOG = registerLog("stripped_echowood_log");
         public static final RegistryObject<Block> STRIPPED_ECHOWOOD_WOOD = registerLog("stripped_echowood_wood");
@@ -1848,6 +1894,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> ECHOWOOD_BUTTON = registerButton("echowood_button", ECHOWOOD_PLANKS);
         public static final RegistryObject<Block> ECHOWOOD_PRESSURE_PLATE = registerPressurePlate("echowood_pressure_plate", ECHOWOOD_PLANKS);
 
+        public static final RegistryObject<Block> ECHOWOOD_SIGN = registerStandingSign("echowood_sign", "echowood_sign");
+        public static final RegistryObject<Block> ECHOWOOD_WALL_SIGN = registerWallSign("echowood_wall_sign", "echowood_sign");
+        public static final RegistryObject<Block> ECHOWOOD_HANGING_SIGN = registerHangingSign("echowood_hanging_sign", "echowood_hanging_sign");
+        public static final RegistryObject<Block> ECHOWOOD_WALL_HANGING_SIGN = registerWallHangingSign("echowood_wall_hanging_sign", "echowood_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_CAIRN_TREE_LOG = registerLog("stripped_cairn_tree_log");
         public static final RegistryObject<Block> STRIPPED_CAIRN_TREE_WOOD = registerLog("stripped_cairn_tree_wood");
         public static final RegistryObject<Block> CAIRN_TREE_LOG = registerStrippableLog("cairn_tree_log", () -> STRIPPED_CAIRN_TREE_LOG.get());
@@ -1881,6 +1932,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> CAIRN_TREE_TRAPDOOR = registerTrapdoor("cairn_tree_trapdoor", CAIRN_TREE_PLANKS);
         public static final RegistryObject<Block> CAIRN_TREE_BUTTON = registerButton("cairn_tree_button", CAIRN_TREE_PLANKS);
         public static final RegistryObject<Block> CAIRN_TREE_PRESSURE_PLATE = registerPressurePlate("cairn_tree_pressure_plate", CAIRN_TREE_PLANKS);
+
+        public static final RegistryObject<Block> CAIRN_TREE_SIGN = registerStandingSign("cairn_tree_sign", "cairn_tree_sign");
+        public static final RegistryObject<Block> CAIRN_TREE_WALL_SIGN = registerWallSign("cairn_tree_wall_sign", "cairn_tree_sign");
+        public static final RegistryObject<Block> CAIRN_TREE_HANGING_SIGN = registerHangingSign("cairn_tree_hanging_sign", "cairn_tree_hanging_sign");
+        public static final RegistryObject<Block> CAIRN_TREE_WALL_HANGING_SIGN = registerWallHangingSign("cairn_tree_wall_hanging_sign", "cairn_tree_hanging_sign");
 
         public static final RegistryObject<Block> STRIPPED_WAYGLASS_LOG = registerLog("stripped_wayglass_log");
         public static final RegistryObject<Block> STRIPPED_WAYGLASS_WOOD = registerLog("stripped_wayglass_wood");
@@ -1916,6 +1972,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYGLASS_BUTTON = registerButton("wayglass_button", WAYGLASS_PLANKS);
         public static final RegistryObject<Block> WAYGLASS_PRESSURE_PLATE = registerPressurePlate("wayglass_pressure_plate", WAYGLASS_PLANKS);
 
+        public static final RegistryObject<Block> WAYGLASS_SIGN = registerStandingSign("wayglass_sign", "wayglass_sign");
+        public static final RegistryObject<Block> WAYGLASS_WALL_SIGN = registerWallSign("wayglass_wall_sign", "wayglass_sign");
+        public static final RegistryObject<Block> WAYGLASS_HANGING_SIGN = registerHangingSign("wayglass_hanging_sign", "wayglass_hanging_sign");
+        public static final RegistryObject<Block> WAYGLASS_WALL_HANGING_SIGN = registerWallHangingSign("wayglass_wall_hanging_sign", "wayglass_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_SPLINTERSPORE_LOG = registerLog("stripped_splinterspore_log");
         public static final RegistryObject<Block> STRIPPED_SPLINTERSPORE_WOOD = registerLog("stripped_splinterspore_wood");
         public static final RegistryObject<Block> SPLINTERSPORE_LOG = registerStrippableLog("splinterspore_log", () -> STRIPPED_SPLINTERSPORE_LOG.get());
@@ -1949,6 +2010,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> SPLINTERSPORE_TRAPDOOR = registerTrapdoor("splinterspore_trapdoor", SPLINTERSPORE_PLANKS);
         public static final RegistryObject<Block> SPLINTERSPORE_BUTTON = registerButton("splinterspore_button", SPLINTERSPORE_PLANKS);
         public static final RegistryObject<Block> SPLINTERSPORE_PRESSURE_PLATE = registerPressurePlate("splinterspore_pressure_plate", SPLINTERSPORE_PLANKS);
+
+        public static final RegistryObject<Block> SPLINTERSPORE_SIGN = registerStandingSign("splinterspore_sign", "splinterspore_sign");
+        public static final RegistryObject<Block> SPLINTERSPORE_WALL_SIGN = registerWallSign("splinterspore_wall_sign", "splinterspore_sign");
+        public static final RegistryObject<Block> SPLINTERSPORE_HANGING_SIGN = registerHangingSign("splinterspore_hanging_sign", "splinterspore_hanging_sign");
+        public static final RegistryObject<Block> SPLINTERSPORE_WALL_HANGING_SIGN = registerWallHangingSign("splinterspore_wall_hanging_sign", "splinterspore_hanging_sign");
 
         public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_LOG = registerLog("stripped_hollowway_tree_log");
         public static final RegistryObject<Block> STRIPPED_HOLLOWWAY_TREE_WOOD = registerLog("stripped_hollowway_tree_wood");
@@ -1984,6 +2050,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> HOLLOWWAY_TREE_BUTTON = registerButton("hollowway_tree_button", HOLLOWWAY_TREE_PLANKS);
         public static final RegistryObject<Block> HOLLOWWAY_TREE_PRESSURE_PLATE = registerPressurePlate("hollowway_tree_pressure_plate", HOLLOWWAY_TREE_PLANKS);
 
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_SIGN = registerStandingSign("hollowway_tree_sign", "hollowway_tree_sign");
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_WALL_SIGN = registerWallSign("hollowway_tree_wall_sign", "hollowway_tree_sign");
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_HANGING_SIGN = registerHangingSign("hollowway_tree_hanging_sign", "hollowway_tree_hanging_sign");
+        public static final RegistryObject<Block> HOLLOWWAY_TREE_WALL_HANGING_SIGN = registerWallHangingSign("hollowway_tree_wall_hanging_sign", "hollowway_tree_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_DRIFTWILLOW_LOG = registerLog("stripped_driftwillow_log");
         public static final RegistryObject<Block> STRIPPED_DRIFTWILLOW_WOOD = registerLog("stripped_driftwillow_wood");
         public static final RegistryObject<Block> DRIFTWILLOW_LOG = registerStrippableLog("driftwillow_log", () -> STRIPPED_DRIFTWILLOW_LOG.get());
@@ -2017,6 +2088,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> DRIFTWILLOW_TRAPDOOR = registerTrapdoor("driftwillow_trapdoor", DRIFTWILLOW_PLANKS);
         public static final RegistryObject<Block> DRIFTWILLOW_BUTTON = registerButton("driftwillow_button", DRIFTWILLOW_PLANKS);
         public static final RegistryObject<Block> DRIFTWILLOW_PRESSURE_PLATE = registerPressurePlate("driftwillow_pressure_plate", DRIFTWILLOW_PLANKS);
+
+        public static final RegistryObject<Block> DRIFTWILLOW_SIGN = registerStandingSign("driftwillow_sign", "driftwillow_sign");
+        public static final RegistryObject<Block> DRIFTWILLOW_WALL_SIGN = registerWallSign("driftwillow_wall_sign", "driftwillow_sign");
+        public static final RegistryObject<Block> DRIFTWILLOW_HANGING_SIGN = registerHangingSign("driftwillow_hanging_sign", "driftwillow_hanging_sign");
+        public static final RegistryObject<Block> DRIFTWILLOW_WALL_HANGING_SIGN = registerWallHangingSign("driftwillow_wall_hanging_sign", "driftwillow_hanging_sign");
 
         public static final RegistryObject<Block> STRIPPED_MONUMENT_OAK_LOG = registerLog("stripped_monument_oak_log");
         public static final RegistryObject<Block> STRIPPED_MONUMENT_OAK_WOOD = registerLog("stripped_monument_oak_wood");
@@ -2052,6 +2128,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> MONUMENT_OAK_BUTTON = registerButton("monument_oak_button", MONUMENT_OAK_PLANKS);
         public static final RegistryObject<Block> MONUMENT_OAK_PRESSURE_PLATE = registerPressurePlate("monument_oak_pressure_plate", MONUMENT_OAK_PLANKS);
 
+        public static final RegistryObject<Block> MONUMENT_OAK_SIGN = registerStandingSign("monument_oak_sign", "monument_oak_sign");
+        public static final RegistryObject<Block> MONUMENT_OAK_WALL_SIGN = registerWallSign("monument_oak_wall_sign", "monument_oak_sign");
+        public static final RegistryObject<Block> MONUMENT_OAK_HANGING_SIGN = registerHangingSign("monument_oak_hanging_sign", "monument_oak_hanging_sign");
+        public static final RegistryObject<Block> MONUMENT_OAK_WALL_HANGING_SIGN = registerWallHangingSign("monument_oak_wall_hanging_sign", "monument_oak_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_WAYTORCH_TREE_LOG = registerLog("stripped_waytorch_tree_log");
         public static final RegistryObject<Block> STRIPPED_WAYTORCH_TREE_WOOD = registerLog("stripped_waytorch_tree_wood");
         public static final RegistryObject<Block> WAYTORCH_TREE_LOG = registerStrippableLog("waytorch_tree_log", () -> STRIPPED_WAYTORCH_TREE_LOG.get());
@@ -2085,6 +2166,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> WAYTORCH_TREE_TRAPDOOR = registerTrapdoor("waytorch_tree_trapdoor", WAYTORCH_TREE_PLANKS);
         public static final RegistryObject<Block> WAYTORCH_TREE_BUTTON = registerButton("waytorch_tree_button", WAYTORCH_TREE_PLANKS);
         public static final RegistryObject<Block> WAYTORCH_TREE_PRESSURE_PLATE = registerPressurePlate("waytorch_tree_pressure_plate", WAYTORCH_TREE_PLANKS);
+
+        public static final RegistryObject<Block> WAYTORCH_TREE_SIGN = registerStandingSign("waytorch_tree_sign", "waytorch_tree_sign");
+        public static final RegistryObject<Block> WAYTORCH_TREE_WALL_SIGN = registerWallSign("waytorch_tree_wall_sign", "waytorch_tree_sign");
+        public static final RegistryObject<Block> WAYTORCH_TREE_HANGING_SIGN = registerHangingSign("waytorch_tree_hanging_sign", "waytorch_tree_hanging_sign");
+        public static final RegistryObject<Block> WAYTORCH_TREE_WALL_HANGING_SIGN = registerWallHangingSign("waytorch_tree_wall_hanging_sign", "waytorch_tree_hanging_sign");
 
         public static final RegistryObject<Block> STRIPPED_FAULTWOOD_LOG = registerLog("stripped_faultwood_log");
         public static final RegistryObject<Block> STRIPPED_FAULTWOOD_WOOD = registerLog("stripped_faultwood_wood");
@@ -2152,6 +2238,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> ASHBLOOM_BUTTON = registerButton("ashbloom_button", ASHBLOOM_PLANKS);
     public static final RegistryObject<Block> ASHBLOOM_PRESSURE_PLATE = registerPressurePlate("ashbloom_pressure_plate", ASHBLOOM_PLANKS);
 
+        public static final RegistryObject<Block> ASHBLOOM_SIGN = registerStandingSign("ashbloom_sign", "ashbloom_sign");
+        public static final RegistryObject<Block> ASHBLOOM_WALL_SIGN = registerWallSign("ashbloom_wall_sign", "ashbloom_sign");
+        public static final RegistryObject<Block> ASHBLOOM_HANGING_SIGN = registerHangingSign("ashbloom_hanging_sign", "ashbloom_hanging_sign");
+        public static final RegistryObject<Block> ASHBLOOM_WALL_HANGING_SIGN = registerWallHangingSign("ashbloom_wall_hanging_sign", "ashbloom_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_GLIMMERPINE_LOG = registerLog("stripped_glimmerpine_log");
         public static final RegistryObject<Block> STRIPPED_GLIMMERPINE_WOOD = registerLog("stripped_glimmerpine_wood");
         public static final RegistryObject<Block> GLIMMERPINE_LOG = registerStrippableLog("glimmerpine_log", () -> STRIPPED_GLIMMERPINE_LOG.get());
@@ -2201,6 +2292,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> GLIMMERPINE_BUTTON = registerButton("glimmerpine_button", GLIMMERPINE_PLANKS);
     public static final RegistryObject<Block> GLIMMERPINE_PRESSURE_PLATE = registerPressurePlate("glimmerpine_pressure_plate", GLIMMERPINE_PLANKS);
 
+        public static final RegistryObject<Block> GLIMMERPINE_SIGN = registerStandingSign("glimmerpine_sign", "glimmerpine_sign");
+        public static final RegistryObject<Block> GLIMMERPINE_WALL_SIGN = registerWallSign("glimmerpine_wall_sign", "glimmerpine_sign");
+        public static final RegistryObject<Block> GLIMMERPINE_HANGING_SIGN = registerHangingSign("glimmerpine_hanging_sign", "glimmerpine_hanging_sign");
+        public static final RegistryObject<Block> GLIMMERPINE_WALL_HANGING_SIGN = registerWallHangingSign("glimmerpine_wall_hanging_sign", "glimmerpine_hanging_sign");
+
         public static final RegistryObject<Block> STRIPPED_DRIFTWOOD_LOG = registerLog("stripped_driftwood_log");
         public static final RegistryObject<Block> STRIPPED_DRIFTWOOD_WOOD = registerLog("stripped_driftwood_wood");
         public static final RegistryObject<Block> DRIFTWOOD_LOG = registerStrippableLog("driftwood_log", () -> STRIPPED_DRIFTWOOD_LOG.get());
@@ -2241,6 +2337,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> DRIFTWOOD_TRAPDOOR = registerTrapdoor("driftwood_trapdoor", DRIFTWOOD_PLANKS);
     public static final RegistryObject<Block> DRIFTWOOD_BUTTON = registerButton("driftwood_button", DRIFTWOOD_PLANKS);
     public static final RegistryObject<Block> DRIFTWOOD_PRESSURE_PLATE = registerPressurePlate("driftwood_pressure_plate", DRIFTWOOD_PLANKS);
+
+        public static final RegistryObject<Block> DRIFTWOOD_SIGN = registerStandingSign("driftwood_sign", "driftwood_sign");
+        public static final RegistryObject<Block> DRIFTWOOD_WALL_SIGN = registerWallSign("driftwood_wall_sign", "driftwood_sign");
+        public static final RegistryObject<Block> DRIFTWOOD_HANGING_SIGN = registerHangingSign("driftwood_hanging_sign", "driftwood_hanging_sign");
+        public static final RegistryObject<Block> DRIFTWOOD_WALL_HANGING_SIGN = registerWallHangingSign("driftwood_wall_hanging_sign", "driftwood_hanging_sign");
         public static final RegistryObject<Block> FAULTWOOD_FENCE = registerFence("faultwood_fence", FAULTWOOD_PLANKS);
                 public static final RegistryObject<Block> FAULTWOOD_FRANCH = registerFranch("faultwood_franch", FAULTWOOD_PLANKS);
                                 public static final RegistryObject<Block> FAULTWOOD_FRANCH_GATE = registerFranchGate("faultwood_franch_gate", FAULTWOOD_PLANKS);
@@ -2253,6 +2354,11 @@ public final class ModBlocks {
         public static final RegistryObject<Block> FAULTWOOD_TRAPDOOR = registerTrapdoor("faultwood_trapdoor", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_BUTTON = registerButton("faultwood_button", FAULTWOOD_PLANKS);
         public static final RegistryObject<Block> FAULTWOOD_PRESSURE_PLATE = registerPressurePlate("faultwood_pressure_plate", FAULTWOOD_PLANKS);
+
+        public static final RegistryObject<Block> FAULTWOOD_SIGN = registerStandingSign("faultwood_sign", "faultwood_sign");
+        public static final RegistryObject<Block> FAULTWOOD_WALL_SIGN = registerWallSign("faultwood_wall_sign", "faultwood_sign");
+        public static final RegistryObject<Block> FAULTWOOD_HANGING_SIGN = registerHangingSign("faultwood_hanging_sign", "faultwood_hanging_sign");
+        public static final RegistryObject<Block> FAULTWOOD_WALL_HANGING_SIGN = registerWallHangingSign("faultwood_wall_hanging_sign", "faultwood_hanging_sign");
 
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);

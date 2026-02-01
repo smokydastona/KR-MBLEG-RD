@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "kruemblegard:glimmerpine_boat"
+        },
+        {
+            "item": "minecraft:chest"
+        }
+    ],
+    "result": {
+        "item": "kruemblegard:glimmerpine_chest_boat"
+    }
+}

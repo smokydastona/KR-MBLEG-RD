@@ -1,0 +1,6 @@
+﻿{
+  "parent": "builtin/entity",
+  "textures": {
+    "particle": "kruemblegard:block/hollowway_tree_planks"
+  }
+}

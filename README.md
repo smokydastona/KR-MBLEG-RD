@@ -21,6 +21,7 @@ If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to Commen
 
 ## What you’ll find
 - **Wayfall**: a floating-islands void dimension with its own biomes, palette, flora, and rethemed vanilla structures.
+- **Wayfall woods**: 14 custom wood families with vanilla-style building sets (including signs/hanging signs and boats/chest boats).
 - **Krümblegård (Boss)**: a 4-phase stone guardian fight with phase-based attack kits and synced boss music.
 - **Traprock**: looks like stone until you disturb it (or linger too close), then it awakens and attacks.
 - **Pebblit**: hostile stone-bug you can tame with cobblestone; can sit or perch on your shoulder.

@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "facing=north": { "model": "kruemblegard:block/driftwillow_wall_sign", "y": 180 },
+    "facing=east":  { "model": "kruemblegard:block/driftwillow_wall_sign", "y": 270 },
+    "facing=south": { "model": "kruemblegard:block/driftwillow_wall_sign", "y": 0 },
+    "facing=west":  { "model": "kruemblegard:block/driftwillow_wall_sign", "y": 90 }
+  }
+}

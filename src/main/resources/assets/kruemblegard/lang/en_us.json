@@ -880,6 +880,76 @@
     "block.kruemblegard.wayroot_franch_wood":  "Wayroot Tree Trunk",
     "block.kruemblegard.waytorch_tree_franch_wood":  "Waytorch Tree Trunk",
 
+    "block.kruemblegard.wayroot_sign":  "Wayroot Sign",
+    "block.kruemblegard.wayroot_hanging_sign":  "Wayroot Hanging Sign",
+    "item.kruemblegard.wayroot_boat":  "Wayroot Boat",
+    "item.kruemblegard.wayroot_chest_boat":  "Wayroot Chest Boat",
+
+    "block.kruemblegard.fallbark_sign":  "Fallbark Sign",
+    "block.kruemblegard.fallbark_hanging_sign":  "Fallbark Hanging Sign",
+    "item.kruemblegard.fallbark_boat":  "Fallbark Boat",
+    "item.kruemblegard.fallbark_chest_boat":  "Fallbark Chest Boat",
+
+    "block.kruemblegard.echowood_sign":  "Echowood Sign",
+    "block.kruemblegard.echowood_hanging_sign":  "Echowood Hanging Sign",
+    "item.kruemblegard.echowood_boat":  "Echowood Boat",
+    "item.kruemblegard.echowood_chest_boat":  "Echowood Chest Boat",
+
+    "block.kruemblegard.cairn_tree_sign":  "Cairn Tree Sign",
+    "block.kruemblegard.cairn_tree_hanging_sign":  "Cairn Tree Hanging Sign",
+    "item.kruemblegard.cairn_tree_boat":  "Cairn Tree Boat",
+    "item.kruemblegard.cairn_tree_chest_boat":  "Cairn Tree Chest Boat",
+
+    "block.kruemblegard.wayglass_sign":  "Wayglass Sign",
+    "block.kruemblegard.wayglass_hanging_sign":  "Wayglass Hanging Sign",
+    "item.kruemblegard.wayglass_boat":  "Wayglass Boat",
+    "item.kruemblegard.wayglass_chest_boat":  "Wayglass Chest Boat",
+
+    "block.kruemblegard.splinterspore_sign":  "Splinterspore Sign",
+    "block.kruemblegard.splinterspore_hanging_sign":  "Splinterspore Hanging Sign",
+    "item.kruemblegard.splinterspore_boat":  "Splinterspore Boat",
+    "item.kruemblegard.splinterspore_chest_boat":  "Splinterspore Chest Boat",
+
+    "block.kruemblegard.hollowway_tree_sign":  "Hollowway Tree Sign",
+    "block.kruemblegard.hollowway_tree_hanging_sign":  "Hollowway Tree Hanging Sign",
+    "item.kruemblegard.hollowway_tree_boat":  "Hollowway Tree Boat",
+    "item.kruemblegard.hollowway_tree_chest_boat":  "Hollowway Tree Chest Boat",
+
+    "block.kruemblegard.driftwillow_sign":  "Driftwillow Sign",
+    "block.kruemblegard.driftwillow_hanging_sign":  "Driftwillow Hanging Sign",
+    "item.kruemblegard.driftwillow_boat":  "Driftwillow Boat",
+    "item.kruemblegard.driftwillow_chest_boat":  "Driftwillow Chest Boat",
+
+    "block.kruemblegard.monument_oak_sign":  "Monument Oak Sign",
+    "block.kruemblegard.monument_oak_hanging_sign":  "Monument Oak Hanging Sign",
+    "item.kruemblegard.monument_oak_boat":  "Monument Oak Boat",
+    "item.kruemblegard.monument_oak_chest_boat":  "Monument Oak Chest Boat",
+
+    "block.kruemblegard.waytorch_tree_sign":  "Waytorch Tree Sign",
+    "block.kruemblegard.waytorch_tree_hanging_sign":  "Waytorch Tree Hanging Sign",
+    "item.kruemblegard.waytorch_tree_boat":  "Waytorch Tree Boat",
+    "item.kruemblegard.waytorch_tree_chest_boat":  "Waytorch Tree Chest Boat",
+
+    "block.kruemblegard.faultwood_sign":  "Faultwood Sign",
+    "block.kruemblegard.faultwood_hanging_sign":  "Faultwood Hanging Sign",
+    "item.kruemblegard.faultwood_boat":  "Faultwood Boat",
+    "item.kruemblegard.faultwood_chest_boat":  "Faultwood Chest Boat",
+
+    "block.kruemblegard.ashbloom_sign":  "Ashbloom Sign",
+    "block.kruemblegard.ashbloom_hanging_sign":  "Ashbloom Hanging Sign",
+    "item.kruemblegard.ashbloom_boat":  "Ashbloom Boat",
+    "item.kruemblegard.ashbloom_chest_boat":  "Ashbloom Chest Boat",
+
+    "block.kruemblegard.glimmerpine_sign":  "Glimmerpine Sign",
+    "block.kruemblegard.glimmerpine_hanging_sign":  "Glimmerpine Hanging Sign",
+    "item.kruemblegard.glimmerpine_boat":  "Glimmerpine Boat",
+    "item.kruemblegard.glimmerpine_chest_boat":  "Glimmerpine Chest Boat",
+
+    "block.kruemblegard.driftwood_sign":  "Driftwood Sign",
+    "block.kruemblegard.driftwood_hanging_sign":  "Driftwood Hanging Sign",
+    "item.kruemblegard.driftwood_boat":  "Driftwood Boat",
+    "item.kruemblegard.driftwood_chest_boat":  "Driftwood Chest Boat",
+
     "subtitles.kruemblegard.ambient":  "Kr\u00fcmbleg\u00e5rd rumbles",
     "subtitles.kruemblegard.attack":  "Kr\u00fcmbleg\u00e5rd swings",
     "subtitles.kruemblegard.dash":  "Kr\u00fcmbleg\u00e5rd dashes",

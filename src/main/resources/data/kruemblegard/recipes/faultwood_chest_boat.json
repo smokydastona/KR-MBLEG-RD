@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "kruemblegard:faultwood_boat"
+        },
+        {
+            "item": "minecraft:chest"
+        }
+    ],
+    "result": {
+        "item": "kruemblegard:faultwood_chest_boat"
+    }
+}

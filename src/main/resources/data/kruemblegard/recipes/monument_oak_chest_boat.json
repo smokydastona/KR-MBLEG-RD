@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "kruemblegard:monument_oak_boat"
+        },
+        {
+            "item": "minecraft:chest"
+        }
+    ],
+    "result": {
+        "item": "kruemblegard:monument_oak_chest_boat"
+    }
+}

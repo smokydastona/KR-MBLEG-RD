@@ -58,6 +58,14 @@ public final class ModAutoBlockItems {
                     continue;
                 }
 
+                // Signs use dedicated items (SignItem / HangingSignItem), not BlockItems.
+                if (id.getPath().endsWith("_sign")
+                    || id.getPath().endsWith("_wall_sign")
+                    || id.getPath().endsWith("_hanging_sign")
+                    || id.getPath().endsWith("_wall_hanging_sign")) {
+                    continue;
+                }
+
                 // Special-cased items.
                 if ("waylily".equals(id.getPath())) {
                     helper.register(id, new WaylilyItem(block, new Item.Properties()));

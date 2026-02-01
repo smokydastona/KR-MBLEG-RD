@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "X X",
+        "XXX"
+    ],
+    "key": {
+        "X": {
+            "item": "kruemblegard:driftwillow_planks"
+        }
+    },
+    "result": {
+        "item": "kruemblegard:driftwillow_boat"
+    }
+}

@@ -1,15 +1,19 @@
 package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.vehicle.KruemblegardBoatType;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModTiers;
+import com.kruemblegard.item.KruemblegardBoatItem;
 import com.kruemblegard.item.RunePetalItem;
 
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.food.FoodProperties;
@@ -205,6 +209,246 @@ public class ModItems {
     public static final RegistryObject<Item> DRIFTWOOD_TRAPDOOR_ITEM = registerBlockItem("driftwood_trapdoor", ModBlocks.DRIFTWOOD_TRAPDOOR);
     public static final RegistryObject<Item> DRIFTWOOD_BUTTON_ITEM = registerBlockItem("driftwood_button", ModBlocks.DRIFTWOOD_BUTTON);
     public static final RegistryObject<Item> DRIFTWOOD_PRESSURE_PLATE_ITEM = registerBlockItem("driftwood_pressure_plate", ModBlocks.DRIFTWOOD_PRESSURE_PLATE);
+
+        // --- Signs + boats (wood set completeness) ---
+
+        public static final RegistryObject<Item> WAYROOT_SIGN_ITEM = ITEMS.register(
+            "wayroot_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.WAYROOT_SIGN.get(), ModBlocks.WAYROOT_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> WAYROOT_HANGING_SIGN_ITEM = ITEMS.register(
+            "wayroot_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.WAYROOT_HANGING_SIGN.get(), ModBlocks.WAYROOT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> WAYROOT_BOAT = ITEMS.register(
+            "wayroot_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYROOT, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> WAYROOT_CHEST_BOAT = ITEMS.register(
+            "wayroot_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYROOT, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> FALLBARK_SIGN_ITEM = ITEMS.register(
+            "fallbark_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.FALLBARK_SIGN.get(), ModBlocks.FALLBARK_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> FALLBARK_HANGING_SIGN_ITEM = ITEMS.register(
+            "fallbark_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.FALLBARK_HANGING_SIGN.get(), ModBlocks.FALLBARK_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> FALLBARK_BOAT = ITEMS.register(
+            "fallbark_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.FALLBARK, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> FALLBARK_CHEST_BOAT = ITEMS.register(
+            "fallbark_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.FALLBARK, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> ECHOWOOD_SIGN_ITEM = ITEMS.register(
+            "echowood_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.ECHOWOOD_SIGN.get(), ModBlocks.ECHOWOOD_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> ECHOWOOD_HANGING_SIGN_ITEM = ITEMS.register(
+            "echowood_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.ECHOWOOD_HANGING_SIGN.get(), ModBlocks.ECHOWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> ECHOWOOD_BOAT = ITEMS.register(
+            "echowood_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.ECHOWOOD, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> ECHOWOOD_CHEST_BOAT = ITEMS.register(
+            "echowood_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.ECHOWOOD, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> CAIRN_TREE_SIGN_ITEM = ITEMS.register(
+            "cairn_tree_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.CAIRN_TREE_SIGN.get(), ModBlocks.CAIRN_TREE_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> CAIRN_TREE_HANGING_SIGN_ITEM = ITEMS.register(
+            "cairn_tree_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.CAIRN_TREE_HANGING_SIGN.get(), ModBlocks.CAIRN_TREE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> CAIRN_TREE_BOAT = ITEMS.register(
+            "cairn_tree_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.CAIRN_TREE, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> CAIRN_TREE_CHEST_BOAT = ITEMS.register(
+            "cairn_tree_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.CAIRN_TREE, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> WAYGLASS_SIGN_ITEM = ITEMS.register(
+            "wayglass_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.WAYGLASS_SIGN.get(), ModBlocks.WAYGLASS_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> WAYGLASS_HANGING_SIGN_ITEM = ITEMS.register(
+            "wayglass_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.WAYGLASS_HANGING_SIGN.get(), ModBlocks.WAYGLASS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> WAYGLASS_BOAT = ITEMS.register(
+            "wayglass_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYGLASS, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> WAYGLASS_CHEST_BOAT = ITEMS.register(
+            "wayglass_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYGLASS, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> SPLINTERSPORE_SIGN_ITEM = ITEMS.register(
+            "splinterspore_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.SPLINTERSPORE_SIGN.get(), ModBlocks.SPLINTERSPORE_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> SPLINTERSPORE_HANGING_SIGN_ITEM = ITEMS.register(
+            "splinterspore_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.SPLINTERSPORE_HANGING_SIGN.get(), ModBlocks.SPLINTERSPORE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> SPLINTERSPORE_BOAT = ITEMS.register(
+            "splinterspore_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.SPLINTERSPORE, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> SPLINTERSPORE_CHEST_BOAT = ITEMS.register(
+            "splinterspore_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.SPLINTERSPORE, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> HOLLOWWAY_TREE_SIGN_ITEM = ITEMS.register(
+            "hollowway_tree_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.HOLLOWWAY_TREE_SIGN.get(), ModBlocks.HOLLOWWAY_TREE_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> HOLLOWWAY_TREE_HANGING_SIGN_ITEM = ITEMS.register(
+            "hollowway_tree_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.HOLLOWWAY_TREE_HANGING_SIGN.get(), ModBlocks.HOLLOWWAY_TREE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> HOLLOWWAY_TREE_BOAT = ITEMS.register(
+            "hollowway_tree_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.HOLLOWWAY_TREE, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> HOLLOWWAY_TREE_CHEST_BOAT = ITEMS.register(
+            "hollowway_tree_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.HOLLOWWAY_TREE, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> DRIFTWILLOW_SIGN_ITEM = ITEMS.register(
+            "driftwillow_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.DRIFTWILLOW_SIGN.get(), ModBlocks.DRIFTWILLOW_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> DRIFTWILLOW_HANGING_SIGN_ITEM = ITEMS.register(
+            "driftwillow_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.DRIFTWILLOW_HANGING_SIGN.get(), ModBlocks.DRIFTWILLOW_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> DRIFTWILLOW_BOAT = ITEMS.register(
+            "driftwillow_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.DRIFTWILLOW, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> DRIFTWILLOW_CHEST_BOAT = ITEMS.register(
+            "driftwillow_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.DRIFTWILLOW, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> MONUMENT_OAK_SIGN_ITEM = ITEMS.register(
+            "monument_oak_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.MONUMENT_OAK_SIGN.get(), ModBlocks.MONUMENT_OAK_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> MONUMENT_OAK_HANGING_SIGN_ITEM = ITEMS.register(
+            "monument_oak_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.MONUMENT_OAK_HANGING_SIGN.get(), ModBlocks.MONUMENT_OAK_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> MONUMENT_OAK_BOAT = ITEMS.register(
+            "monument_oak_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.MONUMENT_OAK, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> MONUMENT_OAK_CHEST_BOAT = ITEMS.register(
+            "monument_oak_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.MONUMENT_OAK, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> WAYTORCH_TREE_SIGN_ITEM = ITEMS.register(
+            "waytorch_tree_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.WAYTORCH_TREE_SIGN.get(), ModBlocks.WAYTORCH_TREE_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> WAYTORCH_TREE_HANGING_SIGN_ITEM = ITEMS.register(
+            "waytorch_tree_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.WAYTORCH_TREE_HANGING_SIGN.get(), ModBlocks.WAYTORCH_TREE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> WAYTORCH_TREE_BOAT = ITEMS.register(
+            "waytorch_tree_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYTORCH_TREE, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> WAYTORCH_TREE_CHEST_BOAT = ITEMS.register(
+            "waytorch_tree_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.WAYTORCH_TREE, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> FAULTWOOD_SIGN_ITEM = ITEMS.register(
+            "faultwood_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.FAULTWOOD_SIGN.get(), ModBlocks.FAULTWOOD_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> FAULTWOOD_HANGING_SIGN_ITEM = ITEMS.register(
+            "faultwood_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.FAULTWOOD_HANGING_SIGN.get(), ModBlocks.FAULTWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> FAULTWOOD_BOAT = ITEMS.register(
+            "faultwood_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.FAULTWOOD, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> FAULTWOOD_CHEST_BOAT = ITEMS.register(
+            "faultwood_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.FAULTWOOD, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> ASHBLOOM_SIGN_ITEM = ITEMS.register(
+            "ashbloom_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.ASHBLOOM_SIGN.get(), ModBlocks.ASHBLOOM_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> ASHBLOOM_HANGING_SIGN_ITEM = ITEMS.register(
+            "ashbloom_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.ASHBLOOM_HANGING_SIGN.get(), ModBlocks.ASHBLOOM_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> ASHBLOOM_BOAT = ITEMS.register(
+            "ashbloom_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.ASHBLOOM, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> ASHBLOOM_CHEST_BOAT = ITEMS.register(
+            "ashbloom_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.ASHBLOOM, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> GLIMMERPINE_SIGN_ITEM = ITEMS.register(
+            "glimmerpine_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.GLIMMERPINE_SIGN.get(), ModBlocks.GLIMMERPINE_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> GLIMMERPINE_HANGING_SIGN_ITEM = ITEMS.register(
+            "glimmerpine_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.GLIMMERPINE_HANGING_SIGN.get(), ModBlocks.GLIMMERPINE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> GLIMMERPINE_BOAT = ITEMS.register(
+            "glimmerpine_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.GLIMMERPINE, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> GLIMMERPINE_CHEST_BOAT = ITEMS.register(
+            "glimmerpine_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.GLIMMERPINE, true, new Item.Properties())
+        );
+
+        public static final RegistryObject<Item> DRIFTWOOD_SIGN = ITEMS.register(
+            "driftwood_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.DRIFTWOOD_SIGN.get(), ModBlocks.DRIFTWOOD_WALL_SIGN.get())
+        );
+        public static final RegistryObject<Item> DRIFTWOOD_HANGING_SIGN = ITEMS.register(
+            "driftwood_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.DRIFTWOOD_HANGING_SIGN.get(), ModBlocks.DRIFTWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16))
+        );
+        public static final RegistryObject<Item> DRIFTWOOD_BOAT = ITEMS.register(
+            "driftwood_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.DRIFTWOOD, false, new Item.Properties())
+        );
+        public static final RegistryObject<Item> DRIFTWOOD_CHEST_BOAT = ITEMS.register(
+            "driftwood_chest_boat",
+            () -> new KruemblegardBoatItem(KruemblegardBoatType.DRIFTWOOD, true, new Item.Properties())
+        );
 
     public static final RegistryObject<Item> REMNANT_SEEDS = ITEMS.register(
         "remnant_seeds",

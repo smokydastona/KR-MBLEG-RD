@@ -219,6 +219,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - Wayfall portal entry only places the `wayfall_origin_island` structure template at `(0, 175, 0)`.
 
 - Standing Stone + Attuned Stone blocks.
+- Wayfall wood families: 14 custom woods with vanilla-style building sets, including signs/hanging signs and boats/chest boats.
 - Attuned Ore block (Wayfall-only worldgen).
 - Wayfall Iron Ore + Wayfall Copper Ore + Wayfall Diamond Ore blocks (Wayfall worldgen; diamond spawns lower on average).
 - Wayfall geology palette blocks:

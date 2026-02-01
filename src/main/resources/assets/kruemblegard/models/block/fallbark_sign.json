@@ -1,0 +1,6 @@
+﻿{
+  "parent": "builtin/entity",
+  "textures": {
+    "particle": "kruemblegard:block/fallbark_planks"
+  }
+}

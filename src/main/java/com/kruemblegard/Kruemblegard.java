@@ -16,6 +16,7 @@ import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModPotions;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.registry.ModSounds;
+import com.kruemblegard.registry.ModWoodTypes;
 
 import net.minecraft.world.item.CreativeModeTabs;
 
@@ -43,6 +44,8 @@ public final class Kruemblegard {
 
     public Kruemblegard() {
         GeckoLib.initialize();
+
+        ModWoodTypes.register();
 
         ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.CLIENT_SPEC);
