@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.784 (2026-02-02)
+- Chore(tools): remove the redundant item-only texture resizer; use `tools/resize_textures_to_256.ps1` for both block + item textures.
+
 ## 1.0.783 (2026-02-02)
 - Chore(textures): resize additional Driftwillow block textures to 256x256 (no cropping; non-square textures skipped).
 - Chore(tools): add an item-only texture resizer (`tools/resize_item_textures_to_256.ps1`) with the same flags/reporting as the main resizer.

@@ -12,7 +12,6 @@ Keep it up to date whenever you add/remove/rename content.
 - After sound changes, refresh the generated inventory by running: `tools/generate_sound_bible.ps1`
 - Texture resize helpers (256x256, no cropping, reports written under `tools/_reports`):
   - `tools/resize_textures_to_256.ps1` (block + item)
-  - `tools/resize_item_textures_to_256.ps1` (item-only)
 
 ## Performance (Client)
 - Client config file: `config/kruemblegard-client.toml`
