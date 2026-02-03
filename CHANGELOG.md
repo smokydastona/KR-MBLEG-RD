@@ -4,10 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.783 (2026-02-02)
+- Chore(textures): resize additional Driftwillow block textures to 256x256 (no cropping; non-square textures skipped).
+- Chore(tools): add an item-only texture resizer (`tools/resize_item_textures_to_256.ps1`) with the same flags/reporting as the main resizer.
+
 ## 1.0.780 (2026-02-02)
 - Chore(textures): resize additional eligible square block textures to 256x256 (no cropping; non-square textures skipped).
 
-## 1.0.781 (2026-02-02)
+## 1.0.782 (2026-02-02)
 - Chore(textures): resize additional eligible square block textures to 256x256 (no cropping; non-square textures skipped).
 
 ## 1.0.769 (2026-01-31)
