@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.780 (2026-02-02)
+- Chore(textures): resize additional eligible square block textures to 256x256 (no cropping; non-square textures skipped).
+
 ## 1.0.769 (2026-01-31)
 - Feature(wood): add sign + hanging sign blocks/items and boat + chest boat items for all 14 custom Wayfall wood families (with recipes and placeholder models/textures so everything loads before bespoke art).
 - Chore(resources): remove unused dedicated `*_button.png` block textures (buttons use their matching plank textures via models).
