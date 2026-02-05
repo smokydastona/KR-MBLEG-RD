@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.788 (2026-02-05)
+- Fix(textures): Glimmerpine leaves now use the correct texture (was incorrectly pointing at Driftwood leaves).
+
 ## 1.0.787 (2026-02-04)
 - Chore(textures): resize a small set of Driftwood + Hollowway Tree block textures to 256x256 (no cropping; non-square textures skipped).
 

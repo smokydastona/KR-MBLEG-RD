@@ -1,4 +1,4 @@
 ﻿{
-    "textures": { "all": "kruemblegard:block/driftwood_leaves" },
+    "textures": { "all": "kruemblegard:block/glimmerpine_leaves" },
     "parent": "minecraft:block/cube_all"
 }
