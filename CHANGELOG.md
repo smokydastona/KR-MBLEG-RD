@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.788 (2026-02-05)
+## 1.0.789 (2026-02-04)
+- Chore(ci): trigger GitHub Actions build (no gameplay/content changes).
+
+## 1.0.788 (2026-02-04)
 - Fix(textures): Glimmerpine leaves now use the correct texture (was incorrectly pointing at Driftwood leaves).
 
 ## 1.0.787 (2026-02-04)
