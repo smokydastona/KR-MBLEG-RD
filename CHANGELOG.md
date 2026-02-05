@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.787 (2026-02-04)
+- Chore(textures): resize a small set of Driftwood + Hollowway Tree block textures to 256x256 (no cropping; non-square textures skipped).
+
+## 1.0.786 (2026-02-03)
+- Content(textures): update Driftwood + Hollowway Tree door/trapdoor textures.
+
+## 1.0.785 (2026-02-02)
+- Content(textures): update `driftwood_log_top` and `driftwood_planks` textures.
+
 ## 1.0.784 (2026-02-02)
 - Chore(tools): remove the redundant item-only texture resizer; use `tools/resize_textures_to_256.ps1` for both block + item textures.
 
