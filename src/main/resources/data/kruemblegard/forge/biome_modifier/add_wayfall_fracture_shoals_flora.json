@@ -2,17 +2,12 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:fracture_shoals",
   "features": [
-    "kruemblegard:waytorch_tree_tree",
-    "kruemblegard:mega_waytorch_tree_tree",
-
     "kruemblegard:soulberry_shrub_patch",
 
     "kruemblegard:waylily_patch_dense",
     "kruemblegard:seagrass_patch_dense",
 
     "kruemblegard:black_echo_fungus_patch",
-    "kruemblegard:giant_black_echo_fungus_1",
-    "kruemblegard:giant_black_echo_fungus_2",
     "kruemblegard:runebloom_patch",
     "kruemblegard:wayseed_cluster_patch",
     "kruemblegard:fallseed_pods_patch"

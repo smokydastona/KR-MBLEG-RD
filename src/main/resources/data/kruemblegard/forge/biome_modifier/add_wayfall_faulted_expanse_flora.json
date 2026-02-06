@@ -2,9 +2,7 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:faulted_expanse",
   "features": [
-    "kruemblegard:faultwood_tree",
     "kruemblegard:fallbark_tree",
-    "kruemblegard:mega_faultwood_tree",
     "kruemblegard:mega_fallbark_tree",
 
     "kruemblegard:paleweft_patch_dense",
@@ -17,8 +15,6 @@
 
     "kruemblegard:waygrasp_vine_patch",
     "kruemblegard:static_fungus_patch",
-    "kruemblegard:giant_static_fungus_1",
-    "kruemblegard:giant_static_fungus_2",
     "kruemblegard:wayscar_ivy_patch"
   ],
   "step": "vegetal_decoration"

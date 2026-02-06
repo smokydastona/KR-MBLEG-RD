@@ -5,6 +5,9 @@
     "kruemblegard:splinterspore_tree",
     "kruemblegard:mega_splinterspore_tree",
 
+    "kruemblegard:driftwood_tree",
+    "kruemblegard:mega_driftwood_tree",
+
     "kruemblegard:paleweft_patch_dense",
     "kruemblegard:paleweft_small_patch_dense",
 
@@ -14,23 +17,7 @@
     "kruemblegard:seagrass_patch_sparse",
 
     "kruemblegard:voidcap_briar_patch",
-    "kruemblegard:giant_voidcap_briar_1",
-    "kruemblegard:giant_voidcap_briar_2",
     "kruemblegard:echo_puff_patch",
-    "kruemblegard:giant_echo_puff_1",
-    "kruemblegard:giant_echo_puff_2",
-    "kruemblegard:giant_black_echo_fungus_1",
-    "kruemblegard:giant_black_echo_fungus_2",
-    "kruemblegard:giant_echocap_1",
-    "kruemblegard:giant_echocap_2",
-    "kruemblegard:giant_griefcap_1",
-    "kruemblegard:giant_griefcap_2",
-    "kruemblegard:giant_static_fungus_1",
-    "kruemblegard:giant_static_fungus_2",
-    "kruemblegard:giant_wayrot_fungus_1",
-    "kruemblegard:giant_wayrot_fungus_2",
-    "kruemblegard:giant_memory_rot_1",
-    "kruemblegard:giant_memory_rot_2",
     "kruemblegard:waybind_creeper_patch",
     "kruemblegard:waypoint_mold_patch"
   ],

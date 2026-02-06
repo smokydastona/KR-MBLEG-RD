@@ -4,8 +4,6 @@
   "features": [
     "kruemblegard:faultwood_tree",
     "kruemblegard:mega_faultwood_tree",
-    "kruemblegard:driftwillow_tree",
-    "kruemblegard:mega_driftwillow_tree",
 
     "kruemblegard:paleweft_patch_dense",
     "kruemblegard:paleweft_small_patch_dense",
@@ -18,9 +16,7 @@
     "kruemblegard:falsepath_thorns_patch",
     "kruemblegard:sliproot_patch",
     "kruemblegard:ashpetal_patch",
-    "kruemblegard:wayrot_fungus_patch",
-    "kruemblegard:giant_wayrot_fungus_1",
-    "kruemblegard:giant_wayrot_fungus_2"
+    "kruemblegard:wayrot_fungus_patch"
   ],
   "step": "vegetal_decoration"
 }

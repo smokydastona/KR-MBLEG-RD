@@ -2,11 +2,6 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:basin_of_scars",
   "features": [
-    "kruemblegard:splinterspore_tree",
-    "kruemblegard:mega_splinterspore_tree",
-    "kruemblegard:fallbark_tree",
-	"kruemblegard:mega_fallbark_tree",
-
     "kruemblegard:soulberry_shrub_patch",
 
     "kruemblegard:waylily_patch_sparse",
@@ -15,8 +10,6 @@
     "kruemblegard:faultgrass_patch",
     "kruemblegard:dustpetal_patch",
     "kruemblegard:wayburn_fungus_patch",
-    "kruemblegard:giant_wayburn_fungus_1",
-    "kruemblegard:giant_wayburn_fungus_2",
     "kruemblegard:pyrokelp_patch",
     "kruemblegard:gravevine_patch",
     "kruemblegard:ruin_thistle_patch"

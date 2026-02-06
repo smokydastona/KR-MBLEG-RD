@@ -238,7 +238,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Survival farming: Soulberries/Ghoulberries/Wispshoot are edible and can be planted to grow their matching plants.
   - Giant fungi: the nine Wayfall fungi can be bonemealed into giant cap/stem variants and also generate naturally as giants in the same biomes as their small variants.
     - Worldgen cohesion: giant fungi silhouettes are schematic-based (30 shared templates) and vanilla huge red/brown mushrooms also use the same schematic system when generated.
-      - Natural generation: huge red/brown mushrooms generate naturally in `minecraft:mushroom_fields`, vanilla forest biomes that normally get huge mushrooms (Dark Forest and Old Growth forests/taigas), and selected Wayfall biomes (Underway Falls, Strata Collapse, Shatterplate Flats).
+      - Natural generation: huge red/brown mushrooms generate naturally in `minecraft:mushroom_fields` and vanilla forest biomes that normally get huge mushrooms (Dark Forest and Old Growth forests/taigas).
     - Schematic palette remaps use placeholders: tinted glass → air; quartz block → stem; quartz slab → mushroom slab; brown mushroom block → cap.
     - Shatterplate Flats: includes all giant fungi except Wayburn.
   - Teaching moment: Wispstalk + berry shrubs are prickly when walked through (vanilla sweet-berry-bush style).
@@ -270,7 +270,8 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Wayfall wood families include `*_log`, `*_wood`, and stripped `stripped_*_{log,wood}` variants.
   - Most Wayfall tree configured features use `kruemblegard:fault_dust` as their `dirt_provider` (no `minecraft:rooted_dirt` placements).
   - Axes strip Wayfall logs/wood into their stripped variants.
-  - Saplings grow over time via random ticks (no light requirement) or bonemeal.
+  - Most saplings grow over time via random ticks (no light requirement) or bonemeal.
+    - Exception: Ashbloom saplings are bonemeal-only (azalea-style).
     - Wayfall saplings grow into their matching worldgen configured features (variant selectors), matching natural generation.
     - All Wayfall saplings support 2x2 (spruce-style) placement to grow a larger **mega** tree, using Evergreen-style multi-option selectors.
   - All Wayfall trees have a rare **mega** variant that can also generate naturally in Wayfall.

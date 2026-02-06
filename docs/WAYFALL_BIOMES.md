@@ -59,18 +59,14 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:hollow_transit_plains - temperature 0.10 (Cold)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:hollowway_tree_tree
   - kruemblegard:mega_hollowway_tree_tree
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -85,20 +81,14 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:glyphscar_reach - temperature 0.20 (Cold)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:monument_oak_tree
   - kruemblegard:mega_monument_oak_tree
-  - kruemblegard:waytorch_tree_tree
-  - kruemblegard:mega_waytorch_tree_tree
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -112,16 +102,10 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:driftway_chasm - temperature 0.30 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:driftwillow_tree
   - kruemblegard:mega_driftwillow_tree
 - Plants
@@ -139,22 +123,12 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:riven_causeways - temperature 0.50 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:faultwood_tree
   - kruemblegard:mega_faultwood_tree
-  - kruemblegard:driftwillow_tree
-  - kruemblegard:mega_driftwillow_tree
-  - kruemblegard:giant_wayrot_fungus_1
-  - kruemblegard:giant_wayrot_fungus_2
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -172,22 +146,12 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:faulted_expanse - temperature 0.60 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:faultwood_tree
   - kruemblegard:fallbark_tree
-  - kruemblegard:mega_faultwood_tree
   - kruemblegard:mega_fallbark_tree
-  - kruemblegard:giant_static_fungus_1
-  - kruemblegard:giant_static_fungus_2
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -204,16 +168,10 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:betweenlight_void - temperature 0.75 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:hollowway_tree_tree
   - kruemblegard:mega_hollowway_tree_tree
 - Plants
@@ -231,36 +189,14 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:shatterplate_flats - temperature 0.90 (Void)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:vanilla_huge_red_mushroom
-  - kruemblegard:vanilla_huge_brown_mushroom
   - kruemblegard:splinterspore_tree
   - kruemblegard:mega_splinterspore_tree
-  - kruemblegard:giant_voidcap_briar_1
-  - kruemblegard:giant_voidcap_briar_2
-  - kruemblegard:giant_echo_puff_1
-  - kruemblegard:giant_echo_puff_2
-  - kruemblegard:giant_black_echo_fungus_1
-  - kruemblegard:giant_black_echo_fungus_2
-  - kruemblegard:giant_echocap_1
-  - kruemblegard:giant_echocap_2
-  - kruemblegard:giant_griefcap_1
-  - kruemblegard:giant_griefcap_2
-  - kruemblegard:giant_static_fungus_1
-  - kruemblegard:giant_static_fungus_2
-  - kruemblegard:giant_wayrot_fungus_1
-  - kruemblegard:giant_wayrot_fungus_2
-  - kruemblegard:giant_memory_rot_1
-  - kruemblegard:giant_memory_rot_2
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -280,27 +216,19 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:crumbled_crossing - temperature 0.95 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
   - kruemblegard:ashbloom_saplings_forest
-  - kruemblegard:glimmerpine_tree_forest
-  - kruemblegard:mega_glimmerpine_tree_forest
-  - kruemblegard:driftwood_tree_forest
-  - kruemblegard:mega_driftwood_tree_forest
   - kruemblegard:wayroot_tree_forest
   - kruemblegard:mega_wayroot_tree_forest
   - kruemblegard:echowood_tree_forest
   - kruemblegard:mega_echowood_tree_forest
-  - kruemblegard:wayglass_tree_forest
-  - kruemblegard:mega_wayglass_tree_forest
+  - kruemblegard:cairn_tree_tree
+  - kruemblegard:mega_cairn_tree_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
   - kruemblegard:giant_echocap_1
   - kruemblegard:giant_echocap_2
   - kruemblegard:giant_memory_rot_1
@@ -324,22 +252,14 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 ### kruemblegard:underway_falls - temperature 1.00 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
   - kruemblegard:wayroot_tree
   - kruemblegard:mega_wayroot_tree
   - kruemblegard:echowood_tree
   - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:vanilla_huge_red_mushroom
-  - kruemblegard:vanilla_huge_brown_mushroom
-  - kruemblegard:driftwillow_tree
-  - kruemblegard:mega_driftwillow_tree
   - kruemblegard:waytorch_tree_tree
   - kruemblegard:mega_waytorch_tree_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -355,33 +275,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:sea_pickle_patch_warm
 
 ### kruemblegard:strata_collapse - temperature 1.50 (Warm)
-- Trees
-  - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
-  - kruemblegard:wayroot_tree
-  - kruemblegard:mega_wayroot_tree
-  - kruemblegard:echowood_tree
-  - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:ashbloom_saplings_forest
-  - kruemblegard:glimmerpine_tree_forest
-  - kruemblegard:mega_glimmerpine_tree_forest
-  - kruemblegard:driftwood_tree_forest
-  - kruemblegard:mega_driftwood_tree_forest
-  - kruemblegard:wayroot_tree_forest
-  - kruemblegard:mega_wayroot_tree_forest
-  - kruemblegard:echowood_tree_forest
-  - kruemblegard:mega_echowood_tree_forest
-  - kruemblegard:wayglass_tree_forest
-  - kruemblegard:mega_wayglass_tree_forest
-  - kruemblegard:vanilla_huge_red_mushroom
-  - kruemblegard:vanilla_huge_brown_mushroom
-  - kruemblegard:giant_griefcap_1
-  - kruemblegard:giant_griefcap_2
+- Trees: (none injected)
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -395,22 +289,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:sea_pickle_patch_warm
 
 ### kruemblegard:fracture_shoals - temperature 1.75 (Warm)
-- Trees
-  - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
-  - kruemblegard:wayroot_tree
-  - kruemblegard:mega_wayroot_tree
-  - kruemblegard:echowood_tree
-  - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:waytorch_tree_tree
-  - kruemblegard:mega_waytorch_tree_tree
-  - kruemblegard:giant_black_echo_fungus_1
-  - kruemblegard:giant_black_echo_fungus_2
+- Trees: (none injected)
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -425,24 +304,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:sea_pickle_patch_warm
 
 ### kruemblegard:basin_of_scars - temperature 2.00 (Warm)
-- Trees
-  - kruemblegard:ashbloom_saplings
-  - kruemblegard:glimmerpine_tree
-  - kruemblegard:mega_glimmerpine_tree
-  - kruemblegard:driftwood_tree
-  - kruemblegard:mega_driftwood_tree
-  - kruemblegard:wayroot_tree
-  - kruemblegard:mega_wayroot_tree
-  - kruemblegard:echowood_tree
-  - kruemblegard:mega_echowood_tree
-  - kruemblegard:wayglass_tree
-  - kruemblegard:mega_wayglass_tree
-  - kruemblegard:splinterspore_tree
-  - kruemblegard:mega_splinterspore_tree
-  - kruemblegard:fallbark_tree
-  - kruemblegard:mega_fallbark_tree
-  - kruemblegard:giant_wayburn_fungus_1
-  - kruemblegard:giant_wayburn_fungus_2
+- Trees: (none injected)
 - Plants
   - kruemblegard:paleweft_patch
   - kruemblegard:paleweft_small_patch
@@ -466,7 +328,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Description: A smoke-hazed basin dotted with dense standing stones; feels heavy and volcanic.
 - Terrain surface: Default Wayfall surface (Runegrowth → Fault Dust), with deeper Scarstone/Cracked Scarstone sublayers.
 - Intended flora (design target):
-  - Trees: Splinterspore (rare mega variant), Fallbark (rare mega variant)
+  - Trees: (none)
   - Plants: Soulberry Shrub (food), Faultgrass, Dustpetal, Wayburn Fungus, Pyrokelp (pre-grown columns), Gravevine, Ruin Thistle
 - Spawns (monster): Traprock (weight 8, solo), Pebblit (weight 1, solo)
 - Features: (none listed)
@@ -483,7 +345,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.75
 - Description: A cold, dim void pocket where reverse-portal motes drift around small attuned stone disks.
 - Intended flora (design target):
-  - Trees: Hollowway Tree (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Hollowway Tree (rare mega variant)
   - Plants: Wispstalk (food), Voidfern, Void Lichen, Waythread
 - Spawns (monster): Traprock (weight 4, solo), Pebblit (weight 4, 1–2)
 - Features:
@@ -499,7 +361,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.95
 - Description: A windblown crossing of broken island fragments, dusted with white ash and marked by large attuned disks.
 - Intended flora (design target):
-  - Trees: Driftwillow (rare mega variant), Cairn Tree (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Driftwood (rare mega variant), Cairn Tree (rare mega variant)
   - Plants: Wispstalk (food), Waylily (water surface), Milestone Grass, Echocap, Memory Rot, Moteshrub
 - Spawns (monster): Pebblit (weight 10, 1–3), Traprock (weight 2, solo)
 - Features:
@@ -515,7 +377,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.30
 - Description: A fractured chasm corridor with falling ash and sparse megaliths; small attuned disks appear like waymarkers.
 - Intended flora (design target):
-  - Trees: Driftwillow (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Driftwillow (rare mega variant)
   - Plants: Soulberry Shrub (food), Pathreed, Runedrift Reed, Cairnroot, Misstep Vine
 - Spawns (monster): Pebblit (weight 8, 1–2), Traprock (weight 4, solo)
 - Features:
@@ -531,7 +393,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.60
 - Description: A wide, faulted stretch of floating plateaus where dense standing stones break up the ash haze.
 - Intended flora (design target):
-  - Trees: Faultwood (rare mega variant), Fallbark (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Fallbark (rare mega variant)
   - Plants: Wispstalk (food), Waygrasp Vine, Static Fungus, Wayscar Ivy
 - Spawns (monster): Traprock (weight 9, solo), Pebblit (weight 2, solo)
 - Features: (none listed)
@@ -546,7 +408,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Description: Shallow “shoals” of broken stone islands with faint crimson spores drifting through the air.
 - Terrain surface: Fractured Wayrock → Crushstone, with deeper Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
-  - Trees: Waytorch Tree (rare mega variant)
+  - Trees: (none)
   - Plants: Soulberry Shrub (food), Wayseed Cluster, Black Echo Fungus, Runebloom, Fallseed Pods
 - Spawns (monster): Pebblit (weight 7, 1–2), Traprock (weight 3, solo)
 - Features:
@@ -562,7 +424,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Terrain surface: Fractured Wayrock → Fault Dust, with deeper Scarstone/Cracked Scarstone then Stoneveil/Runed Stoneveil rubble mix.
 - Intended flora (design target):
-  - Trees: Monument Oak (rare mega variant), Waytorch Tree (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Monument Oak (rare mega variant), Glimmerpine (rare mega variant)
   - Plants: Wispstalk (food), Runeblossom, Rune Sprouts, Gravemint
 - Spawns (monster): Traprock (weight 5, solo), Pebblit (weight 5, 1–2)
 - Features:
@@ -578,7 +440,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Description: Quiet, open transit plains with sparse standing stones and long stretches between points of interest.
 - Climate: Cold; generates snow cover (snow layers placed during worldgen).
 - Intended flora (design target):
-  - Trees: Hollowway Tree (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Hollowway Tree (rare mega variant), Glimmerpine (rare mega variant)
   - Plants: Soulberry Shrub (food), Transit Bloom, Transit Fern, Twilight Bulb, Cairn Moss
 - Spawns (monster): Traprock (weight 6, solo), Pebblit (weight 2, solo)
 - Features:
@@ -591,7 +453,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.50
 - Description: Broken causeways and riven slabs stitched together by dense standing stones; smoke hangs low.
 - Intended flora (design target):
-  - Trees: Faultwood (rare mega variant), Driftwillow (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Faultwood (rare mega variant)
   - Plants: Wispstalk (food), Falsepath Thorns, Sliproot, Ashpetal, Wayrot Fungus
 - Spawns (monster): Traprock (weight 10, solo), Pebblit (weight 3, solo)
 - Features:
@@ -605,7 +467,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 0.90
 - Description: Flat, shattered “plates” of stone with warped spores drifting above the cracks; primarily Pebblit territory.
 - Intended flora (design target):
-  - Trees: Splinterspore (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Driftwood (rare mega variant), Splinterspore (rare mega variant)
   - Plants: Soulberry Shrub (food), Voidcap Briar, Echo Puff, Waybind Creeper, Waypoint Mold
 - Spawns (monster): Pebblit (weight 6, 1–2)
 - Features: (none listed)
@@ -618,7 +480,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 1.50
 - Description: Collapsed strata terraces where white ash gathers around sparse megaliths and large attuned disks.
 - Intended flora (design target):
-  - Trees: Cairn Tree (rare mega variant), Faultwood (rare mega variant)
+  - Trees: (none)
   - Plants: Wispstalk (food), Griefcap, Ashveil
 - Spawns (monster): Traprock (weight 7, solo), Pebblit (weight 6, 1–2)
 - Features:
@@ -632,7 +494,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Temperature: 1.00
 - Description: A drifting corridor of island fragments where reverse-portal motes flicker like falling embers.
 - Intended flora (design target):
-  - Trees: Driftwillow (rare mega variant), Waytorch Tree (rare mega variant)
+  - Trees: Ashbloom (saplings), Wayroot (rare mega variant), Echowood (rare mega variant), Driftwood (rare mega variant), Waytorch Tree (rare mega variant)
   - Plants: Soulberry Shrub (food), Driftbloom, Reverse Portal Spores (custom particle plant), Whispervine
 - Water bodies: higher frequency of **large deep lakes** (water, plus occasional lava) compared to other Wayfall biomes.
 - Spawns (monster): Pebblit (weight 5, 1–2), Traprock (weight 5, solo)
@@ -644,5 +506,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0009)
   - Music: `minecraft:music.end`
+
+
 
 

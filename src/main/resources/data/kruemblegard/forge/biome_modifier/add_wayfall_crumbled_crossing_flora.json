@@ -2,6 +2,12 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:crumbled_crossing",
   "features": [
+    "kruemblegard:cairn_tree_tree",
+    "kruemblegard:mega_cairn_tree_tree",
+
+    "kruemblegard:driftwood_tree",
+    "kruemblegard:mega_driftwood_tree",
+
     "kruemblegard:paleweft_patch_dense",
     "kruemblegard:paleweft_small_patch_dense",
 

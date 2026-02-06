@@ -2,10 +2,11 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:underway_falls",
   "features": [
-    "kruemblegard:driftwillow_tree",
-    "kruemblegard:mega_driftwillow_tree",
     "kruemblegard:waytorch_tree_tree",
     "kruemblegard:mega_waytorch_tree_tree",
+
+    "kruemblegard:driftwood_tree",
+    "kruemblegard:mega_driftwood_tree",
 
     "kruemblegard:paleweft_patch_underway_dense",
     "kruemblegard:paleweft_small_patch_underway_dense",
