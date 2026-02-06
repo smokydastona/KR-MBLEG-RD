@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.823 (2026-02-06)
+- Fix(worldgen/ashspire): prevent Ashspire Cactus and Colossus from spawning over water.
+
 ## 1.0.822 (2026-02-06)
 - Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
 - Fix(ashspire): ensure Ashspire Emberbloom is bonemealable again (explicit BonemealableBlock implementation).

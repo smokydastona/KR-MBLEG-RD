@@ -13,6 +13,14 @@
             "type": "minecraft:all_of",
             "predicates": [
               { "type": "minecraft:replaceable" },
+              {
+                "type": "minecraft:not",
+                "predicate": { "type": "minecraft:matching_blocks", "offset": [0, 0, 0], "blocks": "minecraft:water" }
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": { "type": "minecraft:matching_blocks", "offset": [0, -1, 0], "blocks": "minecraft:water" }
+              },
               { "type": "minecraft:would_survive", "state": { "Name": "kruemblegard:ashspire_cactus" } }
             ]
           }
