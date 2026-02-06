@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.808 (2026-02-06)
+- Tuning(worldgen/rocks): align rock schematic support-beard fill selection with the existing schematic tree rules (prefer local terrain blocks; grass/podzol/mycelium normalize to dirt).
+
 ## 1.0.807 (2026-02-06)
 - Feature(worldgen/wayfall): add ambient schematic rock formations across Wayfall biomes.
 	- Randomly selects from a large rock schematic pool, rotates per placement, and applies per-placement weathering variation.
