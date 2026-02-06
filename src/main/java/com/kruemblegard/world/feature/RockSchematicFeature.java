@@ -420,14 +420,6 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
                     if (isInvalidSchematicSurfaceTop(existingAtP)) {
                         return false;
                     }
-
-                    BlockPos below = p.below();
-                    if (level.isOutsideBuildHeight(below)) {
-                        return false;
-                    }
-                    if (!isValidSchematicSupportSurface(level, below)) {
-                        return false;
-                    }
                 }
             }
 
@@ -438,26 +430,10 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
             if (state == null) {
                 return true;
             }
-            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
+            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS)) {
                 return true;
             }
             return state.getBlock() instanceof HugeMushroomBlock;
-        }
-
-        private static boolean isValidSchematicSupportSurface(LevelAccessor level, BlockPos pos) {
-            if (!level.getFluidState(pos).isEmpty()) {
-                return false;
-            }
-
-            BlockState state = level.getBlockState(pos);
-            if (state.isAir() || state.canBeReplaced()) {
-                return false;
-            }
-            if (isInvalidSchematicSurfaceTop(state)) {
-                return false;
-            }
-
-            return state.isFaceSturdy(level, pos, Direction.UP);
         }
 
         private static boolean canReplace(LevelAccessor level, BlockPos p, BlockState toPlace) {
@@ -481,20 +457,14 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
         }
 
         private static void applySupportBeard(LevelAccessor level, BlockPos start, int w, int l, int rot, boolean[] bottomFootprint) {
-            final int maxDepth = 12;
+            // Worldgen rule: rocks should not create deep support pillars.
+            // Cap fill depth to 7 blocks below the rock footprint.
+            final int maxDepth = 7;
 
             for (int z = 0; z < l; z++) {
                 for (int x = 0; x < w; x++) {
                     int col = z * w + x;
                     if (!bottomFootprint[col]) {
-                        continue;
-                    }
-
-                    boolean north = (z > 0) && bottomFootprint[(z - 1) * w + x];
-                    boolean south = (z < l - 1) && bottomFootprint[(z + 1) * w + x];
-                    boolean west = (x > 0) && bottomFootprint[z * w + (x - 1)];
-                    boolean east = (x < w - 1) && bottomFootprint[z * w + (x + 1)];
-                    if (north && south && west && east) {
                         continue;
                     }
 
