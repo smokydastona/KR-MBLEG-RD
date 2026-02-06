@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.816 (2026-02-06)
+- Fix(worldgen/wayfall): prevent a chunk-generation crash caused by a feature-order cycle between Wayfall biomes.
+
 ## 1.0.815 (2026-02-06)
 - Fix(loot/ashspire): Ashspire Cactus now drops `Ashspire Fruit` (Silk Touch preserves the cactus block).
 
