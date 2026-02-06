@@ -1,6 +1,7 @@
 package com.kruemblegard.world.feature;
 
 import com.mojang.serialization.Codec;
+import com.kruemblegard.Kruemblegard;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,6 +53,7 @@ public final class GlimmerpineMegaSchematicFeature extends Feature<NoneFeatureCo
         try {
             root = loadSchematic(server.getResourceManager(), schematicResource);
         } catch (IOException e) {
+            Kruemblegard.LOGGER.warn("Failed to load Glimmerpine mega schematic {}: {}", schematicResource, e.toString());
             return false;
         }
 
@@ -74,7 +76,8 @@ public final class GlimmerpineMegaSchematicFeature extends Feature<NoneFeatureCo
     }
 
     private static CompoundTag loadSchematic(ResourceManager resourceManager, ResourceLocation location) throws IOException {
-        Resource resource = resourceManager.getResource(location).orElseThrow();
+        Resource resource = resourceManager.getResource(location)
+                .orElseThrow(() -> new IOException("Missing schematic resource: " + location));
         try (InputStream in = resource.open()) {
             return NbtIo.readCompressed(in);
         }

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.817 (2026-02-06)
+- Fix(worldgen/glimmerpine): prevent a worldgen crash when Glimmerpine schematic resources are missing; ship the Glimmerpine schematics in the mod jar.
+
 ## 1.0.816 (2026-02-06)
 - Fix(worldgen/wayfall): prevent a chunk-generation crash caused by a feature-order cycle between Wayfall biomes.
 
