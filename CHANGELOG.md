@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.790 (2026-02-06)
+- Feature(worldgen/ashbloom): Ashbloom now generates as small plants on Ashmoss (rarely flowering), and requires bonemeal to grow into a tree (no random tick growth).
+
 ## 1.0.789 (2026-02-04)
 - Chore(ci): trigger GitHub Actions build (no gameplay/content changes).
 

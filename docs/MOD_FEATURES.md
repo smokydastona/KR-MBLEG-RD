@@ -52,6 +52,10 @@ Keep it up to date whenever you add/remove/rename content.
   - `strictValidation` (default `false`): when enabled, `WorldgenValidator` hard-fails at server start if critical worldgen registry IDs/tags are missing.
 - Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
 
+- **Ashmoss → Ashbloom (azalea-style)**
+  - Ashbloom now generates naturally as **small plants** on Ashmoss (with a rare flowering variant).
+  - Ashbloom saplings are **bonemeal-only** (no random tick growth into trees).
+
 - Schematic terrain support (“beard”): Wayroot tree schematics (regular + mega) and giant mushroom schematics add a short support fill under their trunk/stem footprint when placed on uneven terrain.
   - Fill rules: replaceables-only, avoids liquids, depth-capped to prevent giant pillars.
   - Palette: support blocks are sampled from nearby terrain so the fill matches the local biome surface (sand/gravel/custom soils/etc) instead of always defaulting to dirt.

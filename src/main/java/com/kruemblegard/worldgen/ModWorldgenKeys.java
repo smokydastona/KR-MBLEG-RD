@@ -151,6 +151,7 @@ public final class ModWorldgenKeys {
         private PlacedFeatures() {}
 
         public static final ResourceKey<PlacedFeature> ASHBLOOM_TREE = ResourceKey.create(Registries.PLACED_FEATURE, id("ashbloom_tree"));
+        public static final ResourceKey<PlacedFeature> ASHBLOOM_SAPLINGS = ResourceKey.create(Registries.PLACED_FEATURE, id("ashbloom_saplings"));
         public static final ResourceKey<PlacedFeature> GLIMMERPINE_TREE = ResourceKey.create(Registries.PLACED_FEATURE, id("glimmerpine_tree"));
         public static final ResourceKey<PlacedFeature> DRIFTWOOD_TREE = ResourceKey.create(Registries.PLACED_FEATURE, id("driftwood_tree"));
         public static final ResourceKey<PlacedFeature> RUNIC_DEBRIS = ResourceKey.create(Registries.PLACED_FEATURE, id("runic_debris"));

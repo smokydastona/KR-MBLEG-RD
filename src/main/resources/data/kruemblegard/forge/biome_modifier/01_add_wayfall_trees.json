@@ -2,8 +2,7 @@
   "type": "forge:add_features",
   "biomes": "#kruemblegard:wayfall_trees",
   "features": [
-    "kruemblegard:ashbloom_tree",
-    "kruemblegard:mega_ashbloom_tree",
+    "kruemblegard:ashbloom_saplings",
     "kruemblegard:glimmerpine_tree",
     "kruemblegard:mega_glimmerpine_tree",
     "kruemblegard:driftwood_tree",

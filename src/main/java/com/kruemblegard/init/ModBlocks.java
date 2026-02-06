@@ -40,6 +40,7 @@ import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.StrippableRotatedPillarBlock;
 import com.kruemblegard.block.UndersideParticleHugeMushroomBlock;
+import com.kruemblegard.block.BonemealOnlyWayfallSaplingBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
 import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WaylilyBlock;
@@ -1677,6 +1678,15 @@ public final class ModBlocks {
                 ));
         }
 
+        private static RegistryObject<Block> registerBonemealOnlyFeatureSapling2x2(String id,
+                                                                                   ResourceKey<ConfiguredFeature<?, ?>> smallFeatureKey,
+                                                                                   ResourceKey<ConfiguredFeature<?, ?>> megaFeatureKey) {
+                return BLOCKS.register(id, () -> new BonemealOnlyWayfallSaplingBlock(
+                                new TwoByTwoConfiguredFeatureTreeGrower(smallFeatureKey, megaFeatureKey),
+                                BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_SAPLING)
+                ));
+        }
+
         private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String path) {
                 return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Kruemblegard.MODID, path));
         }
@@ -2217,8 +2227,26 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 3), leavesAnchorLogsForId("ashbloom_leaves"))
     );
-    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerFeatureSapling2x2(
+
+    public static final RegistryObject<Block> FLOWERING_ASHBLOOM_LEAVES = BLOCKS.register(
+            "flowering_ashbloom_leaves",
+            () -> new AshbloomLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .randomTicks()
+                    .noOcclusion()
+                    .sound(SoundType.GRASS)
+                    .lightLevel(s -> 3), leavesAnchorLogsForId("ashbloom_leaves"))
+    );
+
+    public static final RegistryObject<Block> ASHBLOOM_SAPLING = registerBonemealOnlyFeatureSapling2x2(
             "ashbloom_sapling",
+            configuredFeatureKey("ashbloom/sapling"),
+            configuredFeatureKey("ashbloom/mega")
+    );
+
+    public static final RegistryObject<Block> FLOWERING_ASHBLOOM_SAPLING = registerBonemealOnlyFeatureSapling2x2(
+            "flowering_ashbloom_sapling",
             configuredFeatureKey("ashbloom/sapling"),
             configuredFeatureKey("ashbloom/mega")
     );

@@ -83,7 +83,7 @@ public final class WorldgenValidator {
         validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_EMBERWARMED, strict);
 
         // Representative placed features referenced by biome modifiers.
-        validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.ASHBLOOM_TREE, strict);
+        validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.ASHBLOOM_SAPLINGS, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.GLIMMERPINE_TREE, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.DRIFTWOOD_TREE, strict);
         validatePresent(registries.registryOrThrow(Registries.PLACED_FEATURE), ModWorldgenKeys.PlacedFeatures.RUNIC_DEBRIS, strict);
@@ -269,7 +269,7 @@ public final class WorldgenValidator {
         }
 
         var expectedKeys = List.of(
-                ModWorldgenKeys.PlacedFeatures.ASHBLOOM_TREE,
+                ModWorldgenKeys.PlacedFeatures.ASHBLOOM_SAPLINGS,
                 ModWorldgenKeys.PlacedFeatures.GLIMMERPINE_TREE,
                 ModWorldgenKeys.PlacedFeatures.DRIFTWOOD_TREE,
             ModWorldgenKeys.PlacedFeatures.RUNIC_DEBRIS

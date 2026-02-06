@@ -72,8 +72,23 @@ public class AshmossBlock extends Block implements BonemealableBlock {
             level.setBlock(target, this.defaultBlockState(), 2);
 
             BlockPos above = target.above();
-            if (level.getBlockState(above).isAir() && random.nextFloat() < 0.35f) {
-                level.setBlock(above, ModBlocks.ASHMOSS_CARPET.get().defaultBlockState(), 2);
+
+            if (level.getBlockState(above).isAir()) {
+                // Rarely spawn Ashbloom saplings from bonemealed Ashmoss (like moss -> azalea).
+                if (random.nextFloat() < 0.03f) {
+                    BlockState sapling = (random.nextInt(10) == 0)
+                            ? ModBlocks.FLOWERING_ASHBLOOM_SAPLING.get().defaultBlockState()
+                            : ModBlocks.ASHBLOOM_SAPLING.get().defaultBlockState();
+
+                    if (sapling.canSurvive(level, above)) {
+                        level.setBlock(above, sapling, 2);
+                        continue;
+                    }
+                }
+
+                if (random.nextFloat() < 0.35f) {
+                    level.setBlock(above, ModBlocks.ASHMOSS_CARPET.get().defaultBlockState(), 2);
+                }
             }
         }
 
