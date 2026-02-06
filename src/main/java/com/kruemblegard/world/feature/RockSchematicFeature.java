@@ -3,7 +3,6 @@ package com.kruemblegard.world.feature;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;

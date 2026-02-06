@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.822 (2026-02-06)
+- Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
+- Fix(ashspire): ensure Ashspire Emberbloom is bonemealable again (explicit BonemealableBlock implementation).
+- Fix(ashspire): keep Ashspire cactus visually smaller than Ashspire Colossus (colossus uses its larger model again).
+- Tuning(worldgen/wayfall): place Wayfall rocks earlier than plants/trees to improve placement success.
+
 ## 1.0.821 (2026-02-06)
 - Fix(ashspire): Ashspire cactus/colossus now behave more like vanilla chorus plants (colossus no longer pops when branches grow; emberbloom growth is more vigorous).
-- Tuning(ashspire): Ashspire Colossus now uses the Ashspire cactus (chorus-plant) model.
+- Tuning(ashspire): Ashspire chorus-like growth tuning pass (branching frequency adjustments).
 
 ## 1.0.820 (2026-02-06)
 - Fix(worldgen/wayfall): relax rock schematic surface validation so rocks can place on uneven terrain/replaceables; support fill is capped to 7 blocks to prevent deep pillars.
