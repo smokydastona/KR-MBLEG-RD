@@ -56,7 +56,7 @@ Generated on 2026-02-06 from worldgen JSON.
 Notes: this lists placed features injected via Forge biome modifiers in the vegetal_decoration step.
 Classification is best-effort: anything with tree, sapling, mushroom, giant_, or mega_ is listed under Trees.
 
-### kruemblegard:hollow_transit_plains - temperature ? (Cold)
+### kruemblegard:hollow_transit_plains - temperature 0.10 (Cold)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -82,7 +82,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:twilight_bulb_patch
   - kruemblegard:cairn_moss_patch
 
-### kruemblegard:glyphscar_reach - temperature ? (Cold)
+### kruemblegard:glyphscar_reach - temperature 0.20 (Cold)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -109,7 +109,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:runeblossom_patch
   - kruemblegard:gravemint_patch
 
-### kruemblegard:driftway_chasm - temperature ? (Temperate)
+### kruemblegard:driftway_chasm - temperature 0.30 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -136,7 +136,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:cairnroot_patch
   - kruemblegard:misstep_vine_patch
 
-### kruemblegard:riven_causeways - temperature ? (Temperate)
+### kruemblegard:riven_causeways - temperature 0.50 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -169,7 +169,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:ashpetal_patch
   - kruemblegard:wayrot_fungus_patch
 
-### kruemblegard:faulted_expanse - temperature ? (Temperate)
+### kruemblegard:faulted_expanse - temperature 0.60 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -201,7 +201,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:static_fungus_patch
   - kruemblegard:wayscar_ivy_patch
 
-### kruemblegard:betweenlight_void - temperature ? (Temperate)
+### kruemblegard:betweenlight_void - temperature 0.75 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -228,7 +228,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:waythread_patch
   - kruemblegard:voidfern_patch
 
-### kruemblegard:shatterplate_flats - temperature ? (Void)
+### kruemblegard:shatterplate_flats - temperature 0.90 (Void)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -277,7 +277,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:coral_fans_patch_warm
   - kruemblegard:sea_pickle_patch_warm
 
-### kruemblegard:crumbled_crossing - temperature ? (Warm)
+### kruemblegard:crumbled_crossing - temperature 0.95 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -321,7 +321,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:coral_fans_patch_warm
   - kruemblegard:sea_pickle_patch_warm
 
-### kruemblegard:underway_falls - temperature ? (Warm)
+### kruemblegard:underway_falls - temperature 1.00 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -354,7 +354,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:coral_fans_patch_warm
   - kruemblegard:sea_pickle_patch_warm
 
-### kruemblegard:strata_collapse - temperature ? (Warm)
+### kruemblegard:strata_collapse - temperature 1.50 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -394,7 +394,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:coral_fans_patch_warm
   - kruemblegard:sea_pickle_patch_warm
 
-### kruemblegard:fracture_shoals - temperature ? (Warm)
+### kruemblegard:fracture_shoals - temperature 1.75 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -424,7 +424,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:coral_fans_patch_warm
   - kruemblegard:sea_pickle_patch_warm
 
-### kruemblegard:basin_of_scars - temperature ? (Warm)
+### kruemblegard:basin_of_scars - temperature 2.00 (Warm)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:glimmerpine_tree
@@ -644,4 +644,5 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0009)
   - Music: `minecraft:music.end`
+
 

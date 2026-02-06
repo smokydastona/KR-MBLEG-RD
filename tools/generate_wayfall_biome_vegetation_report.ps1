@@ -220,7 +220,7 @@ $treeRegex = [regex]'(tree|sapling|saplings|huge_mushroom|mushroom|giant_|mega_)
 
 function Format-Temp {
     param([Parameter()][object]$Temp)
-    if ($Temp -is [double] -or $Temp -is [float] -or $Temp -is [int]) {
+    if ($Temp -is [double] -or $Temp -is [float] -or $Temp -is [int] -or $Temp -is [decimal]) {
         return ([double]$Temp).ToString('0.00')
     }
     return '?'
