@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.810 (2026-02-06)
+- Chore(docs): align changelog sections with the latest CI jar versions.
+
+## 1.0.809 (2026-02-06)
+- Chore(docs): add the missing 1.0.808 entry (commit-count versioning).
+
 ## 1.0.808 (2026-02-06)
 - Tuning(worldgen/rocks): align rock schematic support-beard fill selection with the existing schematic tree rules (prefer local terrain blocks; grass/podzol/mycelium normalize to dirt).
 
