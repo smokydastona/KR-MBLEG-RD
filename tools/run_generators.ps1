@@ -27,6 +27,7 @@ $repoRoot = Get-RepoRoot
 $materialBibles = Join-Path $repoRoot 'tools\generate_material_bibles.ps1'
 $soundBible = Join-Path $repoRoot 'tools\generate_sound_bible.ps1'
 $lootBible = Join-Path $repoRoot 'tools\generate_loot_table_bible.ps1'
+$wayfallBiomes = Join-Path $repoRoot 'tools\generate_wayfall_biome_vegetation_report.ps1'
 
 Write-Host "Running generators..." -ForegroundColor Cyan
 
@@ -42,12 +43,18 @@ if (-not (Test-Path -LiteralPath $lootBible)) {
     throw "Missing generator script: $lootBible"
 }
 
+if (-not (Test-Path -LiteralPath $wayfallBiomes)) {
+    throw "Missing generator script: $wayfallBiomes"
+}
+
 Assert-PowerShellParses -Path $materialBibles
 Assert-PowerShellParses -Path $soundBible
 Assert-PowerShellParses -Path $lootBible
+Assert-PowerShellParses -Path $wayfallBiomes
 
 & $materialBibles
 & $soundBible
 & $lootBible
+& $wayfallBiomes
 
 Write-Host "Done." -ForegroundColor Green

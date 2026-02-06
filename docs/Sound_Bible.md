@@ -140,9 +140,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_rune`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_RUNE`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:attack_rune
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/attack_rune.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -150,9 +150,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_slam`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_SLAM`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:attack_slam
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/attack_slam.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -160,9 +160,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_smash`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_SMASH`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:attack_smash
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/attack_smash.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -170,9 +170,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.core_hum`
 - **ModSounds field**: `KRUEMBLEGARD_CORE_HUM`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:kruemblegard_core_hum
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_core_hum.ogg = False
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -180,9 +180,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.radiant`
 - **ModSounds field**: `KRUEMBLEGARD_RADIANT`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:radiant
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/radiant.ogg = False
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -190,9 +190,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.rise`
 - **ModSounds field**: `KRUEMBLEGARD_RISE`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:kruemblegard_rise
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_rise.ogg = False
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -200,9 +200,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_ambient`
 - **ModSounds field**: `KRUEMBLEGARD_AMBIENT`
 - **Subtitle key**: `subtitles.kruemblegard.ambient`
-- **sounds.json name(s)**: kruemblegard:kruemblegard_ambient
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_ambient.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -210,9 +210,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_attack`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK`
 - **Subtitle key**: `subtitles.kruemblegard.attack`
-- **sounds.json name(s)**: kruemblegard:kruemblegard_attack
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_attack.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -220,9 +220,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_dash`
 - **ModSounds field**: `KRUEMBLEGARD_DASH`
 - **Subtitle key**: `subtitles.kruemblegard.dash`
-- **sounds.json name(s)**: kruemblegard:kruemblegard_dash
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_dash.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -230,9 +230,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_death`
 - **ModSounds field**: `KRUEMBLEGARD_DEATH`
 - **Subtitle key**: `subtitles.kruemblegard.death`
-- **sounds.json name(s)**: kruemblegard:kruemblegard_death
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_death.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -240,9 +240,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_storm`
 - **ModSounds field**: `KRUEMBLEGARD_STORM`
 - **Subtitle key**: `subtitles.kruemblegard.storm`
-- **sounds.json name(s)**: kruemblegard:kruemblegard_storm
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_storm.ogg = False
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
+- **Streamed**: `true`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -250,9 +250,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:music.kruemblegard`
 - **ModSounds field**: `KRUEMBLEGARD_MUSIC`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:kruemblegard_theme
+- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
 - **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/kruemblegard_theme.ogg = False
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -267,6 +267,8 @@ Update workflow:
 - **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
+
 
 
 

@@ -1,4 +1,4 @@
-# Wayfall Biomes — Detailed Reference
+﻿# Wayfall Biomes — Detailed Reference
 
 This document is the **authoritative, detailed list** of Wayfall biomes.
 
@@ -44,6 +44,421 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 
 ## Biome index
 All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
+
+## Generated: natural vegetation by biome (authoritative)
+This section is generated from worldgen data:
+- Biome temperatures from `data/kruemblegard/worldgen/biome/*.json`
+- Vegetation injections from `data/kruemblegard/forge/biome_modifier/*.json` where `step: vegetal_decoration`
+
+<!-- BEGIN AUTO-GENERATED: wayfall_biome_vegetation -->
+Generated on 2026-02-06 from worldgen JSON.
+
+Notes: this lists placed features injected via Forge biome modifiers in the vegetal_decoration step.
+Classification is best-effort: anything with tree, sapling, mushroom, giant_, or mega_ is listed under Trees.
+
+### kruemblegard:hollow_transit_plains - temperature ? (Cold)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:hollowway_tree_tree
+  - kruemblegard:mega_hollowway_tree_tree
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch
+  - kruemblegard:transit_bloom_patch
+  - kruemblegard:transit_fern_patch
+  - kruemblegard:twilight_bulb_patch
+  - kruemblegard:cairn_moss_patch
+
+### kruemblegard:glyphscar_reach - temperature ? (Cold)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:monument_oak_tree
+  - kruemblegard:mega_monument_oak_tree
+  - kruemblegard:waytorch_tree_tree
+  - kruemblegard:mega_waytorch_tree_tree
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch
+  - kruemblegard:rune_sprouts_patch
+  - kruemblegard:runeblossom_patch
+  - kruemblegard:gravemint_patch
+
+### kruemblegard:driftway_chasm - temperature ? (Temperate)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:driftwillow_tree
+  - kruemblegard:mega_driftwillow_tree
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch
+  - kruemblegard:pathreed_patch
+  - kruemblegard:runedrift_reed_patch
+  - kruemblegard:cairnroot_patch
+  - kruemblegard:misstep_vine_patch
+
+### kruemblegard:riven_causeways - temperature ? (Temperate)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:faultwood_tree
+  - kruemblegard:mega_faultwood_tree
+  - kruemblegard:driftwillow_tree
+  - kruemblegard:mega_driftwillow_tree
+  - kruemblegard:giant_wayrot_fungus_1
+  - kruemblegard:giant_wayrot_fungus_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:paleweft_patch_dense
+  - kruemblegard:paleweft_small_patch_dense
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch
+  - kruemblegard:falsepath_thorns_patch
+  - kruemblegard:sliproot_patch
+  - kruemblegard:ashpetal_patch
+  - kruemblegard:wayrot_fungus_patch
+
+### kruemblegard:faulted_expanse - temperature ? (Temperate)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:faultwood_tree
+  - kruemblegard:fallbark_tree
+  - kruemblegard:mega_faultwood_tree
+  - kruemblegard:mega_fallbark_tree
+  - kruemblegard:giant_static_fungus_1
+  - kruemblegard:giant_static_fungus_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:paleweft_patch_dense
+  - kruemblegard:paleweft_small_patch_dense
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch_sparse
+  - kruemblegard:waygrasp_vine_patch
+  - kruemblegard:static_fungus_patch
+  - kruemblegard:wayscar_ivy_patch
+
+### kruemblegard:betweenlight_void - temperature ? (Temperate)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:hollowway_tree_tree
+  - kruemblegard:mega_hollowway_tree_tree
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:paleweft_patch_dense
+  - kruemblegard:paleweft_small_patch_dense
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch_sparse
+  - kruemblegard:void_lichen_patch
+  - kruemblegard:waythread_patch
+  - kruemblegard:voidfern_patch
+
+### kruemblegard:shatterplate_flats - temperature ? (Void)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:vanilla_huge_red_mushroom
+  - kruemblegard:vanilla_huge_brown_mushroom
+  - kruemblegard:splinterspore_tree
+  - kruemblegard:mega_splinterspore_tree
+  - kruemblegard:giant_voidcap_briar_1
+  - kruemblegard:giant_voidcap_briar_2
+  - kruemblegard:giant_echo_puff_1
+  - kruemblegard:giant_echo_puff_2
+  - kruemblegard:giant_black_echo_fungus_1
+  - kruemblegard:giant_black_echo_fungus_2
+  - kruemblegard:giant_echocap_1
+  - kruemblegard:giant_echocap_2
+  - kruemblegard:giant_griefcap_1
+  - kruemblegard:giant_griefcap_2
+  - kruemblegard:giant_static_fungus_1
+  - kruemblegard:giant_static_fungus_2
+  - kruemblegard:giant_wayrot_fungus_1
+  - kruemblegard:giant_wayrot_fungus_2
+  - kruemblegard:giant_memory_rot_1
+  - kruemblegard:giant_memory_rot_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:paleweft_patch_dense
+  - kruemblegard:paleweft_small_patch_dense
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch_sparse
+  - kruemblegard:voidcap_briar_patch
+  - kruemblegard:echo_puff_patch
+  - kruemblegard:waybind_creeper_patch
+  - kruemblegard:waypoint_mold_patch
+  - kruemblegard:voidfelt_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+
+### kruemblegard:crumbled_crossing - temperature ? (Warm)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:ashbloom_saplings_forest
+  - kruemblegard:glimmerpine_tree_forest
+  - kruemblegard:mega_glimmerpine_tree_forest
+  - kruemblegard:driftwood_tree_forest
+  - kruemblegard:mega_driftwood_tree_forest
+  - kruemblegard:wayroot_tree_forest
+  - kruemblegard:mega_wayroot_tree_forest
+  - kruemblegard:echowood_tree_forest
+  - kruemblegard:mega_echowood_tree_forest
+  - kruemblegard:wayglass_tree_forest
+  - kruemblegard:mega_wayglass_tree_forest
+  - kruemblegard:giant_echocap_1
+  - kruemblegard:giant_echocap_2
+  - kruemblegard:giant_memory_rot_1
+  - kruemblegard:giant_memory_rot_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:paleweft_patch_dense
+  - kruemblegard:paleweft_small_patch_dense
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:milestone_grass_patch
+  - kruemblegard:waylily_patch
+  - kruemblegard:seagrass_patch_dense
+  - kruemblegard:echocap_patch
+  - kruemblegard:memory_rot_patch
+  - kruemblegard:moteshrub_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+
+### kruemblegard:underway_falls - temperature ? (Warm)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:vanilla_huge_red_mushroom
+  - kruemblegard:vanilla_huge_brown_mushroom
+  - kruemblegard:driftwillow_tree
+  - kruemblegard:mega_driftwillow_tree
+  - kruemblegard:waytorch_tree_tree
+  - kruemblegard:mega_waytorch_tree_tree
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:paleweft_patch_underway_dense
+  - kruemblegard:paleweft_small_patch_underway_dense
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_dense
+  - kruemblegard:seagrass_patch_dense
+  - kruemblegard:driftbloom_patch
+  - kruemblegard:reverse_portal_spores_patch
+  - kruemblegard:whispervine_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+
+### kruemblegard:strata_collapse - temperature ? (Warm)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:ashbloom_saplings_forest
+  - kruemblegard:glimmerpine_tree_forest
+  - kruemblegard:mega_glimmerpine_tree_forest
+  - kruemblegard:driftwood_tree_forest
+  - kruemblegard:mega_driftwood_tree_forest
+  - kruemblegard:wayroot_tree_forest
+  - kruemblegard:mega_wayroot_tree_forest
+  - kruemblegard:echowood_tree_forest
+  - kruemblegard:mega_echowood_tree_forest
+  - kruemblegard:wayglass_tree_forest
+  - kruemblegard:mega_wayglass_tree_forest
+  - kruemblegard:vanilla_huge_red_mushroom
+  - kruemblegard:vanilla_huge_brown_mushroom
+  - kruemblegard:giant_griefcap_1
+  - kruemblegard:giant_griefcap_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:wispstalk_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch_sparse
+  - kruemblegard:griefcap_patch
+  - kruemblegard:ashveil_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+
+### kruemblegard:fracture_shoals - temperature ? (Warm)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:waytorch_tree_tree
+  - kruemblegard:mega_waytorch_tree_tree
+  - kruemblegard:giant_black_echo_fungus_1
+  - kruemblegard:giant_black_echo_fungus_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_dense
+  - kruemblegard:seagrass_patch_dense
+  - kruemblegard:black_echo_fungus_patch
+  - kruemblegard:runebloom_patch
+  - kruemblegard:wayseed_cluster_patch
+  - kruemblegard:fallseed_pods_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+
+### kruemblegard:basin_of_scars - temperature ? (Warm)
+- Trees
+  - kruemblegard:ashbloom_saplings
+  - kruemblegard:glimmerpine_tree
+  - kruemblegard:mega_glimmerpine_tree
+  - kruemblegard:driftwood_tree
+  - kruemblegard:mega_driftwood_tree
+  - kruemblegard:wayroot_tree
+  - kruemblegard:mega_wayroot_tree
+  - kruemblegard:echowood_tree
+  - kruemblegard:mega_echowood_tree
+  - kruemblegard:wayglass_tree
+  - kruemblegard:mega_wayglass_tree
+  - kruemblegard:splinterspore_tree
+  - kruemblegard:mega_splinterspore_tree
+  - kruemblegard:fallbark_tree
+  - kruemblegard:mega_fallbark_tree
+  - kruemblegard:giant_wayburn_fungus_1
+  - kruemblegard:giant_wayburn_fungus_2
+- Plants
+  - kruemblegard:paleweft_patch
+  - kruemblegard:paleweft_small_patch
+  - kruemblegard:ashmoss_patch
+  - kruemblegard:soulberry_shrub_patch
+  - kruemblegard:waylily_patch_sparse
+  - kruemblegard:seagrass_patch_sparse
+  - kruemblegard:faultgrass_patch
+  - kruemblegard:dustpetal_patch
+  - kruemblegard:wayburn_fungus_patch
+  - kruemblegard:pyrokelp_patch
+  - kruemblegard:gravevine_patch
+  - kruemblegard:ruin_thistle_patch
+  - kruemblegard:coral_fans_patch_warm
+  - kruemblegard:sea_pickle_patch_warm
+<!-- END AUTO-GENERATED: wayfall_biome_vegetation -->
 
 ### `kruemblegard:basin_of_scars`
 - File: `basin_of_scars.json`
@@ -229,3 +644,4 @@ All biomes live in `src/main/resources/data/kruemblegard/worldgen/biome/`.
 - Ambience:
   - Particles: `minecraft:reverse_portal` (0.0009)
   - Music: `minecraft:music.end`
+
