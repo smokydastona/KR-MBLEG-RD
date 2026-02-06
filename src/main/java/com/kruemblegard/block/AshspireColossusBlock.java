@@ -30,7 +30,7 @@ public class AshspireColossusBlock extends Block {
         }
 
         BlockState belowState = level.getBlockState(pos.below());
-        if (!belowState.is(ModTags.Blocks.ASHPIRE_CACTUS_GROWABLE_ON)) {
+        if (!belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)) {
             return false;
         }
 
