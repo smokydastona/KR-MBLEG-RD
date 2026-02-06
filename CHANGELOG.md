@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.807 (2026-02-06)
+- Feature(worldgen/wayfall): add ambient schematic rock formations across Wayfall biomes.
+	- Randomly selects from a large rock schematic pool, rotates per placement, and applies per-placement weathering variation.
+	- Allows partial burial into `#kruemblegard:rock_bury_replaceable` while guaranteeing non-floating placement via surface validation + tree-style support beard.
+	- Build: packages rock schematics from `examples/schematics/rocks_grouped_by_main_block/**` into the normal datapack path `data/kruemblegard/schematics/rocks/**`.
+
 ## 1.0.805 (2026-02-06)
 - Refactor(ashspire): replace `emberbloom_ashspire_cactus` with `ashspire_emberbloom` (chorus-flower-style cap block).
 - Feature(night_flower): convert Night Flower into a hanging plant block (spore-blossom-like behavior).

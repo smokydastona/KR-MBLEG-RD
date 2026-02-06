@@ -95,6 +95,13 @@ tasks.named('processResources').configure {
     filesMatching('META-INF/mods.toml') {
         expand 'file': [jarVersion: project.version]
     }
+
+    // Dev convenience: package example rock schematics (authored outside src/main/resources)
+    // into the normal datapack path so worldgen features can load them by ResourceLocation.
+    from('examples/schematics/rocks_grouped_by_main_block') {
+        include '**/*.schem'
+        into 'data/kruemblegard/schematics/rocks'
+    }
 }
 
 // This mod does not use unit/integration tests. Disable test source dirs so IDE tooling

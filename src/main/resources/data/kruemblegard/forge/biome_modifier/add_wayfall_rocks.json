@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#kruemblegard:wayfall",
+  "features": [
+    "kruemblegard:rocks_everywhere"
+  ],
+  "step": "vegetal_decoration"
+}

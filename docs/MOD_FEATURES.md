@@ -64,6 +64,16 @@ Keep it up to date whenever you add/remove/rename content.
     - Height: typically 5–8 blocks (colossus column + cap), with a very rare 10–12 block “colossal” variant.
   - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
 
+- **Ambient rock schematics (Wayfall)**
+  - All Wayfall biomes can generate small rock formations from a large schematic pool.
+  - Variation:
+    - Random rotation per placement.
+    - Per-biome density variation (deterministic per biome).
+    - Weathering/remap pass per placement (mossy/cracked variants + minor edge chipping).
+  - Placement rules:
+    - Rocks are allowed to be partially buried by replacing `#kruemblegard:rock_bury_replaceable`.
+    - Rocks never generate floating: bottom footprint requires sturdy support and the same schematic “support beard” system used by schematic trees.
+
 - Schematic terrain support (“beard”): Wayroot tree schematics (regular + mega) and giant mushroom schematics add a short support fill under their trunk/stem footprint when placed on uneven terrain.
   - Fill rules: replaceables-only, avoids liquids, depth-capped to prevent giant pillars.
   - Palette: support blocks are sampled from nearby terrain so the fill matches the local biome surface (sand/gravel/custom soils/etc) instead of always defaulting to dirt.

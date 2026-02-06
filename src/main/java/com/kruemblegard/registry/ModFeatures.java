@@ -6,6 +6,8 @@ import com.kruemblegard.world.feature.WayfallDeepLakeConfiguration;
 import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
 import com.kruemblegard.world.feature.GiantMushroomSchematicConfiguration;
 import com.kruemblegard.world.feature.GiantMushroomSchematicFeature;
+import com.kruemblegard.world.feature.RockSchematicConfiguration;
+import com.kruemblegard.world.feature.RockSchematicFeature;
 import com.kruemblegard.world.feature.WayfallSimpleTreeFeature;
 import com.kruemblegard.world.feature.EchowoodMegaSchematicFeature;
 import com.kruemblegard.world.feature.EchowoodSchematicConfiguration;
@@ -110,6 +112,11 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<GiantMushroomSchematicConfiguration>> GIANT_MUSHROOM_SCHEMATIC = FEATURES.register(
             "giant_mushroom_schematic",
             () -> new GiantMushroomSchematicFeature(GiantMushroomSchematicConfiguration.CODEC)
+    );
+
+    public static final RegistryObject<Feature<RockSchematicConfiguration>> ROCK_SCHEMATIC = FEATURES.register(
+            "rock_schematic",
+            () -> new RockSchematicFeature(RockSchematicConfiguration.CODEC)
     );
 
     public static void register(IEventBus bus) {

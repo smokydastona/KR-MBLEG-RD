@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#kruemblegard:wayfall_ground",
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "minecraft:gravel",
+    "minecraft:clay",
+    "#minecraft:base_stone_overworld",
+    "#minecraft:stone_ore_replaceables",
+    "#minecraft:deepslate_ore_replaceables"
+  ]
+}
