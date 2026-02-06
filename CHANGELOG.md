@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.800 (2026-02-06)
+- Fix(creative): categorize cactus-like flora blocks (Ashspire Cactus + Colossus) under Natural Blocks.
+
 ## 1.0.799 (2026-02-06)
 - Feature(worldgen/wayfall): add Ashspire Cactus clusters to Strata Collapse + Fracture Shoals (rare Emberbloom variant) and a very rare Giant Ashspire Colossus landmark in Strata Collapse.
 - Content(loot/items): add Ashspire drops (Needles, Volatile Pulp, Shards, Volatile Resin, Night Flower).

@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -183,11 +184,14 @@ public final class ModCreativeTabs {
         // Plants/fungi/vines.
         if (block instanceof BushBlock
                 || block instanceof VineBlock
+                || block instanceof CactusBlock
                 || block instanceof GrowingPlantHeadBlock) {
             return true;
         }
         if (path.contains("fungus")
                 || path.contains("mushroom")
+                || path.contains("cactus")
+                || path.contains("colossus")
                 || path.contains("vine")
                 || path.contains("kelp")
                 || path.contains("seagrass")) {
