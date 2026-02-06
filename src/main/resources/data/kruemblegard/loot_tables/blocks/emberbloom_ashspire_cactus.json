@@ -4,7 +4,7 @@
     {
       "rolls": 1,
       "entries": [
-        { "type": "minecraft:item", "name": "kruemblegard:emberbloom_ashspire_cactus" }
+        { "type": "minecraft:item", "name": "kruemblegard:ashspire_emberbloom" }
       ],
       "conditions": [
         { "condition": "minecraft:survives_explosion" }

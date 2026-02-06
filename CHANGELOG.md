@@ -4,12 +4,23 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.802 (2026-02-06)
+## 1.0.805 (2026-02-06)
+- Refactor(ashspire): replace `emberbloom_ashspire_cactus` with `ashspire_emberbloom` (chorus-flower-style cap block).
+- Feature(night_flower): convert Night Flower into a hanging plant block (spore-blossom-like behavior).
+- Tuning(worldgen/wayfall): cap Ashspire cactus + colossus columns with `ashspire_emberbloom` in worldgen.
+
+## 1.0.804 (2026-02-06)
 - Fix(worldgen/wayfall): prevent world creation crash by adding missing Ashspire internal placed features used by random selectors.
 
-## 1.0.801 (2026-02-06)
+## 1.0.803 (2026-02-06)
+- Fix(worldgen/wayfall): repair Ashspire cactus substrate tag reference (CI compile).
+
+## 1.0.802 (2026-02-06)
 - Content(textures): replace Ashspire cactus/emberbloom/colossus placeholder textures with dedicated 256x256 textures and wire block models to use them.
 - Chore(textures): run the 256x256 resizer (reports refreshed under `tools/_reports`).
+
+## 1.0.801 (2026-02-06)
+- Chore: internal scaffolding commit (no gameplay/content changes).
 
 ## 1.0.800 (2026-02-06)
 - Fix(creative): categorize cactus-like flora blocks (Ashspire Cactus + Colossus) under Natural Blocks.

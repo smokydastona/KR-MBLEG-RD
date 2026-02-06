@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/cactus",
+  "parent": "minecraft:block/chorus_plant",
   "textures": {
-    "side": "kruemblegard:block/ashspire_cactus_side",
-    "top": "kruemblegard:block/ashspire_cactus_top",
-    "bottom": "kruemblegard:block/ashspire_cactus_bottom"
+    "texture": "kruemblegard:block/ashspire_cactus_side",
+    "particle": "kruemblegard:block/ashspire_cactus_side"
   }
 }

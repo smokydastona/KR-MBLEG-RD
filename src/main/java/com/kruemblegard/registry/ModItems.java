@@ -62,11 +62,6 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
-    public static final RegistryObject<Item> NIGHT_FLOWER = ITEMS.register(
-        "night_flower",
-        () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON))
-    );
-
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())

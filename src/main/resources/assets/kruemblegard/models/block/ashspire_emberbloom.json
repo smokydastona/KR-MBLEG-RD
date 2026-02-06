@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chorus_flower",
+  "textures": {
+    "texture": "kruemblegard:block/emberbloom_ashspire_cactus_top",
+    "particle": "kruemblegard:block/emberbloom_ashspire_cactus_top"
+  }
+}

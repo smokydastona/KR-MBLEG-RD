@@ -17,13 +17,28 @@
           "type": "minecraft:uniform",
           "value": {
             "min_inclusive": 1,
-            "max_inclusive": 3
+            "max_inclusive": 2
           }
         },
         "provider": {
           "type": "minecraft:simple_state_provider",
           "state": {
             "Name": "kruemblegard:ashspire_cactus"
+          }
+        }
+      },
+      {
+        "height": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 1,
+            "max_inclusive": 1
+          }
+        },
+        "provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "kruemblegard:ashspire_emberbloom"
           }
         }
       }

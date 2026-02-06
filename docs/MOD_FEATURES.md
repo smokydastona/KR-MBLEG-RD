@@ -58,10 +58,10 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Ashspire Cactus + Giant Ashspire Colossus (Wayfall flora)**
   - Ashspire Cactus generates in **Strata Collapse** and **Fracture Shoals** as small clusters.
-    - Height: typically 1–3 blocks, with a rare 4-block “spire”.
-    - Rare Emberbloom variant also generates (emits light and drops Night Flower).
+    - Height: typically 2–3 blocks (1–2 cactus + `Ashspire Emberbloom` cap), with a rare 4-block “spire” (3 cactus + cap).
+    - `Ashspire Emberbloom` is a chorus-flower-style cap block (emits light) and can drop `Night Flower`.
   - Giant Ashspire Colossus generates as a **very rare** solitary landmark in **Strata Collapse**.
-    - Height: typically 5–8 blocks, with a very rare 10–12 block “colossal” variant.
+    - Height: typically 5–8 blocks (colossus column + cap), with a very rare 10–12 block “colossal” variant.
   - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
 
 - Schematic terrain support (“beard”): Wayroot tree schematics (regular + mega) and giant mushroom schematics add a short support fill under their trunk/stem footprint when placed on uneven terrain.

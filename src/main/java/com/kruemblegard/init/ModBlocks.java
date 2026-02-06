@@ -3,6 +3,7 @@ package com.kruemblegard.init;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.AshspireCactusBlock;
+import com.kruemblegard.block.AshspireEmberbloomBlock;
 import com.kruemblegard.block.AshspireColossusBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
@@ -61,6 +62,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -725,10 +727,10 @@ public final class ModBlocks {
             () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS), false)
     );
 
-    public static final RegistryObject<Block> EMBERBLOOM_ASHSPIRE_CACTUS = BLOCKS.register(
-            "emberbloom_ashspire_cactus",
-            () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS)
-                    .lightLevel(state -> 3), true)
+    public static final RegistryObject<Block> ASHSPIRE_EMBERBLOOM = BLOCKS.register(
+            "ashspire_emberbloom",
+            () -> new AshspireEmberbloomBlock(BlockBehaviour.Properties.copy(Blocks.CHORUS_FLOWER)
+                    .lightLevel(state -> 3))
     );
 
     public static final RegistryObject<Block> ASHSPIRE_COLOSSUS = BLOCKS.register(
@@ -736,6 +738,11 @@ public final class ModBlocks {
             () -> new AshspireColossusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS)
                     .strength(1.0f)
                     .lightLevel(state -> 5))
+    );
+
+    public static final RegistryObject<Block> NIGHT_FLOWER = BLOCKS.register(
+            "night_flower",
+            () -> new com.kruemblegard.block.NightFlowerBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM))
     );
 
     public static final RegistryObject<Block> PATHREED = BLOCKS.register(
