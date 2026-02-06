@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.815 (2026-02-06)
+- Fix(loot/ashspire): Ashspire Cactus now drops `Ashspire Fruit` (Silk Touch preserves the cactus block).
+
 ## 1.0.810 (2026-02-06)
 - Chore(docs): align changelog sections with the latest CI jar versions.
 - Feature(worldgen/glimmerpine): migrate Glimmerpine trees (including mega variants) to schematic-driven generation.

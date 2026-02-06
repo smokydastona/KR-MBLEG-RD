@@ -9,6 +9,7 @@ import com.kruemblegard.item.RunePetalItem;
 
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ChorusFruitItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.HangingSignItem;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +57,11 @@ public class ModItems {
     public static final RegistryObject<Item> ASHSPIRE_SHARDS = ITEMS.register(
         "ashspire_shards",
         () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ASHSPIRE_FRUIT = ITEMS.register(
+        "ashspire_fruit",
+        () -> new ChorusFruitItem(new Item.Properties().food(Foods.CHORUS_FRUIT))
     );
 
     public static final RegistryObject<Item> VOLATILE_RESIN = ITEMS.register(

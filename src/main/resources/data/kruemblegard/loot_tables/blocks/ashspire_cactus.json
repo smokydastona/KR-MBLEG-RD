@@ -4,7 +4,29 @@
     {
       "rolls": 1,
       "entries": [
-        { "type": "minecraft:item", "name": "kruemblegard:ashspire_cactus" }
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "kruemblegard:ashspire_cactus",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": { "min": 1 }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            { "type": "minecraft:item", "name": "kruemblegard:ashspire_fruit" }
+          ]
+        }
       ],
       "conditions": [
         { "condition": "minecraft:survives_explosion" }
