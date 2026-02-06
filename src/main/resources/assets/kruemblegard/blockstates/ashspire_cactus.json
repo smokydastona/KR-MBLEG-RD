@@ -1,5 +1,32 @@
 {
-  "variants": {
-    "": { "model": "kruemblegard:block/ashspire_cactus" }
-  }
+  "multipart": [
+    {
+      "apply": [
+        { "model": "kruemblegard:block/ashspire_cactus_plant" },
+        { "model": "kruemblegard:block/ashspire_cactus_plant" },
+        { "model": "kruemblegard:block/ashspire_cactus_plant" },
+        { "model": "kruemblegard:block/ashspire_cactus_plant" }
+      ]
+    },
+    {
+      "when": { "north": "true" },
+      "apply": { "model": "kruemblegard:block/ashspire_cactus_plant_side" }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": { "model": "kruemblegard:block/ashspire_cactus_plant_side", "y": 90 }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": { "model": "kruemblegard:block/ashspire_cactus_plant_side", "y": 180 }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": { "model": "kruemblegard:block/ashspire_cactus_plant_side", "y": 270 }
+    },
+    {
+      "when": { "up": "false" },
+      "apply": { "model": "kruemblegard:block/ashspire_cactus_plant_noside" }
+    }
+  ]
 }

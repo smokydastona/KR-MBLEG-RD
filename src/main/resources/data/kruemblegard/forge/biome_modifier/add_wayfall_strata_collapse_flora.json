@@ -11,7 +11,8 @@
     "kruemblegard:ashveil_patch",
 
     "kruemblegard:ashspire_cactus_patch",
-    "kruemblegard:ashspire_colossus"
+    "kruemblegard:ashspire_colossus",
+    "kruemblegard:night_flower_under_ashspire"
   ],
   "step": "vegetal_decoration"
 }

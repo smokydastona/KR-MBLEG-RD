@@ -724,13 +724,13 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> ASHSPIRE_CACTUS = BLOCKS.register(
             "ashspire_cactus",
-            () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS), false)
+            () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(Blocks.CHORUS_PLANT))
     );
 
     public static final RegistryObject<Block> ASHSPIRE_EMBERBLOOM = BLOCKS.register(
             "ashspire_emberbloom",
-            () -> new AshspireEmberbloomBlock(BlockBehaviour.Properties.copy(Blocks.CHORUS_FLOWER)
-                    .lightLevel(state -> 3))
+            () -> new AshspireEmberbloomBlock((net.minecraft.world.level.block.ChorusPlantBlock) ASHSPIRE_CACTUS.get(),
+                    BlockBehaviour.Properties.copy(Blocks.CHORUS_FLOWER).lightLevel(state -> 3))
     );
 
     public static final RegistryObject<Block> ASHSPIRE_COLOSSUS = BLOCKS.register(

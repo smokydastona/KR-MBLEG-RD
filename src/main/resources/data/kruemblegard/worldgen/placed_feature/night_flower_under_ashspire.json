@@ -1,0 +1,28 @@
+{
+  "feature": "kruemblegard:night_flower_under_ashspire",
+  "placement": [
+    { "type": "minecraft:rarity_filter", "chance": 9 },
+    { "type": "minecraft:in_square" },
+    { "type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG" },
+    {
+      "type": "minecraft:environment_scan",
+      "direction_of_search": "down",
+      "max_steps": 32,
+      "target_condition": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          { "type": "minecraft:matching_blocks", "blocks": "minecraft:air" },
+          {
+            "type": "minecraft:any_of",
+            "predicates": [
+              { "type": "minecraft:matching_blocks", "offset": [0, 1, 0], "blocks": "kruemblegard:ashspire_cactus" },
+              { "type": "minecraft:matching_blocks", "offset": [0, 1, 0], "blocks": "kruemblegard:ashspire_colossus" }
+            ]
+          },
+          { "type": "minecraft:would_survive", "state": { "Name": "kruemblegard:night_flower" } }
+        ]
+      }
+    },
+    { "type": "minecraft:biome" }
+  ]
+}

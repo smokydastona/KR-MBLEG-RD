@@ -9,6 +9,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(night_flower): convert Night Flower into a hanging plant block (spore-blossom-like behavior).
 - Tuning(worldgen/wayfall): cap Ashspire cactus + colossus columns with `ashspire_emberbloom` in worldgen.
 
+## 1.0.806 (2026-02-06)
+- Feature(ashspire): make Ashspire Cactus grow/branch like vanilla chorus plants (driven by `Ashspire Emberbloom`).
+- Feature(worldgen/wayfall): add a chance for Night Flowers to generate on the underside of Ashspire overhangs/branches.
+
 ## 1.0.804 (2026-02-06)
 - Fix(worldgen/wayfall): prevent world creation crash by adding missing Ashspire internal placed features used by random selectors.
 

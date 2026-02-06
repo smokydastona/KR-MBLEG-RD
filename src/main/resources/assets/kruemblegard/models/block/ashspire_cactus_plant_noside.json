@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chorus_plant_noside",
+  "textures": {
+    "texture": "kruemblegard:block/ashspire_cactus_side",
+    "particle": "kruemblegard:block/ashspire_cactus_side"
+  }
+}

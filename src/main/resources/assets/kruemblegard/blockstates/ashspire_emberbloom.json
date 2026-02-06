@@ -1,5 +1,10 @@
 {
   "variants": {
-    "": { "model": "kruemblegard:block/ashspire_emberbloom" }
+    "age=0": { "model": "kruemblegard:block/ashspire_emberbloom" },
+    "age=1": { "model": "kruemblegard:block/ashspire_emberbloom" },
+    "age=2": { "model": "kruemblegard:block/ashspire_emberbloom" },
+    "age=3": { "model": "kruemblegard:block/ashspire_emberbloom" },
+    "age=4": { "model": "kruemblegard:block/ashspire_emberbloom" },
+    "age=5": { "model": "minecraft:block/chorus_flower_dead" }
   }
 }
