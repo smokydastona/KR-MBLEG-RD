@@ -48,6 +48,11 @@ These are the established placeholders used when building the schematic template
 - `minecraft:tinted_glass` in the schematic palette means: **skip placement** (treated as structure void).
   - This is the primary “carve out” / “empty slot” marker.
 
+### Variation garnish (optional)
+- `kruemblegard:ashmoss_carpet` is allowed in tree schematics as a **garnish/texture** layer.
+  - Placement rule: mapping code should **randomly process it to air** (i.e., skip placement) so each generated tree has slightly different moss coverage.
+  - Goal: `ashmoss_carpet` should never be 100% deterministic/dense across every placement.
+
 ### Pivot marker
 - `minecraft:red_wool` is used as a **schematic pivot / center marker**.
   - Goal: **red wool itself should never appear** in the world after placement.
@@ -150,6 +155,7 @@ This avoids:
 - Tinted glass → structure void
 - Red wool pivot marker → `wayroot_franch_wood`
 - Tripwire → `string_franch`
+- Ashmoss carpet (if present) → randomly skipped to air for variation
 - Leaf-like → `wayroot_leaves` (non-persistent)
 - Trunk-like → 90% `wayroot_franch_wood`, 10% `wayroot_franch_planks`
 - Wooden fence / gate / trapdoor placeholders → Wayroot `*_franch*` helper blocks
@@ -158,6 +164,7 @@ This avoids:
 - Mapping: `EchowoodSchematicMapping`
 - Tinted glass → structure void
 - Tripwire → `string_franch`
+- Ashmoss carpet (if present) → randomly skipped to air for variation
 - Leaf-like → `echowood_leaves` (non-persistent)
 - Trunk-like → 90% `echowood_franch_wood`, 10% `echowood_franch_planks`
 - Red wool pivot marker → `echowood_franch_wood` (legacy choice; acceptable but not the recommended default for new trees)
@@ -197,6 +204,7 @@ Use this checklist for every new schematic tree species.
   - leaf-like mapping forces non-persistent
   - trunk-like mapping uses the 90/10 mix
   - wood construction placeholders map to `*_franch*` helper blocks
+  - `kruemblegard:ashmoss_carpet` (if used) is probabilistically skipped to air for per-placement variation
 
 ### 5) Worldgen JSON
 - Add configured feature JSON(s) referencing the new schematics.

@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 
 final class EchowoodSchematicMapping {
+    private static final float ASHMOSS_CARPET_PLACE_CHANCE = 0.60f;
+
     private EchowoodSchematicMapping() {
     }
 
@@ -31,6 +33,13 @@ final class EchowoodSchematicMapping {
         // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
         if (original.is(Blocks.TRIPWIRE)) {
             return ModBlocks.STRING_FRANCH.get().defaultBlockState();
+        }
+
+        // Optional garnish: allow ashmoss carpet in schematics, but randomly skip it to add variation.
+        if (original.is(ModBlocks.ASHMOSS_CARPET.get())) {
+            return (random.nextFloat() < ASHMOSS_CARPET_PLACE_CHANCE)
+                    ? ModBlocks.ASHMOSS_CARPET.get().defaultBlockState()
+                    : Blocks.STRUCTURE_VOID.defaultBlockState();
         }
 
         // Force Echowood leaves for any leaf-like block, and guarantee they are non-persistent.
@@ -89,6 +98,13 @@ final class EchowoodSchematicMapping {
 
         if (original.is(Blocks.TRIPWIRE)) {
             return ModBlocks.STRING_FRANCH.get().defaultBlockState();
+        }
+
+        // Optional garnish: allow ashmoss carpet in schematics, but randomly skip it to add variation.
+        if (original.is(ModBlocks.ASHMOSS_CARPET.get())) {
+            return (random.nextFloat() < ASHMOSS_CARPET_PLACE_CHANCE)
+                    ? ModBlocks.ASHMOSS_CARPET.get().defaultBlockState()
+                    : Blocks.STRUCTURE_VOID.defaultBlockState();
         }
 
         // Mega schematics use a special schematic-only leaves variant with reduced drop rates.
