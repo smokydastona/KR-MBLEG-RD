@@ -40,6 +40,33 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
+    // --- Ashspire cactus drops ---
+
+    public static final RegistryObject<Item> ASHSPIRE_NEEDLES = ITEMS.register(
+        "ashspire_needles",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> VOLATILE_PULP = ITEMS.register(
+        "volatile_pulp",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ASHSPIRE_SHARDS = ITEMS.register(
+        "ashspire_shards",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> VOLATILE_RESIN = ITEMS.register(
+        "volatile_resin",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> NIGHT_FLOWER = ITEMS.register(
+        "night_flower",
+        () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON))
+    );
+
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())

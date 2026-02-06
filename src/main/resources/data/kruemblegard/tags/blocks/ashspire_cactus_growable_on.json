@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:fault_dust",
+    "kruemblegard:fractured_wayrock",
+    "kruemblegard:ashfall_loam",
+    "kruemblegard:ashfall_stone",
+    "kruemblegard:scarstone",
+    "kruemblegard:cracked_scarstone"
+  ]
+}

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.799 (2026-02-06)
+- Feature(worldgen/wayfall): add Ashspire Cactus clusters to Strata Collapse + Fracture Shoals (rare Emberbloom variant) and a very rare Giant Ashspire Colossus landmark in Strata Collapse.
+- Content(loot/items): add Ashspire drops (Needles, Volatile Pulp, Shards, Volatile Resin, Night Flower).
+
 ## 1.0.791 (2026-02-06)
 - Tuning(worldgen/wayfall): overhaul Wayfall tree distribution: limit global trees to Ashbloom saplings + Wayroot + Echowood; move biome “signature” trees to per-biome injectors; enforce no trees in Strata Collapse, Fracture Shoals, and Basin of Scars.
 - Tuning(worldgen/mushrooms): stop injecting vanilla huge mushrooms into Wayfall biomes.

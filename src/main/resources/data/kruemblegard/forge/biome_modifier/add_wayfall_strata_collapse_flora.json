@@ -8,7 +8,10 @@
     "kruemblegard:seagrass_patch_sparse",
 
     "kruemblegard:griefcap_patch",
-    "kruemblegard:ashveil_patch"
+    "kruemblegard:ashveil_patch",
+
+    "kruemblegard:ashspire_cactus_patch",
+    "kruemblegard:ashspire_colossus"
   ],
   "step": "vegetal_decoration"
 }

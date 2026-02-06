@@ -1,6 +1,8 @@
 package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.block.AshspireCactusBlock;
+import com.kruemblegard.block.AshspireColossusBlock;
 import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.KruemblegardLeavesBlock;
 import com.kruemblegard.block.WaylilyBlock;
@@ -41,6 +43,9 @@ public final class KruemblegardRenderLayers {
                 } else if (block instanceof AshveilBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof WaylilyBlock) {
+                    ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
+                } else if (block instanceof AshspireCactusBlock || block instanceof AshspireColossusBlock) {
+                    // Match vanilla cactus: cutout for transparent pixels.
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof BushBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.08,
+        "feature": "kruemblegard:ashspire_cactus_column_spire"
+      }
+    ],
+    "default": "kruemblegard:ashspire_cactus_column_short"
+  }
+}

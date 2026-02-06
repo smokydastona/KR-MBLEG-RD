@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.01,
+        "feature": "kruemblegard:ashspire_colossus_column_colossal"
+      }
+    ],
+    "default": "kruemblegard:ashspire_colossus_column_normal"
+  }
+}

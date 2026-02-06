@@ -56,6 +56,14 @@ Keep it up to date whenever you add/remove/rename content.
   - Ashbloom now generates naturally as **small plants** on Ashmoss (with a rare flowering variant).
   - Ashbloom saplings are **bonemeal-only** (no random tick growth into trees).
 
+- **Ashspire Cactus + Giant Ashspire Colossus (Wayfall flora)**
+  - Ashspire Cactus generates in **Strata Collapse** and **Fracture Shoals** as small clusters.
+    - Height: typically 1–3 blocks, with a rare 4-block “spire”.
+    - Rare Emberbloom variant also generates (emits light and drops Night Flower).
+  - Giant Ashspire Colossus generates as a **very rare** solitary landmark in **Strata Collapse**.
+    - Height: typically 5–8 blocks, with a very rare 10–12 block “colossal” variant.
+  - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
+
 - Schematic terrain support (“beard”): Wayroot tree schematics (regular + mega) and giant mushroom schematics add a short support fill under their trunk/stem footprint when placed on uneven terrain.
   - Fill rules: replaceables-only, avoids liquids, depth-capped to prevent giant pillars.
   - Palette: support blocks are sampled from nearby terrain so the fill matches the local biome surface (sand/gravel/custom soils/etc) instead of always defaulting to dirt.

@@ -34,6 +34,11 @@ public final class ModTags {
             new ResourceLocation(Kruemblegard.MOD_ID, "rubble_tillable")
         );
 
+        public static final TagKey<Block> ASHSPIRE_CACTUS_GROWABLE_ON = TagKey.create(
+            Registries.BLOCK,
+            new ResourceLocation(Kruemblegard.MOD_ID, "ashspire_cactus_growable_on")
+        );
+
         /**
          * Extra blocks that Kruemblegård treats like "leaf clutter" for Tree Harvester cleanup.
          * Kept as a mod tag to avoid polluting vanilla tags like minecraft:leaves.

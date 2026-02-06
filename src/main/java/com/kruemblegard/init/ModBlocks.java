@@ -2,6 +2,8 @@ package com.kruemblegard.init;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
+import com.kruemblegard.block.AshspireCactusBlock;
+import com.kruemblegard.block.AshspireColossusBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
 import com.kruemblegard.block.BonemealableWayfallFungusBlock;
@@ -717,6 +719,24 @@ public final class ModBlocks {
     );
 
     // --- Wayfall flora (plants) ---
+
+    public static final RegistryObject<Block> ASHSPIRE_CACTUS = BLOCKS.register(
+            "ashspire_cactus",
+            () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS), false)
+    );
+
+    public static final RegistryObject<Block> EMBERBLOOM_ASHSPIRE_CACTUS = BLOCKS.register(
+            "emberbloom_ashspire_cactus",
+            () -> new AshspireCactusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS)
+                    .lightLevel(state -> 3), true)
+    );
+
+    public static final RegistryObject<Block> ASHSPIRE_COLOSSUS = BLOCKS.register(
+            "ashspire_colossus",
+            () -> new AshspireColossusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS)
+                    .strength(1.0f)
+                    .lightLevel(state -> 5))
+    );
 
     public static final RegistryObject<Block> PATHREED = BLOCKS.register(
             "pathreed",
