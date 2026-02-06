@@ -102,12 +102,6 @@ tasks.named('processResources').configure {
         include '**/*.schem'
         into 'data/kruemblegard/schematics/rocks'
     }
-
-    // Dev convenience: package example Glimmerpine schematics into the normal datapack path.
-    from('examples/schematics/Glimmerpine') {
-        include '**/*.schem'
-        into 'data/kruemblegard/schematics/glimmerpine'
-    }
 }
 
 // This mod does not use unit/integration tests. Disable test source dirs so IDE tooling
