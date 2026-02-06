@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.802 (2026-02-06)
+- Fix(worldgen/wayfall): prevent world creation crash by adding missing Ashspire internal placed features used by random selectors.
+
 ## 1.0.801 (2026-02-06)
 - Content(textures): replace Ashspire cactus/emberbloom/colossus placeholder textures with dedicated 256x256 textures and wire block models to use them.
 - Chore(textures): run the 256x256 resizer (reports refreshed under `tools/_reports`).
