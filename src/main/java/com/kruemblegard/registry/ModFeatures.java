@@ -4,6 +4,9 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.world.feature.WayfallDeepLakeConfiguration;
 import com.kruemblegard.world.feature.WayfallDeepLakeFeature;
+import com.kruemblegard.world.feature.GlimmerpineMegaSchematicFeature;
+import com.kruemblegard.world.feature.GlimmerpineSchematicConfiguration;
+import com.kruemblegard.world.feature.GlimmerpineSchematicFeature;
 import com.kruemblegard.world.feature.GiantMushroomSchematicConfiguration;
 import com.kruemblegard.world.feature.GiantMushroomSchematicFeature;
 import com.kruemblegard.world.feature.RockSchematicConfiguration;
@@ -39,6 +42,35 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLIMMERPINE_TREE = FEATURES.register(
             "glimmerpine_tree",
             () -> new WayfallSimpleTreeFeature(NoneFeatureConfiguration.CODEC, ModBlocks.GLIMMERPINE_LOG::get, ModBlocks.GLIMMERPINE_LEAVES::get)
+    );
+
+    public static final RegistryObject<Feature<GlimmerpineSchematicConfiguration>> GLIMMERPINE_SCHEMATIC = FEATURES.register(
+            "glimmerpine_schematic",
+            () -> new GlimmerpineSchematicFeature(GlimmerpineSchematicConfiguration.CODEC)
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLIMMERPINE_MEGA_SCHEMATIC_1 = FEATURES.register(
+            "glimmerpine_mega_schematic_1",
+            () -> new GlimmerpineMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/glimmerpine/mega_glimmerpine_1.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLIMMERPINE_MEGA_SCHEMATIC_2 = FEATURES.register(
+            "glimmerpine_mega_schematic_2",
+            () -> new GlimmerpineMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/glimmerpine/mega_glimmerpine_2.schem")
+            )
+    );
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLIMMERPINE_MEGA_SCHEMATIC_3 = FEATURES.register(
+            "glimmerpine_mega_schematic_3",
+            () -> new GlimmerpineMegaSchematicFeature(
+                    NoneFeatureConfiguration.CODEC,
+                    new ResourceLocation(Kruemblegard.MOD_ID, "schematics/glimmerpine/mega_glimmerpine_3.schem")
+            )
     );
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> DRIFTWOOD_TREE = FEATURES.register(

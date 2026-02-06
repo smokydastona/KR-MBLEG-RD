@@ -1,11 +1,4 @@
-{
-  "type": "minecraft:simple_random_selector",
-  "config": {
-    "features": [
-      {
-        "feature": "kruemblegard:glimmerpine/4",
-        "placement": []
-      }
-    ]
-  }
+﻿{
+  "type": "kruemblegard:glimmerpine_mega_schematic_2",
+  "config": {}
 }

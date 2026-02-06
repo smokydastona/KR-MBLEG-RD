@@ -6,6 +6,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.810 (2026-02-06)
 - Chore(docs): align changelog sections with the latest CI jar versions.
+- Feature(worldgen/glimmerpine): migrate Glimmerpine trees (including mega variants) to schematic-driven generation.
 
 ## 1.0.809 (2026-02-06)
 - Chore(docs): add the missing 1.0.808 entry (commit-count versioning).

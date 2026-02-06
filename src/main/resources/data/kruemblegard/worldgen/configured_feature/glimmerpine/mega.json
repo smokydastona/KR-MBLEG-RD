@@ -1,17 +1,10 @@
-{
+﻿{
   "type": "minecraft:simple_random_selector",
   "config": {
     "features": [
-      {
-        "feature": "kruemblegard:glimmerpine/mega_1",
-        "placement": []
-      },
-      {
-        "feature": "kruemblegard:glimmerpine/mega_2",
-        "placement": []
-      }
+      { "feature": "kruemblegard:glimmerpine/mega_1", "placement": [] },
+      { "feature": "kruemblegard:glimmerpine/mega_2", "placement": [] },
+      { "feature": "kruemblegard:glimmerpine/mega_3", "placement": [] }
     ]
   }
 }
-
-
