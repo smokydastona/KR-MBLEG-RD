@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.801 (2026-02-06)
+- Content(textures): replace Ashspire cactus/emberbloom/colossus placeholder textures with dedicated 256x256 textures and wire block models to use them.
+- Chore(textures): run the 256x256 resizer (reports refreshed under `tools/_reports`).
+
 ## 1.0.800 (2026-02-06)
 - Fix(creative): categorize cactus-like flora blocks (Ashspire Cactus + Colossus) under Natural Blocks.
 
