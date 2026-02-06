@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen/wayfall): overhaul Wayfall tree distribution: limit global trees to Ashbloom saplings + Wayroot + Echowood; move biome “signature” trees to per-biome injectors; enforce no trees in Strata Collapse, Fracture Shoals, and Basin of Scars.
 - Tuning(worldgen/mushrooms): stop injecting vanilla huge mushrooms into Wayfall biomes.
 
+## 1.0.796 (2026-02-06)
+- UX(creative): split the mod creative tab into three tabs (Building Blocks, Natural Blocks, Miscellaneous) and sort entries to keep variant families together.
+
 ## 1.0.790 (2026-02-06)
 - Feature(worldgen/ashbloom): Ashbloom now generates as small plants on Ashmoss (rarely flowering), and requires bonemeal to grow into a tree (no random tick growth).
 
