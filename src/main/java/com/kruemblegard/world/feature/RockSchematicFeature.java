@@ -589,39 +589,27 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
         }
 
         private static BlockState normalizeTerrainFill(BlockState state) {
-            if (state == null) {
+            if (state == null || state.isAir()) {
+                return null;
+            }
+            if (state.canBeReplaced()) {
                 return null;
             }
 
             Block b = state.getBlock();
-
-            // Prefer using local terrain blocks for the beard, but keep it conservative.
-            if (b == Blocks.GRASS_BLOCK || b == Blocks.DIRT_PATH) {
-                return Blocks.DIRT.defaultBlockState();
+            if (b instanceof LeavesBlock) {
+                return null;
             }
-            if (b == Blocks.PODZOL || b == Blocks.MYCELIUM || b == Blocks.ROOTED_DIRT) {
-                return Blocks.DIRT.defaultBlockState();
-            }
-            if (b == Blocks.COARSE_DIRT) {
-                return Blocks.COARSE_DIRT.defaultBlockState();
-            }
-            if (b == Blocks.SAND || b == Blocks.RED_SAND) {
-                return b.defaultBlockState();
-            }
-            if (b == Blocks.GRAVEL) {
-                return Blocks.GRAVEL.defaultBlockState();
-            }
-
-            if (state.is(BlockTags.BASE_STONE_OVERWORLD)) {
-                return b.defaultBlockState();
-            }
-
-            // Avoid using leaves/logs/plants as fill.
-            if (state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
+            if (state.is(BlockTags.LOGS) || state.is(BlockTags.LEAVES) || state.is(BlockTags.REPLACEABLE_BY_TREES)) {
                 return null;
             }
 
-            return null;
+            // Prefer sub-soil blocks so support columns look natural when exposed.
+            if (state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM) || state.is(Blocks.PODZOL) || state.is(Blocks.DIRT_PATH)) {
+                return Blocks.DIRT.defaultBlockState();
+            }
+
+            return state;
         }
 
         private static BlockState parseBlockState(String paletteKey) {
