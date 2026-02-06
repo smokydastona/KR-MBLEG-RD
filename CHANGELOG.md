@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.819 (2026-02-06)
+- Tuning(worldgen/wayfall): Wayfall schematic rocks now pick ground level (avoid canopy heightmaps), spawn more reliably, and cap placement depth to 7 blocks below the surface.
+
 ## 1.0.818 (2026-02-06)
 - Fix(build/resources): avoid a Gradle `processResources` duplicate-entry failure for Glimmerpine schematics (keeps CI builds producing a jar).
 
