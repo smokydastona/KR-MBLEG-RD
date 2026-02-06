@@ -1,5 +1,6 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
@@ -21,20 +22,24 @@ public class AshspireColossusBlock extends Block {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        for (Direction dir : Direction.Plane.HORIZONTAL) {
-            BlockPos neighborPos = pos.relative(dir);
-            BlockState neighborState = level.getBlockState(neighborPos);
-            if (neighborState.isSolid() || !level.getFluidState(neighborPos).isEmpty()) {
-                return false;
+        BlockState belowState = level.getBlockState(pos.below());
+        if (belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)
+                || belowState.is(ModBlocks.ASHSPIRE_CACTUS.get())
+                || belowState.is(ModBlocks.ASHSPIRE_COLOSSUS.get())) {
+            return level.getBlockState(pos.above()).getFluidState().isEmpty();
+        }
+
+        // Allow sideways persistence when attached to another Ashspire segment.
+        if (belowState.isAir()) {
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                BlockState neighbor = level.getBlockState(pos.relative(dir));
+                if (neighbor.is(ModBlocks.ASHSPIRE_CACTUS.get()) || neighbor.is(ModBlocks.ASHSPIRE_COLOSSUS.get())) {
+                    return level.getBlockState(pos.above()).getFluidState().isEmpty();
+                }
             }
         }
 
-        BlockState belowState = level.getBlockState(pos.below());
-        if (!belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)) {
-            return false;
-        }
-
-        return level.getBlockState(pos.above()).getFluidState().isEmpty();
+        return false;
     }
 
     @Override

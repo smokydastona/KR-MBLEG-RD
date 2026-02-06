@@ -2,6 +2,8 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.registry.ModTags;
 
+import com.kruemblegard.init.ModBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,7 +24,9 @@ public class AshspireCactusBlock extends ChorusPlantBlock {
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState belowState = level.getBlockState(pos.below());
-        if (belowState.is(this) || belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)) {
+        if (belowState.is(this)
+                || belowState.is(ModBlocks.ASHSPIRE_COLOSSUS.get())
+                || belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)) {
             return true;
         }
 
@@ -30,7 +34,8 @@ public class AshspireCactusBlock extends ChorusPlantBlock {
         // as long as they're attached to another Ashspire cactus horizontally.
         if (belowState.isAir()) {
             for (Direction dir : Direction.Plane.HORIZONTAL) {
-                if (level.getBlockState(pos.relative(dir)).is(this)) {
+                BlockState neighbor = level.getBlockState(pos.relative(dir));
+                if (neighbor.is(this) || neighbor.is(ModBlocks.ASHSPIRE_COLOSSUS.get())) {
                     return true;
                 }
             }
