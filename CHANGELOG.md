@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 
+## 1.0.826 (2026-02-06)
+- Tuning(worldgen/wayfall): bias rock burial so most buried rocks still show at least one visible layer, while still allowing fully-buried and clean surface placements.
+
 ## 1.0.822 (2026-02-06)
 - Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
 - Fix(ashspire): ensure Ashspire Emberbloom is bonemealable again (explicit BonemealableBlock implementation).

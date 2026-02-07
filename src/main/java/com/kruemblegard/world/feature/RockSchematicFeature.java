@@ -73,7 +73,17 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
             return false;
         }
 
-        int bury = cfg.maxBurial() <= 0 ? 0 : random.nextInt(cfg.maxBurial() + 1);
+        ResourceLocation chosen = choices.get(random.nextInt(choices.size()));
+        ResourceLocation mainBlockId = inferMainBlockId(cfg.schematicRoot(), chosen);
+
+        SpongeSchematic schematic;
+        try {
+            schematic = SpongeSchematic.load(rm, chosen);
+        } catch (IOException e) {
+            return false;
+        }
+
+        int bury = chooseBurial(random, cfg.maxBurial(), schematic.nonAirHeight());
 
         BlockPos center = origin;
         BlockState originState = level.getBlockState(center);
@@ -88,20 +98,44 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
             return false;
         }
 
-        ResourceLocation chosen = choices.get(random.nextInt(choices.size()));
-        ResourceLocation mainBlockId = inferMainBlockId(cfg.schematicRoot(), chosen);
-
-        SpongeSchematic schematic;
-        try {
-            schematic = SpongeSchematic.load(rm, chosen);
-        } catch (IOException e) {
-            return false;
-        }
-
         Rotation rotation = Rotation.values()[random.nextInt(4)];
         BlockPos start = schematic.startForCenter(center, rotation);
 
         return schematic.place(level, start, rotation, random, mainBlockId, biome.getBaseTemperature(), cfg);
+    }
+
+    private static int chooseBurial(RandomSource random, int maxBurial, int nonAirHeight) {
+        if (maxBurial <= 0) {
+            return 0;
+        }
+
+        // If we bury by < nonAirHeight, at least one schematic layer remains above ground.
+        int exposedMax = Math.min(maxBurial, Math.max(0, nonAirHeight - 1));
+        int fullMin = Math.min(maxBurial, Math.max(0, nonAirHeight));
+
+        // Distribution goals:
+        // - Sometimes sit cleanly on the surface.
+        // - Most of the time, if buried, keep at least one layer exposed.
+        // - Occasionally allow fully-buried rocks (when possible).
+        int roll = random.nextInt(100);
+
+        // 0..14%: clean surface placement
+        if (roll < 15) {
+            return 0;
+        }
+
+        // 15..89%: buried but still exposed (if possible)
+        if (exposedMax >= 1 && roll < 90) {
+            return 1 + random.nextInt(exposedMax);
+        }
+
+        // 90..99%: fully buried (only if possible)
+        if (fullMin > 0 && fullMin <= maxBurial) {
+            return fullMin + random.nextInt(maxBurial - fullMin + 1);
+        }
+
+        // Fallback: no meaningful schematic height info; keep old behavior.
+        return random.nextInt(maxBurial + 1);
     }
 
     private static ResourceManager getResourceManager(LevelAccessor level) {
@@ -227,6 +261,48 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
 
                 return new SpongeSchematic(w, h, l, palette, indices);
             }
+        }
+
+        int nonAirHeight() {
+            int minY = Integer.MAX_VALUE;
+            int maxY = Integer.MIN_VALUE;
+
+            for (int y = 0; y < this.height; y++) {
+                for (int z = 0; z < this.length; z++) {
+                    for (int x = 0; x < this.width; x++) {
+                        int idx = ((y * this.length) + z) * this.width + x;
+                        int paletteIndex = this.blockIndices[idx];
+                        if (paletteIndex < 0 || paletteIndex >= this.palette.size()) {
+                            continue;
+                        }
+
+                        BlockState state = this.palette.get(paletteIndex);
+                        if (!isPlaceableSchematicState(state)) {
+                            continue;
+                        }
+
+                        if (y < minY) {
+                            minY = y;
+                        }
+                        if (y > maxY) {
+                            maxY = y;
+                        }
+                    }
+                }
+            }
+
+            if (minY == Integer.MAX_VALUE) {
+                return this.height;
+            }
+
+            return (maxY - minY) + 1;
+        }
+
+        private static boolean isPlaceableSchematicState(BlockState state) {
+            if (state == null || state.isAir()) {
+                return false;
+            }
+            return !(state.is(Blocks.TINTED_GLASS) || state.is(Blocks.STRUCTURE_VOID));
         }
 
         BlockPos startForCenter(BlockPos center, Rotation rotation) {
