@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ChunkPos;
@@ -25,8 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
-
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.io.IOException;
 import java.util.List;
@@ -80,7 +79,7 @@ public final class LostPillagerShipPiece extends StructurePiece {
             ChunkPos chunkPos,
             BlockPos pivot
     ) {
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        MinecraftServer server = level.getLevel().getServer();
         if (server == null) {
             return;
         }
@@ -88,7 +87,7 @@ public final class LostPillagerShipPiece extends StructurePiece {
         ResourceManager rm = server.getResourceManager();
         SpongeSchematic schem;
         try {
-            schem = SpongeSchematic.load(rm, this.schematic);
+            schem = SpongeSchematic.loadCached(rm, this.schematic);
         } catch (IOException e) {
             Kruemblegard.LOGGER.warn("Failed to load lost pillager ship schematic during placement: {}", this.schematic);
             return;
@@ -98,9 +97,25 @@ public final class LostPillagerShipPiece extends StructurePiece {
         int h = schem.height();
         int l = schem.length();
 
-        for (int y = 0; y < h; y++) {
-            for (int z = 0; z < l; z++) {
-                for (int x = 0; x < w; x++) {
+        // IMPORTANT: postProcess is called once per-chunk within the structure's bounding box.
+        // Iterating the entire schematic volume each call causes runaway O(volume * chunks) work.
+        // Instead, iterate only the local-coordinate region that can land within this chunk's box.
+        int minLocalY = Mth.clamp(box.minY() - this.start.getY(), 0, h - 1);
+        int maxLocalY = Mth.clamp(box.maxY() - this.start.getY(), 0, h - 1);
+
+        int[] localMinMaxXZ = localXZBoundsForWorldBox(box, this.start, this.rotation, w, l);
+        int minLocalX = Mth.clamp(localMinMaxXZ[0], 0, w - 1);
+        int maxLocalX = Mth.clamp(localMinMaxXZ[1], 0, w - 1);
+        int minLocalZ = Mth.clamp(localMinMaxXZ[2], 0, l - 1);
+        int maxLocalZ = Mth.clamp(localMinMaxXZ[3], 0, l - 1);
+
+        if (minLocalX > maxLocalX || minLocalY > maxLocalY || minLocalZ > maxLocalZ) {
+            return;
+        }
+
+        for (int y = minLocalY; y <= maxLocalY; y++) {
+            for (int z = minLocalZ; z <= maxLocalZ; z++) {
+                for (int x = minLocalX; x <= maxLocalX; x++) {
                     BlockState original = schem.stateAt(x, y, z);
                     if (original == null || original.isAir()) {
                         continue;
@@ -130,6 +145,64 @@ public final class LostPillagerShipPiece extends StructurePiece {
                 }
             }
         }
+    }
+
+    private static int[] localXZBoundsForWorldBox(BoundingBox worldBox, BlockPos start, Rotation rotation, int schematicWidth, int schematicLength) {
+        int minX = worldBox.minX();
+        int maxX = worldBox.maxX();
+        int minZ = worldBox.minZ();
+        int maxZ = worldBox.maxZ();
+
+        int[][] corners = new int[][]{
+                {minX, minZ},
+                {minX, maxZ},
+                {maxX, minZ},
+                {maxX, maxZ}
+        };
+
+        int localMinX = Integer.MAX_VALUE;
+        int localMaxX = Integer.MIN_VALUE;
+        int localMinZ = Integer.MAX_VALUE;
+        int localMaxZ = Integer.MIN_VALUE;
+
+        for (int[] c : corners) {
+            int[] local = worldToLocalXZ(c[0], c[1], start, rotation, schematicWidth, schematicLength);
+            localMinX = Math.min(localMinX, local[0]);
+            localMaxX = Math.max(localMaxX, local[0]);
+            localMinZ = Math.min(localMinZ, local[1]);
+            localMaxZ = Math.max(localMaxZ, local[1]);
+        }
+
+        return new int[]{localMinX, localMaxX, localMinZ, localMaxZ};
+    }
+
+    private static int[] worldToLocalXZ(int worldX, int worldZ, BlockPos start, Rotation rotation, int schematicWidth, int schematicLength) {
+        int dx = worldX - start.getX();
+        int dz = worldZ - start.getZ();
+        int rot = rotation.ordinal() & 3;
+
+        int lx;
+        int lz;
+        switch (rot) {
+            case 1 -> {
+                lx = dz;
+                lz = schematicLength - 1 - dx;
+            }
+            case 2 -> {
+                lx = schematicWidth - 1 - dx;
+                lz = schematicLength - 1 - dz;
+            }
+            case 3 -> {
+                lx = schematicWidth - 1 - dz;
+                lz = dx;
+            }
+            default -> {
+                lx = dx;
+                lz = dz;
+            }
+        }
+
+        return new int[]{lx, lz};
     }
 
     private static BlockState mapState(BlockState original, RandomSource random, SpongeSchematic schem, int x, int y, int z) {

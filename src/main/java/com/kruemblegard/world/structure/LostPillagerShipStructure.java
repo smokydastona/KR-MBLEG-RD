@@ -60,7 +60,7 @@ public final class LostPillagerShipStructure extends Structure {
         ResourceManager rm = server.getResourceManager();
         SpongeSchematic schem;
         try {
-            schem = SpongeSchematic.load(rm, this.schematic);
+            schem = SpongeSchematic.loadCached(rm, this.schematic);
         } catch (IOException e) {
             Kruemblegard.LOGGER.warn("Lost pillager ship schematic missing/invalid: {}", this.schematic);
             return Optional.empty();

@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,11 +32,16 @@ import java.util.Optional;
 public final class SpongeSchematic {
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    private static final java.util.concurrent.ConcurrentHashMap<ResourceLocation, SpongeSchematic> CACHE = new java.util.concurrent.ConcurrentHashMap<>();
+
     private final int width;
     private final int height;
     private final int length;
     private final List<BlockState> palette;
     private final int[] blockIndices;
+
+    private final BlockPos pivotRedWool;
+    private final BlockPos highestRedStainedGlass;
 
     private SpongeSchematic(int width, int height, int length, List<BlockState> palette, int[] blockIndices) {
         this.width = width;
@@ -45,6 +49,10 @@ public final class SpongeSchematic {
         this.length = length;
         this.palette = palette;
         this.blockIndices = blockIndices;
+
+        MarkerScan scan = scanMarkers(width, height, length, palette, blockIndices);
+        this.pivotRedWool = scan.pivotRedWool;
+        this.highestRedStainedGlass = scan.highestRedStainedGlass;
     }
 
     public int width() {
@@ -106,6 +114,28 @@ public final class SpongeSchematic {
 
             return new SpongeSchematic(w, h, l, palette, indices);
         }
+    }
+
+    /**
+     * Cached version of {@link #load(ResourceManager, ResourceLocation)}.
+     *
+     * <p>Worldgen may call structures from chunk worker threads and can invoke the same structure
+     * across many chunks. Decoding compressed NBT and scanning for markers is expensive; caching
+     * avoids repeated work and reduces chunk-gen stalls.</p>
+     */
+    public static SpongeSchematic loadCached(ResourceManager rm, ResourceLocation id) throws IOException {
+        SpongeSchematic cached = CACHE.get(id);
+        if (cached != null) {
+            return cached;
+        }
+
+        SpongeSchematic loaded = load(rm, id);
+        SpongeSchematic existing = CACHE.putIfAbsent(id, loaded);
+        return existing != null ? existing : loaded;
+    }
+
+    public static void clearCache() {
+        CACHE.clear();
     }
 
     public BlockState stateAt(int x, int y, int z) {
@@ -173,42 +203,69 @@ public final class SpongeSchematic {
     }
 
     public BlockPos findPivotRedWool() {
-        List<BlockPos> found = findAll(Blocks.RED_WOOL);
-        if (found.isEmpty()) {
-            return new BlockPos(this.width / 2, 0, this.length / 2);
-        }
-
-        int cx = this.width / 2;
-        int cz = this.length / 2;
-        return found.stream()
-            .min(Comparator
-                .<BlockPos>comparingInt(p -> p.getY())
-                .thenComparingInt(p -> dist2(p.getX(), p.getZ(), cx, cz)))
-                .orElse(found.get(0));
+        return this.pivotRedWool;
     }
 
     public BlockPos findHighestRedStainedGlass() {
-        List<BlockPos> found = findAll(Blocks.RED_STAINED_GLASS);
-        if (found.isEmpty()) {
-            // Fallback: treat the top layer as the "ground" reference.
-            return new BlockPos(this.width / 2, Math.max(0, this.height - 1), this.length / 2);
-        }
-        return found.stream().max(Comparator.<BlockPos>comparingInt(p -> p.getY())).orElse(found.get(0));
+        return this.highestRedStainedGlass;
     }
 
-    private List<BlockPos> findAll(Block block) {
-        List<BlockPos> out = new ArrayList<>();
-        for (int y = 0; y < this.height; y++) {
-            for (int z = 0; z < this.length; z++) {
-                for (int x = 0; x < this.width; x++) {
-                    BlockState st = stateAt(x, y, z);
-                    if (st != null && st.is(block)) {
-                        out.add(new BlockPos(x, y, z));
+    private record MarkerScan(BlockPos pivotRedWool, BlockPos highestRedStainedGlass) {
+    }
+
+    private static MarkerScan scanMarkers(int width, int height, int length, List<BlockState> palette, int[] blockIndices) {
+        int cx = width / 2;
+        int cz = length / 2;
+
+        BlockPos bestPivot = null;
+        int bestPivotY = Integer.MAX_VALUE;
+        int bestPivotDist2 = Integer.MAX_VALUE;
+
+        BlockPos bestHighest = null;
+        int bestHighestY = Integer.MIN_VALUE;
+
+        int i = 0;
+        for (int y = 0; y < height; y++) {
+            for (int z = 0; z < length; z++) {
+                for (int x = 0; x < width; x++) {
+                    int paletteIndex = blockIndices[i++];
+                    if (paletteIndex < 0 || paletteIndex >= palette.size()) {
+                        continue;
+                    }
+
+                    BlockState st = palette.get(paletteIndex);
+                    if (st == null) {
+                        continue;
+                    }
+
+                    if (st.is(Blocks.RED_WOOL)) {
+                        int dist2 = dist2(x, z, cx, cz);
+                        if (y < bestPivotY || (y == bestPivotY && dist2 < bestPivotDist2)) {
+                            bestPivotY = y;
+                            bestPivotDist2 = dist2;
+                            bestPivot = new BlockPos(x, y, z);
+                        }
+                    }
+
+                    if (st.is(Blocks.RED_STAINED_GLASS)) {
+                        if (y > bestHighestY) {
+                            bestHighestY = y;
+                            bestHighest = new BlockPos(x, y, z);
+                        }
                     }
                 }
             }
         }
-        return out;
+
+        if (bestPivot == null) {
+            bestPivot = new BlockPos(cx, 0, cz);
+        }
+
+        if (bestHighest == null) {
+            bestHighest = new BlockPos(cx, Math.max(0, height - 1), cz);
+        }
+
+        return new MarkerScan(bestPivot, bestHighest);
     }
 
     private static int dist2(int ax, int az, int bx, int bz) {
