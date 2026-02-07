@@ -1,5 +1,7 @@
 package com.kruemblegard.world.feature;
 
+import com.kruemblegard.Kruemblegard;
+
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
@@ -33,10 +35,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class RockSchematicFeature extends Feature<RockSchematicConfiguration> {
     private static final ConcurrentHashMap<ResourceLocation, List<ResourceLocation>> SCHEM_CACHE = new ConcurrentHashMap<>();
+    private static final Set<ResourceLocation> WARNED_EMPTY = ConcurrentHashMap.newKeySet();
 
     private static final TagKey<Block> ROCK_BURY_REPLACEABLE = TagKey.create(
             Registries.BLOCK,
@@ -59,8 +63,27 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
             return false;
         }
 
-        List<ResourceLocation> choices = SCHEM_CACHE.computeIfAbsent(cfg.schematicRoot(), root -> listSchematics(rm, root));
+        // Important: do NOT permanently cache an empty result.
+        // ResourceManager queries can fail transiently during reload/early startup; caching empty would disable rocks forever.
+        List<ResourceLocation> choices = SCHEM_CACHE.get(cfg.schematicRoot());
+        if (choices == null || choices.isEmpty()) {
+            List<ResourceLocation> fresh = listSchematics(rm, cfg.schematicRoot());
+            if (!fresh.isEmpty()) {
+                SCHEM_CACHE.put(cfg.schematicRoot(), fresh);
+                choices = fresh;
+            } else {
+                choices = List.of();
+            }
+        }
         if (choices.isEmpty()) {
+            if (WARNED_EMPTY.add(cfg.schematicRoot())) {
+                Kruemblegard.LOGGER.warn(
+                        "No rock schematics found under {} (expected files under data/{}/{}). Rocks will not generate.",
+                        cfg.schematicRoot(),
+                        cfg.schematicRoot().getNamespace(),
+                        cfg.schematicRoot().getPath()
+                );
+            }
             return false;
         }
 
@@ -154,10 +177,23 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
 
     private static ResourceManager getResourceManager(LevelAccessor level) {
         if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
-            return serverLevel.getServer().getResourceManager();
+            var server = serverLevel.getServer();
+            if (server != null) {
+                return server.getResourceManager();
+            }
+
+            // Fallback for edge cases where ServerLevel exists but server is not yet attached.
+            var current = net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();
+            return current != null ? current.getResourceManager() : null;
         }
         if (level instanceof WorldGenLevel worldGenLevel) {
-            return worldGenLevel.getLevel().getServer().getResourceManager();
+            var server = worldGenLevel.getLevel().getServer();
+            if (server != null) {
+                return server.getResourceManager();
+            }
+
+            var current = net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();
+            return current != null ? current.getResourceManager() : null;
         }
         return null;
     }

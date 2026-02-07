@@ -46,10 +46,16 @@ public final class WayfallStructureRetheme {
     public static boolean isJungleTempleStoneCandidate(BlockState state) {
         return state.is(Blocks.COBBLESTONE)
                 || state.is(Blocks.MOSSY_COBBLESTONE)
+                || state.is(Blocks.MOSSY_COBBLESTONE_STAIRS)
+                || state.is(Blocks.MOSSY_COBBLESTONE_SLAB)
+                || state.is(Blocks.MOSSY_COBBLESTONE_WALL)
                 || state.is(Blocks.CHISELED_STONE_BRICKS)
                 || state.is(Blocks.STONE_BRICKS)
                 || state.is(Blocks.CRACKED_STONE_BRICKS)
                 || state.is(Blocks.MOSSY_STONE_BRICKS)
+                || state.is(Blocks.MOSSY_STONE_BRICK_STAIRS)
+                || state.is(Blocks.MOSSY_STONE_BRICK_SLAB)
+                || state.is(Blocks.MOSSY_STONE_BRICK_WALL)
                 || state.is(Blocks.STONE_BRICK_STAIRS)
                 || state.is(Blocks.STONE_BRICK_SLAB)
                 || state.is(Blocks.STONE_BRICK_WALL)
@@ -157,6 +163,12 @@ public final class WayfallStructureRetheme {
             targetBlock = ModBlocks.SCARSTONE.get();
         } else if (original.is(Blocks.MOSSY_COBBLESTONE)) {
             targetBlock = ModBlocks.CRACKED_SCARSTONE.get();
+        } else if (original.is(Blocks.MOSSY_COBBLESTONE_STAIRS)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_STAIRS.get();
+        } else if (original.is(Blocks.MOSSY_COBBLESTONE_SLAB)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_SLAB.get();
+        } else if (original.is(Blocks.MOSSY_COBBLESTONE_WALL)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_WALL.get();
         } else if (original.is(Blocks.CHISELED_STONE_BRICKS)) {
             targetBlock = ModBlocks.CHISELED_SCARSTONE.get();
         } else if (original.is(Blocks.STONE_BRICKS)) {
@@ -165,6 +177,12 @@ public final class WayfallStructureRetheme {
             targetBlock = ModBlocks.CRACKED_SCARSTONE.get();
         } else if (original.is(Blocks.MOSSY_STONE_BRICKS)) {
             targetBlock = ModBlocks.CRACKED_SCARSTONE.get();
+        } else if (original.is(Blocks.MOSSY_STONE_BRICK_STAIRS)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_STAIRS.get();
+        } else if (original.is(Blocks.MOSSY_STONE_BRICK_SLAB)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_SLAB.get();
+        } else if (original.is(Blocks.MOSSY_STONE_BRICK_WALL)) {
+            targetBlock = ModBlocks.CRACKED_SCARSTONE_WALL.get();
         } else if (original.is(Blocks.STONE_BRICK_STAIRS)) {
             targetBlock = ModBlocks.POLISHED_SCARSTONE_STAIRS.get();
         } else if (original.is(Blocks.STONE_BRICK_SLAB)) {

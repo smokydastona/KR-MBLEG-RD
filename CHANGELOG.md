@@ -19,6 +19,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.827 (2026-02-06)
 - Tuning(worldgen/wayfall): further bias ambient rocks so buried placements usually leave 2+ visible layers above ground.
 
+## 1.0.828 (2026-02-07)
+- Fix(worldgen/wayfall): prevent ambient rock schematics from being permanently disabled by an early/failed resource scan (empty schematic lists are no longer cached; logs a one-time warning if none are found).
+- Fix(worldgen/wayfall): jungle temples in Wayfall now fully retheme mossy stone variants (stairs/slabs/walls) so the temple consistently uses Scarstone-family blocks.
+
 ## 1.0.822 (2026-02-06)
 - Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
 - Fix(ashspire): ensure Ashspire Emberbloom is bonemealable again (explicit BonemealableBlock implementation).

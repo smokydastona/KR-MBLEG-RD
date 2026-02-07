@@ -72,7 +72,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Weathering/remap pass per placement (mossy/cracked variants + minor edge chipping).
   - Placement rules:
     - Rocks are allowed to be partially buried by replacing `#kruemblegard:rock_bury_replaceable`.
-    - Rocks never generate floating: bottom footprint requires sturdy support and the same schematic “support beard” system used by schematic trees.
+    - Rocks avoid floating placements via the same schematic “support beard” system used by schematic trees (fills small gaps under the footprint; depth-capped).
 
 - Schematic terrain support (“beard”): schematic-driven trees (Wayroot, Echowood, Glimmerpine; regular + mega variants) and giant mushroom schematics add a short support fill under their trunk/stem footprint when placed on uneven terrain.
   - Fill rules: replaceables-only, avoids liquids, depth-capped to prevent giant pillars.
@@ -215,7 +215,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 
 - Wayfall-only vanilla structure retheming:
   - Vanilla shipwrecks placed in Wayfall swap their wood blocks to a local Wayfall wood palette (with a small chance to keep vanilla wood).
-  - Underway Falls jungle temples swap temple stone blocks to the Scarstone family.
+  - Underway Falls jungle temples swap temple stone blocks (including mossy variants/stairs/slabs/walls) to the Scarstone family.
   - Implementation note: retheming runs on chunk load but avoids heavy neighbor-update storms to keep exploration/teleport testing smooth.
   - Stability note: retheme tracking is intentionally capped/evicted so it can’t grow without bound and stall autosaves in long /tp scouting sessions.
 
