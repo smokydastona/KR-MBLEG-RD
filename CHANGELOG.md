@@ -22,6 +22,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.839 (2026-02-07)
 - Fix(worldgen/wayfall): add an extreme-case voidfall rescue in Wayfall to prevent soft-locks if a player falls into an unloaded/void state.
 
+## 1.0.840 (2026-02-07)
+- Fix(worldgen/wayfall): apply Wayfall entry safety on login when loading a save that already has the player inside Wayfall (prevents immediate voidfall before init finishes).
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

@@ -22,6 +22,48 @@ public final class WayfallPortalEntrySafetyEvents {
     private WayfallPortalEntrySafetyEvents() {}
 
     @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+
+        if (!(player.level() instanceof ServerLevel level) || !level.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return;
+        }
+
+        // If we loaded a world while already in Wayfall, the dimension-change event won't fire.
+        // Ensure we still queue initialization and (if needed) keep the player from falling into an
+        // uninitialized void state.
+        player.server.execute(() -> {
+            if (!player.isAlive()) {
+                return;
+            }
+
+            if (!(player.level() instanceof ServerLevel wayfall) || !wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+                return;
+            }
+
+            WayfallWorkScheduler.enqueueWayfallInit(wayfall);
+
+            if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                BlockPos anchor = WayfallSpawnPlatform.getSpawnIslandAnchor().above(8);
+                wayfall.getChunkAt(anchor);
+
+                player.setNoGravity(true);
+                player.fallDistance = 0;
+                player.setDeltaMovement(Vec3.ZERO);
+                player.teleportTo(wayfall, anchor.getX() + 0.5D, anchor.getY(), anchor.getZ() + 0.5D, player.getYRot(), player.getXRot());
+            }
+
+            // If the player is in our holding state (or the island wasn't placed yet), schedule the
+            // final landing teleport once the island exists.
+            if (player.isNoGravity() || !WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                scheduleLandingTeleport(player);
+            }
+        });
+    }
+
+    @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) {
             return;
@@ -67,35 +109,43 @@ public final class WayfallPortalEntrySafetyEvents {
             // Queue it and only complete the safety teleport once the island is actually placed.
             WayfallWorkScheduler.enqueueWayfallInit(level);
 
-            final java.util.UUID playerId = player.getUUID();
-            WayfallWorkScheduler.enqueue(level, (wayfall) -> {
-                ServerPlayer p = wayfall.getServer().getPlayerList().getPlayer(playerId);
-                if (p == null || !p.isAlive()) {
-                    return true;
-                }
-                if (p.level() != wayfall || !wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
-                    return true;
-                }
+            scheduleLandingTeleport(player);
+        });
+    }
 
-                if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
-                    return false;
-                }
+    private static void scheduleLandingTeleport(ServerPlayer player) {
+        final java.util.UUID playerId = player.getUUID();
+        if (!(player.level() instanceof ServerLevel level)) {
+            return;
+        }
 
-                BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(wayfall);
-
-                double x = landing.getX() + 0.5D;
-                double y = landing.getY();
-                double z = landing.getZ() + 0.5D;
-
-                // If the teleporter put the player into a temporary holding state, release it now.
-                p.setNoGravity(false);
-                p.fallDistance = 0;
-                p.setDeltaMovement(Vec3.ZERO);
-                p.teleportTo(wayfall, x, y, z, p.getYRot(), p.getXRot());
-
-                Kruemblegard.LOGGER.debug("Wayfall entry safety teleport: {} -> {}", p.getGameProfile().getName(), landing);
+        WayfallWorkScheduler.enqueue(level, (wayfall) -> {
+            ServerPlayer p = wayfall.getServer().getPlayerList().getPlayer(playerId);
+            if (p == null || !p.isAlive()) {
                 return true;
-            });
+            }
+            if (p.level() != wayfall || !wayfall.dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+                return true;
+            }
+
+            if (!WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                return false;
+            }
+
+            BlockPos landing = WayfallSpawnPlatform.ensureSpawnLanding(wayfall);
+
+            double x = landing.getX() + 0.5D;
+            double y = landing.getY();
+            double z = landing.getZ() + 0.5D;
+
+            // If the teleporter put the player into a temporary holding state, release it now.
+            p.setNoGravity(false);
+            p.fallDistance = 0;
+            p.setDeltaMovement(Vec3.ZERO);
+            p.teleportTo(wayfall, x, y, z, p.getYRot(), p.getXRot());
+
+            Kruemblegard.LOGGER.debug("Wayfall entry safety teleport: {} -> {}", p.getGameProfile().getName(), landing);
+            return true;
         });
     }
 }
