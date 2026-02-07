@@ -111,11 +111,15 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
 
         // If we bury by < nonAirHeight, at least one schematic layer remains above ground.
         int exposedMax = Math.min(maxBurial, Math.max(0, nonAirHeight - 1));
+
+        // If we bury by <= nonAirHeight-2, at least two schematic layers remain above ground.
+        int exposed2PlusMax = Math.min(maxBurial, Math.max(0, nonAirHeight - 2));
         int fullMin = Math.min(maxBurial, Math.max(0, nonAirHeight));
 
         // Distribution goals:
         // - Sometimes sit cleanly on the surface.
-        // - Most of the time, if buried, keep at least one layer exposed.
+        // - Most of the time, if buried, keep at least two layers exposed.
+        // - Sometimes allow only one layer exposed.
         // - Occasionally allow fully-buried rocks (when possible).
         int roll = random.nextInt(100);
 
@@ -124,12 +128,22 @@ public final class RockSchematicFeature extends Feature<RockSchematicConfigurati
             return 0;
         }
 
-        // 15..89%: buried but still exposed (if possible)
-        if (exposedMax >= 1 && roll < 90) {
+        // 15..79%: buried but keep 2+ layers exposed (if possible)
+        if (exposed2PlusMax >= 1 && roll < 80) {
+            return 1 + random.nextInt(exposed2PlusMax);
+        }
+
+        // 80..94%: buried but only 1 layer exposed (if possible)
+        if (exposedMax >= 1 && roll < 95) {
+            int min = Math.max(1, exposed2PlusMax + 1);
+            int max = exposedMax;
+            if (min <= max) {
+                return min + random.nextInt(max - min + 1);
+            }
             return 1 + random.nextInt(exposedMax);
         }
 
-        // 90..99%: fully buried (only if possible)
+        // 95..99%: fully buried (only if possible)
         if (fullMin > 0 && fullMin <= maxBurial) {
             return fullMin + random.nextInt(maxBurial - fullMin + 1);
         }
