@@ -19,6 +19,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(tags): register missing `*_mega_franch_leaves` blocks referenced by `minecraft:leaves` (removes tag load missing-reference errors).
 - Fix(assets): standing/hanging sign blockstates no longer use invalid 22.5° model rotations (removes `Invalid BlockModelRotation` warnings).
 
+## 1.0.839 (2026-02-07)
+- Fix(worldgen/wayfall): add an extreme-case voidfall rescue in Wayfall to prevent soft-locks if a player falls into an unloaded/void state.
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 
