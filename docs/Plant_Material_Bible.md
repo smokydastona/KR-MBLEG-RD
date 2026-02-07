@@ -5,7 +5,7 @@ This document is the **single source of truth** for how **Wayfall plants** shoul
 It is intended to match the **detail level and enforceable rules** of [docs/Wood_Material_Bible.md](Wood_Material_Bible.md), but for **non-tree flora**.
 
 Tooling:
-- The generator script `tools/generate_plant_palette_textures.ps1` reads this file’s **Master Palette (RGB)** table and regenerates plant textures.
+- This palette is a design/spec reference. (No plant texture generator script is currently checked into `tools/`.)
 
 If you add/rename/remove a plant block/item/texture, update both:
 - [docs/FLORA_REFERENCE.md](FLORA_REFERENCE.md) (gameplay + IDs)
