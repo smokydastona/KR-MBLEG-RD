@@ -26,7 +26,13 @@ docs/**
 
 
 # Local examples / reference content (not committed)
-examples/
+examples/**
+
+# Exception: rock schematics are real runtime assets (packaged into the jar via processResources)
+!examples/schematics/
+examples/schematics/**
+!examples/schematics/rocks_grouped_by_main_block/
+!examples/schematics/rocks_grouped_by_main_block/**
 
 # Tools (scripts are tracked; generated outputs are not)
 tools/**
