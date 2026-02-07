@@ -45,6 +45,9 @@ Keep it up to date whenever you add/remove/rename content.
 - JVM flag: `-Dkruemblegard.debug.runegrowthTicks=true`
   - Logs Runegrowth `randomTick` counts per second, per dimension (server-side).
   - Useful for confirming whether Runegrowth spread/ticking is contributing to Wayfall lag.
+- JVM flag: `-Dkruemblegard.disableWayfallSkybox=true`
+  - Disables the custom Wayfall panorama skybox renderer (falls back to vanilla sky rendering).
+  - Intended as an isolation toggle for native `jvm.dll` crashes reported during JIT compilation.
 
 ## Worldgen (Tuning + Validation)
 - Worldgen tuning config file: `config/kruemblegard-worldgen.json5`

@@ -84,3 +84,14 @@ Animation keys currently used by code:
 
 ## Contributing
 - Don’t copy assets from other mods. See `CONTRIBUTING.md`.
+
+## Troubleshooting
+
+### JVM crash: `EXCEPTION_ACCESS_VIOLATION` in `jvm.dll`
+If you get a native crash report mentioning `EXCEPTION_ACCESS_VIOLATION (0xc0000005)` with a *problematic frame* inside `jvm.dll` (often in a `C2 CompilerThread`), that’s a JVM/native crash (not a normal Java exception stacktrace).
+
+Common mitigations for modpacks on Windows:
+- Disable overlays/injectors (e.g., Overwolf capture/overlay) and add your instance folder to antivirus exclusions.
+- Switch the launcher’s Java runtime to a different Java 17 distribution (Temurin/Adoptium) instead of the bundled runtime.
+- Isolation step: disable the Wayfall custom skybox renderer:
+    - Add JVM arg: `-Dkruemblegard.disableWayfallSkybox=true`

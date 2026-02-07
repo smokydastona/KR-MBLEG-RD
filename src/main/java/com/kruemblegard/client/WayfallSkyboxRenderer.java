@@ -19,9 +19,19 @@ import java.util.Optional;
 public final class WayfallSkyboxRenderer {
     private WayfallSkyboxRenderer() {}
 
+    /**
+     * Emergency toggle for stability/debugging.
+     * Set JVM arg: -Dkruemblegard.disableWayfallSkybox=true
+     */
+    private static final boolean DISABLED_BY_PROPERTY = Boolean.getBoolean("kruemblegard.disableWayfallSkybox");
+
     // Single-texture panorama (equirectangular) sky.
     // Expected mapping: u = 0..1 across 360°, v = 0..1 from top (north pole) to bottom (south pole).
     private static final ResourceLocation SKY_PANORAMA = new ResourceLocation(Kruemblegard.MOD_ID, "textures/environment/wayfall_panorama.png");
+
+    public static boolean isDisabled() {
+        return DISABLED_BY_PROPERTY;
+    }
 
     public static void render(PoseStack poseStack, float partialTick, long gameTime) {
         // A subtle rotation + brightness pulse so the Wayfall feels "alive" even with a fixed time.
@@ -66,8 +76,9 @@ public final class WayfallSkyboxRenderer {
 
         // Inside-out sphere around the camera.
         final float radius = 100.0f;
-        final int slices = 64;
-        final int stacks = 32;
+        // Keep this moderately low-poly to reduce CPU cost in modpacks.
+        final int slices = 48;
+        final int stacks = 24;
 
         var pose = poseStack.last().pose();
         BufferBuilder buffer = Tesselator.getInstance().getBuilder();

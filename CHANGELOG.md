@@ -25,6 +25,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.840 (2026-02-07)
 - Fix(worldgen/wayfall): apply Wayfall entry safety on login when loading a save that already has the player inside Wayfall (prevents immediate voidfall before init finishes).
 
+## 1.0.841 (2026-02-07)
+- Fix(client/wayfall): add JVM kill-switch to disable the custom Wayfall skybox renderer (`-Dkruemblegard.disableWayfallSkybox=true`) to help isolate native `jvm.dll` crashes.
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

@@ -30,6 +30,10 @@ public final class WayfallSkyboxEvents {
             return;
         }
 
+        if (WayfallSkyboxRenderer.isDisabled()) {
+            return;
+        }
+
         WayfallSkyboxRenderer.render(event.getPoseStack(), event.getPartialTick(), mc.level.getGameTime());
     }
 }
