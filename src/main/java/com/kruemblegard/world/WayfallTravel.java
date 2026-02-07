@@ -16,6 +16,11 @@ public final class WayfallTravel {
     /** Marker used to distinguish our portal travel from commands like /tp. */
     public static final String TAG_WAYFALL_PORTAL_ENTRY = "kruemblegard_wayfall_portal_entry";
 
+    /** Marker used when Wayfall is still initializing and we need to defer the actual dimension change. */
+    public static final String TAG_WAYFALL_PORTAL_ENTRY_PENDING = "kruemblegard_wayfall_portal_entry_pending";
+    public static final String TAG_WAYFALL_PORTAL_ENTRY_PENDING_NEXT_TICK = "kruemblegard_wayfall_portal_entry_pending_next_tick";
+    public static final String TAG_WAYFALL_PORTAL_ENTRY_PENDING_FROM_DIM = "kruemblegard_wayfall_portal_entry_pending_from_dim";
+
     public static ServerLevel getWayfallTargetLevel(ServerLevel fromLevel) {
         if (fromLevel.getServer() == null) {
             return null;
@@ -46,6 +51,24 @@ public final class WayfallTravel {
         ServerLevel target = getWayfallTargetLevel(fromLevel);
         if (target == null) {
             return false;
+        }
+
+        // If the Wayfall spawn island isn't ready yet, do NOT change dimension immediately.
+        // Entering an uninitialized dimension forces synchronous chunk loading/generation and can cause
+        // multi-second server-thread stalls. Instead, queue Wayfall init and mark the player as pending;
+        // a server-tick handler will complete the teleport once the island is placed.
+        if (entity instanceof ServerPlayer player) {
+            if (!WayfallSpawnIslandSavedData.get(target).isPlaced()) {
+                if (!player.getPersistentData().getBoolean(TAG_WAYFALL_PORTAL_ENTRY_PENDING)) {
+                    player.getPersistentData().putBoolean(TAG_WAYFALL_PORTAL_ENTRY_PENDING, true);
+                    player.getPersistentData().putString(TAG_WAYFALL_PORTAL_ENTRY_PENDING_FROM_DIM, fromLevel.dimension().location().toString());
+                    // Small retry delay so we don't attempt every tick.
+                    player.getPersistentData().putInt(TAG_WAYFALL_PORTAL_ENTRY_PENDING_NEXT_TICK, player.tickCount + 10);
+                }
+                // Kick off background init if needed.
+                WayfallWorkScheduler.enqueueWayfallInit(target);
+                return false;
+            }
         }
 
         // Mark that this dimension change originated from the Wayfall portal.

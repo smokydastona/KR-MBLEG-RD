@@ -15,6 +15,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen/wayfall): Lost Pillager Ship red-wool pivot markers now convert to the adjacent planks in the schematic (spruce fallback).
 - Fix(perf/worldgen): Lost Pillager Ship placement no longer re-scans the entire schematic volume once per chunk; schematic loads and marker scans are cached.
 - Fix(perf/worldgen): Wayfall spawn island template placement is now spread across ticks (reduces first-entry hitching / `Can't keep up!`).
+- Fix(perf/worldgen): Wayfall portal entry now defers the actual dimension change until the spawn island init completes (prevents first-entry chunk-gen stalls on portal use).
 - Fix(tags): register missing `*_mega_franch_leaves` blocks referenced by `minecraft:leaves` (removes tag load missing-reference errors).
 - Fix(assets): standing/hanging sign blockstates no longer use invalid 22.5° model rotations (removes `Invalid BlockModelRotation` warnings).
 
