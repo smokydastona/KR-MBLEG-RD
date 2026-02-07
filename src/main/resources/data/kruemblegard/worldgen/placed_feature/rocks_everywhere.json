@@ -2,6 +2,10 @@
   "feature": "kruemblegard:rock_schematics",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 10
+    },
+    {
       "type": "minecraft:in_square"
     },
     {

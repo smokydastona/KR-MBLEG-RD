@@ -2,8 +2,8 @@
   "type": "kruemblegard:rock_schematic",
   "config": {
     "schematic_root": "kruemblegard:schematics/rocks",
-    "base_rarity": 6,
-    "biome_rarity_spread": 4,
+    "base_rarity": 1,
+    "biome_rarity_spread": 0,
     "max_burial": 7,
     "chip_chance": 0.02,
     "mossy_chance": 0.08,

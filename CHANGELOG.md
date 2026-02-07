@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.824 (2026-02-06)
 - Fix(assets/ashspire): Ashspire Colossus block model no longer extends outside its block bounds.
 
+## 1.0.825 (2026-02-06)
+- Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
+
 ## 1.0.822 (2026-02-06)
 - Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
 - Fix(ashspire): ensure Ashspire Emberbloom is bonemealable again (explicit BonemealableBlock implementation).
