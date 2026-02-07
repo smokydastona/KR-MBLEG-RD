@@ -219,6 +219,12 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Implementation note: retheming runs on chunk load but avoids heavy neighbor-update storms to keep exploration/teleport testing smooth.
   - Stability note: retheme tracking is intentionally capped/evicted so it can’t grow without bound and stall autosaves in long /tp scouting sessions.
 
+- Wayfall-only custom structure: **Lost Pillager Ship** (`lost_pillager_ship`)
+  - Outpost-style hostile spawns (pillagers spawn within the structure bounding box).
+  - Uses a Sponge/WorldEdit `.schem` under `data/kruemblegard/schematics/structures/lost_pillager_ship.schem`.
+  - Marker processing (in the schematic): white stained glass → air; red wool → adjacent planks (spruce fallback); red stained glass → placement/ground reference (removed); beacon → vindicator spawner; pink wool → bastion-treasure chest.
+  - Container loot: defaults to ~60% village-house loot and ~40% pillager-outpost loot (pink marker chests always use bastion treasure loot).
+
 - Wayfall initialization (spawn island):
   - By default, initialization only runs when it’s actually needed (on entry).
   - Optional: `wayfallPreloadOnServerStart` (COMMON config) can be enabled to attempt a one-time pre-player preload, but may cause startup stutter on some systems.

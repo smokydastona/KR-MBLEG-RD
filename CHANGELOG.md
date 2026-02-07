@@ -10,6 +10,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.824 (2026-02-06)
 - Fix(assets/ashspire): Ashspire Colossus block model no longer extends outside its block bounds.
 
+## 1.0.831 (2026-02-07)
+- Tuning(worldgen/wayfall): Lost Pillager Ship structure now uses vanilla pillager outpost spacing/separation.
+- Fix(worldgen/wayfall): Lost Pillager Ship red-wool pivot markers now convert to the adjacent planks in the schematic (spruce fallback).
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

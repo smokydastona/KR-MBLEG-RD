@@ -48,6 +48,7 @@ public final class WorldgenValidator {
         // Biome tag sanity.
         validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.WAYFALL, strict);
         validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.HAS_MEGALITHIC_CIRCLE, strict);
+        validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.HAS_LOST_PILLAGER_SHIP, strict);
 
         // Critical registry keys referenced by datapack.
         validatePresent(registries.registryOrThrow(Registries.NOISE_SETTINGS), ModWorldgenKeys.NoiseSettings.WAYFALL, strict);
@@ -56,6 +57,9 @@ public final class WorldgenValidator {
 
         validatePresent(registries.registryOrThrow(Registries.STRUCTURE), ModWorldgenKeys.Structures.MEGALITHIC_CIRCLE, strict);
         validatePresent(registries.registryOrThrow(Registries.STRUCTURE_SET), ModWorldgenKeys.StructureSets.MEGALITHIC_CIRCLE, strict);
+
+        validatePresent(registries.registryOrThrow(Registries.STRUCTURE), ModWorldgenKeys.Structures.LOST_PILLAGER_SHIP, strict);
+        validatePresent(registries.registryOrThrow(Registries.STRUCTURE_SET), ModWorldgenKeys.StructureSets.LOST_PILLAGER_SHIP, strict);
         validatePresent(registries.registryOrThrow(Registries.TEMPLATE_POOL), ModWorldgenKeys.TemplatePools.MEGALITHIC_CIRCLE_START, strict);
         validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.MEGALITHIC_RUINS, strict);
 

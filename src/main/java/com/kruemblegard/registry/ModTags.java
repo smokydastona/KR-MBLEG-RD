@@ -90,6 +90,11 @@ public final class ModTags {
                 new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/megalithic_circle")
         );
 
+        public static final TagKey<Biome> HAS_LOST_PILLAGER_SHIP = TagKey.create(
+            Registries.BIOME,
+            new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/lost_pillager_ship")
+        );
+
         public static final TagKey<Biome> BASIN_OF_SCARS = TagKey.create(
             Registries.BIOME,
             new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars")

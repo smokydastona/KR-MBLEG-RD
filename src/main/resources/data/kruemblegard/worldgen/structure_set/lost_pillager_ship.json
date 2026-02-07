@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "kruemblegard:lost_pillager_ship",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spread_type": "triangular",
+    "salt": 78451230,
+    "spacing": 32,
+    "separation": 8
+  }
+}

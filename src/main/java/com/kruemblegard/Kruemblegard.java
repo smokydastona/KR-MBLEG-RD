@@ -16,6 +16,7 @@ import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModPotions;
 import com.kruemblegard.registry.ModProjectileEntities;
 import com.kruemblegard.registry.ModSounds;
+import com.kruemblegard.registry.ModStructures;
 import com.kruemblegard.registry.ModWoodTypes;
 
 import net.minecraft.world.item.CreativeModeTabs;
@@ -59,6 +60,7 @@ public final class Kruemblegard {
         ModEntities.ENTITIES.register(modBus);
         ModProjectileEntities.PROJECTILES.register(modBus);
         ModFeatures.register(modBus);
+        ModStructures.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModLootModifiers.LOOT_MODIFIERS.register(modBus);
         ModParticles.PARTICLES.register(modBus);

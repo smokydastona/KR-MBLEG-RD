@@ -75,12 +75,14 @@ public final class ModWorldgenKeys {
         private Structures() {}
 
         public static final ResourceKey<Structure> MEGALITHIC_CIRCLE = ResourceKey.create(Registries.STRUCTURE, id("megalithic_circle"));
+        public static final ResourceKey<Structure> LOST_PILLAGER_SHIP = ResourceKey.create(Registries.STRUCTURE, id("lost_pillager_ship"));
     }
 
     public static final class StructureSets {
         private StructureSets() {}
 
         public static final ResourceKey<StructureSet> MEGALITHIC_CIRCLE = ResourceKey.create(Registries.STRUCTURE_SET, id("megalithic_circle"));
+        public static final ResourceKey<StructureSet> LOST_PILLAGER_SHIP = ResourceKey.create(Registries.STRUCTURE_SET, id("lost_pillager_ship"));
     }
 
     public static final class TemplatePools {
