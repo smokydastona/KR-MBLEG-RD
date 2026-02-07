@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.JigsawReplacementProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
@@ -38,6 +39,150 @@ public final class WayfallSpawnPlatform {
 
     private static final BlockPos SPAWN_ISLAND_ANCHOR = new BlockPos(0, 175, 0);
     private static final int CHUNK_LOAD_PADDING_BLOCKS = 24;
+
+    static record SpawnIslandPlacement(
+        BlockPos anchor,
+        BlockPos spawn,
+        ResourceLocation poolJson,
+        ResourceLocation structureId,
+        StructureTemplate template,
+        StructurePlaceSettings settings,
+        BlockPos markerPos,
+        Vec3i size
+    ) {}
+
+    /**
+     * Prepares (but does not complete) spawn-island placement.
+     *
+     * Intended for the Wayfall init scheduler so placement can be done incrementally across ticks.
+     */
+    static SpawnIslandPlacement beginSpawnIslandPlacement(ServerLevel wayfall, boolean forceChunkLoadForValidation) {
+        BlockPos anchor = SPAWN_ISLAND_ANCHOR;
+        BlockPos spawn = new BlockPos(anchor.getX(), anchor.getY() + 1, anchor.getZ());
+
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        // If older saves recorded the island as "placed" while templates were missing/empty, force a rebuild.
+        // IMPORTANT: only validate during forced checks (dimension load). Routine entry validation can
+        // produce false positives and cause re-placement loops.
+        if (data.isPlaced() && anchor.equals(data.getAnchor()) && data.getStructureId() != null && forceChunkLoadForValidation) {
+            StructureTemplateManager templates = wayfall.getServer().getStructureManager();
+            StructureTemplate existingTemplate = templates.getOrCreate(data.getStructureId());
+            Vec3i size = existingTemplate.getSize();
+            // getOrCreate can silently create an empty template if the resource is missing.
+            if (size.getX() <= 0 || size.getY() <= 0 || size.getZ() <= 0) {
+                Kruemblegard.LOGGER.warn(
+                    "Wayfall spawn island marked placed but template appears empty ({}). Forcing re-place.",
+                    data.getStructureId()
+                );
+                data.setPlaced(false);
+                data.setDirty();
+            } else {
+                // Avoid forcing chunk generation/loading just to validate. If chunks are already loaded
+                // (e.g., because a player is present), we can validate cheaply; otherwise skip.
+                if (areTemplateChunksLoaded(wayfall, anchor, size) && isSpawnIslandAreaEmpty(wayfall, anchor, size)) {
+                    Kruemblegard.LOGGER.warn(
+                        "Wayfall spawn island marked placed but area is empty at {} (template {}). Forcing re-place.",
+                        anchor,
+                        data.getStructureId()
+                    );
+                    data.setPlaced(false);
+                    data.setDirty();
+                }
+            }
+        }
+
+        if (data.isPlaced() && anchor.equals(data.getAnchor()) && data.getStructureId() != null) {
+            return null;
+        }
+
+        ResourceLocation poolJson = selectTemplatePoolJson(wayfall, spawn);
+        ResourceLocation structureId = pickStructureFromTemplatePoolJson(wayfall, poolJson);
+        if (structureId == null) {
+            // Fall back to a deterministic default if the pool can't be read for some reason.
+            structureId = new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_origin_island/default/default_1");
+        }
+
+        StructureTemplateManager templates = wayfall.getServer().getStructureManager();
+        StructureTemplate template = templates.getOrCreate(structureId);
+        // getOrCreate can silently create an empty template if the resource is missing.
+        if (template.getSize().getX() <= 0 || template.getSize().getY() <= 0 || template.getSize().getZ() <= 0) {
+            Kruemblegard.LOGGER.error(
+                "Wayfall spawn island template appears empty ({}). Falling back to default_1.",
+                structureId
+            );
+            structureId = new ResourceLocation(Kruemblegard.MOD_ID, "wayfall_origin_island/default/default_1");
+            template = templates.getOrCreate(structureId);
+        }
+
+        BlockPos markerPos = findBestLandingMarker(template, anchor, spawn);
+
+        // The scheduler should preload chunks before placement; if they aren't ready, defer.
+        if (!areTemplateChunksLoaded(wayfall, anchor, template.getSize())) {
+            if (ModConfig.WAYFALL_DEBUG_LOGGING.get()) {
+                Kruemblegard.LOGGER.info(
+                    "Wayfall spawn island placement deferred (chunks not loaded yet): template={} size={}x{}x{} anchor={}",
+                    structureId,
+                    template.getSize().getX(),
+                    template.getSize().getY(),
+                    template.getSize().getZ(),
+                    anchor
+                );
+            }
+            return null;
+        }
+
+        StructurePlaceSettings settings = new StructurePlaceSettings()
+            .setIgnoreEntities(true)
+            // The origin island templates contain jigsaw blocks as authoring markers.
+            // When placing templates directly (not via the jigsaw structure pipeline), we must
+            // apply the replacement processor so those markers don't remain in the world.
+            .addProcessor(JigsawReplacementProcessor.INSTANCE);
+        applyBiomeRunegrowthProcessors(wayfall, spawn, settings);
+
+        return new SpawnIslandPlacement(anchor, spawn, poolJson, structureId, template, settings, markerPos, template.getSize());
+    }
+
+    static void placeSpawnIslandBatch(ServerLevel wayfall, SpawnIslandPlacement placement, BoundingBox batchBox) {
+        if (placement == null) {
+            return;
+        }
+
+        placement.settings().setBoundingBox(batchBox);
+        RandomSource rng = wayfall.random;
+        placement.template().placeInWorld(wayfall, placement.anchor(), placement.anchor(), placement.settings(), rng, 2);
+    }
+
+    static void finishSpawnIslandPlacement(ServerLevel wayfall, SpawnIslandPlacement placement) {
+        if (placement == null) {
+            return;
+        }
+
+        WayfallSpawnIslandSavedData data = WayfallSpawnIslandSavedData.get(wayfall);
+        if (data.isPlaced()) {
+            return;
+        }
+
+        Kruemblegard.LOGGER.info(
+            "Wayfall spawn island placed: pool={} template={} anchor={} marker={} size={}x{}x{}",
+            placement.poolJson(),
+            placement.structureId(),
+            placement.anchor(),
+            placement.markerPos(),
+            placement.size().getX(),
+            placement.size().getY(),
+            placement.size().getZ()
+        );
+
+        data.setPlaced(true);
+        data.setAnchor(placement.anchor());
+        data.setStructureId(placement.structureId());
+        data.setDirty();
+
+        // Always remove the marker after placement.
+        if (placement.markerPos() != null) {
+            wayfall.setBlock(placement.markerPos(), Blocks.AIR.defaultBlockState(), 2);
+        }
+    }
 
     public static BlockPos getSpawnIslandAnchor() {
         return SPAWN_ISLAND_ANCHOR;

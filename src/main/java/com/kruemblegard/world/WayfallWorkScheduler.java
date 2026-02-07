@@ -9,6 +9,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -118,28 +119,9 @@ public final class WayfallWorkScheduler {
             });
         }
 
-        // Once chunks are loaded, do the actual placement (still on main thread, but now the heavy chunk
-        // generation work has been spread across ticks).
-        enqueue(wayfall, (level) -> {
-            if (!areAllLoaded(level, chunks)) {
-                return false;
-            }
-
-            // Avoid doing the heaviest work when the tick is already near its budget.
-            // Placement must still happen on the main thread, but we can choose a better tick.
-            long maxMillis = Math.max(1L, ModConfig.WAYFALL_INIT_MAX_MILLIS_PER_TICK.get());
-            long minRemainingMillis = Math.max(0L, ModConfig.WAYFALL_INIT_PLACEMENT_MIN_REMAINING_MILLIS.get());
-            // Never require the entire tick budget; there is always some overhead.
-            // Leave at least 1ms slack so placement can actually happen.
-            long maxAllowedRequiredMillis = Math.max(0L, maxMillis - 1L);
-            long requiredMillis = Math.min(maxAllowedRequiredMillis, minRemainingMillis);
-            if (!hasTimeRemainingNanos(requiredMillis * 1_000_000L)) {
-                return false;
-            }
-
-            WayfallSpawnPlatform.ensureSpawnIslandPlaced(level, true);
-            return true;
-        });
+        // Once chunks are loaded, place the spawn island incrementally across ticks.
+        // Placement must still happen on the main thread, but we avoid doing all block writes in one tick.
+        enqueue(wayfall, new PlaceSpawnIslandIncrementalTask());
 
         // Remove tickets after placement so subsequent chunk loading is purely player-driven.
         if (!data.isPreloadDone()) {
@@ -198,6 +180,77 @@ public final class WayfallWorkScheduler {
     public interface WayfallTask {
         /** @return true when task is finished (remove from queue), false to retry next tick */
         boolean tick(ServerLevel wayfall);
+    }
+
+    private static final class PlaceSpawnIslandIncrementalTask implements WayfallTask {
+        // 4x4x4 cube batches: small enough to keep per-tick work bounded.
+        private static final int BATCH_SIZE = 4;
+
+        private WayfallSpawnPlatform.SpawnIslandPlacement placement;
+        private List<BoundingBox> batches;
+        private int nextBatchIndex;
+
+        @Override
+        public boolean tick(ServerLevel wayfall) {
+            // If another task (or a prior run) already placed the island, we're done.
+            if (WayfallSpawnIslandSavedData.get(wayfall).isPlaced()) {
+                return true;
+            }
+
+            if (placement == null) {
+                placement = WayfallSpawnPlatform.beginSpawnIslandPlacement(wayfall, true);
+                if (placement == null) {
+                    // Defer until chunks/resources are available.
+                    return false;
+                }
+            }
+
+            if (batches == null) {
+                Vec3i size = placement.size();
+                int sizeX = Math.max(1, size.getX());
+                int sizeY = Math.max(1, size.getY());
+                int sizeZ = Math.max(1, size.getZ());
+
+                int bx = (sizeX + BATCH_SIZE - 1) / BATCH_SIZE;
+                int by = (sizeY + BATCH_SIZE - 1) / BATCH_SIZE;
+                int bz = (sizeZ + BATCH_SIZE - 1) / BATCH_SIZE;
+                batches = new ArrayList<>(bx * by * bz);
+
+                BlockPos anchor = placement.anchor();
+                for (int y = 0; y < sizeY; y += BATCH_SIZE) {
+                    int y1 = Math.min(sizeY - 1, y + BATCH_SIZE - 1);
+                    for (int x = 0; x < sizeX; x += BATCH_SIZE) {
+                        int x1 = Math.min(sizeX - 1, x + BATCH_SIZE - 1);
+                        for (int z = 0; z < sizeZ; z += BATCH_SIZE) {
+                            int z1 = Math.min(sizeZ - 1, z + BATCH_SIZE - 1);
+
+                            batches.add(
+                                new BoundingBox(
+                                    anchor.getX() + x,
+                                    anchor.getY() + y,
+                                    anchor.getZ() + z,
+                                    anchor.getX() + x1,
+                                    anchor.getY() + y1,
+                                    anchor.getZ() + z1
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+
+            while (nextBatchIndex < batches.size() && hasTimeRemainingNanos(0L)) {
+                WayfallSpawnPlatform.placeSpawnIslandBatch(wayfall, placement, batches.get(nextBatchIndex));
+                nextBatchIndex++;
+            }
+
+            if (nextBatchIndex < batches.size()) {
+                return false;
+            }
+
+            WayfallSpawnPlatform.finishSpawnIslandPlacement(wayfall, placement);
+            return true;
+        }
     }
 
     private static List<ChunkPos> computeTemplateChunkEnvelope(BlockPos anchor, Vec3i size, int padBlocks) {
