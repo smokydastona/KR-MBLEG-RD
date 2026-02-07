@@ -14,6 +14,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(worldgen/wayfall): Lost Pillager Ship structure now uses vanilla pillager outpost spacing/separation.
 - Fix(worldgen/wayfall): Lost Pillager Ship red-wool pivot markers now convert to the adjacent planks in the schematic (spruce fallback).
 - Fix(perf/worldgen): Lost Pillager Ship placement no longer re-scans the entire schematic volume once per chunk; schematic loads and marker scans are cached.
+- Fix(tags): register missing `*_mega_franch_leaves` blocks referenced by `minecraft:leaves` (removes tag load missing-reference errors).
+- Fix(assets): standing/hanging sign blockstates no longer use invalid 22.5° model rotations (removes `Invalid BlockModelRotation` warnings).
 
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.

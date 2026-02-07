@@ -2254,6 +2254,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 3), leavesAnchorLogsForId("ashbloom_leaves"))
     );
+        	public static final RegistryObject<Block> ASHBLOOM_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves(
+        				"ashbloom_mega_franch_leaves",
+        				ASHBLOOM_LEAVES::get
+        	);
 
     public static final RegistryObject<Block> FLOWERING_ASHBLOOM_LEAVES = BLOCKS.register(
             "flowering_ashbloom_leaves",
@@ -2326,6 +2330,10 @@ public final class ModBlocks {
                     .sound(SoundType.GRASS)
                     .lightLevel(s -> 2), leavesAnchorLogsForId("glimmerpine_leaves"))
     );
+	public static final RegistryObject<Block> GLIMMERPINE_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves(
+				"glimmerpine_mega_franch_leaves",
+				GLIMMERPINE_LEAVES::get
+	);
     public static final RegistryObject<Block> GLIMMERPINE_SAPLING = registerFeatureSapling2x2(
             "glimmerpine_sapling",
             configuredFeatureKey("glimmerpine/sapling"),
@@ -2372,6 +2380,10 @@ public final class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.GRASS), leavesAnchorLogsForId("driftwood_leaves"))
     );
+	public static final RegistryObject<Block> DRIFTWOOD_MEGA_FRANCH_LEAVES = registerMegaFranchLeaves(
+				"driftwood_mega_franch_leaves",
+				DRIFTWOOD_LEAVES::get
+	);
     public static final RegistryObject<Block> DRIFTWOOD_SAPLING = registerFeatureSapling2x2(
             "driftwood_sapling",
             configuredFeatureKey("driftwood/sapling"),
