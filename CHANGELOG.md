@@ -23,8 +23,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(worldgen/wayfall): prevent ambient rock schematics from being permanently disabled by an early/failed resource scan (empty schematic lists are no longer cached; logs a one-time warning if none are found).
 - Fix(worldgen/wayfall): jungle temples in Wayfall now fully retheme mossy stone variants (stairs/slabs/walls) so the temple consistently uses Scarstone-family blocks.
 
-## 1.0.829 (2026-02-06)
-- Fix(build/resources): ship Wayfall rock schematics in the built jar so ambient rock formations can generate in-game.
+## 1.0.830 (2026-02-06)
+- Fix(build/resources): ship Wayfall rock schematics as normal datapack resources under `data/kruemblegard/schematics/rocks/**` (keeps `examples/` ignored while still packaging rocks).
+- Chore(worldgen/resources): move Wayfall rock schematics out of `examples/` into the main datapack schematic folder alongside trees/mushrooms.
 
 ## 1.0.822 (2026-02-06)
 - Tuning(ashspire): significantly increase sideways branching (emberbloom growth favors multi-branch expansion; bonemeal adds extra attempts).
@@ -68,7 +69,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(worldgen/wayfall): add ambient schematic rock formations across Wayfall biomes.
 	- Randomly selects from a large rock schematic pool, rotates per placement, and applies per-placement weathering variation.
 	- Allows partial burial into `#kruemblegard:rock_bury_replaceable` while guaranteeing non-floating placement via surface validation + tree-style support beard.
-	- Build: packages rock schematics from `examples/schematics/rocks_grouped_by_main_block/**` into the normal datapack path `data/kruemblegard/schematics/rocks/**`.
+	- Resources: rock schematics live under the normal datapack path `data/kruemblegard/schematics/rocks/**`.
 
 ## 1.0.805 (2026-02-06)
 - Refactor(ashspire): replace `emberbloom_ashspire_cactus` with `ashspire_emberbloom` (chorus-flower-style cap block).
