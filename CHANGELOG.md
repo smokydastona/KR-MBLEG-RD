@@ -41,6 +41,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 	- Existing chests/barrels use 60% village loot and 40% pillager outpost loot.
 	- Beacons (and any spawners) become vindicator spawners; structure monster spawn overrides also use vindicators.
 
+## 1.0.845 (2026-02-07)
+- Chore(worldgen): port the extracted `megalithic_circle` datapack structure into the mod jar (NBT structure + jigsaw wiring).
+- Tuning(worldgen): align `megalithic_circle` structure/structure_set settings with the datapack (spacing/separation/frequency/exclusion zone).
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

@@ -1,15 +1,20 @@
 {
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1188110771,
+    "spacing": 32,
+    "separation": 8,
+    "frequency": 0.2,
+    "frequency_reduction_method": "legacy_type_1",
+    "exclusion_zone": {
+      "other_set": "minecraft:villages",
+      "chunk_count": 10
+    }
+  },
   "structures": [
     {
       "structure": "kruemblegard:megalithic_circle",
       "weight": 1
     }
-  ],
-  "placement": {
-    "type": "minecraft:random_spread",
-    "spread_type": "triangular",
-    "salt": 12938471,
-    "spacing": 40,
-    "separation": 20
-  }
+  ]
 }

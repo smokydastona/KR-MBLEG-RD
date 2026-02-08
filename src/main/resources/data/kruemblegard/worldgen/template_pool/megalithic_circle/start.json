@@ -1,15 +1,16 @@
 {
-  "name": "kruemblegard:megalithic_circle/start",
-  "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
       "element": {
-        "location": "kruemblegard:megalithic_circle/megalithic_circle",
-        "processors": "kruemblegard:megalithic_ruins",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "kruemblegard:megalithic_circle",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 1
     }
-  ]
+  ],
+  "fallback": "minecraft:empty"
 }
