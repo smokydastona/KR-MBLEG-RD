@@ -232,6 +232,11 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - By default, initialization only runs when it’s actually needed (on entry).
   - Optional: `wayfallPreloadOnServerStart` (COMMON config) can be enabled to attempt a one-time pre-player preload, but may cause startup stutter on some systems.
 
+- Wayfall sleeping:
+  - Beds work normally (no explosions) and set your spawn.
+  - You can sleep at any time, but sleeping does **not** advance time; you wake after a short nap.
+  - First Wayfall sleep grants the advancement **“Time Is an Illusion, Lunchtime Doubly So.”**
+
 - `ancient_waystone`: a **Waystones-backed** waystone variant (two-block tall like Waystones waystones) that opens the Waystones menu.
   - Requires Waystones + Balm.
   - Crafting: `kruemblegard:attuned_stone` around a `waystones:warp_stone` (recipe only loads when Waystones is installed).

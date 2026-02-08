@@ -1,0 +1,17 @@
+{
+  "parent": "kruemblegard:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:clock"
+    },
+    "title": "Time Is an Illusion, Lunchtime Doubly So",
+    "description": "Sleep in the Wayfall without turning the sky.",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "wayfall_sleep": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
