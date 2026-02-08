@@ -45,6 +45,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Chore(worldgen): port the extracted `megalithic_circle` datapack structure into the mod jar (NBT structure + jigsaw wiring).
 - Tuning(worldgen): align `megalithic_circle` structure/structure_set settings with the datapack (spacing/separation/frequency/exclusion zone).
 
+## 1.0.846 (2026-02-07)
+- Tuning(worldgen): `megalithic_circle` now uses only block-rot + weathering processors (removes gravity processor).
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

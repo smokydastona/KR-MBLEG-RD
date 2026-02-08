@@ -4,9 +4,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "kruemblegard:megalithic_circle",
-        "processors": {
-          "processors": []
-        },
+        "processors": "kruemblegard:megalithic_ruins",
         "projection": "rigid"
       },
       "weight": 1
