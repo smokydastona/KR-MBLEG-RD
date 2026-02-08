@@ -1,10 +1,18 @@
 [{
   "processor_type": "minecraft:block_ignore",
   "blocks": [
-    "minecraft:air",
-    "minecraft:cave_air",
-    "minecraft:void_air",
-    "minecraft:structure_void"
+    {
+      "Name": "minecraft:air"
+    },
+    {
+      "Name": "minecraft:cave_air"
+    },
+    {
+      "Name": "minecraft:void_air"
+    },
+    {
+      "Name": "minecraft:structure_void"
+    }
   ]
 },
 {
