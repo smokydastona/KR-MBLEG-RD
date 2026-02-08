@@ -54,6 +54,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.848 (2026-02-07)
 - Fix(worldgen): repair all `worldgen/processor_list` JSON files to use the correct 1.20.1 format (prevents a registry-load crash on world creation).
 
+## 1.0.850 (2026-02-07)
+- Fix(worldgen/wayfall): restrict Lost Pillager Ship + Megalithic Circle biomes to terrain-bearing Wayfall biomes (prevents void-only spawning).
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

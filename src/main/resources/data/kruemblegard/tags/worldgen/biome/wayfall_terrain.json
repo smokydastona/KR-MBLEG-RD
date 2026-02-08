@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "kruemblegard:driftway_chasm",
+    "kruemblegard:riven_causeways",
+    "kruemblegard:crumbled_crossing",
+    "kruemblegard:hollow_transit_plains",
+    "kruemblegard:faulted_expanse",
+    "kruemblegard:fracture_shoals",
+    "kruemblegard:strata_collapse",
+    "kruemblegard:underway_falls",
+    "kruemblegard:basin_of_scars",
+    "kruemblegard:glyphscar_reach"
+  ]
+}
