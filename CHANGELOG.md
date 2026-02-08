@@ -4,9 +4,6 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.856 (2026-02-07)
-- Fix(worldgen/wayfall): auto-repair broken Lost Pillager Ship spawners on chunk load (vindicator assignment + axes).
-
 ## 1.0.855 (2026-02-07)
 - Fix(worldgen/wayfall): Lost Pillager Ship spawners now correctly assign vindicators again (axes restored).
 
