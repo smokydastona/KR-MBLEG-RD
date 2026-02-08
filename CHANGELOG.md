@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.853 (2026-02-07)
+- Fix(worldgen/wayfall): Lost Pillager Ship no longer generates a square terrain “beard” under/around it.
+
 ## 1.0.852 (2026-02-07)
 - Tuning(worldgen/wayfall): Lost Pillager Ship is now significantly rarer (increased spacing/separation).
 - Fix(worldgen/wayfall): Lost Pillager Ship vindicator spawners now always spawn vindicators with axes (mostly iron, sometimes diamond).
