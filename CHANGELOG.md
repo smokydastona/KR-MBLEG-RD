@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.858 (2026-02-07)
+- Fix(worldgen/wayfall): bake Lost Pillager Ship vindicator spawner NBT directly into the structure (no processor dependency).
+
 ## 1.0.855 (2026-02-07)
 - Fix(worldgen/wayfall): Lost Pillager Ship spawners now correctly assign vindicators again (axes restored).
 

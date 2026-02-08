@@ -91,33 +91,6 @@
             "Name": "minecraft:barrel"
           },
           "output_nbt": "{LootTable:\"minecraft:chests/pillager_outpost\"}"
-        },
-
-        {
-          "input_predicate": {
-            "predicate_type": "minecraft:block_match",
-            "block": "minecraft:beacon"
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:spawner"
-          },
-          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}]}},SpawnPotentials:[{weight:4,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}]}}},{weight:1,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:diamond_axe\",Count:1b},{}]}}}]}"
-        },
-        {
-          "input_predicate": {
-            "predicate_type": "minecraft:block_match",
-            "block": "minecraft:spawner"
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:spawner"
-          },
-          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}]}},SpawnPotentials:[{weight:4,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}]}}},{weight:1,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:diamond_axe\",Count:1b},{}]}}}]}"
         }
   ]
 }]
