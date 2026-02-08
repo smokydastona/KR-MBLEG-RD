@@ -35,6 +35,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.843 (2026-02-07)
 - Chore(cleanup): remove an unused import in `ModStructures` (no behavior changes).
 
+## 1.0.844 (2026-02-07)
+- Tuning(worldgen/wayfall): add Lost Pillager Ship structure processors.
+	- Pink wool markers become bastion loot chests.
+	- Existing chests/barrels use 60% village loot and 40% pillager outpost loot.
+	- Beacons (and any spawners) become vindicator spawners; structure monster spawn overrides also use vindicators.
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 

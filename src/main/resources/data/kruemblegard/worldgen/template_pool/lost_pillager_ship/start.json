@@ -4,9 +4,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "kruemblegard:lost_pillager_ship",
-        "processors": {
-          "processors": []
-        },
+        "processors": "kruemblegard:lost_pillager_ship",
         "projection": "rigid"
       },
       "weight": 1

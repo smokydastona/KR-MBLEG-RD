@@ -1,0 +1,110 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:block_match",
+            "block": "minecraft:pink_wool"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:chest",
+            "Properties": {
+              "facing": "north",
+              "type": "single",
+              "waterlogged": "false"
+            }
+          },
+          "output_nbt": "{LootTable:\"minecraft:chests/bastion_treasure\"}"
+        },
+
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:chest",
+            "probability": 0.6
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:chest"
+          },
+          "output_nbt": "{LootTable:\"minecraft:chests/village/village_plains_house\"}"
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:block_match",
+            "block": "minecraft:chest"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:chest"
+          },
+          "output_nbt": "{LootTable:\"minecraft:chests/pillager_outpost\"}"
+        },
+
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:barrel",
+            "probability": 0.6
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:barrel"
+          },
+          "output_nbt": "{LootTable:\"minecraft:chests/village/village_plains_house\"}"
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:block_match",
+            "block": "minecraft:barrel"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:barrel"
+          },
+          "output_nbt": "{LootTable:\"minecraft:chests/pillager_outpost\"}"
+        },
+
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:block_match",
+            "block": "minecraft:beacon"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:spawner"
+          },
+          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\"}}}"
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:block_match",
+            "block": "minecraft:spawner"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:spawner"
+          },
+          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\"}}}"
+        }
+      ]
+    }
+  ]
+}
