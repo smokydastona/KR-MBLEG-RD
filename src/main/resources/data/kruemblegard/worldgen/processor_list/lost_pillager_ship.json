@@ -104,7 +104,7 @@
           "output_state": {
             "Name": "minecraft:spawner"
           },
-          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\"}}}"
+          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}},SpawnPotentials:[{weight:4,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}}},{weight:1,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:diamond_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}}}]}"
         },
         {
           "input_predicate": {
@@ -117,7 +117,7 @@
           "output_state": {
             "Name": "minecraft:spawner"
           },
-          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\"}}}"
+          "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}},SpawnPotentials:[{weight:4,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:iron_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}}},{weight:1,data:{entity:{id:\"minecraft:vindicator\",HandItems:[{id:\"minecraft:diamond_axe\",Count:1b},{}],HandDropChances:[0.0f,0.0f]}}}]}"
         }
   ]
 }]
