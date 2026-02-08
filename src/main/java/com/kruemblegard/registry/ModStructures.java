@@ -1,7 +1,5 @@
 package com.kruemblegard.registry;
 
-import com.kruemblegard.Kruemblegard;
-
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public final class ModStructures {
