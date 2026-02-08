@@ -48,8 +48,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.846 (2026-02-07)
 - Tuning(worldgen): `megalithic_circle` now uses only block-rot + weathering processors (removes gravity processor).
 
-## 1.0.847 (2026-02-08)
+## 1.0.847 (2026-02-07)
 - Fix(worldgen/wayfall): Lost Pillager Ship placement now ignores air/structure-void blocks so it embeds into terrain instead of flattening the area.
+
+## 1.0.848 (2026-02-07)
+- Fix(worldgen): repair all `worldgen/processor_list` JSON files to use the correct 1.20.1 format (prevents a registry-load crash on world creation).
 
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.

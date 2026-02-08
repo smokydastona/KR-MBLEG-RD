@@ -1,8 +1,7 @@
-{
-  "processors": [
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+[
+  {
+    "processor_type": "minecraft:rule",
+    "rules": [
         {
           "input_predicate": {
             "predicate_type": "minecraft:block_match",
@@ -39,7 +38,6 @@
             "Name": "kruemblegard:verdant_runegrowth"
           }
         }
-      ]
-    }
-  ]
-}
+    ]
+  }
+]

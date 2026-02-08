@@ -1,17 +1,15 @@
+[{
+  "processor_type": "minecraft:block_ignore",
+  "blocks": [
+    "minecraft:air",
+    "minecraft:cave_air",
+    "minecraft:void_air",
+    "minecraft:structure_void"
+  ]
+},
 {
-  "processors": [
-    {
-      "processor_type": "minecraft:block_ignore",
-      "blocks": [
-        "minecraft:air",
-        "minecraft:cave_air",
-        "minecraft:void_air",
-        "minecraft:structure_void"
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+  "processor_type": "minecraft:rule",
+  "rules": [
         {
           "input_predicate": {
             "predicate_type": "minecraft:block_match",
@@ -113,7 +111,5 @@
           },
           "output_nbt": "{SpawnData:{entity:{id:\"minecraft:vindicator\"}}}"
         }
-      ]
-    }
   ]
-}
+}]
