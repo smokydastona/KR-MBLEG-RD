@@ -28,6 +28,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.841 (2026-02-07)
 - Fix(client/wayfall): add JVM kill-switch to disable the custom Wayfall skybox renderer (`-Dkruemblegard.disableWayfallSkybox=true`) to help isolate native `jvm.dll` crashes.
 
+## 1.0.842 (2026-02-07)
+- Fix(worldgen/wayfall): migrate Lost Pillager Ship from a schematic-driven structure to a vanilla NBT + jigsaw structure (removes the ship `.schem` and all schematic-based ship code).
+- Fix(worldgen/wayfall): Lost Pillager Ship remains restricted to Wayfall biomes via `#kruemblegard:has_structure/lost_pillager_ship`.
+
 ## 1.0.825 (2026-02-06)
 - Tuning(worldgen/wayfall): adjust ambient rock formation frequency to match the baseline Wayfall tree rate.
 
