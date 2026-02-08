@@ -241,7 +241,7 @@ public final class WorldgenTuningConfig {
     private static List<ResourceKey<Biome>> knownWayfallBiomes() {
         return List.of(
             ModWorldgenKeys.Biomes.BASIN_OF_SCARS,
-            ModWorldgenKeys.Biomes.BETWEENLIGHT_VOID,
+            ModWorldgenKeys.Biomes.MIDWEFT_WILDS,
             ModWorldgenKeys.Biomes.CRUMBLED_CROSSING,
             ModWorldgenKeys.Biomes.DRIFTWAY_CHASM,
             ModWorldgenKeys.Biomes.FAULTED_EXPANSE,

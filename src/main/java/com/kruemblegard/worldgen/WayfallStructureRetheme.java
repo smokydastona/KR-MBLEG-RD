@@ -98,7 +98,7 @@ public final class WayfallStructureRetheme {
     public static WoodPalette woodPaletteForBiome(@SuppressWarnings("unused") ResourceKey<Biome> biomeKey) {
         Objects.requireNonNull(biomeKey, "biomeKey");
 
-        if (biomeKey.equals(ModWorldgenKeys.Biomes.BETWEENLIGHT_VOID) || biomeKey.equals(ModWorldgenKeys.Biomes.HOLLOW_TRANSIT_PLAINS)) {
+        if (biomeKey.equals(ModWorldgenKeys.Biomes.MIDWEFT_WILDS) || biomeKey.equals(ModWorldgenKeys.Biomes.HOLLOW_TRANSIT_PLAINS)) {
             return hollowwayTree();
         }
 

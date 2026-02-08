@@ -61,7 +61,7 @@ public final class ModWorldgenKeys {
         public static final ResourceKey<Biome> RIVEN_CAUSEWAYS = ResourceKey.create(Registries.BIOME, id("riven_causeways"));
         public static final ResourceKey<Biome> CRUMBLED_CROSSING = ResourceKey.create(Registries.BIOME, id("crumbled_crossing"));
         public static final ResourceKey<Biome> HOLLOW_TRANSIT_PLAINS = ResourceKey.create(Registries.BIOME, id("hollow_transit_plains"));
-        public static final ResourceKey<Biome> BETWEENLIGHT_VOID = ResourceKey.create(Registries.BIOME, id("betweenlight_void"));
+        public static final ResourceKey<Biome> MIDWEFT_WILDS = ResourceKey.create(Registries.BIOME, id("midweft_wilds"));
         public static final ResourceKey<Biome> FAULTED_EXPANSE = ResourceKey.create(Registries.BIOME, id("faulted_expanse"));
         public static final ResourceKey<Biome> FRACTURE_SHOALS = ResourceKey.create(Registries.BIOME, id("fracture_shoals"));
         public static final ResourceKey<Biome> STRATA_COLLAPSE = ResourceKey.create(Registries.BIOME, id("strata_collapse"));

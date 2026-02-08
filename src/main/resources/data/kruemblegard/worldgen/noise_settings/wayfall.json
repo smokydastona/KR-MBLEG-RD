@@ -693,7 +693,7 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "kruemblegard:betweenlight_void",
+            "kruemblegard:midweft_wilds",
             "kruemblegard:shatterplate_flats",
             "kruemblegard:crumbled_crossing",
             "kruemblegard:underway_falls"

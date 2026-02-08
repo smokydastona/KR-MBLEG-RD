@@ -784,7 +784,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(creative): hide internal `pyrokelp_plant` item entry from the mod creative tab to prevent duplicate-looking Pyrokelp entries.
 
 ## 1.0.568 (2026-01-22)
-- Feature(worldgen/structures): Wayfall biomes now include vanilla shipwreck structures (Crumbled Crossing, Underway Falls, Riven Causeways, Driftway Chasm, Betweenlight Void, Hollow Transit Plains).
+- Feature(worldgen/structures): Wayfall biomes now include vanilla shipwreck structures (Crumbled Crossing, Underway Falls, Riven Causeways, Driftway Chasm, Midweft Wilds, Hollow Transit Plains).
 
 ## 1.0.569 (2026-01-22)
 - Feature(worldgen/structures): Underway Falls now includes vanilla jungle temples.

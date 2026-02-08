@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#kruemblegard:betweenlight_void",
+  "biomes": "#kruemblegard:midweft_wilds",
   "features": [
     "kruemblegard:hollowway_tree_tree",
     "kruemblegard:mega_hollowway_tree_tree",

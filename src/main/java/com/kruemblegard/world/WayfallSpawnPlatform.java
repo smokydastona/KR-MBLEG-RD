@@ -587,7 +587,7 @@ public final class WayfallSpawnPlatform {
             return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_FROSTBOUND;
         }
         if (biomeKey == ModWorldgenKeys.Biomes.SHATTERPLATE_FLATS
-            || biomeKey == ModWorldgenKeys.Biomes.BETWEENLIGHT_VOID
+            || biomeKey == ModWorldgenKeys.Biomes.MIDWEFT_WILDS
             || biomeKey == ModWorldgenKeys.Biomes.CRUMBLED_CROSSING
             || biomeKey == ModWorldgenKeys.Biomes.UNDERWAY_FALLS) {
             return ModWorldgenKeys.ProcessorLists.WAYFALL_ORIGIN_ISLAND_RUNEGROWTH_VERDANT;

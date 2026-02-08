@@ -165,7 +165,7 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - kruemblegard:static_fungus_patch
   - kruemblegard:wayscar_ivy_patch
 
-### kruemblegard:betweenlight_void - temperature 0.75 (Temperate)
+### kruemblegard:midweft_wilds - temperature 0.75 (Temperate)
 - Trees
   - kruemblegard:ashbloom_saplings
   - kruemblegard:wayroot_tree
@@ -340,8 +340,8 @@ Classification is best-effort: anything with tree, sapling, mushroom, giant_, or
   - Mood: `minecraft:ambient.basalt_deltas.mood`
   - Additions: `minecraft:ambient.basalt_deltas.additions`
 
-### `kruemblegard:betweenlight_void`
-- File: `betweenlight_void.json`
+### `kruemblegard:midweft_wilds`
+- File: `midweft_wilds.json`
 - Temperature: 0.75
 - Description: A cold, dim void pocket where reverse-portal motes drift around small attuned stone disks.
 - Intended flora (design target):
