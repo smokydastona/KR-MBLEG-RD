@@ -1,6 +1,7 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.GreatHungerEntity;
+import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
@@ -42,6 +43,7 @@ public final class CommonModEvents {
         event.put(ModEntities.GREAT_HUNGER.get(), GreatHungerEntity.createAttributes().build());
         event.put(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanEntity.createAttributes().build());
         event.put(ModEntities.MOOGLOOM.get(), Cow.createAttributes().build());
+        event.put(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -134,6 +136,14 @@ public final class CommonModEvents {
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             CommonModEvents::canSpawnMoogloom,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.FAULT_CRAWLER.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }

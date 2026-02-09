@@ -158,6 +158,17 @@ Keep it up to date whenever you add/remove/rename content.
     - `animation.scattered_enderman.teleport`
     - `animation.scattered_enderman.vanish`
 
+- **Fault Crawler** (`fault_crawler`)
+  - Spider-like creature formed from unstable stone plates.
+  - Neutral until provoked.
+  - Often spawns buried and emerges when a player gets close.
+  - Uses a slam attack and can occasionally emit a small knockback “fault pulse”.
+  - Drops `Fault Shard`.
+  - Rendered via GeckoLib:
+    - Geo: `assets/kruemblegard/geo/fault_crawler.geo.json`
+    - Animations: `assets/kruemblegard/animations/fault_crawler.animation.json`
+    - Texture: `assets/kruemblegard/textures/entity/fault_crawler.png`
+
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.

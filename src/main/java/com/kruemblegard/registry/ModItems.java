@@ -564,6 +564,9 @@ public class ModItems {
     public static final RegistryObject<Item> RUNIC_CORE =
         ITEMS.register("runic_core", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> FAULT_SHARD =
+        ITEMS.register("fault_shard", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> RUNIC_SWORD = ITEMS.register(
         "runic_sword",
         () -> new SwordItem(ModTiers.RUNIC, 3, -2.4F, new Item.Properties())
@@ -623,6 +626,12 @@ public class ModItems {
         ITEMS.register(
             "moogloom_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.MOOGLOOM, 0x2b1f33, 0x7d5aa6,
+                new Item.Properties()));
+
+    public static final RegistryObject<Item> FAULT_CRAWLER_SPAWN_EGG =
+        ITEMS.register(
+            "fault_crawler_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.FAULT_CRAWLER, 0x4b4b4b, 0xb67a52,
                 new Item.Properties()));
 
 }

@@ -1,0 +1,32 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.fault_crawler.idle": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.fault_crawler.walk": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.fault_crawler.buried": {
+      "loop": true,
+      "bones": {}
+    },
+    "animation.fault_crawler.emerge": {
+      "loop": false,
+      "animation_length": 0.75,
+      "bones": {}
+    },
+    "animation.fault_crawler.slam": {
+      "loop": false,
+      "animation_length": 0.5,
+      "bones": {}
+    },
+    "animation.fault_crawler.pulse": {
+      "loop": false,
+      "animation_length": 0.5,
+      "bones": {}
+    }
+  }
+}

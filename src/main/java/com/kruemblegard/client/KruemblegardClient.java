@@ -2,6 +2,7 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
+import com.kruemblegard.client.render.FaultCrawlerRenderer;
 import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBoatRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
@@ -33,6 +34,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.GREAT_HUNGER.get(), GreatHungerRenderer::new);
         event.registerEntityRenderer(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanRenderer::new);
         event.registerEntityRenderer(ModEntities.MOOGLOOM.get(), MoogloomRenderer::new);
+        event.registerEntityRenderer(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerRenderer::new);
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_CHEST_BOAT.get(), KruemblegardChestBoatRenderer::new);

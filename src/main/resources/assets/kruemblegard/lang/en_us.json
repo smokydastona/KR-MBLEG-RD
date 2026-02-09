@@ -15,6 +15,10 @@
     "entity.kruemblegard.moogloom": "Moogloom",
     "item.kruemblegard.moogloom_spawn_egg": "Moogloom Spawn Egg",
 
+    "entity.kruemblegard.fault_crawler": "Fault Crawler",
+    "item.kruemblegard.fault_crawler_spawn_egg": "Fault Crawler Spawn Egg",
+    "item.kruemblegard.fault_shard": "Fault Shard",
+
     "effect.kruemblegard.pebblit_shoulder": "Pebblit Shoulder (Knockback Resistance)",
 
     "block.kruemblegard.ancient_waystone":  "Ancient Waystone",
