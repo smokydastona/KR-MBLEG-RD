@@ -181,9 +181,14 @@ Keep it up to date whenever you add/remove/rename content.
     - Craft: `2x Elytra Wing → 1x Elytra`.
   - Chitin Plates can be crafted into **iron-equivalent** chitin armor pieces.
   - Rendered via GeckoLib:
-    - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
-    - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
-    - Texture: `assets/kruemblegard/textures/entity/scaralon_beetle.png`
+    - Adult:
+      - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
+      - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
+      - Texture: `assets/kruemblegard/textures/entity/scaralon_beetle.png`
+    - Baby (larva form):
+      - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
+      - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`
+      - Texture: `assets/kruemblegard/textures/entity/scaralon_larva.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.

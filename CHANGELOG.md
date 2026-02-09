@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.873 (2026-02-09)
+- Feature(mobs/scaralon): babies now render as a larva form using new GeckoLib assets (`scaralon_larva` geo/animation/texture), while adults keep the beetle assets.
+
 ## 1.0.872 (2026-02-09)
 - Chore(assets/geckolib): rework Scaralon Beetle geo proportions to better match Erebus-style beetle body parts (while keeping Scaralon bone names).
 - Chore(assets/geckolib): replace Scaralon land-based animations (idle/walk/attack/hurt/death) with a more grounded beetle scuttle; keep Scaralon-unique flight/hover/glide/takeoff/land/love/eat animations.
