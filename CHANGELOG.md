@@ -9,6 +9,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(wayfall): Wayfall sleeping does not advance time; you wake after a short nap.
 - Feature(advancement): first Wayfall sleep grants “Time Is an Illusion, Lunchtime Doubly So”.
 
+## 1.0.862 (2026-02-08)
+- Chore(assets/ui): add a placeholder icon texture for the Pebblit shoulder-perch status effect.
+
 ## 1.0.861 (2026-02-09)
 - Feature(mobs/pebblit): Pebblit shoulder-perch now grants a visible status effect icon for knockback resistance.
 - Fix(mobs/pebblit): Pebblit shoulder-perch positioning now runs client+server so the model reliably renders on the shoulder.

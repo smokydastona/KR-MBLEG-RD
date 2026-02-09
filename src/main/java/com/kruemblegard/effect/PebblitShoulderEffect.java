@@ -2,6 +2,8 @@ package com.kruemblegard.effect;
 
 import java.util.function.Consumer;
 
+import com.kruemblegard.Kruemblegard;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.Gui;
@@ -21,8 +23,8 @@ public final class PebblitShoulderEffect extends MobEffect {
     // Stable UUID so the attribute modifier is consistent across sessions.
     private static final String KB_UUID = "9b063db3-468e-4b56-9a38-fd999132d955";
 
-    // Reuse the vanilla resistance icon so we don't need to ship a new texture.
-    private static final ResourceLocation ICON = new ResourceLocation("minecraft", "textures/mob_effect/resistance.png");
+    // Placeholder icon (we ship our own texture so it can be replaced later).
+    private static final ResourceLocation ICON = new ResourceLocation(Kruemblegard.MOD_ID, "textures/mob_effect/pebblit_shoulder.png");
 
     public PebblitShoulderEffect() {
         // Color is only used for particles; we disable particles when applying the effect.
