@@ -123,6 +123,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Can be tamed by right-clicking with an **Echokern**; follows its owner.
   - Right-click with empty hand (non-shift): toggles **sit and stay**.
   - Shift + right-click with empty hand: perches on the owner's shoulder **until it dies**, granting the owner **knockback resistance** while perched.
+    - While perched, the owner also receives a visible status effect icon: **Pebblit Shoulder (Knockback Resistance)**.
   - Pebblit attacks apply **knockback**.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/pebblit.geo.json`

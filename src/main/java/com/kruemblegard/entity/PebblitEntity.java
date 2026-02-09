@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -176,27 +177,38 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
             }
         }
 
-        if (!level().isClientSide && isTamed() && isPassenger() && getVehicle() instanceof Player rider) {
-            // Keep the Pebblit visually perched on the player's shoulder.
-            // We use riding mechanics (instead of vanilla shoulder NBT) so it works reliably with our mappings.
-            float yawRad = (float) Math.toRadians(rider.getYRot());
-            double sideOffset = 0.35D;
-            double backOffset = -0.10D;
-
-            double xOff = -Math.sin(yawRad) * backOffset + Math.cos(yawRad) * sideOffset;
-            double zOff = Math.cos(yawRad) * backOffset + Math.sin(yawRad) * sideOffset;
-
-            setPos(rider.getX() + xOff, rider.getY() + rider.getBbHeight() - 0.15D, rider.getZ() + zOff);
-            setYRot(rider.getYRot());
-            setXRot(0.0F);
-        }
-
         if (!level().isClientSide && isTamed()) {
             // Keep it from staying aggressive to players once tamed.
             if (getTarget() instanceof Player) {
                 setTarget(null);
             }
         }
+    }
+
+    @Override
+    public void rideTick() {
+        super.rideTick();
+
+        if (!isTamed() || !isPassenger() || !(getVehicle() instanceof Player rider)) {
+            return;
+        }
+
+        // Keep the Pebblit visually perched on the player's shoulder.
+        // Do this on both client and server so it actually renders correctly.
+        float yawRad = (float) Math.toRadians(rider.getYRot());
+        double sideOffset = 0.35D;
+        double backOffset = -0.10D;
+
+        HumanoidArm mainArm = rider.getMainArm();
+        double sideSign = (mainArm == HumanoidArm.LEFT) ? -1.0D : 1.0D;
+
+        double xOff = -Math.sin(yawRad) * backOffset + Math.cos(yawRad) * (sideOffset * sideSign);
+        double zOff = Math.cos(yawRad) * backOffset + Math.sin(yawRad) * (sideOffset * sideSign);
+
+        setPos(rider.getX() + xOff, rider.getY() + rider.getBbHeight() - 0.15D, rider.getZ() + zOff);
+        setYRot(rider.getYRot());
+        setXRot(0.0F);
+        setDeltaMovement(0.0D, 0.0D, 0.0D);
     }
 
     @Override

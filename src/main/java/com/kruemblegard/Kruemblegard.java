@@ -12,6 +12,7 @@ import com.kruemblegard.registry.ModFeatures;
 import com.kruemblegard.registry.ModFlammability;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModLootModifiers;
+import com.kruemblegard.registry.ModMobEffects;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModPotions;
 import com.kruemblegard.registry.ModProjectileEntities;
@@ -66,6 +67,7 @@ public final class Kruemblegard {
         ModParticles.PARTICLES.register(modBus);
         ModSounds.SOUNDS.register(modBus);
         ModPotions.POTIONS.register(modBus);
+        ModMobEffects.MOB_EFFECTS.register(modBus);
 
         modBus.addListener(this::addCreative);
         modBus.addListener(this::commonSetup);
