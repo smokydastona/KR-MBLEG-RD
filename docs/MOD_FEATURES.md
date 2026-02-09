@@ -169,6 +169,14 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/fault_crawler.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/fault_crawler.png`
 
+- **Scaralon Beetle** (`scaralon_beetle`)
+  - Armored beetle-like creature.
+  - Neutral until provoked.
+  - Rendered via GeckoLib:
+    - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
+    - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
+    - Texture: `assets/kruemblegard/textures/entity/scaralon_beetle.png`
+
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.

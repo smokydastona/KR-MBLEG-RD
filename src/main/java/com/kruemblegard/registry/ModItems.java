@@ -634,4 +634,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.FAULT_CRAWLER, 0x4b4b4b, 0xb67a52,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> SCARALON_BEETLE_SPAWN_EGG =
+        ITEMS.register(
+            "scaralon_beetle_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.SCARALON_BEETLE, 0x4b1e10, 0xd1b02c,
+                new Item.Properties()));
+
 }

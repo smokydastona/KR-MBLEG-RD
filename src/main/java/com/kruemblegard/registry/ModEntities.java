@@ -6,6 +6,7 @@ import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.MoogloomEntity;
 import com.kruemblegard.entity.PebblitEntity;
+import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatEntity;
@@ -75,6 +76,15 @@ public class ModEntities {
                     FaultCrawlerEntity::new, MobCategory.MONSTER)
                 .sized(1.0f, 0.7f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "fault_crawler").toString())
+        );
+
+    public static final RegistryObject<EntityType<ScaralonBeetleEntity>> SCARALON_BEETLE =
+        ENTITIES.register(
+            "scaralon_beetle",
+            () -> EntityType.Builder.<ScaralonBeetleEntity>of(
+                    ScaralonBeetleEntity::new, MobCategory.MONSTER)
+                .sized(1.1f, 0.85f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "scaralon_beetle").toString())
         );
 
     public static final RegistryObject<EntityType<MoogloomEntity>> MOOGLOOM =

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.864 (2026-02-09)
+- Feature(mobs): add Scaralon Beetle (neutral until provoked; GeckoLib placeholders).
+
 ## 1.0.859 (2026-02-08)
 - Feature(wayfall): beds now work in Wayfall and can be slept in at any time.
 - Feature(wayfall): Wayfall sleeping does not advance time; you wake after a short nap.
