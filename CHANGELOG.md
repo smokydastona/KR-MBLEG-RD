@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.867 (2026-02-09)
 - Fix(assets/geckolib): Scaralon Beetle geo model is no longer empty (adds placeholder body/wing/leg cubes so it renders).
 
+## 1.0.868 (2026-02-09)
+- Chore(assets/geckolib): add placeholder Scaralon Beetle animations (idle/walk/fly/attack).
+
 ## 1.0.866 (2026-02-09)
 - Feature(items/food): add Cooked Bug Meat + furnace/smoker/campfire cooking recipes.
 - Feature(mobs/scaralon): Scaralon flight controls updated (hold Space to take off/rise; X to descend; Shift dismount).
