@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.876 (2026-02-09)
+- Chore(assets/geckolib): update Scaralon Beetle geo UVs (per-face UV mapping + bounds tweak).
+
 ## 1.0.875 (2026-02-09)
 - Chore(assets/textures): resize select item textures to 256x256 (no cropping).
 
