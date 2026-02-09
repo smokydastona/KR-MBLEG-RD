@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
@@ -59,6 +60,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation FLY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.fly");
 
+    private static final RawAnimation TAKEOFF_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.takeoff");
+    private static final RawAnimation LAND_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.land");
+    private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.hurt");
+    private static final RawAnimation DEATH_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.death");
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean wasBabyLastTick = false;
@@ -68,6 +74,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private boolean serverAscendHeld = false;
     private boolean serverDescendHeld = false;
     private int takeoffChargeTicks = 0;
+
+    private boolean playedDeathAnim = false;
 
     public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
         super(type, level);
@@ -92,10 +100,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     }
 
     private void setFlying(boolean flying) {
+        boolean wasFlying = isFlying();
         this.entityData.set(FLYING, flying);
         this.setNoGravity(flying);
         if (flying) {
             this.fallDistance = 0.0F;
+        }
+
+        if (!level().isClientSide && flying != wasFlying) {
+            triggerAnim("actionController", flying ? "takeoff" : "land");
         }
     }
 
@@ -166,6 +179,24 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 0.35F, 0.8F + random.nextFloat() * 0.25F);
             }
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean didHurt = super.hurt(source, amount);
+        if (didHurt && !level().isClientSide && isAlive()) {
+            triggerAnim("actionController", "hurt");
+        }
+        return didHurt;
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        if (!level().isClientSide && !playedDeathAnim) {
+            playedDeathAnim = true;
+            triggerAnim("actionController", "death");
+        }
+        super.die(source);
     }
 
     private boolean isNearArcaneEnergy() {
@@ -375,6 +406,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
+                .triggerableAnim("takeoff", TAKEOFF_ONCE)
+                .triggerableAnim("land", LAND_ONCE)
+                .triggerableAnim("hurt", HURT_ONCE)
+                .triggerableAnim("death", DEATH_ONCE));
     }
 
     @Override
