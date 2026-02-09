@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "kruemblegard:elytra_wing" },
+    { "item": "kruemblegard:elytra_wing" }
+  ],
+  "result": {
+    "item": "minecraft:elytra"
+  }
+}

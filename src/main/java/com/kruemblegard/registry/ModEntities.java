@@ -82,8 +82,8 @@ public class ModEntities {
         ENTITIES.register(
             "scaralon_beetle",
             () -> EntityType.Builder.<ScaralonBeetleEntity>of(
-                    ScaralonBeetleEntity::new, MobCategory.MONSTER)
-                .sized(1.1f, 0.85f)
+                    ScaralonBeetleEntity::new, MobCategory.CREATURE)
+                .sized(1.2f, 1.4f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "scaralon_beetle").toString())
         );
 

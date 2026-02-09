@@ -153,9 +153,38 @@ public final class CommonModEvents {
             ModEntities.SCARALON_BEETLE.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-            CommonModEvents::canSpawnOnSolidGround,
+            CommonModEvents::canSpawnScaralonBeetle,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+    }
+
+    private static boolean canSpawnScaralonBeetle(
+            net.minecraft.world.entity.EntityType<? extends Animal> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        BlockPos below = pos.below();
+        if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+            return false;
+        }
+
+        // Require space for the mob.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        // Similar to vanilla animals, but avoid hard-tag constraints.
+        if (level.getLevel().getRawBrightness(pos, 0) < 8) {
+            return false;
+        }
+
+        return true;
     }
 
     private static boolean canSpawnOnSolidGround(

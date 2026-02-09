@@ -170,8 +170,14 @@ Keep it up to date whenever you add/remove/rename content.
     - Texture: `assets/kruemblegard/textures/entity/fault_crawler.png`
 
 - **Scaralon Beetle** (`scaralon_beetle`)
-  - Armored beetle-like creature.
-  - Neutral until provoked.
+  - Large, rune-etched flying beetle **mount** (horse-style taming + saddle riding).
+  - Wild Scaralons are skittish and will avoid players.
+  - Breeding: **Soulberries**.
+  - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
+  - Renewable elytra loop: babies shed `Elytra Scutes` **when maturing into adults**.
+    - Craft: `5x Elytra Scute → 1x Elytra Wing`.
+    - Craft: `2x Elytra Wing → 1x Elytra`.
+  - Chitin Plates can be crafted into **iron-equivalent** chitin armor pieces.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
     - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`

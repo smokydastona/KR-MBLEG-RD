@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "C C"
+  ],
+  "key": {
+    "C": { "item": "kruemblegard:rune_etched_chitin_plate" }
+  },
+  "result": { "item": "kruemblegard:chitin_helmet" }
+}

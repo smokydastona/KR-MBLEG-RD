@@ -22,6 +22,16 @@
     "entity.kruemblegard.scaralon_beetle": "Scaralon Beetle",
     "item.kruemblegard.scaralon_beetle_spawn_egg": "Scaralon Beetle Spawn Egg",
 
+    "item.kruemblegard.rune_etched_chitin_plate": "Rune-Etched Chitin Plate",
+    "item.kruemblegard.bug_meat": "Bug Meat",
+    "item.kruemblegard.elytra_scute": "Elytra Scute",
+    "item.kruemblegard.elytra_wing": "Elytra Wing",
+
+    "item.kruemblegard.chitin_helmet": "Chitin Helmet",
+    "item.kruemblegard.chitin_chestplate": "Chitin Chestplate",
+    "item.kruemblegard.chitin_leggings": "Chitin Leggings",
+    "item.kruemblegard.chitin_boots": "Chitin Boots",
+
     "effect.kruemblegard.pebblit_shoulder": "Pebblit Shoulder (Knockback Resistance)",
 
     "block.kruemblegard.ancient_waystone":  "Ancient Waystone",

@@ -11,6 +11,11 @@
       "animation_length": 1.0,
       "bones": {}
     },
+    "animation.scaralon_beetle.fly": {
+      "loop": true,
+      "animation_length": 1.0,
+      "bones": {}
+    },
     "animation.scaralon_beetle.attack": {
       "loop": false,
       "animation_length": 0.5,

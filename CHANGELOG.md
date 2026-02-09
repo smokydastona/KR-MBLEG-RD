@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.865 (2026-02-09)
+- Feature(mobs): Scaralon Beetle is now a tameable, saddleable flying mount (horse-style taming).
+- Feature(mobs): Scaralon Beetle breeds with Soulberries.
+- Feature(mobs): Scaralon Beetle adults can be harvested with shears for Rune-Etched Chitin Plates.
+- Feature(mobs): Scaralon Beetle babies shed Elytra Scutes upon maturing.
+- Feature(items): add Rune-Etched Chitin Plates, Bug Meat, Elytra Scutes, Elytra Wings, and chitin armor recipes.
+
 ## 1.0.864 (2026-02-09)
 - Feature(mobs): add Scaralon Beetle (neutral until provoked; GeckoLib placeholders).
 

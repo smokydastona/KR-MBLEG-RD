@@ -8,6 +8,8 @@ import com.kruemblegard.item.KruemblegardBoatItem;
 import com.kruemblegard.item.RunePetalItem;
 
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ChorusFruitItem;
 import net.minecraft.world.item.HoeItem;
@@ -566,6 +568,36 @@ public class ModItems {
 
     public static final RegistryObject<Item> FAULT_SHARD =
         ITEMS.register("fault_shard", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RUNE_ETCHED_CHITIN_PLATE =
+        ITEMS.register("rune_etched_chitin_plate", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BUG_MEAT =
+        ITEMS.register(
+            "bug_meat",
+            () -> new Item(new Item.Properties().food(
+                new FoodProperties.Builder().nutrition(3).saturationMod(0.3f).meat().build()
+            ))
+        );
+
+    public static final RegistryObject<Item> ELYTRA_SCUTE =
+        ITEMS.register("elytra_scute", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ELYTRA_WING =
+        ITEMS.register("elytra_wing", () -> new Item(new Item.Properties()));
+
+    // Placeholder: use iron-equivalent stats for chitin armor.
+    public static final RegistryObject<Item> CHITIN_HELMET =
+        ITEMS.register("chitin_helmet", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> CHITIN_CHESTPLATE =
+        ITEMS.register("chitin_chestplate", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> CHITIN_LEGGINGS =
+        ITEMS.register("chitin_leggings", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> CHITIN_BOOTS =
+        ITEMS.register("chitin_boots", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static final RegistryObject<Item> RUNIC_SWORD = ITEMS.register(
         "runic_sword",
