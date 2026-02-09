@@ -439,7 +439,9 @@ foreach ($k in $sortedKeys) {
 }
 
 # Write manifest (stable formatting)
-$manifestJson = $items | ConvertTo-Json -Depth 12
+# S-NDB-UND accepts either a list OR {items:[...]}. We emit {items:[...]} for maximum compatibility.
+$manifestObj = [ordered]@{ items = $items.ToArray() }
+$manifestJson = $manifestObj | ConvertTo-Json -Depth 12
 $manifestJson = $manifestJson.TrimEnd() + "`r`n"
 
 $manifestDir = Split-Path -Parent $OutManifest

@@ -1,223 +1,225 @@
-﻿[
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.attack_rune",
-        "prompt":  "rune magic pulse, arcane whoosh, sparkle",
-        "sound_path":  "generated/kruemblegard/attack_rune",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Attack Rune",
-        "subtitle_key":  "subtitles.kruemblegard.attack_rune"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.attack_slam",
-        "prompt":  "heavy slam impact, thud, stone",
-        "sound_path":  "generated/kruemblegard/attack_slam",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Attack Slam",
-        "subtitle_key":  "subtitles.kruemblegard.attack_slam"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.attack_smash",
-        "prompt":  "stone smash impact, heavy hit, debris",
-        "sound_path":  "generated/kruemblegard/attack_smash",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Attack Smash",
-        "subtitle_key":  "subtitles.kruemblegard.attack_smash"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.core_hum",
-        "prompt":  "mystical core hum, low drone, subtle energy crackle",
-        "sound_path":  "generated/kruemblegard/core_hum",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Core Hum",
-        "subtitle_key":  "subtitles.kruemblegard.core_hum"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.radiant",
-        "prompt":  "radiant magic burst, shimmering energy, short",
-        "sound_path":  "generated/kruemblegard/radiant",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Radiant",
-        "subtitle_key":  "subtitles.kruemblegard.radiant"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard.rise",
-        "prompt":  "ancient stone rising, grinding rock, heavy rumble",
-        "sound_path":  "generated/kruemblegard/rise",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Kruemblegard: Rise",
-        "subtitle_key":  "subtitles.kruemblegard.rise"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard_ambient",
-        "prompt":  "deep stone rumble ambience, cavernous, ominous, low drone",
-        "sound_path":  "generated/kruemblegard_ambient",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Krümblegård rumbles",
-        "subtitle_key":  "subtitles.kruemblegard.ambient"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard_attack",
-        "prompt":  "heavy swing whoosh, stone weapon, impact",
-        "sound_path":  "generated/kruemblegard_attack",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Krümblegård swings",
-        "subtitle_key":  "subtitles.kruemblegard.attack"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard_dash",
-        "prompt":  "fast dash whoosh, scraping stone, short",
-        "sound_path":  "generated/kruemblegard_dash",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Krümblegård dashes",
-        "subtitle_key":  "subtitles.kruemblegard.dash"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard_death",
-        "prompt":  "massive stone collapse, debris falling, heavy rumble",
-        "sound_path":  "generated/kruemblegard_death",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Krümblegård collapses",
-        "subtitle_key":  "subtitles.kruemblegard.death"
-    },
-    {
-        "engine":  "diffusers",
-        "namespace":  "kruemblegard",
-        "event":  "kruemblegard_storm",
-        "prompt":  "summon storm, magical wind gust, thunderous rumble",
-        "sound_path":  "generated/kruemblegard_storm",
-        "variants":  1,
-        "weight":  1,
-        "volume":  1,
-        "pitch":  1,
-        "post":  true,
-        "tags":  [
-                     "kruemblegard",
-                     "sound",
-                     "streamed"
-                 ],
-        "seconds":  6,
-        "subtitle":  "Krümblegård summons a storm",
-        "subtitle_key":  "subtitles.kruemblegard.storm"
-    }
-]
+﻿{
+    "items":  [
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.attack_rune",
+                      "prompt":  "rune magic pulse, arcane whoosh, sparkle",
+                      "sound_path":  "generated/kruemblegard/attack_rune",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Attack Rune",
+                      "subtitle_key":  "subtitles.kruemblegard.attack_rune"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.attack_slam",
+                      "prompt":  "heavy slam impact, thud, stone",
+                      "sound_path":  "generated/kruemblegard/attack_slam",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Attack Slam",
+                      "subtitle_key":  "subtitles.kruemblegard.attack_slam"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.attack_smash",
+                      "prompt":  "stone smash impact, heavy hit, debris",
+                      "sound_path":  "generated/kruemblegard/attack_smash",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Attack Smash",
+                      "subtitle_key":  "subtitles.kruemblegard.attack_smash"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.core_hum",
+                      "prompt":  "mystical core hum, low drone, subtle energy crackle",
+                      "sound_path":  "generated/kruemblegard/core_hum",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Core Hum",
+                      "subtitle_key":  "subtitles.kruemblegard.core_hum"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.radiant",
+                      "prompt":  "radiant magic burst, shimmering energy, short",
+                      "sound_path":  "generated/kruemblegard/radiant",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Radiant",
+                      "subtitle_key":  "subtitles.kruemblegard.radiant"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard.rise",
+                      "prompt":  "ancient stone rising, grinding rock, heavy rumble",
+                      "sound_path":  "generated/kruemblegard/rise",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Kruemblegard: Rise",
+                      "subtitle_key":  "subtitles.kruemblegard.rise"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard_ambient",
+                      "prompt":  "deep stone rumble ambience, cavernous, ominous, low drone",
+                      "sound_path":  "generated/kruemblegard_ambient",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Krümblegård rumbles",
+                      "subtitle_key":  "subtitles.kruemblegard.ambient"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard_attack",
+                      "prompt":  "heavy swing whoosh, stone weapon, impact",
+                      "sound_path":  "generated/kruemblegard_attack",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Krümblegård swings",
+                      "subtitle_key":  "subtitles.kruemblegard.attack"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard_dash",
+                      "prompt":  "fast dash whoosh, scraping stone, short",
+                      "sound_path":  "generated/kruemblegard_dash",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Krümblegård dashes",
+                      "subtitle_key":  "subtitles.kruemblegard.dash"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard_death",
+                      "prompt":  "massive stone collapse, debris falling, heavy rumble",
+                      "sound_path":  "generated/kruemblegard_death",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Krümblegård collapses",
+                      "subtitle_key":  "subtitles.kruemblegard.death"
+                  },
+                  {
+                      "engine":  "diffusers",
+                      "namespace":  "kruemblegard",
+                      "event":  "kruemblegard_storm",
+                      "prompt":  "summon storm, magical wind gust, thunderous rumble",
+                      "sound_path":  "generated/kruemblegard_storm",
+                      "variants":  1,
+                      "weight":  1,
+                      "volume":  1,
+                      "pitch":  1,
+                      "post":  true,
+                      "tags":  [
+                                   "kruemblegard",
+                                   "sound",
+                                   "streamed"
+                               ],
+                      "seconds":  6,
+                      "subtitle":  "Krümblegård summons a storm",
+                      "subtitle_key":  "subtitles.kruemblegard.storm"
+                  }
+              ]
+}
 
