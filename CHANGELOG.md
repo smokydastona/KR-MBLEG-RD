@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.875 (2026-02-09)
+- Chore(assets/textures): resize select item textures to 256x256 (no cropping).
+
 ## 1.0.874 (2026-02-09)
 - Chore(tools/audio): add S-NDB-UND pregen sound generator (`tools/generate_pregen_sound_bible.ps1`) that emits a batch manifest + a tuning doc.
 
