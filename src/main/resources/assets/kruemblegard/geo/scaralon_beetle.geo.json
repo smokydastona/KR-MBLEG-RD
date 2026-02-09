@@ -3,7 +3,7 @@
   "minecraft:geometry": [
     {
       "description": {
-        "identifier": "geometry.scaralon_beetle",
+        "identifier": "geometry.kruemblegard.scaralon_beetle",
         "texture_width": 64,
         "texture_height": 64,
         "visible_bounds_width": 3.0,
@@ -13,7 +13,72 @@
       "bones": [
         {
           "name": "root",
-          "pivot": [0.0, 0.0, 0.0]
+          "pivot": [0.0, 8.0, 0.0]
+        },
+        {
+          "name": "body",
+          "parent": "root",
+          "pivot": [0.0, 12.0, 0.0],
+          "cubes": [
+            { "origin": [-6.0, 10.0, -8.0], "size": [12.0, 8.0, 16.0], "uv": [0, 0] },
+            { "origin": [-5.0, 18.0, -6.0], "size": [10.0, 3.0, 12.0], "uv": [0, 24] }
+          ]
+        },
+        {
+          "name": "head",
+          "parent": "body",
+          "pivot": [0.0, 16.0, -8.0],
+          "cubes": [
+            { "origin": [-4.0, 14.0, -14.0], "size": [8.0, 6.0, 6.0], "uv": [32, 0] }
+          ]
+        },
+        {
+          "name": "left_wing",
+          "parent": "body",
+          "pivot": [6.0, 16.0, 0.0],
+          "cubes": [
+            { "origin": [6.0, 15.0, -7.0], "size": [10.0, 1.0, 14.0], "uv": [0, 40] }
+          ]
+        },
+        {
+          "name": "right_wing",
+          "parent": "body",
+          "pivot": [-6.0, 16.0, 0.0],
+          "cubes": [
+            { "origin": [-16.0, 15.0, -7.0], "size": [10.0, 1.0, 14.0], "uv": [0, 40], "mirror": true }
+          ]
+        },
+        {
+          "name": "leg_fl",
+          "parent": "body",
+          "pivot": [4.0, 10.0, -6.0],
+          "cubes": [
+            { "origin": [3.0, 2.0, -7.0], "size": [2.0, 8.0, 2.0], "uv": [48, 16] }
+          ]
+        },
+        {
+          "name": "leg_fr",
+          "parent": "body",
+          "pivot": [-4.0, 10.0, -6.0],
+          "cubes": [
+            { "origin": [-5.0, 2.0, -7.0], "size": [2.0, 8.0, 2.0], "uv": [48, 16], "mirror": true }
+          ]
+        },
+        {
+          "name": "leg_bl",
+          "parent": "body",
+          "pivot": [4.0, 10.0, 6.0],
+          "cubes": [
+            { "origin": [3.0, 2.0, 5.0], "size": [2.0, 8.0, 2.0], "uv": [56, 16] }
+          ]
+        },
+        {
+          "name": "leg_br",
+          "parent": "body",
+          "pivot": [-4.0, 10.0, 6.0],
+          "cubes": [
+            { "origin": [-5.0, 2.0, 5.0], "size": [2.0, 8.0, 2.0], "uv": [56, 16], "mirror": true }
+          ]
         }
       ]
     }
