@@ -21,8 +21,9 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+
+import com.kruemblegard.registry.ModItems;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -202,7 +203,7 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!level().isClientSide && !isTamed() && stack.is(Items.COBBLESTONE)) {
+        if (!level().isClientSide && !isTamed() && stack.is(ModItems.ECHOKERN.get())) {
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }

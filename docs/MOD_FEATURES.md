@@ -120,7 +120,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Pebblit** (`pebblit`)
   - Hostile Silverfish-like creature.
-  - Can be tamed by right-clicking with cobblestone; follows its owner.
+  - Can be tamed by right-clicking with an **Echokern**; follows its owner.
   - Right-click with empty hand (non-shift): toggles **sit and stay**.
   - Shift + right-click with empty hand: perches on the owner's shoulder **until it dies**, granting the owner **knockback resistance** while perched.
   - Pebblit attacks apply **knockback**.

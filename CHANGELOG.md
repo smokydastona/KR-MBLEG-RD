@@ -9,6 +9,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(wayfall): Wayfall sleeping does not advance time; you wake after a short nap.
 - Feature(advancement): first Wayfall sleep grants “Time Is an Illusion, Lunchtime Doubly So”.
 
+## 1.0.860 (2026-02-08)
+- Tuning(mobs): Pebblit taming item changed from Cobblestone to Echokern.
+
 ## 1.0.858 (2026-02-07)
 - Fix(worldgen/wayfall): bake Lost Pillager Ship vindicator spawner NBT directly into the structure (no processor dependency).
 
