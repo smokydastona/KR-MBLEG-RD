@@ -21,6 +21,8 @@ docs/**
 !docs/Wood_Material_Bible.md
 !docs/Block_Material_Bible.md
 !docs/Sound_Bible.md
+!docs/pregen_sound_bible.md
+!docs/pregen_sound_manifest.json
 !docs/Item_Material_Bible.md
 !docs/MAINTAINER_RUNBOOK.md
 

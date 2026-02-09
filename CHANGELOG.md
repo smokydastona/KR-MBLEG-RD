@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.874 (2026-02-09)
+- Chore(tools/audio): add S-NDB-UND pregen sound generator (`tools/generate_pregen_sound_bible.ps1`) that emits a batch manifest + a tuning doc.
+
 ## 1.0.873 (2026-02-09)
 - Feature(mobs/scaralon): babies now render as a larva form using new GeckoLib assets (`scaralon_larva` geo/animation/texture), while adults keep the beetle assets.
 

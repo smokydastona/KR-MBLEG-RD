@@ -81,6 +81,7 @@ Animation keys currently used by code:
 - Mod id: `kruemblegard` | Base package: `com.kruemblegard`
 - Sources: `src/main/java` + `src/main/resources`
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
+- Sound generation (S-NDB-UND): run `./tools/generate_pregen_sound_bible.ps1` to emit `docs/pregen_sound_manifest.json` + `docs/pregen_sound_bible.md`.
 
 ## Contributing
 - Don’t copy assets from other mods. See `CONTRIBUTING.md`.

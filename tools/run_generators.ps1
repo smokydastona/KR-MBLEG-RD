@@ -26,6 +26,7 @@ $repoRoot = Get-RepoRoot
 
 $materialBibles = Join-Path $repoRoot 'tools\generate_material_bibles.ps1'
 $soundBible = Join-Path $repoRoot 'tools\generate_sound_bible.ps1'
+$pregenSoundBible = Join-Path $repoRoot 'tools\generate_pregen_sound_bible.ps1'
 $lootBible = Join-Path $repoRoot 'tools\generate_loot_table_bible.ps1'
 $wayfallBiomes = Join-Path $repoRoot 'tools\generate_wayfall_biome_vegetation_report.ps1'
 
@@ -39,6 +40,10 @@ if (-not (Test-Path -LiteralPath $soundBible)) {
     throw "Missing generator script: $soundBible"
 }
 
+if (-not (Test-Path -LiteralPath $pregenSoundBible)) {
+    throw "Missing generator script: $pregenSoundBible"
+}
+
 if (-not (Test-Path -LiteralPath $lootBible)) {
     throw "Missing generator script: $lootBible"
 }
@@ -49,11 +54,13 @@ if (-not (Test-Path -LiteralPath $wayfallBiomes)) {
 
 Assert-PowerShellParses -Path $materialBibles
 Assert-PowerShellParses -Path $soundBible
+Assert-PowerShellParses -Path $pregenSoundBible
 Assert-PowerShellParses -Path $lootBible
 Assert-PowerShellParses -Path $wayfallBiomes
 
 & $materialBibles
 & $soundBible
+& $pregenSoundBible
 & $lootBible
 & $wayfallBiomes
 
