@@ -59,11 +59,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation FLY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.fly");
+    private static final RawAnimation HOVER_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.hover");
+    private static final RawAnimation GLIDE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.glide");
+    private static final RawAnimation LOVE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.love");
 
     private static final RawAnimation TAKEOFF_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.takeoff");
     private static final RawAnimation LAND_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.land");
     private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.hurt");
     private static final RawAnimation DEATH_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.death");
+    private static final RawAnimation EAT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.eat");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -329,7 +333,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return InteractionResult.CONSUME;
         }
 
-        return super.mobInteract(player, hand);
+        boolean isFoodInteraction = isFood(stack);
+        InteractionResult result = super.mobInteract(player, hand);
+
+        if (!level().isClientSide && isFoodInteraction && result.consumesAction()) {
+            triggerAnim("actionController", "eat");
+        }
+
+        return result;
     }
 
     @Override
@@ -399,7 +410,26 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
             if (isFlying() && !onGround()) {
+                Vec3 dm = getDeltaMovement();
+                double horiz = dm.horizontalDistanceSqr();
+                double y = dm.y;
+
+                if (y < -0.18D) {
+                    state.setAnimation(GLIDE_LOOP);
+                    return PlayState.CONTINUE;
+                }
+
+                if (horiz < 0.0025D && Math.abs(y) < 0.04D) {
+                    state.setAnimation(HOVER_LOOP);
+                    return PlayState.CONTINUE;
+                }
+
                 state.setAnimation(FLY_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (isInLove() && !state.isMoving()) {
+                state.setAnimation(LOVE_LOOP);
                 return PlayState.CONTINUE;
             }
 
@@ -411,7 +441,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 .triggerableAnim("takeoff", TAKEOFF_ONCE)
                 .triggerableAnim("land", LAND_ONCE)
                 .triggerableAnim("hurt", HURT_ONCE)
-                .triggerableAnim("death", DEATH_ONCE));
+            .triggerableAnim("death", DEATH_ONCE)
+            .triggerableAnim("eat", EAT_ONCE));
     }
 
     @Override

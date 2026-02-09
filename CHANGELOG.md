@@ -14,6 +14,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Chore(assets/geckolib): add placeholder Scaralon Beetle animations (takeoff/land/hurt/death).
 - Feature(mobs/scaralon): wire takeoff/land/hurt/death animations via triggerable GeckoLib action controller.
 
+## 1.0.870 (2026-02-09)
+- Chore(assets/geckolib): add placeholder Scaralon Beetle animations (hover/glide/love/eat).
+- Feature(mobs/scaralon): select hover/glide animations based on in-flight motion; play love loop while breeding and play eat animation when fed.
+
 ## 1.0.866 (2026-02-09)
 - Feature(items/food): add Cooked Bug Meat + furnace/smoker/campfire cooking recipes.
 - Feature(mobs/scaralon): Scaralon flight controls updated (hold Space to take off/rise; X to descend; Shift dismount).
