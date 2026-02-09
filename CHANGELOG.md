@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.871 (2026-02-09)
+- Chore(assets): replace Scaralon Beetle texture with the Erebus Rhino Beetle texture (visual placeholder while the model/animation port is in progress).
+
 ## 1.0.867 (2026-02-09)
 - Fix(assets/geckolib): Scaralon Beetle geo model is no longer empty (adds placeholder body/wing/leg cubes so it renders).
 
