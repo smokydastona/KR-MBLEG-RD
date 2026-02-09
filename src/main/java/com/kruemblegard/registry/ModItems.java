@@ -580,6 +580,14 @@ public class ModItems {
             ))
         );
 
+    public static final RegistryObject<Item> COOKED_BUG_MEAT =
+        ITEMS.register(
+            "cooked_bug_meat",
+            () -> new Item(new Item.Properties().food(
+                new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).meat().build()
+            ))
+        );
+
     public static final RegistryObject<Item> ELYTRA_SCUTE =
         ITEMS.register("elytra_scute", () -> new Item(new Item.Properties()));
 

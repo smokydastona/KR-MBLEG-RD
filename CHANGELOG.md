@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.866 (2026-02-09)
+- Feature(items/food): add Cooked Bug Meat + furnace/smoker/campfire cooking recipes.
+- Feature(mobs/scaralon): Scaralon flight controls updated (hold Space to take off/rise; X to descend; Shift dismount).
+
 ## 1.0.865 (2026-02-09)
 - Feature(mobs): Scaralon Beetle is now a tameable, saddleable flying mount (horse-style taming).
 - Feature(mobs): Scaralon Beetle breeds with Soulberries.

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": {
+    "item": "kruemblegard:bug_meat"
+  },
+  "result": "kruemblegard:cooked_bug_meat",
+  "experience": 0.35,
+  "cookingtime": 200
+}

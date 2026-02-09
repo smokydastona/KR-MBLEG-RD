@@ -44,7 +44,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 /**
  * Scaralon Beetle
  * - Horse-style taming + saddling + riding
- * - Flight is controlled primarily via rider pitch (look up/down) + sneak to descend.
+ * - Flight is controlled via Space (takeoff/rise) + X (descend) with server-synced inputs.
  * - Babies shed Elytra Scutes on maturation (renewable progression loop without killing mounts).
  */
 public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
@@ -64,6 +64,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private boolean wasBabyLastTick = false;
     private boolean hasShedAdultScutes = false;
     private int shearCooldownTicks = 0;
+
+    private boolean serverAscendHeld = false;
+    private boolean serverDescendHeld = false;
+    private int takeoffChargeTicks = 0;
 
     public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
         super(type, level);
@@ -95,6 +99,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
     }
 
+    public void setFlightInputs(boolean ascendHeld, boolean descendHeld) {
+        if (level().isClientSide) {
+            return;
+        }
+
+        this.serverAscendHeld = ascendHeld;
+        this.serverDescendHeld = descendHeld;
+
+        if (!ascendHeld) {
+            this.takeoffChargeTicks = 0;
+        }
+    }
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -120,6 +137,13 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.tick();
 
         if (!level().isClientSide) {
+            // Reset if rider state becomes invalid.
+            if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
+                serverAscendHeld = false;
+                serverDescendHeld = false;
+                takeoffChargeTicks = 0;
+            }
+
             if (shearCooldownTicks > 0) {
                 shearCooldownTicks--;
             }
@@ -133,7 +157,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             wasBabyLastTick = isBabyNow;
 
             // Stop flying when grounded and calm.
-            if (isFlying() && onGround()) {
+            if (isFlying() && onGround() && !serverAscendHeld) {
                 setFlying(false);
             }
 
@@ -199,27 +223,36 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             float strafe = player.xxa * 0.55F;
             float forward = player.zza;
 
+            // Takeoff: hold Space while grounded to lift off.
+            if (onGround() && !isFlying()) {
+                if (serverAscendHeld) {
+                    takeoffChargeTicks++;
+                    if (takeoffChargeTicks >= 10) {
+                        setFlying(true);
+                    }
+                } else {
+                    takeoffChargeTicks = 0;
+                }
+            }
+
             // Engage flight while ridden once airborne.
             if (!onGround() && !isFlying()) {
                 setFlying(true);
             }
 
             if (isFlying()) {
-                // Rider pitch controls ascent/descent (server-visible input).
-                float pitch = player.getXRot();
-                double vertical = 0.0D;
-
-                if (player.isShiftKeyDown()) {
-                    vertical = -0.10D;
-                } else {
-                    if (pitch < -18.0F) {
-                        vertical = 0.09D;
-                    } else if (pitch > 28.0F) {
-                        vertical = -0.09D;
-                    }
+                // Synced inputs:
+                // - Space: takeoff/rise
+                // - X: descend
+                double vertical = -0.02D; // gentle glide when no input
+                if (serverAscendHeld) {
+                    vertical += 0.10D;
+                }
+                if (serverDescendHeld) {
+                    vertical -= 0.12D;
                 }
 
-                double glideCap = player.isShiftKeyDown() ? -0.35D : -0.12D;
+                double glideCap = serverDescendHeld ? -0.40D : -0.14D;
 
                 setSpeed((float) getAttributeValue(Attributes.FLYING_SPEED));
                 super.travel(new Vec3(strafe, 0.0D, forward));

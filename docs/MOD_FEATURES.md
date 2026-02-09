@@ -172,8 +172,10 @@ Keep it up to date whenever you add/remove/rename content.
 - **Scaralon Beetle** (`scaralon_beetle`)
   - Large, rune-etched flying beetle **mount** (horse-style taming + saddle riding).
   - Wild Scaralons are skittish and will avoid players.
+  - Riding controls: hold **Space** to take off and rise; press **X** to descend; **WASD** to move; **Left Shift** to dismount.
   - Breeding: **Soulberries**.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
+  - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).
   - Renewable elytra loop: babies shed `Elytra Scutes` **when maturing into adults**.
     - Craft: `5x Elytra Scute → 1x Elytra Wing`.
     - Craft: `2x Elytra Wing → 1x Elytra`.

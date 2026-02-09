@@ -7,6 +7,7 @@ import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
 import com.kruemblegard.book.KruemblegardGuidebook;
+import com.kruemblegard.network.ModNetworking;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModFeatures;
 import com.kruemblegard.registry.ModFlammability;
@@ -46,6 +47,8 @@ public final class Kruemblegard {
 
     public Kruemblegard() {
         GeckoLib.initialize();
+
+        ModNetworking.init();
 
         ModWoodTypes.register();
 
@@ -121,6 +124,8 @@ public final class Kruemblegard {
             event.accept(ModItems.WEFTKERN);
             event.accept(ModItems.ECHOKERN);
             event.accept(ModItems.WEFTMEAL);
+            event.accept(ModItems.BUG_MEAT);
+            event.accept(ModItems.COOKED_BUG_MEAT);
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
