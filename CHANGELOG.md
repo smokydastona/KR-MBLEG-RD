@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.886 (2026-02-10)
+## 1.0.887 (2026-02-09)
+- Feature(world/wayfall): Scaralon Beetles now naturally spawn in Wayfall warm biomes.
+
+## 1.0.886 (2026-02-09)
 - Fix(mobs/scaralon): prevent auto-landing from cancelling flight while holding Space/X; flight input debug logs now include flight state + stamina/motion.
 
 ## 1.0.885 (2026-02-09)
