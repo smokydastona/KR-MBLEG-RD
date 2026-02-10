@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.879 (2026-02-09)
+- Fix(assets): add missing Scaralon Beetle spawn egg item model so it renders correctly.
+
 ## 1.0.878 (2026-02-09)
 - Fix(mobs/scaralon): Scaralon Beetle now keeps horse-like ground movement/jump, uses charged jump to take off into flight hover, auto-engages flight when falling/wet for safety, and protects riders on midair dismount (no fall damage + beetle hover-follow + stamina refill).
 
