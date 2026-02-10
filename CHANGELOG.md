@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.882 (2026-02-09)
+- Fix(mobs/scaralon): Space/X flight inputs now apply correctly (client tick input handler subscribed on the Forge event bus).
+
 ## 1.0.881 (2026-02-09)
 - Feature(mobs/scaralon): add a HUD stamina bar while riding the Scaralon Beetle.
 
