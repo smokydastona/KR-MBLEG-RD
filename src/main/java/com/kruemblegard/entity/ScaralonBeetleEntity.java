@@ -152,7 +152,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         return getFlightStamina() <= 0;
     }
 
-    private boolean isFlying() {
+    public boolean isFlying() {
         return this.entityData.get(FLYING);
     }
 
@@ -176,6 +176,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
         this.serverAscendHeld = ascendHeld;
         this.serverDescendHeld = descendHeld;
+
+        // Responsiveness: if the rider is trying to control vertical movement while airborne,
+        // ensure flight mode is engaged immediately (instead of waiting for safety heuristics).
+        if (!isFlying()
+                && !pendingFlightHover
+                && isVehicle()
+                && isSaddled()
+                && isTamed()
+                && getControllingPassenger() instanceof Player
+                && !onGround()
+                && (ascendHeld || descendHeld)) {
+            setFlying(true);
+        }
     }
 
     @Override
@@ -230,6 +243,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (isFlying()
                     && onGround()
                     && !isInWaterOrBubble()
+                    && !serverAscendHeld
+                    && !serverDescendHeld
                     && isVehicle()
                     && isSaddled()
                     && isTamed()

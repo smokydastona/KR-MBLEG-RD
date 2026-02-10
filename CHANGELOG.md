@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.886 (2026-02-10)
+- Fix(mobs/scaralon): prevent auto-landing from cancelling flight while holding Space/X; flight input debug logs now include flight state + stamina/motion.
+
 ## 1.0.885 (2026-02-09)
 - Fix(mobs/scaralon): flight mode no longer immediately drops in shallow water; airborne Space/X input can engage flight reliably.
 

@@ -47,11 +47,17 @@ public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boo
             scaralon.setFlightInputs(msg.ascendHeld, msg.descendHeld);
 
             Kruemblegard.LOGGER.info(
-                    "Scaralon flight input: player={} entityId={} ascend={} descend={}",
+                    "Scaralon flight input: player={} entityId={} ascend={} descend={} flying={} onGround={} wet={} dy={} stamina={}/{}",
                     sender.getGameProfile().getName(),
                     msg.entityId,
                     msg.ascendHeld,
-                    msg.descendHeld
+                    msg.descendHeld,
+                    scaralon.isFlying(),
+                    scaralon.onGround(),
+                    scaralon.isInWaterOrBubble(),
+                    String.format("%.3f", scaralon.getDeltaMovement().y),
+                    scaralon.getFlightStaminaTicks(),
+                    scaralon.getMaxFlightStaminaTicks()
             );
         });
 
