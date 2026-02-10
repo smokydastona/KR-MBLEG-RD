@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.890 (2026-02-10)
+- Fix(assets/textures): give Night Flower its own dedicated block textures.
+
 ## 1.0.889 (2026-02-09)
 - Fix(assets/textures): give Volatile Pulp and Volatile Resin their own item textures.
 

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/spore_blossom",
   "textures": {
-    "inside": "kruemblegard:block/emberbloom_ashspire_cactus_top",
-    "outside": "kruemblegard:block/emberbloom_ashspire_cactus_side",
-    "particle": "kruemblegard:block/emberbloom_ashspire_cactus_top"
+    "inside": "kruemblegard:block/night_flower_inside",
+    "outside": "kruemblegard:block/night_flower_outside",
+    "particle": "kruemblegard:block/night_flower_outside"
   }
 }
