@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.888 (2026-02-10)
+## 1.0.889 (2026-02-09)
+- Fix(assets/textures): give Volatile Pulp and Volatile Resin their own item textures.
+
+## 1.0.888 (2026-02-09)
 - Chore(assets/geckolib): update Scaralon Beetle geo and animate the new middle leg bones (`leg_ml`/`leg_mr`).
 
 ## 1.0.887 (2026-02-09)
