@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.893 (2026-02-10)
+- Chore(assets/geckolib): update Scaralon Beetle geo + animations (elytra + leg bones) to match the latest model export.
+
 ## 1.0.891 (2026-02-10)
 - Tuning(ui/creative): reorganize Krümblegård creative tabs (wood/logs in Building; plants in Natural; Misc pinned with Ancient Waystone then portal; spawn eggs grouped).
 
