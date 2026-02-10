@@ -10,12 +10,17 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.EntityBlock;
 
@@ -97,7 +102,7 @@ public final class ModCreativeTabs {
             entries.add(new ItemEntry(id, item));
         }
 
-        entries.sort(ItemEntry.COMPARATOR);
+        entries.sort(category == Category.MISC ? ItemEntry.MISC_COMPARATOR : ItemEntry.COMPARATOR);
         for (var entry : entries) {
             output.accept(entry.item);
         }
@@ -169,11 +174,7 @@ public final class ModCreativeTabs {
     }
 
     private static boolean isNaturalBlock(Block block, String path) {
-        // Wood + foliage.
-        if ((block instanceof RotatedPillarBlock)
-                && (path.endsWith("_log") || path.endsWith("_wood") || path.startsWith("stripped_"))) {
-            return true;
-        }
+        // Foliage.
         if (block instanceof LeavesBlock || path.endsWith("_leaves")) {
             return true;
         }
@@ -251,12 +252,71 @@ public final class ModCreativeTabs {
             return a.id.getPath().compareTo(b.id.getPath());
         };
 
+        private static final Comparator<ItemEntry> MISC_COMPARATOR = (a, b) -> {
+            int cmp = Integer.compare(a.miscGroupOrder(), b.miscGroupOrder());
+            if (cmp != 0) return cmp;
+
+            // Within groups, keep the existing family/variant ordering where it helps.
+            var ak = a.sortKey();
+            var bk = b.sortKey();
+            cmp = ak.family.compareTo(bk.family);
+            if (cmp != 0) return cmp;
+            cmp = Integer.compare(ak.strippedPenalty, bk.strippedPenalty);
+            if (cmp != 0) return cmp;
+            cmp = Integer.compare(ak.variantOrder, bk.variantOrder);
+            if (cmp != 0) return cmp;
+            return a.id.getPath().compareTo(b.id.getPath());
+        };
+
         private final ResourceLocation id;
         private final Item item;
 
         private ItemEntry(ResourceLocation id, Item item) {
             this.id = id;
             this.item = item;
+        }
+
+        private int miscGroupOrder() {
+            String path = id.getPath();
+
+            // Pinned top-of-tab ordering.
+            if ("ancient_waystone".equals(path)) {
+                return 0;
+            }
+            if (path.contains("portal")) {
+                return 1;
+            }
+
+            // Functional blocks that aren't builder materials.
+            if (path.contains("waystone") || path.contains("controller") || path.contains("altar") || path.contains("spawner")) {
+                return 2;
+            }
+            if (item instanceof BlockItem) {
+                return 3;
+            }
+
+            // Gear / tools.
+            if (item instanceof SwordItem
+                    || item instanceof AxeItem
+                    || item instanceof PickaxeItem
+                    || item instanceof ShovelItem
+                    || item instanceof HoeItem
+                    || item instanceof ArmorItem) {
+                return 10;
+            }
+
+            // Food.
+            if (item.isEdible()) {
+                return 20;
+            }
+
+            // Group all spawn eggs together at the end.
+            if (item instanceof net.minecraftforge.common.ForgeSpawnEggItem || path.endsWith("_spawn_egg")) {
+                return 100;
+            }
+
+            // Default: general items/materials.
+            return 50;
         }
 
         private SortKey sortKey() {
