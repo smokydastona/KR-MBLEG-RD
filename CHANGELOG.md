@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.878 (2026-02-09)
+- Fix(mobs/scaralon): Scaralon Beetle now keeps horse-like ground movement/jump, uses charged jump to take off into flight hover, auto-engages flight when falling/wet for safety, and protects riders on midair dismount (no fall damage + beetle hover-follow + stamina refill).
+
+## 1.0.877 (2026-02-09)
+- Fix(mobs/scaralon): Scaralon Beetle mount flight now supports true 3D control + hovering with stamina drain/regen; when exhausted it flutters down instead of sinking forever.
+
 ## 1.0.876 (2026-02-09)
 - Chore(assets/geckolib): update Scaralon Beetle geo UVs (per-face UV mapping + bounds tweak).
 

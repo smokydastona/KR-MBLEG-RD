@@ -10,14 +10,18 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -33,6 +37,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -52,9 +58,28 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private static final String NBT_HAS_SHED_SCUTES = "HasShedAdultScutes";
     private static final String NBT_SHEAR_COOLDOWN = "ShearCooldown";
+    private static final String NBT_FLIGHT_STAMINA = "FlightStamina";
+
+    // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
+    // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
+    private static final int MAX_FLIGHT_STAMINA_TICKS = 20 * 20; // 20 seconds at full stamina
+    private static final int STAMINA_REGEN_PER_TICK_GROUNDED = 3;
+    private static final int STAMINA_DRAIN_PER_TICK_FLYING = 1;
+
+    private static final int DISMOUNT_FOLLOW_TICKS = 20 * 4;
+    private static final int DISMOUNT_SLOW_FALL_TICKS = 20 * 5;
+
+    private static final double ASCEND_VELOCITY = 0.26D;
+    private static final double DESCEND_VELOCITY = 0.28D;
+    private static final double EXHAUSTED_DESCENT_VELOCITY = -0.07D;
+    private static final double MAX_UPWARD_VELOCITY = 0.55D;
+    private static final double MAX_DOWNWARD_VELOCITY = -0.55D;
 
     private static final EntityDataAccessor<Boolean> FLYING =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Integer> FLIGHT_STAMINA =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
@@ -77,7 +102,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private boolean serverAscendHeld = false;
     private boolean serverDescendHeld = false;
-    private int takeoffChargeTicks = 0;
+    private boolean pendingFlightHover = false;
+    private int pendingFlightHoverTicks = 0;
+
+    private @Nullable UUID lastDismountedPlayerId = null;
+    private int dismountFollowTicks = 0;
 
     private boolean playedDeathAnim = false;
 
@@ -97,6 +126,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FLYING, false);
+        this.entityData.define(FLIGHT_STAMINA, MAX_FLIGHT_STAMINA_TICKS);
+    }
+
+    private int getFlightStamina() {
+        return this.entityData.get(FLIGHT_STAMINA);
+    }
+
+    private void setFlightStamina(int value) {
+        this.entityData.set(FLIGHT_STAMINA, Mth.clamp(value, 0, MAX_FLIGHT_STAMINA_TICKS));
+    }
+
+    private boolean isFlightExhausted() {
+        return getFlightStamina() <= 0;
     }
 
     private boolean isFlying() {
@@ -123,10 +165,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
         this.serverAscendHeld = ascendHeld;
         this.serverDescendHeld = descendHeld;
-
-        if (!ascendHeld) {
-            this.takeoffChargeTicks = 0;
-        }
     }
 
     @Override
@@ -158,7 +196,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
                 serverAscendHeld = false;
                 serverDescendHeld = false;
-                takeoffChargeTicks = 0;
+                pendingFlightHover = false;
+                pendingFlightHoverTicks = 0;
             }
 
             if (shearCooldownTicks > 0) {
@@ -176,6 +215,95 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             // Stop flying when grounded and calm.
             if (isFlying() && onGround() && !serverAscendHeld) {
                 setFlying(false);
+            }
+
+            // Safety: if the mount leaves the ground unexpectedly (cliff, knockback) or enters water,
+            // engage flight mode so it doesn't hard-fall. (If stamina is empty, flight will still
+            // flutter-down slowly instead of freefalling.)
+            if (!isFlying()
+                    && !pendingFlightHover
+                    && isVehicle()
+                    && isSaddled()
+                    && isTamed()
+                    && getControllingPassenger() instanceof Player
+                    && !onGround()) {
+
+                Vec3 v = getDeltaMovement();
+                boolean falling = v.y < -0.10D || fallDistance > 2.0F;
+                boolean wet = isInWaterOrBubble();
+
+                if (falling || wet) {
+                    setFlying(true);
+                }
+            }
+
+            // If we launched via charged jump, switch into flight-mode hover near the apex.
+            // We keep gravity during the initial launch so it feels like a jump, then enter hover-flight.
+            if (pendingFlightHover) {
+                pendingFlightHoverTicks++;
+
+                if (onGround()) {
+                    pendingFlightHover = false;
+                    pendingFlightHoverTicks = 0;
+                } else {
+                    // Wait until upward velocity mostly decays (apex-ish), then engage flight and hover.
+                    if (getDeltaMovement().y <= 0.03D || pendingFlightHoverTicks >= 20) {
+                        pendingFlightHover = false;
+                        pendingFlightHoverTicks = 0;
+
+                        setFlying(true);
+                        Vec3 v = getDeltaMovement();
+                        setDeltaMovement(v.x * 0.90D, 0.0D, v.z * 0.90D);
+                    }
+                }
+            }
+
+            // Flight stamina:
+            // - drains while actively flying (airborne)
+            // - regenerates while grounded
+            if (onGround()) {
+                if (getFlightStamina() < MAX_FLIGHT_STAMINA_TICKS) {
+                    setFlightStamina(getFlightStamina() + STAMINA_REGEN_PER_TICK_GROUNDED);
+                }
+            } else if (isFlying() && isVehicle() && getControllingPassenger() instanceof Player) {
+                if (getFlightStamina() > 0) {
+                    setFlightStamina(getFlightStamina() - STAMINA_DRAIN_PER_TICK_FLYING);
+                }
+            }
+
+            // Post-dismount safety: hover near the player briefly (useful if they jump/fall off mid-flight).
+            if (dismountFollowTicks > 0 && lastDismountedPlayerId != null && !isVehicle()) {
+                dismountFollowTicks--;
+
+                if (level() instanceof ServerLevel serverLevel) {
+                    Player p = serverLevel.getPlayerByUUID(lastDismountedPlayerId);
+                    if (p == null || !p.isAlive()) {
+                        dismountFollowTicks = 0;
+                        lastDismountedPlayerId = null;
+                    } else {
+                        setFlying(true);
+
+                        Vec3 target = p.position().add(0.0D, 1.25D, 0.0D);
+                        Vec3 to = target.subtract(position());
+                        double distSq = to.lengthSqr();
+
+                        Vec3 desired;
+                        if (distSq < 2.0D * 2.0D) {
+                            desired = new Vec3(0.0D, 0.0D, 0.0D);
+                        } else {
+                            desired = to.normalize().scale(0.22D);
+                        }
+
+                        Vec3 v = getDeltaMovement();
+                        Vec3 steered = v.add(desired.subtract(v).scale(0.28D)).scale(0.96D);
+                        steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.12D, 0.18D), steered.z);
+
+                        setDeltaMovement(steered);
+                        move(MoverType.SELF, steered);
+                        hasImpulse = true;
+                        fallDistance = 0.0F;
+                    }
+                }
             }
 
             // Soft harmonic hum near arcane blocks.
@@ -248,63 +376,140 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         if (isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player player) {
-            setYRot(player.getYRot());
-            yRotO = getYRot();
-            setXRot(player.getXRot() * 0.5F);
-            setRot(getYRot(), getXRot());
-            yBodyRot = getYRot();
-            yHeadRot = getYRot();
-
-            float strafe = player.xxa * 0.55F;
-            float forward = player.zza;
-
-            // Takeoff: hold Space while grounded to lift off.
-            if (onGround() && !isFlying()) {
-                if (serverAscendHeld) {
-                    takeoffChargeTicks++;
-                    if (takeoffChargeTicks >= 10) {
-                        setFlying(true);
-                    }
-                } else {
-                    takeoffChargeTicks = 0;
-                }
-            }
-
-            // Engage flight while ridden once airborne.
-            if (!onGround() && !isFlying()) {
-                setFlying(true);
-            }
-
             if (isFlying()) {
-                // Synced inputs:
-                // - Space: takeoff/rise
-                // - X: descend
-                double vertical = -0.02D; // gentle glide when no input
-                if (serverAscendHeld) {
-                    vertical += 0.10D;
+                setYRot(player.getYRot());
+                yRotO = getYRot();
+                setXRot(player.getXRot() * 0.5F);
+                setRot(getYRot(), getXRot());
+                yBodyRot = getYRot();
+                yHeadRot = getYRot();
+
+                float strafe = player.xxa;
+                float forward = player.zza;
+
+                // True 3D mount flight (server-authoritative):
+                // - WASD steers horizontally
+                // - Space ascends, X descends
+                // - No input hovers (doesn't slowly sink) while stamina remains
+                // - When stamina is empty: cannot ascend; slowly flutters down until grounded
+
+                boolean exhausted = isFlightExhausted();
+
+                // Use FLYING_SPEED as a base, but scale it to feel like an actual mount.
+                float baseFlySpeed = (float) getAttributeValue(Attributes.FLYING_SPEED);
+                float flySpeed = baseFlySpeed * 4.0F;
+
+                // Apply horizontal steering relative to the beetle's yaw (already synced to rider).
+                moveRelative(flySpeed, new Vec3(strafe, 0.0D, forward));
+                Vec3 v = getDeltaMovement();
+
+                double targetY;
+                if (exhausted) {
+                    targetY = EXHAUSTED_DESCENT_VELOCITY;
+                } else {
+                    targetY = 0.0D;
+                    if (serverAscendHeld) {
+                        targetY += ASCEND_VELOCITY;
+                    }
+                    if (serverDescendHeld) {
+                        targetY -= DESCEND_VELOCITY;
+                    }
                 }
-                if (serverDescendHeld) {
-                    vertical -= 0.12D;
-                }
 
-                double glideCap = serverDescendHeld ? -0.40D : -0.14D;
+                // Smoothly approach target vertical velocity.
+                double y = v.y + (targetY - v.y) * 0.35D;
+                y = Mth.clamp(y, MAX_DOWNWARD_VELOCITY, MAX_UPWARD_VELOCITY);
 
-                setSpeed((float) getAttributeValue(Attributes.FLYING_SPEED));
-                super.travel(new Vec3(strafe, 0.0D, forward));
+                // Apply drag so hovering feels stable and flight isn't slippery.
+                Vec3 steered = new Vec3(v.x * 0.93D, y, v.z * 0.93D);
+                setDeltaMovement(steered);
+                move(MoverType.SELF, steered);
+                hasImpulse = true;
 
-                Vec3 after = getDeltaMovement();
-                double y = Mth.clamp(after.y * 0.60D + vertical, glideCap, 0.65D);
-                setDeltaMovement(after.x * 0.98D, y, after.z * 0.98D);
                 fallDistance = 0.0F;
                 return;
             }
 
-            setSpeed((float) getAttributeValue(Attributes.MOVEMENT_SPEED));
-            super.travel(new Vec3(strafe, travelVector.y, forward));
+            // Ground mode: keep vanilla AbstractHorse movement/jump behavior.
+            super.travel(travelVector);
             return;
         }
 
         super.travel(travelVector);
+    }
+
+    /**
+     * Vanilla horse jump is already a charged jump (hold, release).
+     * We preserve that on the ground, but for a sufficiently charged jump we convert it
+     * into a "takeoff" that launches upward and then transitions into flight-mode hover.
+     */
+    @Override
+    public void onPlayerJump(int jumpPower) {
+        if (level().isClientSide) {
+            super.onPlayerJump(jumpPower);
+            return;
+        }
+
+        // Only apply special takeoff logic when ridden/saddled/tamed and not already flying.
+        if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
+            super.onPlayerJump(jumpPower);
+            return;
+        }
+
+        if (isFlying()) {
+            // In flight mode, Space is handled as ascend input; don't translate it into horse jumping.
+            return;
+        }
+
+        // Require some charge + some stamina to take off.
+        // Horse jumpPower typically ranges 0..90.
+        final int takeoffThreshold = 55;
+        if (jumpPower < takeoffThreshold || isFlightExhausted()) {
+            super.onPlayerJump(jumpPower);
+            return;
+        }
+
+        double t = Mth.clamp((jumpPower - takeoffThreshold) / (90.0D - takeoffThreshold), 0.0D, 1.0D);
+        // Tuned to reach roughly 7-12 blocks of height before transitioning to hover.
+        double launchY = Mth.lerp(t, 0.95D, 1.25D);
+
+        // Apply upward impulse, keep gravity during the ascent, then engage hover-flight at the top.
+        setNoGravity(false);
+        this.entityData.set(FLYING, false);
+
+        Vec3 v = getDeltaMovement();
+        setDeltaMovement(v.x, launchY, v.z);
+        hasImpulse = true;
+
+        pendingFlightHover = true;
+        pendingFlightHoverTicks = 0;
+        fallDistance = 0.0F;
+    }
+
+    @Override
+    public void removePassenger(net.minecraft.world.entity.Entity passenger) {
+        boolean wasInAir = !onGround() || isFlying() || pendingFlightHover;
+
+        super.removePassenger(passenger);
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (passenger instanceof ServerPlayer sp) {
+            // If the player jumps/falls off, immediately restore stamina.
+            setFlightStamina(MAX_FLIGHT_STAMINA_TICKS);
+
+            if (wasInAir) {
+                // Prevent fall damage and keep the beetle nearby.
+                sp.fallDistance = 0.0F;
+                sp.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, DISMOUNT_SLOW_FALL_TICKS, 0, true, false, true));
+
+                lastDismountedPlayerId = sp.getUUID();
+                dismountFollowTicks = DISMOUNT_FOLLOW_TICKS;
+                setFlying(true);
+            }
+        }
     }
 
     @Override
@@ -382,6 +587,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putBoolean(NBT_HAS_SHED_SCUTES, hasShedAdultScutes);
         tag.putInt(NBT_SHEAR_COOLDOWN, shearCooldownTicks);
+        tag.putInt(NBT_FLIGHT_STAMINA, getFlightStamina());
     }
 
     @Override
@@ -389,6 +595,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.readAdditionalSaveData(tag);
         hasShedAdultScutes = tag.getBoolean(NBT_HAS_SHED_SCUTES);
         shearCooldownTicks = tag.getInt(NBT_SHEAR_COOLDOWN);
+        if (tag.contains(NBT_FLIGHT_STAMINA)) {
+            setFlightStamina(tag.getInt(NBT_FLIGHT_STAMINA));
+        }
 
         // Ensure gravity state is consistent after load.
         if (isFlying()) {
