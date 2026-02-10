@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.881 (2026-02-09)
+- Feature(mobs/scaralon): add a HUD stamina bar while riding the Scaralon Beetle.
+
 ## 1.0.880 (2026-02-09)
 - Fix(mobs/scaralon): charged-jump takeoff now reliably transitions into flight hover; cliff-fall safety auto-flight is more consistent; touching ground returns to horse-like ground mode.
 - Fix(assets): make Scaralon Beetle spawn egg item model explicitly parent `minecraft:item/template_spawn_egg`.

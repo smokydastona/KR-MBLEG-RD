@@ -176,6 +176,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **flight mode** (ending in a hover).
   - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **Left Shift** to dismount.
   - Flight uses **stamina**: while in flight mode you can hover/ascend/descend until stamina runs out; when empty, the beetle can’t gain altitude and will flutter down slowly. Stamina regenerates while on the ground.
+- **HUD:** while riding, a stamina bar renders above the hotbar so you can see how close you are to needing to land.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
   - Breeding: **Soulberries**.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).

@@ -134,6 +134,16 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         return this.entityData.get(FLIGHT_STAMINA);
     }
 
+    /** Client HUD helper (synced via entity data). */
+    public int getFlightStaminaTicks() {
+        return getFlightStamina();
+    }
+
+    /** Client HUD helper. */
+    public int getMaxFlightStaminaTicks() {
+        return MAX_FLIGHT_STAMINA_TICKS;
+    }
+
     private void setFlightStamina(int value) {
         this.entityData.set(FLIGHT_STAMINA, Mth.clamp(value, 0, MAX_FLIGHT_STAMINA_TICKS));
     }
