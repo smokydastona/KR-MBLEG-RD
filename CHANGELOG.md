@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.885 (2026-02-09)
+- Fix(mobs/scaralon): flight mode no longer immediately drops in shallow water; airborne Space/X input can engage flight reliably.
+
 ## 1.0.884 (2026-02-09)
 - Chore(debug): log accepted Scaralon flight input packets (Space/X) to help diagnose client→server input.
 

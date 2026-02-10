@@ -225,10 +225,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             wasBabyLastTick = isBabyNow;
 
             // Ground mode must behave like a horse.
-            // If we touch ground while being ridden, immediately return to ground mode
-            // (takeoff happens via charged jump, not by "holding Space" while grounded).
+            // If we touch ground while being ridden, return to ground mode.
+            // Exception: don't force-land while wet (shallow water can report onGround=true).
             if (isFlying()
                     && onGround()
+                    && !isInWaterOrBubble()
                     && isVehicle()
                     && isSaddled()
                     && isTamed()
@@ -250,8 +251,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 Vec3 v = getDeltaMovement();
                 boolean falling = v.y < -0.02D || fallDistance > 0.5F;
                 boolean wet = isInWaterOrBubble();
+                boolean wantsFlight = serverAscendHeld || serverDescendHeld;
 
-                if (falling || wet) {
+                // Safety + responsiveness: if the rider is airborne and is falling/wet OR
+                // is actively trying to ascend/descend, engage flight mode.
+                if (falling || wet || wantsFlight) {
                     setFlying(true);
                 }
             }
