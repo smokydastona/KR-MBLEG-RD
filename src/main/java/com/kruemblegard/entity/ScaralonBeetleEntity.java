@@ -103,6 +103,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private boolean serverAscendHeld = false;
     private boolean serverDescendHeld = false;
     private boolean pendingFlightHover = false;
+    private boolean pendingFlightHoverLeftGround = false;
     private int pendingFlightHoverTicks = 0;
 
     private @Nullable UUID lastDismountedPlayerId = null;
@@ -197,6 +198,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 serverAscendHeld = false;
                 serverDescendHeld = false;
                 pendingFlightHover = false;
+                pendingFlightHoverLeftGround = false;
                 pendingFlightHoverTicks = 0;
             }
 
@@ -212,8 +214,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
             wasBabyLastTick = isBabyNow;
 
-            // Stop flying when grounded and calm.
-            if (isFlying() && onGround() && !serverAscendHeld) {
+            // Ground mode must behave like a horse.
+            // If we touch ground while being ridden, immediately return to ground mode
+            // (takeoff happens via charged jump, not by "holding Space" while grounded).
+            if (isFlying()
+                    && onGround()
+                    && isVehicle()
+                    && isSaddled()
+                    && isTamed()
+                    && getControllingPassenger() instanceof Player) {
                 setFlying(false);
             }
 
@@ -229,7 +238,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                     && !onGround()) {
 
                 Vec3 v = getDeltaMovement();
-                boolean falling = v.y < -0.10D || fallDistance > 2.0F;
+                boolean falling = v.y < -0.02D || fallDistance > 0.5F;
                 boolean wet = isInWaterOrBubble();
 
                 if (falling || wet) {
@@ -242,18 +251,28 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (pendingFlightHover) {
                 pendingFlightHoverTicks++;
 
-                if (onGround()) {
-                    pendingFlightHover = false;
-                    pendingFlightHoverTicks = 0;
+                // NOTE: when the jump-release packet arrives, we may still be marked onGround
+                // for 1-2 ticks. Don't cancel pending hover until we've actually left the ground.
+                if (!pendingFlightHoverLeftGround) {
+                    if (!onGround()) {
+                        pendingFlightHoverLeftGround = true;
+                    }
                 } else {
-                    // Wait until upward velocity mostly decays (apex-ish), then engage flight and hover.
-                    if (getDeltaMovement().y <= 0.03D || pendingFlightHoverTicks >= 20) {
+                    if (onGround()) {
                         pendingFlightHover = false;
+                        pendingFlightHoverLeftGround = false;
                         pendingFlightHoverTicks = 0;
+                    } else {
+                        // Wait until upward velocity mostly decays (apex-ish), then engage flight and hover.
+                        if (getDeltaMovement().y <= 0.03D || pendingFlightHoverTicks >= 20) {
+                            pendingFlightHover = false;
+                            pendingFlightHoverLeftGround = false;
+                            pendingFlightHoverTicks = 0;
 
-                        setFlying(true);
-                        Vec3 v = getDeltaMovement();
-                        setDeltaMovement(v.x * 0.90D, 0.0D, v.z * 0.90D);
+                            setFlying(true);
+                            Vec3 v = getDeltaMovement();
+                            setDeltaMovement(v.x * 0.90D, 0.0D, v.z * 0.90D);
+                        }
                     }
                 }
             }
@@ -482,6 +501,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         hasImpulse = true;
 
         pendingFlightHover = true;
+        pendingFlightHoverLeftGround = false;
         pendingFlightHoverTicks = 0;
         fallDistance = 0.0F;
     }
