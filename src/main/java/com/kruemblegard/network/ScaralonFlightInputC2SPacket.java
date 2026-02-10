@@ -1,5 +1,6 @@
 package com.kruemblegard.network;
 
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 
 import net.minecraft.network.FriendlyByteBuf;
@@ -44,6 +45,14 @@ public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boo
             }
 
             scaralon.setFlightInputs(msg.ascendHeld, msg.descendHeld);
+
+            Kruemblegard.LOGGER.info(
+                    "Scaralon flight input: player={} entityId={} ascend={} descend={}",
+                    sender.getGameProfile().getName(),
+                    msg.entityId,
+                    msg.ascendHeld,
+                    msg.descendHeld
+            );
         });
 
         ctx.setPacketHandled(true);
