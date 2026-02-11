@@ -4,14 +4,25 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.901 (2026-02-10)
+## 1.0.904 (2026-02-11)
+- Feature(mobs/scaralon): randomly assign one of 7 adult Scaralon Beetle texture variants on spawn (horse-style), and persist it across saves.
+- Fix(assets/textures): Scaralon Beetle adult renderer now uses `scaralon_beetle_1`..`scaralon_beetle_7` (no longer references the removed `scaralon_beetle.png`).
+- Docs: update Scaralon + Wyrdwing texture references.
+
+## 1.0.903 (2026-02-11)
+- Chore(assets/geckolib): update Scaralon Beetle geo export.
+- Chore(assets/textures): remove obsolete `scaralon_beetle.png` (adult uses numbered variants).
+
+## 1.0.902 (2026-02-11)
 - Tuning(ui/spawn_eggs): update Wyrdwing spawn egg colors to match its placeholder texture.
+
+## 1.0.901 (2026-02-11)
+- Chore(assets/textures): add a dedicated Wyrdwing placeholder texture (no longer reuses Scaralon larva texture).
 
 ## 1.0.900 (2026-02-11)
 - Feature(mobs/wyrdwing): add Yi-qi-like aerial locomotion (default gliding, flap-to-ascend, hover) and emergency void recovery.
 - Feature(mobs/wyrdwing): add mild aggression with airborne swoop attacks, low-health fleeing, and tree-seeking perch behavior.
 - Chore(assets/geckolib): align Wyrdwing animation tracks with the new locomotion states (glide start/loop, flap, hover, void recover, attack).
-- Chore(assets/textures): add a dedicated Wyrdwing placeholder texture (no longer reuses Scaralon larva texture).
 
 ## 1.0.899 (2026-02-11)
 - Feature(mobs/wyrdwing): add Wyrdwing, a Yi qi-inspired gliding creature that only spawns in Basin of Scars.

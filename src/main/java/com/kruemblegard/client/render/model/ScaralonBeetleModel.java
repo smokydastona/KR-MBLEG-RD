@@ -21,7 +21,8 @@ public class ScaralonBeetleModel extends GeoModel<ScaralonBeetleEntity> {
         if (animatable.isBaby()) {
             return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_larva.png");
         }
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_beetle.png");
+        int variant = animatable.getTextureVariant();
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_beetle_" + variant + ".png");
     }
 
     @Override

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,7 +23,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -35,6 +38,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -61,6 +65,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_HAS_SHED_SCUTES = "HasShedAdultScutes";
     private static final String NBT_SHEAR_COOLDOWN = "ShearCooldown";
     private static final String NBT_FLIGHT_STAMINA = "FlightStamina";
+    private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
+
+    private static final int TEXTURE_VARIANT_MIN = 1;
+    private static final int TEXTURE_VARIANT_MAX = 7;
 
     // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
     // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
@@ -88,6 +96,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
         /** 0..90ish (vanilla horse jumpPower scale). */
         private static final EntityDataAccessor<Integer> JUMP_CHARGE_POWER =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
+
+    /** 1..7, assigned once on spawn and persisted. */
+    private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
@@ -145,6 +157,32 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         this.entityData.define(FLIGHT_STAMINA, MAX_FLIGHT_STAMINA_TICKS);
         this.entityData.define(JUMP_CHARGING, false);
         this.entityData.define(JUMP_CHARGE_POWER, 0);
+        this.entityData.define(TEXTURE_VARIANT, TEXTURE_VARIANT_MIN);
+    }
+
+    public int getTextureVariant() {
+        return Mth.clamp(this.entityData.get(TEXTURE_VARIANT), TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX);
+    }
+
+    private void setTextureVariant(int variant) {
+        this.entityData.set(TEXTURE_VARIANT, Mth.clamp(variant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX));
+    }
+
+    private void randomizeTextureVariant() {
+        setTextureVariant(TEXTURE_VARIANT_MIN + this.random.nextInt(TEXTURE_VARIANT_MAX));
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(
+            ServerLevelAccessor level,
+            DifficultyInstance difficulty,
+            MobSpawnType spawnType,
+            @Nullable SpawnGroupData spawnGroupData,
+            @Nullable CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
+        randomizeTextureVariant();
+        return data;
     }
 
     public boolean isJumpCharging() {
@@ -703,6 +741,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         ScaralonBeetleEntity baby = ModEntities.SCARALON_BEETLE.get().create(level);
         if (baby != null) {
+            int variant = getTextureVariant();
+            if (otherParent instanceof ScaralonBeetleEntity other) {
+                variant = random.nextBoolean() ? getTextureVariant() : other.getTextureVariant();
+            }
+            baby.setTextureVariant(variant);
+
             // Basic stat variation: small RNG drift around the parents.
             double maxHealth = Mth.clamp((getMaxHealth() + ((ScaralonBeetleEntity) otherParent).getMaxHealth()) / 2.0D
                     + (random.nextDouble() * 4.0D - 2.0D), 18.0D, 34.0D);
@@ -730,6 +774,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         tag.putBoolean(NBT_HAS_SHED_SCUTES, hasShedAdultScutes);
         tag.putInt(NBT_SHEAR_COOLDOWN, shearCooldownTicks);
         tag.putInt(NBT_FLIGHT_STAMINA, getFlightStamina());
+        tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
     }
 
     @Override
@@ -739,6 +784,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         shearCooldownTicks = tag.getInt(NBT_SHEAR_COOLDOWN);
         if (tag.contains(NBT_FLIGHT_STAMINA)) {
             setFlightStamina(tag.getInt(NBT_FLIGHT_STAMINA));
+        }
+
+        if (tag.contains(NBT_TEXTURE_VARIANT)) {
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
         }
 
         // Ensure gravity state is consistent after load.

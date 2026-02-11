@@ -194,7 +194,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Adult:
       - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
-      - Texture: `assets/kruemblegard/textures/entity/scaralon_beetle.png`
+      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_7.png` (randomly assigned on spawn, horse-style)
     - Baby (larva form):
       - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`
@@ -217,7 +217,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/wyrdwing.geo.json`
     - Animations: `assets/kruemblegard/animations/wyrdwing.animation.json`
-    - Texture: currently reuses `assets/kruemblegard/textures/entity/scaralon_larva.png` as a placeholder.
+    - Texture: `assets/kruemblegard/textures/entity/wyrdwing.png` (placeholder paint).
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
