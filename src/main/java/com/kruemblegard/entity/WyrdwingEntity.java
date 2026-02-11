@@ -2,6 +2,8 @@ package com.kruemblegard.entity;
 
 import java.util.EnumSet;
 
+import com.kruemblegard.registry.ModItems;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -9,25 +11,41 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import com.kruemblegard.registry.ModEntities;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -37,7 +55,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
+public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> ATTACK_ANIM_TICKS =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
@@ -49,6 +67,9 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Integer> FLEE_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> EAT_ANIM_TICKS =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE_LOOP =
@@ -75,6 +96,9 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         private static final RawAnimation ATTACK_ONCE =
             RawAnimation.begin().thenPlay("animation.wyrdwing.attack");
 
+        private static final RawAnimation EAT_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.eat");
+
         private static final double GLIDE_MAX_FALL_SPEED = -0.12D;
         private static final double GLIDE_MIN_FALL_SPEED = -0.035D;
 
@@ -91,18 +115,33 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         private BlockPos perchTarget = null;
         private int perchRepathCooldown = 0;
 
-    public WyrdwingEntity(EntityType<? extends PathfinderMob> type, Level level) {
+    public WyrdwingEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
         this.setMaxUpStep(1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return PathfinderMob.createMobAttributes()
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 18.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.30D)
                 .add(Attributes.ATTACK_DAMAGE, 3.5D)
                 .add(Attributes.ARMOR, 2.0D)
                 .add(Attributes.FOLLOW_RANGE, 24.0D);
+    }
+
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        WyrdwingEntity child = ModEntities.WYRDWING.get().create(level);
+        if (child == null) {
+            return null;
+        }
+
+        if (this.isTame() && this.getOwnerUUID() != null) {
+            child.setOwnerUUID(this.getOwnerUUID());
+            child.setTame(true);
+        }
+
+        return child;
     }
 
     @Override
@@ -112,6 +151,7 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(VOID_RECOVER_TICKS, 0);
         this.entityData.define(GLIDE_START_TICKS, 0);
         this.entityData.define(FLEE_TICKS, 0);
+        this.entityData.define(EAT_ANIM_TICKS, 0);
     }
 
     private int getAttackAnimTicks() {
@@ -146,17 +186,32 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         this.entityData.set(FLEE_TICKS, ticks);
     }
 
+    private int getEatAnimTicks() {
+        return this.entityData.get(EAT_ANIM_TICKS);
+    }
+
+    private void setEatAnimTicks(int ticks) {
+        this.entityData.set(EAT_ANIM_TICKS, ticks);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FleeWhenLowHealthGoal(this));
-        this.goalSelector.addGoal(2, new SwoopAttackGoal(this));
-        this.goalSelector.addGoal(6, new PerchInTreesGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new FleeWhenLowHealthGoal(this));
+        this.goalSelector.addGoal(3, new SwoopAttackGoal(this));
+        this.goalSelector.addGoal(4, new EatBugMeatItemGoal(this));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(7, new PerchInTreesGoal(this));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Endermite.class, true));
     }
 
     @Override
@@ -181,6 +236,9 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
 
     private void tickAggression() {
         // Mild aggression: sometimes decide to harass nearby players.
+        if (this.isTame()) {
+            return;
+        }
         if (getFleeTicks() > 0 || getTarget() != null) {
             return;
         }
@@ -211,6 +269,10 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
             setAttackAnimTicks(getAttackAnimTicks() - 1);
         }
 
+        if (getEatAnimTicks() > 0) {
+            setEatAnimTicks(getEatAnimTicks() - 1);
+        }
+
         if (getVoidRecoverTicks() > 0) {
             setVoidRecoverTicks(getVoidRecoverTicks() - 1);
         }
@@ -222,6 +284,54 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         if (getFleeTicks() > 0) {
             setFleeTicks(getFleeTicks() - 1);
         }
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModItems.BUG_MEAT.get()) || stack.is(ModItems.COOKED_BUG_MEAT.get());
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (this.level().isClientSide) {
+            boolean canTameOrFeed = isFood(stack) || (this.isTame() && this.isOwnedBy(player) && stack.isEmpty());
+            return canTameOrFeed ? InteractionResult.SUCCESS : super.mobInteract(player, hand);
+        }
+
+        if (isFood(stack)) {
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+
+            if (!this.isTame()) {
+                if (this.random.nextInt(3) == 0) {
+                    this.tame(player);
+                    this.setOrderedToSit(false);
+                    this.setTarget(null);
+                    this.level().broadcastEntityEvent(this, (byte) 7); // hearts
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6); // smoke
+                }
+            } else {
+                this.heal(3.0F);
+            }
+
+            setEatAnimTicks(12);
+            this.playSound(SoundEvents.GENERIC_EAT, 0.7F, 0.9F + this.random.nextFloat() * 0.2F);
+            return InteractionResult.CONSUME;
+        }
+
+        // Owner control: right-click with empty hand to sit/stand.
+        if (this.isTame() && this.isOwnedBy(player) && stack.isEmpty()) {
+            this.setOrderedToSit(!this.isOrderedToSit());
+            this.getNavigation().stop();
+            this.setTarget(null);
+            return InteractionResult.CONSUME;
+        }
+
+        return super.mobInteract(player, hand);
     }
 
     private void tickAirLocomotion() {
@@ -348,6 +458,7 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
         setVoidRecoverTicks(0);
         setGlideStartTicks(0);
         setAttackAnimTicks(0);
+        setEatAnimTicks(0);
     }
 
     @Override
@@ -372,6 +483,11 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
 
             if (getAttackAnimTicks() > 0) {
                 state.setAnimation(ATTACK_ONCE);
+                return PlayState.CONTINUE;
+            }
+
+            if (getEatAnimTicks() > 0) {
+                state.setAnimation(EAT_ONCE);
                 return PlayState.CONTINUE;
             }
 
@@ -408,6 +524,97 @@ public class WyrdwingEntity extends PathfinderMob implements GeoEntity {
             state.setAnimation(GLIDE_LOOP);
             return PlayState.CONTINUE;
         }));
+    }
+
+    private static class EatBugMeatItemGoal extends Goal {
+        private final WyrdwingEntity mob;
+        private ItemEntity targetItem;
+        private int nextSearchTick = 0;
+
+        private EatBugMeatItemGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.isOrderedToSit() || mob.getTarget() != null || mob.getFleeTicks() > 0) {
+                return false;
+            }
+
+            if (mob.tickCount < nextSearchTick) {
+                return false;
+            }
+
+            nextSearchTick = mob.tickCount + 20;
+            targetItem = findNearestBugMeat();
+            return targetItem != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return targetItem != null
+                    && targetItem.isAlive()
+                    && !mob.isOrderedToSit()
+                    && mob.getTarget() == null
+                    && mob.getFleeTicks() == 0;
+        }
+
+        @Override
+        public void start() {
+            if (targetItem != null) {
+                mob.getNavigation().moveTo(targetItem, 1.2D);
+            }
+        }
+
+        @Override
+        public void stop() {
+            targetItem = null;
+            mob.getNavigation().stop();
+        }
+
+        @Override
+        public void tick() {
+            if (targetItem == null) {
+                return;
+            }
+
+            mob.getLookControl().setLookAt(targetItem, 30.0F, 30.0F);
+
+            if (mob.distanceToSqr(targetItem) > 2.25D) {
+                if (mob.tickCount % 10 == 0) {
+                    mob.getNavigation().moveTo(targetItem, 1.2D);
+                }
+                return;
+            }
+
+            ItemStack stack = targetItem.getItem();
+            if (stack.is(ModItems.BUG_MEAT.get()) && !stack.isEmpty()) {
+                stack.shrink(1);
+                mob.heal(2.0F);
+                mob.setEatAnimTicks(12);
+                mob.playSound(SoundEvents.GENERIC_EAT, 0.7F, 0.9F + mob.random.nextFloat() * 0.2F);
+                if (stack.isEmpty()) {
+                    targetItem.discard();
+                }
+            }
+
+            stop();
+        }
+
+        private ItemEntity findNearestBugMeat() {
+            AABB box = mob.getBoundingBox().inflate(10.0D, 6.0D, 10.0D);
+            ItemEntity best = null;
+            double bestDist = Double.MAX_VALUE;
+            for (ItemEntity item : mob.level().getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && e.getItem().is(ModItems.BUG_MEAT.get()))) {
+                double d = mob.distanceToSqr(item);
+                if (d < bestDist) {
+                    bestDist = d;
+                    best = item;
+                }
+            }
+            return best;
+        }
     }
 
     @Override

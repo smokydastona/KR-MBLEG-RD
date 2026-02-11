@@ -210,14 +210,21 @@ Keep it up to date whenever you add/remove/rename content.
     - **Emergency void recovery**: if it falls below the world, it snaps back to a safe height.
     - Takes **no fall damage**.
   - Behavior:
-    - **Mildly aggressive**: may decide to harass nearby players.
-    - Attacks via **swoop** passes while airborne.
+    - **Tameable** with `Bug Meat`.
+    - Wild Wyrdwings can be **mildly aggressive** (may decide to harass nearby players).
+    - Attacks via **swoop** passes while airborne, and hunts **Silverfish** + **Endermites**.
+    - Scavenges dropped `Bug Meat` items and plays an **eat** animation.
     - **Flees** (drops aggression) when low on health.
     - **Tree-seeking**: tends to pick nearby trees as perch targets when idle.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/wyrdwing.geo.json`
     - Animations: `assets/kruemblegard/animations/wyrdwing.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/wyrdwing.png` (placeholder paint).
+
+- **Vanilla mob tweaks (Wayfall)**
+  - Silverfish spawn in **Faulted Expanse** and **Basin of Scars**.
+  - Silverfish and Endermites drop `Bug Meat`.
+  - Silverfish, Endermites, and Spiders avoid nearby Wyrdwings.
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.

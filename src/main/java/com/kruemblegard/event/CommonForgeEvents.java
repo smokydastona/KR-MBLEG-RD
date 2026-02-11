@@ -1,7 +1,9 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
 
 import net.minecraft.core.BlockPos;
@@ -10,12 +12,22 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +35,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CommonForgeEvents {
     private CommonForgeEvents() {}
+
+    private static final String NBT_AVOID_WYRDWING = "kruemblegard:avoid_wyrdwing";
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {
@@ -79,5 +93,52 @@ public final class CommonForgeEvents {
                     0.02
             );
         }
+    }
+
+    @SubscribeEvent
+    public static void onSilverfishAndEndermiteDropsBugMeat(LivingDropsEvent event) {
+        if (event.getEntity().level().isClientSide) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Silverfish) && !(event.getEntity() instanceof Endermite)) {
+            return;
+        }
+
+        int looting = Math.max(0, event.getLootingLevel());
+        int count = 1;
+        if (looting > 0 && event.getEntity().getRandom().nextFloat() < (0.25F * looting)) {
+            count++;
+        }
+
+        ItemStack stack = new ItemStack(ModItems.BUG_MEAT.get(), count);
+        ItemEntity drop = new ItemEntity(event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), stack);
+        event.getDrops().add(drop);
+    }
+
+    @SubscribeEvent
+    public static void onMakeBugsFearWyrdwing(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Mob mob)) {
+            return;
+        }
+
+        if (!(mob instanceof Silverfish) && !(mob instanceof Endermite) && !(mob instanceof Spider) && !(mob instanceof CaveSpider)) {
+            return;
+        }
+
+        if (mob.getPersistentData().getBoolean(NBT_AVOID_WYRDWING)) {
+            return;
+        }
+
+        if (!(mob instanceof PathfinderMob pathfinder)) {
+            return;
+        }
+
+        pathfinder.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinder, WyrdwingEntity.class, 10.0F, 1.1D, 1.35D));
+        mob.getPersistentData().putBoolean(NBT_AVOID_WYRDWING, true);
     }
 }
