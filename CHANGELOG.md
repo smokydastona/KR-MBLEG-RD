@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.895 (2026-02-10)
+- Chore(assets/geckolib): restore latest Scaralon Beetle geo export.
+
+## 1.0.894 (2026-02-10)
+- Chore(assets/textures): add Scaralon Beetle texture variants (`scaralon_beetle_1`..`scaralon_beetle_6`).
+
 ## 1.0.893 (2026-02-10)
 - Chore(assets/geckolib): update Scaralon Beetle geo + animations (elytra + leg bones) to match the latest model export.
 
