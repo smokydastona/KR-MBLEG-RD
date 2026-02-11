@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.900 (2026-02-11)
+- Feature(mobs/wyrdwing): add Yi-qi-like aerial locomotion (default gliding, flap-to-ascend, hover) and emergency void recovery.
+- Feature(mobs/wyrdwing): add mild aggression with airborne swoop attacks, low-health fleeing, and tree-seeking perch behavior.
+- Chore(assets/geckolib): align Wyrdwing animation tracks with the new locomotion states (glide start/loop, flap, hover, void recover, attack).
+
 ## 1.0.899 (2026-02-11)
 - Feature(mobs/wyrdwing): add Wyrdwing, a Yi qi-inspired gliding creature that only spawns in Basin of Scars.
 

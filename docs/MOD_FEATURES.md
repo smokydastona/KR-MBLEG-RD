@@ -201,9 +201,19 @@ Keep it up to date whenever you add/remove/rename content.
       - Texture: `assets/kruemblegard/textures/entity/scaralon_larva.png`
 
 - **Wyrdwing** (`wyrdwing`)
-  - Yi qi-inspired, membrane-winged creature that **glides** when falling.
+  - Yi qi-inspired, membrane-winged creature with **default gliding** aerial locomotion.
   - Natural spawns: **Basin of Scars only** (biome tag: `#kruemblegard:basin_of_scars`).
-  - Glide behavior: slows descent, adds slight forward drift, and takes **no fall damage**.
+  - Air locomotion:
+    - **Glide** is the default (slows descent, adds slight forward drift).
+    - **Flaps** when trying to gain altitude.
+    - **Hovers** when nearly stationary in mid-air.
+    - **Emergency void recovery**: if it falls below the world, it snaps back to a safe height.
+    - Takes **no fall damage**.
+  - Behavior:
+    - **Mildly aggressive**: may decide to harass nearby players.
+    - Attacks via **swoop** passes while airborne.
+    - **Flees** (drops aggression) when low on health.
+    - **Tree-seeking**: tends to pick nearby trees as perch targets when idle.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/wyrdwing.geo.json`
     - Animations: `assets/kruemblegard/animations/wyrdwing.animation.json`
