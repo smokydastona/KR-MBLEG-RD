@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.InteractionHand;
@@ -38,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -83,6 +85,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
+    private static final RawAnimation RUN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.run");
+    private static final RawAnimation JUMP_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.jump");
     private static final RawAnimation FLY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.fly");
     private static final RawAnimation HOVER_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.hover");
     private static final RawAnimation GLIDE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.glide");
@@ -120,7 +124,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, 26.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.JUMP_STRENGTH, 0.80D)
-                .add(Attributes.FLYING_SPEED, 0.045D);
+                .add(Attributes.FLYING_SPEED, 0.045D)
+                // Big tough beetle: durable baseline.
+                .add(Attributes.ARMOR, 12.0D)
+                .add(Attributes.ARMOR_TOUGHNESS, 6.0D);
     }
 
     @Override
@@ -237,19 +244,13 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
             wasBabyLastTick = isBabyNow;
 
-            // Ground mode must behave like a horse.
-            // If we touch ground while being ridden, return to ground mode.
+            // Flight should auto-exit back to ground mode the moment we touch solid ground.
             // Exception: don't force-land while wet (shallow water can report onGround=true).
-            if (isFlying()
-                    && onGround()
-                    && !isInWaterOrBubble()
-                    && !serverAscendHeld
-                    && !serverDescendHeld
-                    && isVehicle()
-                    && isSaddled()
-                    && isTamed()
-                    && getControllingPassenger() instanceof Player) {
+            if (isFlying() && onGround() && !isInWaterOrBubble()) {
                 setFlying(false);
+                pendingFlightHover = false;
+                pendingFlightHoverLeftGround = false;
+                pendingFlightHoverTicks = 0;
             }
 
             // Safety: if the mount leaves the ground unexpectedly (cliff, knockback) or enters water,
@@ -363,11 +364,43 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        // Immune to thorny / berry-bush style block collision damage (vanilla + most modded plants).
+        // Mods commonly reuse vanilla damage types (sweet_berry_bush / cactus) for brambles.
+        // Some use custom ids; we also guard common msgId patterns.
+        if (isBerryBushTypeDamage(source)) {
+            return false;
+        }
+
         boolean didHurt = super.hurt(source, amount);
         if (didHurt && !level().isClientSide && isAlive()) {
             triggerAnim("actionController", "hurt");
         }
         return didHurt;
+    }
+
+    private boolean isBerryBushTypeDamage(DamageSource source) {
+        if (source == null) {
+            return false;
+        }
+
+        if (source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.CACTUS)) {
+            return true;
+        }
+
+        String id = source.getMsgId();
+        if (id == null || id.isBlank()) {
+            return false;
+        }
+
+        String msg = id.toLowerCase(Locale.ROOT);
+        return msg.equals("sweetberrybush")
+                || msg.equals("sweet_berry_bush")
+                || msg.contains("berry_bush")
+                || msg.contains("sweetberry")
+                || msg.contains("sweet_berry")
+                || msg.equals("cactus")
+                || msg.contains("thorn")
+                || msg.contains("bramble");
     }
 
     @Override
@@ -686,12 +719,24 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 return PlayState.CONTINUE;
             }
 
+            // Ground jump (horse-style): while airborne but not in flight mode.
+            if (!onGround() && !isFlying()) {
+                state.setAnimation(JUMP_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             if (isInLove() && !state.isMoving()) {
                 state.setAnimation(LOVE_LOOP);
                 return PlayState.CONTINUE;
             }
 
-            state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+            if (state.isMoving()) {
+                double speedSq = getDeltaMovement().horizontalDistanceSqr();
+                // A light heuristic to pick a "gallop" equivalent when moving quickly.
+                state.setAnimation(speedSq > 0.055D ? RUN_LOOP : WALK_LOOP);
+            } else {
+                state.setAnimation(IDLE_LOOP);
+            }
             return PlayState.CONTINUE;
         }));
 
