@@ -83,10 +83,18 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final EntityDataAccessor<Integer> FLIGHT_STAMINA =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
+        private static final EntityDataAccessor<Boolean> JUMP_CHARGING =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
+
+        /** 0..90ish (vanilla horse jumpPower scale). */
+        private static final EntityDataAccessor<Integer> JUMP_CHARGE_POWER =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
+
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation RUN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.run");
     private static final RawAnimation JUMP_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.jump");
+    private static final RawAnimation REAR_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.rear");
     private static final RawAnimation FLY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.fly");
     private static final RawAnimation HOVER_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.hover");
     private static final RawAnimation GLIDE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.glide");
@@ -135,6 +143,21 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.defineSynchedData();
         this.entityData.define(FLYING, false);
         this.entityData.define(FLIGHT_STAMINA, MAX_FLIGHT_STAMINA_TICKS);
+        this.entityData.define(JUMP_CHARGING, false);
+        this.entityData.define(JUMP_CHARGE_POWER, 0);
+    }
+
+    public boolean isJumpCharging() {
+        return this.entityData.get(JUMP_CHARGING);
+    }
+
+    public int getJumpChargePower() {
+        return this.entityData.get(JUMP_CHARGE_POWER);
+    }
+
+    private void setJumpCharging(boolean charging, int jumpPower) {
+        this.entityData.set(JUMP_CHARGING, charging);
+        this.entityData.set(JUMP_CHARGE_POWER, Mth.clamp(jumpPower, 0, 90));
     }
 
     private int getFlightStamina() {
@@ -169,6 +192,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         this.setNoGravity(flying);
         if (flying) {
             this.fallDistance = 0.0F;
+            if (!level().isClientSide) {
+                setJumpCharging(false, 0);
+            }
         }
 
         if (!level().isClientSide && flying != wasFlying) {
@@ -531,6 +557,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return;
         }
 
+        // Ensure any charge/rear state clears on release.
+        setJumpCharging(false, 0);
+
         // Only apply special takeoff logic when ridden/saddled/tamed and not already flying.
         if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
             super.onPlayerJump(jumpPower);
@@ -566,6 +595,37 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         pendingFlightHoverLeftGround = false;
         pendingFlightHoverTicks = 0;
         fallDistance = 0.0F;
+    }
+
+    @Override
+    public void handleStartJump(int jumpPower) {
+        super.handleStartJump(jumpPower);
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        // Horse-like rear while charging a ground jump. Never rear in flight.
+        if (isFlying() || pendingFlightHover || !onGround()) {
+            return;
+        }
+
+        if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
+            return;
+        }
+
+        setJumpCharging(true, jumpPower);
+    }
+
+    @Override
+    public void handleStopJump() {
+        super.handleStopJump();
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        setJumpCharging(false, 0);
     }
 
     @Override
@@ -722,6 +782,18 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             // Ground jump (horse-style): while airborne but not in flight mode.
             if (!onGround() && !isFlying()) {
                 state.setAnimation(JUMP_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            // Horse-style rear while charging a jump.
+            if (onGround()
+                    && !isFlying()
+                    && isJumpCharging()
+                    && isVehicle()
+                    && isSaddled()
+                    && isTamed()
+                    && getControllingPassenger() instanceof Player) {
+                state.setAnimation(REAR_LOOP);
                 return PlayState.CONTINUE;
             }
 

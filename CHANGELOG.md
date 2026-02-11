@@ -9,6 +9,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(mobs/scaralon): Scaralon Beetle now has high base armor + armor toughness and is immune to sweet berry bush / thorny plant collision damage.
 - Chore(assets/geckolib): repair Scaralon Beetle animation JSON structure and add horse-like ground run/jump animations.
 
+## 1.0.898 (2026-02-11)
+- Feature(mobs/scaralon): add horse-style rear/charge ground animation while jump is being charged.
+
 ## 1.0.896 (2026-02-10)
 - Chore(assets/geckolib): update Scaralon Beetle geo export (bounds + saddle/elytra/antennae tweaks).
 

@@ -176,7 +176,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Tough baseline: high base **armor** and **armor toughness**.
   - Immune to **sweet berry bush / bramble / thorn** collision damage (including most modded thorny plants that reuse vanilla damage types).
   - Ground controls are **horse-like**: **WASD** to move; **Space** to jump; holding **Space** charges a higher jump.
-  - Ground animations include horse-equivalent states: idle, walk, run (gallop), and jump.
+  - Ground animations include horse-equivalent states: idle, walk, run (gallop), rear/charge (jump charging), and jump.
   - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **flight mode** (ending in a hover).
   - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **Left Shift** to dismount.
   - Flight mode automatically exits back to ground mode when the beetle touches solid ground.
