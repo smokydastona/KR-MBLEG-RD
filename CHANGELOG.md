@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.901 (2026-02-10)
+- Tuning(ui/spawn_eggs): update Wyrdwing spawn egg colors to match its placeholder texture.
+
 ## 1.0.900 (2026-02-11)
 - Feature(mobs/wyrdwing): add Yi-qi-like aerial locomotion (default gliding, flap-to-ascend, hover) and emergency void recovery.
 - Feature(mobs/wyrdwing): add mild aggression with airborne swoop attacks, low-health fleeing, and tree-seeking perch behavior.
