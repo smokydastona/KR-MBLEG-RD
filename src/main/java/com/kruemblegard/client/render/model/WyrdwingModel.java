@@ -15,8 +15,7 @@ public class WyrdwingModel extends GeoModel<WyrdwingEntity> {
 
     @Override
     public ResourceLocation getTextureResource(WyrdwingEntity animatable) {
-        // Placeholder texture reuse until Wyrdwing gets its own paint.
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_larva.png");
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/wyrdwing.png");
     }
 
     @Override
