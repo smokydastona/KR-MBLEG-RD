@@ -5,9 +5,14 @@ import com.kruemblegard.entity.ScaralonBeetleEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
+
 import software.bernie.geckolib.model.GeoModel;
 
 public class ScaralonBeetleModel extends GeoModel<ScaralonBeetleEntity> {
+    private static final String SADDLE_BONE = "saddle";
+
     @Override
     public ResourceLocation getModelResource(ScaralonBeetleEntity animatable) {
         if (animatable.isBaby()) {
@@ -31,5 +36,20 @@ public class ScaralonBeetleModel extends GeoModel<ScaralonBeetleEntity> {
             return new ResourceLocation(Kruemblegard.MOD_ID, "animations/scaralon_larva.animation.json");
         }
         return new ResourceLocation(Kruemblegard.MOD_ID, "animations/scaralon_beetle.animation.json");
+    }
+
+    @Override
+    public void setCustomAnimations(ScaralonBeetleEntity animatable, long instanceId, AnimationState<ScaralonBeetleEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+
+        // Hide saddle geometry unless the beetle is actually saddled.
+        if (animatable.isBaby()) {
+            return;
+        }
+
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone(SADDLE_BONE);
+        if (saddle != null) {
+            saddle.setHidden(!animatable.isSaddled());
+        }
     }
 }

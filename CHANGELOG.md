@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(world/spawns): add Silverfish spawns in Faulted Expanse + Basin of Scars.
 - Feature(ai): Silverfish, Endermites, and Spiders avoid nearby Wyrdwings.
 
+## 1.0.906 (2026-02-11)
+- Fix(assets/scaralon): hide Scaralon Beetle saddle bones unless the beetle is actually saddled.
+
 ## 1.0.904 (2026-02-11)
 - Feature(mobs/scaralon): randomly assign one of 7 adult Scaralon Beetle texture variants on spawn (horse-style), and persist it across saves.
 - Fix(assets/textures): Scaralon Beetle adult renderer now uses `scaralon_beetle_1`..`scaralon_beetle_7` (no longer references the removed `scaralon_beetle.png`).
