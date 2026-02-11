@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.896 (2026-02-10)
+- Chore(assets/geckolib): update Scaralon Beetle geo export (bounds + saddle/elytra/antennae tweaks).
+
 ## 1.0.895 (2026-02-10)
 - Chore(assets/geckolib): restore latest Scaralon Beetle geo export.
 
