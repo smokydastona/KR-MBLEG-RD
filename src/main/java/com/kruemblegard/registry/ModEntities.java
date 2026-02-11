@@ -9,6 +9,7 @@ import com.kruemblegard.entity.PebblitEntity;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
+import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardChestBoatEntity;
 
@@ -85,6 +86,15 @@ public class ModEntities {
                     ScaralonBeetleEntity::new, MobCategory.CREATURE)
                 .sized(1.2f, 1.4f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "scaralon_beetle").toString())
+        );
+
+    public static final RegistryObject<EntityType<WyrdwingEntity>> WYRDWING =
+        ENTITIES.register(
+            "wyrdwing",
+            () -> EntityType.Builder.<WyrdwingEntity>of(
+                    WyrdwingEntity::new, MobCategory.CREATURE)
+                .sized(0.9f, 0.9f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "wyrdwing").toString())
         );
 
     public static final RegistryObject<EntityType<MoogloomEntity>> MOOGLOOM =

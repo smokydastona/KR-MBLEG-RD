@@ -4,13 +4,16 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.899 (2026-02-11)
+- Feature(mobs/wyrdwing): add Wyrdwing, a Yi qi-inspired gliding creature that only spawns in Basin of Scars.
+
+## 1.0.898 (2026-02-11)
+- Feature(mobs/scaralon): add horse-style rear/charge ground animation while jump is being charged.
+
 ## 1.0.897 (2026-02-10)
 - Fix(mobs/scaralon): flight mode now auto-exits back to ground mode on solid-ground contact.
 - Tuning(mobs/scaralon): Scaralon Beetle now has high base armor + armor toughness and is immune to sweet berry bush / thorny plant collision damage.
 - Chore(assets/geckolib): repair Scaralon Beetle animation JSON structure and add horse-like ground run/jump animations.
-
-## 1.0.898 (2026-02-11)
-- Feature(mobs/scaralon): add horse-style rear/charge ground animation while jump is being charged.
 
 ## 1.0.896 (2026-02-10)
 - Chore(assets/geckolib): update Scaralon Beetle geo export (bounds + saddle/elytra/antennae tweaks).

@@ -6,6 +6,7 @@ import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraprockEntity;
+import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -46,6 +48,7 @@ public final class CommonModEvents {
         event.put(ModEntities.MOOGLOOM.get(), Cow.createAttributes().build());
         event.put(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerEntity.createAttributes().build());
         event.put(ModEntities.SCARALON_BEETLE.get(), ScaralonBeetleEntity.createAttributes().build());
+        event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -156,6 +159,43 @@ public final class CommonModEvents {
             CommonModEvents::canSpawnScaralonBeetle,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+
+        event.register(
+            ModEntities.WYRDWING.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnWyrdwing,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+    }
+
+    private static boolean canSpawnWyrdwing(
+            net.minecraft.world.entity.EntityType<? extends Mob> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        BlockPos below = pos.below();
+        if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+            return false;
+        }
+
+        // Require space for the mob.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        // Similar to vanilla animals, but avoid hard-tag constraints.
+        if (level.getLevel().getRawBrightness(pos, 0) < 8) {
+            return false;
+        }
+
+        return true;
     }
 
     private static boolean canSpawnScaralonBeetle(

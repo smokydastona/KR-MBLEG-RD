@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:basin_of_scars",
+  "spawners": [
+    {
+      "type": "kruemblegard:wyrdwing",
+      "weight": 6,
+      "minCount": 1,
+      "maxCount": 2
+    }
+  ]
+}

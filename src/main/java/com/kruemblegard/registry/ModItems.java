@@ -680,4 +680,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.SCARALON_BEETLE, 0x4b1e10, 0xd1b02c,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> WYRDWING_SPAWN_EGG =
+        ITEMS.register(
+            "wyrdwing_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.WYRDWING, 0x2a1536, 0xb9a77d,
+                new Item.Properties()));
+
 }

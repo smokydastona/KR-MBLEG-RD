@@ -200,6 +200,15 @@ Keep it up to date whenever you add/remove/rename content.
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`
       - Texture: `assets/kruemblegard/textures/entity/scaralon_larva.png`
 
+- **Wyrdwing** (`wyrdwing`)
+  - Yi qi-inspired, membrane-winged creature that **glides** when falling.
+  - Natural spawns: **Basin of Scars only** (biome tag: `#kruemblegard:basin_of_scars`).
+  - Glide behavior: slows descent, adds slight forward drift, and takes **no fall damage**.
+  - Rendered via GeckoLib:
+    - Geo: `assets/kruemblegard/geo/wyrdwing.geo.json`
+    - Animations: `assets/kruemblegard/animations/wyrdwing.animation.json`
+    - Texture: currently reuses `assets/kruemblegard/textures/entity/scaralon_larva.png` as a placeholder.
+
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.
