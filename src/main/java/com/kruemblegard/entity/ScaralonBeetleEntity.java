@@ -1184,11 +1184,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        // Breeding: Soulberries. Also accept a couple rune items as "taming aids".
-        return stack.is(ModItems.SOULBERRIES.get())
-                || stack.is(Items.MELON_SLICE)
-                || stack.is(ModItems.ATTUNED_RUNE_SHARD.get())
-                || stack.is(ModItems.RUNIC_CORE.get());
+        // Breeding item (player-facing): melon slices.
+        // Other items may still be used for tempting or other interactions, but do not trigger breeding.
+        return stack.is(Items.MELON_SLICE);
     }
 
     @Override
@@ -1220,7 +1218,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             inheritedVariant = TEXTURE_VARIANT_MIN + this.random.nextInt(TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1);
         }
 
-        int eggs = Mth.nextInt(this.random, 1, 3);
+        // Match vanilla turtle clutch size (1..4).
+        int eggs = Mth.nextInt(this.random, 1, 4);
         layer.hasEggsToLay = true;
         layer.eggLayCount = eggs;
         layer.eggLayPos = layer.findNearbyEggLayPos(level, layer.blockPosition());

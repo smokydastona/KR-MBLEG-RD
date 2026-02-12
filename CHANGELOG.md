@@ -35,6 +35,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.928 (2026-02-11)
 - Fix(mobs/scaralon): Scaralon breeding now properly completes after hearts (canMate no longer blocked by vanilla horse constraints), so eggs get laid.
 
+## 1.0.929 (2026-02-11)
+- Tuning(mobs/scaralon): melon slices are now the only breeding item (always triggers breeding when not on cooldown).
+- Tuning(mobs/scaralon): egg clutch size now matches turtles (1–4 eggs).
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
