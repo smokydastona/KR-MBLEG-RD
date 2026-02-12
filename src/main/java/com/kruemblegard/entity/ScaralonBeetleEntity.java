@@ -31,6 +31,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -100,6 +101,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private static final double GLIDE_SINK_VELOCITY = -0.03D;
 
+        private static final UUID GROUND_SPRINT_MODIFIER_ID = UUID.fromString("b65a5be6-9e7a-49ba-b2ea-3b518b09a2f0");
+        private static final AttributeModifier GROUND_SPRINT_SPEED_MODIFIER = new AttributeModifier(
+            GROUND_SPRINT_MODIFIER_ID,
+            "Scaralon sprint speed",
+            0.35D,
+            AttributeModifier.Operation.MULTIPLY_TOTAL
+        );
+
     private static final EntityDataAccessor<Boolean> FLYING =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -141,6 +150,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private boolean serverAscendHeld = false;
     private boolean serverDescendHeld = false;
+    private boolean serverSprintHeld = false;
     private boolean pendingFlightHover = false;
     private boolean pendingFlightHoverLeftGround = false;
     private int pendingFlightHoverTicks = 0;
@@ -284,13 +294,44 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
     }
 
-    public void setFlightInputs(boolean ascendHeld, boolean descendHeld) {
+    public void setFlightInputs(boolean ascendHeld, boolean descendHeld, boolean sprintHeld) {
         if (level().isClientSide) {
             return;
         }
 
         this.serverAscendHeld = ascendHeld;
         this.serverDescendHeld = descendHeld;
+        this.serverSprintHeld = sprintHeld;
+    }
+
+    private void updateGroundSprintSpeedModifier() {
+        if (level().isClientSide) {
+            return;
+        }
+
+        var speed = getAttribute(Attributes.MOVEMENT_SPEED);
+        if (speed == null) {
+            return;
+        }
+
+        boolean shouldSprint = false;
+        if (!isFlying()
+                && isVehicle()
+                && isSaddled()
+                && isTamed()
+                && getControllingPassenger() instanceof Player rider) {
+            shouldSprint = serverSprintHeld || rider.isSprinting();
+        }
+
+        if (shouldSprint) {
+            if (speed.getModifier(GROUND_SPRINT_MODIFIER_ID) == null) {
+                speed.addTransientModifier(GROUND_SPRINT_SPEED_MODIFIER);
+            }
+        } else {
+            if (speed.getModifier(GROUND_SPRINT_MODIFIER_ID) != null) {
+                speed.removeModifier(GROUND_SPRINT_MODIFIER_ID);
+            }
+        }
     }
 
     @Override
@@ -331,11 +372,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (!isVehicle() || !(getControllingPassenger() instanceof Player)) {
                 serverAscendHeld = false;
                 serverDescendHeld = false;
+                serverSprintHeld = false;
                 pendingFlightHover = false;
                 pendingFlightHoverLeftGround = false;
                 pendingFlightHoverTicks = 0;
                 flightToggleGraceTicks = 0;
             }
+
+            updateGroundSprintSpeedModifier();
 
             if (shearCooldownTicks > 0) {
                 shearCooldownTicks--;
@@ -839,7 +883,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 // then damp motion with drag so it feels responsive and "powered" instead of swimmy.
                 float baseFlySpeed = (float) getAttributeValue(Attributes.FLYING_SPEED);
                 float speed = baseFlySpeed * 7.5F;
-                if (player.isSprinting()) {
+                if (serverSprintHeld || player.isSprinting()) {
                     speed *= 1.20F;
                 }
 

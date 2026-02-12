@@ -18,6 +18,7 @@ public final class ScaralonFlightClientInput {
 
     private static boolean lastAscendHeld = false;
     private static boolean lastDescendHeld = false;
+    private static boolean lastSprintHeld = false;
     private static int lastMountId = -1;
     private static int resendCooldownTicks = 0;
 
@@ -43,6 +44,7 @@ public final class ScaralonFlightClientInput {
 
         boolean ascendHeld = mc.options.keyJump.isDown();
         boolean descendHeld = ModKeyMappings.SCARALON_DESCEND.isDown();
+        boolean sprintHeld = mc.options.keySprint.isDown() || player.isSprinting();
 
         int mountId = scaralon.getId();
         boolean mountChanged = (mountId != lastMountId);
@@ -55,20 +57,26 @@ public final class ScaralonFlightClientInput {
 
         boolean shouldResend = resendCooldownTicks <= 0;
 
-        if (mountChanged || ascendHeld != lastAscendHeld || descendHeld != lastDescendHeld || shouldResend) {
-            ModNetworking.CHANNEL.sendToServer(new ScaralonFlightInputC2SPacket(mountId, ascendHeld, descendHeld));
+        if (mountChanged
+                || ascendHeld != lastAscendHeld
+                || descendHeld != lastDescendHeld
+                || sprintHeld != lastSprintHeld
+                || shouldResend) {
+            ModNetworking.CHANNEL.sendToServer(new ScaralonFlightInputC2SPacket(mountId, ascendHeld, descendHeld, sprintHeld));
             lastMountId = mountId;
             lastAscendHeld = ascendHeld;
             lastDescendHeld = descendHeld;
+            lastSprintHeld = sprintHeld;
             resendCooldownTicks = 4;
         }
     }
 
     private static void resetIfNeeded() {
-        if (lastMountId != -1 || lastAscendHeld || lastDescendHeld) {
+        if (lastMountId != -1 || lastAscendHeld || lastDescendHeld || lastSprintHeld) {
             lastMountId = -1;
             lastAscendHeld = false;
             lastDescendHeld = false;
+            lastSprintHeld = false;
             resendCooldownTicks = 0;
         }
     }

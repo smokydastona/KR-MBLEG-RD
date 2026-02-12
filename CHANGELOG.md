@@ -23,6 +23,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.924 (2026-02-11)
 - Fix(mobs/scaralon): Scaralons no longer take fall damage.
 
+## 1.0.925 (2026-02-11)
+- Feature(mobs/scaralon): add sprinting while ridden (hold Sprint to move faster on the ground; also boosts flight speed).
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 

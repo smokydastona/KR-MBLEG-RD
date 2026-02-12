@@ -10,17 +10,19 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boolean descendHeld) {
+public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boolean descendHeld, boolean sprintHeld) {
 
     public static void encode(ScaralonFlightInputC2SPacket msg, FriendlyByteBuf buf) {
         buf.writeVarInt(msg.entityId);
         buf.writeBoolean(msg.ascendHeld);
         buf.writeBoolean(msg.descendHeld);
+        buf.writeBoolean(msg.sprintHeld);
     }
 
     public static ScaralonFlightInputC2SPacket decode(FriendlyByteBuf buf) {
         return new ScaralonFlightInputC2SPacket(
                 buf.readVarInt(),
+                buf.readBoolean(),
                 buf.readBoolean(),
                 buf.readBoolean()
         );
@@ -44,14 +46,15 @@ public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boo
                 return;
             }
 
-            scaralon.setFlightInputs(msg.ascendHeld, msg.descendHeld);
+            scaralon.setFlightInputs(msg.ascendHeld, msg.descendHeld, msg.sprintHeld);
 
                 Kruemblegard.LOGGER.debug(
-                    "Scaralon flight input: player={} entityId={} ascend={} descend={} flying={} onGround={} wet={} dy={} stamina={}/{}",
+                    "Scaralon flight input: player={} entityId={} ascend={} descend={} sprint={} flying={} onGround={} wet={} dy={} stamina={}/{}",
                     sender.getGameProfile().getName(),
                     msg.entityId,
                     msg.ascendHeld,
                     msg.descendHeld,
+                    msg.sprintHeld,
                     scaralon.isFlying(),
                     scaralon.onGround(),
                     scaralon.isInWaterOrBubble(),
