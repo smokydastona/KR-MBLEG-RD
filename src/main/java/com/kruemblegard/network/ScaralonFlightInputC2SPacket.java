@@ -46,7 +46,7 @@ public record ScaralonFlightInputC2SPacket(int entityId, boolean ascendHeld, boo
 
             scaralon.setFlightInputs(msg.ascendHeld, msg.descendHeld);
 
-            Kruemblegard.LOGGER.info(
+                Kruemblegard.LOGGER.debug(
                     "Scaralon flight input: player={} entityId={} ascend={} descend={} flying={} onGround={} wet={} dy={} stamina={}/{}",
                     sender.getGameProfile().getName(),
                     msg.entityId,

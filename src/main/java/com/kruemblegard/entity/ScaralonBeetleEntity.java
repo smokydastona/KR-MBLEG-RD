@@ -89,8 +89,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final int DISMOUNT_FOLLOW_TICKS = 20 * 4;
     private static final int DISMOUNT_SLOW_FALL_TICKS = 20 * 5;
 
-    private static final double ASCEND_VELOCITY = 0.42D;
-    private static final double DESCEND_VELOCITY = 0.42D;
     private static final double EXHAUSTED_DESCENT_VELOCITY = -0.07D;
     private static final double MAX_UPWARD_VELOCITY = 0.55D;
     private static final double MAX_DOWNWARD_VELOCITY = -0.55D;
@@ -145,6 +143,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private boolean pendingFlightHoverLeftGround = false;
     private int pendingFlightHoverTicks = 0;
 
+    private int takeoffAssistAscendTicks = 0;
+
     private int flightToggleGraceTicks = 0;
     private int lastGroundJumpTapTick = -9999;
 
@@ -159,6 +159,18 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private @Nullable BlockPos eggLayPos = null;
     private int eggLayTimeoutTicks = 0;
     private int eggLayVariant = TEXTURE_VARIANT_MIN;
+
+    private boolean shouldPlayAirborneFlyAnim() {
+        if (isFlying() && !onGround()) {
+            return true;
+        }
+
+        // Wayfall flavor: unmounted "air swimmers" use no-gravity without actually being in mount-flight mode.
+        return !onGround()
+                && !isInWaterOrBubble()
+                && !isVehicle()
+                && isNoGravity();
+    }
 
     public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
         super(type, level);
@@ -359,7 +371,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
 
             // If we launched via charged jump, switch into flight-mode hover near the apex.
-            // We keep gravity during the initial launch so it feels like a jump, then enter hover-flight.
+            // We keep gravity during the initial launch so it feels like a jump, then quickly enter powered flight.
             if (pendingFlightHover) {
                 pendingFlightHoverTicks++;
 
@@ -375,17 +387,30 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         pendingFlightHoverLeftGround = false;
                         pendingFlightHoverTicks = 0;
                     } else {
-                        // Wait until upward velocity mostly decays (apex-ish), then engage flight and hover.
-                        if (getDeltaMovement().y <= 0.03D || pendingFlightHoverTicks >= 20) {
+                        // After we are firmly airborne, engage powered flight immediately.
+                        if (pendingFlightHoverTicks >= 2) {
                             pendingFlightHover = false;
                             pendingFlightHoverLeftGround = false;
                             pendingFlightHoverTicks = 0;
 
                             setFlying(true);
-                            Vec3 v = getDeltaMovement();
-                            setDeltaMovement(v.x * 0.90D, 0.0D, v.z * 0.90D);
+                            flightToggleGraceTicks = Math.max(flightToggleGraceTicks, FLIGHT_TOGGLE_GROUND_GRACE_TICKS);
+                            takeoffAssistAscendTicks = 6;
+                            fallDistance = 0.0F;
                         }
                     }
+                }
+            }
+
+            if (takeoffAssistAscendTicks > 0) {
+                takeoffAssistAscendTicks--;
+                if (isFlying()
+                        && !serverDescendHeld
+                        && isVehicle()
+                        && isSaddled()
+                        && isTamed()
+                        && getControllingPassenger() instanceof Player) {
+                    serverAscendHeld = true;
                 }
             }
 
@@ -621,55 +646,56 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
                 boolean exhausted = isFlightExhausted();
 
-                // Use FLYING_SPEED as a base, but scale it to feel like an actual mount.
+                // Powered mount flight (inspired by Ice & Fire): apply rider travel vector each tick,
+                // then damp motion with drag so it feels responsive and "powered" instead of swimmy.
                 float baseFlySpeed = (float) getAttributeValue(Attributes.FLYING_SPEED);
-                float flySpeed = baseFlySpeed * 5.0F;
+                float speed = baseFlySpeed * (exhausted ? 4.0F : 7.5F);
+                if (player.isSprinting() && !exhausted) {
+                    speed *= 1.20F;
+                }
 
-                // Crisp flight steering: approach a desired horizontal velocity instead of accumulating
-                // water-like inertia/skating.
-                Vec3 v = getDeltaMovement();
+                // Make strafing/backpedaling a bit slower for stability.
+                double forwardScaled = forward * (forward > 0.0F ? 1.0D : 0.55D);
+                double strafeScaled = strafe * 0.60D;
 
-                // Mouse-look control: forward motion follows where the rider is looking.
-                // Strafe remains horizontal (relative to yaw), so you can still side-step while climbing/diving.
-                Vec3 lookDir = player.getLookAngle(); // normalized
-                Vec3 forwardVel = lookDir.scale(forward * flySpeed);
-
-                float yawRad = getYRot() * ((float) Math.PI / 180.0F);
-                Vec3 rightDir = new Vec3(1.0D, 0.0D, 0.0D).yRot(-yawRad);
-                Vec3 strafeVel = rightDir.scale(strafe * flySpeed);
-
-                Vec3 desiredVel = forwardVel.add(strafeVel);
-
-                // If there's no input, bleed off horizontal speed so we don't "skate".
-                double horizLerp = (Math.abs(forward) > 0.01F || Math.abs(strafe) > 0.01F) ? 0.35D : 0.20D;
-                double newX = v.x + (desiredVel.x - v.x) * horizLerp;
-                double newZ = v.z + (desiredVel.z - v.z) * horizLerp;
-
-                double targetY;
+                double vertical;
                 if (exhausted) {
-                    targetY = EXHAUSTED_DESCENT_VELOCITY;
+                    vertical = EXHAUSTED_DESCENT_VELOCITY;
                 } else {
-                    // Gentle glide down when not actively ascending/descending.
-                    targetY = GLIDE_SINK_VELOCITY + desiredVel.y;
-                    if (serverAscendHeld) {
-                        targetY += ASCEND_VELOCITY;
-                    }
-                    if (serverDescendHeld) {
-                        targetY -= DESCEND_VELOCITY;
+                    boolean ascend = serverAscendHeld && !serverDescendHeld;
+                    boolean descend = serverDescendHeld && !serverAscendHeld;
+
+                    if (ascend) {
+                        vertical = 0.85D;
+                    } else if (descend) {
+                        vertical = -0.85D;
+                    } else {
+                        // Mouse pitch control: while moving forward, looking up climbs and looking down dives.
+                        float pitchRad = player.getXRot() * ((float) Math.PI / 180.0F);
+                        double pitchVertical = -Math.sin(pitchRad) * Math.abs(forwardScaled) * 0.85D;
+                        vertical = pitchVertical;
+
+                        // Without intent, very gently sink (prevents unnatural hovering while idle).
+                        if (Math.abs(forwardScaled) < 0.01D && Math.abs(strafeScaled) < 0.01D) {
+                            vertical = GLIDE_SINK_VELOCITY;
+                        }
                     }
                 }
 
-                // Smoothly approach target vertical velocity.
-                double y = v.y + (targetY - v.y) * 0.35D;
-                y = Mth.clamp(y, MAX_DOWNWARD_VELOCITY, MAX_UPWARD_VELOCITY);
+                this.setSpeed(speed);
+                this.moveRelative(speed, new Vec3(strafeScaled, vertical, forwardScaled));
+                this.move(MoverType.SELF, this.getDeltaMovement());
 
-                // Light drag so it feels like flying, not swimming.
-                Vec3 steered = new Vec3(newX * 0.98D, y, newZ * 0.98D);
-                setDeltaMovement(steered);
-                move(MoverType.SELF, steered);
-                hasImpulse = true;
+                Vec3 motion = this.getDeltaMovement();
+                if (this.horizontalCollision) {
+                    motion = new Vec3(motion.x, Math.max(motion.y, 0.20D), motion.z);
+                }
 
-                fallDistance = 0.0F;
+                double clampedY = Mth.clamp(motion.y, MAX_DOWNWARD_VELOCITY, MAX_UPWARD_VELOCITY);
+                double drag = exhausted ? 0.78D : 0.72D;
+                this.setDeltaMovement(motion.x * drag, clampedY * 0.88D, motion.z * drag);
+                this.hasImpulse = true;
+                this.fallDistance = 0.0F;
                 return;
             }
 
@@ -756,6 +782,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 setFlying(true);
                 flightToggleGraceTicks = FLIGHT_TOGGLE_GROUND_GRACE_TICKS;
                 serverAscendHeld = true;
+                takeoffAssistAscendTicks = 4;
 
                 Vec3 v = getDeltaMovement();
                 setDeltaMovement(v.x, Math.max(v.y, 0.42D), v.z);
@@ -1072,7 +1099,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
-            if (isFlying() && !onGround()) {
+            if (shouldPlayAirborneFlyAnim()) {
                 Vec3 dm = getDeltaMovement();
                 double horiz = dm.horizontalDistanceSqr();
                 double y = dm.y;

@@ -177,13 +177,15 @@ Keep it up to date whenever you add/remove/rename content.
   - Immune to **sweet berry bush / bramble / thorn** collision damage (including most modded thorny plants that reuse vanilla damage types).
   - Ground controls are **horse-like**: **WASD** to move; **Space** to jump; holding **Space** charges a higher jump.
   - Ground animations include horse-equivalent states: idle, walk, run (gallop), rear/charge (jump charging), and jump.
-  - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **flight mode** (ending in a hover).
-  - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **Left Shift** to dismount.
+  - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **powered flight mode**.
+  - Flight mode toggle: **double-tap Space** while grounded.
+  - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **mouse pitch** to climb/dive while moving forward, **Left Shift** to dismount.
   - Flight mode automatically exits back to ground mode when the beetle touches solid ground.
   - Flight uses **stamina**: while in flight mode you can hover/ascend/descend until stamina runs out; when empty, the beetle can’t gain altitude and will flutter down slowly. Stamina regenerates while on the ground.
   - **HUD:** while riding, a stamina bar renders above the hotbar so you can see how close you are to needing to land.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
-  - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** (drift/roam through open air) similarly to Wayfall Glow Squids.
+  - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** through open air (Glow Squid-like) as a rescue/void-safety behavior.
+    - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices**.
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style). Eggs hatch into **larva**.

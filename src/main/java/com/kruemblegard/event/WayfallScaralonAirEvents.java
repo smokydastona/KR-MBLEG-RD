@@ -84,6 +84,15 @@ public final class WayfallScaralonAirEvents {
             return;
         }
 
+        LivingEntity target = beetle.getTarget();
+        boolean hasTarget = target != null && target.isAlive();
+
+        // Prefer being on the ground: only "air swim" when actually needed.
+        if (!shouldAirSwim(beetle, hasTarget)) {
+            beetle.setNoGravity(false);
+            return;
+        }
+
         // In air: float + roam.
         beetle.setNoGravity(true);
         beetle.setAirSupply(beetle.getMaxAirSupply());
@@ -92,8 +101,6 @@ public final class WayfallScaralonAirEvents {
         WayfallAirSwimPostTick.queue(beetle);
 
         var data = beetle.getPersistentData();
-        LivingEntity target = beetle.getTarget();
-        boolean hasTarget = target != null && target.isAlive();
 
         int ticks = data.getInt(TAG_AIR_SWIM_TICKS);
         boolean shouldPickNew = ticks <= 0 || beetle.horizontalCollision || beetle.verticalCollision;
@@ -116,6 +123,41 @@ public final class WayfallScaralonAirEvents {
         double speed = hasTarget ? 1.15D : 1.00D;
         beetle.getMoveControl().setWantedPosition(tx, ty, tz, speed);
         beetle.getLookControl().setLookAt(tx, ty, tz);
+    }
+
+    private static boolean shouldAirSwim(ScaralonBeetleEntity beetle, boolean hasTarget) {
+        if (hasTarget) {
+            return true;
+        }
+
+        // Rescue behavior: if we're falling fast or likely over a long drop, engage air-swim.
+        if (beetle.fallDistance > 2.5F) {
+            return true;
+        }
+
+        if (beetle.getDeltaMovement().y < -0.14D) {
+            return true;
+        }
+
+        // If there isn't ground within a short distance below, treat as "over void".
+        return isMostlyAirBelow(beetle, 7);
+    }
+
+    private static boolean isMostlyAirBelow(ScaralonBeetleEntity beetle, int maxDepth) {
+        Level level = beetle.level();
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos(beetle.blockPosition().getX(), beetle.blockPosition().getY(), beetle.blockPosition().getZ());
+
+        for (int i = 1; i <= maxDepth; i++) {
+            cursor.setY(beetle.blockPosition().getY() - i);
+            if (!level.isLoaded(cursor)) {
+                return false;
+            }
+            if (!level.getBlockState(cursor).isAir()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static void enableAirSwim(ScaralonBeetleEntity beetle) {

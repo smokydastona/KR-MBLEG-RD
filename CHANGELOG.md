@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.920 (2026-02-12)
+- Tuning(mobs/scaralon): mounted flight is now more "powered" and responsive (Ice-and-Fire-style moveRelative + drag), with Space/X + mouse pitch control.
+- Tuning(mobs/scaralon): charged jump takeoff now transitions into powered flight shortly after leaving the ground (high jump into flight).
+- Tuning(world/wayfall): unmounted Scaralons now prefer ground locomotion; Wayfall air-swim kicks in mainly as a rescue/void-safety behavior or when chasing.
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
