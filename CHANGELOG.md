@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.913 (2026-02-11)
+- Docs: align changelog headings with commit-count versioning.
+
 ## 1.0.912 (2026-02-11)
 - Feature(mobs/scaralon): bred Scaralon eggs now carry an inherited adult texture variant (50/50 from either parent) with a small mutation chance; larva always use the larva texture until they mature.
 
