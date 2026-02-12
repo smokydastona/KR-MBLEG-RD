@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.918 (2026-02-11)
 - Tuning(mobs/scaralon): mounted flight now feels like flying (less skating/floaty inertia), adds gentle glide-sink instead of perfect hovering, and increases vertical ascend/descend responsiveness.
 
+## 1.0.919 (2026-02-11)
+- Feature(mobs/scaralon): mounted flight now uses mouse-look pitch for climb/dive while moving forward (W follows where you're aiming), while Space/X still directly ascend/descend.
+
 ## 1.0.914 (2026-02-11)
 - Docs: align changelog headings with commit-count versioning.
 

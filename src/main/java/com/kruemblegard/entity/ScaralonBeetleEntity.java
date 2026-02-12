@@ -629,25 +629,28 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 // water-like inertia/skating.
                 Vec3 v = getDeltaMovement();
 
-                Vec3 desiredInput = new Vec3(strafe, 0.0D, forward);
-                if (desiredInput.lengthSqr() > 1.0D) {
-                    desiredInput = desiredInput.normalize();
-                }
-                Vec3 desiredHoriz = desiredInput
-                        .yRot(-getYRot() * ((float) Math.PI / 180.0F))
-                        .scale(flySpeed);
+                // Mouse-look control: forward motion follows where the rider is looking.
+                // Strafe remains horizontal (relative to yaw), so you can still side-step while climbing/diving.
+                Vec3 lookDir = player.getLookAngle(); // normalized
+                Vec3 forwardVel = lookDir.scale(forward * flySpeed);
+
+                float yawRad = getYRot() * ((float) Math.PI / 180.0F);
+                Vec3 rightDir = new Vec3(1.0D, 0.0D, 0.0D).yRot(-yawRad);
+                Vec3 strafeVel = rightDir.scale(strafe * flySpeed);
+
+                Vec3 desiredVel = forwardVel.add(strafeVel);
 
                 // If there's no input, bleed off horizontal speed so we don't "skate".
-                double horizLerp = desiredHoriz.lengthSqr() > 1.0E-4D ? 0.35D : 0.20D;
-                double newX = v.x + (desiredHoriz.x - v.x) * horizLerp;
-                double newZ = v.z + (desiredHoriz.z - v.z) * horizLerp;
+                double horizLerp = (Math.abs(forward) > 0.01F || Math.abs(strafe) > 0.01F) ? 0.35D : 0.20D;
+                double newX = v.x + (desiredVel.x - v.x) * horizLerp;
+                double newZ = v.z + (desiredVel.z - v.z) * horizLerp;
 
                 double targetY;
                 if (exhausted) {
                     targetY = EXHAUSTED_DESCENT_VELOCITY;
                 } else {
                     // Gentle glide down when not actively ascending/descending.
-                    targetY = GLIDE_SINK_VELOCITY;
+                    targetY = GLIDE_SINK_VELOCITY + desiredVel.y;
                     if (serverAscendHeld) {
                         targetY += ASCEND_VELOCITY;
                     }
