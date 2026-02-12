@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.913 (2026-02-11)
+## 1.0.915 (2026-02-11)
+- Docs: keep changelog sections aligned with commit-count jar versions.
+
+## 1.0.914 (2026-02-11)
 - Docs: align changelog headings with commit-count versioning.
 
 ## 1.0.912 (2026-02-11)
