@@ -194,7 +194,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Adult:
       - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
-      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_7.png` (randomly assigned on spawn, horse-style)
+      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_8.png` (randomly assigned on spawn, horse-style)
     - Baby (larva form):
       - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`

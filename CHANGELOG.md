@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.907 (2026-02-11)
+- Chore(assets/geckolib): update Scaralon Beetle geo + animations.
+- Feature(assets/textures): add Scaralon Beetle adult texture variant `scaralon_beetle_8` and wire it into the spawn variant pool.
+
 ## 1.0.905 (2026-02-11)
 - Feature(mobs/wyrdwing): Wyrdwing is now tameable with `Bug Meat`, can be ordered to sit, and will scavenge/eat dropped bug meat (plays an eat animation).
 - Feature(mobs/wyrdwing): Wyrdwing will hunt Silverfish and Endermites.

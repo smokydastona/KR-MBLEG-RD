@@ -68,7 +68,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
 
     private static final int TEXTURE_VARIANT_MIN = 1;
-    private static final int TEXTURE_VARIANT_MAX = 7;
+    private static final int TEXTURE_VARIANT_MAX = 8;
 
     // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
     // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
@@ -98,7 +98,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         private static final EntityDataAccessor<Integer> JUMP_CHARGE_POWER =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
-    /** 1..7, assigned once on spawn and persisted. */
+    /** 1..8, assigned once on spawn and persisted. */
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
@@ -169,7 +169,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     }
 
     private void randomizeTextureVariant() {
-        setTextureVariant(TEXTURE_VARIANT_MIN + this.random.nextInt(TEXTURE_VARIANT_MAX));
+        int range = TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1;
+        setTextureVariant(TEXTURE_VARIANT_MIN + this.random.nextInt(range));
     }
 
     @Nullable
