@@ -638,11 +638,20 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     @Override
     public void handleStartJump(int jumpPower) {
-        super.handleStartJump(jumpPower);
-
         if (level().isClientSide) {
+            super.handleStartJump(jumpPower);
             return;
         }
+
+        // While flying, repurpose the vanilla mount-jump "start" packet as ascend-held.
+        // This is more reliable than client key polling because it is already synchronized
+        // for mounted entities.
+        if (isFlying() && isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player) {
+            serverAscendHeld = true;
+            return;
+        }
+
+        super.handleStartJump(jumpPower);
 
         // Horse-like rear while charging a ground jump. Never rear in flight.
         if (isFlying() || pendingFlightHover || !onGround()) {
@@ -658,11 +667,18 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     @Override
     public void handleStopJump() {
-        super.handleStopJump();
-
         if (level().isClientSide) {
+            super.handleStopJump();
             return;
         }
+
+        // While flying, repurpose the vanilla mount-jump "stop" packet as ascend-release.
+        if (isFlying() && isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player) {
+            serverAscendHeld = false;
+            return;
+        }
+
+        super.handleStopJump();
 
         setJumpCharging(false, 0);
     }

@@ -2,6 +2,7 @@ package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
+import com.kruemblegard.entity.ScaralonBeetleEntity;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MoverType;
@@ -28,6 +29,7 @@ public final class WayfallAirSwimPostTick {
 
     private static final List<Axolotl> AXOLOTLS = new ArrayList<>();
     private static final List<GlowSquid> SQUIDS = new ArrayList<>();
+    private static final List<ScaralonBeetleEntity> SCARALONS = new ArrayList<>();
 
     private WayfallAirSwimPostTick() {}
 
@@ -37,6 +39,10 @@ public final class WayfallAirSwimPostTick {
 
     static void queue(GlowSquid squid) {
         SQUIDS.add(squid);
+    }
+
+    static void queue(ScaralonBeetleEntity beetle) {
+        SCARALONS.add(beetle);
     }
 
     @SubscribeEvent
@@ -127,6 +133,53 @@ public final class WayfallAirSwimPostTick {
                 squid.hasImpulse = true;
             }
             SQUIDS.clear();
+        }
+
+        if (!SCARALONS.isEmpty()) {
+            for (ScaralonBeetleEntity beetle : SCARALONS) {
+                if (beetle == null || !beetle.isAlive()) {
+                    continue;
+                }
+
+                if (!beetle.level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+                    continue;
+                }
+
+                // Do not interfere with mounted flight or ground movement.
+                if (beetle.isVehicle() || beetle.isFlying() || beetle.onGround()) {
+                    continue;
+                }
+
+                if (beetle.isInWaterOrBubble()) {
+                    continue;
+                }
+
+                beetle.setNoGravity(true);
+                beetle.setAirSupply(beetle.getMaxAirSupply());
+                beetle.fallDistance = 0.0F;
+
+                var data = beetle.getPersistentData();
+                double tx = data.getDouble(WayfallScaralonAirEvents.TAG_AIR_SWIM_TX);
+                double ty = data.getDouble(WayfallScaralonAirEvents.TAG_AIR_SWIM_TY) + 0.10D;
+                double tz = data.getDouble(WayfallScaralonAirEvents.TAG_AIR_SWIM_TZ);
+
+                Vec3 to = new Vec3(tx - beetle.getX(), ty - beetle.getY(), tz - beetle.getZ());
+                double distSq = to.lengthSqr();
+                if (distSq < 1.75 * 1.75) {
+                    data.putInt(WayfallScaralonAirEvents.TAG_AIR_SWIM_TICKS, 0);
+                    continue;
+                }
+
+                Vec3 step = to.normalize().scale(0.16);
+                Vec3 v = beetle.getDeltaMovement();
+                Vec3 steered = v.add(step.subtract(v).scale(0.22)).scale(0.96);
+                steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.16, 0.18), steered.z);
+
+                beetle.setDeltaMovement(steered);
+                beetle.move(MoverType.SELF, steered);
+                beetle.hasImpulse = true;
+            }
+            SCARALONS.clear();
         }
     }
 }

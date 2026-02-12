@@ -183,6 +183,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Flight uses **stamina**: while in flight mode you can hover/ascend/descend until stamina runs out; when empty, the beetle can’t gain altitude and will flutter down slowly. Stamina regenerates while on the ground.
   - **HUD:** while riding, a stamina bar renders above the hotbar so you can see how close you are to needing to land.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
+  - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** (drift/roam through open air) similarly to Wayfall Glow Squids.
   - Breeding: **Soulberries**.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).

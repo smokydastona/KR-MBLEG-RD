@@ -19,6 +19,7 @@ public final class ScaralonFlightClientInput {
     private static boolean lastAscendHeld = false;
     private static boolean lastDescendHeld = false;
     private static int lastMountId = -1;
+    private static int resendCooldownTicks = 0;
 
     private ScaralonFlightClientInput() {}
 
@@ -46,11 +47,20 @@ public final class ScaralonFlightClientInput {
         int mountId = scaralon.getId();
         boolean mountChanged = (mountId != lastMountId);
 
-        if (mountChanged || ascendHeld != lastAscendHeld || descendHeld != lastDescendHeld) {
+        // Periodic resend helps prevent "stuck" vertical control if a packet is dropped
+        // (especially for the custom descend key).
+        if (resendCooldownTicks > 0) {
+            resendCooldownTicks--;
+        }
+
+        boolean shouldResend = resendCooldownTicks <= 0;
+
+        if (mountChanged || ascendHeld != lastAscendHeld || descendHeld != lastDescendHeld || shouldResend) {
             ModNetworking.CHANNEL.sendToServer(new ScaralonFlightInputC2SPacket(mountId, ascendHeld, descendHeld));
             lastMountId = mountId;
             lastAscendHeld = ascendHeld;
             lastDescendHeld = descendHeld;
+            resendCooldownTicks = 4;
         }
     }
 
@@ -59,6 +69,7 @@ public final class ScaralonFlightClientInput {
             lastMountId = -1;
             lastAscendHeld = false;
             lastDescendHeld = false;
+            resendCooldownTicks = 0;
         }
     }
 }
