@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -144,6 +145,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private int pendingFlightHoverTicks = 0;
 
     private int takeoffAssistAscendTicks = 0;
+
+    private int lastOnGroundTick = 0;
+    private @Nullable BlockPos rescueLandingPos = null;
+    private int rescueRepathTicks = 0;
 
     private int flightToggleGraceTicks = 0;
     private int lastGroundJumpTapTick = -9999;
@@ -313,6 +318,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.tick();
 
         if (!level().isClientSide) {
+            if (onGround()) {
+                lastOnGroundTick = tickCount;
+            }
+
             if (flightToggleGraceTicks > 0) {
                 flightToggleGraceTicks--;
             }
@@ -360,13 +369,22 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                     && !onGround()) {
 
                 Vec3 v = getDeltaMovement();
-                boolean falling = v.y < -0.02D || fallDistance > 0.5F;
+                boolean bigFall = fallDistance >= 10.0F;
+                boolean fallingFast = v.y < -0.14D;
+                boolean falling = fallingFast || bigFall;
                 boolean wet = isInWaterOrBubble();
 
                 // Safety only: do NOT auto-engage flight just because the jump key is held,
                 // otherwise normal horse jumping gets hijacked into flight.
                 if (falling || wet) {
                     setFlying(true);
+                    flightToggleGraceTicks = Math.max(flightToggleGraceTicks, FLIGHT_TOGGLE_GROUND_GRACE_TICKS);
+                    takeoffAssistAscendTicks = 6;
+                    serverAscendHeld = true;
+
+                    // Kill extreme downward velocity so it feels like a recovery.
+                    setDeltaMovement(v.x, Math.max(v.y, -0.10D), v.z);
+                    hasImpulse = true;
                 }
             }
 
@@ -462,6 +480,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 }
             }
 
+            // Unmounted safety: prevent drowning and "void loss" by engaging self-rescue.
+            // In Wayfall this is especially important due to large open-air drops.
+            if (!isVehicle()) {
+                tickUnmountedSelfRescue();
+            }
+
             // Egg laying (turtle-style): after breeding, one parent will seek a nearby reachable spot
             // and place Scaralon eggs which hatch into larva.
             if (hasEggsToLay && eggLayCount > 0) {
@@ -530,6 +554,150 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 0.35F, 0.8F + random.nextFloat() * 0.25F);
             }
         }
+    }
+
+    private void tickUnmountedSelfRescue() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        if (onGround()) {
+            rescueLandingPos = null;
+            rescueRepathTicks = 0;
+            // If we were in a rescue state, allow normal gravity/ground behavior again.
+            if (isFlying() && !isInWaterOrBubble()) {
+                setFlying(false);
+            }
+            return;
+        }
+
+        boolean wet = isInWaterOrBubble();
+        boolean overVoid = isOverMostlyAir(serverLevel, 18);
+        boolean fallingDeep = fallDistance >= 10.0F;
+        boolean needsRescue = wet || overVoid || fallingDeep;
+
+        if (!needsRescue) {
+            rescueLandingPos = null;
+            rescueRepathTicks = 0;
+            return;
+        }
+
+        setFlying(true);
+        fallDistance = 0.0F;
+        setAirSupply(getMaxAirSupply());
+
+        if (rescueRepathTicks > 0) {
+            rescueRepathTicks--;
+        }
+
+        if (rescueLandingPos == null || rescueRepathTicks <= 0 || !serverLevel.isLoaded(rescueLandingPos)) {
+            rescueLandingPos = findRescueLandingPos(serverLevel);
+            rescueRepathTicks = 20;
+        }
+
+        // If we failed to find a surface, at least climb to reduce risk.
+        Vec3 target;
+        if (rescueLandingPos != null) {
+            target = Vec3.atCenterOf(rescueLandingPos).add(0.0D, 0.35D, 0.0D);
+        } else {
+            target = position().add(0.0D, 6.0D, 0.0D);
+        }
+
+        Vec3 to = target.subtract(position());
+        double distSq = to.lengthSqr();
+
+        // When close to the landing target and there's solid ground under us, drop out of flight.
+        if (rescueLandingPos != null && distSq < 2.5D * 2.5D) {
+            BlockPos below = rescueLandingPos.below();
+            if (!serverLevel.getBlockState(below).isAir() && serverLevel.getBlockState(rescueLandingPos).isAir()) {
+                setFlying(false);
+                setNoGravity(false);
+                rescueLandingPos = null;
+                rescueRepathTicks = 0;
+                setDeltaMovement(getDeltaMovement().multiply(0.25D, 0.0D, 0.25D));
+                hasImpulse = true;
+                return;
+            }
+        }
+
+        Vec3 desired;
+        if (distSq < 1.75D * 1.75D) {
+            desired = new Vec3(0.0D, wet ? 0.12D : 0.0D, 0.0D);
+        } else {
+            desired = to.normalize().scale(0.24D);
+            desired = new Vec3(desired.x, desired.y + 0.10D, desired.z);
+        }
+
+        Vec3 v = getDeltaMovement();
+        Vec3 steered = v.add(desired.subtract(v).scale(0.25D)).scale(0.96D);
+        steered = new Vec3(steered.x, Mth.clamp(steered.y, -0.12D, 0.28D), steered.z);
+
+        setDeltaMovement(steered);
+        move(MoverType.SELF, steered);
+        hasImpulse = true;
+    }
+
+    private boolean isOverMostlyAir(ServerLevel level, int depth) {
+        if (getY() <= level.getMinBuildHeight() + 2) {
+            return true;
+        }
+
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos(blockPosition().getX(), blockPosition().getY(), blockPosition().getZ());
+        for (int i = 1; i <= depth; i++) {
+            cursor.setY(blockPosition().getY() - i);
+            if (!level.isLoaded(cursor)) {
+                return false;
+            }
+            if (!level.getBlockState(cursor).isAir()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private @Nullable BlockPos findRescueLandingPos(ServerLevel level) {
+        BlockPos origin = blockPosition();
+
+        BlockPos best = null;
+        double bestScore = -1.0E18;
+
+        // Search for nearby surface columns using a heightmap (fast + reliable for islands).
+        for (int r = 4; r <= 28; r += 4) {
+            for (int i = 0; i < 10; i++) {
+                int dx = Mth.nextInt(random, -r, r);
+                int dz = Mth.nextInt(random, -r, r);
+
+                BlockPos col = new BlockPos(origin.getX() + dx, origin.getY(), origin.getZ() + dz);
+                if (!level.isLoaded(col)) {
+                    continue;
+                }
+
+                BlockPos surface = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, col);
+                if (surface.getY() <= level.getMinBuildHeight() + 1) {
+                    continue;
+                }
+
+                BlockPos landAt = surface.above();
+                if (!level.isLoaded(landAt)) {
+                    continue;
+                }
+                if (!level.getBlockState(landAt).isAir()) {
+                    continue;
+                }
+
+                Vec3 target = Vec3.atCenterOf(landAt);
+                double distSq = target.distanceToSqr(position());
+
+                // Prefer higher ground and closer targets.
+                double score = surface.getY() * 3.0D - distSq * 0.015D;
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = landAt;
+                }
+            }
+        }
+
+        return best;
     }
 
     @Override
@@ -766,17 +934,17 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return;
         }
 
-        // Double-tap Space on the ground toggles flight mode.
-        // This preserves horse-like jumping (single press/hold) while offering a quick flight toggle.
+        // Double-tap Space toggles flight mode.
+        // Works as a true "double jump": if you tap again shortly after jumping, it instantly enters flight.
         if (!isFlying()
                 && !pendingFlightHover
-                && onGround()
                 && isVehicle()
                 && isSaddled()
                 && isTamed()
                 && getControllingPassenger() instanceof Player) {
 
             int now = this.tickCount;
+            boolean recentlyGrounded = onGround() || (now - lastOnGroundTick <= 7);
             if (now - lastGroundJumpTapTick <= FLIGHT_DOUBLE_TAP_WINDOW_TICKS) {
                 setJumpCharging(false, 0);
                 setFlying(true);
@@ -793,7 +961,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 return;
             }
 
-            lastGroundJumpTapTick = now;
+            // Only arm the double-tap window if we are on/near the ground (prevents accidental flight arming mid-air).
+            if (recentlyGrounded) {
+                lastGroundJumpTapTick = now;
+            }
         }
 
         // While flying, repurpose the vanilla mount-jump "start" packet as ascend-held.

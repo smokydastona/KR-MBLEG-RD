@@ -178,7 +178,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Ground controls are **horse-like**: **WASD** to move; **Space** to jump; holding **Space** charges a higher jump.
   - Ground animations include horse-equivalent states: idle, walk, run (gallop), rear/charge (jump charging), and jump.
   - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **powered flight mode**.
-  - Flight mode toggle: **double-tap Space** while grounded.
+  - Flight mode toggle: **double-tap Space** while grounded (also works as a true **double-jump** shortly after leaving the ground).
   - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **mouse pitch** to climb/dive while moving forward, **Left Shift** to dismount.
   - Flight mode automatically exits back to ground mode when the beetle touches solid ground.
   - Flight uses **stamina**: while in flight mode you can hover/ascend/descend until stamina runs out; when empty, the beetle can’t gain altitude and will flutter down slowly. Stamina regenerates while on the ground.
@@ -186,6 +186,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
   - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** through open air (Glow Squid-like) as a rescue/void-safety behavior.
     - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.
+  - Unmounted safety: when a wild/tame Scaralon is in **water** or **over the void**, it will engage flight and try to climb and find nearby solid ground to land on.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices**.
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style). Eggs hatch into **larva**.
