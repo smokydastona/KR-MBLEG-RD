@@ -35,10 +35,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.ItemStack;
@@ -201,7 +205,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 .add(Attributes.FLYING_SPEED, 0.045D)
                 // Big tough beetle: durable baseline.
                 .add(Attributes.ARMOR, 12.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 6.0D);
+                .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
+                // Defensive aggression against egg-smashers (zombie family).
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.FOLLOW_RANGE, 24.0D);
     }
 
     @Override
@@ -351,6 +358,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 ModItems.RUNIC_CORE.get()
             ),
             false));
+
+        // Defend nests: zombie-family mobs can smash eggs, so Scaralons will fight them.
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.15D, true));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
 
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));

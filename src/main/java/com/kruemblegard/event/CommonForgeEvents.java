@@ -15,11 +15,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.RemoveBlockGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +39,7 @@ public final class CommonForgeEvents {
     private CommonForgeEvents() {}
 
     private static final String NBT_AVOID_WYRDWING = "kruemblegard:avoid_wyrdwing";
+    private static final String NBT_SMASH_SCARALON_EGGS = "kruemblegard:smash_scaralon_eggs";
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {
@@ -140,5 +143,27 @@ public final class CommonForgeEvents {
 
         pathfinder.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinder, WyrdwingEntity.class, 10.0F, 1.1D, 1.35D));
         mob.getPersistentData().putBoolean(NBT_AVOID_WYRDWING, true);
+    }
+
+    /**
+     * Vanilla zombie-family mobs will path to and smash turtle eggs.
+     * This extends that behavior to {@link ModBlocks#SCARALON_EGG}.
+     */
+    @SubscribeEvent
+    public static void onMakeZombiesSmashScaralonEggs(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Zombie zombie)) {
+            return;
+        }
+
+        if (zombie.getPersistentData().getBoolean(NBT_SMASH_SCARALON_EGGS)) {
+            return;
+        }
+
+        zombie.goalSelector.addGoal(4, new RemoveBlockGoal(ModBlocks.SCARALON_EGG.get(), zombie, 1.0D, 3));
+        zombie.getPersistentData().putBoolean(NBT_SMASH_SCARALON_EGGS, true);
     }
 }

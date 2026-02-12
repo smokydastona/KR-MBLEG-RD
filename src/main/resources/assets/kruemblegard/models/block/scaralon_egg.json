@@ -1,3 +1,9 @@
 {
-  "parent": "minecraft:block/turtle_egg"
+  "parent": "minecraft:block/turtle_egg",
+  "textures": {
+    "particle": "kruemblegard:block/scaralon_egg",
+    "all": "kruemblegard:block/scaralon_egg",
+    "texture": "kruemblegard:block/scaralon_egg",
+    "turtle_egg": "kruemblegard:block/scaralon_egg"
+  }
 }

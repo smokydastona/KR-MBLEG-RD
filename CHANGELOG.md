@@ -39,6 +39,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(mobs/scaralon): melon slices are now the only breeding item (always triggers breeding when not on cooldown).
 - Tuning(mobs/scaralon): egg clutch size now matches turtles (1–4 eggs).
 
+## 1.0.930 (2026-02-12)
+- Feature(assets/scaralon): Scaralon eggs now use a dedicated block texture (`textures/block/scaralon_egg.png`).
+- Feature(ai/vanilla): zombie-family turtle-egg smashers will also target and smash Scaralon eggs.
+- Feature(mobs/scaralon): Scaralons are now hostile to zombie-family egg smashers.
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
