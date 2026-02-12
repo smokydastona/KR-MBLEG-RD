@@ -190,7 +190,7 @@ Keep it up to date whenever you add/remove/rename content.
     - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.
   - Unmounted safety: when a wild/tame Scaralon is in **water** or **over the void**, it will engage flight and try to climb and find nearby solid ground to land on.
   - Attracted to **Melon Slices**.
-  - Breeding: **Melon Slices**.
+  - Breeding: **Melon Slices** (holding a melon slice prevents mounting; right-click will feed/breed instead).
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style). Eggs hatch into **larva**.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).

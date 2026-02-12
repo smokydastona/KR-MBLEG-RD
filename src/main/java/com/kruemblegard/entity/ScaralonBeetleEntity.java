@@ -1098,6 +1098,36 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
+        // Melon slices are the Scaralon's breeding item. If the player is holding a melon slice,
+        // always treat the interaction as feeding/breeding (never mounting).
+        if (stack.is(Items.MELON_SLICE)) {
+            if (level().isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+
+            boolean didSomething = false;
+
+            if (!isBaby() && canFallInLove()) {
+                setInLove(player);
+                didSomething = true;
+            } else if (getHealth() < getMaxHealth()) {
+                heal(2.0F);
+                didSomething = true;
+            } else if (isBaby()) {
+                ageUp(20, true);
+                didSomething = true;
+            }
+
+            if (didSomething) {
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
+                triggerAnim("actionController", "eat");
+            }
+
+            return InteractionResult.CONSUME;
+        }
+
         // Larva are bucketable.
         if (!level().isClientSide && isBaby() && stack.is(Items.BUCKET)) {
             ItemStack filled = new ItemStack(ModItems.SCARALON_LARVA_BUCKET.get());
