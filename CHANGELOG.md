@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.910 (2026-02-11)
+## 1.0.912 (2026-02-11)
 - Feature(mobs/scaralon): bred Scaralon eggs now carry an inherited adult texture variant (50/50 from either parent) with a small mutation chance; larva always use the larva texture until they mature.
 
-## 1.0.909 (2026-02-11)
+## 1.0.911 (2026-02-11)
 - Feature(mobs/scaralon): in Wayfall, unmounted Scaralon Beetles can air-swim/roam through open air similarly to Wayfall Glow Squids.
 - Fix(mobs/scaralon): mounted flight vertical controls (Space ascend / X descend) now reliably affect altitude while in flight mode.
 - Feature(mobs/scaralon): Scaralon Beetles are now attracted to and breedable with Melon Slices.
