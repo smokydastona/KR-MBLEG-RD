@@ -37,6 +37,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -1188,6 +1189,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 || stack.is(Items.MELON_SLICE)
                 || stack.is(ModItems.ATTUNED_RUNE_SHARD.get())
                 || stack.is(ModItems.RUNIC_CORE.get());
+    }
+
+    @Override
+    public boolean canMate(Animal other) {
+        if (other == this) {
+            return false;
+        }
+
+        if (!(other instanceof ScaralonBeetleEntity scaralon)) {
+            return false;
+        }
+
+        return !this.isBaby() && !scaralon.isBaby() && this.isInLove() && scaralon.isInLove();
     }
 
     @Override
