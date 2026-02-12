@@ -89,14 +89,16 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final int DISMOUNT_FOLLOW_TICKS = 20 * 4;
     private static final int DISMOUNT_SLOW_FALL_TICKS = 20 * 5;
 
-    private static final double ASCEND_VELOCITY = 0.26D;
-    private static final double DESCEND_VELOCITY = 0.28D;
+    private static final double ASCEND_VELOCITY = 0.42D;
+    private static final double DESCEND_VELOCITY = 0.42D;
     private static final double EXHAUSTED_DESCENT_VELOCITY = -0.07D;
     private static final double MAX_UPWARD_VELOCITY = 0.55D;
     private static final double MAX_DOWNWARD_VELOCITY = -0.55D;
 
     private static final int FLIGHT_DOUBLE_TAP_WINDOW_TICKS = 7;
-    private static final int FLIGHT_TOGGLE_GROUND_GRACE_TICKS = 6;
+    private static final int FLIGHT_TOGGLE_GROUND_GRACE_TICKS = 10;
+
+    private static final double GLIDE_SINK_VELOCITY = -0.03D;
 
     private static final EntityDataAccessor<Boolean> FLYING =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -304,7 +306,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
 
             // Reset if rider state becomes invalid.
-            if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
+            if (!isVehicle() || !(getControllingPassenger() instanceof Player)) {
                 serverAscendHeld = false;
                 serverDescendHeld = false;
                 pendingFlightHover = false;
@@ -621,17 +623,31 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
                 // Use FLYING_SPEED as a base, but scale it to feel like an actual mount.
                 float baseFlySpeed = (float) getAttributeValue(Attributes.FLYING_SPEED);
-                float flySpeed = baseFlySpeed * 4.0F;
+                float flySpeed = baseFlySpeed * 5.0F;
 
-                // Apply horizontal steering relative to the beetle's yaw (already synced to rider).
-                moveRelative(flySpeed, new Vec3(strafe, 0.0D, forward));
+                // Crisp flight steering: approach a desired horizontal velocity instead of accumulating
+                // water-like inertia/skating.
                 Vec3 v = getDeltaMovement();
+
+                Vec3 desiredInput = new Vec3(strafe, 0.0D, forward);
+                if (desiredInput.lengthSqr() > 1.0D) {
+                    desiredInput = desiredInput.normalize();
+                }
+                Vec3 desiredHoriz = desiredInput
+                        .yRot(-getYRot() * ((float) Math.PI / 180.0F))
+                        .scale(flySpeed);
+
+                // If there's no input, bleed off horizontal speed so we don't "skate".
+                double horizLerp = desiredHoriz.lengthSqr() > 1.0E-4D ? 0.35D : 0.20D;
+                double newX = v.x + (desiredHoriz.x - v.x) * horizLerp;
+                double newZ = v.z + (desiredHoriz.z - v.z) * horizLerp;
 
                 double targetY;
                 if (exhausted) {
                     targetY = EXHAUSTED_DESCENT_VELOCITY;
                 } else {
-                    targetY = 0.0D;
+                    // Gentle glide down when not actively ascending/descending.
+                    targetY = GLIDE_SINK_VELOCITY;
                     if (serverAscendHeld) {
                         targetY += ASCEND_VELOCITY;
                     }
@@ -644,8 +660,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 double y = v.y + (targetY - v.y) * 0.35D;
                 y = Mth.clamp(y, MAX_DOWNWARD_VELOCITY, MAX_UPWARD_VELOCITY);
 
-                // Apply drag so hovering feels stable and flight isn't slippery.
-                Vec3 steered = new Vec3(v.x * 0.93D, y, v.z * 0.93D);
+                // Light drag so it feels like flying, not swimming.
+                Vec3 steered = new Vec3(newX * 0.98D, y, newZ * 0.98D);
                 setDeltaMovement(steered);
                 move(MoverType.SELF, steered);
                 hasImpulse = true;
@@ -739,7 +755,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 serverAscendHeld = true;
 
                 Vec3 v = getDeltaMovement();
-                setDeltaMovement(v.x, Math.max(v.y, 0.18D), v.z);
+                setDeltaMovement(v.x, Math.max(v.y, 0.42D), v.z);
                 hasImpulse = true;
                 fallDistance = 0.0F;
 

@@ -7,8 +7,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
-## 1.0.916 (2026-02-11)
+## 1.0.917 (2026-02-11)
 - Fix(mobs/scaralon): restore horse-like ground jumping/charged jumping while mounted; double-tap Space now toggles flight mode, and in flight Space ascends / X descends.
+
+## 1.0.918 (2026-02-11)
+- Tuning(mobs/scaralon): mounted flight now feels like flying (less skating/floaty inertia), adds gentle glide-sink instead of perfect hovering, and increases vertical ascend/descend responsiveness.
 
 ## 1.0.914 (2026-02-11)
 - Docs: align changelog headings with commit-count versioning.
