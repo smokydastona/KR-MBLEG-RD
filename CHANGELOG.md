@@ -17,6 +17,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.922 (2026-02-11)
 - Tuning(mobs/scaralon): when flight stamina is depleted, the beetle forces an auto-land (rider loses control and it rapidly descends straight down).
 
+## 1.0.923 (2026-02-11)
+- Tuning(mobs/scaralon): halve max flight stamina (about 10s at full).
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 

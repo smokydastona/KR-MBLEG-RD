@@ -83,7 +83,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
     // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
-    private static final int MAX_FLIGHT_STAMINA_TICKS = 20 * 20; // 20 seconds at full stamina
+    private static final int MAX_FLIGHT_STAMINA_TICKS = 20 * 10; // 10 seconds at full stamina
     private static final int STAMINA_REGEN_PER_TICK_GROUNDED = 3;
     private static final int STAMINA_DRAIN_PER_TICK_FLYING = 1;
 
