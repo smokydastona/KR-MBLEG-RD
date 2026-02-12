@@ -22,6 +22,8 @@ public class ScaralonEggBlock extends Block {
 
     public static final IntegerProperty EGGS = IntegerProperty.create("eggs", 1, 4);
     public static final IntegerProperty HATCH = IntegerProperty.create("hatch", 0, 2);
+    /** Adult texture variant (1..8) that the hatched larva will grow into. */
+    public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 1, 8);
 
     private static final VoxelShape ONE_EGG = Block.box(3, 0, 3, 13, 7, 13);
     private static final VoxelShape MULTI_EGG = Block.box(2, 0, 2, 14, 7, 14);
@@ -30,12 +32,13 @@ public class ScaralonEggBlock extends Block {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(EGGS, 1)
-                .setValue(HATCH, 0));
+                .setValue(HATCH, 0)
+                .setValue(VARIANT, 1));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(EGGS, HATCH);
+        builder.add(EGGS, HATCH, VARIANT);
     }
 
     @Override
@@ -76,6 +79,7 @@ public class ScaralonEggBlock extends Block {
 
     private void hatchEggs(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         int eggs = state.getValue(EGGS);
+        int variant = state.getValue(VARIANT);
 
         level.removeBlock(pos, false);
 
@@ -85,6 +89,7 @@ public class ScaralonEggBlock extends Block {
                 continue;
             }
 
+            larva.setTextureVariant(variant);
             larva.setBaby(true);
             larva.setAge(-24000);
 

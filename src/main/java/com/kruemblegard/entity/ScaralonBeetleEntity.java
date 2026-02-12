@@ -73,9 +73,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_EGG_COUNT = "EggLayCount";
     private static final String NBT_EGG_LAY_POS = "EggLayPos";
     private static final String NBT_EGG_LAY_TIMEOUT = "EggLayTimeout";
+    private static final String NBT_EGG_LAY_VARIANT = "EggLayVariant";
 
     private static final int TEXTURE_VARIANT_MIN = 1;
     private static final int TEXTURE_VARIANT_MAX = 8;
+
+    private static final float BABY_TEXTURE_MUTATION_CHANCE = 0.03F;
 
     // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
     // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
@@ -147,6 +150,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private int eggLayCount = 0;
     private @Nullable BlockPos eggLayPos = null;
     private int eggLayTimeoutTicks = 0;
+    private int eggLayVariant = TEXTURE_VARIANT_MIN;
 
     public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
         super(type, level);
@@ -483,7 +487,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                                 layAt,
                                 ModBlocks.SCARALON_EGG.get().defaultBlockState()
                                         .setValue(ScaralonEggBlock.EGGS, eggs)
-                                        .setValue(ScaralonEggBlock.HATCH, 0),
+                                .setValue(ScaralonEggBlock.HATCH, 0)
+                                .setValue(ScaralonEggBlock.VARIANT, Mth.clamp(eggLayVariant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX)),
                                 Block.UPDATE_CLIENTS);
                         playSound(SoundEvents.TURTLE_LAY_EGG, 0.9F, 0.9F + random.nextFloat() * 0.2F);
                     }
@@ -492,6 +497,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                     eggLayCount = 0;
                     eggLayPos = null;
                     eggLayTimeoutTicks = 0;
+                    eggLayVariant = TEXTURE_VARIANT_MIN;
                 }
             }
 
@@ -860,11 +866,18 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         // Decide which parent lays eggs.
         ScaralonBeetleEntity layer = this.random.nextBoolean() ? this : other;
 
+        // Decide which parent's adult texture variant the babies will inherit (50/50), with a small mutation chance.
+        int inheritedVariant = this.random.nextBoolean() ? this.getTextureVariant() : other.getTextureVariant();
+        if (this.random.nextFloat() < BABY_TEXTURE_MUTATION_CHANCE) {
+            inheritedVariant = TEXTURE_VARIANT_MIN + this.random.nextInt(TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1);
+        }
+
         int eggs = Mth.nextInt(this.random, 1, 3);
         layer.hasEggsToLay = true;
         layer.eggLayCount = eggs;
         layer.eggLayPos = layer.findNearbyEggLayPos(level, layer.blockPosition());
         layer.eggLayTimeoutTicks = 20 * 18;
+        layer.eggLayVariant = inheritedVariant;
 
         // Breeding cooldown + clear love state.
         this.setAge(6000);
@@ -924,6 +937,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (otherParent instanceof ScaralonBeetleEntity other) {
                 variant = random.nextBoolean() ? getTextureVariant() : other.getTextureVariant();
             }
+
+            if (random.nextFloat() < BABY_TEXTURE_MUTATION_CHANCE) {
+                variant = TEXTURE_VARIANT_MIN + random.nextInt(TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1);
+            }
             baby.setTextureVariant(variant);
 
             // Basic stat variation: small RNG drift around the parents.
@@ -961,6 +978,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             tag.putLong(NBT_EGG_LAY_POS, eggLayPos.asLong());
         }
         tag.putInt(NBT_EGG_LAY_TIMEOUT, eggLayTimeoutTicks);
+        tag.putInt(NBT_EGG_LAY_VARIANT, eggLayVariant);
     }
 
     @Override
@@ -984,6 +1002,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             eggLayPos = null;
         }
         eggLayTimeoutTicks = tag.getInt(NBT_EGG_LAY_TIMEOUT);
+        if (tag.contains(NBT_EGG_LAY_VARIANT)) {
+            eggLayVariant = Mth.clamp(tag.getInt(NBT_EGG_LAY_VARIANT), TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX);
+        } else {
+            eggLayVariant = TEXTURE_VARIANT_MIN;
+        }
 
         // Ensure gravity state is consistent after load.
         if (isFlying()) {

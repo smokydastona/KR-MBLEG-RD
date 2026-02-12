@@ -187,6 +187,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices**.
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style). Eggs hatch into **larva**.
+    - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).
@@ -198,7 +199,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Adult:
       - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
-      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_8.png` (randomly assigned on spawn, horse-style)
+      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_8.png` (randomly assigned on natural spawn; bred offspring inherit 50/50 + small mutation chance)
     - Baby (larva form):
       - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`
