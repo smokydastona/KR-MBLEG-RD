@@ -53,15 +53,12 @@ public class ScaralonEggBlock extends Block {
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return state.getValue(HATCH) < 2;
+        // We need random ticks even at HATCH=2 so the final hatch event can fire.
+        return true;
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(HATCH) >= 2) {
-            return;
-        }
-
         // Turtle-like: tends to hatch at night, but will still eventually hatch.
         int chance = level.isNight() ? 6 : 18;
         if (random.nextInt(chance) != 0) {

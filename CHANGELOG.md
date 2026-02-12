@@ -44,6 +44,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(ai/vanilla): zombie-family turtle-egg smashers will also target and smash Scaralon eggs.
 - Feature(mobs/scaralon): Scaralons are now hostile to zombie-family egg smashers.
 
+## 1.0.931 (2026-02-11)
+- Fix(mobs/scaralon): Scaralon eggs now correctly hatch into larva (final hatch step now triggers).
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
