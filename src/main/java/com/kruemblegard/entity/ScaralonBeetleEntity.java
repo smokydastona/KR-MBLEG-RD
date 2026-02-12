@@ -90,7 +90,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final int DISMOUNT_FOLLOW_TICKS = 20 * 4;
     private static final int DISMOUNT_SLOW_FALL_TICKS = 20 * 5;
 
-    private static final double EXHAUSTED_DESCENT_VELOCITY = -0.07D;
+    private static final double EXHAUSTED_AUTO_LAND_DESCENT_VELOCITY = -1.15D;
+    private static final double MAX_EXHAUSTED_DOWNWARD_VELOCITY = -1.25D;
     private static final double MAX_UPWARD_VELOCITY = 0.55D;
     private static final double MAX_DOWNWARD_VELOCITY = -0.55D;
 
@@ -814,11 +815,31 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
                 boolean exhausted = isFlightExhausted();
 
+                // Out of stamina: force an auto-land.
+                // The rider loses precise control and the beetle rapidly descends straight down.
+                if (exhausted) {
+                    serverAscendHeld = false;
+                    serverDescendHeld = false;
+                    takeoffAssistAscendTicks = 0;
+
+                    Vec3 v = getDeltaMovement();
+                    Vec3 forced = new Vec3(v.x * 0.25D, EXHAUSTED_AUTO_LAND_DESCENT_VELOCITY, v.z * 0.25D);
+                    setDeltaMovement(forced);
+                    move(MoverType.SELF, forced);
+
+                    Vec3 after = getDeltaMovement();
+                    double y = Mth.clamp(after.y, MAX_EXHAUSTED_DOWNWARD_VELOCITY, 0.0D);
+                    setDeltaMovement(0.0D, y, 0.0D);
+                    hasImpulse = true;
+                    fallDistance = 0.0F;
+                    return;
+                }
+
                 // Powered mount flight (inspired by Ice & Fire): apply rider travel vector each tick,
                 // then damp motion with drag so it feels responsive and "powered" instead of swimmy.
                 float baseFlySpeed = (float) getAttributeValue(Attributes.FLYING_SPEED);
-                float speed = baseFlySpeed * (exhausted ? 4.0F : 7.5F);
-                if (player.isSprinting() && !exhausted) {
+                float speed = baseFlySpeed * 7.5F;
+                if (player.isSprinting()) {
                     speed *= 1.20F;
                 }
 
@@ -826,27 +847,23 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 double forwardScaled = forward * (forward > 0.0F ? 1.0D : 0.55D);
                 double strafeScaled = strafe * 0.60D;
 
+                boolean ascend = serverAscendHeld && !serverDescendHeld;
+                boolean descend = serverDescendHeld && !serverAscendHeld;
+
                 double vertical;
-                if (exhausted) {
-                    vertical = EXHAUSTED_DESCENT_VELOCITY;
+                if (ascend) {
+                    vertical = 0.85D;
+                } else if (descend) {
+                    vertical = -0.85D;
                 } else {
-                    boolean ascend = serverAscendHeld && !serverDescendHeld;
-                    boolean descend = serverDescendHeld && !serverAscendHeld;
+                    // Mouse pitch control: while moving forward, looking up climbs and looking down dives.
+                    float pitchRad = player.getXRot() * ((float) Math.PI / 180.0F);
+                    double pitchVertical = -Math.sin(pitchRad) * Math.abs(forwardScaled) * 0.85D;
+                    vertical = pitchVertical;
 
-                    if (ascend) {
-                        vertical = 0.85D;
-                    } else if (descend) {
-                        vertical = -0.85D;
-                    } else {
-                        // Mouse pitch control: while moving forward, looking up climbs and looking down dives.
-                        float pitchRad = player.getXRot() * ((float) Math.PI / 180.0F);
-                        double pitchVertical = -Math.sin(pitchRad) * Math.abs(forwardScaled) * 0.85D;
-                        vertical = pitchVertical;
-
-                        // Without intent, very gently sink (prevents unnatural hovering while idle).
-                        if (Math.abs(forwardScaled) < 0.01D && Math.abs(strafeScaled) < 0.01D) {
-                            vertical = GLIDE_SINK_VELOCITY;
-                        }
+                    // Without intent, very gently sink (prevents unnatural hovering while idle).
+                    if (Math.abs(forwardScaled) < 0.01D && Math.abs(strafeScaled) < 0.01D) {
+                        vertical = GLIDE_SINK_VELOCITY;
                     }
                 }
 
@@ -860,7 +877,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 }
 
                 double clampedY = Mth.clamp(motion.y, MAX_DOWNWARD_VELOCITY, MAX_UPWARD_VELOCITY);
-                double drag = exhausted ? 0.78D : 0.72D;
+                double drag = 0.72D;
                 this.setDeltaMovement(motion.x * drag, clampedY * 0.88D, motion.z * drag);
                 this.hasImpulse = true;
                 this.fallDistance = 0.0F;

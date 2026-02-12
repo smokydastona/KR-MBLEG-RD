@@ -14,6 +14,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(mobs/scaralon): auto-recovery now triggers flight when falling a long distance or when entering water.
 - Feature(mobs/scaralon): unmounted Scaralons perform self-rescue over void/in water by climbing and seeking a nearby surface to land on.
 
+## 1.0.922 (2026-02-11)
+- Tuning(mobs/scaralon): when flight stamina is depleted, the beetle forces an auto-land (rider loses control and it rapidly descends straight down).
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 
