@@ -32,6 +32,7 @@ import com.kruemblegard.block.RunedStoneveilRubbleBlock;
 import com.kruemblegard.block.RunegrowthBlock;
 import com.kruemblegard.block.RunegrowthVariantBlock;
 import com.kruemblegard.block.RubbleTilthBlock;
+import com.kruemblegard.block.ScaralonEggBlock;
 import com.kruemblegard.block.ScarstoneBlock;
 import com.kruemblegard.block.VoidfeltBlock;
 import com.kruemblegard.block.PaleweftGrassBlock;
@@ -152,6 +153,18 @@ public final class ModBlocks {
                     .noCollission()
                     .strength(2.0F, 18.0F)
                     .sound(SoundType.STONE))
+    );
+
+    // --- Mob utility blocks ---
+
+    public static final RegistryObject<Block> SCARALON_EGG = BLOCKS.register(
+            "scaralon_egg",
+            () -> new ScaralonEggBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .strength(0.5F)
+                    .sound(SoundType.SAND)
+                    .noOcclusion()
+                    .randomTicks())
     );
 
     public static final RegistryObject<Block> FRACTURED_WAYROCK_STAIRS = BLOCKS.register(

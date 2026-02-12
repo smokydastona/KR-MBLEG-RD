@@ -6,6 +6,7 @@ import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModTiers;
 import com.kruemblegard.item.KruemblegardBoatItem;
 import com.kruemblegard.item.RunePetalItem;
+import com.kruemblegard.item.ScaralonLarvaBucketItem;
 
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ArmorItem;
@@ -84,6 +85,8 @@ public class ModItems {
     public static final RegistryObject<Item> ATTUNED_STONE_STAIRS_ITEM = registerBlockItem("attuned_stone_stairs", ModBlocks.ATTUNED_STONE_STAIRS);
     public static final RegistryObject<Item> ATTUNED_STONE_SLAB_ITEM = registerBlockItem("attuned_stone_slab", ModBlocks.ATTUNED_STONE_SLAB);
     public static final RegistryObject<Item> ATTUNED_STONE_WALL_ITEM = registerBlockItem("attuned_stone_wall", ModBlocks.ATTUNED_STONE_WALL);
+
+    public static final RegistryObject<Item> SCARALON_EGG_ITEM = registerBlockItem("scaralon_egg", ModBlocks.SCARALON_EGG);
 
     // --- Wayfall geology block items ---
 
@@ -679,6 +682,11 @@ public class ModItems {
             "scaralon_beetle_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.SCARALON_BEETLE, 0x4b1e10, 0xd1b02c,
                 new Item.Properties()));
+
+    public static final RegistryObject<Item> SCARALON_LARVA_BUCKET =
+        ITEMS.register(
+            "scaralon_larva_bucket",
+            () -> new ScaralonLarvaBucketItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> WYRDWING_SPAWN_EGG =
         ITEMS.register(

@@ -3,6 +3,8 @@ package com.kruemblegard.entity;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModItems;
+import com.kruemblegard.block.ScaralonEggBlock;
+import net.minecraft.world.level.block.Block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +24,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
@@ -66,6 +69,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_SHEAR_COOLDOWN = "ShearCooldown";
     private static final String NBT_FLIGHT_STAMINA = "FlightStamina";
     private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
+    private static final String NBT_HAS_EGGS = "HasEggsToLay";
+    private static final String NBT_EGG_COUNT = "EggLayCount";
+    private static final String NBT_EGG_LAY_POS = "EggLayPos";
+    private static final String NBT_EGG_LAY_TIMEOUT = "EggLayTimeout";
 
     private static final int TEXTURE_VARIANT_MIN = 1;
     private static final int TEXTURE_VARIANT_MAX = 8;
@@ -135,6 +142,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private boolean playedDeathAnim = false;
 
+
+    private boolean hasEggsToLay = false;
+    private int eggLayCount = 0;
+    private @Nullable BlockPos eggLayPos = null;
+    private int eggLayTimeoutTicks = 0;
+
     public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
         super(type, level);
     }
@@ -164,7 +177,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         return Mth.clamp(this.entityData.get(TEXTURE_VARIANT), TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX);
     }
 
-    private void setTextureVariant(int variant) {
+    public void setTextureVariant(int variant) {
         this.entityData.set(TEXTURE_VARIANT, Mth.clamp(variant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX));
     }
 
@@ -274,6 +287,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.15D,
             Ingredient.of(
                 ModItems.SOULBERRIES.get(),
+                Items.MELON_SLICE,
                 ModItems.ATTUNED_RUNE_SHARD.get(),
                 ModItems.RUNIC_CORE.get()
             ),
@@ -417,6 +431,67 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         hasImpulse = true;
                         fallDistance = 0.0F;
                     }
+                }
+            }
+
+            // Egg laying (turtle-style): after breeding, one parent will seek a nearby reachable spot
+            // and place Scaralon eggs which hatch into larva.
+            if (hasEggsToLay && eggLayCount > 0) {
+                if (eggLayTimeoutTicks > 0) {
+                    eggLayTimeoutTicks--;
+                }
+
+                if (eggLayPos == null) {
+                    eggLayPos = findNearbyEggLayPos((ServerLevel) level(), blockPosition());
+                }
+
+                BlockPos targetPos = eggLayPos;
+                if (targetPos == null) {
+                    targetPos = blockPosition().above();
+                }
+
+                // Try to walk to the lay position; if we can't, we'll eventually give up and lay nearby.
+                if (this.getNavigation().isDone() && eggLayTimeoutTicks > 0) {
+                    this.getNavigation().moveTo(targetPos.getX() + 0.5D, targetPos.getY(), targetPos.getZ() + 0.5D, 1.10D);
+                }
+
+                double distSq = this.position().distanceToSqr(Vec3.atCenterOf(targetPos));
+                boolean timedOut = eggLayTimeoutTicks <= 0;
+                boolean closeEnough = distSq <= 2.25D;
+
+                if ((closeEnough && this.onGround()) || timedOut) {
+                    BlockPos layAt = closeEnough ? targetPos : blockPosition().above();
+
+                    // Ensure we place on air above a solid-ish block.
+                    if (!level().getBlockState(layAt).isAir()) {
+                        layAt = blockPosition().above();
+                    }
+
+                    BlockPos below = layAt.below();
+                    if (level().getBlockState(below).isAir()) {
+                        // Find something nearby solid to lay on.
+                        BlockPos alt = findNearbyEggLayPos((ServerLevel) level(), blockPosition());
+                        if (alt != null) {
+                            layAt = alt;
+                            below = layAt.below();
+                        }
+                    }
+
+                    if (level().getBlockState(layAt).isAir() && !level().getBlockState(below).isAir()) {
+                        int eggs = Mth.clamp(eggLayCount, 1, 4);
+                        level().setBlock(
+                                layAt,
+                                ModBlocks.SCARALON_EGG.get().defaultBlockState()
+                                        .setValue(ScaralonEggBlock.EGGS, eggs)
+                                        .setValue(ScaralonEggBlock.HATCH, 0),
+                                Block.UPDATE_CLIENTS);
+                        playSound(SoundEvents.TURTLE_LAY_EGG, 0.9F, 0.9F + random.nextFloat() * 0.2F);
+                    }
+
+                    hasEggsToLay = false;
+                    eggLayCount = 0;
+                    eggLayPos = null;
+                    eggLayTimeoutTicks = 0;
                 }
             }
 
@@ -713,6 +788,27 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
+        // Larva are bucketable.
+        if (!level().isClientSide && isBaby() && stack.is(Items.BUCKET)) {
+            ItemStack filled = new ItemStack(ModItems.SCARALON_LARVA_BUCKET.get());
+            filled.getOrCreateTag().putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+
+            playSound(SoundEvents.BUCKET_FILL_AXOLOTL, 1.0F, 1.0F);
+
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+
+            if (stack.isEmpty()) {
+                player.setItemInHand(hand, filled);
+            } else if (!player.getInventory().add(filled)) {
+                player.drop(filled, false);
+            }
+
+            discard();
+            return InteractionResult.CONSUME;
+        }
+
         // Harvest: shear adults for plates without killing.
         if (!level().isClientSide
                 && !isBaby()
@@ -749,9 +845,75 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     public boolean isFood(ItemStack stack) {
         // Breeding: Soulberries. Also accept a couple rune items as "taming aids".
         return stack.is(ModItems.SOULBERRIES.get())
+                || stack.is(Items.MELON_SLICE)
                 || stack.is(ModItems.ATTUNED_RUNE_SHARD.get())
                 || stack.is(ModItems.RUNIC_CORE.get());
     }
+
+    @Override
+    public void spawnChildFromBreeding(ServerLevel level, net.minecraft.world.entity.animal.Animal otherParent) {
+        if (!(otherParent instanceof ScaralonBeetleEntity other)) {
+            super.spawnChildFromBreeding(level, otherParent);
+            return;
+        }
+
+        // Decide which parent lays eggs.
+        ScaralonBeetleEntity layer = this.random.nextBoolean() ? this : other;
+
+        int eggs = Mth.nextInt(this.random, 1, 3);
+        layer.hasEggsToLay = true;
+        layer.eggLayCount = eggs;
+        layer.eggLayPos = layer.findNearbyEggLayPos(level, layer.blockPosition());
+        layer.eggLayTimeoutTicks = 20 * 18;
+
+        // Breeding cooldown + clear love state.
+        this.setAge(6000);
+        other.setAge(6000);
+        this.resetLove();
+        other.resetLove();
+
+        // Vanilla-style XP reward.
+        ExperienceOrb.award(level, this.position(), Mth.nextInt(this.random, 1, 7));
+    }
+
+    private @Nullable BlockPos findNearbyEggLayPos(ServerLevel level, BlockPos origin) {
+        for (int i = 0; i < 24; i++) {
+            int dx = Mth.nextInt(random, -7, 7);
+            int dz = Mth.nextInt(random, -7, 7);
+            int dy = Mth.nextInt(random, -2, 2);
+
+            BlockPos base = origin.offset(dx, dy, dz);
+
+            // We want an air block with a non-air block beneath.
+            BlockPos eggPos = base;
+            BlockPos below = eggPos.below();
+
+            if (!level.isLoaded(eggPos)) {
+                continue;
+            }
+
+            if (!level.getBlockState(eggPos).isAir()) {
+                continue;
+            }
+
+            if (level.getBlockState(below).isAir()) {
+                continue;
+            }
+
+            // Must be navigable/reachable-ish.
+            var path = this.getNavigation().createPath(eggPos, 0);
+            if (path == null || !path.canReach()) {
+                continue;
+            }
+
+            return eggPos;
+        }
+
+        return null;
+    }
+
+    // --- Bucketable (larva only) ---
+
 
     @Nullable
     @Override
@@ -792,6 +954,13 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         tag.putInt(NBT_SHEAR_COOLDOWN, shearCooldownTicks);
         tag.putInt(NBT_FLIGHT_STAMINA, getFlightStamina());
         tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+
+        tag.putBoolean(NBT_HAS_EGGS, hasEggsToLay);
+        tag.putInt(NBT_EGG_COUNT, eggLayCount);
+        if (eggLayPos != null) {
+            tag.putLong(NBT_EGG_LAY_POS, eggLayPos.asLong());
+        }
+        tag.putInt(NBT_EGG_LAY_TIMEOUT, eggLayTimeoutTicks);
     }
 
     @Override
@@ -806,6 +975,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         if (tag.contains(NBT_TEXTURE_VARIANT)) {
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
         }
+
+        hasEggsToLay = tag.getBoolean(NBT_HAS_EGGS);
+        eggLayCount = tag.getInt(NBT_EGG_COUNT);
+        if (tag.contains(NBT_EGG_LAY_POS)) {
+            eggLayPos = BlockPos.of(tag.getLong(NBT_EGG_LAY_POS));
+        } else {
+            eggLayPos = null;
+        }
+        eggLayTimeoutTicks = tag.getInt(NBT_EGG_LAY_TIMEOUT);
 
         // Ensure gravity state is consistent after load.
         if (isFlying()) {

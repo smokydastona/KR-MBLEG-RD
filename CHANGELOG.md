@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.908 (2026-02-11)
 - Feature(mobs/scaralon): in Wayfall, unmounted Scaralon Beetles can air-swim/roam through open air similarly to Wayfall Glow Squids.
 - Fix(mobs/scaralon): mounted flight vertical controls (Space ascend / X descend) now reliably affect altitude while in flight mode.
+- Feature(mobs/scaralon): Scaralon Beetles are now attracted to and breedable with Melon Slices.
+- Feature(mobs/scaralon): breeding now lays Scaralon eggs (turtle-style); eggs hatch into larva.
+- Feature(mobs/scaralon): Scaralon larva are bucketable (adds `Scaralon Larva Bucket`).
 
 ## 1.0.907 (2026-02-11)
 - Chore(assets/geckolib): update Scaralon Beetle geo + animations.

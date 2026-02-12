@@ -184,7 +184,10 @@ Keep it up to date whenever you add/remove/rename content.
   - **HUD:** while riding, a stamina bar renders above the hotbar so you can see how close you are to needing to land.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
   - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** (drift/roam through open air) similarly to Wayfall Glow Squids.
-  - Breeding: **Soulberries**.
+  - Attracted to **Melon Slices**.
+  - Breeding: **Melon Slices**.
+  - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style). Eggs hatch into **larva**.
+  - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).
   - Renewable elytra loop: babies shed `Elytra Scutes` **when maturing into adults**.
