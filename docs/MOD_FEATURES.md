@@ -184,7 +184,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **mouse pitch** to climb/dive while moving forward, **Left Shift** to dismount.
   - Flight mode automatically exits back to ground mode when the beetle touches solid ground.
   - Flight uses **stamina** (about **10 seconds** at full): while in flight mode you can hover/ascend/descend until stamina runs out; when empty, the beetle **forces an auto-land** (you lose fine control and it rapidly descends straight down). Stamina regenerates while on the ground.
-  - **HUD:** while riding, a stamina bar renders above the hotbar so you can see how close you are to needing to land.
+  - **HUD:** while riding, flight stamina renders as a vanilla-style **melon-slice icon row** (hunger-like) so you can see how close you are to needing to land.
   - Safety: if you ride off a cliff or hit water, it automatically engages flight mode to prevent a hard fall. If you jump/fall off mid-air, you get a short slow-fall (no fall damage) and the beetle hovers nearby; stamina refills instantly.
   - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** through open air (Glow Squid-like) as a rescue/void-safety behavior.
     - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.

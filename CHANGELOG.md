@@ -26,6 +26,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.925 (2026-02-11)
 - Feature(mobs/scaralon): add sprinting while ridden (hold Sprint to move faster on the ground; also boosts flight speed).
 
+## 1.0.926 (2026-02-11)
+- Tuning(ui/scaralon): flight stamina HUD now renders as a vanilla-style melon-slice icon row (hunger-like) instead of a custom bar.
+
 ## 1.0.915 (2026-02-11)
 - Docs: keep changelog sections aligned with commit-count jar versions.
 

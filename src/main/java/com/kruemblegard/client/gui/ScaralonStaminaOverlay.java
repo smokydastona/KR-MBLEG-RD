@@ -3,23 +3,39 @@ package com.kruemblegard.client.gui;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public final class ScaralonStaminaOverlay {
 
+    private static final ResourceLocation MELON_SLICE_TEXTURE = new ResourceLocation(
+            "minecraft",
+            "textures/item/melon_slice.png"
+    );
+
+    private static final int ICONS = 10;
+    private static final int ICON_STEP = 8; // matches vanilla survival HUD spacing
+    private static final float ICON_SCALE = 0.5F; // 16px item texture -> 8px HUD icon
+
     private ScaralonStaminaOverlay() {}
 
     @SubscribeEvent
     public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
+        if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
+            return;
+        }
+
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.hideGui) {
             return;
@@ -41,39 +57,44 @@ public final class ScaralonStaminaOverlay {
         }
 
         int stamina = Mth.clamp(scaralon.getFlightStaminaTicks(), 0, max);
-        float pct = stamina / (float) max;
+        int pips = Mth.clamp(Mth.ceil(stamina * 20.0F / (float) max), 0, 20);
 
         GuiGraphics g = event.getGuiGraphics();
         int w = g.guiWidth();
         int h = g.guiHeight();
 
-        int barWidth = 90;
-        int barHeight = 8;
+        // Draw where the hunger bar normally lives (it doesn't render while mounted).
+        int xRight = (w / 2) + 91 - 8;
+        int y = h - 39;
 
-        int x = (w - barWidth) / 2;
-        int y = h - 58;
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
 
-        int filled = (int) (pct * barWidth);
+        var pose = g.pose();
+        pose.pushPose();
+        pose.scale(ICON_SCALE, ICON_SCALE, 1.0F);
 
-        int fillColor;
-        if (pct > 0.50F) {
-            fillColor = 0xFF3BD66F;
-        } else if (pct > 0.25F) {
-            fillColor = 0xFFF2C94C;
-        } else {
-            fillColor = 0xFFE74C3C;
+        for (int i = 0; i < ICONS; i++) {
+            int x = xRight - (i * ICON_STEP);
+            int drawX = (int) (x / ICON_SCALE);
+            int drawY = (int) (y / ICON_SCALE);
+
+            // Always draw an "empty" (dim) melon slice background.
+            RenderSystem.setShaderColor(0.22F, 0.22F, 0.22F, 1.0F);
+            g.blit(MELON_SLICE_TEXTURE, drawX, drawY, 0, 0, 16, 16, 16, 16);
+
+            // Overlay half/full fill based on pips.
+            int pipFill = pips - (i * 2);
+            if (pipFill >= 2) {
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                g.blit(MELON_SLICE_TEXTURE, drawX, drawY, 0, 0, 16, 16, 16, 16);
+            } else if (pipFill == 1) {
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                g.blit(MELON_SLICE_TEXTURE, drawX, drawY, 0, 0, 8, 16, 16, 16);
+            }
         }
 
-        // Backplate + border
-        g.fill(x - 1, y - 1, x + barWidth + 1, y + barHeight + 1, 0xAA000000);
-        g.fill(x, y, x + barWidth, y + barHeight, 0xFF1B1B1B);
-
-        // Fill
-        if (filled > 0) {
-            g.fill(x, y, x + filled, y + barHeight, fillColor);
-        }
-
-        // Subtle gloss line
-        g.fill(x, y, x + barWidth, y + 1, 0x33FFFFFF);
+        pose.popPose();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }
