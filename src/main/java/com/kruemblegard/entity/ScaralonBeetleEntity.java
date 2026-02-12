@@ -95,6 +95,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final double MAX_UPWARD_VELOCITY = 0.55D;
     private static final double MAX_DOWNWARD_VELOCITY = -0.55D;
 
+    private static final int FLIGHT_DOUBLE_TAP_WINDOW_TICKS = 7;
+    private static final int FLIGHT_TOGGLE_GROUND_GRACE_TICKS = 6;
+
     private static final EntityDataAccessor<Boolean> FLYING =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -139,6 +142,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private boolean pendingFlightHover = false;
     private boolean pendingFlightHoverLeftGround = false;
     private int pendingFlightHoverTicks = 0;
+
+    private int flightToggleGraceTicks = 0;
+    private int lastGroundJumpTapTick = -9999;
 
     private @Nullable UUID lastDismountedPlayerId = null;
     private int dismountFollowTicks = 0;
@@ -265,19 +271,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
         this.serverAscendHeld = ascendHeld;
         this.serverDescendHeld = descendHeld;
-
-        // Responsiveness: if the rider is trying to control vertical movement while airborne,
-        // ensure flight mode is engaged immediately (instead of waiting for safety heuristics).
-        if (!isFlying()
-                && !pendingFlightHover
-                && isVehicle()
-                && isSaddled()
-                && isTamed()
-                && getControllingPassenger() instanceof Player
-                && !onGround()
-                && (ascendHeld || descendHeld)) {
-            setFlying(true);
-        }
     }
 
     @Override
@@ -306,6 +299,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.tick();
 
         if (!level().isClientSide) {
+            if (flightToggleGraceTicks > 0) {
+                flightToggleGraceTicks--;
+            }
+
             // Reset if rider state becomes invalid.
             if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
                 serverAscendHeld = false;
@@ -313,6 +310,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 pendingFlightHover = false;
                 pendingFlightHoverLeftGround = false;
                 pendingFlightHoverTicks = 0;
+                flightToggleGraceTicks = 0;
             }
 
             if (shearCooldownTicks > 0) {
@@ -329,7 +327,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
             // Flight should auto-exit back to ground mode the moment we touch solid ground.
             // Exception: don't force-land while wet (shallow water can report onGround=true).
-            if (isFlying() && onGround() && !isInWaterOrBubble()) {
+            if (isFlying() && onGround() && !isInWaterOrBubble() && flightToggleGraceTicks <= 0) {
                 setFlying(false);
                 pendingFlightHover = false;
                 pendingFlightHoverLeftGround = false;
@@ -350,11 +348,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 Vec3 v = getDeltaMovement();
                 boolean falling = v.y < -0.02D || fallDistance > 0.5F;
                 boolean wet = isInWaterOrBubble();
-                boolean wantsFlight = serverAscendHeld || serverDescendHeld;
 
-                // Safety + responsiveness: if the rider is airborne and is falling/wet OR
-                // is actively trying to ascend/descend, engage flight mode.
-                if (falling || wet || wantsFlight) {
+                // Safety only: do NOT auto-engage flight just because the jump key is held,
+                // otherwise normal horse jumping gets hijacked into flight.
+                if (falling || wet) {
                     setFlying(true);
                 }
             }
@@ -722,6 +719,35 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         if (level().isClientSide) {
             super.handleStartJump(jumpPower);
             return;
+        }
+
+        // Double-tap Space on the ground toggles flight mode.
+        // This preserves horse-like jumping (single press/hold) while offering a quick flight toggle.
+        if (!isFlying()
+                && !pendingFlightHover
+                && onGround()
+                && isVehicle()
+                && isSaddled()
+                && isTamed()
+                && getControllingPassenger() instanceof Player) {
+
+            int now = this.tickCount;
+            if (now - lastGroundJumpTapTick <= FLIGHT_DOUBLE_TAP_WINDOW_TICKS) {
+                setJumpCharging(false, 0);
+                setFlying(true);
+                flightToggleGraceTicks = FLIGHT_TOGGLE_GROUND_GRACE_TICKS;
+                serverAscendHeld = true;
+
+                Vec3 v = getDeltaMovement();
+                setDeltaMovement(v.x, Math.max(v.y, 0.18D), v.z);
+                hasImpulse = true;
+                fallDistance = 0.0F;
+
+                lastGroundJumpTapTick = -9999;
+                return;
+            }
+
+            lastGroundJumpTapTick = now;
         }
 
         // While flying, repurpose the vanilla mount-jump "start" packet as ascend-held.
