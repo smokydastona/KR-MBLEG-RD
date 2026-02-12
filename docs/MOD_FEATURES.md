@@ -174,6 +174,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Natural spawns: **Wayfall warm biomes** (biome tag: `#kruemblegard:wayfall_warm`).
   - Wild Scaralons are skittish and will avoid players.
   - Tough baseline: high base **armor** and **armor toughness**.
+  - Takes **no fall damage**.
   - Immune to **sweet berry bush / bramble / thorn** collision damage (including most modded thorny plants that reuse vanilla damage types).
   - Ground controls are **horse-like**: **WASD** to move; **Space** to jump; holding **Space** charges a higher jump.
   - Ground animations include horse-equivalent states: idle, walk, run (gallop), rear/charge (jump charging), and jump.

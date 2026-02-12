@@ -1285,6 +1285,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     }
 
     @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
             if (shouldPlayAirborneFlyAnim()) {
