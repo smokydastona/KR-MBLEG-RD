@@ -161,6 +161,9 @@ Keep it up to date whenever you add/remove/rename content.
 - **Fault Crawler** (`fault_crawler`)
   - Spider-like creature formed from unstable stone plates.
   - Neutral until provoked.
+  - Natural spawns: **Wayfall temperate + warm (non-hot) biomes**.
+    - Included: `#kruemblegard:wayfall_temperate` + warm biomes excluding `kruemblegard:basin_of_scars` and `kruemblegard:fracture_shoals`.
+    - Not included: `#kruemblegard:wayfall_cold`.
   - Often spawns buried and emerges when a player gets close.
   - Uses a slam attack and can occasionally emit a small knockback “fault pulse”.
   - Drops `Fault Shard`.

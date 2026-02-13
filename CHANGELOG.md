@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.933 (2026-02-13)
+- Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
+- Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.
+
+## 1.0.932 (2026-02-13)
+- Fix(assets/fault_crawler): restore correct GeckoLib animation keys and geometry identifiers after an accidental overwrite.
+
 ## 1.0.920 (2026-02-11)
 - Tuning(mobs/scaralon): mounted flight is now more "powered" and responsive (Ice-and-Fire-style moveRelative + drag), with Space/X + mouse pitch control.
 - Tuning(mobs/scaralon): charged jump takeoff now transitions into powered flight shortly after leaving the ground (high jump into flight).
