@@ -211,6 +211,7 @@ Keep it up to date whenever you add/remove/rename content.
       - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
       - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_8.png` (randomly assigned on natural spawn; bred offspring inherit 50/50 + small mutation chance)
+      - Rider seat marker: geo bone named `seat` (its `pivot` is used to align the player while mounted)
     - Baby (larva form):
       - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`

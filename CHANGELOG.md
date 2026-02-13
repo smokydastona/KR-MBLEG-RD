@@ -17,6 +17,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.939 (2026-02-12)
 - Fix(mobs/scaralon): if an unmounted Scaralon can’t complete a landing (spot blocked/invalid or it gets stuck too long), it re-picks a new safe landing target until it succeeds.
 
+## 1.0.940 (2026-02-12)
+- Feature(mobs/scaralon): add a `seat` marker bone to the Scaralon geo and use its pivot to align the mounted player position.
+
 ## 1.0.933 (2026-02-13)
 - Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
 - Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.

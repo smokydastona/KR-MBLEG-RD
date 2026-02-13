@@ -256,6 +256,11 @@
 					]
 				},
 				{
+					"name": "seat",
+					"parent": "body",
+					"pivot": [0, 22, 2]
+				},
+				{
 					"name": "head",
 					"parent": "body",
 					"pivot": [0, 18, -13],

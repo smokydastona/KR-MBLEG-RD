@@ -51,8 +51,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.jetbrains.annotations.Nullable;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -105,6 +113,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final int FLIGHT_TOGGLE_GROUND_GRACE_TICKS = 10;
 
     private static final double UNMOUNTED_MAX_AIR_TIME_STAMINA_MULT = 1.5D;
+
+    private static final String SEAT_BONE_NAME = "seat";
+    private static final String SCARALON_GEO_RESOURCE = "assets/kruemblegard/geo/scaralon_beetle.geo.json";
+    private static final Vec3 DEFAULT_SEAT_OFFSET_BLOCKS = new Vec3(0.0D, 1.35D, 0.15D);
+    private static volatile @Nullable Vec3 CACHED_SEAT_OFFSET_BLOCKS = null;
 
     private static final double GLIDE_SINK_VELOCITY = -0.03D;
 
@@ -1298,6 +1311,106 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         super.travel(travelVector);
+    }
+
+    @Override
+    protected void positionRider(net.minecraft.world.entity.Entity passenger, net.minecraft.world.entity.Entity.MoveFunction moveFunction) {
+        // Preserve vanilla behavior for non-player passengers.
+        if (!(passenger instanceof Player)) {
+            super.positionRider(passenger, moveFunction);
+            return;
+        }
+
+        // Only apply special seating when actively ridden like a mount.
+        if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() == passenger)) {
+            super.positionRider(passenger, moveFunction);
+            return;
+        }
+
+        Vec3 seat = getSeatOffsetBlocks();
+
+        float yaw = this.yBodyRot;
+        float yawRad = yaw * ((float) Math.PI / 180.0F);
+        double sin = Math.sin(yawRad);
+        double cos = Math.cos(yawRad);
+
+        // Rotate local X/Z offsets into world space.
+        double dx = seat.x * cos - seat.z * sin;
+        double dz = seat.x * sin + seat.z * cos;
+
+        double x = getX() + dx;
+        double y = getY() + seat.y + passenger.getMyRidingOffset();
+        double z = getZ() + dz;
+
+        moveFunction.accept(passenger, x, y, z);
+    }
+
+    private Vec3 getSeatOffsetBlocks() {
+        Vec3 cached = CACHED_SEAT_OFFSET_BLOCKS;
+        if (cached != null) {
+            return cached;
+        }
+
+        Vec3 computed = loadSeatOffsetFromGeo();
+        CACHED_SEAT_OFFSET_BLOCKS = computed;
+        return computed;
+    }
+
+    private Vec3 loadSeatOffsetFromGeo() {
+        try (InputStream is = ScaralonBeetleEntity.class.getClassLoader().getResourceAsStream(SCARALON_GEO_RESOURCE)) {
+            if (is == null) {
+                return DEFAULT_SEAT_OFFSET_BLOCKS;
+            }
+
+            JsonElement rootEl = JsonParser.parseReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            if (!rootEl.isJsonObject()) {
+                return DEFAULT_SEAT_OFFSET_BLOCKS;
+            }
+
+            JsonObject root = rootEl.getAsJsonObject();
+            JsonArray geos = root.getAsJsonArray("minecraft:geometry");
+            if (geos == null || geos.isEmpty()) {
+                return DEFAULT_SEAT_OFFSET_BLOCKS;
+            }
+
+            JsonObject geo0 = geos.get(0).getAsJsonObject();
+            JsonArray bones = geo0.getAsJsonArray("bones");
+            if (bones == null || bones.isEmpty()) {
+                return DEFAULT_SEAT_OFFSET_BLOCKS;
+            }
+
+            for (JsonElement boneEl : bones) {
+                if (!boneEl.isJsonObject()) {
+                    continue;
+                }
+
+                JsonObject bone = boneEl.getAsJsonObject();
+                String name = bone.has("name") ? bone.get("name").getAsString() : "";
+                if (!SEAT_BONE_NAME.equals(name)) {
+                    continue;
+                }
+
+                JsonArray pivot = bone.getAsJsonArray("pivot");
+                if (pivot == null || pivot.size() < 3) {
+                    return DEFAULT_SEAT_OFFSET_BLOCKS;
+                }
+
+                double px = pivot.get(0).getAsDouble() / 16.0D;
+                double py = pivot.get(1).getAsDouble() / 16.0D;
+                double pz = pivot.get(2).getAsDouble() / 16.0D;
+
+                // Clamp to avoid absurd values if the resource is malformed.
+                px = Mth.clamp(px, -2.5D, 2.5D);
+                py = Mth.clamp(py, 0.0D, 4.0D);
+                pz = Mth.clamp(pz, -2.5D, 2.5D);
+
+                return new Vec3(px, py, pz);
+            }
+        } catch (Exception ignored) {
+            // Fall back silently; seat alignment isn't worth crashing the game.
+        }
+
+        return DEFAULT_SEAT_OFFSET_BLOCKS;
     }
 
     /**
