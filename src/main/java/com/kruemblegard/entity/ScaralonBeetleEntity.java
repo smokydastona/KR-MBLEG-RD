@@ -767,7 +767,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         if (!hasTarget
                 && unmountedLandingPos == null
                 && (forcedLanding || (unmountedLandingCooldownTicks <= 0 && unmountedFlightTicks > 20 * 4 && random.nextInt(220) == 0))) {
-            unmountedLandingPos = findRescueLandingPos(serverLevel);
+            // Forced landings must be conservative: search farther so we always find a safe surface.
+            unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
             unmountedLandingRepathTicks = 20;
             unmountedLandingCooldownTicks = forcedLanding ? 0 : 20 * 10;
             // Brief hover before committing to a turn/descend.
@@ -781,7 +782,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
 
             if (unmountedLandingRepathTicks <= 0 || !serverLevel.isLoaded(unmountedLandingPos)) {
-                unmountedLandingPos = findRescueLandingPos(serverLevel);
+                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
                 unmountedLandingRepathTicks = 20;
             }
 
@@ -814,10 +815,20 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
         }
 
-        // Forced landing fallback: if we couldn't find a surface, still drift downward so flight mode can't persist forever.
+        // Forced landing fallback: NEVER drift downward blindly (void risk).
+        // If we haven't found a safe surface yet, climb and keep searching.
         if (forcedLanding) {
-            Vec3 down = position().add(0.0D, -6.0D, 0.0D);
-            tickAutopilotSteer(down, 0.18D, -0.34D, 0.02D);
+            unmountedLandingPos = findRescueLandingPos(serverLevel, 120, 32);
+            if (unmountedLandingPos != null) {
+                unmountedLandingRepathTicks = 0;
+                return;
+            }
+
+            Vec3 climbTarget = position().add(
+                    Mth.nextDouble(random, -10.0D, 10.0D),
+                    12.0D,
+                    Mth.nextDouble(random, -10.0D, 10.0D));
+            tickAutopilotSteer(climbTarget, 0.20D, -0.08D, 0.32D);
             return;
         }
 
@@ -953,14 +964,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     }
 
     private @Nullable BlockPos findRescueLandingPos(ServerLevel level) {
+        return findRescueLandingPos(level, 28, 10);
+    }
+
+    private @Nullable BlockPos findRescueLandingPos(ServerLevel level, int maxRadius, int samplesPerRing) {
         BlockPos origin = blockPosition();
 
         BlockPos best = null;
         double bestScore = -1.0E18;
 
         // Search for nearby surface columns using a heightmap (fast + reliable for islands).
-        for (int r = 4; r <= 28; r += 4) {
-            for (int i = 0; i < 10; i++) {
+        // Must be conservative: avoid fluids and ensure the beetle actually fits at the landing spot.
+        for (int r = 4; r <= maxRadius; r += 4) {
+            for (int i = 0; i < samplesPerRing; i++) {
                 int dx = Mth.nextInt(random, -r, r);
                 int dz = Mth.nextInt(random, -r, r);
 
@@ -982,7 +998,19 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                     continue;
                 }
 
-                Vec3 target = Vec3.atCenterOf(landAt);
+                // Avoid landing into fluids / bubble columns.
+                if (!level.getFluidState(surface).isEmpty() || !level.getFluidState(landAt).isEmpty()) {
+                    continue;
+                }
+
+                double tx = landAt.getX() + 0.5D;
+                double ty = landAt.getY();
+                double tz = landAt.getZ() + 0.5D;
+                if (!level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()))) {
+                    continue;
+                }
+
+                Vec3 target = new Vec3(tx, ty, tz);
                 double distSq = target.distanceToSqr(position());
 
                 // Prefer higher ground and closer targets.
