@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.961 (2026-02-13)
+- Fix(assets/scaralon): update `scaralon_beetle.geo.json` (latest adult model pass; animation remains bone-compatible).
+
+## 1.0.960 (2026-02-13)
+- Fix(assets): tweak the vanilla Elytra override texture (`assets/minecraft/textures/entity/elytra.png`).
+
 ## 1.0.959 (2026-02-13)
 - Feature(assets): override vanilla Elytra textures with Krümblegård-styled beetle elytra textures (ships `assets/minecraft/textures/*/elytra.png` in the mod jar).
 
