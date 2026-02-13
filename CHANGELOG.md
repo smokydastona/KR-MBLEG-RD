@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.949 (2026-02-13)
+- Docs: align changelog headings with commit-count versioning.
+
+## 1.0.948 (2026-02-13)
+- Docs: add missing 1.0.946 entry and correct 1.0.947 heading.
+
 ## 1.0.947 (2026-02-13)
 - Fix(mobs/scaralon): unmounted/wild forced landings now reject liquids + waterlogged blocks, require headroom, and roam/widen search until a valid landing is found (prevents “hover forever” over oceans).
 - Fix(mobs/scaralon): larva form can no longer enter any flight/self-rescue/autopilot flight logic.
