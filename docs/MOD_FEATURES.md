@@ -181,7 +181,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Immune to **sweet berry bush / bramble / thorn** collision damage (including most modded thorny plants that reuse vanilla damage types).
   - Ground controls are **horse-like**: **WASD** to move; **Space** to jump; holding **Space** charges a higher jump.
   - Sprint: hold **Sprint** to move faster on the ground (and to get a small speed boost while flying).
-  - Ground animations include horse-equivalent states: idle, walk, run (gallop), rear/charge (jump charging), and jump.
+  - Ground animations include horse-equivalent states: idle, walk, run (gallop), and jump.
   - Takeoff: release a sufficiently charged jump to launch high into the air and transition into **powered flight mode**.
   - Flight mode toggle: **double-tap Space** while grounded (also works as a true **double-jump** shortly after leaving the ground).
   - Flight controls: **Space** to ascend, **X** to descend, **WASD** to steer, **mouse pitch** to climb/dive while moving forward, **Left Shift** to dismount.

@@ -8,6 +8,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
 - Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.
 
+## 1.0.935 (2026-02-12)
+- Fix(mobs/scaralon): double-tap Space now enters flight mode even while airborne (void-safety when riding off cliffs).
+- Tuning(assets/scaralon): remove the rear/charge animation usage (jump animation now covers it).
+- Feature(mobs/scaralon): feeding melon slices triggers the eat animation.
+
 ## 1.0.934 (2026-02-12)
 - Feature(assets/fault_crawler): replace placeholder entity texture with a crab-like unique placeholder.
 

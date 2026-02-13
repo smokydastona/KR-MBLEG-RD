@@ -135,7 +135,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation RUN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.run");
     private static final RawAnimation JUMP_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.jump");
-    private static final RawAnimation REAR_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.rear");
     private static final RawAnimation FLY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.fly");
     private static final RawAnimation HOVER_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.hover");
     private static final RawAnimation GLIDE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.glide");
@@ -162,7 +161,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private int takeoffAssistAscendTicks = 0;
 
-    private int lastOnGroundTick = 0;
     private @Nullable BlockPos rescueLandingPos = null;
     private int rescueRepathTicks = 0;
 
@@ -373,10 +371,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.tick();
 
         if (!level().isClientSide) {
-            if (onGround()) {
-                lastOnGroundTick = tickCount;
-            }
-
             if (flightToggleGraceTicks > 0) {
                 flightToggleGraceTicks--;
             }
@@ -1018,7 +1012,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 && getControllingPassenger() instanceof Player) {
 
             int now = this.tickCount;
-            boolean recentlyGrounded = onGround() || (now - lastOnGroundTick <= 7);
             if (now - lastGroundJumpTapTick <= FLIGHT_DOUBLE_TAP_WINDOW_TICKS) {
                 setJumpCharging(false, 0);
                 setFlying(true);
@@ -1035,10 +1028,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 return;
             }
 
-            // Only arm the double-tap window if we are on/near the ground (prevents accidental flight arming mid-air).
-            if (recentlyGrounded) {
-                lastGroundJumpTapTick = now;
-            }
+            // Arm the double-tap window even while airborne.
+            // This enables a "save" when riding off cliffs/into void: double-tap Space mid-air to enter flight mode.
+            lastGroundJumpTapTick = now;
         }
 
         // While flying, repurpose the vanilla mount-jump "start" packet as ascend-held.
@@ -1050,17 +1042,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         super.handleStartJump(jumpPower);
-
-        // Horse-like rear while charging a ground jump. Never rear in flight.
-        if (isFlying() || pendingFlightHover || !onGround()) {
-            return;
-        }
-
-        if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
-            return;
-        }
-
-        setJumpCharging(true, jumpPower);
     }
 
     @Override
@@ -1413,18 +1394,6 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             // Ground jump (horse-style): while airborne but not in flight mode.
             if (!onGround() && !isFlying()) {
                 state.setAnimation(JUMP_LOOP);
-                return PlayState.CONTINUE;
-            }
-
-            // Horse-style rear while charging a jump.
-            if (onGround()
-                    && !isFlying()
-                    && isJumpCharging()
-                    && isVehicle()
-                    && isSaddled()
-                    && isTamed()
-                    && getControllingPassenger() instanceof Player) {
-                state.setAnimation(REAR_LOOP);
                 return PlayState.CONTINUE;
             }
 
