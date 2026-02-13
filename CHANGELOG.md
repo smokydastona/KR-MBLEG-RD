@@ -8,6 +8,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
 - Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.
 
+## 1.0.934 (2026-02-12)
+- Feature(assets/fault_crawler): replace placeholder entity texture with a crab-like unique placeholder.
+
 ## 1.0.932 (2026-02-13)
 - Fix(assets/fault_crawler): restore correct GeckoLib animation keys and geometry identifiers after an accidental overwrite.
 
