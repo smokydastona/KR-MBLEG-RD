@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.944 (2026-02-13)
+- Fix(assets/fault_crawler): update `fault_crawler.geo.json` and sync `fault_crawler.animation.json` bone names to match the remade geo.
+- Fix(assets/pebblit): update `pebblit.geo.json` and `pebblit.animation.json` to match the current model layout/UVs.
+
 ## 1.0.936 (2026-02-13)
 - Fix(mobs/scaralon): unmounted/wild Scaralons now steer themselves while in flight mode (keeps moving in the air with brief hovers) and will occasionally pick a landing to exit flight.
 
