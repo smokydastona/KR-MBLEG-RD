@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.954 (2026-02-13)
+- Fix(assets/scaralon): update `scaralon_beetle.animation.json` leg bone keys to match the latest `scaralon_beetle.geo.json` bone names.
+
 ## 1.0.953 (2026-02-13)
 - Fix(assets/scaralon): further update `scaralon_beetle.geo.json` and refresh adult texture variants (`scaralon_beetle_1`..`_8`).
 
