@@ -3,10 +3,12 @@ package com.kruemblegard.entity;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModItems;
+import com.kruemblegard.registry.ModTags;
 import com.kruemblegard.block.ScaralonEggBlock;
 import net.minecraft.world.level.block.Block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.DifficultyInstance;
@@ -34,6 +37,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -49,6 +53,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 import com.google.gson.JsonArray;
@@ -89,6 +95,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_EGG_LAY_POS = "EggLayPos";
     private static final String NBT_EGG_LAY_TIMEOUT = "EggLayTimeout";
     private static final String NBT_EGG_LAY_VARIANT = "EggLayVariant";
+
+    private static final String NBT_LARVA_SAP_ANCHOR = "LarvaSapAnchor";
+    private static final String NBT_LARVA_SAP_FACE = "LarvaSapFace";
+    private static final String NBT_LARVA_SAP_COOLDOWN = "LarvaSapCooldown";
 
     private static final int TEXTURE_VARIANT_MIN = 1;
     private static final int TEXTURE_VARIANT_MAX = 8;
@@ -146,6 +156,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
+        private static final EntityDataAccessor<Boolean> LARVA_SAP_SUCKING =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
+
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation RUN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.run");
@@ -154,6 +167,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final RawAnimation HOVER_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.hover");
     private static final RawAnimation GLIDE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.glide");
     private static final RawAnimation LOVE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.love");
+    private static final RawAnimation SAP_SUCK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.sap_suck");
 
     private static final RawAnimation TAKEOFF_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.takeoff");
     private static final RawAnimation LAND_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.land");
@@ -197,6 +211,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     private boolean playedDeathAnim = false;
 
+    private @Nullable BlockPos larvaSapAnchor = null;
+    private @Nullable Direction larvaSapFace = null;
+    private int larvaSapCooldownTicks = 0;
+    private int lastHurtGameTick = -9999;
+
 
     private boolean hasEggsToLay = false;
     private int eggLayCount = 0;
@@ -205,6 +224,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private int eggLayVariant = TEXTURE_VARIANT_MIN;
 
     private boolean shouldPlayAirborneFlyAnim() {
+        if (isBaby() || isLarvaSapSucking()) {
+            return false;
+        }
+
         if (isFlying() && !onGround()) {
             return true;
         }
@@ -242,6 +265,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         this.entityData.define(JUMP_CHARGING, false);
         this.entityData.define(JUMP_CHARGE_POWER, 0);
         this.entityData.define(TEXTURE_VARIANT, TEXTURE_VARIANT_MIN);
+        this.entityData.define(LARVA_SAP_SUCKING, false);
     }
 
     public int getTextureVariant() {
@@ -310,6 +334,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     }
 
     private void setFlying(boolean flying) {
+        if (flying && isBaby()) {
+            return;
+        }
+
         boolean wasFlying = isFlying();
         this.entityData.set(FLYING, flying);
         this.setNoGravity(flying);
@@ -369,6 +397,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
 
+        // Larva: seek tree trunks/branches and sap-suck to mature faster.
+        this.goalSelector.addGoal(0, new LarvaSapSuckGoal(this));
+
         // Skittish when wild.
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 10.0F, 1.25D, 1.45D, p -> !isTamed()));
 
@@ -396,6 +427,56 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         super.tick();
 
         if (!level().isClientSide) {
+            if (larvaSapCooldownTicks > 0) {
+                larvaSapCooldownTicks--;
+            }
+
+            // Larva rules:
+            // - cannot fly
+            // - can cling to trees while sap-sucking (no-gravity)
+            if (isBaby()) {
+                if (isFlying()) {
+                    // Hard reset without triggering flight animations.
+                    this.entityData.set(FLYING, false);
+                }
+
+                if (isLarvaSapSucking()) {
+                    if (level() instanceof ServerLevel serverLevel) {
+                        if (!isValidLarvaSapAnchor(serverLevel, larvaSapAnchor, larvaSapFace)) {
+                            stopLarvaSapSucking();
+                        } else {
+                            if (tickCount - lastHurtGameTick <= 12) {
+                                stopLarvaSapSucking();
+                            }
+
+                            Vec3 clingPos = getLarvaSapClingPos(larvaSapAnchor, larvaSapFace);
+                            if (position().distanceToSqr(clingPos) > 1.15D * 1.15D) {
+                                stopLarvaSapSucking();
+                            }
+                        }
+                    }
+
+                    // While clinging and still a baby, mature twice as fast (half the time).
+                    if (isLarvaSapSucking() && getAge() < 0) {
+                        setAge(Math.min(getAge() + 1, 0));
+                    }
+
+                    // If we matured, detach.
+                    if (!isBaby()) {
+                        stopLarvaSapSucking();
+                    }
+                } else {
+                    // Not clinging: ensure gravity is on.
+                    if (isNoGravity()) {
+                        setNoGravity(false);
+                    }
+                }
+            } else {
+                if (isLarvaSapSucking()) {
+                    stopLarvaSapSucking();
+                }
+            }
+
             if (flightToggleGraceTicks > 0) {
                 flightToggleGraceTicks--;
             }
@@ -453,7 +534,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
                 // Safety only: do NOT auto-engage flight just because the jump key is held,
                 // otherwise normal horse jumping gets hijacked into flight.
-                if (falling || wet) {
+                if (!isBaby() && (falling || wet)) {
                     setFlying(true);
                     flightToggleGraceTicks = Math.max(flightToggleGraceTicks, FLIGHT_TOGGLE_GROUND_GRACE_TICKS);
                     takeoffAssistAscendTicks = 6;
@@ -641,6 +722,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return false;
         }
 
+        // Larva cannot fly; let vanilla physics handle them.
+        if (isBaby()) {
+            return false;
+        }
+
         if (onGround()) {
             rescueLandingPos = null;
             rescueRepathTicks = 0;
@@ -724,6 +810,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return;
         }
 
+        // Larva cannot fly.
+        if (isBaby()) {
+            return;
+        }
+
         // This is only for unridden flight mode; mounted flight is handled in travel().
         if (!isFlying() || isVehicle()) {
             unmountedFlightTicks = 0;
@@ -781,13 +872,13 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             unmountedFlightTargetTicks = 6;
         }
 
-        // Landing selection: after being airborne a bit, occasionally decide to land on our own.
+        // Landing selection: after being airborne a bit, decide to land on our own.
         // This prevents wild/unmounted Scaralons from getting stuck hovering forever in flight mode.
         if (!hasTarget
                 && unmountedLandingPos == null
-                && (forcedLanding || (unmountedLandingCooldownTicks <= 0 && unmountedFlightTicks > 20 * 4 && random.nextInt(220) == 0))) {
+                && (forcedLanding || (unmountedLandingCooldownTicks <= 0 && unmountedFlightTicks > 20 * 4 && random.nextInt(80) == 0))) {
             // Forced landings must be conservative: search farther so we always find a safe surface.
-            unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
+            unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 128 : 56, forcedLanding ? 34 : 18);
             unmountedLandingRepathTicks = 20;
             unmountedLandingCooldownTicks = forcedLanding ? 0 : 20 * 10;
             unmountedLandingAttemptTicks = 0;
@@ -805,15 +896,27 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
 
             if (unmountedLandingRepathTicks <= 0 || !serverLevel.isLoaded(unmountedLandingPos)) {
-                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
+                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 128 : 56, forcedLanding ? 34 : 18);
                 unmountedLandingRepathTicks = 20;
                 unmountedLandingAttemptTicks = 0;
                 unmountedLandingStuckTicks = 0;
             }
 
+            // If we couldn't find any safe landing surface yet (common when over large bodies of water),
+            // clear landing mode and keep roaming outward until we discover land.
+            if (unmountedLandingPos == null) {
+                unmountedLandingRepathTicks = 0;
+                unmountedLandingAttemptTicks = 0;
+                unmountedLandingStuckTicks = 0;
+                unmountedHoverTicks = 0;
+                unmountedFlightTarget = pickForcedLandingSearchTarget(serverLevel);
+                unmountedFlightTargetTicks = Mth.nextInt(random, 40, 90);
+                return;
+            }
+
             // If the chosen landing spot became invalid (block placed, fluid, collision), pick a new one.
             if (unmountedLandingPos != null && !isSafeLandingSpot(serverLevel, unmountedLandingPos)) {
-                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
+                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 128 : 56, forcedLanding ? 34 : 18);
                 unmountedLandingRepathTicks = 20;
                 unmountedLandingAttemptTicks = 0;
                 unmountedLandingStuckTicks = 0;
@@ -833,10 +936,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 // exit flight and let normal physics settle us on the ground.
                 if (horizDistSq < 1.35D * 1.35D && yDelta < 2.25D) {
                     BlockPos below = unmountedLandingPos.below();
-                    if (!serverLevel.getBlockState(below).isAir()
+                    BlockState belowState = serverLevel.getBlockState(below);
+                    if (!belowState.isAir()
+                            && belowState.isFaceSturdy(serverLevel, below, Direction.UP)
                             && serverLevel.getBlockState(unmountedLandingPos).isAir()
+                            && serverLevel.getBlockState(unmountedLandingPos.above()).isAir()
                             && serverLevel.getFluidState(below).isEmpty()
-                            && serverLevel.getFluidState(unmountedLandingPos).isEmpty()) {
+                            && serverLevel.getFluidState(unmountedLandingPos).isEmpty()
+                            && serverLevel.getFluidState(unmountedLandingPos.above()).isEmpty()
+                            && !isWaterlogged(belowState)) {
                         setFlying(false);
                         setNoGravity(false);
                         unmountedFlightTarget = null;
@@ -860,7 +968,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         || unmountedLandingStuckTicks > 40
                         || horizontalCollision
                         || verticalCollision) {
-                    unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 120 : 64, forcedLanding ? 32 : 20);
+                    unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 160 : 72, forcedLanding ? 38 : 22);
                     unmountedLandingRepathTicks = 20;
                     unmountedLandingAttemptTicks = 0;
                     unmountedLandingStuckTicks = 0;
@@ -879,9 +987,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         // Forced landing fallback: NEVER drift downward blindly (void risk).
-        // If we haven't found a safe surface yet, climb and keep searching.
+        // If we haven't found a safe surface yet, keep moving outward and searching.
         if (forcedLanding) {
-            unmountedLandingPos = findRescueLandingPos(serverLevel, 120, 32);
+            int widen = Math.max(0, (unmountedFlightTicks - maxAirTicks) / 20);
+            int radius = Mth.clamp(128 + widen * 16, 128, 256);
+            unmountedLandingPos = findRescueLandingPos(serverLevel, radius, 38);
             if (unmountedLandingPos != null) {
                 unmountedLandingRepathTicks = 0;
                 unmountedLandingAttemptTicks = 0;
@@ -889,11 +999,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 return;
             }
 
-            Vec3 climbTarget = position().add(
-                    Mth.nextDouble(random, -10.0D, 10.0D),
-                    12.0D,
-                    Mth.nextDouble(random, -10.0D, 10.0D));
-            tickAutopilotSteer(climbTarget, 0.20D, -0.08D, 0.32D);
+            Vec3 searchTarget = pickForcedLandingSearchTarget(serverLevel);
+            tickAutopilotSteer(searchTarget, 0.24D, -0.10D, 0.30D);
             return;
         }
 
@@ -1056,26 +1163,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 }
 
                 BlockPos landAt = surface.above();
-                if (!level.isLoaded(landAt)) {
-                    continue;
-                }
-                if (!level.getBlockState(landAt).isAir()) {
+                if (!level.isLoaded(landAt) || !level.isLoaded(landAt.above())) {
                     continue;
                 }
 
-                // Avoid landing into fluids / bubble columns.
-                if (!level.getFluidState(surface).isEmpty() || !level.getFluidState(landAt).isEmpty()) {
+                if (!isSafeLandingSpot(level, landAt)) {
                     continue;
                 }
 
-                double tx = landAt.getX() + 0.5D;
-                double ty = landAt.getY();
-                double tz = landAt.getZ() + 0.5D;
-                if (!level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()))) {
-                    continue;
-                }
-
-                Vec3 target = new Vec3(tx, ty, tz);
+                Vec3 target = new Vec3(landAt.getX() + 0.5D, landAt.getY(), landAt.getZ() + 0.5D);
                 double distSq = target.distanceToSqr(position());
 
                 // Prefer higher ground and closer targets.
@@ -1104,15 +1200,35 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return false;
         }
 
+        BlockPos above = landAt.above();
+        if (!level.isLoaded(above)) {
+            return false;
+        }
+
         if (!level.getBlockState(landAt).isAir()) {
             return false;
         }
 
-        if (level.getBlockState(below).isAir()) {
+        if (!level.getBlockState(above).isAir()) {
             return false;
         }
 
-        if (!level.getFluidState(landAt).isEmpty() || !level.getFluidState(below).isEmpty()) {
+        BlockState belowState = level.getBlockState(below);
+        if (belowState.isAir()) {
+            return false;
+        }
+
+        if (!belowState.isFaceSturdy(level, below, Direction.UP)) {
+            return false;
+        }
+
+        if (isWaterlogged(belowState)) {
+            return false;
+        }
+
+        if (!level.getFluidState(landAt).isEmpty()
+                || !level.getFluidState(above).isEmpty()
+                || !level.getFluidState(below).isEmpty()) {
             return false;
         }
 
@@ -1120,6 +1236,341 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         double ty = landAt.getY();
         double tz = landAt.getZ() + 0.5D;
         return level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()));
+    }
+
+    private static boolean isWaterlogged(BlockState state) {
+        return state != null
+                && state.hasProperty(BlockStateProperties.WATERLOGGED)
+                && Boolean.TRUE.equals(state.getValue(BlockStateProperties.WATERLOGGED));
+    }
+
+    private @Nullable Vec3 pickForcedLandingSearchTarget(ServerLevel level) {
+        // Wider roam than normal autopilot so forced-landing can escape large oceans.
+        for (int i = 0; i < 16; i++) {
+            double dx = Mth.nextDouble(random, -52.0D, 52.0D);
+            double dz = Mth.nextDouble(random, -52.0D, 52.0D);
+            double dy = Mth.nextDouble(random, 2.0D, 14.0D);
+
+            double tx = getX() + dx;
+            double ty = getY() + dy;
+            double tz = getZ() + dz;
+
+            ty = Mth.clamp(ty, level.getMinBuildHeight() + 6, level.getMaxBuildHeight() - 8);
+
+            BlockPos bp = BlockPos.containing(tx, ty, tz);
+            if (!level.isLoaded(bp)) {
+                continue;
+            }
+
+            if (!level.getBlockState(bp).isAir()) {
+                continue;
+            }
+
+            if (!level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()))) {
+                continue;
+            }
+
+            return new Vec3(tx, ty, tz);
+        }
+
+        return position().add(
+                Mth.nextDouble(random, -28.0D, 28.0D),
+                10.0D,
+                Mth.nextDouble(random, -28.0D, 28.0D));
+    }
+
+    private boolean isLarvaSapSucking() {
+        return this.entityData.get(LARVA_SAP_SUCKING);
+    }
+
+    private void startLarvaSapSucking(ServerLevel level, BlockPos anchor, Direction face) {
+        if (!isBaby()) {
+            return;
+        }
+
+        if (!isValidLarvaSapAnchor(level, anchor, face)) {
+            return;
+        }
+
+        this.larvaSapAnchor = anchor;
+        this.larvaSapFace = face;
+        this.entityData.set(LARVA_SAP_SUCKING, true);
+        setFlying(false);
+        setNoGravity(true);
+
+        Vec3 clingPos = getLarvaSapClingPos(anchor, face);
+        setPos(clingPos.x, clingPos.y, clingPos.z);
+        setDeltaMovement(Vec3.ZERO);
+        hasImpulse = true;
+    }
+
+    private void stopLarvaSapSucking() {
+        if (!isLarvaSapSucking()) {
+            larvaSapAnchor = null;
+            larvaSapFace = null;
+            return;
+        }
+
+        this.entityData.set(LARVA_SAP_SUCKING, false);
+        this.larvaSapAnchor = null;
+        this.larvaSapFace = null;
+        setNoGravity(false);
+        larvaSapCooldownTicks = 20 * 12;
+    }
+
+    private static Vec3 getLarvaSapClingPos(@Nullable BlockPos anchor, @Nullable Direction face) {
+        if (anchor == null || face == null) {
+            return Vec3.ZERO;
+        }
+
+        return new Vec3(
+                anchor.getX() + 0.5D + face.getStepX() * 0.60D,
+                anchor.getY() + 0.20D,
+                anchor.getZ() + 0.5D + face.getStepZ() * 0.60D);
+    }
+
+    private boolean isValidLarvaSapAnchor(ServerLevel level, @Nullable BlockPos anchor, @Nullable Direction face) {
+        if (level == null || anchor == null || face == null) {
+            return false;
+        }
+
+        if (!level.isLoaded(anchor)) {
+            return false;
+        }
+
+        BlockState state = level.getBlockState(anchor);
+        if (!isSapTreeBlock(state)) {
+            return false;
+        }
+
+        if (!hasNearbyLeaves(level, anchor, 4)) {
+            return false;
+        }
+
+        BlockPos clingAir = anchor.relative(face);
+        if (!level.isLoaded(clingAir)) {
+            return false;
+        }
+
+        if (!level.getBlockState(clingAir).isAir()) {
+            return false;
+        }
+
+        if (!level.getFluidState(clingAir).isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean isSapTreeBlock(BlockState state) {
+        if (state == null) {
+            return false;
+        }
+
+        if (state.is(BlockTags.LEAVES) || state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE)) {
+            return false;
+        }
+
+        return state.is(BlockTags.LOGS) || state.is(BlockTags.LOGS_THAT_BURN);
+    }
+
+    private static boolean hasNearbyLeaves(ServerLevel level, BlockPos origin, int radius) {
+        int r = Math.max(1, radius);
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int dy = -3; dy <= 3; dy++) {
+            for (int dx = -r; dx <= r; dx++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    cursor.set(origin.getX() + dx, origin.getY() + dy, origin.getZ() + dz);
+                    if (!level.isLoaded(cursor)) {
+                        continue;
+                    }
+                    BlockState state = level.getBlockState(cursor);
+                    if (state.is(BlockTags.LEAVES) || state.is(ModTags.Blocks.TREE_HARVESTER_LEAF_LIKE)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static final class LarvaSapSuckGoal extends Goal {
+        private final ScaralonBeetleEntity beetle;
+        private @Nullable BlockPos targetAnchor;
+        private @Nullable Direction targetFace;
+        private @Nullable BlockPos targetStand;
+        private int repathTicks = 0;
+
+        private LarvaSapSuckGoal(ScaralonBeetleEntity beetle) {
+            this.beetle = beetle;
+            setFlags(java.util.EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!(beetle.level() instanceof ServerLevel serverLevel)) {
+                return false;
+            }
+
+            if (!beetle.isBaby() || beetle.isLarvaSapSucking()) {
+                return false;
+            }
+
+            if (beetle.larvaSapCooldownTicks > 0) {
+                return false;
+            }
+
+            if (beetle.isVehicle() || beetle.isInWaterOrBubble() || beetle.getTarget() != null) {
+                return false;
+            }
+
+            SapTarget target = findSapTarget(serverLevel);
+            if (target == null) {
+                return false;
+            }
+
+            this.targetAnchor = target.anchor;
+            this.targetFace = target.face;
+            this.targetStand = target.standAt;
+            return true;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (!(beetle.level() instanceof ServerLevel serverLevel)) {
+                return false;
+            }
+
+            if (!beetle.isBaby()) {
+                return false;
+            }
+
+            if (beetle.isLarvaSapSucking()) {
+                return beetle.isValidLarvaSapAnchor(serverLevel, beetle.larvaSapAnchor, beetle.larvaSapFace);
+            }
+
+            return targetStand != null && targetAnchor != null && targetFace != null;
+        }
+
+        @Override
+        public void start() {
+            repathTicks = 0;
+        }
+
+        @Override
+        public void tick() {
+            if (!(beetle.level() instanceof ServerLevel serverLevel)) {
+                return;
+            }
+
+            if (beetle.isLarvaSapSucking()) {
+                // While clinging, damp movement but allow being pushed off.
+                Vec3 v = beetle.getDeltaMovement();
+                beetle.setDeltaMovement(v.scale(0.25D));
+                beetle.hasImpulse = true;
+                beetle.getNavigation().stop();
+
+                if (!beetle.isValidLarvaSapAnchor(serverLevel, beetle.larvaSapAnchor, beetle.larvaSapFace)) {
+                    beetle.stopLarvaSapSucking();
+                }
+                return;
+            }
+
+            if (targetStand == null || targetAnchor == null || targetFace == null) {
+                stop();
+                return;
+            }
+
+            if (repathTicks > 0) {
+                repathTicks--;
+            }
+
+            if (repathTicks <= 0) {
+                beetle.getNavigation().moveTo(targetStand.getX() + 0.5D, targetStand.getY(), targetStand.getZ() + 0.5D, 1.05D);
+                repathTicks = 20;
+            }
+
+            Vec3 clingPos = ScaralonBeetleEntity.getLarvaSapClingPos(targetAnchor, targetFace);
+            beetle.getLookControl().setLookAt(clingPos.x, clingPos.y, clingPos.z);
+
+            double distSq = beetle.position().distanceToSqr(clingPos);
+            if (distSq < 1.10D * 1.10D && beetle.isValidLarvaSapAnchor(serverLevel, targetAnchor, targetFace)) {
+                beetle.getNavigation().stop();
+                beetle.startLarvaSapSucking(serverLevel, targetAnchor, targetFace);
+            }
+        }
+
+        @Override
+        public void stop() {
+            targetAnchor = null;
+            targetFace = null;
+            targetStand = null;
+            repathTicks = 0;
+            beetle.getNavigation().stop();
+        }
+
+        private @Nullable SapTarget findSapTarget(ServerLevel level) {
+            BlockPos origin = beetle.blockPosition();
+            for (int i = 0; i < 42; i++) {
+                int dx = Mth.nextInt(beetle.random, -10, 10);
+                int dy = Mth.nextInt(beetle.random, -3, 4);
+                int dz = Mth.nextInt(beetle.random, -10, 10);
+
+                BlockPos anchor = origin.offset(dx, dy, dz);
+                if (!level.isLoaded(anchor)) {
+                    continue;
+                }
+
+                BlockState state = level.getBlockState(anchor);
+                if (!ScaralonBeetleEntity.isSapTreeBlock(state)) {
+                    continue;
+                }
+
+                if (!ScaralonBeetleEntity.hasNearbyLeaves(level, anchor, 4)) {
+                    continue;
+                }
+
+                Direction[] dirs = Direction.Plane.HORIZONTAL.stream().toArray(Direction[]::new);
+                int start = beetle.random.nextInt(dirs.length);
+                for (int j = 0; j < dirs.length; j++) {
+                    Direction face = dirs[(start + j) % dirs.length];
+                    BlockPos standAt = anchor.relative(face);
+                    if (!level.isLoaded(standAt)) {
+                        continue;
+                    }
+
+                    if (!level.getBlockState(standAt).isAir()) {
+                        continue;
+                    }
+
+                    if (!level.getFluidState(standAt).isEmpty()) {
+                        continue;
+                    }
+
+                    Vec3 clingPos = ScaralonBeetleEntity.getLarvaSapClingPos(anchor, face);
+                    if (!level.noCollision(beetle, beetle.getBoundingBox().move(clingPos.x - beetle.getX(), clingPos.y - beetle.getY(), clingPos.z - beetle.getZ()))) {
+                        continue;
+                    }
+
+                    return new SapTarget(anchor, face, standAt);
+                }
+            }
+
+            return null;
+        }
+
+        private static final class SapTarget {
+            final BlockPos anchor;
+            final Direction face;
+            final BlockPos standAt;
+
+            private SapTarget(BlockPos anchor, Direction face, BlockPos standAt) {
+                this.anchor = anchor;
+                this.face = face;
+                this.standAt = standAt;
+            }
+        }
     }
 
     @Override
@@ -1133,6 +1584,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
         boolean didHurt = super.hurt(source, amount);
         if (didHurt && !level().isClientSide && isAlive()) {
+            lastHurtGameTick = tickCount;
+            if (isBaby() && isLarvaSapSucking()) {
+                stopLarvaSapSucking();
+            }
             triggerAnim("actionController", "hurt");
         }
         return didHurt;
@@ -1782,6 +2237,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         tag.putInt(NBT_FLIGHT_STAMINA, getFlightStamina());
         tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
 
+        tag.putInt(NBT_LARVA_SAP_COOLDOWN, larvaSapCooldownTicks);
+        if (larvaSapAnchor != null) {
+            tag.putLong(NBT_LARVA_SAP_ANCHOR, larvaSapAnchor.asLong());
+        }
+        if (larvaSapFace != null) {
+            tag.putInt(NBT_LARVA_SAP_FACE, larvaSapFace.get3DDataValue());
+        }
+
         tag.putBoolean(NBT_HAS_EGGS, hasEggsToLay);
         tag.putInt(NBT_EGG_COUNT, eggLayCount);
         if (eggLayPos != null) {
@@ -1818,10 +2281,23 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             eggLayVariant = TEXTURE_VARIANT_MIN;
         }
 
-        // Ensure gravity state is consistent after load.
-        if (isFlying()) {
-            setNoGravity(true);
+        larvaSapCooldownTicks = tag.getInt(NBT_LARVA_SAP_COOLDOWN);
+        if (tag.contains(NBT_LARVA_SAP_ANCHOR)) {
+            larvaSapAnchor = BlockPos.of(tag.getLong(NBT_LARVA_SAP_ANCHOR));
+        } else {
+            larvaSapAnchor = null;
         }
+        if (tag.contains(NBT_LARVA_SAP_FACE)) {
+            larvaSapFace = Direction.from3DDataValue(tag.getInt(NBT_LARVA_SAP_FACE));
+        } else {
+            larvaSapFace = null;
+        }
+
+        // Rebuild sap-suck state after load; tick() will validate and detach if needed.
+        this.entityData.set(LARVA_SAP_SUCKING, isBaby() && larvaSapAnchor != null && larvaSapFace != null);
+
+        // Ensure gravity state is consistent after load.
+        setNoGravity(isFlying() || (isBaby() && isLarvaSapSucking()));
     }
 
     @Override
@@ -1842,6 +2318,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
+            if (isBaby() && isLarvaSapSucking()) {
+                state.setAnimation(SAP_SUCK_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             if (shouldPlayAirborneFlyAnim()) {
                 Vec3 dm = getDeltaMovement();
                 double horiz = dm.horizontalDistanceSqr();

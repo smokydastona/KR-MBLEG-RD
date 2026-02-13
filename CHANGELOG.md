@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.946 (2026-02-13)
+- Fix(mobs/scaralon): unmounted/wild forced landings now reject liquids + waterlogged blocks, require headroom, and roam/widen search until a valid landing is found (prevents “hover forever” over oceans).
+- Fix(mobs/scaralon): larva form can no longer enter any flight/self-rescue/autopilot flight logic.
+- Feature(mobs/scaralon): larva can cling to the side of tree trunks/branches (logs near leaves) to sap-suck, maturing ~2× faster while attached; detaches if pushed/damaged.
+- Feature(assets/scaralon_larva): add a new `sap_suck` loop animation for clinging larvae.
+
 ## 1.0.945 (2026-02-13)
 - Fix(assets/scaralon_larva): remake `scaralon_larva.geo.json` and keep larva animations aligned with the new bone layout.
 

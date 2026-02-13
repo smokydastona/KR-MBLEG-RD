@@ -192,7 +192,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** through open air (Glow Squid-like) as a rescue/void-safety behavior.
     - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.
   - Unmounted safety: when a wild/tame Scaralon is in **water** or **over the void**, it will engage flight and try to climb and find nearby solid ground to land on.
-  - Unmounted flight autopilot: if an unmounted Scaralon ends up in **flight mode**, it will **keep moving** in the air (with brief hovers to change direction), **face its travel direction**, and will **always land eventually** (hard limit: about **1.5×** the max flight stamina time). When forced to land, it keeps searching until it finds a **safe solid landing zone** (no blind drop into the void) and will **re-pick** a landing target if it can’t complete the landing.
+  - Unmounted flight autopilot: if an unmounted Scaralon ends up in **flight mode**, it will **keep moving** in the air (with brief hovers to change direction), **face its travel direction**, and will **always land eventually** (hard limit: about **1.5×** the max flight stamina time). When forced to land, it keeps searching until it finds a **safe solid landing zone** (requires solid support + headroom and rejects **water/liquids/waterlogged blocks**), and will roam outward / widen its search radius instead of hovering forever over oceans.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices only** (holding a melon slice prevents mounting; right-click will feed/breed instead).
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style, **1–4 eggs**). Eggs hatch into **larva**.
@@ -200,6 +200,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Egg predators: zombie-family mobs that smash turtle eggs will also smash Scaralon eggs; Scaralons will attack zombies to defend nests.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).
+  - Larva movement: larva **cannot fly**. Instead, they can cling to the side of **tree trunks/branches** (logs, not leaves; must have nearby leaves) to **sap-suck**, which makes them mature in about **half the time**. They stay attached until finished unless knocked/damaged.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).
   - Renewable elytra loop: babies shed `Elytra Scutes` **when maturing into adults**.
