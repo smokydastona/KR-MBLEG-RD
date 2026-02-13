@@ -787,13 +787,23 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             }
 
             if (unmountedLandingPos != null) {
-                Vec3 landTarget = Vec3.atCenterOf(unmountedLandingPos).add(0.0D, 0.25D, 0.0D);
+                // Aim for feet-level inside the target air block (atCenterOf() is too high and can prevent "arriving").
+                double landX = unmountedLandingPos.getX() + 0.5D;
+                double landY = unmountedLandingPos.getY() + 0.05D;
+                double landZ = unmountedLandingPos.getZ() + 0.5D;
+                Vec3 landTarget = new Vec3(landX, landY, landZ);
                 Vec3 to = landTarget.subtract(position());
-                double distSq = to.lengthSqr();
+                double horizDistSq = to.x * to.x + to.z * to.z;
+                double yDelta = Math.abs(to.y);
 
-                if (distSq < 2.2D * 2.2D) {
+                // Touchdown detection: if we're basically over the landing block and close in height,
+                // exit flight and let normal physics settle us on the ground.
+                if (horizDistSq < 1.35D * 1.35D && yDelta < 2.25D) {
                     BlockPos below = unmountedLandingPos.below();
-                    if (!serverLevel.getBlockState(below).isAir() && serverLevel.getBlockState(unmountedLandingPos).isAir()) {
+                    if (!serverLevel.getBlockState(below).isAir()
+                            && serverLevel.getBlockState(unmountedLandingPos).isAir()
+                            && serverLevel.getFluidState(below).isEmpty()
+                            && serverLevel.getFluidState(unmountedLandingPos).isEmpty()) {
                         setFlying(false);
                         setNoGravity(false);
                         unmountedFlightTarget = null;
@@ -802,7 +812,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         unmountedLandingRepathTicks = 0;
                         unmountedHoverTicks = 0;
                         unmountedFlightTicks = 0;
-                        setDeltaMovement(getDeltaMovement().multiply(0.25D, 0.0D, 0.25D));
+                        Vec3 v = getDeltaMovement();
+                        setDeltaMovement(v.x * 0.25D, Math.min(v.y, -0.04D), v.z * 0.25D);
                         hasImpulse = true;
                         return;
                     }
@@ -810,7 +821,11 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
                 // Descend more assertively than roaming.
                 // While forced-landing, don't allow much upward correction.
-                tickAutopilotSteer(landTarget, 0.26D, forcedLanding ? -0.34D : -0.24D, forcedLanding ? 0.06D : 0.20D);
+                // If we're well above the landing Y, bias the target further down to guarantee descent.
+                if (getY() > unmountedLandingPos.getY() + 1.35D) {
+                    landTarget = landTarget.add(0.0D, -1.25D, 0.0D);
+                }
+                tickAutopilotSteer(landTarget, 0.26D, forcedLanding ? -0.40D : -0.26D, forcedLanding ? 0.04D : 0.18D);
                 return;
             }
         }
