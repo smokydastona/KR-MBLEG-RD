@@ -104,6 +104,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final int FLIGHT_DOUBLE_TAP_WINDOW_TICKS = 7;
     private static final int FLIGHT_TOGGLE_GROUND_GRACE_TICKS = 10;
 
+    private static final double UNMOUNTED_MAX_AIR_TIME_STAMINA_MULT = 1.5D;
+
     private static final double GLIDE_SINK_VELOCITY = -0.03D;
 
         private static final UUID GROUND_SPRINT_MODIFIER_ID = UUID.fromString("b65a5be6-9e7a-49ba-b2ea-3b518b09a2f0");
@@ -749,6 +751,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         var target = getTarget();
         boolean hasTarget = target != null && target.isAlive();
 
+        int maxAirTicks = (int) Math.ceil(getMaxFlightStaminaTicks() * UNMOUNTED_MAX_AIR_TIME_STAMINA_MULT);
+        boolean forcedLanding = !hasTarget && unmountedFlightTicks >= maxAirTicks;
+
         // Combat chase: keep moving and don't randomly land.
         if (hasTarget) {
             unmountedLandingPos = null;
@@ -761,14 +766,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         // This prevents wild/unmounted Scaralons from getting stuck hovering forever in flight mode.
         if (!hasTarget
                 && unmountedLandingPos == null
-                && unmountedLandingCooldownTicks <= 0
-                && unmountedFlightTicks > 20 * 4
-                && random.nextInt(220) == 0) {
+                && (forcedLanding || (unmountedLandingCooldownTicks <= 0 && unmountedFlightTicks > 20 * 4 && random.nextInt(220) == 0))) {
             unmountedLandingPos = findRescueLandingPos(serverLevel);
             unmountedLandingRepathTicks = 20;
-            unmountedLandingCooldownTicks = 20 * 10;
+            unmountedLandingCooldownTicks = forcedLanding ? 0 : 20 * 10;
             // Brief hover before committing to a turn/descend.
-            unmountedHoverTicks = Mth.nextInt(random, 6, 18);
+            unmountedHoverTicks = forcedLanding ? 0 : Mth.nextInt(random, 6, 18);
         }
 
         // If we're landing, steer to the landing column and drop out of flight when close.
@@ -805,9 +808,17 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 }
 
                 // Descend more assertively than roaming.
-                tickAutopilotSteer(landTarget, 0.26D, -0.24D, 0.20D);
+                // While forced-landing, don't allow much upward correction.
+                tickAutopilotSteer(landTarget, 0.26D, forcedLanding ? -0.34D : -0.24D, forcedLanding ? 0.06D : 0.20D);
                 return;
             }
+        }
+
+        // Forced landing fallback: if we couldn't find a surface, still drift downward so flight mode can't persist forever.
+        if (forcedLanding) {
+            Vec3 down = position().add(0.0D, -6.0D, 0.0D);
+            tickAutopilotSteer(down, 0.18D, -0.34D, 0.02D);
+            return;
         }
 
         // Roam target: keep moving in the air, with occasional brief hovers to change direction.
@@ -870,6 +881,20 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         move(MoverType.SELF, steered);
         hasImpulse = true;
         fallDistance = 0.0F;
+
+        // Face the direction we're actually moving (prevents "frozen" looking flight).
+        double horizSq = steered.x * steered.x + steered.z * steered.z;
+        if (horizSq > 1.0E-4D) {
+            float yaw = (float) (Mth.atan2(steered.z, steered.x) * (180.0F / (float) Math.PI)) - 90.0F;
+            setYRot(yaw);
+            yRotO = yaw;
+            yBodyRot = yaw;
+            yHeadRot = yaw;
+
+            double horiz = Math.sqrt(horizSq);
+            float pitch = (float) (-(Mth.atan2(steered.y, horiz) * (180.0F / (float) Math.PI)));
+            setXRot(Mth.clamp(pitch, -55.0F, 55.0F) * 0.55F);
+        }
 
         getLookControl().setLookAt(targetPos.x, targetPos.y, targetPos.z);
     }

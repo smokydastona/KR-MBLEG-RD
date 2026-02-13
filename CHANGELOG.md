@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.936 (2026-02-13)
 - Fix(mobs/scaralon): unmounted/wild Scaralons now steer themselves while in flight mode (keeps moving in the air with brief hovers) and will occasionally pick a landing to exit flight.
 
+## 1.0.937 (2026-02-12)
+- Tuning(mobs/scaralon): unmounted flight autopilot now faces movement direction and enforces a hard max air time (~1.5× max flight stamina) so they always land.
+
 ## 1.0.933 (2026-02-13)
 - Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
 - Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.
