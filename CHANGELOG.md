@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.962 (2026-02-13)
+- Fix(assets/scaralon): update `scaralon_beetle.geo.json` and tweak `scaralon_beetle.animation.json` to match the latest adult model bone layout.
+
 ## 1.0.961 (2026-02-13)
 - Fix(assets/scaralon): update `scaralon_beetle.geo.json` (latest adult model pass; animation remains bone-compatible).
 
