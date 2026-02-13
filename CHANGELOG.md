@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.945 (2026-02-13)
+- Fix(assets/scaralon_larva): remake `scaralon_larva.geo.json` and keep larva animations aligned with the new bone layout.
+
 ## 1.0.944 (2026-02-13)
 - Fix(assets/fault_crawler): update `fault_crawler.geo.json` and sync `fault_crawler.animation.json` bone names to match the remade geo.
 - Fix(assets/pebblit): update `pebblit.geo.json` and `pebblit.animation.json` to match the current model layout/UVs.
