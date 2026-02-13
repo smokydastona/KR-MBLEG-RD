@@ -171,6 +171,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private @Nullable BlockPos unmountedLandingPos = null;
     private int unmountedLandingRepathTicks = 0;
     private int unmountedLandingCooldownTicks = 0;
+    private int unmountedLandingAttemptTicks = 0;
+    private int unmountedLandingStuckTicks = 0;
     private int unmountedHoverTicks = 0;
     private int unmountedFlightTicks = 0;
 
@@ -717,6 +719,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             unmountedLandingPos = null;
             unmountedLandingRepathTicks = 0;
             unmountedLandingCooldownTicks = 0;
+            unmountedLandingAttemptTicks = 0;
+            unmountedLandingStuckTicks = 0;
             unmountedHoverTicks = 0;
             return;
         }
@@ -728,6 +732,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             unmountedFlightTargetTicks = 0;
             unmountedLandingPos = null;
             unmountedLandingRepathTicks = 0;
+            unmountedLandingAttemptTicks = 0;
+            unmountedLandingStuckTicks = 0;
             unmountedHoverTicks = 0;
             return;
         }
@@ -771,12 +777,16 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
             unmountedLandingRepathTicks = 20;
             unmountedLandingCooldownTicks = forcedLanding ? 0 : 20 * 10;
+            unmountedLandingAttemptTicks = 0;
+            unmountedLandingStuckTicks = 0;
             // Brief hover before committing to a turn/descend.
             unmountedHoverTicks = forcedLanding ? 0 : Mth.nextInt(random, 6, 18);
         }
 
         // If we're landing, steer to the landing column and drop out of flight when close.
         if (unmountedLandingPos != null) {
+            unmountedLandingAttemptTicks++;
+
             if (unmountedLandingRepathTicks > 0) {
                 unmountedLandingRepathTicks--;
             }
@@ -784,6 +794,16 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (unmountedLandingRepathTicks <= 0 || !serverLevel.isLoaded(unmountedLandingPos)) {
                 unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
                 unmountedLandingRepathTicks = 20;
+                unmountedLandingAttemptTicks = 0;
+                unmountedLandingStuckTicks = 0;
+            }
+
+            // If the chosen landing spot became invalid (block placed, fluid, collision), pick a new one.
+            if (unmountedLandingPos != null && !isSafeLandingSpot(serverLevel, unmountedLandingPos)) {
+                unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 92 : 44, forcedLanding ? 28 : 16);
+                unmountedLandingRepathTicks = 20;
+                unmountedLandingAttemptTicks = 0;
+                unmountedLandingStuckTicks = 0;
             }
 
             if (unmountedLandingPos != null) {
@@ -817,6 +837,21 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         hasImpulse = true;
                         return;
                     }
+
+                    // We're basically at the target but can't complete touchdown: treat as "stuck" and repick soon.
+                    unmountedLandingStuckTicks++;
+                }
+
+                // If we've been trying too long or repeatedly getting stuck near the target, pick a new landing location.
+                if (unmountedLandingAttemptTicks > 20 * 8
+                        || unmountedLandingStuckTicks > 40
+                        || horizontalCollision
+                        || verticalCollision) {
+                    unmountedLandingPos = findRescueLandingPos(serverLevel, forcedLanding ? 120 : 64, forcedLanding ? 32 : 20);
+                    unmountedLandingRepathTicks = 20;
+                    unmountedLandingAttemptTicks = 0;
+                    unmountedLandingStuckTicks = 0;
+                    return;
                 }
 
                 // Descend more assertively than roaming.
@@ -836,6 +871,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             unmountedLandingPos = findRescueLandingPos(serverLevel, 120, 32);
             if (unmountedLandingPos != null) {
                 unmountedLandingRepathTicks = 0;
+                unmountedLandingAttemptTicks = 0;
+                unmountedLandingStuckTicks = 0;
                 return;
             }
 
@@ -1038,6 +1075,38 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         return best;
+    }
+
+    private boolean isSafeLandingSpot(ServerLevel level, BlockPos landAt) {
+        if (landAt == null) {
+            return false;
+        }
+
+        if (!level.isLoaded(landAt)) {
+            return false;
+        }
+
+        BlockPos below = landAt.below();
+        if (!level.isLoaded(below)) {
+            return false;
+        }
+
+        if (!level.getBlockState(landAt).isAir()) {
+            return false;
+        }
+
+        if (level.getBlockState(below).isAir()) {
+            return false;
+        }
+
+        if (!level.getFluidState(landAt).isEmpty() || !level.getFluidState(below).isEmpty()) {
+            return false;
+        }
+
+        double tx = landAt.getX() + 0.5D;
+        double ty = landAt.getY();
+        double tz = landAt.getZ() + 0.5D;
+        return level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()));
     }
 
     @Override

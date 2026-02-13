@@ -14,6 +14,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(mobs/scaralon): forced landing for unmounted/wild Scaralons now searches farther and refuses to "just descend" when no surface is found, preventing void-suicide landings.
 - Fix(mobs/scaralon): unmounted forced landings now reliably complete (aims feet-level at the landing block and exits flight when solid ground is directly beneath).
 
+## 1.0.939 (2026-02-12)
+- Fix(mobs/scaralon): if an unmounted Scaralon can’t complete a landing (spot blocked/invalid or it gets stuck too long), it re-picks a new safe landing target until it succeeds.
+
 ## 1.0.933 (2026-02-13)
 - Fix(assets/pebblit): update `pebblit.animation.json` to match the simplified Pebblit geo bone hierarchy.
 - Feature(world/wayfall): Fault Crawler now spawns naturally in Wayfall temperate + warm (non-hot) biomes.
