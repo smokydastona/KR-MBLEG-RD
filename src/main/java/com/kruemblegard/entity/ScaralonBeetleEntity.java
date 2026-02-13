@@ -164,6 +164,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private @Nullable BlockPos rescueLandingPos = null;
     private int rescueRepathTicks = 0;
 
+    private @Nullable Vec3 unmountedFlightTarget = null;
+    private int unmountedFlightTargetTicks = 0;
+    private @Nullable BlockPos unmountedLandingPos = null;
+    private int unmountedLandingRepathTicks = 0;
+    private int unmountedLandingCooldownTicks = 0;
+    private int unmountedHoverTicks = 0;
+    private int unmountedFlightTicks = 0;
+
     private int flightToggleGraceTicks = 0;
     private int lastGroundJumpTapTick = -9999;
 
@@ -535,7 +543,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             // Unmounted safety: prevent drowning and "void loss" by engaging self-rescue.
             // In Wayfall this is especially important due to large open-air drops.
             if (!isVehicle()) {
-                tickUnmountedSelfRescue();
+                boolean rescueActive = tickUnmountedSelfRescue();
+                if (!rescueActive) {
+                    tickUnmountedAutopilotFlight();
+                }
             }
 
             // Egg laying (turtle-style): after breeding, one parent will seek a nearby reachable spot
@@ -608,9 +619,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
     }
 
-    private void tickUnmountedSelfRescue() {
+    private boolean tickUnmountedSelfRescue() {
         if (!(level() instanceof ServerLevel serverLevel)) {
-            return;
+            return false;
         }
 
         if (onGround()) {
@@ -620,7 +631,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (isFlying() && !isInWaterOrBubble()) {
                 setFlying(false);
             }
-            return;
+            return false;
         }
 
         boolean wet = isInWaterOrBubble();
@@ -631,7 +642,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         if (!needsRescue) {
             rescueLandingPos = null;
             rescueRepathTicks = 0;
-            return;
+            return false;
         }
 
         setFlying(true);
@@ -668,7 +679,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 rescueRepathTicks = 0;
                 setDeltaMovement(getDeltaMovement().multiply(0.25D, 0.0D, 0.25D));
                 hasImpulse = true;
-                return;
+                return true;
             }
         }
 
@@ -687,6 +698,215 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         setDeltaMovement(steered);
         move(MoverType.SELF, steered);
         hasImpulse = true;
+
+        return true;
+    }
+
+    private void tickUnmountedAutopilotFlight() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        // This is only for unridden flight mode; mounted flight is handled in travel().
+        if (!isFlying() || isVehicle()) {
+            unmountedFlightTicks = 0;
+            unmountedFlightTarget = null;
+            unmountedFlightTargetTicks = 0;
+            unmountedLandingPos = null;
+            unmountedLandingRepathTicks = 0;
+            unmountedLandingCooldownTicks = 0;
+            unmountedHoverTicks = 0;
+            return;
+        }
+
+        // If we're grounded (or in water) just let normal logic handle exiting flight.
+        if (onGround() || isInWaterOrBubble()) {
+            unmountedFlightTicks = 0;
+            unmountedFlightTarget = null;
+            unmountedFlightTargetTicks = 0;
+            unmountedLandingPos = null;
+            unmountedLandingRepathTicks = 0;
+            unmountedHoverTicks = 0;
+            return;
+        }
+
+        // Don't fight the post-dismount hover-follow behavior.
+        if (dismountFollowTicks > 0) {
+            return;
+        }
+
+        unmountedFlightTicks++;
+        if (unmountedLandingCooldownTicks > 0) {
+            unmountedLandingCooldownTicks--;
+        }
+        if (unmountedHoverTicks > 0) {
+            unmountedHoverTicks--;
+        }
+
+        setAirSupply(getMaxAirSupply());
+        fallDistance = 0.0F;
+
+        var target = getTarget();
+        boolean hasTarget = target != null && target.isAlive();
+
+        // Combat chase: keep moving and don't randomly land.
+        if (hasTarget) {
+            unmountedLandingPos = null;
+            unmountedLandingRepathTicks = 0;
+            unmountedFlightTarget = target.position().add(0.0D, target.getBbHeight() * 0.45D, 0.0D);
+            unmountedFlightTargetTicks = 6;
+        }
+
+        // Landing selection: after being airborne a bit, occasionally decide to land on our own.
+        // This prevents wild/unmounted Scaralons from getting stuck hovering forever in flight mode.
+        if (!hasTarget
+                && unmountedLandingPos == null
+                && unmountedLandingCooldownTicks <= 0
+                && unmountedFlightTicks > 20 * 4
+                && random.nextInt(220) == 0) {
+            unmountedLandingPos = findRescueLandingPos(serverLevel);
+            unmountedLandingRepathTicks = 20;
+            unmountedLandingCooldownTicks = 20 * 10;
+            // Brief hover before committing to a turn/descend.
+            unmountedHoverTicks = Mth.nextInt(random, 6, 18);
+        }
+
+        // If we're landing, steer to the landing column and drop out of flight when close.
+        if (unmountedLandingPos != null) {
+            if (unmountedLandingRepathTicks > 0) {
+                unmountedLandingRepathTicks--;
+            }
+
+            if (unmountedLandingRepathTicks <= 0 || !serverLevel.isLoaded(unmountedLandingPos)) {
+                unmountedLandingPos = findRescueLandingPos(serverLevel);
+                unmountedLandingRepathTicks = 20;
+            }
+
+            if (unmountedLandingPos != null) {
+                Vec3 landTarget = Vec3.atCenterOf(unmountedLandingPos).add(0.0D, 0.25D, 0.0D);
+                Vec3 to = landTarget.subtract(position());
+                double distSq = to.lengthSqr();
+
+                if (distSq < 2.2D * 2.2D) {
+                    BlockPos below = unmountedLandingPos.below();
+                    if (!serverLevel.getBlockState(below).isAir() && serverLevel.getBlockState(unmountedLandingPos).isAir()) {
+                        setFlying(false);
+                        setNoGravity(false);
+                        unmountedFlightTarget = null;
+                        unmountedFlightTargetTicks = 0;
+                        unmountedLandingPos = null;
+                        unmountedLandingRepathTicks = 0;
+                        unmountedHoverTicks = 0;
+                        unmountedFlightTicks = 0;
+                        setDeltaMovement(getDeltaMovement().multiply(0.25D, 0.0D, 0.25D));
+                        hasImpulse = true;
+                        return;
+                    }
+                }
+
+                // Descend more assertively than roaming.
+                tickAutopilotSteer(landTarget, 0.26D, -0.24D, 0.20D);
+                return;
+            }
+        }
+
+        // Roam target: keep moving in the air, with occasional brief hovers to change direction.
+        if (!hasTarget) {
+            if (unmountedFlightTargetTicks > 0) {
+                unmountedFlightTargetTicks--;
+            }
+
+            boolean shouldPickNew = unmountedFlightTarget == null
+                    || unmountedFlightTargetTicks <= 0
+                    || horizontalCollision
+                    || verticalCollision
+                    || unmountedFlightTarget.distanceToSqr(position()) < 2.25D;
+
+            if (shouldPickNew) {
+                unmountedFlightTarget = pickNewUnmountedFlightTarget(serverLevel);
+                unmountedFlightTargetTicks = Mth.nextInt(random, 30, 90);
+
+                if (random.nextInt(7) == 0) {
+                    unmountedHoverTicks = Mth.nextInt(random, 5, 16);
+                }
+            }
+        }
+
+        Vec3 targetPos = unmountedFlightTarget;
+        if (targetPos == null) {
+            targetPos = position().add(0.0D, 0.5D, 0.0D);
+        }
+
+        if (unmountedHoverTicks > 0 && !hasTarget) {
+            // Ease to a hover briefly, then continue roaming.
+            Vec3 v = getDeltaMovement().scale(0.86D);
+            v = new Vec3(v.x, Mth.clamp(v.y, -0.08D, 0.08D), v.z);
+            setDeltaMovement(v);
+            move(MoverType.SELF, v);
+            hasImpulse = true;
+            getLookControl().setLookAt(targetPos.x, targetPos.y, targetPos.z);
+            return;
+        }
+
+        tickAutopilotSteer(targetPos, 0.22D, -0.18D, 0.20D);
+    }
+
+    private void tickAutopilotSteer(Vec3 targetPos, double desiredSpeed, double minY, double maxY) {
+        Vec3 to = targetPos.subtract(position());
+        double distSq = to.lengthSqr();
+
+        Vec3 desired;
+        if (distSq < 1.75D * 1.75D) {
+            desired = Vec3.ZERO;
+        } else {
+            desired = to.normalize().scale(desiredSpeed);
+        }
+
+        Vec3 v = getDeltaMovement();
+        Vec3 steered = v.add(desired.subtract(v).scale(0.24D)).scale(0.96D);
+        steered = new Vec3(steered.x, Mth.clamp(steered.y, minY, maxY), steered.z);
+
+        setDeltaMovement(steered);
+        move(MoverType.SELF, steered);
+        hasImpulse = true;
+        fallDistance = 0.0F;
+
+        getLookControl().setLookAt(targetPos.x, targetPos.y, targetPos.z);
+    }
+
+    private @Nullable Vec3 pickNewUnmountedFlightTarget(ServerLevel level) {
+        for (int i = 0; i < 14; i++) {
+            double dx = Mth.nextDouble(random, -16.0D, 16.0D);
+            double dy = Mth.nextDouble(random, -8.0D, 10.0D);
+            double dz = Mth.nextDouble(random, -16.0D, 16.0D);
+
+            double tx = getX() + dx;
+            double ty = getY() + dy;
+            double tz = getZ() + dz;
+
+            // Don't dive below minimum height; also avoid targeting too far above build height.
+            ty = Mth.clamp(ty, level.getMinBuildHeight() + 4, level.getMaxBuildHeight() - 6);
+
+            BlockPos bp = BlockPos.containing(tx, ty, tz);
+            if (!level.isLoaded(bp)) {
+                continue;
+            }
+
+            if (!level.getBlockState(bp).isAir()) {
+                continue;
+            }
+
+            if (!level.noCollision(this, getBoundingBox().move(tx - getX(), ty - getY(), tz - getZ()))) {
+                continue;
+            }
+
+            return new Vec3(tx, ty, tz);
+        }
+
+        return position().add(
+                Mth.nextDouble(random, -8.0D, 8.0D),
+                Mth.nextDouble(random, -4.0D, 6.0D),
+                Mth.nextDouble(random, -8.0D, 8.0D));
     }
 
     private boolean isOverMostlyAir(ServerLevel level, int depth) {

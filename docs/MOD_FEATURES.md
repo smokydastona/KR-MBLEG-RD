@@ -192,6 +192,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Wayfall flavor: in the **Wayfall** dimension, unmounted Scaralons can **air-swim** through open air (Glow Squid-like) as a rescue/void-safety behavior.
     - They prefer ground locomotion when safe, but will float/roam when falling fast, over a long drop, or chasing a target.
   - Unmounted safety: when a wild/tame Scaralon is in **water** or **over the void**, it will engage flight and try to climb and find nearby solid ground to land on.
+  - Unmounted flight autopilot: if an unmounted Scaralon ends up in **flight mode**, it will **keep moving** in the air (with brief hovers to change direction) and will **occasionally choose to land** on its own.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices only** (holding a melon slice prevents mounting; right-click will feed/breed instead).
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style, **1–4 eggs**). Eggs hatch into **larva**.
