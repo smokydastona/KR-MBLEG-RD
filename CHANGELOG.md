@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.952 (2026-02-13)
+- Fix(assets/scaralon_larva): update `scaralon_larva.geo.json` and `scaralon_larva.animation.json` to match the latest larva model/animation pass.
+
 ## 1.0.951 (2026-02-13)
 - Fix(assets/scaralon): update `scaralon_beetle.geo.json` UVs and refresh the adult texture variants (`scaralon_beetle_1`..`_8`).
 
