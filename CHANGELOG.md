@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.950 (2026-02-13)
+- Fix(assets/fault_crawler): remake `fault_crawler.animation.json` (adds jaw + leg motion and normalizes idle/walk timing) to match the current geo bone layout.
+
 ## 1.0.949 (2026-02-13)
 - Docs: align changelog headings with commit-count versioning.
 
