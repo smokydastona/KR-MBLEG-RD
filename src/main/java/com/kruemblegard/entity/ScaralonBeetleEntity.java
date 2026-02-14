@@ -411,8 +411,8 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             ),
             false));
 
-        // Skittish when wild (but can be lured for taming).
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 10.0F, 1.25D, 1.45D, p -> !isTamed()));
+        // Skittish when wild (but can be lured for taming). Keep the radius modest so players can actually approach.
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 7.0F, 1.15D, 1.30D, p -> !isTamed()));
 
         // Defend nests: zombie-family mobs can smash eggs, so Scaralons will fight them.
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.15D, true));
