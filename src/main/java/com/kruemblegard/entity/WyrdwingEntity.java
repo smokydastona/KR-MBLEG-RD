@@ -72,6 +72,18 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
     private static final EntityDataAccessor<Integer> EAT_ANIM_TICKS =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Integer> POUNCE_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> SCRATCH_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> CALL_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> SHAKE_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
     private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.wyrdwing.idle");
 
@@ -99,6 +111,20 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         private static final RawAnimation EAT_ONCE =
             RawAnimation.begin().thenPlay("animation.wyrdwing.eat");
 
+        // Optional (only used if you add matching entries in wyrdwing.animation.json)
+        private static final RawAnimation POUNCE_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.pounce");
+
+        // Optional alt-melee (only used if you add matching entries in wyrdwing.animation.json)
+        private static final RawAnimation SCRATCH_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.scratch");
+
+        private static final RawAnimation CALL_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.call_1");
+
+        private static final RawAnimation SHAKE_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.shake");
+
         private static final double GLIDE_MAX_FALL_SPEED = -0.12D;
         private static final double GLIDE_MIN_FALL_SPEED = -0.035D;
 
@@ -109,11 +135,25 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
         private static final float LOW_HEALTH_FLEE_THRESHOLD = 0.30F;
 
+        // Scaralon-style "forced land": Wyrdwings prefer to remain airborne, but should not
+        // orbit forever. Use a simple stamina-like budget that drains while airborne and
+        // regenerates quickly while grounded.
+        private static final int MAX_FLIGHT_STAMINA_TICKS = 20 * 25; // 25 seconds
+        private static final int STAMINA_REGEN_PER_TICK_GROUNDED = 3;
+        private static final int STAMINA_DRAIN_PER_TICK_AIRBORNE = 1;
+        private static final double EXHAUSTED_AUTO_LAND_DESCENT_VELOCITY = -0.35D;
+        private static final double MAX_EXHAUSTED_DOWNWARD_VELOCITY = -0.65D;
+        private static final double EXHAUSTED_HORIZONTAL_DAMPING = 0.55D;
+        private static final int IDLE_TAKEOFF_COOLDOWN_TICKS = 20 * 6;
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
         private boolean wasOnGroundLastTick = true;
         private BlockPos perchTarget = null;
         private int perchRepathCooldown = 0;
+
+        private int flightStaminaTicks = MAX_FLIGHT_STAMINA_TICKS;
+        private int idleTakeoffCooldownTicks = 0;
 
     public WyrdwingEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -152,6 +192,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         this.entityData.define(GLIDE_START_TICKS, 0);
         this.entityData.define(FLEE_TICKS, 0);
         this.entityData.define(EAT_ANIM_TICKS, 0);
+        this.entityData.define(POUNCE_ANIM_TICKS, 0);
+        this.entityData.define(SCRATCH_ANIM_TICKS, 0);
+        this.entityData.define(CALL_ANIM_TICKS, 0);
+        this.entityData.define(SHAKE_ANIM_TICKS, 0);
     }
 
     private int getAttackAnimTicks() {
@@ -194,18 +238,65 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         this.entityData.set(EAT_ANIM_TICKS, ticks);
     }
 
+    private int getPounceAnimTicks() {
+        return this.entityData.get(POUNCE_ANIM_TICKS);
+    }
+
+    private void setPounceAnimTicks(int ticks) {
+        this.entityData.set(POUNCE_ANIM_TICKS, ticks);
+    }
+
+    private int getScratchAnimTicks() {
+        return this.entityData.get(SCRATCH_ANIM_TICKS);
+    }
+
+    private void setScratchAnimTicks(int ticks) {
+        this.entityData.set(SCRATCH_ANIM_TICKS, ticks);
+    }
+
+    private int getCallAnimTicks() {
+        return this.entityData.get(CALL_ANIM_TICKS);
+    }
+
+    private void setCallAnimTicks(int ticks) {
+        this.entityData.set(CALL_ANIM_TICKS, ticks);
+    }
+
+    private int getShakeAnimTicks() {
+        return this.entityData.get(SHAKE_ANIM_TICKS);
+    }
+
+    private void setShakeAnimTicks(int ticks) {
+        this.entityData.set(SHAKE_ANIM_TICKS, ticks);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new FleeWhenLowHealthGoal(this));
-        this.goalSelector.addGoal(3, new SwoopAttackGoal(this));
-        this.goalSelector.addGoal(4, new EatBugMeatItemGoal(this));
+        this.goalSelector.addGoal(3, new AirSwoopAttackGoal(this));
+        this.goalSelector.addGoal(4, new GroundAttackGoal(this));
+        this.goalSelector.addGoal(5, new EatBugMeatItemGoal(this));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 10.0F, 2.0F, false));
+
+        // Perching is split into:
+        // - a low-impact search/timer goal that chooses a perch target
+        // - dedicated approach goals for ground vs air movement
         this.goalSelector.addGoal(7, new PerchInTreesGoal(this));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+
+        // Grounded idle preference: occasionally take off to orbit the chosen perch tree.
+        // (But don't immediately re-takeoff when exhausted; stamina must recover.)
+        this.goalSelector.addGoal(8, new TakeoffToOrbitGoal(this));
+        this.goalSelector.addGoal(9, new GroundPerchApproachGoal(this));
+        this.goalSelector.addGoal(10, new AirPerchApproachGoal(this));
+
+        // Idle airborne orbiting around the selected tree perch.
+        this.goalSelector.addGoal(11, new AirWanderGoal(this));
+
+        this.goalSelector.addGoal(12, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(13, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(14, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
@@ -221,7 +312,9 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         if (!level().isClientSide) {
             tickAggression();
             tickTimers();
+            tickFlightBudget();
             tickVoidRecovery();
+            tickAmbientAnimations();
 
             // Detect leaving the ground for a glide-start animation pop.
             if (wasOnGroundLastTick && !this.onGround() && getGlideStartTicks() == 0) {
@@ -231,6 +324,74 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             tickAirLocomotion();
 
             wasOnGroundLastTick = this.onGround();
+        }
+    }
+
+    private void tickFlightBudget() {
+        if (idleTakeoffCooldownTicks > 0) {
+            idleTakeoffCooldownTicks--;
+        }
+
+        // Regenerate budget while grounded (or wet), drain while airborne.
+        if (this.onGround() || this.isInWaterOrBubble()) {
+            if (flightStaminaTicks < MAX_FLIGHT_STAMINA_TICKS) {
+                flightStaminaTicks = Math.min(MAX_FLIGHT_STAMINA_TICKS, flightStaminaTicks + STAMINA_REGEN_PER_TICK_GROUNDED);
+            }
+            return;
+        }
+
+        if (flightStaminaTicks > 0) {
+            flightStaminaTicks = Math.max(0, flightStaminaTicks - STAMINA_DRAIN_PER_TICK_AIRBORNE);
+        }
+    }
+
+    private boolean isFlightExhausted() {
+        return flightStaminaTicks <= 0;
+    }
+
+    private boolean hasTakeoffStamina() {
+        return flightStaminaTicks >= (int) (MAX_FLIGHT_STAMINA_TICKS * 0.75F);
+    }
+
+    private void tickAmbientAnimations() {
+        if (this.isOrderedToSit()) {
+            return;
+        }
+
+        if (!this.onGround()) {
+            return;
+        }
+
+        if (this.isInWaterOrBubble()) {
+            return;
+        }
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-4) {
+            return;
+        }
+
+        if (this.getTarget() != null || getFleeTicks() > 0) {
+            return;
+        }
+
+        if (getVoidRecoverTicks() > 0 || getAttackAnimTicks() > 0 || getEatAnimTicks() > 0 || getPounceAnimTicks() > 0 || getScratchAnimTicks() > 0) {
+            return;
+        }
+
+        if (getCallAnimTicks() > 0 || getShakeAnimTicks() > 0) {
+            return;
+        }
+
+        if (this.tickCount % 120 != 0) {
+            return;
+        }
+
+        // Very occasional flavor beats while idle on the ground.
+        // Call is more common than shake.
+        if (this.random.nextInt(7) == 0) {
+            setCallAnimTicks(15);
+        } else if (this.random.nextInt(14) == 0) {
+            setShakeAnimTicks(40);
         }
     }
 
@@ -269,6 +430,14 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             setAttackAnimTicks(getAttackAnimTicks() - 1);
         }
 
+        if (getScratchAnimTicks() > 0) {
+            setScratchAnimTicks(getScratchAnimTicks() - 1);
+        }
+
+        if (getPounceAnimTicks() > 0) {
+            setPounceAnimTicks(getPounceAnimTicks() - 1);
+        }
+
         if (getEatAnimTicks() > 0) {
             setEatAnimTicks(getEatAnimTicks() - 1);
         }
@@ -283,6 +452,14 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
         if (getFleeTicks() > 0) {
             setFleeTicks(getFleeTicks() - 1);
+        }
+
+        if (getCallAnimTicks() > 0) {
+            setCallAnimTicks(getCallAnimTicks() - 1);
+        }
+
+        if (getShakeAnimTicks() > 0) {
+            setShakeAnimTicks(getShakeAnimTicks() - 1);
         }
     }
 
@@ -340,6 +517,13 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             return;
         }
 
+        // Out of flight budget: force a gentle-but-decisive landing.
+        // Exception: allow void recovery to regain altitude.
+        if (isFlightExhausted() && getVoidRecoverTicks() == 0) {
+            applyExhaustedAutoLandPhysics();
+            return;
+        }
+
         Vec3 delta = this.getDeltaMovement();
         double horizontalSpeed = Math.sqrt(delta.x * delta.x + delta.z * delta.z);
 
@@ -365,6 +549,11 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             return true;
         }
 
+        // Exhausted: cannot intentionally gain altitude.
+        if (isFlightExhausted()) {
+            return false;
+        }
+
         LivingEntity target = getTarget();
         if (target != null && target.isAlive()) {
             if (target.getY() > this.getY() + 2.0D) {
@@ -377,6 +566,17 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         }
 
         return false;
+    }
+
+    private void applyExhaustedAutoLandPhysics() {
+        Vec3 delta = this.getDeltaMovement();
+
+        double y = Math.min(delta.y, EXHAUSTED_AUTO_LAND_DESCENT_VELOCITY);
+        y = Mth.clamp(y, MAX_EXHAUSTED_DOWNWARD_VELOCITY, 0.0D);
+
+        Vec3 forced = new Vec3(delta.x * EXHAUSTED_HORIZONTAL_DAMPING, y, delta.z * EXHAUSTED_HORIZONTAL_DAMPING);
+        this.setDeltaMovement(forced);
+        this.fallDistance = 0.0F;
     }
 
     private void applyGlidePhysics() {
@@ -459,6 +659,13 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         setGlideStartTicks(0);
         setAttackAnimTicks(0);
         setEatAnimTicks(0);
+        setPounceAnimTicks(0);
+        setScratchAnimTicks(0);
+        setCallAnimTicks(0);
+        setShakeAnimTicks(0);
+
+        flightStaminaTicks = MAX_FLIGHT_STAMINA_TICKS;
+        idleTakeoffCooldownTicks = 0;
     }
 
     @Override
@@ -467,7 +674,13 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         if (hit && entity instanceof LivingEntity living) {
             living.knockback(0.35F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
             if (!this.level().isClientSide) {
-                setAttackAnimTicks(8);
+                // Prefer the original Wyrdwing bite animation, but occasionally play an alternate
+                // (useful if you add a raptor-style claw/scratch animation to wyrdwing.animation.json).
+                if (this.random.nextInt(4) == 0) {
+                    setScratchAnimTicks(10);
+                } else {
+                    setAttackAnimTicks(8);
+                }
             }
         }
         return hit;
@@ -481,13 +694,33 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
                 return PlayState.CONTINUE;
             }
 
+            if (getPounceAnimTicks() > 0) {
+                state.setAnimation(POUNCE_ONCE);
+                return PlayState.CONTINUE;
+            }
+
             if (getAttackAnimTicks() > 0) {
                 state.setAnimation(ATTACK_ONCE);
                 return PlayState.CONTINUE;
             }
 
+            if (getScratchAnimTicks() > 0) {
+                state.setAnimation(SCRATCH_ONCE);
+                return PlayState.CONTINUE;
+            }
+
             if (getEatAnimTicks() > 0) {
                 state.setAnimation(EAT_ONCE);
+                return PlayState.CONTINUE;
+            }
+
+            if (getCallAnimTicks() > 0) {
+                state.setAnimation(CALL_ONCE);
+                return PlayState.CONTINUE;
+            }
+
+            if (getShakeAnimTicks() > 0) {
+                state.setAnimation(SHAKE_ONCE);
                 return PlayState.CONTINUE;
             }
 
@@ -675,18 +908,23 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         }
     }
 
-    private static class SwoopAttackGoal extends Goal {
+    private static class GroundAttackGoal extends Goal {
         private final WyrdwingEntity mob;
-        private int swoopCooldown = 0;
+        private int attackCooldown = 0;
+        private int pounceCooldown = 0;
 
-        private SwoopAttackGoal(WyrdwingEntity mob) {
+        private GroundAttackGoal(WyrdwingEntity mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
         public boolean canUse() {
-            if (mob.getFleeTicks() > 0) {
+            if (mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (!mob.onGround()) {
                 return false;
             }
 
@@ -695,8 +933,113 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
                 return false;
             }
 
-            double dist = mob.distanceToSqr(target);
-            return dist < (18.0D * 18.0D);
+            return mob.distanceToSqr(target) < (18.0D * 18.0D);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (!mob.onGround()) {
+                return false;
+            }
+
+            LivingEntity target = mob.getTarget();
+            return target != null && target.isAlive() && mob.getFleeTicks() == 0 && !mob.isOrderedToSit();
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = mob.getTarget();
+            if (target == null) {
+                return;
+            }
+
+            if (attackCooldown > 0) {
+                attackCooldown--;
+            }
+
+            if (pounceCooldown > 0) {
+                pounceCooldown--;
+            }
+
+            mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+            double distSqr = mob.distanceToSqr(target);
+            boolean targetHigh = target.getY() > mob.getY() + 1.5D;
+
+            // Hop into the air to transition into air combat if we need altitude or the target is far.
+            if (targetHigh || distSqr > (9.0D * 9.0D)) {
+                mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+                return;
+            }
+
+            mob.getNavigation().moveTo(target, 1.25D);
+
+            // Optional raptor-style pounce.
+            if (pounceCooldown == 0 && distSqr > (3.0D * 3.0D) && distSqr < (6.0D * 6.0D)) {
+                Vec3 to = target.position().subtract(mob.position());
+                Vec3 horiz = new Vec3(to.x, 0.0D, to.z);
+                if (horiz.lengthSqr() > 0.001D) {
+                    Vec3 dir = horiz.normalize();
+                    mob.setDeltaMovement(mob.getDeltaMovement().add(dir.x * 0.55D, 0.40D, dir.z * 0.55D));
+                    mob.fallDistance = 0.0F;
+                    if (!mob.level().isClientSide) {
+                        mob.setPounceAnimTicks(12);
+                    }
+                    pounceCooldown = 55;
+                    return;
+                }
+            }
+
+            if (attackCooldown == 0 && distSqr < (2.2D * 2.2D)) {
+                mob.doHurtTarget(target);
+                attackCooldown = 20;
+            }
+        }
+    }
+
+    private static class AirSwoopAttackGoal extends Goal {
+        private final WyrdwingEntity mob;
+        private int swoopCooldown = 0;
+
+        private AirSwoopAttackGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (mob.onGround() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.isFlightExhausted()) {
+                return false;
+            }
+
+            LivingEntity target = mob.getTarget();
+            if (target == null || !target.isAlive()) {
+                return false;
+            }
+
+            return mob.distanceToSqr(target) < (18.0D * 18.0D);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (mob.onGround() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.isFlightExhausted()) {
+                return false;
+            }
+
+            LivingEntity target = mob.getTarget();
+            return target != null && target.isAlive() && mob.getFleeTicks() == 0 && !mob.isOrderedToSit();
         }
 
         @Override
@@ -713,25 +1056,6 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
             double distSqr = mob.distanceToSqr(target);
-            boolean targetHigh = target.getY() > mob.getY() + 1.5D;
-
-            if (mob.onGround()) {
-                // On ground: run-and-bite. Only hop up if we need altitude (or target is above us)
-                // so we can transition into glide/flap behavior.
-                if (targetHigh || distSqr > (9.0D * 9.0D)) {
-                    mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
-                    return;
-                }
-
-                mob.getNavigation().moveTo(target, 1.25D);
-
-                if (swoopCooldown == 0 && distSqr < (2.2D * 2.2D)) {
-                    mob.doHurtTarget(target);
-                    swoopCooldown = 20;
-                }
-                return;
-            }
-
             Vec3 toTarget = target.position().add(0.0D, target.getBbHeight() * 0.6D, 0.0D).subtract(mob.position());
             if (toTarget.lengthSqr() < 0.01D) {
                 return;
@@ -757,7 +1081,6 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
         private PerchInTreesGoal(WyrdwingEntity mob) {
             this.mob = mob;
-            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override
@@ -767,6 +1090,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             }
 
             if (mob.getFleeTicks() > 0) {
+                return false;
+            }
+
+            if (mob.isOrderedToSit()) {
                 return false;
             }
 
@@ -793,20 +1120,6 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
             if (mob.perchTarget == null) {
                 return;
-            }
-
-            double dist = mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget));
-            if (dist < (3.0D * 3.0D)) {
-                return;
-            }
-
-            if (mob.onGround()) {
-                mob.getNavigation().moveTo(
-                        mob.perchTarget.getX() + 0.5D,
-                        mob.perchTarget.getY(),
-                        mob.perchTarget.getZ() + 0.5D,
-                        1.0D
-                );
             }
         }
 
@@ -844,6 +1157,258 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             }
 
             return best;
+        }
+    }
+
+    private static class GroundPerchApproachGoal extends Goal {
+        private final WyrdwingEntity mob;
+
+        private GroundPerchApproachGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() != null || mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (!mob.onGround()) {
+                return false;
+            }
+
+            if (mob.perchTarget == null) {
+                return false;
+            }
+
+            return mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget)) >= (3.0D * 3.0D);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public void tick() {
+            if (mob.perchTarget == null) {
+                return;
+            }
+
+            double dist = mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget));
+            if (dist < (3.0D * 3.0D)) {
+                mob.getNavigation().stop();
+                return;
+            }
+
+            // If the perch is significantly above us, take off to let air-perch steering take over.
+            if (mob.perchTarget.getY() > mob.getY() + 1.0D && !mob.isFlightExhausted()) {
+                mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+                return;
+            }
+
+            mob.getNavigation().moveTo(
+                    mob.perchTarget.getX() + 0.5D,
+                    mob.perchTarget.getY(),
+                    mob.perchTarget.getZ() + 0.5D,
+                    1.0D
+            );
+        }
+    }
+
+    private static class TakeoffToOrbitGoal extends Goal {
+        private final WyrdwingEntity mob;
+
+        private TakeoffToOrbitGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() != null || mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (!mob.onGround() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.perchTarget == null) {
+                return false;
+            }
+
+            if (mob.idleTakeoffCooldownTicks > 0) {
+                return false;
+            }
+
+            if (!mob.hasTakeoffStamina()) {
+                return false;
+            }
+
+            double distSqr = mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget));
+            if (distSqr < (5.0D * 5.0D) || distSqr > (18.0D * 18.0D)) {
+                return false;
+            }
+
+            // Keep it fairly rare so it doesn't look twitchy; still frequent enough to feel like
+            // it prefers being airborne when rested.
+            return mob.random.nextInt(30) == 0;
+        }
+
+        @Override
+        public void start() {
+            mob.getNavigation().stop();
+            mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+            mob.idleTakeoffCooldownTicks = IDLE_TAKEOFF_COOLDOWN_TICKS;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return false;
+        }
+    }
+
+    private static class AirPerchApproachGoal extends Goal {
+        private final WyrdwingEntity mob;
+
+        private AirPerchApproachGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() != null || mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (mob.onGround() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.isFlightExhausted()) {
+                return false;
+            }
+
+            if (mob.perchTarget == null) {
+                return false;
+            }
+
+            // Only use approach when we're meaningfully far. When close, orbit instead.
+            return mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget)) >= (12.0D * 12.0D);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public void tick() {
+            if (mob.perchTarget == null) {
+                return;
+            }
+
+            Vec3 desired = Vec3.atCenterOf(mob.perchTarget).add(0.0D, 0.35D, 0.0D);
+            steerToward(desired, 0.10D, 0.08D);
+        }
+
+        private void steerToward(Vec3 desired, double horiz, double vert) {
+            mob.getLookControl().setLookAt(desired.x, desired.y, desired.z, 25.0F, 25.0F);
+
+            Vec3 to = desired.subtract(mob.position());
+            if (to.lengthSqr() < 0.01D) {
+                return;
+            }
+
+            Vec3 dir = to.normalize();
+            Vec3 delta = mob.getDeltaMovement();
+            Vec3 steering = new Vec3(dir.x * horiz, dir.y * vert - 0.01D, dir.z * horiz);
+            mob.setDeltaMovement(delta.add(steering));
+            mob.fallDistance = 0.0F;
+        }
+    }
+
+    private static class AirWanderGoal extends Goal {
+        private final WyrdwingEntity mob;
+        private double orbitAngleRad = 0.0D;
+        private double orbitRadius = 7.5D;
+
+        private AirWanderGoal(WyrdwingEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() != null || mob.getFleeTicks() > 0 || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (mob.onGround() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.isFlightExhausted()) {
+                return false;
+            }
+
+            // Orbit the chosen perch tree when idle.
+            if (mob.perchTarget == null) {
+                return false;
+            }
+
+            // If we're too far, let AirPerchApproachGoal bring us closer.
+            return mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget)) < (16.0D * 16.0D);
+        }
+
+        @Override
+        public void start() {
+            orbitAngleRad = mob.random.nextDouble() * (Math.PI * 2.0D);
+            orbitRadius = 6.5D + mob.random.nextDouble() * 4.5D;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public void tick() {
+            if (mob.perchTarget == null) {
+                return;
+            }
+
+            // Smooth orbit around the perch tree. We keep altitude slightly above the perch.
+            orbitAngleRad += 0.10D;
+
+            double cx = mob.perchTarget.getX() + 0.5D;
+            double cz = mob.perchTarget.getZ() + 0.5D;
+            double baseY = mob.perchTarget.getY() + 3.5D;
+            double bob = Math.sin(orbitAngleRad * 0.5D) * 0.6D;
+
+            double x = cx + Math.cos(orbitAngleRad) * orbitRadius;
+            double z = cz + Math.sin(orbitAngleRad) * orbitRadius;
+            double y = Math.max(baseY + bob, mob.level().getMinBuildHeight() + 4.0D);
+
+            Vec3 desired = new Vec3(x, y, z);
+            steerToward(desired, 0.085D, 0.060D);
+        }
+
+        private void steerToward(Vec3 desired, double horiz, double vert) {
+            mob.getLookControl().setLookAt(desired.x, desired.y, desired.z, 20.0F, 20.0F);
+
+            Vec3 to = desired.subtract(mob.position());
+            if (to.lengthSqr() < 0.01D) {
+                return;
+            }
+
+            Vec3 dir = to.normalize();
+            Vec3 delta = mob.getDeltaMovement();
+            Vec3 steering = new Vec3(dir.x * horiz, dir.y * vert - 0.01D, dir.z * horiz);
+            mob.setDeltaMovement(delta.add(steering));
+            mob.fallDistance = 0.0F;
         }
     }
 }

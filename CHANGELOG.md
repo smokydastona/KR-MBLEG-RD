@@ -9,6 +9,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(assets/wyrdwing): normalize `wyrdwing.geo.json` geometry identifier to `geometry.kruemblegard.wyrdwing`.
 - Fix(assets/wyrdwing): rewrite `wyrdwing.animation.json` to animate the Vallumraptor-style bones (arms/quills/legs/head/tail).
 - Fix(ai/wyrdwing): improve `SwoopAttackGoal` ground behavior (run-and-bite; hop only when it needs altitude).
+- Refactor(ai/wyrdwing): split goals into explicit air-vs-ground responsibilities (air swoop attack, air perch approach, air wander, ground attack).
+- Feature(ai/wyrdwing): idle flight now prefers orbiting its chosen tree perch (instead of only free-wandering).
+- Feature(ai/wyrdwing): add a Scaralon-style "forced land" flight budget so it can’t stay airborne forever.
+- Feature(ai/wyrdwing): add an optional raptor-style pounce burst and GeckoLib animation hooks (`animation.wyrdwing.pounce`, `animation.wyrdwing.scratch`).
+- Feature(ai/wyrdwing): add occasional idle-on-ground one-shots for raptor-style flavor beats (`animation.wyrdwing.call_1`, `animation.wyrdwing.shake`).
 
 ## 1.0.969 (2026-02-13)
 - Fix(ai/scaralon): prevent Scaralons from stalling/freeze-looking on ice when navigation is trying to move them.
