@@ -712,8 +712,23 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
             mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
+            double distSqr = mob.distanceToSqr(target);
+            boolean targetHigh = target.getY() > mob.getY() + 1.5D;
+
             if (mob.onGround()) {
-                mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.45D, 0.0D));
+                // On ground: run-and-bite. Only hop up if we need altitude (or target is above us)
+                // so we can transition into glide/flap behavior.
+                if (targetHigh || distSqr > (9.0D * 9.0D)) {
+                    mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+                    return;
+                }
+
+                mob.getNavigation().moveTo(target, 1.25D);
+
+                if (swoopCooldown == 0 && distSqr < (2.2D * 2.2D)) {
+                    mob.doHurtTarget(target);
+                    swoopCooldown = 20;
+                }
                 return;
             }
 
@@ -729,7 +744,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             mob.setDeltaMovement(delta.add(steering));
             mob.fallDistance = 0.0F;
 
-            if (swoopCooldown == 0 && mob.distanceToSqr(target) < (2.2D * 2.2D)) {
+            if (swoopCooldown == 0 && distSqr < (2.2D * 2.2D)) {
                 mob.doHurtTarget(target);
                 swoopCooldown = 20;
             }

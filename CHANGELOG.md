@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.970 (2026-02-13)
+- Fix(assets/wyrdwing): update `wyrdwing.png` texture.
+- Fix(assets/wyrdwing): normalize `wyrdwing.geo.json` geometry identifier to `geometry.kruemblegard.wyrdwing`.
+- Fix(assets/wyrdwing): rewrite `wyrdwing.animation.json` to animate the Vallumraptor-style bones (arms/quills/legs/head/tail).
+- Fix(ai/wyrdwing): improve `SwoopAttackGoal` ground behavior (run-and-bite; hop only when it needs altitude).
+
 ## 1.0.969 (2026-02-13)
 - Fix(ai/scaralon): prevent Scaralons from stalling/freeze-looking on ice when navigation is trying to move them.
 
