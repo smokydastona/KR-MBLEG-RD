@@ -8,6 +8,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(ai/wyrdwing): face the direction of movement (yaw follows velocity).
 - Fix(ai/wyrdwing): prevent repeated ground takeoff hops (shared cooldown + velocity gating).
 - Feature(ai/wyrdwing): target all arthropod/bug-type mobs (MobType.ARTHROPOD).
+- Tuning(render/wyrdwing): scale Wyrdwing visuals down to 75%.
 
 ## 1.0.970 (2026-02-13)
 - Fix(assets/wyrdwing): update `wyrdwing.png` texture.
