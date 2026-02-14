@@ -400,11 +400,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         // Larva: seek tree trunks/branches and sap-suck to mature faster.
         this.goalSelector.addGoal(0, new LarvaSapSuckGoal(this));
 
-        // Skittish when wild.
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 10.0F, 1.25D, 1.45D, p -> !isTamed()));
-
         // Attracted to rune-ish items (helps with taming + moving them around).
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.15D,
+        // NOTE: Must run higher priority than AvoidEntityGoal, otherwise they flee even when tempted.
+        this.goalSelector.addGoal(1, new TemptGoal(this, 1.15D,
             Ingredient.of(
                 ModItems.SOULBERRIES.get(),
                 Items.MELON_SLICE,
@@ -412,6 +410,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 ModItems.RUNIC_CORE.get()
             ),
             false));
+
+        // Skittish when wild (but can be lured for taming).
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 10.0F, 1.25D, 1.45D, p -> !isTamed()));
 
         // Defend nests: zombie-family mobs can smash eggs, so Scaralons will fight them.
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.15D, true));
@@ -738,9 +739,15 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         boolean wet = isInWaterOrBubble();
-        boolean overVoid = isOverMostlyAir(serverLevel, 18);
+        Vec3 vel = getDeltaMovement();
+        boolean fallingFast = vel.y < -0.14D;
+        boolean falling = fallDistance > 2.5F || fallingFast;
         boolean fallingDeep = fallDistance >= 10.0F;
-        boolean needsRescue = wet || overVoid || fallingDeep;
+
+        // Only treat "over void" as dangerous when we're actually dropping.
+        // Otherwise Scaralons can get nudged off-ground for a tick and incorrectly enter rescue flight.
+        boolean overVoid = isOverMostlyAir(serverLevel, 18);
+        boolean needsRescue = wet || fallingDeep || (overVoid && falling);
 
         if (!needsRescue) {
             rescueLandingPos = null;
@@ -791,7 +798,10 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             desired = new Vec3(0.0D, wet ? 0.12D : 0.0D, 0.0D);
         } else {
             desired = to.normalize().scale(0.24D);
-            desired = new Vec3(desired.x, desired.y + 0.10D, desired.z);
+            // Buoyancy only when wet; otherwise don't bias upward (prevents "straight up" runaway).
+            if (wet) {
+                desired = new Vec3(desired.x, desired.y + 0.08D, desired.z);
+            }
         }
 
         Vec3 v = getDeltaMovement();
@@ -2103,8 +2113,12 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     @Override
     public boolean isFood(ItemStack stack) {
         // Breeding item (player-facing): melon slices.
-        // Other items may still be used for tempting or other interactions, but do not trigger breeding.
-        return stack.is(Items.MELON_SLICE);
+        // Also treat "rune-ish" tempt items as food so vanilla AbstractHorse taming/feeding logic works.
+        // Breeding is still melon-only because mobInteract() special-cases melon slices.
+        return stack.is(Items.MELON_SLICE)
+                || stack.is(ModItems.SOULBERRIES.get())
+                || stack.is(ModItems.ATTUNED_RUNE_SHARD.get())
+                || stack.is(ModItems.RUNIC_CORE.get());
     }
 
     @Override
