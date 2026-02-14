@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.969 (2026-02-13)
+- Fix(ai/scaralon): prevent Scaralons from stalling/freeze-looking on ice when navigation is trying to move them.
+
+## 1.0.968 (2026-02-13)
+- Fix(assets): add/update `wyrdwing.geo.json` model.
+
 ## 1.0.967 (2026-02-13)
 - Fix(assets): tweak vanilla Elytra override textures (`assets/minecraft/textures/*/elytra.png`).
 

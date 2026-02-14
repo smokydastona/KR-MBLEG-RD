@@ -715,7 +715,52 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             if (random.nextInt(90) == 0 && isNearArcaneEnergy()) {
                 playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 0.35F, 0.8F + random.nextFloat() * 0.25F);
             }
+
+            // Ice edge-case: ground acceleration on very-slippery blocks is tiny in vanilla,
+            // which can make navigation-driven movement appear to "freeze" from rest.
+            tickIceGroundStallAssist();
         }
+    }
+
+    private void tickIceGroundStallAssist() {
+        if (!(level() instanceof ServerLevel)) {
+            return;
+        }
+
+        if (!onGround() || isFlying() || isInWaterOrBubble()) {
+            return;
+        }
+
+        // Larva movement should remain vanilla/simple.
+        if (isBaby()) {
+            return;
+        }
+
+        // Only assist when AI navigation is actively trying to move somewhere.
+        if (getNavigation().isDone()) {
+            return;
+        }
+
+        BlockState belowState = level().getBlockState(blockPosition().below());
+        if (!belowState.is(BlockTags.ICE)) {
+            return;
+        }
+
+        Vec3 v = getDeltaMovement();
+        if (v.horizontalDistanceSqr() > 0.00035D) {
+            return;
+        }
+
+        Vec3 look = getLookAngle();
+        Vec3 dir = new Vec3(look.x, 0.0D, look.z);
+        if (dir.lengthSqr() < 1.0E-6D) {
+            return;
+        }
+
+        // Very small forward nudge; just enough to get past the "stalled" threshold on ice.
+        Vec3 kick = dir.normalize().scale(0.035D);
+        setDeltaMovement(v.add(kick));
+        hasImpulse = true;
     }
 
     private boolean tickUnmountedSelfRescue() {
