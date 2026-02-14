@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.967 (2026-02-13)
+- Fix(assets): tweak vanilla Elytra override textures (`assets/minecraft/textures/*/elytra.png`).
+
 ## 1.0.966 (2026-02-13)
 - Fix(ai/scaralon): reduce wild Scaralon flee radius/speeds so the taming approach feels less punishing.
 
