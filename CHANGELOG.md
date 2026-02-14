@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.971 (2026-02-13)
+- Fix(ai/wyrdwing): face the direction of movement (yaw follows velocity).
+- Fix(ai/wyrdwing): prevent repeated ground takeoff hops (shared cooldown + velocity gating).
+- Feature(ai/wyrdwing): target all arthropod/bug-type mobs (MobType.ARTHROPOD).
+
 ## 1.0.970 (2026-02-13)
 - Fix(assets/wyrdwing): update `wyrdwing.png` texture.
 - Fix(assets/wyrdwing): normalize `wyrdwing.geo.json` geometry identifier to `geometry.kruemblegard.wyrdwing`.

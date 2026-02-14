@@ -231,7 +231,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Behavior:
     - **Tameable** with `Bug Meat`.
     - Wild Wyrdwings can be **mildly aggressive** (may decide to harass nearby players).
-    - Attacks via **swoop** passes while airborne, and hunts **Silverfish** + **Endermites**.
+    - Attacks via **swoop** passes while airborne, and hunts **bug/arthropod** mobs.
     - Ground combat can include an optional **pounce** burst (animation hook: `animation.wyrdwing.pounce`).
     - Melee hits can optionally play an alternate **scratch/claw** animation (animation hook: `animation.wyrdwing.scratch`).
     - While idle on the ground, it can occasionally play flavor one-shots: **call** (`animation.wyrdwing.call_1`) and **shake** (`animation.wyrdwing.shake`).
@@ -239,6 +239,7 @@ Keep it up to date whenever you add/remove/rename content.
     - **Flees** (drops aggression) when low on health.
     - **Tree-seeking**: tends to pick nearby trees as perch targets when idle.
     - While airborne and idle, it will **orbit/circle** its chosen perch tree and can **fly toward perch targets** (instead of only walking to them).
+    - Faces the direction it is moving in.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/wyrdwing.geo.json`
     - Animations: `assets/kruemblegard/animations/wyrdwing.animation.json`

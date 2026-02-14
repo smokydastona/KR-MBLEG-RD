@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -34,8 +35,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Endermite;
-import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -154,6 +153,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
         private int flightStaminaTicks = MAX_FLIGHT_STAMINA_TICKS;
         private int idleTakeoffCooldownTicks = 0;
+        private int groundTakeoffCooldownTicks = 0;
 
     public WyrdwingEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -301,8 +301,8 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
-        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Endermite.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 10, true, false,
+            target -> target.getMobType() == MobType.ARTHROPOD));
     }
 
     @Override
@@ -322,6 +322,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             }
 
             tickAirLocomotion();
+            tickFaceMovementDirection();
 
             wasOnGroundLastTick = this.onGround();
         }
@@ -330,6 +331,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
     private void tickFlightBudget() {
         if (idleTakeoffCooldownTicks > 0) {
             idleTakeoffCooldownTicks--;
+        }
+
+        if (groundTakeoffCooldownTicks > 0) {
+            groundTakeoffCooldownTicks--;
         }
 
         // Regenerate budget while grounded (or wet), drain while airborne.
@@ -351,6 +356,33 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
     private boolean hasTakeoffStamina() {
         return flightStaminaTicks >= (int) (MAX_FLIGHT_STAMINA_TICKS * 0.75F);
+    }
+
+    private boolean canGroundTakeoffNow() {
+        return groundTakeoffCooldownTicks <= 0 && this.getDeltaMovement().y <= 0.05D;
+    }
+
+    private void triggerGroundTakeoff(int cooldownTicks) {
+        groundTakeoffCooldownTicks = Math.max(groundTakeoffCooldownTicks, cooldownTicks);
+        this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+        this.fallDistance = 0.0F;
+    }
+
+    private void tickFaceMovementDirection() {
+        if (this.isOrderedToSit()) {
+            return;
+        }
+
+        Vec3 delta = this.getDeltaMovement();
+        double horizSqr = delta.x * delta.x + delta.z * delta.z;
+        if (horizSqr < 1.0E-4D) {
+            return;
+        }
+
+        float yaw = (float) (Mth.atan2(delta.z, delta.x) * (180.0D / Math.PI)) - 90.0F;
+        this.setYRot(yaw);
+        this.setYHeadRot(yaw);
+        this.setYBodyRot(yaw);
     }
 
     private void tickAmbientAnimations() {
@@ -968,8 +1000,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
             // Hop into the air to transition into air combat if we need altitude or the target is far.
             if (targetHigh || distSqr > (9.0D * 9.0D)) {
-                mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
-                return;
+                if (!mob.isFlightExhausted() && mob.canGroundTakeoffNow()) {
+                    mob.triggerGroundTakeoff(14);
+                    return;
+                }
             }
 
             mob.getNavigation().moveTo(target, 1.25D);
@@ -1204,8 +1238,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
             // If the perch is significantly above us, take off to let air-perch steering take over.
             if (mob.perchTarget.getY() > mob.getY() + 1.0D && !mob.isFlightExhausted()) {
-                mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
-                return;
+                if (mob.canGroundTakeoffNow()) {
+                    mob.triggerGroundTakeoff(18);
+                    return;
+                }
             }
 
             mob.getNavigation().moveTo(
@@ -1246,6 +1282,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
                 return false;
             }
 
+            if (!mob.canGroundTakeoffNow()) {
+                return false;
+            }
+
             double distSqr = mob.distanceToSqr(Vec3.atCenterOf(mob.perchTarget));
             if (distSqr < (5.0D * 5.0D) || distSqr > (18.0D * 18.0D)) {
                 return false;
@@ -1259,7 +1299,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         @Override
         public void start() {
             mob.getNavigation().stop();
-            mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+            mob.triggerGroundTakeoff(18);
             mob.idleTakeoffCooldownTicks = IDLE_TAKEOFF_COOLDOWN_TICKS;
         }
 
