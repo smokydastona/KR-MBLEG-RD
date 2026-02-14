@@ -27,14 +27,14 @@
 				"torso": {
 					"rotation": {
 						"0.0": [0, "math.sin(query.anim_time * 220) * 5", 0],
-						"0.0833": [-1.15964, "-0.5104+math.sin(query.anim_time * 220) * 5", -90],
-						"0.1667": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -180],
-						"0.25": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -270],
-						"0.3333": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -360],
-						"0.4167": [-1.15964, "-0.5104+math.sin(query.anim_time * 220) * 5", -90],
-						"0.5": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -180],
-						"0.5833": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -270],
-						"0.6667": [-1.16, "-0.5104+math.sin(query.anim_time * 220) * 5", -360]
+						"0.0833": [90, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.1667": [180, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.25": [270, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.3333": [360, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.4167": [90, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.5": [180, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.5833": [270, "-0.5104+math.sin(query.anim_time * 220) * 5", 0],
+						"0.6667": [360, "-0.5104+math.sin(query.anim_time * 220) * 5", 0]
 					}
 				},
 				"Head2": {
