@@ -105,7 +105,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
     private static final String NBT_LARVA_SAP_COOLDOWN = "LarvaSapCooldown";
 
     private static final int TEXTURE_VARIANT_MIN = 1;
-    private static final int TEXTURE_VARIANT_MAX = 8;
+    private static final int TEXTURE_VARIANT_MAX = 9;
 
     private static final float BABY_TEXTURE_MUTATION_CHANCE = 0.03F;
 
@@ -156,7 +156,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         private static final EntityDataAccessor<Integer> JUMP_CHARGE_POWER =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
-    /** 1..8, assigned once on spawn and persisted. */
+    /** 1..9, assigned once on spawn and persisted. */
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 

@@ -607,9 +607,8 @@
 					}
 				}
 			}
-		}
-	},
-	"animation.scaralon_beetle.death": {
+			},
+			"animation.scaralon_beetle.death": {
 		"loop": false,
 		"animation_length": 1.2,
 		"bones": {
@@ -632,42 +631,42 @@
 					"1.2": [-18, 0, 0]
 				}
 			},
-			"leg_fl": {
+			"leg_front_left": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, 35, -45],
 					"1.2": [0, 35, -45]
 				}
 			},
-			"leg_fr": {
+			"leg_front_right": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, -35, -45],
 					"1.2": [0, -35, -45]
 				}
 			},
-			"leg_ml": {
+			"leg_middle_left": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, 35, -45],
 					"1.2": [0, 35, -45]
 				}
 			},
-			"leg_mr": {
+			"leg_middle_right": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, -35, -45],
 					"1.2": [0, -35, -45]
 				}
 			},
-			"leg_bl": {
+			"leg_back_left": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, 35, 45],
 					"1.2": [0, 35, 45]
 				}
 			},
-			"leg_br": {
+			"leg_back_right": {
 				"rotation": {
 					"0.0": [0, 0, 0],
 					"0.35": [0, -35, 45],
@@ -675,8 +674,8 @@
 				}
 			}
 		}
-	},
-	"animation.scaralon_beetle.hover": {
+		},
+		"animation.scaralon_beetle.hover": {
 		"loop": true,
 		"animation_length": 1.2,
 		"bones": {
@@ -712,43 +711,41 @@
 				},
 				"position": [0, 0, 4]
 			},
-			"leg_fl": {
+			"leg_front_left": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
 				}
 			},
-			"leg_fr": {
+			"leg_front_right": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
 				}
 			},
-			"leg_ml": {
+			"leg_middle_left": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
 				}
 			},
-			"leg_mr": {
+			"leg_middle_right": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
 				}
 			},
-			"leg_bl": {
+			"leg_back_left": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
-				},
-				"position": [0, 13, -12]
+				}
 			},
-			"leg_br": {
+			"leg_back_right": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
-				},
-				"position": [0, 13, -11]
+				}
 			},
 			"right_elytra": {
 				"rotation": [26.82396, -31.99975, -15.00046]
@@ -757,8 +754,8 @@
 				"rotation": [27.56928, 34.22348, 15.00046]
 			}
 		}
-	},
-	"animation.scaralon_beetle.glide": {
+		},
+		"animation.scaralon_beetle.glide": {
 		"loop": true,
 		"animation_length": 1.2,
 		"bones": {
@@ -780,47 +777,51 @@
 					"1.0": [0, 0, -52]
 				}
 			},
-			"leg_fl": {
+			"leg_front_left": {
 				"rotation": {
 					"0.0": [-65, 0, 0],
 					"1.0": [-65, 0, 0]
 				}
 			},
-			"leg_fr": {
+			"leg_front_right": {
 				"rotation": {
 					"0.0": [-65, 0, 0],
 					"1.0": [-65, 0, 0]
 				}
 			},
-			"leg_ml": {
+			"leg_middle_left": {
 				"rotation": {
 					"0.0": [-65, 0, 0],
 					"1.0": [-65, 0, 0]
 				}
 			},
-			"leg_mr": {
+			"leg_middle_right": {
 				"rotation": {
 					"0.0": [-65, 0, 0],
 					"1.0": [-65, 0, 0]
 				}
 			},
-			"leg_bl": {
+			"leg_back_left": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
-				},
-				"position": [0, 13, -12]
+				}
 			},
-			"leg_br": {
+			"leg_back_right": {
 				"rotation": {
 					"0.0": [-55, 0, 0],
 					"1.2": [-55, 0, 0]
-				},
-				"position": [0, 13, -11]
+				}
+			},
+			"right_elytra": {
+				"rotation": [26.82396, -31.99975, -15.00046]
+			},
+			"left_elytra": {
+				"rotation": [27.56928, 34.22348, 15.00046]
 			}
 		}
-	},
-	"animation.scaralon_beetle.love": {
+		},
+		"animation.scaralon_beetle.love": {
 		"loop": true,
 		"animation_length": 1.5,
 		"bones": {
@@ -862,8 +863,8 @@
 				}
 			}
 		}
-	},
-	"animation.scaralon_beetle.eat": {
+		},
+		"animation.scaralon_beetle.eat": {
 		"loop": false,
 		"animation_length": 0.9,
 		"bones": {
@@ -890,6 +891,7 @@
 					"0.9": [0, 0, 0]
 				}
 			}
+		}
 		}
 	}
 }
