@@ -62,7 +62,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private static final double WARDEN_MOVEMENT_SPEED = 0.3D;
     private static final double WARDEN_FIGHTING_NAV_SPEED = 1.2D;
     private static final int WARDEN_MELEE_ATTACK_COOLDOWN_TICKS = 18;
-    private static final double WARDEN_ANIMATION_SPEED_MULT = 1.2D;
+    private static final double WARDEN_ANIMATION_SPEED_MULT = 1.25D;
 
     // -----------------------------
     // PHASE DATA
@@ -115,6 +115,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
     private static final RawAnimation MOVE =
             RawAnimation.begin().thenLoop("animation.kruemblegard.move");
+
+        private static final RawAnimation IDLE_COMBAT =
+            RawAnimation.begin().thenLoop("animation.kruemblegard.idle_combat");
+
+        private static final RawAnimation MOVE_COMBAT =
+            RawAnimation.begin().thenLoop("animation.kruemblegard.move_combat");
 
         private static final RawAnimation IDLE_PHASE4 =
             RawAnimation.begin().thenLoop("animation.kruemblegard.idle_phase4");
@@ -221,6 +227,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     private int phaseAttackStep;
     private int phaseAttackStepPhase;
 
+    private int lastStartedAbility;
+
     private static final int ABILITY_NONE = 0;
     private static final int ABILITY_CLEAVE = 1;
     private static final int ABILITY_RUNE_BOLT = 2;
@@ -262,6 +270,8 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         this.phaseAttackStep = 0;
         this.phaseAttackStepPhase = 0;
+
+        this.lastStartedAbility = ABILITY_NONE;
 
         this.meleeCooldown = 0;
         this.meleeTicksRemaining = 0;
@@ -637,28 +647,25 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
+        double distSq = this.distanceToSqr(target);
+
         ensurePhaseAttackPattern(1);
-        int category = this.phaseAttackStep % 3;
+        int category = pickCategoryForPhase(1, distSq);
 
-        boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartMeleeFast(target);
-            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_CLEAVE);
-            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_BOLT);
-            default -> false;
-        };
+        boolean started = false;
+        if (category == PHASE_ATTACK_FAST) {
+            started = tryStartMeleeFast(target);
+        } else if (category == PHASE_ATTACK_HEAVY) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_CLEAVE);
+        } else if (category == PHASE_ATTACK_RANGED) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_RUNE_BOLT);
+        }
 
-        // Fallback if the scheduled move can't start yet.
         if (!started) {
-            double distSq = this.distanceToSqr(target);
-            int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_RUNE_BOLT, ABILITY_CLEAVE}
-                : new int[] {ABILITY_CLEAVE, ABILITY_RUNE_BOLT};
-
-            for (int id : preferred) {
-                if (tryStartAbilityIfReady(id)) {
-                    started = true;
-                    break;
-                }
+            if (distSq > 100.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_RUNE_BOLT, ABILITY_CLEAVE);
+            } else {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_CLEAVE, ABILITY_RUNE_BOLT);
             }
         }
 
@@ -681,26 +688,26 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
+        double distSq = this.distanceToSqr(target);
+
         ensurePhaseAttackPattern(2);
-        int category = this.phaseAttackStep % 3;
-        boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_RUNE_DASH);
-            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_GRAVITIC_PULL);
-            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_RUNE_VOLLEY);
-            default -> false;
-        };
+        int category = pickCategoryForPhase(2, distSq);
+        boolean started = false;
+        if (category == PHASE_ATTACK_FAST) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_RUNE_DASH);
+        } else if (category == PHASE_ATTACK_HEAVY) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_GRAVITIC_PULL);
+        } else if (category == PHASE_ATTACK_RANGED) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_RUNE_VOLLEY);
+        }
 
         if (!started) {
-            double distSq = this.distanceToSqr(target);
-            int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_RUNE_VOLLEY, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_DASH}
-                : new int[] {ABILITY_RUNE_DASH, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_VOLLEY};
-
-            for (int id : preferred) {
-                if (tryStartAbilityIfReady(id)) {
-                    started = true;
-                    break;
-                }
+            if (distSq > 144.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_RUNE_VOLLEY, ABILITY_RUNE_DASH, ABILITY_GRAVITIC_PULL);
+            } else if (distSq > 49.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_GRAVITIC_PULL, ABILITY_RUNE_VOLLEY, ABILITY_RUNE_DASH);
+            } else {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_RUNE_DASH, ABILITY_GRAVITIC_PULL, ABILITY_RUNE_VOLLEY);
             }
         }
 
@@ -723,26 +730,26 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
+        double distSq = this.distanceToSqr(target);
+
         ensurePhaseAttackPattern(3);
-        int category = this.phaseAttackStep % 3;
-        boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_BLINK_STRIKE);
-            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_METEOR_ARM);
-            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_ARCANE_STORM);
-            default -> false;
-        };
+        int category = pickCategoryForPhase(3, distSq);
+        boolean started = false;
+        if (category == PHASE_ATTACK_FAST) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_BLINK_STRIKE);
+        } else if (category == PHASE_ATTACK_HEAVY) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_METEOR_ARM);
+        } else if (category == PHASE_ATTACK_RANGED) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_ARCANE_STORM);
+        }
 
         if (!started) {
-            double distSq = this.distanceToSqr(target);
-            int[] preferred = distSq > 81.0
-                ? new int[] {ABILITY_ARCANE_STORM, ABILITY_BLINK_STRIKE, ABILITY_METEOR_ARM}
-                : new int[] {ABILITY_METEOR_ARM, ABILITY_BLINK_STRIKE, ABILITY_ARCANE_STORM};
-
-            for (int id : preferred) {
-                if (tryStartAbilityIfReady(id)) {
-                    started = true;
-                    break;
-                }
+            if (distSq > 169.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_ARCANE_STORM, ABILITY_BLINK_STRIKE, ABILITY_METEOR_ARM);
+            } else if (distSq < 25.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_METEOR_ARM, ABILITY_BLINK_STRIKE, ABILITY_ARCANE_STORM);
+            } else {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_BLINK_STRIKE, ABILITY_METEOR_ARM, ABILITY_ARCANE_STORM);
             }
         }
 
@@ -765,26 +772,26 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (this.globalAbilityCooldown > 0) return;
 
+        double distSq = this.distanceToSqr(target);
+
         ensurePhaseAttackPattern(4);
-        int category = this.phaseAttackStep % 3;
-        boolean started = switch (category) {
-            case PHASE_ATTACK_FAST -> tryStartAbilityIfReady(ABILITY_WHIRLWIND);
-            case PHASE_ATTACK_HEAVY -> tryStartAbilityIfReady(ABILITY_METEOR_SHOWER);
-            case PHASE_ATTACK_RANGED -> tryStartAbilityIfReady(ABILITY_ARCANE_BEAM);
-            default -> false;
-        };
+        int category = pickCategoryForPhase(4, distSq);
+        boolean started = false;
+        if (category == PHASE_ATTACK_FAST) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_WHIRLWIND);
+        } else if (category == PHASE_ATTACK_HEAVY) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_METEOR_SHOWER);
+        } else if (category == PHASE_ATTACK_RANGED) {
+            started = tryStartAbilityIfReadyAvoidRepeat(ABILITY_ARCANE_BEAM);
+        }
 
         if (!started) {
-            double distSq = this.distanceToSqr(target);
-            int[] preferred = distSq > 100.0
-                ? new int[] {ABILITY_ARCANE_BEAM, ABILITY_METEOR_SHOWER, ABILITY_WHIRLWIND}
-                : new int[] {ABILITY_WHIRLWIND, ABILITY_METEOR_SHOWER, ABILITY_ARCANE_BEAM};
-
-            for (int id : preferred) {
-                if (tryStartAbilityIfReady(id)) {
-                    started = true;
-                    break;
-                }
+            if (distSq > 196.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_ARCANE_BEAM, ABILITY_METEOR_SHOWER, ABILITY_WHIRLWIND);
+            } else if (distSq < 36.0) {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_WHIRLWIND, ABILITY_METEOR_SHOWER, ABILITY_ARCANE_BEAM);
+            } else {
+                started = tryStartAnyAbilityAvoidRepeat(ABILITY_METEOR_SHOWER, ABILITY_WHIRLWIND, ABILITY_ARCANE_BEAM);
             }
         }
 
@@ -815,7 +822,10 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.meteorShowerCooldown = 0;
         this.arcaneBeamCooldown = 0;
 
-        this.globalAbilityCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get()));
+        this.globalAbilityCooldown = Math.max(
+            rollCooldown(Math.max(10, ModConfig.BOSS_ABILITY_GLOBAL_COOLDOWN_TICKS.get())),
+            30
+        );
 
         if (phase == 1) {
             this.cleaveCooldown = rollCooldown(Math.max(10, ModConfig.BOSS_PHASE_1_CLEAVE_COOLDOWN_TICKS.get()));
@@ -850,6 +860,35 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         }
     }
 
+    private int pickCategoryForPhase(int phase, double distSq) {
+        // Keep some predictable cadence but allow tactical variation.
+        // ~35% of the time, follow the old FAST->HEAVY->RANGED cycle.
+        if (this.random.nextFloat() < 0.35f) {
+            return this.phaseAttackStep % 3;
+        }
+
+        // Otherwise, weight by distance.
+        if (distSq > 169.0) {
+            return PHASE_ATTACK_RANGED;
+        }
+        if (distSq < 25.0) {
+            return this.random.nextFloat() < 0.6f ? PHASE_ATTACK_FAST : PHASE_ATTACK_HEAVY;
+        }
+
+        // Mid range: mix, slightly favor phase identity.
+        float roll = this.random.nextFloat();
+        if (phase >= 4) {
+            return roll < 0.45f ? PHASE_ATTACK_HEAVY : (roll < 0.75f ? PHASE_ATTACK_RANGED : PHASE_ATTACK_FAST);
+        }
+        if (phase == 3) {
+            return roll < 0.45f ? PHASE_ATTACK_FAST : (roll < 0.75f ? PHASE_ATTACK_HEAVY : PHASE_ATTACK_RANGED);
+        }
+        if (phase == 2) {
+            return roll < 0.45f ? PHASE_ATTACK_FAST : (roll < 0.7f ? PHASE_ATTACK_RANGED : PHASE_ATTACK_HEAVY);
+        }
+        return roll < 0.4f ? PHASE_ATTACK_FAST : (roll < 0.7f ? PHASE_ATTACK_HEAVY : PHASE_ATTACK_RANGED);
+    }
+
     private boolean tryStartAbilityIfReady(int ability) {
         if (this.level().isClientSide) return false;
         if (this.currentAbility != ABILITY_NONE) return false;
@@ -859,6 +898,39 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         startAbility(ability);
         return true;
+    }
+
+    private boolean tryStartAbilityIfReadyAvoidRepeat(int ability) {
+        // Avoid immediate repeats unless it's the only thing available.
+        if (ability == this.lastStartedAbility && this.random.nextFloat() < 0.80f) {
+            return false;
+        }
+        return tryStartAbilityIfReady(ability);
+    }
+
+    private boolean tryStartAnyAbilityAvoidRepeat(int... abilities) {
+        if (abilities.length == 0) return false;
+
+        // Try in random order for variety.
+        int[] pool = abilities.clone();
+        for (int i = pool.length - 1; i > 0; i--) {
+            int j = this.random.nextInt(i + 1);
+            int tmp = pool[i];
+            pool[i] = pool[j];
+            pool[j] = tmp;
+        }
+
+        // If we can, avoid picking the last ability first.
+        for (int ability : pool) {
+            if (ability == this.lastStartedAbility) continue;
+            if (tryStartAbilityIfReady(ability)) return true;
+        }
+
+        // If nothing else worked, allow repeats.
+        for (int ability : pool) {
+            if (tryStartAbilityIfReady(ability)) return true;
+        }
+        return false;
     }
 
     private boolean isAbilityOffCooldown(int ability) {
@@ -946,6 +1018,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
         if (!this.currentAbilityImpactDone && this.currentAbilityTicksRemaining == this.currentAbilityImpactAt) {
             this.currentAbilityImpactDone = true;
+            playAbilityImpactSfxAndParticles(this.currentAbility);
             doAbilityImpact(this.currentAbility);
         }
 
@@ -957,9 +1030,40 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         return true;
     }
 
+    private void playAbilityImpactSfxAndParticles(int ability) {
+        if (this.level().isClientSide) return;
+
+        float pitch = 0.85f + (this.random.nextFloat() * 0.25f);
+        float volumeMult = 1.0f;
+
+        if (ability == ABILITY_CLEAVE || ability == ABILITY_METEOR_ARM) {
+            this.playSound(ModSounds.KRUEMBLEGARD_ATTACK_SMASH.get(), 1.35f, 0.85f + (this.random.nextFloat() * 0.15f));
+            volumeMult = 1.25f;
+        } else if (ability == ABILITY_WHIRLWIND || ability == ABILITY_METEOR_SHOWER) {
+            this.playSound(ModSounds.KRUEMBLEGARD_ATTACK_SLAM.get(), 1.25f, pitch);
+            volumeMult = 1.15f;
+        } else if (ability == ABILITY_RUNE_BOLT || ability == ABILITY_RUNE_VOLLEY) {
+            this.playSound(ModSounds.KRUEMBLEGARD_ATTACK_RUNE.get(), 1.1f, 0.95f + (this.random.nextFloat() * 0.2f));
+        } else if (ability == ABILITY_GRAVITIC_PULL || ability == ABILITY_ARCANE_BEAM || ability == ABILITY_ARCANE_STORM) {
+            this.playSound(ModSounds.KRUEMBLEGARD_RADIANT.get(), 1.0f, pitch);
+        }
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.POOF, this.getX(), this.getY() + 0.8, this.getZ(),
+                18, 0.6, 0.15, 0.6, 0.01);
+            serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5, this.getZ(),
+                (int)(10 * volumeMult), 0.5, 0.1, 0.5, 0.01);
+            if (ability == ABILITY_GRAVITIC_PULL || ability == ABILITY_ARCANE_BEAM || ability == ABILITY_ARCANE_STORM) {
+                serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, this.getX(), this.getY() + 1.6, this.getZ(),
+                    14, 0.4, 0.4, 0.4, 0.01);
+            }
+        }
+    }
+
     private void startAbility(int ability) {
         this.currentAbility = ability;
         this.currentAbilityImpactDone = false;
+        this.lastStartedAbility = ability;
 
         // Windup/impact timings tuned for readability.
         int totalTicks;
@@ -1350,6 +1454,11 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
             boolean phase4 = this.getPhase() >= 4;
             RawAnimation moveAnim = phase4 ? MOVE_PHASE4 : MOVE;
             RawAnimation idleAnim = phase4 ? IDLE_PHASE4 : IDLE;
+
+            if (!phase4 && this.isEngaged()) {
+                moveAnim = MOVE_COMBAT;
+                idleAnim = IDLE_COMBAT;
+            }
 
             if (moving) {
                 return state.setAndContinue(moveAnim);

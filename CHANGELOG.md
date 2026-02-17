@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1003 (2026-02-17)
+- Feature(ai/boss): phase attack choices are now distance-reactive and avoid immediate repeats.
+- Feature(assets/boss): add engaged/combat idle + move animation variants so the boss feels more alive.
+- Tuning(ai/boss): add impact SFX/particles for ability impacts and add a clearer pause after phase transitions.
+- Tuning(anim/boss): slightly increase engaged animation speed for snappier combat reads.
+
 ## 1.0.1002 (2026-02-17)
 - Tuning(ai/boss): keep attack animations active for the full ability window (prevents mid-cast snapping back to idle/move).
 - Tuning(ai/boss): disable idle wander/look goals while engaged so the boss stays focused and threatening.
