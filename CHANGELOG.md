@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1004 (2026-02-17)
+- Tuning(sound): replace several boss/mob SFX with license-clean SoundFxLibrary clips (CC0 / CC BY 3.0), keeping SoundEvent IDs and paths stable.
+- Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to reflect new attributions.
+
 ## 1.0.1003 (2026-02-17)
 - Feature(ai/boss): phase attack choices are now distance-reactive and avoid immediate repeats.
 - Feature(assets/boss): add engaged/combat idle + move animation variants so the boss feels more alive.

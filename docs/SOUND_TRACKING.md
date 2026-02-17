@@ -64,7 +64,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard_attack`
   - sounds.json: `kruemblegard:entity/kruemblegard/attack`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/attack.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `kruemblegard_dash` (Boss dash)
 - Should sound like: sudden pressure release / gravel skid; whoosh that reads as mass moving fast.
@@ -72,7 +72,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard_dash`
   - sounds.json: `kruemblegard:entity/kruemblegard/dash`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/dash.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `kruemblegard_storm` (Boss storm)
 - Should sound like: rune-storm surge; gritty wind + distant thunder pressure; short, punchy “storm cue”.
@@ -80,7 +80,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard_storm`
   - sounds.json: `kruemblegard:entity/kruemblegard/storm`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/storm.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.kruemblegard.hurt` (Boss hurt vocalization)
 - Should sound like: an inhuman scream/strain that reads as pain through stone/runes (short, not comedic).
@@ -104,7 +104,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.kruemblegard.cast`
   - sounds.json: `kruemblegard:entity/kruemblegard/cast`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/cast.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.kruemblegard.step` (Boss step)
 - Should sound like: heavy stone footfall with grit; short so it doesn’t spam.
@@ -139,7 +139,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard.attack_slam`
   - sounds.json: `kruemblegard:entity/kruemblegard/attack`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/attack.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `kruemblegard.attack_rune` (Fight cue: rune attack)
 - Should sound like: rune cast “snap”/charge; clear telegraph.
@@ -147,7 +147,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard.attack_rune`
   - sounds.json: `kruemblegard:entity/kruemblegard/cast`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/cast.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `kruemblegard.radiant` (Fight cue: radiant)
 - Should sound like: bright energy surge without turning into music; stormy rune flare.
@@ -155,7 +155,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:kruemblegard.radiant`
   - sounds.json: `kruemblegard:entity/kruemblegard/storm`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/storm.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `music.kruemblegard` (Boss music)
 - Should sound like: oppressive atmosphere; supports boss pacing; separate from SFX rules.
@@ -219,7 +219,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.traprock.attack`
   - sounds.json: `kruemblegard:entity/traprock/attack`
   - OGG: `assets/kruemblegard/sounds/entity/traprock/attack.ogg`
-- Credits: SoundMonster Attribution folder (see `docs/SOUND_CREDITS.md`, “angry dog growl”).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ---
 
@@ -323,7 +323,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.great_hunger.bite`
   - sounds.json: `kruemblegard:entity/great_hunger/bite`
   - OGG: `assets/kruemblegard/sounds/entity/great_hunger/bite.ogg`
-- Credits: SoundMonster Public Domain (“whip crack”).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ---
 
@@ -371,7 +371,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.fault_crawler.pulse`
   - sounds.json: `kruemblegard:entity/fault_crawler/pulse`
   - OGG: `assets/kruemblegard/sounds/entity/fault_crawler/pulse.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.fault_crawler.slam` (Slam)
 - Should sound like: heavier impact than a step; crack + thud.
@@ -379,7 +379,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.fault_crawler.slam`
   - sounds.json: `kruemblegard:entity/fault_crawler/slam`
   - OGG: `assets/kruemblegard/sounds/entity/fault_crawler/slam.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.fault_crawler.emerge` (Emerge from ground)
 - Should sound like: rubble breakup + scrape; “something just came out of the floor”.
@@ -435,7 +435,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.scaralon_beetle.attack`
   - sounds.json: `kruemblegard:entity/scaralon_beetle/attack`
   - OGG: `assets/kruemblegard/sounds/entity/scaralon_beetle/attack.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ---
 
