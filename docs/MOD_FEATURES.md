@@ -8,6 +8,7 @@ Keep it up to date whenever you add/remove/rename content.
 - Block material rules + full block inventory: `docs/Block_Material_Bible.md`
 - Item material rules + full item inventory: `docs/Item_Material_Bible.md`
 - Sound rules + full sound inventory (with exact length requirements): `docs/Sound_Bible.md`
+- Sound design intent + current asset tracker: `docs/SOUND_TRACKING.md`
 - After registry changes, refresh the generated inventories by running: `tools/generate_material_bibles.ps1`
 - After sound changes, refresh the generated inventory by running: `tools/generate_sound_bible.ps1`
 - Texture resize helpers (256x256, no cropping, reports written under `tools/_reports`):
