@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.983 (2026-02-16)
+- Fix(assets/fault_crawler): tweak head/face geo UVs (minor detail pass).
+
 ## 1.0.982 (2026-02-16)
 - Tuning(assets/fault_crawler): rework `animation.fault_crawler.walk` into a coordinated 6-leg scuttle gait.
 
