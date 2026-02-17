@@ -69,12 +69,6 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> GREAT_HUNGER_STEP = register("entity.great_hunger.step");
     public static final RegistryObject<SoundEvent> GREAT_HUNGER_BITE = register("entity.great_hunger.bite");
 
-    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_AMBIENT = register("entity.scattered_enderman.ambient");
-    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_HURT = register("entity.scattered_enderman.hurt");
-    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_DEATH = register("entity.scattered_enderman.death");
-    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_TELEPORT = register("entity.scattered_enderman.teleport");
-    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_SCREAM = register("entity.scattered_enderman.scream");
-
     public static final RegistryObject<SoundEvent> FAULT_CRAWLER_AMBIENT = register("entity.fault_crawler.ambient");
     public static final RegistryObject<SoundEvent> FAULT_CRAWLER_HURT = register("entity.fault_crawler.hurt");
     public static final RegistryObject<SoundEvent> FAULT_CRAWLER_DEATH = register("entity.fault_crawler.death");

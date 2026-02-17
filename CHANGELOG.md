@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.995 (2026-02-17)
+- Fix(sound): Scattered Enderman now uses vanilla sounds again (remove custom SoundEvents/sounds.json/subtitles and entity sound hooks).
+
 ## 1.0.994 (2026-02-17)
 - Feature(sound): add entity sound events for Krümblegård (hurt/roar/cast/step) and hook them into `KruemblegardBossEntity` (hurt getter, emergence roar, phase transition roar, cast telegraphs).
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) with boss clip reuse mapping.

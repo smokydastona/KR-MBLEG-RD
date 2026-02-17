@@ -2,61 +2,61 @@
   "kruemblegard_ambient": {
     "subtitle": "subtitles.kruemblegard.ambient",
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/great_hunger/ambient"}
     ]
   },
   "kruemblegard_death": {
     "subtitle": "subtitles.kruemblegard.death",
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/traprock/death"}
     ]
   },
   "kruemblegard_attack": {
     "subtitle": "subtitles.kruemblegard.attack",
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/fault_crawler/slam"}
     ]
   },
   "kruemblegard_dash": {
     "subtitle": "subtitles.kruemblegard.dash",
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/fault_crawler/pulse"}
     ]
   },
   "kruemblegard_storm": {
     "subtitle": "subtitles.kruemblegard.storm",
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
     ]
   },
   "kruemblegard.rise": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/fault_crawler/emerge"}
     ]
   },
   "kruemblegard.core_hum": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
     ]
   },
   "kruemblegard.attack_smash": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/fault_crawler/slam"}
     ]
   },
   "kruemblegard.attack_slam": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/traprock/awaken"}
     ]
   },
   "kruemblegard.attack_rune": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
     ]
   },
   "kruemblegard.radiant": {
     "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+      {"name": "kruemblegard:entity/wyrdwing/call"}
     ]
   },
   "music.kruemblegard": {
@@ -85,7 +85,7 @@
   "entity.kruemblegard.cast": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.cast",
     "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
+      {"name": "kruemblegard:entity/fault_crawler/pulse"}
     ]
   },
   "entity.kruemblegard.step": {
@@ -197,37 +197,6 @@
     "subtitle": "subtitles.kruemblegard.great_hunger.bite",
     "sounds": [
       {"name": "kruemblegard:entity/great_hunger/bite"}
-    ]
-  },
-
-  "entity.scattered_enderman.ambient": {
-    "subtitle": "subtitles.kruemblegard.scattered_enderman.ambient",
-    "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
-    ]
-  },
-  "entity.scattered_enderman.hurt": {
-    "subtitle": "subtitles.kruemblegard.scattered_enderman.hurt",
-    "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/hurt"}
-    ]
-  },
-  "entity.scattered_enderman.death": {
-    "subtitle": "subtitles.kruemblegard.scattered_enderman.death",
-    "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/death"}
-    ]
-  },
-  "entity.scattered_enderman.teleport": {
-    "subtitle": "subtitles.kruemblegard.scattered_enderman.teleport",
-    "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
-    ]
-  },
-  "entity.scattered_enderman.scream": {
-    "subtitle": "subtitles.kruemblegard.scattered_enderman.scream",
-    "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/scream"}
     ]
   },
 

@@ -260,9 +260,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:entity.kruemblegard.cast`
 - **ModSounds field**: `KRUEMBLEGARD_CAST`
 - **Subtitle key**: `subtitles.kruemblegard.kruemblegard.cast`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/teleport
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/pulse
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/teleport.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/pulse.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -406,56 +406,6 @@ Update workflow:
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.scattered_enderman.ambient
-- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.ambient`
-- **ModSounds field**: `SCATTERED_ENDERMAN_AMBIENT`
-- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.ambient`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/ambient
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/ambient.ogg = True
-- **DurationSeconds**: `TBD`
-- **DurationTicks**: `TBD` (round(seconds*20))
-
-#### entity.scattered_enderman.death
-- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.death`
-- **ModSounds field**: `SCATTERED_ENDERMAN_DEATH`
-- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.death`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/death
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/death.ogg = True
-- **DurationSeconds**: `TBD`
-- **DurationTicks**: `TBD` (round(seconds*20))
-
-#### entity.scattered_enderman.hurt
-- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.hurt`
-- **ModSounds field**: `SCATTERED_ENDERMAN_HURT`
-- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.hurt`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/hurt
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/hurt.ogg = True
-- **DurationSeconds**: `TBD`
-- **DurationTicks**: `TBD` (round(seconds*20))
-
-#### entity.scattered_enderman.scream
-- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.scream`
-- **ModSounds field**: `SCATTERED_ENDERMAN_SCREAM`
-- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.scream`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/scream
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/scream.ogg = True
-- **DurationSeconds**: `TBD`
-- **DurationTicks**: `TBD` (round(seconds*20))
-
-#### entity.scattered_enderman.teleport
-- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.teleport`
-- **ModSounds field**: `SCATTERED_ENDERMAN_TELEPORT`
-- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.teleport`
-- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/teleport
-- **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/teleport.ogg = True
-- **DurationSeconds**: `TBD`
-- **DurationTicks**: `TBD` (round(seconds*20))
-
 #### entity.traprock.ambient
 - **SoundEvent ID**: `kruemblegard:entity.traprock.ambient`
 - **ModSounds field**: `TRAPROCK_AMBIENT`
@@ -580,9 +530,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_rune`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_RUNE`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/teleport
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/teleport.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -590,9 +540,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_slam`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_SLAM`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/traprock/awaken
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/awaken.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -600,9 +550,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_smash`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_SMASH`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/slam
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/slam.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -610,9 +560,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.core_hum`
 - **ModSounds field**: `KRUEMBLEGARD_CORE_HUM`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/ambient.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -620,9 +570,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.radiant`
 - **ModSounds field**: `KRUEMBLEGARD_RADIANT`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/wyrdwing/call
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/wyrdwing/call.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -630,9 +580,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard.rise`
 - **ModSounds field**: `KRUEMBLEGARD_RISE`
 - **Subtitle key**: (none)
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/emerge
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/emerge.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -640,9 +590,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_ambient`
 - **ModSounds field**: `KRUEMBLEGARD_AMBIENT`
 - **Subtitle key**: `subtitles.kruemblegard.ambient`
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/ambient.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -650,9 +600,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_attack`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK`
 - **Subtitle key**: `subtitles.kruemblegard.attack`
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/slam
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/slam.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -660,9 +610,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_dash`
 - **ModSounds field**: `KRUEMBLEGARD_DASH`
 - **Subtitle key**: `subtitles.kruemblegard.dash`
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/pulse
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/pulse.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -670,9 +620,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_death`
 - **ModSounds field**: `KRUEMBLEGARD_DEATH`
 - **Subtitle key**: `subtitles.kruemblegard.death`
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/traprock/death
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/death.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -680,9 +630,9 @@ Update workflow:
 - **SoundEvent ID**: `kruemblegard:kruemblegard_storm`
 - **ModSounds field**: `KRUEMBLEGARD_STORM`
 - **Subtitle key**: `subtitles.kruemblegard.storm`
-- **sounds.json name(s)**: kruemblegard:horror-background-atmosphere-09_universfield
-- **Streamed**: `true`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg = True
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/ambient.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
@@ -707,6 +657,7 @@ Update workflow:
 - **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
 
 
 

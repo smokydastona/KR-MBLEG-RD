@@ -1,8 +1,4 @@
 package com.kruemblegard.entity;
-
-import com.kruemblegard.registry.ModSounds;
-
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -59,7 +55,6 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
     private int attackAnimTicks;
     private int teleportAnimTicks;
     private boolean wasSwinging;
-    private boolean wasAngry;
 
     private static boolean isFacingTarget(ScatteredEndermanEntity self) {
         if (self.getTarget() == null) {
@@ -90,12 +85,6 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
     public void tick() {
         super.tick();
 
-        boolean angryNow = this.getTarget() != null;
-        if (angryNow && !this.wasAngry && !this.level().isClientSide) {
-            this.playSound(ModSounds.SCATTERED_ENDERMAN_SCREAM.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
-        }
-        this.wasAngry = angryNow;
-
         boolean swingingNow = this.swinging;
         if (swingingNow && !this.wasSwinging) {
             this.attackAnimTicks = ATTACK_ANIM_TICKS;
@@ -121,26 +110,7 @@ public class ScatteredEndermanEntity extends EnderMan implements GeoEntity {
         double dz = this.getZ() - oldZ;
         if ((dx * dx + dy * dy + dz * dz) > 1.0E-6D) {
             this.teleportAnimTicks = TELEPORT_ANIM_TICKS;
-
-            if (!this.level().isClientSide) {
-                this.playSound(ModSounds.SCATTERED_ENDERMAN_TELEPORT.get(), 0.85F, 0.95F + (this.random.nextFloat() * 0.1F));
-            }
         }
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return ModSounds.SCATTERED_ENDERMAN_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
-        return ModSounds.SCATTERED_ENDERMAN_HURT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return ModSounds.SCATTERED_ENDERMAN_DEATH.get();
     }
 
     @Override

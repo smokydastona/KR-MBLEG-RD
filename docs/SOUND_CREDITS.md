@@ -30,15 +30,11 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - (reuse) `scream pain man 2` → Krümblegård hurt (`entity.kruemblegard.hurt`)
 - (reuse) `knock door` → Krümblegård step (`entity.kruemblegard.step`)
 
-- `radio static loop` → Scattered Enderman ambient
-- `scream pain man 3` → Scattered Enderman hurt
-- `radio mic on MDC1200 Echo` → Scattered Enderman teleport
-
-- (reuse) `radio mic on MDC1200 Echo` → Krümblegård cast (`entity.kruemblegard.cast`)
-
 - `ocean water waves loop` → Fault Crawler ambient
 - `drum roll end` → Fault Crawler emerge
 - (SoundMonster Public Domain) assorted clips → Fault Crawler hurt/death/step/pulse/slam
+
+- (reuse) (SoundMonster Public Domain) Fault Crawler pulse → Krümblegård cast (`entity.kruemblegard.cast`)
 
 - (reuse) (SoundMonster Public Domain) Fault Crawler slam → Krümblegård roar (`entity.kruemblegard.roar`)
 
@@ -48,16 +44,6 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 
 ## Attribution (via SoundMonster “Attribution license” folder)
 These entries require attribution per their listed Creative Commons license.
-
-- `scream girl afraid frightened`
-  - Source: https://freesound.org/people/owly-bee/sounds/415353/
-  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
-  - Used for: Scattered Enderman scream
-
-- `dramatic dun dun dunnn`
-  - Source: https://freesound.org/people/copyc4t/sounds/146434/
-  - License: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
-  - Used for: Scattered Enderman death
 
 - `angry dog growl`
   - Source: https://freesound.org/people/locontrario23/sounds/395921/
