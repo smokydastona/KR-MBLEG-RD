@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.988 (2026-02-17)
+- Feature(assets/pebblit): add angry morph bones + new angry idle/walk animations.
+- Feature(client/pebblit): render perched Pebblits as a player shoulder layer (armor-like) to ensure they are visible and anchored to the player model.
+
 ## 1.0.987 (2026-02-17)
 - Feature(ai/pebblit): wild Pebblits are now neutral unless attacked, and will alert nearby Pebblits to retaliate.
 - Tuning(worldgen): Pebblits now always spawn in small groups (2-4), and Traprocks are rarer.

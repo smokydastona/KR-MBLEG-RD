@@ -13,6 +13,7 @@ import com.kruemblegard.client.render.ScaralonBeetleRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
 import com.kruemblegard.client.render.WyrdwingRenderer;
+import com.kruemblegard.client.render.layer.PebblitShoulderLayer;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModParticles;
@@ -24,6 +25,7 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class KruemblegardClient {
@@ -42,6 +44,19 @@ public class KruemblegardClient {
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_CHEST_BOAT.get(), KruemblegardChestBoatRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void addLayers(EntityRenderersEvent.AddLayers event) {
+        PlayerRenderer defaultRenderer = event.getSkin("default");
+        if (defaultRenderer != null) {
+            defaultRenderer.addLayer(new PebblitShoulderLayer(defaultRenderer));
+        }
+
+        PlayerRenderer slimRenderer = event.getSkin("slim");
+        if (slimRenderer != null) {
+            slimRenderer.addLayer(new PebblitShoulderLayer(slimRenderer));
+        }
     }
 
     @SubscribeEvent

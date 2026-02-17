@@ -51,6 +51,8 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     private static final float ATTACK_KNOCKBACK_STRENGTH = 0.6F;
 
+    private static final int ANGRY_REFRESH_TICKS = 200;
+
     private static final EntityDataAccessor<Boolean> TAMED =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -63,11 +65,20 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         private static final EntityDataAccessor<Boolean> SHOULDER_LOCKED =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
+        private static final EntityDataAccessor<Integer> ANGRY_TICKS =
+            SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.INT);
+
         private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.idle");
 
         private static final RawAnimation WALK_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.walk");
+
+        private static final RawAnimation ANGRY_IDLE_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.angry_idle");
+
+        private static final RawAnimation ANGRY_WALK_LOOP =
+            RawAnimation.begin().thenLoop("animation.pebblit.angry_walk");
 
         private static final RawAnimation SIT_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.sit");
@@ -94,6 +105,18 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         this.entityData.define(OWNER_UUID, Optional.empty());
         this.entityData.define(SITTING, false);
         this.entityData.define(SHOULDER_LOCKED, false);
+        this.entityData.define(ANGRY_TICKS, 0);
+    }
+
+    public boolean isAngry() {
+        return this.entityData.get(ANGRY_TICKS) > 0;
+    }
+
+    private void refreshAngry() {
+        int current = this.entityData.get(ANGRY_TICKS);
+        if (current < ANGRY_REFRESH_TICKS) {
+            this.entityData.set(ANGRY_TICKS, ANGRY_REFRESH_TICKS);
+        }
     }
 
     public boolean isTamed() {
@@ -177,6 +200,24 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         }
         wasPerchedLastTick = perchedNow;
 
+        if (!level().isClientSide) {
+            if (perchedNow) {
+                // While perched, keep the Pebblit calm to avoid odd shoulder visuals.
+                if (this.entityData.get(ANGRY_TICKS) != 0) {
+                    this.entityData.set(ANGRY_TICKS, 0);
+                }
+            } else {
+                if (getTarget() != null) {
+                    refreshAngry();
+                } else {
+                    int ticks = this.entityData.get(ANGRY_TICKS);
+                    if (ticks > 0) {
+                        this.entityData.set(ANGRY_TICKS, ticks - 1);
+                    }
+                }
+            }
+        }
+
         if (!level().isClientSide && isTamed() && isSitting() && !isPassenger()) {
             // "Sit and stay" - keep it rooted in place while still allowing it to attack if something comes close.
             getNavigation().stop();
@@ -198,6 +239,17 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
                 setTarget(null);
             }
         }
+    }
+
+    @Override
+    public boolean hurt(net.minecraft.world.damagesource.DamageSource source, float amount) {
+        boolean didHurt = super.hurt(source, amount);
+
+        if (didHurt && !level().isClientSide && !isTamed() && source.getEntity() instanceof LivingEntity) {
+            refreshAngry();
+        }
+
+        return didHurt;
     }
 
     @Override
@@ -336,6 +388,11 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
             if (isTamed() && isSitting()) {
                 state.setAnimation(SIT_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (isAngry()) {
+                state.setAnimation(state.isMoving() ? ANGRY_WALK_LOOP : ANGRY_IDLE_LOOP);
                 return PlayState.CONTINUE;
             }
 
