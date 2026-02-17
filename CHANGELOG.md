@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1008 (2026-02-17)
+- Tuning(sound): retune Wyrdwing call SFX to a turtle-like mating call (procedural/ffmpeg).
+- Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md).
+
 ## 1.0.1007 (2026-02-17)
 - Tuning(sound): replace Wyrdwing call/hurt/death/step SFX with more raptor-like CC0 SoundFxLibrary clips.
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to match new Wyrdwing attributions.
