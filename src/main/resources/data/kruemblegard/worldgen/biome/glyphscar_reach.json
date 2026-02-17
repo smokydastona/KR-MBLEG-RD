@@ -8,15 +8,15 @@
     "monster": [
       {
         "type": "kruemblegard:traprock",
-        "weight": 5,
+        "weight": 2,
         "minCount": 1,
         "maxCount": 1
       },
       {
         "type": "kruemblegard:pebblit",
         "weight": 5,
-        "minCount": 1,
-        "maxCount": 2
+        "minCount": 2,
+        "maxCount": 4
       }
     ]
   },

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.987 (2026-02-17)
+- Feature(ai/pebblit): wild Pebblits are now neutral unless attacked, and will alert nearby Pebblits to retaliate.
+- Tuning(worldgen): Pebblits now always spawn in small groups (2-4), and Traprocks are rarer.
+- Tuning(ai/traprock): after a player's first encounter, most Traprocks now spawn already awake (with a small chance to remain dormant).
+
 ## 1.0.986 (2026-02-16)
 - Tuning(assets/ai/wyrdwing): add intermittent head-bob beat while ground-walking and a curled "ball" sit pose.
 

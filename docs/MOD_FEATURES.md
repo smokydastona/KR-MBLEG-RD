@@ -111,7 +111,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Core gameplay loop
 - **Traprock** can appear as a dormant stone-creature.
 - It awakens if a player interacts with it or lingers too close.
-- After a player has encountered Traprock once, newly found Traprock have a high chance to awaken immediately.
+- After a player has encountered Traprock once, most newly found Traprock will spawn already awake (with a small chance to remain dormant again).
 
 ## Mobs
 - **Traprock** (`traprock`)
@@ -119,7 +119,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Uses editable resources: `geo/traprock.geo.json`, `animations/traprock.animation.json`, `textures/entity/traprock.png`.
 
 - **Pebblit** (`pebblit`)
-  - Hostile Silverfish-like creature.
+  - Neutral Silverfish-like creature (retaliates when attacked).
+  - When attacked, it alerts nearby Pebblits to join the fight.
   - Can be tamed by right-clicking with an **Echokern**; follows its owner.
   - Right-click with empty hand (non-shift): toggles **sit and stay**.
   - Shift + right-click with empty hand: perches on the owner's shoulder **until it dies**, granting the owner **knockback resistance** while perched.

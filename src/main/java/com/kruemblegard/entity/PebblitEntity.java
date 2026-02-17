@@ -18,7 +18,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -146,10 +152,19 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
+        // Intentionally do NOT call super.registerGoals(). Silverfish adds always-hostile targeting.
+
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
         // If tamed, follow the owner around.
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.1D, 8.0F, 3.0F));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.1D, 8.0F, 3.0F));
+
+        // Piglin-style: only retaliate when hurt, and alert nearby Pebblits to join in.
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(PebblitEntity.class));
     }
 
     @Override

@@ -9,8 +9,8 @@
       {
         "type": "kruemblegard:pebblit",
         "weight": 10,
-        "minCount": 1,
-        "maxCount": 3
+        "minCount": 2,
+        "maxCount": 4
       },
       {
         "type": "kruemblegard:traprock",
