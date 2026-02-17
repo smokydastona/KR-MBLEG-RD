@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.988 (2026-02-17)
+## 1.0.989 (2026-02-16)
+- Tuning(client/pebblit): align perched Pebblit render layer closer to the player's clavicle (less arm-swing influence).
+- Feature(assets/pebblit): add a dedicated `clavicle_align` bone for shoulder/clavicle alignment and hide it outside perched.
+- Tuning(assets/scaralon_larva): rework walk into a caterpillar-like peristaltic crawl.
+
+## 1.0.988 (2026-02-16)
 - Feature(assets/pebblit): add angry morph bones + new angry idle/walk animations.
 - Feature(client/pebblit): render perched Pebblits as a player shoulder layer (armor-like) to ensure they are visible and anchored to the player model.
 
-## 1.0.987 (2026-02-17)
+## 1.0.987 (2026-02-16)
 - Feature(ai/pebblit): wild Pebblits are now neutral unless attacked, and will alert nearby Pebblits to retaliate.
 - Tuning(worldgen): Pebblits now always spawn in small groups (2-4), and Traprocks are rarer.
 - Tuning(ai/traprock): after a player's first encounter, most Traprocks now spawn already awake (with a small chance to remain dormant).

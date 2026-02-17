@@ -45,16 +45,14 @@ public final class PebblitShoulderLayer extends RenderLayer<AbstractClientPlayer
         poseStack.pushPose();
 
         HumanoidArm arm = player.getMainArm();
-        if (arm == HumanoidArm.LEFT) {
-            this.getParentModel().leftArm.translateAndRotate(poseStack);
-        } else {
-            this.getParentModel().rightArm.translateAndRotate(poseStack);
-        }
 
-        // Shoulder-ish offset (player-model space). Keep it tight so it reads like an armor piece.
-        double side = (arm == HumanoidArm.LEFT) ? -0.15D : 0.15D;
-        poseStack.translate(side, -0.10D, -0.05D);
-        poseStack.scale(0.85F, 0.85F, 0.85F);
+        // Anchor to the upper torso so it tracks the clavicle/shoulder line, not the arm swing.
+        this.getParentModel().body.translateAndRotate(poseStack);
+
+        // Clavicle-ish offset (player-model space). Keep it tight so it reads like an armor piece.
+        double side = (arm == HumanoidArm.LEFT) ? -0.38D : 0.38D;
+        poseStack.translate(side, 0.55D, 0.28D);
+        poseStack.scale(0.82F, 0.82F, 0.82F);
 
         EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
 
