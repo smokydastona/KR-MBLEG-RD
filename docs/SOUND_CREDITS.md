@@ -33,6 +33,26 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
   - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
   - Used for: Great Hunger hurt (`entity.great_hunger.hurt`)
 
+- `angry-noises-2`
+  - Source: https://freesound.org/people/Darsycho/sounds/443131/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Wyrdwing call (`entity.wyrdwing.call`)
+
+- `growl-4`
+  - Source: https://freesound.org/people/quadraslayer/sounds/398908/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Wyrdwing hurt (`entity.wyrdwing.hurt`)
+
+- `growl-5`
+  - Source: https://freesound.org/people/NicknameLarry/sounds/489901/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Wyrdwing death (`entity.wyrdwing.death`)
+
+- `horse-gallop-1`
+  - Source: https://freesound.org/people/D4XX/sounds/564628/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Wyrdwing step (`entity.wyrdwing.step`)
+
 - `thunder-1`
   - Source: https://freesound.org/people/elmoustachio/sounds/476736/
   - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
@@ -135,10 +155,6 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 - (Procedural / ffmpeg) → Scaralon Beetle step (`entity.scaralon_beetle.step`)
 
 - (Procedural / ffmpeg) → Wyrdwing ambient (`entity.wyrdwing.ambient`)
-- (Procedural / ffmpeg) → Wyrdwing call (`entity.wyrdwing.call`)
-- (Procedural / ffmpeg) → Wyrdwing hurt (`entity.wyrdwing.hurt`)
-- (Procedural / ffmpeg) → Wyrdwing death (`entity.wyrdwing.death`)
-- (Procedural / ffmpeg) → Wyrdwing step (`entity.wyrdwing.step`)
 
 - (Procedural / ffmpeg) → Krümblegård ambient (`kruemblegard_ambient`)
 - (Procedural / ffmpeg) → Krümblegård death (`kruemblegard_death`)

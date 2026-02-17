@@ -459,7 +459,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.hurt`
   - sounds.json: `kruemblegard:entity/wyrdwing/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/hurt.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.wyrdwing.death` (Death)
 - Should sound like: final exhale + drop; short; not “melodic”.
@@ -467,7 +467,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.death`
   - sounds.json: `kruemblegard:entity/wyrdwing/death`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/death.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.wyrdwing.step` (Ground movement)
 - Should sound like: light claw taps; dry.
@@ -475,7 +475,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.step`
   - sounds.json: `kruemblegard:entity/wyrdwing/step`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/step.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.wyrdwing.attack` (Attack)
 - Should sound like: swoop strike cue; sharp and quick.
@@ -491,4 +491,4 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.call`
   - sounds.json: `kruemblegard:entity/wyrdwing/call`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/call.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
