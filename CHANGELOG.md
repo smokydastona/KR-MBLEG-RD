@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.986 (2026-02-16)
+- Tuning(assets/ai/wyrdwing): add intermittent head-bob beat while ground-walking and a curled "ball" sit pose.
+
 ## 1.0.985 (2026-02-16)
 - Tuning(assets/scaralon_larva): add stronger squash/stretch + wiggle to the larva idle/walk to read more like a grub.
 

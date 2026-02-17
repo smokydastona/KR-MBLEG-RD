@@ -128,6 +128,78 @@
 				}
 			}
 		},
+		"animation.wyrdwing.head_bob": {
+			"loop": false,
+			"animation_length": 0.6,
+			"bones": {
+				"neck": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.15": [-6, 0, 0],
+						"0.3": [0, 0, 0],
+						"0.45": [5, 0, 0],
+						"0.6": [0, 0, 0]
+					}
+				},
+				"head": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.15": [0, 0.35, -0.25],
+						"0.3": [0, 0, 0],
+						"0.45": [0, -0.1, 0.15],
+						"0.6": [0, 0, 0]
+					},
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.15": [-10, 0, 0],
+						"0.3": [0, 0, 0],
+						"0.45": [8, 0, 0],
+						"0.6": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.wyrdwing.sit": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"rotation": [20, 0, 0],
+					"position": [0, -0.35, 0.25]
+				},
+				"neck": {
+					"rotation": [28, 0, 0]
+				},
+				"head": {
+					"rotation": [12, 8, 0],
+					"position": [0, -0.15, 0.2]
+				},
+				"tail": {
+					"rotation": [40, 18, 0]
+				},
+				"tailTip": {
+					"rotation": [55, -28, 0]
+				},
+				"larm": {
+					"rotation": [35, 0, 55]
+				},
+				"rarm": {
+					"rotation": [35, 0, -55]
+				},
+				"lleg": {
+					"rotation": [60, 0, 0]
+				},
+				"rleg": {
+					"rotation": [60, 0, 0]
+				},
+				"lleg2": {
+					"rotation": [75, 0, 0]
+				},
+				"rleg2": {
+					"rotation": [75, 0, 0]
+				}
+			}
+		},
 		"animation.wyrdwing.glide_start": {
 			"animation_length": 0.25,
 			"bones": {

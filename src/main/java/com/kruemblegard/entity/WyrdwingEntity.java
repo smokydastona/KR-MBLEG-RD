@@ -83,11 +83,17 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
     private static final EntityDataAccessor<Integer> SHAKE_ANIM_TICKS =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Integer> HEAD_BOB_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
     private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.wyrdwing.idle");
 
     private static final RawAnimation WALK_LOOP =
             RawAnimation.begin().thenLoop("animation.wyrdwing.walk");
+
+        private static final RawAnimation SIT_LOOP =
+            RawAnimation.begin().thenLoop("animation.wyrdwing.sit");
 
         private static final RawAnimation GLIDE_START_ONCE =
             RawAnimation.begin().thenPlay("animation.wyrdwing.glide_start");
@@ -124,6 +130,9 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         private static final RawAnimation SHAKE_ONCE =
             RawAnimation.begin().thenPlay("animation.wyrdwing.shake");
 
+        private static final RawAnimation HEAD_BOB_ONCE =
+            RawAnimation.begin().thenPlay("animation.wyrdwing.head_bob");
+
         private static final double GLIDE_MAX_FALL_SPEED = -0.12D;
         private static final double GLIDE_MIN_FALL_SPEED = -0.035D;
 
@@ -154,6 +163,8 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         private int flightStaminaTicks = MAX_FLIGHT_STAMINA_TICKS;
         private int idleTakeoffCooldownTicks = 0;
         private int groundTakeoffCooldownTicks = 0;
+
+        private int headBobCooldownTicks = 0;
 
     public WyrdwingEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -196,6 +207,15 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         this.entityData.define(SCRATCH_ANIM_TICKS, 0);
         this.entityData.define(CALL_ANIM_TICKS, 0);
         this.entityData.define(SHAKE_ANIM_TICKS, 0);
+        this.entityData.define(HEAD_BOB_ANIM_TICKS, 0);
+    }
+
+    private int getHeadBobAnimTicks() {
+        return this.entityData.get(HEAD_BOB_ANIM_TICKS);
+    }
+
+    private void setHeadBobAnimTicks(int ticks) {
+        this.entityData.set(HEAD_BOB_ANIM_TICKS, ticks);
     }
 
     private int getAttackAnimTicks() {
@@ -315,6 +335,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             tickFlightBudget();
             tickVoidRecovery();
             tickAmbientAnimations();
+            tickWalkHeadBob();
 
             // Detect leaving the ground for a glide-start animation pop.
             if (wasOnGroundLastTick && !this.onGround() && getGlideStartTicks() == 0) {
@@ -326,6 +347,49 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
             wasOnGroundLastTick = this.onGround();
         }
+    }
+
+    private void tickWalkHeadBob() {
+        if (this.isOrderedToSit()) {
+            return;
+        }
+
+        if (!this.onGround()) {
+            return;
+        }
+
+        if (this.isInWaterOrBubble()) {
+            return;
+        }
+
+        if (getHeadBobAnimTicks() > 0) {
+            return;
+        }
+
+        if (getVoidRecoverTicks() > 0 || getAttackAnimTicks() > 0 || getScratchAnimTicks() > 0 || getEatAnimTicks() > 0 || getPounceAnimTicks() > 0) {
+            return;
+        }
+
+        if (getCallAnimTicks() > 0 || getShakeAnimTicks() > 0) {
+            return;
+        }
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() <= 1.0E-4D) {
+            headBobCooldownTicks = 0;
+            return;
+        }
+
+        if (headBobCooldownTicks > 0) {
+            headBobCooldownTicks--;
+            return;
+        }
+
+        // A birdy head-bob beat every few steps while ground-walking.
+        if (this.random.nextInt(3) == 0) {
+            setHeadBobAnimTicks(12);
+        }
+
+        headBobCooldownTicks = 10 + this.random.nextInt(16);
     }
 
     private void tickFlightBudget() {
@@ -492,6 +556,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
         if (getShakeAnimTicks() > 0) {
             setShakeAnimTicks(getShakeAnimTicks() - 1);
+        }
+
+        if (getHeadBobAnimTicks() > 0) {
+            setHeadBobAnimTicks(getHeadBobAnimTicks() - 1);
         }
     }
 
@@ -756,6 +824,11 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
                 return PlayState.CONTINUE;
             }
 
+            if (this.isOrderedToSit()) {
+                state.setAnimation(SIT_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             if (this.onGround()) {
                 if (state.isMoving()) {
                     state.setAnimation(WALK_LOOP);
@@ -787,6 +860,19 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             }
 
             state.setAnimation(GLIDE_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "head_bob", 0, state -> {
+            if (!this.onGround() || this.isOrderedToSit() || !state.isMoving()) {
+                return PlayState.STOP;
+            }
+
+            if (getHeadBobAnimTicks() <= 0) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(HEAD_BOB_ONCE);
             return PlayState.CONTINUE;
         }));
     }
