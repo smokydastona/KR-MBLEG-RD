@@ -84,7 +84,7 @@ function Get-SoundsJsonEntries {
 
 function Get-OggStatusString {
     param(
-        [Parameter(Mandatory = $true)][string[]]$SoundNames,
+        [string[]]$SoundNames = @(),
         [Parameter(Mandatory = $true)][string]$RepoRoot
     )
 

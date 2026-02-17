@@ -2,69 +2,66 @@
   "kruemblegard_ambient": {
     "subtitle": "subtitles.kruemblegard.ambient",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/ambient"}
+      {"name": "kruemblegard:entity/kruemblegard/ambient"}
     ]
   },
   "kruemblegard_death": {
     "subtitle": "subtitles.kruemblegard.death",
     "sounds": [
-      {"name": "kruemblegard:entity/traprock/death"}
+      {"name": "kruemblegard:entity/kruemblegard/death"}
     ]
   },
   "kruemblegard_attack": {
     "subtitle": "subtitles.kruemblegard.attack",
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/slam"}
+      {"name": "kruemblegard:entity/kruemblegard/attack"}
     ]
   },
   "kruemblegard_dash": {
     "subtitle": "subtitles.kruemblegard.dash",
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/pulse"}
+      {"name": "kruemblegard:entity/kruemblegard/dash"}
     ]
   },
   "kruemblegard_storm": {
     "subtitle": "subtitles.kruemblegard.storm",
     "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
+      {"name": "kruemblegard:entity/kruemblegard/storm"}
     ]
   },
+
   "kruemblegard.rise": {
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/emerge"}
+      {"name": "kruemblegard:entity/kruemblegard/roar"}
     ]
   },
   "kruemblegard.core_hum": {
     "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
+      {"name": "kruemblegard:entity/kruemblegard/ambient"}
     ]
   },
   "kruemblegard.attack_smash": {
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/slam"}
+      {"name": "kruemblegard:entity/kruemblegard/attack"}
     ]
   },
   "kruemblegard.attack_slam": {
     "sounds": [
-      {"name": "kruemblegard:entity/traprock/awaken"}
+      {"name": "kruemblegard:entity/kruemblegard/attack"}
     ]
   },
   "kruemblegard.attack_rune": {
     "sounds": [
-      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
+      {"name": "kruemblegard:entity/kruemblegard/cast"}
     ]
   },
   "kruemblegard.radiant": {
     "sounds": [
-      {"name": "kruemblegard:entity/wyrdwing/call"}
+      {"name": "kruemblegard:entity/kruemblegard/storm"}
     ]
   },
+
   "music.kruemblegard": {
-    "sounds": [
-      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
-    ]
-  },
-  "music.wayfall": {
     "sounds": [
       {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
     ]
@@ -73,25 +70,25 @@
   "entity.kruemblegard.hurt": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.hurt",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/hurt"}
+      {"name": "kruemblegard:entity/kruemblegard/hurt"}
     ]
   },
   "entity.kruemblegard.roar": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.roar",
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/slam"}
+      {"name": "kruemblegard:entity/kruemblegard/roar"}
     ]
   },
   "entity.kruemblegard.cast": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.cast",
     "sounds": [
-      {"name": "kruemblegard:entity/fault_crawler/pulse"}
+      {"name": "kruemblegard:entity/kruemblegard/cast"}
     ]
   },
   "entity.kruemblegard.step": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.step",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/step"}
+      {"name": "kruemblegard:entity/kruemblegard/step"}
     ]
   },
 

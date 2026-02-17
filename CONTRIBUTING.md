@@ -32,3 +32,18 @@ Suggested hygiene pass (periodic):
 - Keep doc generators in sync:
 	- `tools/generate_material_bibles.ps1`
 	- `tools/generate_sound_bible.ps1`
+	- `tools/audit_sound_uniqueness.ps1`
+
+## Adding a new mob (required: sounds + credits)
+
+When adding a new entity mob, it must ship with its sound set from the start.
+
+Checklist:
+- Register the `SoundEvent`s in `src/main/java/com/kruemblegard/registry/ModSounds.java`.
+- Add entries to `src/main/resources/assets/kruemblegard/sounds.json`.
+- Add subtitles to `src/main/resources/assets/kruemblegard/lang/en_us.json`.
+- Add the `.ogg` assets under `src/main/resources/assets/kruemblegard/sounds/entity/<mob>/`.
+- Hook the entity to use them (ambient/hurt/death/step + any special one-shots).
+- Add/extend attributions in `docs/SOUND_CREDITS.md` for every new sound clip used.
+- Regenerate `docs/Sound_Bible.md`: `powershell -NoProfile -ExecutionPolicy Bypass -File tools\generate_sound_bible.ps1`
+- Run the uniqueness audit: `powershell -NoProfile -ExecutionPolicy Bypass -File tools\audit_sound_uniqueness.ps1`

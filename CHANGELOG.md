@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.996 (2026-02-17)
+- Tuning(sound): Kruemblegård boss now uses its own dedicated OGG clips (no longer reuses other mobs’ SFX).
+- Chore(sound): add a tracked sound-audit script and new-mob sound checklist so new entities ship with sounds + credits by default.
+
 ## 1.0.995 (2026-02-17)
 - Fix(sound): Scattered Enderman now uses vanilla sounds again (remove custom SoundEvents/sounds.json/subtitles and entity sound hooks).
 

@@ -27,20 +27,62 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - `knock door` → Great Hunger step
 - `whip crack` → Great Hunger bite
 
-- (reuse) `scream pain man 2` → Krümblegård hurt (`entity.kruemblegard.hurt`)
-- (reuse) `knock door` → Krümblegård step (`entity.kruemblegard.step`)
-
 - `ocean water waves loop` → Fault Crawler ambient
 - `drum roll end` → Fault Crawler emerge
 - (SoundMonster Public Domain) assorted clips → Fault Crawler hurt/death/step/pulse/slam
 
-- (reuse) (SoundMonster Public Domain) Fault Crawler pulse → Krümblegård cast (`entity.kruemblegard.cast`)
-
-- (reuse) (SoundMonster Public Domain) Fault Crawler slam → Krümblegård roar (`entity.kruemblegard.roar`)
-
 - (SoundMonster Public Domain) assorted clips → Scaralon Beetle ambient/hurt/death/step/attack
-
 - (SoundMonster Public Domain) assorted clips → Wyrdwing ambient/hurt/death/step/attack/call
+
+
+## Kruemblegård boss (unique clips)
+These clips are used for the Kruemblegård boss and are sourced from SoundMonster.
+
+- `bg music electronic loop`
+  - Source: https://freesound.org/people/vykroft/sounds/417757/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård ambient (`kruemblegard_ambient`)
+
+- `danger`
+  - Source: https://freesound.org/people/Archeos/sounds/338848/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård attack (`kruemblegard_attack`)
+
+- `hip hop record scratch 1`
+  - Source: https://freesound.org/people/G_M_D_THREE/sounds/377775/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård dash (`kruemblegard_dash`)
+
+- `danger siren loop`
+  - Source: https://freesound.org/people/Kinoton/sounds/420661/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård storm (`kruemblegard_storm`)
+
+- `scream pain man 1`
+  - Source: https://freesound.org/people/GabrielaUPF/sounds/220290/
+  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
+  - Used for: Krümblegård hurt (`entity.kruemblegard.hurt`)
+
+- `drama inception braam orchestral hit 3`
+  - Source: https://freesound.org/people/vykroft/sounds/428576/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård death (`kruemblegard_death`)
+
+- `announcement timpani roll`
+  - Source: https://freesound.org/people/hallkev/sounds/428611/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård roar (`entity.kruemblegard.roar`)
+
+- `hip hop record scratch 2`
+  - Source: https://freesound.org/people/G_M_D_THREE/sounds/498107/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård cast (`entity.kruemblegard.cast`)
+
+- `ding bell`
+  - Source: https://freesound.org/people/5ro4/sounds/611113/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård step (`entity.kruemblegard.step`)
+
 
 ## Attribution (via SoundMonster “Attribution license” folder)
 These entries require attribution per their listed Creative Commons license.
