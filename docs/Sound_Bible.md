@@ -136,6 +136,226 @@ Update workflow:
 
 ### Sounds (All Registered / Declared)
 
+#### entity.great_hunger.ambient
+- **SoundEvent ID**: `kruemblegard:entity.great_hunger.ambient`
+- **ModSounds field**: `GREAT_HUNGER_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.great_hunger.ambient`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/ambient.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.great_hunger.bite
+- **SoundEvent ID**: `kruemblegard:entity.great_hunger.bite`
+- **ModSounds field**: `GREAT_HUNGER_BITE`
+- **Subtitle key**: `subtitles.kruemblegard.great_hunger.bite`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/bite
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/bite.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.great_hunger.death
+- **SoundEvent ID**: `kruemblegard:entity.great_hunger.death`
+- **ModSounds field**: `GREAT_HUNGER_DEATH`
+- **Subtitle key**: `subtitles.kruemblegard.great_hunger.death`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/death
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/death.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.great_hunger.hurt
+- **SoundEvent ID**: `kruemblegard:entity.great_hunger.hurt`
+- **ModSounds field**: `GREAT_HUNGER_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.great_hunger.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/hurt
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/hurt.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.great_hunger.step
+- **SoundEvent ID**: `kruemblegard:entity.great_hunger.step`
+- **ModSounds field**: `GREAT_HUNGER_STEP`
+- **Subtitle key**: `subtitles.kruemblegard.great_hunger.step`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/step
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/step.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.ambient
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.ambient`
+- **ModSounds field**: `PEBBLIT_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.ambient`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/ambient.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.death
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.death`
+- **ModSounds field**: `PEBBLIT_DEATH`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.death`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/death
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/death.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.hurt
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.hurt`
+- **ModSounds field**: `PEBBLIT_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/hurt
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/hurt.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.perch
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.perch`
+- **ModSounds field**: `PEBBLIT_PERCH`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.perch`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/perch
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/perch.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.step
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.step`
+- **ModSounds field**: `PEBBLIT_STEP`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.step`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/step
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/step.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.pebblit.tame
+- **SoundEvent ID**: `kruemblegard:entity.pebblit.tame`
+- **ModSounds field**: `PEBBLIT_TAME`
+- **Subtitle key**: `subtitles.kruemblegard.pebblit.tame`
+- **sounds.json name(s)**: kruemblegard:entity/pebblit/tame
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/pebblit/tame.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.scattered_enderman.ambient
+- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.ambient`
+- **ModSounds field**: `SCATTERED_ENDERMAN_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.ambient`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/ambient.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.scattered_enderman.death
+- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.death`
+- **ModSounds field**: `SCATTERED_ENDERMAN_DEATH`
+- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.death`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/death
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/death.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.scattered_enderman.hurt
+- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.hurt`
+- **ModSounds field**: `SCATTERED_ENDERMAN_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/hurt
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/hurt.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.scattered_enderman.scream
+- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.scream`
+- **ModSounds field**: `SCATTERED_ENDERMAN_SCREAM`
+- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.scream`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/scream
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/scream.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.scattered_enderman.teleport
+- **SoundEvent ID**: `kruemblegard:entity.scattered_enderman.teleport`
+- **ModSounds field**: `SCATTERED_ENDERMAN_TELEPORT`
+- **Subtitle key**: `subtitles.kruemblegard.scattered_enderman.teleport`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/teleport
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/teleport.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.ambient
+- **SoundEvent ID**: `kruemblegard:entity.traprock.ambient`
+- **ModSounds field**: `TRAPROCK_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.ambient`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/ambient.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.attack
+- **SoundEvent ID**: `kruemblegard:entity.traprock.attack`
+- **ModSounds field**: `TRAPROCK_ATTACK`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.attack`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/attack
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/attack.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.awaken
+- **SoundEvent ID**: `kruemblegard:entity.traprock.awaken`
+- **ModSounds field**: `TRAPROCK_AWAKEN`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.awaken`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/awaken
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/awaken.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.death
+- **SoundEvent ID**: `kruemblegard:entity.traprock.death`
+- **ModSounds field**: `TRAPROCK_DEATH`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.death`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/death
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/death.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.hurt
+- **SoundEvent ID**: `kruemblegard:entity.traprock.hurt`
+- **ModSounds field**: `TRAPROCK_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/hurt
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/hurt.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.traprock.sleep_ambient
+- **SoundEvent ID**: `kruemblegard:entity.traprock.sleep_ambient`
+- **ModSounds field**: `TRAPROCK_SLEEP_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.traprock.sleep_ambient`
+- **sounds.json name(s)**: kruemblegard:entity/traprock/sleep_ambient
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/traprock/sleep_ambient.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
 #### kruemblegard.attack_rune
 - **SoundEvent ID**: `kruemblegard:kruemblegard.attack_rune`
 - **ModSounds field**: `KRUEMBLEGARD_ATTACK_RUNE`
@@ -267,6 +487,7 @@ Update workflow:
 - **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
 
 
 

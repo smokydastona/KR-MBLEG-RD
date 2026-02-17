@@ -1,6 +1,9 @@
 package com.kruemblegard.entity;
 
+import com.kruemblegard.registry.ModSounds;
+
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -63,6 +66,7 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     public boolean doHurtTarget(Entity target) {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
+            this.playSound(ModSounds.GREAT_HUNGER_BITE.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
             triggerAnim("attackController", "bite");
         }
         return didHurt;
@@ -71,6 +75,26 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         return super.hurt(source, amount);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.GREAT_HUNGER_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.GREAT_HUNGER_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.GREAT_HUNGER_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        this.playSound(ModSounds.GREAT_HUNGER_STEP.get(), 0.2F, 0.9F + (this.random.nextFloat() * 0.2F));
     }
 
     @Override

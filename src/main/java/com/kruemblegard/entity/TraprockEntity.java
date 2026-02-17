@@ -1,15 +1,18 @@
 package com.kruemblegard.entity;
 
 import com.kruemblegard.playerdata.KruemblegardPlayerData;
+import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -87,6 +90,21 @@ public class TraprockEntity extends Blaze implements GeoEntity {
         return this.entityData.get(AWAKENED);
     }
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.isAwakened() ? ModSounds.TRAPROCK_AMBIENT.get() : ModSounds.TRAPROCK_SLEEP_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.TRAPROCK_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.TRAPROCK_DEATH.get();
+    }
+
     private void awaken(@Nullable LivingEntity target) {
         if (isAwakened()) return;
 
@@ -95,6 +113,8 @@ public class TraprockEntity extends Blaze implements GeoEntity {
         this.lingerTicks = 0;
         this.playedAwakenAnim = false;
 
+        this.playSound(ModSounds.TRAPROCK_AWAKEN.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
+
         if (target != null) {
             this.setTarget(target);
 
@@ -102,6 +122,15 @@ public class TraprockEntity extends Blaze implements GeoEntity {
                 markPlayerEncounteredTraprock(player);
             }
         }
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean didHurt = super.doHurtTarget(target);
+        if (didHurt) {
+            this.playSound(ModSounds.TRAPROCK_ATTACK.get(), 0.8F, 0.9F + (this.random.nextFloat() * 0.2F));
+        }
+        return didHurt;
     }
 
     private void spawnAwake() {

@@ -992,6 +992,32 @@
     "subtitles.kruemblegard.attack":  "Kr\u00fcmbleg\u00e5rd swings",
     "subtitles.kruemblegard.dash":  "Kr\u00fcmbleg\u00e5rd dashes",
     "subtitles.kruemblegard.death":  "Kr\u00fcmbleg\u00e5rd collapses",
-    "subtitles.kruemblegard.storm":  "Kr\u00fcmbleg\u00e5rd summons a storm"
+    "subtitles.kruemblegard.storm":  "Kr\u00fcmbleg\u00e5rd summons a storm",
+
+    "subtitles.kruemblegard.traprock.sleep_ambient": "Traprock snores",
+    "subtitles.kruemblegard.traprock.awaken": "Traprock awakens",
+    "subtitles.kruemblegard.traprock.ambient": "Traprock crackles",
+    "subtitles.kruemblegard.traprock.hurt": "Traprock hurts",
+    "subtitles.kruemblegard.traprock.death": "Traprock crumbles",
+    "subtitles.kruemblegard.traprock.attack": "Traprock attacks",
+
+    "subtitles.kruemblegard.pebblit.ambient": "Pebblit chitters",
+    "subtitles.kruemblegard.pebblit.hurt": "Pebblit squeaks",
+    "subtitles.kruemblegard.pebblit.death": "Pebblit dies",
+    "subtitles.kruemblegard.pebblit.step": "Pebblit steps",
+    "subtitles.kruemblegard.pebblit.tame": "Pebblit is tamed",
+    "subtitles.kruemblegard.pebblit.perch": "Pebblit perches",
+
+    "subtitles.kruemblegard.great_hunger.ambient": "Great Hunger seethes",
+    "subtitles.kruemblegard.great_hunger.hurt": "Great Hunger hurts",
+    "subtitles.kruemblegard.great_hunger.death": "Great Hunger dies",
+    "subtitles.kruemblegard.great_hunger.step": "Great Hunger stomps",
+    "subtitles.kruemblegard.great_hunger.bite": "Great Hunger bites",
+
+    "subtitles.kruemblegard.scattered_enderman.ambient": "Scattered Enderman crackles",
+    "subtitles.kruemblegard.scattered_enderman.hurt": "Scattered Enderman hurts",
+    "subtitles.kruemblegard.scattered_enderman.death": "Scattered Enderman dies",
+    "subtitles.kruemblegard.scattered_enderman.teleport": "Scattered Enderman teleports",
+    "subtitles.kruemblegard.scattered_enderman.scream": "Scattered Enderman screams"
 }
 

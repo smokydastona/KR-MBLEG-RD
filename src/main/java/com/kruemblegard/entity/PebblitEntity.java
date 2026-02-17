@@ -4,12 +4,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.kruemblegard.init.ModCriteria;
+import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -166,6 +168,8 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         this.entityData.set(OWNER_UUID, Optional.of(player.getUUID()));
         this.setPersistenceRequired();
 
+        this.playSound(ModSounds.PEBBLIT_TAME.get(), 0.8F, 0.95F + (this.random.nextFloat() * 0.1F));
+
         if (level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.HEART,
                     getX(), getY(0.5D), getZ(),
@@ -197,6 +201,10 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         boolean perchedNow = isTamed() && isPassenger() && getVehicle() instanceof Player;
         if (perchedNow && !wasPerchedLastTick) {
             playPerchingOnce = true;
+
+            if (!level().isClientSide) {
+                this.playSound(ModSounds.PEBBLIT_PERCH.get(), 0.75F, 0.95F + (this.random.nextFloat() * 0.1F));
+            }
         }
         wasPerchedLastTick = perchedNow;
 
@@ -239,6 +247,26 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
                 setTarget(null);
             }
         }
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.PEBBLIT_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return ModSounds.PEBBLIT_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.PEBBLIT_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        this.playSound(ModSounds.PEBBLIT_STEP.get(), 0.12F, 1.0F + (this.random.nextFloat() * 0.2F));
     }
 
     @Override

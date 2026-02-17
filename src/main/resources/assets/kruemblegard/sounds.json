@@ -68,5 +68,141 @@
     "sounds": [
       {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
     ]
+  },
+
+  "entity.traprock.sleep_ambient": {
+    "subtitle": "subtitles.kruemblegard.traprock.sleep_ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/sleep_ambient"}
+    ]
+  },
+  "entity.traprock.awaken": {
+    "subtitle": "subtitles.kruemblegard.traprock.awaken",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/awaken"}
+    ]
+  },
+  "entity.traprock.ambient": {
+    "subtitle": "subtitles.kruemblegard.traprock.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/ambient"}
+    ]
+  },
+  "entity.traprock.hurt": {
+    "subtitle": "subtitles.kruemblegard.traprock.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/hurt"}
+    ]
+  },
+  "entity.traprock.death": {
+    "subtitle": "subtitles.kruemblegard.traprock.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/death"}
+    ]
+  },
+  "entity.traprock.attack": {
+    "subtitle": "subtitles.kruemblegard.traprock.attack",
+    "sounds": [
+      {"name": "kruemblegard:entity/traprock/attack"}
+    ]
+  },
+
+  "entity.pebblit.ambient": {
+    "subtitle": "subtitles.kruemblegard.pebblit.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/ambient"}
+    ]
+  },
+  "entity.pebblit.hurt": {
+    "subtitle": "subtitles.kruemblegard.pebblit.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/hurt"}
+    ]
+  },
+  "entity.pebblit.death": {
+    "subtitle": "subtitles.kruemblegard.pebblit.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/death"}
+    ]
+  },
+  "entity.pebblit.step": {
+    "subtitle": "subtitles.kruemblegard.pebblit.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/step"}
+    ]
+  },
+  "entity.pebblit.tame": {
+    "subtitle": "subtitles.kruemblegard.pebblit.tame",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/tame"}
+    ]
+  },
+  "entity.pebblit.perch": {
+    "subtitle": "subtitles.kruemblegard.pebblit.perch",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebblit/perch"}
+    ]
+  },
+
+  "entity.great_hunger.ambient": {
+    "subtitle": "subtitles.kruemblegard.great_hunger.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/ambient"}
+    ]
+  },
+  "entity.great_hunger.hurt": {
+    "subtitle": "subtitles.kruemblegard.great_hunger.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/hurt"}
+    ]
+  },
+  "entity.great_hunger.death": {
+    "subtitle": "subtitles.kruemblegard.great_hunger.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/death"}
+    ]
+  },
+  "entity.great_hunger.step": {
+    "subtitle": "subtitles.kruemblegard.great_hunger.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/step"}
+    ]
+  },
+  "entity.great_hunger.bite": {
+    "subtitle": "subtitles.kruemblegard.great_hunger.bite",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/bite"}
+    ]
+  },
+
+  "entity.scattered_enderman.ambient": {
+    "subtitle": "subtitles.kruemblegard.scattered_enderman.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/ambient"}
+    ]
+  },
+  "entity.scattered_enderman.hurt": {
+    "subtitle": "subtitles.kruemblegard.scattered_enderman.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/hurt"}
+    ]
+  },
+  "entity.scattered_enderman.death": {
+    "subtitle": "subtitles.kruemblegard.scattered_enderman.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/death"}
+    ]
+  },
+  "entity.scattered_enderman.teleport": {
+    "subtitle": "subtitles.kruemblegard.scattered_enderman.teleport",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
+    ]
+  },
+  "entity.scattered_enderman.scream": {
+    "subtitle": "subtitles.kruemblegard.scattered_enderman.scream",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/scream"}
+    ]
   }
 }

@@ -46,6 +46,35 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_ATTACK_RUNE = register("kruemblegard.attack_rune");
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_RADIANT = register("kruemblegard.radiant");
 
+    // -----------------------------
+    // ENTITY SFX
+    // -----------------------------
+    public static final RegistryObject<SoundEvent> TRAPROCK_SLEEP_AMBIENT = register("entity.traprock.sleep_ambient");
+    public static final RegistryObject<SoundEvent> TRAPROCK_AWAKEN = register("entity.traprock.awaken");
+    public static final RegistryObject<SoundEvent> TRAPROCK_AMBIENT = register("entity.traprock.ambient");
+    public static final RegistryObject<SoundEvent> TRAPROCK_HURT = register("entity.traprock.hurt");
+    public static final RegistryObject<SoundEvent> TRAPROCK_DEATH = register("entity.traprock.death");
+    public static final RegistryObject<SoundEvent> TRAPROCK_ATTACK = register("entity.traprock.attack");
+
+    public static final RegistryObject<SoundEvent> PEBBLIT_AMBIENT = register("entity.pebblit.ambient");
+    public static final RegistryObject<SoundEvent> PEBBLIT_HURT = register("entity.pebblit.hurt");
+    public static final RegistryObject<SoundEvent> PEBBLIT_DEATH = register("entity.pebblit.death");
+    public static final RegistryObject<SoundEvent> PEBBLIT_STEP = register("entity.pebblit.step");
+    public static final RegistryObject<SoundEvent> PEBBLIT_TAME = register("entity.pebblit.tame");
+    public static final RegistryObject<SoundEvent> PEBBLIT_PERCH = register("entity.pebblit.perch");
+
+    public static final RegistryObject<SoundEvent> GREAT_HUNGER_AMBIENT = register("entity.great_hunger.ambient");
+    public static final RegistryObject<SoundEvent> GREAT_HUNGER_HURT = register("entity.great_hunger.hurt");
+    public static final RegistryObject<SoundEvent> GREAT_HUNGER_DEATH = register("entity.great_hunger.death");
+    public static final RegistryObject<SoundEvent> GREAT_HUNGER_STEP = register("entity.great_hunger.step");
+    public static final RegistryObject<SoundEvent> GREAT_HUNGER_BITE = register("entity.great_hunger.bite");
+
+    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_AMBIENT = register("entity.scattered_enderman.ambient");
+    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_HURT = register("entity.scattered_enderman.hurt");
+    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_DEATH = register("entity.scattered_enderman.death");
+    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_TELEPORT = register("entity.scattered_enderman.teleport");
+    public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_SCREAM = register("entity.scattered_enderman.scream");
+
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_MUSIC = register("music.kruemblegard");
 
     public static final RegistryObject<SoundEvent> WAYFALL_MUSIC = register("music.wayfall");

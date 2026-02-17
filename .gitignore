@@ -9,6 +9,9 @@ build/
 run/
 logs/
 
+# Local vendor content (not committed)
+.soundmonster_tmp/
+
 # Documentation (local notes / reference)
 docs/**
 !docs/MOD_FEATURES.md
@@ -25,6 +28,7 @@ docs/**
 !docs/pregen_sound_manifest.json
 !docs/Item_Material_Bible.md
 !docs/MAINTAINER_RUNBOOK.md
+!docs/SOUND_CREDITS.md
 
 
 # Local examples / reference content (not committed)
