@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.998 (2026-02-17)
+- Chore(sound): remove leftover unused Scattered Enderman custom OGG assets (mob uses vanilla Enderman sounds).
+- Fix(sound): repair corrupted `entity/kruemblegard/storm.ogg`.
+
 ## 1.0.997 (2026-02-17)
 - Tuning(sound): replace music/instrument-ish mob SFX with non-musical, stone/earth/rumble-style procedural clips.
 - Tuning(sound): Pebblit tame SFX no longer uses a jingle.

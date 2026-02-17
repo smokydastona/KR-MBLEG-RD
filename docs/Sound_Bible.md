@@ -113,12 +113,7 @@ Notes:
 
 ### `kruemblegard:scattered_enderman`
 - Current sound behavior: inherits Enderman sounds (teleport, stare, ambient, etc).
-- Custom sounds to add next (recommended IDs):
-  - `kruemblegard:entity.scattered_enderman.ambient`
-  - `kruemblegard:entity.scattered_enderman.hurt`
-  - `kruemblegard:entity.scattered_enderman.death`
-  - `kruemblegard:entity.scattered_enderman.teleport`
-  - `kruemblegard:entity.scattered_enderman.scream`
+- Custom sounds: none (kept vanilla by design).
 
 ---
 
@@ -657,6 +652,7 @@ Update workflow:
 - **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
 
 
 
