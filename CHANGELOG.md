@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.991 (2026-02-16)
+- Tuning(assets/pebblit): tweak perched clavicle alignment (clavicle bone pose/visibility).
+
 ## 1.0.990 (2026-02-16)
 - Fix(assets/scaralon_larva): adjust walk animation to a more natural caterpillar motion.
 

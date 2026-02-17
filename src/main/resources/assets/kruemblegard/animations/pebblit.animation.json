@@ -93,15 +93,15 @@
 			"loop": true,
 			"bones": {
 				"angry_spikes": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"shoulder_armor": {
-					"scale": [1, 1, 1]
+					"scale": 1
 				},
 				"clavicle_align": {
-					"scale": [1, 1, 1],
-					"position": [0, 0, 0],
-					"rotation": [0, 0, 0]
+					"rotation": [0, 0, 0],
+					"position": [1, -7.4, -6.6],
+					"scale": 1
 				},
 				"Body": {
 					"rotation": [0, 0, 20],
