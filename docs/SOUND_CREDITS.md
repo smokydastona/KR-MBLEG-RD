@@ -31,6 +31,14 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - `scream pain man 3` → Scattered Enderman hurt
 - `radio mic on MDC1200 Echo` → Scattered Enderman teleport
 
+- `ocean water waves loop` → Fault Crawler ambient
+- `drum roll end` → Fault Crawler emerge
+- (SoundMonster Public Domain) assorted clips → Fault Crawler hurt/death/step/pulse/slam
+
+- (SoundMonster Public Domain) assorted clips → Scaralon Beetle ambient/hurt/death/step/attack
+
+- (SoundMonster Public Domain) assorted clips → Wyrdwing ambient/hurt/death/step/attack/call
+
 ## Attribution (via SoundMonster “Attribution license” folder)
 These entries require attribution per their listed Creative Commons license.
 

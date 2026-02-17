@@ -9,6 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -45,6 +46,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.registry.ModSounds;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -486,6 +488,9 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         // Call is more common than shake.
         if (this.random.nextInt(7) == 0) {
             setCallAnimTicks(15);
+            if (!this.level().isClientSide) {
+                playSound(ModSounds.WYRDWING_CALL.get(), 0.85F, 0.9F + random.nextFloat() * 0.25F);
+            }
         } else if (this.random.nextInt(14) == 0) {
             setShakeAnimTicks(40);
         }
@@ -749,7 +754,22 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
 
     @Override
     protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState blockIn) {
-        this.playSound(SoundEvents.PARROT_STEP, 0.15F, 1.0F);
+        this.playSound(ModSounds.WYRDWING_STEP.get(), 0.12F, 0.95F + random.nextFloat() * 0.2F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.WYRDWING_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSounds.WYRDWING_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.WYRDWING_DEATH.get();
     }
 
     @Override
@@ -774,6 +794,7 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         if (hit && entity instanceof LivingEntity living) {
             living.knockback(0.35F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
             if (!this.level().isClientSide) {
+                playSound(ModSounds.WYRDWING_ATTACK.get(), 0.9F, 0.9F + random.nextFloat() * 0.2F);
                 // Prefer the original Wyrdwing bite animation, but occasionally play an alternate
                 // (useful if you add a raptor-style claw/scratch animation to wyrdwing.animation.json).
                 if (this.random.nextInt(4) == 0) {

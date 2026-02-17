@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -27,6 +28,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Mob;
@@ -56,6 +58,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+
+import com.kruemblegard.registry.ModSounds;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -2361,7 +2365,31 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, net.minecraft.world.level.block.state.BlockState block) {
-        playSound(SoundEvents.TURTLE_SHAMBLE, 0.25F, 0.8F + random.nextFloat() * 0.15F);
+        playSound(ModSounds.SCARALON_BEETLE_STEP.get(), 0.22F, 0.9F + random.nextFloat() * 0.2F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.SCARALON_BEETLE_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSounds.SCARALON_BEETLE_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SCARALON_BEETLE_DEATH.get();
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean didHurt = super.doHurtTarget(target);
+        if (didHurt) {
+            playSound(ModSounds.SCARALON_BEETLE_ATTACK.get(), 0.9F, 0.9F + random.nextFloat() * 0.2F);
+        }
+        return didHurt;
     }
 
     @Override

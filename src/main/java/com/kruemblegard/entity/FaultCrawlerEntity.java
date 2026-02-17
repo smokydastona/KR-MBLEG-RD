@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +25,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+import com.kruemblegard.registry.ModSounds;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -110,6 +113,7 @@ public class FaultCrawlerEntity extends Monster implements GeoEntity {
         setBuried(false);
         emergeTicks = 20;
         triggerAnim("actionController", "emerge");
+        playSound(ModSounds.FAULT_CRAWLER_EMERGE.get(), 0.95F, 0.9F + random.nextFloat() * 0.2F);
     }
 
     @Override
@@ -171,7 +175,7 @@ public class FaultCrawlerEntity extends Monster implements GeoEntity {
                 0.35D, 0.15D, 0.35D,
                 0.08D
         );
-        playSound(SoundEvents.STONE_BREAK, 0.9F, 0.9F + random.nextFloat() * 0.2F);
+        playSound(ModSounds.FAULT_CRAWLER_PULSE.get(), 0.9F, 0.9F + random.nextFloat() * 0.2F);
     }
 
     @Override
@@ -179,6 +183,7 @@ public class FaultCrawlerEntity extends Monster implements GeoEntity {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
             triggerAnim("actionController", "slam");
+            playSound(ModSounds.FAULT_CRAWLER_SLAM.get(), 0.95F, 0.9F + random.nextFloat() * 0.2F);
         }
         return didHurt;
     }
@@ -196,8 +201,26 @@ public class FaultCrawlerEntity extends Monster implements GeoEntity {
                     0.10D
             );
         }
+    }
 
-        playSound(SoundEvents.STONE_BREAK, 1.0F, 0.8F + random.nextFloat() * 0.2F);
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.FAULT_CRAWLER_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSounds.FAULT_CRAWLER_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.FAULT_CRAWLER_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockState) {
+        playSound(ModSounds.FAULT_CRAWLER_STEP.get(), 0.12F, 0.9F + random.nextFloat() * 0.2F);
     }
 
     @Override

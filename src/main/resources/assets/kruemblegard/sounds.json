@@ -204,5 +204,116 @@
     "sounds": [
       {"name": "kruemblegard:entity/scattered_enderman/scream"}
     ]
+  },
+
+  "entity.fault_crawler.ambient": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/ambient"}
+    ]
+  },
+  "entity.fault_crawler.hurt": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/hurt"}
+    ]
+  },
+  "entity.fault_crawler.death": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/death"}
+    ]
+  },
+  "entity.fault_crawler.step": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/step"}
+    ]
+  },
+  "entity.fault_crawler.pulse": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.pulse",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/pulse"}
+    ]
+  },
+  "entity.fault_crawler.slam": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.slam",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/slam"}
+    ]
+  },
+  "entity.fault_crawler.emerge": {
+    "subtitle": "subtitles.kruemblegard.fault_crawler.emerge",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/emerge"}
+    ]
+  },
+
+  "entity.scaralon_beetle.ambient": {
+    "subtitle": "subtitles.kruemblegard.scaralon_beetle.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/scaralon_beetle/ambient"}
+    ]
+  },
+  "entity.scaralon_beetle.hurt": {
+    "subtitle": "subtitles.kruemblegard.scaralon_beetle.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/scaralon_beetle/hurt"}
+    ]
+  },
+  "entity.scaralon_beetle.death": {
+    "subtitle": "subtitles.kruemblegard.scaralon_beetle.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/scaralon_beetle/death"}
+    ]
+  },
+  "entity.scaralon_beetle.step": {
+    "subtitle": "subtitles.kruemblegard.scaralon_beetle.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/scaralon_beetle/step"}
+    ]
+  },
+  "entity.scaralon_beetle.attack": {
+    "subtitle": "subtitles.kruemblegard.scaralon_beetle.attack",
+    "sounds": [
+      {"name": "kruemblegard:entity/scaralon_beetle/attack"}
+    ]
+  },
+
+  "entity.wyrdwing.ambient": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/ambient"}
+    ]
+  },
+  "entity.wyrdwing.hurt": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/hurt"}
+    ]
+  },
+  "entity.wyrdwing.death": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/death"}
+    ]
+  },
+  "entity.wyrdwing.step": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/step"}
+    ]
+  },
+  "entity.wyrdwing.attack": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.attack",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/attack"}
+    ]
+  },
+  "entity.wyrdwing.call": {
+    "subtitle": "subtitles.kruemblegard.wyrdwing.call",
+    "sounds": [
+      {"name": "kruemblegard:entity/wyrdwing/call"}
+    ]
   }
 }

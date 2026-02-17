@@ -75,6 +75,27 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_TELEPORT = register("entity.scattered_enderman.teleport");
     public static final RegistryObject<SoundEvent> SCATTERED_ENDERMAN_SCREAM = register("entity.scattered_enderman.scream");
 
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_AMBIENT = register("entity.fault_crawler.ambient");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_HURT = register("entity.fault_crawler.hurt");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_DEATH = register("entity.fault_crawler.death");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_STEP = register("entity.fault_crawler.step");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_PULSE = register("entity.fault_crawler.pulse");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_SLAM = register("entity.fault_crawler.slam");
+    public static final RegistryObject<SoundEvent> FAULT_CRAWLER_EMERGE = register("entity.fault_crawler.emerge");
+
+    public static final RegistryObject<SoundEvent> SCARALON_BEETLE_AMBIENT = register("entity.scaralon_beetle.ambient");
+    public static final RegistryObject<SoundEvent> SCARALON_BEETLE_HURT = register("entity.scaralon_beetle.hurt");
+    public static final RegistryObject<SoundEvent> SCARALON_BEETLE_DEATH = register("entity.scaralon_beetle.death");
+    public static final RegistryObject<SoundEvent> SCARALON_BEETLE_STEP = register("entity.scaralon_beetle.step");
+    public static final RegistryObject<SoundEvent> SCARALON_BEETLE_ATTACK = register("entity.scaralon_beetle.attack");
+
+    public static final RegistryObject<SoundEvent> WYRDWING_AMBIENT = register("entity.wyrdwing.ambient");
+    public static final RegistryObject<SoundEvent> WYRDWING_HURT = register("entity.wyrdwing.hurt");
+    public static final RegistryObject<SoundEvent> WYRDWING_DEATH = register("entity.wyrdwing.death");
+    public static final RegistryObject<SoundEvent> WYRDWING_STEP = register("entity.wyrdwing.step");
+    public static final RegistryObject<SoundEvent> WYRDWING_ATTACK = register("entity.wyrdwing.attack");
+    public static final RegistryObject<SoundEvent> WYRDWING_CALL = register("entity.wyrdwing.call");
+
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_MUSIC = register("music.kruemblegard");
 
     public static final RegistryObject<SoundEvent> WAYFALL_MUSIC = register("music.wayfall");

@@ -1018,6 +1018,27 @@
     "subtitles.kruemblegard.scattered_enderman.hurt": "Scattered Enderman hurts",
     "subtitles.kruemblegard.scattered_enderman.death": "Scattered Enderman dies",
     "subtitles.kruemblegard.scattered_enderman.teleport": "Scattered Enderman teleports",
-    "subtitles.kruemblegard.scattered_enderman.scream": "Scattered Enderman screams"
+    "subtitles.kruemblegard.scattered_enderman.scream": "Scattered Enderman screams",
+
+    "subtitles.kruemblegard.fault_crawler.ambient": "Fault Crawler rumbles",
+    "subtitles.kruemblegard.fault_crawler.hurt": "Fault Crawler hurts",
+    "subtitles.kruemblegard.fault_crawler.death": "Fault Crawler collapses",
+    "subtitles.kruemblegard.fault_crawler.step": "Fault Crawler steps",
+    "subtitles.kruemblegard.fault_crawler.pulse": "Fault Crawler pulses",
+    "subtitles.kruemblegard.fault_crawler.slam": "Fault Crawler slams",
+    "subtitles.kruemblegard.fault_crawler.emerge": "Fault Crawler emerges",
+
+    "subtitles.kruemblegard.scaralon_beetle.ambient": "Scaralon Beetle chitters",
+    "subtitles.kruemblegard.scaralon_beetle.hurt": "Scaralon Beetle hurts",
+    "subtitles.kruemblegard.scaralon_beetle.death": "Scaralon Beetle dies",
+    "subtitles.kruemblegard.scaralon_beetle.step": "Scaralon Beetle steps",
+    "subtitles.kruemblegard.scaralon_beetle.attack": "Scaralon Beetle attacks",
+
+    "subtitles.kruemblegard.wyrdwing.ambient": "Wyrdwing calls",
+    "subtitles.kruemblegard.wyrdwing.hurt": "Wyrdwing hurts",
+    "subtitles.kruemblegard.wyrdwing.death": "Wyrdwing dies",
+    "subtitles.kruemblegard.wyrdwing.step": "Wyrdwing flutters",
+    "subtitles.kruemblegard.wyrdwing.attack": "Wyrdwing attacks",
+    "subtitles.kruemblegard.wyrdwing.call": "Wyrdwing cries"
 }
 

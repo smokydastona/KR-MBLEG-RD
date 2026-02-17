@@ -8,6 +8,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(sound): add custom sound sets for Traprock, Pebblit, Great Hunger, and Scattered Enderman (SoundEvents + sounds.json + OGG assets).
 - Docs(sound): add [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) for SoundMonster/Freesound attribution.
 
+## 1.0.993 (2026-02-17)
+- Feature(sound): add custom sound sets for Fault Crawler, Scaralon Beetle, and Wyrdwing (SoundEvents + sounds.json + OGG assets + entity hooks).
+- Docs(sound): extend [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) with new SoundMonster Public Domain usages.
+
 ## 1.0.991 (2026-02-16)
 - Tuning(assets/pebblit): tweak perched clavicle alignment (clavicle bone pose/visibility).
 
