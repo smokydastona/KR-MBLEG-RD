@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.981 (2026-02-16)
+- Fix(assets/fault_crawler): update `fault_crawler.geo.json` and `fault_crawler.animation.json` to match the latest model/UV/layout pass.
+
 ## 1.0.971 (2026-02-13)
 - Fix(ai/wyrdwing): face the direction of movement (yaw follows velocity).
 - Fix(ai/wyrdwing): prevent repeated ground takeoff hops (shared cooldown + velocity gating).
