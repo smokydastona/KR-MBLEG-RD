@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1005 (2026-02-17)
+- Tuning(sound): replace Fault Crawler / Great Hunger / Traprock / Krümblegård hurt+roar+storm SFX with better-fitting, license-clean clips.
+- Tuning(sound): replace Scaralon Beetle and Wyrdwing ambience/vocal/step SFX with new non-musical procedural clips.
+- Docs(sound): refresh [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to match current assets.
+
 ## 1.0.1004 (2026-02-17)
 - Tuning(sound): replace several boss/mob SFX with license-clean SoundFxLibrary clips (CC0 / CC BY 3.0), keeping SoundEvent IDs and paths stable.
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to reflect new attributions.

@@ -88,7 +88,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.kruemblegard.hurt`
   - sounds.json: `kruemblegard:entity/kruemblegard/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/hurt.ogg`
-- Credits: Attribution-required (see `docs/SOUND_CREDITS.md`, Freesound / CC BY).
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.kruemblegard.roar` (Boss roar / intro / phase cue)
 - Should sound like: a “wake-up” bellow that’s more quake than animal; short shock + tail.
@@ -96,7 +96,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.kruemblegard.roar`
   - sounds.json: `kruemblegard:entity/kruemblegard/roar`
   - OGG: `assets/kruemblegard/sounds/entity/kruemblegard/roar.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.kruemblegard.cast` (Boss cast / rune wind-up)
 - Should sound like: rune ignition; crackle/static + wind-up swell; signals “spell is happening”.
@@ -187,7 +187,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.traprock.awaken`
   - sounds.json: `kruemblegard:entity/traprock/awaken`
   - OGG: `assets/kruemblegard/sounds/entity/traprock/awaken.ogg`
-- Credits: SoundMonster Public Domain (“knock heavy”).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.traprock.ambient` (Awake idle)
 - Should sound like: low rumble + occasional grit/pebble movement; not musical, not animal.
@@ -203,7 +203,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.traprock.hurt`
   - sounds.json: `kruemblegard:entity/traprock/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/traprock/hurt.ogg`
-- Credits: SoundMonster Public Domain (“shock gasp”).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.traprock.death` (Death)
 - Should sound like: stone collapse; crumble + dust tail; clearly final.
@@ -299,7 +299,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.great_hunger.hurt`
   - sounds.json: `kruemblegard:entity/great_hunger/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/great_hunger/hurt.ogg`
-- Credits: SoundMonster Public Domain (“scream pain man 2”).
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.great_hunger.death` (Death)
 - Should sound like: final collapse; a deep exhale into rubble.
@@ -315,7 +315,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.great_hunger.step`
   - sounds.json: `kruemblegard:entity/great_hunger/step`
   - OGG: `assets/kruemblegard/sounds/entity/great_hunger/step.ogg`
-- Credits: SoundMonster Public Domain (“knock door”).
+- Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.great_hunger.bite` (Bite attack)
 - Should sound like: snap/crack; sharp, readable melee cue.
@@ -347,7 +347,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.fault_crawler.hurt`
   - sounds.json: `kruemblegard:entity/fault_crawler/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/fault_crawler/hurt.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.fault_crawler.death` (Death)
 - Should sound like: plates collapsing; multiple small cracks into a final crumble.
@@ -355,7 +355,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.fault_crawler.death`
   - sounds.json: `kruemblegard:entity/fault_crawler/death`
   - OGG: `assets/kruemblegard/sounds/entity/fault_crawler/death.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.fault_crawler.step` (Movement)
 - Should sound like: light stone plate taps (not fleshy).
@@ -363,7 +363,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.fault_crawler.step`
   - sounds.json: `kruemblegard:entity/fault_crawler/step`
   - OGG: `assets/kruemblegard/sounds/entity/fault_crawler/step.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.fault_crawler.pulse` (Fault pulse)
 - Should sound like: short shockwave; sub “thump” + dusty tail.
@@ -403,7 +403,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.scaralon_beetle.ambient`
   - sounds.json: `kruemblegard:entity/scaralon_beetle/ambient`
   - OGG: `assets/kruemblegard/sounds/entity/scaralon_beetle/ambient.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.scaralon_beetle.hurt` (Damage)
 - Should sound like: armored insect strain; sharp click + hiss (non-musical).
@@ -411,7 +411,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.scaralon_beetle.hurt`
   - sounds.json: `kruemblegard:entity/scaralon_beetle/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/scaralon_beetle/hurt.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.scaralon_beetle.death` (Death)
 - Should sound like: final wing collapse + chitin crack; short.
@@ -419,7 +419,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.scaralon_beetle.death`
   - sounds.json: `kruemblegard:entity/scaralon_beetle/death`
   - OGG: `assets/kruemblegard/sounds/entity/scaralon_beetle/death.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.scaralon_beetle.step` (Ground movement)
 - Should sound like: heavier chitin/hoof-like taps, but still “bug”; repeat-safe.
@@ -427,7 +427,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.scaralon_beetle.step`
   - sounds.json: `kruemblegard:entity/scaralon_beetle/step`
   - OGG: `assets/kruemblegard/sounds/entity/scaralon_beetle/step.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.scaralon_beetle.attack` (Attack)
 - Should sound like: horn/chitin stab; a short aggressive cue.
@@ -451,7 +451,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.ambient`
   - sounds.json: `kruemblegard:entity/wyrdwing/ambient`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/ambient.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.wyrdwing.hurt` (Damage)
 - Should sound like: sharp screech/yelp; quick.
@@ -459,7 +459,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.hurt`
   - sounds.json: `kruemblegard:entity/wyrdwing/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/hurt.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.wyrdwing.death` (Death)
 - Should sound like: final exhale + drop; short; not “melodic”.
@@ -467,7 +467,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.death`
   - sounds.json: `kruemblegard:entity/wyrdwing/death`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/death.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.wyrdwing.step` (Ground movement)
 - Should sound like: light claw taps; dry.
@@ -475,7 +475,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.step`
   - sounds.json: `kruemblegard:entity/wyrdwing/step`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/step.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.wyrdwing.attack` (Attack)
 - Should sound like: swoop strike cue; sharp and quick.
@@ -491,4 +491,4 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.wyrdwing.call`
   - sounds.json: `kruemblegard:entity/wyrdwing/call`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/call.ogg`
-- Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
+- Credits: Procedural / ffmpeg.

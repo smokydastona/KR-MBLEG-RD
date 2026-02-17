@@ -22,15 +22,50 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
   - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
   - Used for: Krümblegård dash (`kruemblegard_dash`)
 
-- `spell-impact-lightning-2`
-  - Source: https://freesound.org/people/doudar41/sounds/535953/
+- `growl-2`
+  - Source: https://freesound.org/people/aesqe/sounds/49127/
+  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
+  - Used for: Krümblegård hurt (`entity.kruemblegard.hurt`)
+
+- `bear-groan-1`
+  - Source: https://freesound.org/people/Animadierer/sounds/516277/
+  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
+  - Used for: Great Hunger hurt (`entity.great_hunger.hurt`)
+
+- `thunder-1`
+  - Source: https://freesound.org/people/elmoustachio/sounds/476736/
   - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
   - Used for: Krümblegård storm (`kruemblegard_storm`)
+
+- `thunder-5`
+  - Source: https://freesound.org/people/Dave%20Welsh/sounds/194364/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Krümblegård roar (`entity.kruemblegard.roar`)
 
 - `impact-3`
   - Source: https://freesound.org/people/BennettFilmTeacher/sounds/523788/
   - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
   - Used for: Krümblegård heavy hit (`kruemblegard_attack`, also used by `kruemblegard.attack_smash`/`kruemblegard.attack_slam`)
+
+- `impact-2`
+  - Source: https://freesound.org/people/NachtmahrTV/sounds/556693/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Fault Crawler step (`entity.fault_crawler.step`), Traprock hurt (`entity.traprock.hurt`)
+
+- `impact-4`
+  - Source: https://freesound.org/people/FFeller/sounds/532871/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Fault Crawler hurt (`entity.fault_crawler.hurt`)
+
+- `impact-5`
+  - Source: https://freesound.org/people/Johnnyfarmer/sounds/209772/
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Fault Crawler death (`entity.fault_crawler.death`), Traprock awaken (`entity.traprock.awaken`)
+
+- `impact-6`
+  - Source: https://freesound.org/people/Metzik/sounds/387539/
+  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
+  - Used for: Great Hunger step (`entity.great_hunger.step`)
 
 - `spell-impact-1`
   - Source: https://freesound.org/people/qubodup/sounds/442827/
@@ -61,8 +96,6 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
 These entries are distributed as Public Domain in the SoundMonster pack.
 
 - `snore loop` → Traprock sleep ambient
-- `knock heavy` → Traprock awaken
-- `shock gasp` → Traprock hurt
 
 - `laughter cute` → Pebblit ambient
 - `cough` → Pebblit hurt
@@ -70,15 +103,6 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - `clock tick tock waiting` → Pebblit step
 - `nice mmm` → Pebblit tame
 - `cute aww that was so cute` → Pebblit perch
-
-- `scream pain man 2` → Great Hunger hurt
-- `knock door` → Great Hunger step
-- `whip crack` → Great Hunger bite
-
-- (SoundMonster Public Domain) assorted clips → Fault Crawler hurt/death/step/pulse/slam
-
-- (SoundMonster Public Domain) assorted clips → Scaralon Beetle ambient/hurt/death/step/attack
-- (SoundMonster Public Domain) assorted clips → Wyrdwing ambient/hurt/death/step/attack/call
 
 
 ## Procedurally generated SFX (created for this mod)
@@ -93,29 +117,17 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 - (Procedural / ffmpeg) → Fault Crawler ambient (`entity.fault_crawler.ambient`)
 - (Procedural / ffmpeg) → Fault Crawler emerge (`entity.fault_crawler.emerge`)
 
+- (Procedural / ffmpeg) → Scaralon Beetle ambient (`entity.scaralon_beetle.ambient`)
+- (Procedural / ffmpeg) → Scaralon Beetle hurt (`entity.scaralon_beetle.hurt`)
+- (Procedural / ffmpeg) → Scaralon Beetle death (`entity.scaralon_beetle.death`)
+- (Procedural / ffmpeg) → Scaralon Beetle step (`entity.scaralon_beetle.step`)
+
+- (Procedural / ffmpeg) → Wyrdwing ambient (`entity.wyrdwing.ambient`)
+- (Procedural / ffmpeg) → Wyrdwing call (`entity.wyrdwing.call`)
+- (Procedural / ffmpeg) → Wyrdwing hurt (`entity.wyrdwing.hurt`)
+- (Procedural / ffmpeg) → Wyrdwing death (`entity.wyrdwing.death`)
+- (Procedural / ffmpeg) → Wyrdwing step (`entity.wyrdwing.step`)
+
 - (Procedural / ffmpeg) → Krümblegård ambient (`kruemblegard_ambient`)
-- (Procedural / ffmpeg) → Krümblegård attack (`kruemblegard_attack`)
-- (Procedural / ffmpeg) → Krümblegård dash (`kruemblegard_dash`)
-- (Procedural / ffmpeg) → Krümblegård storm (`kruemblegard_storm`)
 - (Procedural / ffmpeg) → Krümblegård death (`kruemblegard_death`)
-- (Procedural / ffmpeg) → Krümblegård roar (`entity.kruemblegard.roar`)
-- (Procedural / ffmpeg) → Krümblegård cast (`entity.kruemblegard.cast`)
 - (Procedural / ffmpeg) → Krümblegård step (`entity.kruemblegard.step`)
-
-
-## Kruemblegård boss (attribution-required clips)
-These clips require attribution per their listed Creative Commons license.
-
-- `scream pain man 1`
-  - Source: https://freesound.org/people/GabrielaUPF/sounds/220290/
-  - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
-  - Used for: Krümblegård hurt (`entity.kruemblegard.hurt`)
-
-
-## Attribution (via SoundMonster “Attribution license” folder)
-These entries require attribution per their listed Creative Commons license.
-
-- `angry dog growl`
-  - Source: https://freesound.org/people/locontrario23/sounds/395921/
-  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
-  - Used for: Traprock attack
