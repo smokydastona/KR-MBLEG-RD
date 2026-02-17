@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.984 (2026-02-16)
+- Tuning(assets/scaralon): rework `animation.scaralon_beetle.walk` + `animation.scaralon_beetle.run` into a coordinated 6-leg alternating-tripod gait.
+
 ## 1.0.983 (2026-02-16)
 - Fix(assets/fault_crawler): tweak head/face geo UVs (minor detail pass).
 
