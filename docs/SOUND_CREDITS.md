@@ -27,13 +27,20 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - `knock door` → Great Hunger step
 - `whip crack` → Great Hunger bite
 
+- (reuse) `scream pain man 2` → Krümblegård hurt (`entity.kruemblegard.hurt`)
+- (reuse) `knock door` → Krümblegård step (`entity.kruemblegard.step`)
+
 - `radio static loop` → Scattered Enderman ambient
 - `scream pain man 3` → Scattered Enderman hurt
 - `radio mic on MDC1200 Echo` → Scattered Enderman teleport
 
+- (reuse) `radio mic on MDC1200 Echo` → Krümblegård cast (`entity.kruemblegard.cast`)
+
 - `ocean water waves loop` → Fault Crawler ambient
 - `drum roll end` → Fault Crawler emerge
 - (SoundMonster Public Domain) assorted clips → Fault Crawler hurt/death/step/pulse/slam
+
+- (reuse) (SoundMonster Public Domain) Fault Crawler slam → Krümblegård roar (`entity.kruemblegard.roar`)
 
 - (SoundMonster Public Domain) assorted clips → Scaralon Beetle ambient/hurt/death/step/attack
 

@@ -256,6 +256,46 @@ Update workflow:
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
+#### entity.kruemblegard.cast
+- **SoundEvent ID**: `kruemblegard:entity.kruemblegard.cast`
+- **ModSounds field**: `KRUEMBLEGARD_CAST`
+- **Subtitle key**: `subtitles.kruemblegard.kruemblegard.cast`
+- **sounds.json name(s)**: kruemblegard:entity/scattered_enderman/teleport
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/scattered_enderman/teleport.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.kruemblegard.hurt
+- **SoundEvent ID**: `kruemblegard:entity.kruemblegard.hurt`
+- **ModSounds field**: `KRUEMBLEGARD_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.kruemblegard.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/hurt
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/hurt.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.kruemblegard.roar
+- **SoundEvent ID**: `kruemblegard:entity.kruemblegard.roar`
+- **ModSounds field**: `KRUEMBLEGARD_ROAR`
+- **Subtitle key**: `subtitles.kruemblegard.kruemblegard.roar`
+- **sounds.json name(s)**: kruemblegard:entity/fault_crawler/slam
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/fault_crawler/slam.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
+#### entity.kruemblegard.step
+- **SoundEvent ID**: `kruemblegard:entity.kruemblegard.step`
+- **ModSounds field**: `KRUEMBLEGARD_STEP`
+- **Subtitle key**: `subtitles.kruemblegard.kruemblegard.step`
+- **sounds.json name(s)**: kruemblegard:entity/great_hunger/step
+- **Streamed**: `false`
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/step.ogg = True
+- **DurationSeconds**: `TBD`
+- **DurationTicks**: `TBD` (round(seconds*20))
+
 #### entity.pebblit.ambient
 - **SoundEvent ID**: `kruemblegard:entity.pebblit.ambient`
 - **ModSounds field**: `PEBBLIT_AMBIENT`
@@ -667,6 +707,7 @@ Update workflow:
 - **DurationTicks**: `TBD` (round(seconds*20))
 
 <!-- AUTO-GENERATED:SOUNDS:END -->
+
 
 
 

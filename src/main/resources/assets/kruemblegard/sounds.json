@@ -70,6 +70,31 @@
     ]
   },
 
+  "entity.kruemblegard.hurt": {
+    "subtitle": "subtitles.kruemblegard.kruemblegard.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/hurt"}
+    ]
+  },
+  "entity.kruemblegard.roar": {
+    "subtitle": "subtitles.kruemblegard.kruemblegard.roar",
+    "sounds": [
+      {"name": "kruemblegard:entity/fault_crawler/slam"}
+    ]
+  },
+  "entity.kruemblegard.cast": {
+    "subtitle": "subtitles.kruemblegard.kruemblegard.cast",
+    "sounds": [
+      {"name": "kruemblegard:entity/scattered_enderman/teleport"}
+    ]
+  },
+  "entity.kruemblegard.step": {
+    "subtitle": "subtitles.kruemblegard.kruemblegard.step",
+    "sounds": [
+      {"name": "kruemblegard:entity/great_hunger/step"}
+    ]
+  },
+
   "entity.traprock.sleep_ambient": {
     "subtitle": "subtitles.kruemblegard.traprock.sleep_ambient",
     "sounds": [

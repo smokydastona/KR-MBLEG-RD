@@ -994,6 +994,11 @@
     "subtitles.kruemblegard.death":  "Kr\u00fcmbleg\u00e5rd collapses",
     "subtitles.kruemblegard.storm":  "Kr\u00fcmbleg\u00e5rd summons a storm",
 
+    "subtitles.kruemblegard.kruemblegard.hurt": "Kr\u00fcmbleg\u00e5rd hurts",
+    "subtitles.kruemblegard.kruemblegard.roar": "Kr\u00fcmbleg\u00e5rd roars",
+    "subtitles.kruemblegard.kruemblegard.cast": "Kr\u00fcmbleg\u00e5rd casts",
+    "subtitles.kruemblegard.kruemblegard.step": "Kr\u00fcmbleg\u00e5rd drifts",
+
     "subtitles.kruemblegard.traprock.sleep_ambient": "Traprock snores",
     "subtitles.kruemblegard.traprock.awaken": "Traprock awakens",
     "subtitles.kruemblegard.traprock.ambient": "Traprock crackles",

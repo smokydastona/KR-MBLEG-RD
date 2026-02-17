@@ -432,6 +432,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 this.setInvulnerable(false);
                 this.setNoAi(false);
                 this.setEngaged(true);
+                this.playSound(ModSounds.KRUEMBLEGARD_ROAR.get(), 1.4f, 0.9f + (this.random.nextFloat() * 0.2f));
             } else {
                 double step = Math.min(0.08, remaining);
                 this.setPos(this.getX(), this.getY() + step, this.getZ());
@@ -910,7 +911,7 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
                 40, 0.6, 0.6, 0.6, 0.01);
         }
 
-        this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.2f, phase >= 3 ? 0.75f : 0.85f);
+        this.playSound(ModSounds.KRUEMBLEGARD_ROAR.get(), 1.2f, phase >= 3 ? 0.75f : 0.85f);
     }
 
     private boolean tickCurrentAbility() {
@@ -990,9 +991,15 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
 
             float pitch = 0.9f + (this.random.nextFloat() * 0.2f);
             if (ability == ABILITY_ARCANE_STORM) {
+                this.playSound(ModSounds.KRUEMBLEGARD_CAST.get(), 0.6f, pitch);
                 this.playSound(ModSounds.KRUEMBLEGARD_STORM.get(), 1.0f, pitch);
             } else if (ability == ABILITY_RUNE_DASH || ability == ABILITY_BLINK_STRIKE) {
                 this.playSound(ModSounds.KRUEMBLEGARD_DASH.get(), 1.0f, pitch);
+            } else if (ability == ABILITY_RUNE_BOLT
+                || ability == ABILITY_RUNE_VOLLEY
+                || ability == ABILITY_GRAVITIC_PULL
+                || ability == ABILITY_ARCANE_BEAM) {
+                this.playSound(ModSounds.KRUEMBLEGARD_CAST.get(), 1.0f, pitch);
             } else {
                 this.playSound(ModSounds.KRUEMBLEGARD_ATTACK.get(), 1.0f, pitch);
             }
@@ -1291,6 +1298,12 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
     @Override
     protected SoundEvent getAmbientSound() {
         return ModSounds.KRUEMBLEGARD_AMBIENT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.KRUEMBLEGARD_HURT.get();
     }
 
     @Nullable

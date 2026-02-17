@@ -96,6 +96,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WYRDWING_ATTACK = register("entity.wyrdwing.attack");
     public static final RegistryObject<SoundEvent> WYRDWING_CALL = register("entity.wyrdwing.call");
 
+    public static final RegistryObject<SoundEvent> KRUEMBLEGARD_HURT = register("entity.kruemblegard.hurt");
+    public static final RegistryObject<SoundEvent> KRUEMBLEGARD_ROAR = register("entity.kruemblegard.roar");
+    public static final RegistryObject<SoundEvent> KRUEMBLEGARD_CAST = register("entity.kruemblegard.cast");
+    public static final RegistryObject<SoundEvent> KRUEMBLEGARD_STEP = register("entity.kruemblegard.step");
+
     public static final RegistryObject<SoundEvent> KRUEMBLEGARD_MUSIC = register("music.kruemblegard");
 
     public static final RegistryObject<SoundEvent> WAYFALL_MUSIC = register("music.wayfall");
