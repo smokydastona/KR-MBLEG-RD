@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1002 (2026-02-17)
+- Tuning(ai/boss): keep attack animations active for the full ability window (prevents mid-cast snapping back to idle/move).
+- Tuning(ai/boss): disable idle wander/look goals while engaged so the boss stays focused and threatening.
+
+## 1.0.1001 (2026-02-17)
+- Fix(assets/scaralon): align Scaralon beetle animations to updated geo and add a new adult texture variant.
+- Fix(ai/scaralon): allow texture variants 1..9 so `scaralon_beetle_9.png` is reachable.
+
+## 1.0.1000 (2026-02-17)
+- Docs(sound): ensure [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) is tracked in git (whitelist in `.gitignore`).
+
+## 1.0.999 (2026-02-17)
+- Docs(sound): add [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to track per-mob sound intent vs current assets/credits.
+
 ## 1.0.998 (2026-02-17)
 - Chore(sound): remove leftover unused Scattered Enderman custom OGG assets (mob uses vanilla Enderman sounds).
 - Fix(sound): repair corrupted `entity/kruemblegard/storm.ogg`.

@@ -367,11 +367,26 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new KruemblegardMeleeGoal(WARDEN_FIGHTING_NAV_SPEED));
         this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, WARDEN_FIGHTING_NAV_SPEED, 32.0F));
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.6D));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.6D) {
+            @Override
+            public boolean canUse() {
+                return !KruemblegardBossEntity.this.isEngaged() && super.canUse();
+            }
+        });
 
         // Awareness
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 16.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 16.0F) {
+            @Override
+            public boolean canUse() {
+                return !KruemblegardBossEntity.this.isEngaged() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
+            @Override
+            public boolean canUse() {
+                return !KruemblegardBossEntity.this.isEngaged() && super.canUse();
+            }
+        });
 
         // Targeting
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -519,8 +534,9 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.swing(InteractionHand.MAIN_HAND);
 
         this.doHurtTarget(target);
-        // Warden triggers attack animation on-hit; keep ours visible but brisk.
-        this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, 10);
+        // Warden triggers attack animation on-hit; keep ours visible but ensure it can complete
+        // before returning to idle/move (avoids mid-swing snapping).
+        this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, 16);
 
         // Match Warden's melee cadence: 18 ticks between attacks.
         this.meleeCooldown = WARDEN_MELEE_ATTACK_COOLDOWN_TICKS;
@@ -967,26 +983,27 @@ public class KruemblegardBossEntity extends Monster implements GeoEntity {
         this.currentAbilityImpactAt = impactAt;
 
         // We count down from totalTicks to impactAt; impact happens when ticksRemaining == impactAt.
-        // Because the attack animation tick countdown is decremented earlier in aiStep(), add a small
-        // buffer so the telegraph animation is still active on the impact tick.
-        int telegraphAnimTicks = Math.max(1, (totalTicks - impactAt) + 2);
+        // Keep the attack animation active for the full ability window so the boss doesn't snap back
+        // to idle/move mid-cast, which reads as clunky/confused.
+        // Because the attack animation tick countdown is decremented earlier in aiStep(), add a small buffer.
+        int attackAnimTicks = Math.max(1, totalTicks + 2);
 
         // Telegraph: animation + sound.
         if (!this.level().isClientSide) {
             this.swing(InteractionHand.MAIN_HAND);
             switch (ability) {
-                case ABILITY_CLEAVE -> this.setAttackAnim(ATTACK_ANIM_CLEAVE, telegraphAnimTicks);
-                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, telegraphAnimTicks);
-                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, telegraphAnimTicks);
-                case ABILITY_RUNE_DASH -> this.setAttackAnim(ATTACK_ANIM_RUNE_DASH, telegraphAnimTicks);
-                case ABILITY_RUNE_VOLLEY -> this.setAttackAnim(ATTACK_ANIM_RUNE_VOLLEY, telegraphAnimTicks);
-                case ABILITY_BLINK_STRIKE -> this.setAttackAnim(ATTACK_ANIM_BLINK_STRIKE, telegraphAnimTicks);
-                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, telegraphAnimTicks);
-                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, telegraphAnimTicks);
-                case ABILITY_WHIRLWIND -> this.setAttackAnim(ATTACK_ANIM_WHIRLWIND, telegraphAnimTicks);
-                case ABILITY_METEOR_SHOWER -> this.setAttackAnim(ATTACK_ANIM_METEOR_SHOWER, telegraphAnimTicks);
-                case ABILITY_ARCANE_BEAM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_BEAM, telegraphAnimTicks);
-                default -> this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, telegraphAnimTicks);
+                case ABILITY_CLEAVE -> this.setAttackAnim(ATTACK_ANIM_CLEAVE, attackAnimTicks);
+                case ABILITY_RUNE_BOLT -> this.setAttackAnim(ATTACK_ANIM_RUNE_BOLT, attackAnimTicks);
+                case ABILITY_GRAVITIC_PULL -> this.setAttackAnim(ATTACK_ANIM_GRAVITIC_PULL, attackAnimTicks);
+                case ABILITY_RUNE_DASH -> this.setAttackAnim(ATTACK_ANIM_RUNE_DASH, attackAnimTicks);
+                case ABILITY_RUNE_VOLLEY -> this.setAttackAnim(ATTACK_ANIM_RUNE_VOLLEY, attackAnimTicks);
+                case ABILITY_BLINK_STRIKE -> this.setAttackAnim(ATTACK_ANIM_BLINK_STRIKE, attackAnimTicks);
+                case ABILITY_METEOR_ARM -> this.setAttackAnim(ATTACK_ANIM_METEOR_ARM, attackAnimTicks);
+                case ABILITY_ARCANE_STORM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_STORM, attackAnimTicks);
+                case ABILITY_WHIRLWIND -> this.setAttackAnim(ATTACK_ANIM_WHIRLWIND, attackAnimTicks);
+                case ABILITY_METEOR_SHOWER -> this.setAttackAnim(ATTACK_ANIM_METEOR_SHOWER, attackAnimTicks);
+                case ABILITY_ARCANE_BEAM -> this.setAttackAnim(ATTACK_ANIM_ARCANE_BEAM, attackAnimTicks);
+                default -> this.setAttackAnim(ATTACK_ANIM_MELEE_SWIPE, attackAnimTicks);
             }
 
             float pitch = 0.9f + (this.random.nextFloat() * 0.2f);
