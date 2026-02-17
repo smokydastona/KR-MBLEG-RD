@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1006 (2026-02-17)
+- Tuning(sound): replace Pebblit hurt/perch/step/tame SFX with new creepy pixy/fairy-style non-musical clips (license-clean).
+- Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) for Pebblit attributions.
+
 ## 1.0.1005 (2026-02-17)
 - Tuning(sound): replace Fault Crawler / Great Hunger / Traprock / Krümblegård hurt+roar+storm SFX with better-fitting, license-clean clips.
 - Tuning(sound): replace Scaralon Beetle and Wyrdwing ambience/vocal/step SFX with new non-musical procedural clips.

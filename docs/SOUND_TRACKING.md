@@ -243,7 +243,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebblit.hurt`
   - sounds.json: `kruemblegard:entity/pebblit/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/pebblit/hurt.ogg`
-- Credits: SoundMonster Public Domain (“cough”).
+- Credits: soundfx-master (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.pebblit.death` (Death)
 - Should sound like: small fade-out/bye; not overly dramatic.
@@ -259,7 +259,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebblit.step`
   - sounds.json: `kruemblegard:entity/pebblit/step`
   - OGG: `assets/kruemblegard/sounds/entity/pebblit/step.ogg`
-- Credits: SoundMonster Public Domain (“clock tick tock waiting”).
+- Credits: Procedural / ffmpeg.
 
 ### `entity.pebblit.tame` (Tame confirmation)
 - Should sound like: pleased “mmm” / happy acknowledgement.
@@ -267,7 +267,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebblit.tame`
   - sounds.json: `kruemblegard:entity/pebblit/tame`
   - OGG: `assets/kruemblegard/sounds/entity/pebblit/tame.ogg`
-- Credits: SoundMonster Public Domain (“nice mmm”).
+- Credits: soundfx-master (CC0; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.pebblit.perch` (Perch/shoulder)
 - Should sound like: cute, affirmative one-shot; “I’m on your shoulder now”.
@@ -275,7 +275,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebblit.perch`
   - sounds.json: `kruemblegard:entity/pebblit/perch`
   - OGG: `assets/kruemblegard/sounds/entity/pebblit/perch.ogg`
-- Credits: SoundMonster Public Domain (“cute aww that was so cute”).
+- Credits: soundfx-master (CC0; see `docs/SOUND_CREDITS.md`).
 
 ---
 

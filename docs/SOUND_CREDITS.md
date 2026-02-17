@@ -4,6 +4,7 @@ This mod includes sound effects sourced from the following repositories:
 
 - **SoundMonster**: https://github.com/jonjonsson/SoundMonster
 - **SoundFxLibrary**: https://github.com/remaximilian/SoundFxLibrary
+- **soundfx**: https://github.com/matthewnewman/soundfx
 
 It also includes a small set of **procedurally generated** (non-musical) sound effects created specifically for this mod using `ffmpeg` filters.
 
@@ -98,11 +99,20 @@ These entries are distributed as Public Domain in the SoundMonster pack.
 - `snore loop` → Traprock sleep ambient
 
 - `laughter cute` → Pebblit ambient
-- `cough` → Pebblit hurt
 - `bye bye` → Pebblit death
-- `clock tick tock waiting` → Pebblit step
-- `nice mmm` → Pebblit tame
-- `cute aww that was so cute` → Pebblit perch
+
+## CC0 / CC BY 3.0 (via soundfx-master)
+These entries are sourced from the soundfx pack, with per-file license metadata in its `.txt` sidecar files.
+
+- `laugh1`
+  - Source: http://soundbible.com/2054-Evil-Laugh-Male-9.html
+  - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+  - Used for: Pebblit tame (`entity.pebblit.tame`), Pebblit perch (`entity.pebblit.perch`)
+
+- `laugh2`
+  - Source: https://freesound.org/s/110162
+  - License: CC BY 3.0 — https://creativecommons.org/licenses/by/3.0/
+  - Used for: Pebblit hurt (`entity.pebblit.hurt`)
 
 
 ## Procedurally generated SFX (created for this mod)
@@ -116,6 +126,8 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 
 - (Procedural / ffmpeg) → Fault Crawler ambient (`entity.fault_crawler.ambient`)
 - (Procedural / ffmpeg) → Fault Crawler emerge (`entity.fault_crawler.emerge`)
+
+- (Procedural / ffmpeg) → Pebblit step (`entity.pebblit.step`)
 
 - (Procedural / ffmpeg) → Scaralon Beetle ambient (`entity.scaralon_beetle.ambient`)
 - (Procedural / ffmpeg) → Scaralon Beetle hurt (`entity.scaralon_beetle.hurt`)
