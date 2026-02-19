@@ -680,31 +680,52 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 if ((closeEnough && this.onGround()) || timedOut) {
                     BlockPos layAt = closeEnough ? targetPos : blockPosition().above();
 
-                    // Ensure we place on air above a solid-ish block.
-                    if (!level().getBlockState(layAt).isAir()) {
-                        layAt = blockPosition().above();
-                    }
+                    BlockState atState = level().getBlockState(layAt);
 
-                    BlockPos below = layAt.below();
-                    if (level().getBlockState(below).isAir()) {
-                        // Find something nearby solid to lay on.
-                        BlockPos alt = findNearbyEggLayPos((ServerLevel) level(), blockPosition());
-                        if (alt != null) {
-                            layAt = alt;
-                            below = layAt.below();
+                    // Prefer: add to an existing fresh clutch (second clutch behavior), up to 4 eggs.
+                    if (atState.is(ModBlocks.SCARALON_EGG.get())
+                            && atState.getValue(ScaralonEggBlock.HATCH) == 0
+                            && atState.getValue(ScaralonEggBlock.EGGS) < 4) {
+                        int add = Mth.clamp(eggLayCount, 1, 4);
+                        int current = atState.getValue(ScaralonEggBlock.EGGS);
+                        int next = Mth.clamp(current + add, 1, 4);
+
+                        if (next != current) {
+                            level().setBlock(
+                                    layAt,
+                                    atState.setValue(ScaralonEggBlock.EGGS, next),
+                                    Block.UPDATE_CLIENTS);
+                            playSound(SoundEvents.TURTLE_LAY_EGG, 0.9F, 0.9F + random.nextFloat() * 0.2F);
                         }
-                    }
+                    } else {
+                        // Otherwise: place a new clutch on air above a solid-ish block.
+                        if (!atState.isAir()) {
+                            layAt = blockPosition().above();
+                            atState = level().getBlockState(layAt);
+                        }
 
-                    if (level().getBlockState(layAt).isAir() && !level().getBlockState(below).isAir()) {
-                        int eggs = Mth.clamp(eggLayCount, 1, 4);
-                        level().setBlock(
-                                layAt,
-                                ModBlocks.SCARALON_EGG.get().defaultBlockState()
-                                        .setValue(ScaralonEggBlock.EGGS, eggs)
-                                .setValue(ScaralonEggBlock.HATCH, 0)
-                                .setValue(ScaralonEggBlock.VARIANT, Mth.clamp(eggLayVariant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX)),
-                                Block.UPDATE_CLIENTS);
-                        playSound(SoundEvents.TURTLE_LAY_EGG, 0.9F, 0.9F + random.nextFloat() * 0.2F);
+                        BlockPos below = layAt.below();
+                        if (level().getBlockState(below).isAir()) {
+                            // Find something nearby solid to lay on.
+                            BlockPos alt = findNearbyEggLayPos((ServerLevel) level(), blockPosition());
+                            if (alt != null) {
+                                layAt = alt;
+                                atState = level().getBlockState(layAt);
+                                below = layAt.below();
+                            }
+                        }
+
+                        if (atState.isAir() && !level().getBlockState(below).isAir()) {
+                            int eggs = Mth.clamp(eggLayCount, 1, 4);
+                            level().setBlock(
+                                    layAt,
+                                    ModBlocks.SCARALON_EGG.get().defaultBlockState()
+                                            .setValue(ScaralonEggBlock.EGGS, eggs)
+                                            .setValue(ScaralonEggBlock.HATCH, 0)
+                                            .setValue(ScaralonEggBlock.VARIANT, Mth.clamp(eggLayVariant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX)),
+                                    Block.UPDATE_CLIENTS);
+                            playSound(SoundEvents.TURTLE_LAY_EGG, 0.9F, 0.9F + random.nextFloat() * 0.2F);
+                        }
                     }
 
                     hasEggsToLay = false;
@@ -2233,7 +2254,13 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 continue;
             }
 
-            if (!level.getBlockState(eggPos).isAir()) {
+            BlockState at = level.getBlockState(eggPos);
+            boolean isFreshEggClutch = at.is(ModBlocks.SCARALON_EGG.get())
+                    && at.getValue(ScaralonEggBlock.HATCH) == 0
+                    && at.getValue(ScaralonEggBlock.EGGS) < 4;
+
+            // We want either an empty spot (air above solid) OR an existing fresh clutch we can add to.
+            if (!at.isAir() && !isFreshEggClutch) {
                 continue;
             }
 

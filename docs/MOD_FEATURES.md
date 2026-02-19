@@ -198,7 +198,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices only** (holding a melon slice prevents mounting; right-click will feed/breed instead).
   - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style, **1–4 eggs**). Eggs hatch into **larva**.
-  - Egg visuals: Scaralon eggs use a dedicated texture (`assets/kruemblegard/textures/block/scaralon_egg.png`).
+  - Egg visuals: Scaralon eggs use a dedicated texture (`assets/kruemblegard/textures/block/scaralon_egg.png`) and the block model reflects the clutch size (1–4 eggs), turtle-style.
   - Egg predators: zombie-family mobs that smash turtle eggs will also smash Scaralon eggs; Scaralons will attack zombies to defend nests.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).

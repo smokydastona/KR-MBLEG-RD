@@ -4,16 +4,16 @@
     { "when": { "eggs": "1", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
     { "when": { "eggs": "1", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
 
-    { "when": { "eggs": "2", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "2", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "2", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
+    { "when": { "eggs": "2", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg_two" } },
+    { "when": { "eggs": "2", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg_two" } },
+    { "when": { "eggs": "2", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg_two" } },
 
-    { "when": { "eggs": "3", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "3", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "3", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
+    { "when": { "eggs": "3", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg_three" } },
+    { "when": { "eggs": "3", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg_three" } },
+    { "when": { "eggs": "3", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg_three" } },
 
-    { "when": { "eggs": "4", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "4", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } },
-    { "when": { "eggs": "4", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg" } }
+    { "when": { "eggs": "4", "hatch": "0" }, "apply": { "model": "kruemblegard:block/scaralon_egg_four" } },
+    { "when": { "eggs": "4", "hatch": "1" }, "apply": { "model": "kruemblegard:block/scaralon_egg_four" } },
+    { "when": { "eggs": "4", "hatch": "2" }, "apply": { "model": "kruemblegard:block/scaralon_egg_four" } }
   ]
 }

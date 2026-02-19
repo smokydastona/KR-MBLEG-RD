@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1010 (2026-02-18)
+- Fix(scaralon/eggs): Scaralon egg blocks now visually reflect clutch size (1–4 eggs), and beetles can add a second clutch to an existing fresh nest (capped at 4).
+
 ## 1.0.1009 (2026-02-17)
 - Tuning(assets/wyrdwing): update Wyrdwing geo UVs and refresh the texture.
 
