@@ -134,7 +134,7 @@ These entries were provided directly as files (not sourced from the bundled soun
 
 - `freesound_community-squirrel-weird-squeek-77mel-190702-62203.mp3` → Wyrdwing ambient (`entity.wyrdwing.ambient`)
   - Used as: `assets/kruemblegard/sounds/entity/wyrdwing/ambient.ogg`
-  - Source: User-provided (user stated this came from Pixabay; original link should be recorded in project notes/chat history)
+  - Source: User-provided (user stated this came from Pixabay)
 
 
 ## Procedurally generated SFX (created for this mod)
