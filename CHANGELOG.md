@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1012 (2026-02-19)
+- Tuning(sound/wyrdwing): replace Wyrdwing ambient SFX clip (keeps SoundEvent IDs and resource paths stable).
+- Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md).
+
 ## 1.0.1011 (2026-02-18)
 - Feature(ai/scaralon_larva): larva can climb walls like spiders, and their model rotates to align with the surface while climbing.
 

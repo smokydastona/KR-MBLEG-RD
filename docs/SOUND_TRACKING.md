@@ -446,12 +446,12 @@ Identity notes:
 - Sound palette should be **membrane wing**, **raptor-ish call**, **scratch/pounce energy**; not “songbird”.
 
 ### `entity.wyrdwing.ambient` (Idle)
-- Should sound like: quiet breath + wing rustle; occasional low chirr.
+- Should sound like: odd soft squeek/chatter; non-musical.
 - Current asset:
   - SoundEvent: `kruemblegard:entity.wyrdwing.ambient`
   - sounds.json: `kruemblegard:entity/wyrdwing/ambient`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/ambient.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: User-provided clip (claimed Pixabay source); see `docs/SOUND_CREDITS.md`.
 
 ### `entity.wyrdwing.hurt` (Damage)
 - Should sound like: sharp screech/yelp; quick.

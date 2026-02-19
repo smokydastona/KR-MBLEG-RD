@@ -129,6 +129,13 @@ These entries are sourced from the soundfx pack, with per-file license metadata 
   - License: CC BY 3.0 — https://creativecommons.org/licenses/by/3.0/
   - Used for: Pebblit hurt (`entity.pebblit.hurt`)
 
+## User-provided clips (source/link recorded outside repo)
+These entries were provided directly as files (not sourced from the bundled sound packs listed above). If you ship the mod publicly, ensure the upstream page/license is recorded and compatible.
+
+- `freesound_community-squirrel-weird-squeek-77mel-190702-62203.mp3` → Wyrdwing ambient (`entity.wyrdwing.ambient`)
+  - Used as: `assets/kruemblegard/sounds/entity/wyrdwing/ambient.ogg`
+  - Source: User-provided (user stated this came from Pixabay; original link should be recorded in project notes/chat history)
+
 
 ## Procedurally generated SFX (created for this mod)
 These clips were generated with `ffmpeg` filter graphs (noise sources + filtering/envelopes) to avoid music/instruments and to better fit a stone/earth/rumble theme.
@@ -149,7 +156,6 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 - (Procedural / ffmpeg) → Scaralon Beetle death (`entity.scaralon_beetle.death`)
 - (Procedural / ffmpeg) → Scaralon Beetle step (`entity.scaralon_beetle.step`)
 
-- (Procedural / ffmpeg) → Wyrdwing ambient (`entity.wyrdwing.ambient`)
 - (Procedural / ffmpeg) → Wyrdwing call (`entity.wyrdwing.call`)
 
 - (Procedural / ffmpeg) → Krümblegård ambient (`kruemblegard_ambient`)
