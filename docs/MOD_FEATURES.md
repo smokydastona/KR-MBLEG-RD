@@ -203,6 +203,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).
   - Larva movement: larva **cannot fly**. Instead, they can cling to the side of **tree trunks/branches** (logs, not leaves; must have nearby leaves) to **sap-suck**, which makes them mature in about **half the time**. They stay attached until finished unless knocked/damaged.
+  - Larva can also **climb walls like spiders** when bumping into blocks, and visually rotate to align with the surface they’re climbing.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).
   - Renewable elytra loop: babies shed `Elytra Scutes` **when maturing into adults**.

@@ -163,6 +163,14 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         private static final EntityDataAccessor<Boolean> LARVA_SAP_SUCKING =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
 
+    /** Larva-only: spider-like wall climbing flag. */
+    private static final EntityDataAccessor<Boolean> LARVA_CLIMBING =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /** Larva-only: which wall face the larva is currently attached to (Direction 0..5), or -1 for none. */
+    private static final EntityDataAccessor<Byte> LARVA_CLIMB_FACE =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.BYTE);
+
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.walk");
     private static final RawAnimation RUN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.run");
@@ -270,6 +278,33 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         this.entityData.define(JUMP_CHARGE_POWER, 0);
         this.entityData.define(TEXTURE_VARIANT, TEXTURE_VARIANT_MIN);
         this.entityData.define(LARVA_SAP_SUCKING, false);
+        this.entityData.define(LARVA_CLIMBING, false);
+        this.entityData.define(LARVA_CLIMB_FACE, (byte) -1);
+    }
+
+    /** Client-visible helper for larva wall climbing (spider-style). */
+    public boolean isLarvaClimbing() {
+        return isBaby() && this.entityData.get(LARVA_CLIMBING);
+    }
+
+    /** Client-visible helper: the surface direction the larva is attached to, if any. */
+    public @Nullable Direction getLarvaClimbFace() {
+        byte value = this.entityData.get(LARVA_CLIMB_FACE);
+        if (value < 0) {
+            return null;
+        }
+        return Direction.from3DDataValue(value);
+    }
+
+    private void setLarvaClimbFace(@Nullable Direction face) {
+        if (face == null) {
+            this.entityData.set(LARVA_CLIMBING, false);
+            this.entityData.set(LARVA_CLIMB_FACE, (byte) -1);
+            return;
+        }
+
+        this.entityData.set(LARVA_CLIMBING, true);
+        this.entityData.set(LARVA_CLIMB_FACE, (byte) face.get3DDataValue());
     }
 
     public int getTextureVariant() {
@@ -446,6 +481,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 }
 
                 if (isLarvaSapSucking()) {
+                    // Sap-sucking is a special clinging mode; don't also try to wall-climb.
+                    setLarvaClimbFace(null);
+
                     if (level() instanceof ServerLevel serverLevel) {
                         if (!isValidLarvaSapAnchor(serverLevel, larvaSapAnchor, larvaSapFace)) {
                             stopLarvaSapSucking();
@@ -471,6 +509,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                         stopLarvaSapSucking();
                     }
                 } else {
+                    // Larva can climb walls like spiders when bumping into them.
+                    updateLarvaWallClimbState();
+
                     // Not clinging: ensure gravity is on.
                     if (isNoGravity()) {
                         setNoGravity(false);
@@ -480,6 +521,9 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 if (isLarvaSapSucking()) {
                     stopLarvaSapSucking();
                 }
+
+                // Adults don't wall-climb.
+                setLarvaClimbFace(null);
             }
 
             if (flightToggleGraceTicks > 0) {
@@ -1751,6 +1795,26 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
             return;
         }
 
+        // Larva-only: spider-like wall climbing.
+        // We do the core movement via vanilla/horse travel, then clamp vertical motion so it can
+        // "stick" to walls and climb instead of sliding off.
+        if (isBaby() && !isVehicle() && !isLarvaSapSucking() && isLarvaClimbing()) {
+            super.travel(travelVector);
+
+            Vec3 v = getDeltaMovement();
+            double y = Mth.clamp(v.y, -0.15D, 0.22D);
+
+            // If we're pressing into a wall, bias upward slightly so it can actually climb.
+            if (this.horizontalCollision) {
+                y = Math.max(y, 0.20D);
+            }
+
+            setDeltaMovement(v.x, y, v.z);
+            hasImpulse = true;
+            fallDistance = 0.0F;
+            return;
+        }
+
         if (isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player player) {
             if (isFlying()) {
                 setYRot(player.getYRot());
@@ -1846,6 +1910,51 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
         }
 
         super.travel(travelVector);
+    }
+
+    private void updateLarvaWallClimbState() {
+        if (!isBaby() || isLarvaSapSucking()) {
+            setLarvaClimbFace(null);
+            return;
+        }
+
+        // Only climb while actually colliding with something horizontally (spider-style).
+        if (!this.horizontalCollision) {
+            setLarvaClimbFace(null);
+            return;
+        }
+
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        Direction face = findLarvaClimbFace(serverLevel);
+        setLarvaClimbFace(face);
+    }
+
+    private @Nullable Direction findLarvaClimbFace(ServerLevel level) {
+        // Probe around the larva's body (slightly above feet) to find the first collidable surface.
+        BlockPos probe = BlockPos.containing(getX(), getY() + 0.20D, getZ());
+
+        for (Direction dir : Direction.Plane.HORIZONTAL) {
+            BlockPos pos = probe.relative(dir);
+            if (!level.isLoaded(pos)) {
+                continue;
+            }
+
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir()) {
+                continue;
+            }
+
+            if (state.getCollisionShape(level, pos).isEmpty()) {
+                continue;
+            }
+
+            return dir;
+        }
+
+        return null;
     }
 
     @Override
