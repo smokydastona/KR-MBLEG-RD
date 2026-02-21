@@ -486,9 +486,9 @@ Identity notes:
 - Credits: SoundMonster Public Domain (assorted; see `docs/SOUND_CREDITS.md`).
 
 ### `entity.wyrdwing.call` (Call / flavor)
-- Should sound like: turtle-like mating call (low, warbly moan); readable at distance; not musical.
+- Should sound like: a distinctive Wyrdwing cry/call; readable at distance; not musical.
 - Current asset:
   - SoundEvent: `kruemblegard:entity.wyrdwing.call`
   - sounds.json: `kruemblegard:entity/wyrdwing/call`
   - OGG: `assets/kruemblegard/sounds/entity/wyrdwing/call.ogg`
-- Credits: Procedural / ffmpeg.
+- Credits: Original (user-made); see `docs/SOUND_CREDITS.md`.

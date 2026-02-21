@@ -136,6 +136,10 @@ These entries were provided directly as files (not sourced from the bundled soun
   - Used as: `assets/kruemblegard/sounds/entity/wyrdwing/ambient.ogg`
   - Source: User-provided (user stated this came from Pixabay)
 
+- `wyrdwing-call.ogg` → Wyrdwing call (`entity.wyrdwing.call`)
+  - Used as: `assets/kruemblegard/sounds/entity/wyrdwing/call.ogg`
+  - Source: Original user-made clip (created for Krümblegård)
+
 
 ## Procedurally generated SFX (created for this mod)
 These clips were generated with `ffmpeg` filter graphs (noise sources + filtering/envelopes) to avoid music/instruments and to better fit a stone/earth/rumble theme.
@@ -155,8 +159,6 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 - (Procedural / ffmpeg) → Scaralon Beetle hurt (`entity.scaralon_beetle.hurt`)
 - (Procedural / ffmpeg) → Scaralon Beetle death (`entity.scaralon_beetle.death`)
 - (Procedural / ffmpeg) → Scaralon Beetle step (`entity.scaralon_beetle.step`)
-
-- (Procedural / ffmpeg) → Wyrdwing call (`entity.wyrdwing.call`)
 
 - (Procedural / ffmpeg) → Krümblegård ambient (`kruemblegard_ambient`)
 - (Procedural / ffmpeg) → Krümblegård death (`kruemblegard_death`)
