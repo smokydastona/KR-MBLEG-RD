@@ -4,6 +4,9 @@
 		"animation.pebblit.idle": {
 			"loop": true,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": [0, 0, 0]
 				},
@@ -26,6 +29,9 @@
 			"loop": true,
 			"animation_length": 0.7083,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": [0, 0, 0]
 				},
@@ -58,6 +64,9 @@
 		"animation.pebblit.sit": {
 			"loop": true,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": [0, 0, 0]
 				},
@@ -69,6 +78,9 @@
 		"animation.pebblit.perching": {
 			"animation_length": 0.25,
 			"bones": {
+				"face_hurt": {
+					"scale": 0
+				},
 				"angry_spikes": {
 					"scale": 0
 				},
@@ -90,6 +102,9 @@
 		"animation.pebblit.perched": {
 			"loop": true,
 			"bones": {
+				"face_hurt": {
+					"scale": 0
+				},
 				"angry_spikes": {
 					"scale": 0
 				},
@@ -114,6 +129,9 @@
 		"animation.pebblit.angry_idle": {
 			"loop": true,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": [1, 1, 1]
 				},
@@ -136,6 +154,9 @@
 			"loop": true,
 			"animation_length": 0.7083,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": [1, 1, 1]
 				},
@@ -168,6 +189,9 @@
 		"animation.pebblit.attack": {
 			"animation_length": 0.4167,
 			"bones": {
+				"face_hurt": {
+					"scale": [0, 0, 0]
+				},
 				"angry_spikes": {
 					"scale": 1
 				},
@@ -207,6 +231,9 @@
 		"animation.pebblit.call": {
 			"animation_length": 0.75,
 			"bones": {
+				"face_hurt": {
+					"scale": [1, 1, 1]
+				},
 				"angry_spikes": {
 					"rotation": {
 						"0.0": [0, 0, 0],
@@ -276,6 +303,35 @@
 						"0.125": [-0.27, -3.87, 6.8],
 						"0.625": [-0.27, -3.87, 6.8],
 						"0.75": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.pebblit.hurt": {
+			"animation_length": 0.25,
+			"bones": {
+				"face_hurt": {
+					"scale": [1, 1, 1]
+				},
+				"angry_spikes": {
+					"scale": [0, 0, 0]
+				},
+				"clavicle_align": {
+					"scale": [0, 0, 0]
+				},
+				"Body": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, 0.2, 0.15],
+						"0.25": [0, 0, 0]
+					}
+				},
+				"Head2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.0833": [10, 0, 0],
+						"0.1667": [-12, 0, 0],
+						"0.25": [0, 0, 0]
 					}
 				}
 			}

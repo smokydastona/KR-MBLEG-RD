@@ -99,6 +99,27 @@
 					]
 				},
 				{
+					"name": "face_hurt",
+					"parent": "Head2",
+					"pivot": [0, 0, -0.2],
+					"cubes": [
+						{
+							"origin": [-2.1, 2, 9.6],
+							"size": [4.2, 1, 4.3],
+							"pivot": [0, 0, -0.2],
+							"rotation": [90, 0, 0],
+							"uv": {
+								"north": {"uv": [32, 4], "uv_size": [4, 1]},
+								"east": {"uv": [28, 4], "uv_size": [4, 1]},
+								"south": {"uv": [40, 4], "uv_size": [4, 1]},
+								"west": {"uv": [36, 4], "uv_size": [4, 1]},
+								"up": {"uv": [10.3125, 14.625], "uv_size": [9.625, 10.75]},
+								"down": {"uv": [36, 4], "uv_size": [4, -4]}
+							}
+						}
+					]
+				},
+				{
 					"name": "torso",
 					"parent": "Body",
 					"pivot": [0, 5.5, 0],
@@ -193,7 +214,23 @@
 				{
 					"name": "angry_spikes",
 					"parent": "Body",
-					"pivot": [-6.5, 8.2, 8.5]
+					"pivot": [0, 10.67222, -1.94444],
+					"cubes": [
+						{
+							"origin": [-2.1, 2, 9.6],
+							"size": [4.2, 1, 4.3],
+							"pivot": [0, 0, -0.2],
+							"rotation": [90, 0, 0],
+							"uv": {
+								"north": {"uv": [32, 4], "uv_size": [4, 1]},
+								"east": {"uv": [28, 4], "uv_size": [4, 1]},
+								"south": {"uv": [40, 4], "uv_size": [4, 1]},
+								"west": {"uv": [36, 4], "uv_size": [4, 1]},
+								"up": {"uv": [10.5, 3.5], "uv_size": [9.625, 10.75]},
+								"down": {"uv": [36, 4], "uv_size": [4, -4]}
+							}
+						}
+					]
 				},
 				{
 					"name": "angry_spikes_left",
