@@ -55,6 +55,9 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     private static final int ANGRY_REFRESH_TICKS = 200;
 
+    private static final int CALL_DURATION_TICKS = 15;
+    private static final double CALL_BROADCAST_RADIUS = 18.0D;
+
     private static final EntityDataAccessor<Boolean> TAMED =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -69,6 +72,9 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
         private static final EntityDataAccessor<Integer> ANGRY_TICKS =
             SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.INT);
+
+        private static final EntityDataAccessor<Boolean> CALLING =
+            SynchedEntityData.defineId(PebblitEntity.class, EntityDataSerializers.BOOLEAN);
 
         private static final RawAnimation IDLE_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.idle");
@@ -94,10 +100,18 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         private static final RawAnimation ATTACK_ONCE =
             RawAnimation.begin().thenPlay("animation.pebblit.attack");
 
+        private static final RawAnimation CALL_ONCE =
+            RawAnimation.begin().thenPlay("animation.pebblit.call");
+
         private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean wasPerchedLastTick = false;
     private boolean playPerchingOnce = false;
+
+    private int callTicksRemaining = 0;
+
+    @Nullable
+    private UUID callAggressorUuid = null;
 
     public PebblitEntity(EntityType<? extends Silverfish> type, Level level) {
         super(type, level);
@@ -111,6 +125,11 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         this.entityData.define(SITTING, false);
         this.entityData.define(SHOULDER_LOCKED, false);
         this.entityData.define(ANGRY_TICKS, 0);
+        this.entityData.define(CALLING, false);
+    }
+
+    public boolean isCalling() {
+        return this.entityData.get(CALLING);
     }
 
     public boolean isAngry() {
@@ -121,6 +140,62 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         int current = this.entityData.get(ANGRY_TICKS);
         if (current < ANGRY_REFRESH_TICKS) {
             this.entityData.set(ANGRY_TICKS, ANGRY_REFRESH_TICKS);
+        }
+    }
+
+    private void startCall(@Nullable LivingEntity aggressor, boolean broadcast) {
+        if (level().isClientSide) return;
+        if (isTamed()) return;
+        if (isCalling()) return;
+
+        this.entityData.set(CALLING, true);
+        this.callTicksRemaining = CALL_DURATION_TICKS;
+        this.callAggressorUuid = aggressor != null ? aggressor.getUUID() : null;
+
+        // The call is a pre-aggro warning; do not become hostile until the call completes.
+        setTarget(null);
+        if (this.entityData.get(ANGRY_TICKS) != 0) {
+            this.entityData.set(ANGRY_TICKS, 0);
+        }
+
+        triggerAnim("actionController", "call");
+
+        if (broadcast && aggressor != null) {
+            for (PebblitEntity other : level().getEntitiesOfClass(
+                    PebblitEntity.class,
+                    getBoundingBox().inflate(CALL_BROADCAST_RADIUS),
+                    p -> p != this && !p.isTamed() && !p.isCalling())) {
+                other.startCall(aggressor, false);
+            }
+        }
+    }
+
+    private void stopCalling() {
+        if (!isCalling()) return;
+        this.entityData.set(CALLING, false);
+        this.callTicksRemaining = 0;
+        this.callAggressorUuid = null;
+    }
+
+    private void finishCall() {
+        if (!isCalling()) return;
+
+        this.entityData.set(CALLING, false);
+        this.callTicksRemaining = 0;
+
+        LivingEntity aggressor = null;
+        if (callAggressorUuid != null && level() instanceof ServerLevel serverLevel) {
+            Entity entity = serverLevel.getEntity(callAggressorUuid);
+            if (entity instanceof LivingEntity living && living.isAlive()) {
+                aggressor = living;
+            }
+        }
+
+        callAggressorUuid = null;
+
+        refreshAngry();
+        if (aggressor != null) {
+            setTarget(aggressor);
         }
     }
 
@@ -193,8 +268,8 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         // If tamed, follow the owner around.
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.1D, 8.0F, 3.0F));
 
-        // Piglin-style: only retaliate when hurt, and alert nearby Pebblits to join in.
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(PebblitEntity.class));
+        // Retaliate when hurt (but do not auto-alert others; group behavior is handled by the call).
+        this.targetSelector.addGoal(1, new PebblitHurtByTargetGoal(this));
     }
 
     @Override
@@ -212,13 +287,36 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         wasPerchedLastTick = perchedNow;
 
         if (!level().isClientSide) {
+            if ((isTamed() || perchedNow) && isCalling()) {
+                stopCalling();
+            }
+
+            if (isCalling()) {
+                if (callTicksRemaining > 0) {
+                    callTicksRemaining--;
+                }
+
+                // Freeze during the call so it reads clearly as a pre-aggro warning.
+                getNavigation().stop();
+                setDeltaMovement(0.0D, getDeltaMovement().y, 0.0D);
+
+                // Ensure we do not appear "angry" until the call completes.
+                if (this.entityData.get(ANGRY_TICKS) != 0) {
+                    this.entityData.set(ANGRY_TICKS, 0);
+                }
+
+                if (callTicksRemaining <= 0) {
+                    finishCall();
+                }
+            }
+
             if (perchedNow) {
                 // While perched, keep the Pebblit calm to avoid odd shoulder visuals.
                 if (this.entityData.get(ANGRY_TICKS) != 0) {
                     this.entityData.set(ANGRY_TICKS, 0);
                 }
             } else {
-                if (getTarget() != null) {
+                if (!isCalling() && getTarget() != null) {
                     refreshAngry();
                 } else {
                     int ticks = this.entityData.get(ANGRY_TICKS);
@@ -274,10 +372,28 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
 
     @Override
     public boolean hurt(net.minecraft.world.damagesource.DamageSource source, float amount) {
+        if (!level().isClientSide) {
+            // During the call, Pebblits are immune to all damage.
+            if (isCalling()) {
+                return false;
+            }
+
+            if (!isTamed() && !isPassenger() && source.getEntity() instanceof LivingEntity attacker) {
+                // Pre-aggro: call first, then become hostile after the call completes.
+                if (!isAngry()) {
+                    startCall(attacker, true);
+                    return false;
+                }
+            }
+        }
+
         boolean didHurt = super.hurt(source, amount);
 
-        if (didHurt && !level().isClientSide && !isTamed() && source.getEntity() instanceof LivingEntity) {
+        if (didHurt && !level().isClientSide && !isTamed() && source.getEntity() instanceof LivingEntity attacker) {
             refreshAngry();
+            if (!isCalling()) {
+                setTarget(attacker);
+            }
         }
 
         return didHurt;
@@ -436,7 +552,23 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         }));
 
         controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
-                .triggerableAnim("attack", ATTACK_ONCE));
+                .triggerableAnim("attack", ATTACK_ONCE)
+                .triggerableAnim("call", CALL_ONCE));
+    }
+
+    private static final class PebblitHurtByTargetGoal extends HurtByTargetGoal {
+        private final PebblitEntity pebblit;
+
+        private PebblitHurtByTargetGoal(PebblitEntity pebblit) {
+            super(pebblit);
+            this.pebblit = pebblit;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (pebblit.isCalling()) return false;
+            return super.canUse();
+        }
     }
 
     @Override

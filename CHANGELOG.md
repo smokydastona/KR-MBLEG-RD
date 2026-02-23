@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1018 (2026-02-23)
+- Feature(ai/pebblit): add a pre-aggro call animation that alerts nearby untamed Pebblits to join in after the call completes.
+- Feature(ai/pebblit): Pebblits are immune to all damage during the call window; tamed Pebblits cannot call.
+
 ## 1.0.1017 (2026-02-23)
 - Tuning(assets/pebblit): update Pebblit geo visible bounds and refine Pebblit animation clips.
 
