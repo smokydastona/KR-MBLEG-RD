@@ -8,6 +8,7 @@ import com.kruemblegard.entity.projectile.KruemblegardPhase3MeteorEntity;
 import com.kruemblegard.entity.projectile.KruemblegardPhase4BeamBoltEntity;
 import com.kruemblegard.entity.projectile.MeteorArmEntity;
 import com.kruemblegard.entity.projectile.RuneBoltEntity;
+import com.kruemblegard.entity.projectile.TraprockStoneProjectileEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;
@@ -66,6 +67,14 @@ public class ModProjectileEntities {
                             .clientTrackingRange(64)
                             .updateInterval(1)
                             .build("arcane_storm"));
+
+    public static final RegistryObject<EntityType<TraprockStoneProjectileEntity>> TRAPROCK_STONE =
+            PROJECTILES.register("traprock_stone",
+                    () -> EntityType.Builder.<TraprockStoneProjectileEntity>of(TraprockStoneProjectileEntity::new, MobCategory.MISC)
+                            .sized(0.4f, 0.4f)
+                            .clientTrackingRange(64)
+                            .updateInterval(1)
+                            .build("traprock_stone"));
 
     public static final RegistryObject<EntityType<KruemblegardPhase4BeamBoltEntity>> PHASE4_BEAM_BOLT =
             PROJECTILES.register("kruemblegard_phase4_beam_bolt",

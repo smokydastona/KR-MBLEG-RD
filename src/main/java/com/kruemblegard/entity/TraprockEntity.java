@@ -20,10 +20,14 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
+
+import com.kruemblegard.entity.projectile.TraprockStoneProjectileEntity;
+import com.kruemblegard.registry.ModProjectileEntities;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +39,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class TraprockEntity extends Blaze implements GeoEntity {
+public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob {
 
     /**
      * If a player has already encountered Traprock before, we bias heavily toward immediate awakening
@@ -62,10 +66,23 @@ public class TraprockEntity extends Blaze implements GeoEntity {
     private static final RawAnimation AWAKEN_ONESHOT =
             RawAnimation.begin().thenPlay("animation.traprock.awaken");
 
+    private static final RawAnimation HURT_ONCE =
+            RawAnimation.begin().thenPlay("animation.traprock.hurt");
+
+    private static final RawAnimation DEATH_ONCE =
+            RawAnimation.begin().thenPlay("animation.traprock.death");
+
+    private static final RawAnimation MELEE_ONCE =
+            RawAnimation.begin().thenPlay("animation.traprock.melee");
+
+    private static final RawAnimation RANGED_ONCE =
+            RawAnimation.begin().thenPlay("animation.traprock.ranged");
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private int lingerTicks;
     private boolean playedAwakenAnim;
+    private boolean playedDeathAnim;
 
     public TraprockEntity(EntityType<? extends Blaze> type, Level level) {
         super(type, level);
@@ -129,6 +146,10 @@ public class TraprockEntity extends Blaze implements GeoEntity {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
             this.playSound(ModSounds.TRAPROCK_ATTACK.get(), 0.8F, 0.9F + (this.random.nextFloat() * 0.2F));
+
+            if (!level().isClientSide && isAwakened()) {
+                triggerAnim("actionController", "melee");
+            }
         }
         return didHurt;
     }
@@ -252,7 +273,43 @@ public class TraprockEntity extends Blaze implements GeoEntity {
             }
         }
 
-        return super.hurt(source, amount);
+        boolean didHurt = super.hurt(source, amount);
+        if (didHurt && !level().isClientSide && isAlive() && isAwakened()) {
+            triggerAnim("actionController", "hurt");
+        }
+        return didHurt;
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        if (!level().isClientSide && !playedDeathAnim) {
+            playedDeathAnim = true;
+            triggerAnim("actionController", "death");
+        }
+        super.die(source);
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity target, float distanceFactor) {
+        if (target == null || !isAwakened() || level().isClientSide) {
+            return;
+        }
+
+        triggerAnim("actionController", "ranged");
+
+        TraprockStoneProjectileEntity projectile = new TraprockStoneProjectileEntity(ModProjectileEntities.TRAPROCK_STONE.get(), level(), this);
+        projectile.setPos(this.getX(), this.getEyeY() - 0.1D, this.getZ());
+
+        double dx = target.getX() - this.getX();
+        double dy = target.getEyeY() - projectile.getY();
+        double dz = target.getZ() - this.getZ();
+
+        float velocity = 1.35F;
+        float inaccuracy = 2.0F;
+        projectile.shoot(dx, dy, dz, velocity, inaccuracy);
+        level().addFreshEntity(projectile);
+
+        this.playSound(ModSounds.TRAPROCK_ATTACK.get(), 0.8F, 0.8F + (this.random.nextFloat() * 0.2F));
     }
 
     @Override
@@ -272,6 +329,12 @@ public class TraprockEntity extends Blaze implements GeoEntity {
             state.setAnimation(AWAKE_LOOP);
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
+                .triggerableAnim("hurt", HURT_ONCE)
+                .triggerableAnim("death", DEATH_ONCE)
+                .triggerableAnim("melee", MELEE_ONCE)
+                .triggerableAnim("ranged", RANGED_ONCE));
     }
 
     @Override

@@ -117,6 +117,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Mobs
 - **Traprock** (`traprock`)
   - Implemented as a Blaze-derived GeckoLib mob.
+  - Uses melee attacks and a ranged attack that throws a stone projectile.
   - Uses editable resources: `geo/traprock.geo.json`, `animations/traprock.animation.json`, `textures/entity/traprock.png`.
 
 - **Pebblit** (`pebblit`)

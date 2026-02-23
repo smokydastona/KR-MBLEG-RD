@@ -26,4 +26,8 @@ public class KruemblegardDamageSources {
     public static DamageSource arcaneStorm(Entity projectile, Entity owner) {
         return projectile.damageSources().indirectMagic(projectile, owner);
     }
+
+    public static DamageSource traprockStone(Entity projectile, Entity owner) {
+        return projectile.damageSources().thrown(projectile, owner);
+    }
 }
