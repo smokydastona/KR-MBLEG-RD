@@ -55,8 +55,8 @@ public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob 
     private static final double POST_ENCOUNTER_SPAWN_SCAN_RADIUS = 96.0;
 
     // Sync the projectile throw with the GeckoLib ranged one-shot (0.7083s ~= 14 ticks).
-    // We throw slightly after the initial windup so it reads like a release.
-    private static final int RANGED_THROW_WINDUP_TICKS = 9;
+    // `animation.traprock.ranged` has its "release" beat around the 0.5 keyframe (~7 ticks).
+    private static final int RANGED_THROW_WINDUP_TICKS = 7;
 
     private static final EntityDataAccessor<Boolean> AWAKENED =
             SynchedEntityData.defineId(TraprockEntity.class, EntityDataSerializers.BOOLEAN);
