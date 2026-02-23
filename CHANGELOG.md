@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1015 (2026-02-23)
+- Fix(ai/traprock): delay ranged stone throw to sync with the ranged animation windup.
+- Fix(anim/pebblit): add a melee attack one-shot that swings `angry_spikes_left/right` during hits.
+
 ## 1.0.1014 (2026-02-23)
 - Fix(assets/anim): align Great Hunger + Traprock animations to updated geo bone names.
 - Tuning(assets/traprock): update Traprock geo + texture (UV/layout refresh).

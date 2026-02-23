@@ -54,6 +54,10 @@ public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob 
     private static final float POST_ENCOUNTER_DORMANT_SPAWN_CHANCE = 0.05F;
     private static final double POST_ENCOUNTER_SPAWN_SCAN_RADIUS = 96.0;
 
+    // Sync the projectile throw with the GeckoLib ranged one-shot (0.7083s ~= 14 ticks).
+    // We throw slightly after the initial windup so it reads like a release.
+    private static final int RANGED_THROW_WINDUP_TICKS = 9;
+
     private static final EntityDataAccessor<Boolean> AWAKENED =
             SynchedEntityData.defineId(TraprockEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -83,6 +87,11 @@ public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob 
     private int lingerTicks;
     private boolean playedAwakenAnim;
     private boolean playedDeathAnim;
+
+    private int rangedThrowWindupTicks;
+
+    @Nullable
+    private LivingEntity rangedThrowTarget;
 
     public TraprockEntity(EntityType<? extends Blaze> type, Level level) {
         super(type, level);
@@ -216,7 +225,37 @@ public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob 
             } else {
                 lingerTicks = 0;
             }
+            return;
         }
+
+        if (rangedThrowWindupTicks > 0) {
+            rangedThrowWindupTicks--;
+            if (rangedThrowWindupTicks <= 0) {
+                LivingEntity target = rangedThrowTarget;
+                rangedThrowTarget = null;
+
+                if (target != null && target.isAlive()) {
+                    throwStoneAt(target);
+                }
+            }
+        }
+    }
+
+    private void throwStoneAt(LivingEntity target) {
+        TraprockStoneProjectileEntity projectile =
+                new TraprockStoneProjectileEntity(ModProjectileEntities.TRAPROCK_STONE.get(), level(), this);
+        projectile.setPos(this.getX(), this.getEyeY() - 0.1D, this.getZ());
+
+        double dx = target.getX() - this.getX();
+        double dy = target.getEyeY() - projectile.getY();
+        double dz = target.getZ() - this.getZ();
+
+        float velocity = 1.35F;
+        float inaccuracy = 2.0F;
+        projectile.shoot(dx, dy, dz, velocity, inaccuracy);
+        level().addFreshEntity(projectile);
+
+        this.playSound(ModSounds.TRAPROCK_ATTACK.get(), 0.8F, 0.8F + (this.random.nextFloat() * 0.2F));
     }
 
     @Override
@@ -295,21 +334,15 @@ public class TraprockEntity extends Blaze implements GeoEntity, RangedAttackMob 
             return;
         }
 
+        // If we're already in a ranged windup, don't restart it.
+        if (rangedThrowWindupTicks > 0) {
+            return;
+        }
+
         triggerAnim("actionController", "ranged");
 
-        TraprockStoneProjectileEntity projectile = new TraprockStoneProjectileEntity(ModProjectileEntities.TRAPROCK_STONE.get(), level(), this);
-        projectile.setPos(this.getX(), this.getEyeY() - 0.1D, this.getZ());
-
-        double dx = target.getX() - this.getX();
-        double dy = target.getEyeY() - projectile.getY();
-        double dz = target.getZ() - this.getZ();
-
-        float velocity = 1.35F;
-        float inaccuracy = 2.0F;
-        projectile.shoot(dx, dy, dz, velocity, inaccuracy);
-        level().addFreshEntity(projectile);
-
-        this.playSound(ModSounds.TRAPROCK_ATTACK.get(), 0.8F, 0.8F + (this.random.nextFloat() * 0.2F));
+        rangedThrowTarget = target;
+        rangedThrowWindupTicks = RANGED_THROW_WINDUP_TICKS;
     }
 
     @Override

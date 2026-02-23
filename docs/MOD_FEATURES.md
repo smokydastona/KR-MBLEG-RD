@@ -122,6 +122,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Pebblit** (`pebblit`)
   - Neutral Silverfish-like creature (retaliates when attacked).
+  - When angry, its left/right angry spike arms animate during melee hits.
   - When attacked, it alerts nearby Pebblits to join the fight.
   - Can be tamed by right-clicking with an **Echokern**; follows its owner.
   - Right-click with empty hand (non-shift): toggles **sit and stay**.

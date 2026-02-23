@@ -91,6 +91,9 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
         private static final RawAnimation PERCHED_LOOP =
             RawAnimation.begin().thenLoop("animation.pebblit.perched");
 
+        private static final RawAnimation ATTACK_ONCE =
+            RawAnimation.begin().thenPlay("animation.pebblit.attack");
+
         private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean wasPerchedLastTick = false;
@@ -359,6 +362,10 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
             double dx = livingTarget.getX() - getX();
             double dz = livingTarget.getZ() - getZ();
             livingTarget.knockback(ATTACK_KNOCKBACK_STRENGTH, dx, dz);
+
+            if (!level().isClientSide && isAngry() && !isPassenger()) {
+                triggerAnim("actionController", "attack");
+            }
         }
 
         return didHurt;
@@ -427,6 +434,9 @@ public class PebblitEntity extends Silverfish implements GeoEntity {
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
+                .triggerableAnim("attack", ATTACK_ONCE));
     }
 
     @Override
