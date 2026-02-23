@@ -5,17 +5,14 @@
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
-				"upper_mouth": {
-					"rotation": ["math.sin(query.anim_time * 2) * 2", 0, 0]
-				},
-				"lower_jaw": {
-					"rotation": ["math.sin(query.anim_time * 2) * -2", 0, 0]
-				},
 				"body": {
 					"rotation": ["math.sin(query.anim_time * 1.5) * 1", 0, 0]
 				},
+				"bottom_head": {
+					"rotation": ["math.sin(query.anim_time * 2) * -2", 0, 0]
+				},
 				"top_head": {
-					"rotation": ["-math.sin(query.anim_time * 120) * 6", 0, "math.cos(query.anim_time * 100) * 4"],
+					"rotation": ["(-math.sin(query.anim_time * 120) * 6) + (math.sin(query.anim_time * 2) * 2)", 0, "math.cos(query.anim_time * 100) * 4"],
 					"position": [0, "math.sin(query.anim_time * 90) * 1", 0]
 				}
 			}
@@ -27,12 +24,6 @@
 				"body": {
 					"rotation": ["math.sin(query.anim_time * 6) * 3", 0, 0],
 					"position": [0, "math.sin(query.anim_time * 6) * 0.5", 0]
-				},
-				"upper_mouth": {
-					"rotation": ["math.sin(query.anim_time * 4) * 1", 0, 0]
-				},
-				"lower_jaw": {
-					"rotation": ["math.sin(query.anim_time * 4) * -1", 0, 0]
 				},
 				"bottom_head": {
 					"rotation": {
@@ -87,19 +78,11 @@
 		"animation.great_hunger.bite_attack": {
 			"animation_length": 0.5417,
 			"bones": {
-				"lower_jaw": {
+				"bottom_head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.1": [-40, 0, 0],
 						"0.2": [-55, 0, 0],
-						"0.35": [0, 0, 0]
-					}
-				},
-				"upper_mouth": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.1": [15, 0, 0],
-						"0.2": [22, 0, 0],
 						"0.35": [0, 0, 0]
 					}
 				},
@@ -157,13 +140,13 @@
 						"0.5": [0, -6, 0]
 					}
 				},
-				"upper_mouth": {
+				"top_head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.5": [-20, 0, 0]
 					}
 				},
-				"lower_jaw": {
+				"bottom_head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.5": [20, 0, 0]

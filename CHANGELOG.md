@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1014 (2026-02-23)
+- Fix(assets/anim): align Great Hunger + Traprock animations to updated geo bone names.
+
 ## 1.0.1013 (2026-02-20)
 - Tuning(sound/wyrdwing): replace Wyrdwing call SFX clip with a new original user-made sound (keeps SoundEvent IDs and resource paths stable).
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md).
