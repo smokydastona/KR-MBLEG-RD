@@ -1,50 +1,49 @@
 # Krümblegård (Forge 1.20.1)
 
-Krümblegård adds a rune-bound stone guardian boss, Wayfall (a void/floating-islands dimension), and a small bestiary of strange creatures.
+Krümblegård is a Forge mod for Minecraft 1.20.1 featuring a rune-bound stone guardian boss, the **Wayfall** (void / floating-islands) dimension, and a bestiary of strange creatures.
 
 Quick links:
-- Feature reference (complete): [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
+- Feature reference (kept complete): [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md)
 - Changelog (matches jar version): [CHANGELOG.md](CHANGELOG.md)
 
-## Install
-Requirements:
+## Requirements
 - Minecraft `1.20.1`
-- Forge `47.x` (recommended: `1.20.1-47.4.0` or newer)
+- Forge `47.x` (the dev setup targets `1.20.1-47.4.0`)
 - Java `17`
 
-This mod currently expects these mods to be present (declared in `mods.toml`):
+Runtime mod dependencies:
 - GeckoLib 4.x
 - TerraBlender 3.x
-- Waystones (and Balm)
+- Waystones (requires Balm)
+- Optional (client-only): Waystone Injector (`waystoneinjector`)
 
-If you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update your Forge version.
+Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 
-## What you’ll find
-- **Wayfall**: a floating-islands void dimension with its own biomes, palette, flora, and rethemed vanilla structures.
-- **Wayfall woods**: 14 custom wood families with vanilla-style building sets (including signs/hanging signs and boats/chest boats).
-- **Krümblegård (Boss)**: a 4-phase stone guardian fight with phase-based attack kits and synced boss music.
-- **Traprock**: looks like stone until you disturb it (or linger too close), then it awakens and attacks. After your first encounter, most newly found Traprocks won't hide again.
-- **Pebblit**: neutral stone-bug that retaliates when attacked (and nearby Pebblits may join in); can be tamed with an Echokern; can sit or perch on your shoulder.
-- **The Great Hunger**: hostile creature.
-- **Scattered Enderman**: an Enderman variant that stalks Wayfall.
-- **Moogloom**: a Shatterplate Flats mooshroom-like creature; shearing turns it into a normal cow and drops Griefcap.
-- **Wayfall fungi**: nine fungi that can be bonemealed into giant cap/stem variants, with natural giant generation.
+## Highlights
+- **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
+- **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
+- **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
+- **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
+
+For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 
 ## Guidebook
 Players receive the **Crumbling Codex** once on first join.
-- Text source (for pack makers): `src/main/resources/data/kruemblegard/books/crumbling_codex.json`
+- Text source: `src/main/resources/data/kruemblegard/books/crumbling_codex.json`
 
-## Config (optional)
-Configs are generated under your instance’s `config/` folder.
+## Config
+Configs generate under the instance `config/` folder.
 
 - `kruemblegard-common.toml`
     - Boss stats/cooldowns and phase thresholds
+    - Waystone-related settings (including False Waystones)
     - Wayfall initialization safety/performance toggles
-    - Waystone-related settings
 - `kruemblegard-client.toml`
     - Client-only cosmetic/performance settings
+- `kruemblegard-worldgen.json5`
+    - Worldgen tuning + optional strict validation (see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md) → Worldgen)
 
-## Useful commands (for testing)
+## Useful commands (testing)
 - Spawn Traprock: `/summon kruemblegard:traprock`
 - Spawn Pebblit: `/summon kruemblegard:pebblit`
 - Teleport to Wayfall: `/execute in kruemblegard:wayfall run tp @s 0 160 0`
@@ -79,20 +78,27 @@ Animation keys currently used by code:
 
 ## For developers (repo)
 - Mod id: `kruemblegard` | Base package: `com.kruemblegard`
-- Sources: `src/main/java` + `src/main/resources`
+- Source of truth: `src/main/java` + `src/main/resources` (the root Gradle project compiles from `sourceSets.main`)
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
-- Sound generation (S-NDB-UND): run `./tools/generate_pregen_sound_bible.ps1` to emit `docs/pregen_sound_manifest.json` + `docs/pregen_sound_bible.md`.
+    - CI should use a full git checkout (`fetch-depth: 0`) so versions match local.
+
+Handy Gradle tasks:
+- `./gradlew clean build`
+- `./gradlew prepareRunClientCompile`
+- `./gradlew prepareRunServerCompile`
+
+Sound generation:
+- `./tools/generate_pregen_sound_bible.ps1` → emits `docs/pregen_sound_manifest.json` + `docs/pregen_sound_bible.md`
 
 ## Contributing
-- Don’t copy assets from other mods. See `CONTRIBUTING.md`.
+- Don’t copy assets from other mods. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Troubleshooting
 
 ### JVM crash: `EXCEPTION_ACCESS_VIOLATION` in `jvm.dll`
-If you get a native crash report mentioning `EXCEPTION_ACCESS_VIOLATION (0xc0000005)` with a *problematic frame* inside `jvm.dll` (often in a `C2 CompilerThread`), that’s a JVM/native crash (not a normal Java exception stacktrace).
+If you get a native crash report mentioning `EXCEPTION_ACCESS_VIOLATION (0xc0000005)` with a problematic frame inside `jvm.dll` (often in a `C2 CompilerThread`), that’s a JVM/native crash (not a normal Java exception stacktrace).
 
-Common mitigations for modpacks on Windows:
-- Disable overlays/injectors (e.g., Overwolf capture/overlay) and add your instance folder to antivirus exclusions.
+Common mitigations on Windows:
+- Disable overlays/injectors (e.g., capture/overlay apps) and add your instance folder to antivirus exclusions.
 - Switch the launcher’s Java runtime to a different Java 17 distribution (Temurin/Adoptium) instead of the bundled runtime.
-- Isolation step: disable the Wayfall custom skybox renderer:
-    - Add JVM arg: `-Dkruemblegard.disableWayfallSkybox=true`
+- Isolation step: disable the Wayfall custom skybox renderer via JVM arg: `-Dkruemblegard.disableWayfallSkybox=true`
