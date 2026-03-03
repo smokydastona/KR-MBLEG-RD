@@ -4,7 +4,10 @@ import java.util.EnumSet;
 
 import com.kruemblegard.registry.ModItems;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,6 +24,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -40,6 +46,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
@@ -57,6 +64,10 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
+
+    private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
+    private static final int TEXTURE_VARIANT_MIN = 1;
+    private static final int TEXTURE_VARIANT_MAX = 3;
 
     private static final EntityDataAccessor<Integer> ATTACK_ANIM_TICKS =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
@@ -86,6 +97,10 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Integer> HEAD_BOB_ANIM_TICKS =
+        SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
+
+    /** 1..3, assigned once on spawn and persisted. */
+    private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
         SynchedEntityData.defineId(WyrdwingEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE_LOOP =
@@ -194,6 +209,18 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
             child.setTame(true);
         }
 
+        int inheritedVariant = this.random.nextBoolean() ? this.getTextureVariant() : TEXTURE_VARIANT_MIN;
+        if (otherParent instanceof WyrdwingEntity otherWyrdwing) {
+            inheritedVariant = this.random.nextBoolean() ? this.getTextureVariant() : otherWyrdwing.getTextureVariant();
+        }
+
+        if (this.random.nextFloat() < 0.10F) {
+            int range = TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1;
+            inheritedVariant = TEXTURE_VARIANT_MIN + this.random.nextInt(range);
+        }
+
+        child.setTextureVariant(inheritedVariant);
+
         return child;
     }
 
@@ -210,6 +237,51 @@ public class WyrdwingEntity extends TamableAnimal implements GeoEntity {
         this.entityData.define(CALL_ANIM_TICKS, 0);
         this.entityData.define(SHAKE_ANIM_TICKS, 0);
         this.entityData.define(HEAD_BOB_ANIM_TICKS, 0);
+        this.entityData.define(TEXTURE_VARIANT, TEXTURE_VARIANT_MIN);
+    }
+
+    public int getTextureVariant() {
+        return Mth.clamp(this.entityData.get(TEXTURE_VARIANT), TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX);
+    }
+
+    public void setTextureVariant(int variant) {
+        this.entityData.set(TEXTURE_VARIANT, Mth.clamp(variant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX));
+    }
+
+    private void randomizeTextureVariant() {
+        int range = TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1;
+        setTextureVariant(TEXTURE_VARIANT_MIN + this.random.nextInt(range));
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(
+            ServerLevelAccessor level,
+            DifficultyInstance difficulty,
+            MobSpawnType spawnType,
+            @Nullable SpawnGroupData spawnGroupData,
+            @Nullable CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
+        if (dataTag != null && dataTag.contains(NBT_TEXTURE_VARIANT)) {
+            setTextureVariant(dataTag.getInt(NBT_TEXTURE_VARIANT));
+        } else {
+            randomizeTextureVariant();
+        }
+        return data;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains(NBT_TEXTURE_VARIANT)) {
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
+        }
     }
 
     private int getHeadBobAnimTicks() {

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1030 (2026-03-03)
+- Fix(render/wyrdwing): switch Wyrdwing to a synced texture-variant system (`wyrdwing_1/2/3`) so textures resolve correctly and stay stable across saves.
+- Tuning(assets/wyrdwing): update Wyrdwing animation clips to drive newly-added geo bones (tail tip segments + leg quills).
+
 ## 1.0.1029 (2026-03-02)
 - Tuning(codex): polish quickstart wording + formatting (clearer bullets, stronger scanning, consistent emphasis).
 

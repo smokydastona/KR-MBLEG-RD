@@ -15,7 +15,8 @@ public class WyrdwingModel extends GeoModel<WyrdwingEntity> {
 
     @Override
     public ResourceLocation getTextureResource(WyrdwingEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/wyrdwing.png");
+        int variant = animatable.getTextureVariant();
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/wyrdwing_" + variant + ".png");
     }
 
     @Override
