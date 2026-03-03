@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1028 (2026-03-02)
+- Tuning(codex): rewrite the Crumbling Codex into a modern, scan-friendly quickstart (clean structure + consistent formatting).
+
 ## 1.0.1020 (2026-02-23)
 - Tuning(assets/traprock): refine Traprock animation clips to match the latest geo bones (charge/waystone visibility + timing).
 
