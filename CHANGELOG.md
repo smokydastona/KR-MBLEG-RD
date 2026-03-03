@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1029 (2026-03-02)
+- Tuning(codex): polish quickstart wording + formatting (clearer bullets, stronger scanning, consistent emphasis).
+
 ## 1.0.1028 (2026-03-02)
 - Tuning(codex): rewrite the Crumbling Codex into a modern, scan-friendly quickstart (clean structure + consistent formatting).
 

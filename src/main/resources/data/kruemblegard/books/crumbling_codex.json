@@ -2,19 +2,19 @@
   "title": "Crumbling Codex",
   "author": "Krümblegård",
   "pages": [
-    "§6§lKrümblegård\n\n§7A Fractured World\nAwaits",
+    "§6§lKrümblegård\n\n§7A Fractured World Awaits",
 
-    "§6§lWhat Is This?\n\n§7You have discovered a tear in reality.\n\n§7§aWayfall§7 is a fractured void realm of\nfloating islands, living stone, and\nreactive terrain.\n\n§7Progress here leads to §5Runic craft§7…\nand something far worse.",
+    "§6§lWayfall\n\n§7A tear in reality.\n\n§aWayfall§7 is a shattered void of\nfloating islands, living stone,\nand reactive terrain.\n\n§7Progress here leads to §5Runic craft§7…\nand something far worse.",
 
-    "§6§lEntering Wayfall\n\n§7Enter using:\n§7• A §aWaystone§7 (rare pull for\n  first-time visitors)\n§7• The §aWayfall Portal§7 (Creative)\n\n§8────────────\n\n§7Tip: hold §lShift§r§7 when using a\nWaystone to avoid the pull.\n\n§7You will always land safely on a\nspawn island.",
+    "§6§lEntering Wayfall\n\n§7• §aWaystone§7 (rare first-use pull)\n§7• §aWayfall Portal§7 (Creative)\n\n§8────────────\n\n§7You will always land safely\non a spawn island.\n\n§8Hold §lShift§r§8 to resist a Waystone pull.",
 
-    "§6§lFirst 10 Minutes\n\n§7When you arrive:\n§7• Gather §aFault Dust§7\n§7• Harvest §aRunegrowth§7\n§7• Cut §aWayfall wood§7\n§7• Farm §aPaleweft Corn§7 → §aWeftkern§7\n§7• Watch the stone (dormant §5Traprock§7)",
+    "§6§lFirst Steps\n\n§7• Gather §aFault Dust\n§7• Harvest §aRunegrowth\n§7• Cut §aWayfall wood\n§7• Farm §aPaleweft Corn§7 → §aWeftkern\n\n§8Dormant stone may be §5Traprock§8.",
 
-    "§6§lFood & Farming\n\n§7§aPaleweft§7 grows across Wayfall.\n\n§7Turn it into a steady food loop\nand stock up on §aWeftkern§7 early.\n\n§7If you can farm, you can explore.\n\n§8✧ ✧ ✧",
+    "§6§lFood & Survival\n\n§aPaleweft§7 grows across Wayfall.\n\n§7Secure a steady §aWeftkern§7 supply\nbefore pushing deeper.\n\n§8If you can farm,\nyou can survive.",
 
-    "§6§lMobility\n\n§7§aScaralon Beetles§7 can be tamed\nand ridden.\n\n§7They can §lfly§r§7.\n\n§7They can lay eggs.\n\n§7§lElytra are renewable here.§r",
+    "§6§lMobility\n\n§aScaralon Beetles§7 can be tamed\nand ridden.\n\n§7• Ground sprint\n§7• Powered flight\n§7• Egg laying\n\n§l§7Elytra are renewable here.§r",
 
-    "§5§lRunic Path\n\n§7Runic Debris\n  §8↓\n§7(§osmelting / blasting§r§7)\n  §8↓\n§7Runic Scrap\n  §8↓\n§74× Runic Scrap + 4× Copper\n  §8↓\n§7Runic Ingot\n  §8↓\n§7Netherite Ingot + Runic Ingot\n  §8↓\n§5Attuned Ingot",
+    "§5§lRunic Path\n\n§7Runic Debris\n§8↓\n§7Smelt → Runic Scrap\n§8↓\n§74× Scrap + 4× Copper\n§8↓\n§7Runic Ingot\n§8↓\n§7Netherite + Runic\n§8↓\n§5Attuned Ingot",
 
     "§5§lThe Warning\n\n§7Something rules Wayfall.\n\n§7It has phases.\n\n§7It remembers you."
   ]
