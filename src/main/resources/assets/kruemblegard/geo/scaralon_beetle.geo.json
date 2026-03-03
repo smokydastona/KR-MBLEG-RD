@@ -584,7 +584,7 @@
 				{
 					"name": "left_antenna",
 					"parent": "head",
-					"pivot": [0, 1.4, 0],
+					"pivot": [1.8, 12.05, -12.95],
 					"cubes": [
 						{
 							"origin": [1.8, 9.8, -16.5],
@@ -603,7 +603,7 @@
 				{
 					"name": "right_antenna",
 					"parent": "head",
-					"pivot": [0, 1.4, 0],
+					"pivot": [-1.8, 12.05, -12.95],
 					"cubes": [
 						{
 							"origin": [-1.8, 9.8, -16.5],

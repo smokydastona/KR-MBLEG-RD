@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1034 (2026-03-03)
+- Fix(assets/scaralon_beetle): correct antenna bone pivots so antenna wiggle stays attached/natural.
+
 ## 1.0.1033 (2026-03-03)
 - Tuning(assets/wyrdwing): refine wing quills during glide (adds quill scaling) and retime the `shake` clip; includes small keyframe cleanup.
 
