@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1033 (2026-03-03)
+- Tuning(assets/wyrdwing): refine wing quills during glide (adds quill scaling) and retime the `shake` clip; includes small keyframe cleanup.
+
 ## 1.0.1032 (2026-03-03)
 - Tuning(assets/scaralon_beetle): improve walk gait (rear leg mirroring) and add antenna + mandible wiggle in idle/walk/run (plus a sharper bite on attack).
 
