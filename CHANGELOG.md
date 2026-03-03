@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1032 (2026-03-03)
+- Tuning(assets/scaralon_beetle): improve walk gait (rear leg mirroring) and add antenna + mandible wiggle in idle/walk/run (plus a sharper bite on attack).
+
 ## 1.0.1031 (2026-03-03)
 - Tuning(assets/wyrdwing): make the three `tailTip_*` feathers wiggle more on ground animations and stabilize to a more controlled motion in flight.
 
