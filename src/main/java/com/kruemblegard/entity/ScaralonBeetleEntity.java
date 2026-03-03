@@ -47,7 +47,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -88,7 +88,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * - Flight is controlled via Space (takeoff/rise) + X (descend) with server-synced inputs.
  * - Babies shed Elytra Scutes on maturation (renewable progression loop without killing mounts).
  */
-public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
+public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEntity {
 
     private static final String NBT_HAS_SHED_SCUTES = "HasShedAdultScutes";
     private static final String NBT_SHEAR_COOLDOWN = "ShearCooldown";
@@ -251,7 +251,7 @@ public class ScaralonBeetleEntity extends AbstractHorse implements GeoEntity {
                 && isNoGravity();
     }
 
-    public ScaralonBeetleEntity(EntityType<? extends AbstractHorse> type, Level level) {
+    public ScaralonBeetleEntity(EntityType<? extends AbstractChestedHorse> type, Level level) {
         super(type, level);
     }
 

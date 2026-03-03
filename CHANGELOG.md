@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1035 (2026-03-03)
+- Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
+
 ## 1.0.1034 (2026-03-03)
 - Fix(assets/scaralon_beetle): correct antenna bone pivots so antenna wiggle stays attached/natural.
 

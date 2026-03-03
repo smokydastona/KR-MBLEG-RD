@@ -181,6 +181,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Scaralon Beetle** (`scaralon_beetle`)
   - Large, rune-etched flying beetle **mount** (horse-style taming + saddle riding).
+  - Can be fitted with a **Chest** (donkey/mule-style) to gain extra inventory storage.
   - Natural spawns: **Wayfall warm biomes** (biome tag: `#kruemblegard:wayfall_warm`).
   - Wild Scaralons are skittish and will avoid players.
   - Tough baseline: high base **armor** and **armor toughness**.
