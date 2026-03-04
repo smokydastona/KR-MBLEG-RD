@@ -3,6 +3,7 @@ package com.kruemblegard.client.render.layer;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.TraderBeetleEntity;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -77,6 +78,13 @@ public final class TraderBeetleCarpetColorLayer extends GeoRenderLayer<TraderBee
         RenderType overlayType = RenderType.entityTranslucent(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
-        super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
+        // Prevent the translucent overlay from writing depth (otherwise it can hide the base model
+        // because the overlay textures are mostly transparent).
+        RenderSystem.depthMask(false);
+        try {
+            super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
+        } finally {
+            RenderSystem.depthMask(true);
+        }
     }
 }
