@@ -70,6 +70,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1055 (2026-03-04)
 - Assets(scaralon): update Scaralon beetle geo + animation data.
 
+## 1.0.1056 (2026-03-04)
+- Assets(moogloom): add udder bone to better match vanilla cow body.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
