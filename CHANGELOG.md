@@ -54,6 +54,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1050 (2026-03-04)
 - Fix(render/scaralon_beetle): render carpet color overlays as translucent to avoid cutout/mipmap artifacts hiding the beetle body.
 
+## 1.0.1051 (2026-03-04)
+- Tuning(assets/moogloom): upgrade Moogloom animation suite (idle/walk polish + breathe/cap wobble + run and extra clips).
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 

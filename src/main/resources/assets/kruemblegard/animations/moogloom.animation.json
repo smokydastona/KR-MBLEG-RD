@@ -3,12 +3,57 @@
 	"animations": {
 		"animation.moogloom.idle": {
 			"loop": true,
-			"animation_length": 1.0,
+			"animation_length": 2.0,
 			"bones": {
 				"head": {
 					"rotation": [
-						"-query.target_x_rotation + math.sin(query.anim_time * 60) * 2",
-						"-query.target_y_rotation",
+						"-query.target_x_rotation + math.sin(query.anim_time * 40) * 1.5",
+						"-query.target_y_rotation + math.sin(query.anim_time * 25) * 1.5",
+						"math.sin(query.anim_time * 15) * 0.5"
+					]
+				},
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 10) * 0.5", 0, 0]
+				},
+				"griefcap_head": {
+					"rotation": ["math.sin(query.anim_time * 30) * 2", 0, 0]
+				}
+			}
+		},
+		"animation.moogloom.breathe": {
+			"loop": true,
+			"animation_length": 3.0,
+			"bones": {
+				"body": {
+					"scale": [
+						"1 + math.sin(query.anim_time * 2) * 0.02",
+						"1 + math.sin(query.anim_time * 2) * 0.02",
+						"1 + math.sin(query.anim_time * 2) * 0.02"
+					]
+				}
+			}
+		},
+		"animation.moogloom.twitch": {
+			"loop": true,
+			"animation_length": 1.5,
+			"bones": {
+				"head": {
+					"rotation": [
+						"math.sin(query.anim_time * 90) * 3",
+						"math.sin(query.anim_time * 120) * 2",
+						0
+					]
+				}
+			}
+		},
+		"animation.moogloom.look": {
+			"loop": true,
+			"animation_length": 4.0,
+			"bones": {
+				"head": {
+					"rotation": [
+						"-query.target_x_rotation + math.sin(query.anim_time * 0.8) * 8",
+						"-query.target_y_rotation + math.sin(query.anim_time * 0.6) * 12",
 						0
 					]
 				}
@@ -18,21 +63,114 @@
 			"loop": true,
 			"animation_length": 0.8,
 			"bones": {
-				"front_left_leg": {
-					"rotation": ["math.sin(query.anim_time * 12) * 30", 0, 0]
+				"front_left_leg": { "rotation": ["math.sin(query.anim_time * 12) * 30", 0, 0] },
+				"back_right_leg": { "rotation": ["math.sin(query.anim_time * 12) * 30", 0, 0] },
+				"front_right_leg": { "rotation": ["math.sin(query.anim_time * 12 + 3.14) * 30", 0, 0] },
+				"back_left_leg": { "rotation": ["math.sin(query.anim_time * 12 + 3.14) * 30", 0, 0] },
+				"head": {
+					"rotation": [
+						"-query.target_x_rotation + math.sin(query.anim_time * 8) * 2",
+						"-query.target_y_rotation",
+						0
+					]
 				},
-				"back_right_leg": {
-					"rotation": ["math.sin(query.anim_time * 12) * 30", 0, 0]
-				},
-				"front_right_leg": {
-					"rotation": ["math.sin(query.anim_time * 12 + 3.14) * 30", 0, 0]
-				},
-				"back_left_leg": {
-					"rotation": ["math.sin(query.anim_time * 12 + 3.14) * 30", 0, 0]
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 6) * 1.5", 0, 0]
+				}
+			}
+		},
+		"animation.moogloom.run": {
+			"loop": true,
+			"animation_length": 0.5,
+			"bones": {
+				"front_left_leg": { "rotation": ["math.sin(query.anim_time * 20) * 45", 0, 0] },
+				"back_right_leg": { "rotation": ["math.sin(query.anim_time * 20) * 45", 0, 0] },
+				"front_right_leg": { "rotation": ["math.sin(query.anim_time * 20 + 3.14) * 45", 0, 0] },
+				"back_left_leg": { "rotation": ["math.sin(query.anim_time * 20 + 3.14) * 45", 0, 0] },
+				"body": { "rotation": ["math.sin(query.anim_time * 12) * 3", 0, 0] }
+			}
+		},
+		"animation.moogloom.turn": {
+			"loop": true,
+			"animation_length": 1.0,
+			"bones": {
+				"body": {
+					"rotation": [0, "math.sin(query.anim_time * 4) * 10", 0]
 				},
 				"head": {
-					"rotation": ["-query.target_x_rotation", "-query.target_y_rotation", 0]
+					"rotation": [
+						"-query.target_x_rotation",
+						"-query.target_y_rotation + math.sin(query.anim_time * 4) * 15",
+						0
+					]
 				}
+			}
+		},
+		"animation.moogloom.eat": {
+			"loop": false,
+			"animation_length": 1.6,
+			"bones": {
+				"head": {
+					"rotation": [
+						"math.sin(query.anim_time * 3.14) * 25 - 35",
+						0,
+						0
+					]
+				}
+			}
+		},
+		"animation.moogloom.sniff": {
+			"loop": false,
+			"animation_length": 1.2,
+			"bones": {
+				"head": {
+					"rotation": [
+						"-query.target_x_rotation + math.sin(query.anim_time * 20) * 6",
+						"-query.target_y_rotation",
+						0
+					]
+				}
+			}
+		},
+		"animation.moogloom.cap_wobble": {
+			"loop": true,
+			"animation_length": 1.4,
+			"bones": {
+				"griefcap_head": {
+					"rotation": [
+						"math.sin(query.anim_time * 10) * 4",
+						"math.sin(query.anim_time * 12) * 3",
+						0
+					]
+				}
+			}
+		},
+		"animation.moogloom.hurt": {
+			"loop": false,
+			"animation_length": 0.4,
+			"bones": {
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 20) * 10", 0, 0]
+				},
+				"head": {
+					"rotation": ["math.sin(query.anim_time * 20) * 8", 0, 0]
+				}
+			}
+		},
+		"animation.moogloom.sleep": {
+			"loop": true,
+			"animation_length": 3.0,
+			"bones": {
+				"body": { "rotation": [10, 0, 0] },
+				"head": { "rotation": [20, 0, 0] }
+			}
+		},
+		"animation.moogloom.shiver": {
+			"loop": true,
+			"animation_length": 0.6,
+			"bones": {
+				"body": { "rotation": ["math.sin(query.anim_time * 60) * 2", 0, 0] },
+				"head": { "rotation": ["math.sin(query.anim_time * 60) * 3", 0, 0] }
 			}
 		}
 	}

@@ -42,6 +42,15 @@ public class MoogloomEntity extends MushroomCow implements GeoEntity {
     private static final RawAnimation WALK_LOOP =
         RawAnimation.begin().thenLoop("animation.moogloom.walk");
 
+    private static final RawAnimation RUN_LOOP =
+        RawAnimation.begin().thenLoop("animation.moogloom.run");
+
+    private static final RawAnimation BREATHE_LOOP =
+        RawAnimation.begin().thenLoop("animation.moogloom.breathe");
+
+    private static final RawAnimation CAP_WOBBLE_LOOP =
+        RawAnimation.begin().thenLoop("animation.moogloom.cap_wobble");
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoogloomEntity(EntityType<? extends MushroomCow> type, Level level) {
@@ -52,10 +61,21 @@ public class MoogloomEntity extends MushroomCow implements GeoEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
             if (state.isMoving()) {
-                state.setAnimation(WALK_LOOP);
+                state.setAnimation(this.isSprinting() ? RUN_LOOP : WALK_LOOP);
             } else {
                 state.setAnimation(IDLE_LOOP);
             }
+            return PlayState.CONTINUE;
+        }));
+
+        // Lightweight ambient layers that don't depend on AI queries.
+        controllers.add(new AnimationController<>(this, "breatheController", 0, state -> {
+            state.setAnimation(BREATHE_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "capWobbleController", 0, state -> {
+            state.setAnimation(CAP_WOBBLE_LOOP);
             return PlayState.CONTINUE;
         }));
     }
