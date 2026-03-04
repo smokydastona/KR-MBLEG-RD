@@ -67,6 +67,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1054 (2026-03-04)
 - Tuning(scaralon): if unmounted flight can't find a landing spot after ~5s, return to the last takeoff spot to land.
 
+## 1.0.1055 (2026-03-04)
+- Assets(scaralon): update Scaralon beetle geo + animation data.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
