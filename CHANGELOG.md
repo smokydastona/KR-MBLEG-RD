@@ -21,6 +21,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1039 (2026-03-04)
 - Fix(waylily): Waylily now grows kelp-style from the seafloor/riverbed with an underwater stalk + bud, blooming into the surface flower when it reaches the top.
 
+## 1.0.1040 (2026-03-04)
+- Tuning(assets/waylily): update Waylily stalk/tail model (root crown + multi-stalk shape).
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 

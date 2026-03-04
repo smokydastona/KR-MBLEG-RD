@@ -8,53 +8,140 @@
 		"roots": "kruemblegard:block/waylily_tail"
 	},
 	"elements": [
+
+		/* ROOT CROWN */
 		{
-			"name": "root_1",
-			"from": [7.25, 0, 7.25],
-			"to": [8.25, 16, 8.25],
+			"name": "root_crown",
+			"from": [5.5, 0, 5.5],
+			"to": [10.5, 3, 10.5],
 			"faces": {
-				"north": {"uv": [7.75, 0, 8.75, 16], "texture": "#roots"},
-				"east": {"uv": [7.75, 0, 8.75, 16], "texture": "#roots"},
-				"south": {"uv": [7.25, 0, 8.25, 16], "texture": "#roots"},
-				"west": {"uv": [7.25, 0, 8.25, 16], "texture": "#roots"}
+				"north": {"uv": [0,0,5,3], "texture": "#roots"},
+				"east":  {"uv": [5,0,10,3], "texture": "#roots"},
+				"south": {"uv": [10,0,15,3], "texture": "#roots"},
+				"west":  {"uv": [15,0,20,3], "texture": "#roots"},
+				"up":    {"uv": [0,3,5,8], "texture": "#roots"},
+				"down":  {"uv": [5,3,10,8], "texture": "#roots"}
 			}
 		},
+
+		/* MAJOR STALK A — forward-left curve */
 		{
-			"name": "root_2",
-			"from": [6, 1, 8],
-			"to": [6.75, 14, 8.75],
-			"rotation": {"angle": 22.5, "axis": "y", "origin": [8, 8, 8]},
-			"faces": {
-				"north": {"uv": [9.25, 2, 10, 15], "texture": "#roots"},
-				"east": {"uv": [7.25, 2, 8, 15], "texture": "#roots"},
-				"south": {"uv": [6, 2, 6.75, 15], "texture": "#roots"},
-				"west": {"uv": [8, 2, 8.75, 15], "texture": "#roots"}
-			}
+			"name": "A_lower",
+			"from": [6.5, 3, 7],
+			"to": [7.7, 9, 8.2],
+			"rotation": {"angle": 15, "axis": "x", "origin": [7,3,7.5]},
+			"faces": {"north":{"uv":[0,8,1.2,14],"texture":"#roots"},"east":{"uv":[1.2,8,2.4,14],"texture":"#roots"},"south":{"uv":[2.4,8,3.6,14],"texture":"#roots"},"west":{"uv":[3.6,8,4.8,14],"texture":"#roots"}}
 		},
 		{
-			"name": "root_3",
-			"from": [9.25, 3, 6.25],
-			"to": [10, 15, 7],
-			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 8, 8]},
-			"faces": {
-				"north": {"uv": [6, 1, 6.75, 13], "texture": "#roots"},
-				"east": {"uv": [9, 1, 9.75, 13], "texture": "#roots"},
-				"south": {"uv": [9.25, 1, 10, 13], "texture": "#roots"},
-				"west": {"uv": [6.25, 1, 7, 13], "texture": "#roots"}
-			}
+			"name": "A_mid",
+			"from": [6.7, 9, 7.2],
+			"to": [7.5, 14, 8],
+			"rotation": {"angle": -10, "axis": "x", "origin": [7,9,7.5]},
+			"faces": {"north":{"uv":[4.8,8,5.6,13],"texture":"#roots"},"east":{"uv":[5.6,8,6.4,13],"texture":"#roots"},"south":{"uv":[6.4,8,7.2,13],"texture":"#roots"},"west":{"uv":[7.2,8,8,13],"texture":"#roots"}}
 		},
 		{
-			"name": "root_4",
-			"from": [8.5, 0.8, 9.5],
-			"to": [9.25, 13.5, 10.25],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
-			"faces": {
-				"north": {"uv": [6.75, 2.5, 7.5, 15.2], "texture": "#roots"},
-				"east": {"uv": [5.75, 2.5, 6.5, 15.2], "texture": "#roots"},
-				"south": {"uv": [8.5, 2.5, 9.25, 15.2], "texture": "#roots"},
-				"west": {"uv": [9.5, 2.5, 10.25, 15.2], "texture": "#roots"}
-			}
+			"name": "A_top",
+			"from": [6.9, 14, 7.4],
+			"to": [7.3, 16, 7.8],
+			"faces": {"north":{"uv":[8,8,8.4,10],"texture":"#roots"},"east":{"uv":[8.4,8,8.8,10],"texture":"#roots"},"south":{"uv":[8.8,8,9.2,10],"texture":"#roots"},"west":{"uv":[9.2,8,9.6,10],"texture":"#roots"}}
+		},
+
+		/* MAJOR STALK B — forward-right curve */
+		{
+			"name": "B_lower",
+			"from": [8.3, 3, 7],
+			"to": [9.5, 9, 8.2],
+			"rotation": {"angle": 12, "axis": "x", "origin": [8.8,3,7.5]},
+			"faces": {"north":{"uv":[0,14,1.2,20],"texture":"#roots"},"east":{"uv":[1.2,14,2.4,20],"texture":"#roots"},"south":{"uv":[2.4,14,3.6,20],"texture":"#roots"},"west":{"uv":[3.6,14,4.8,20],"texture":"#roots"}}
+		},
+		{
+			"name": "B_mid",
+			"from": [8.5, 9, 7.2],
+			"to": [9.3, 14, 8],
+			"rotation": {"angle": -8, "axis": "x", "origin": [8.8,9,7.5]},
+			"faces": {"north":{"uv":[4.8,14,5.6,19],"texture":"#roots"},"east":{"uv":[5.6,14,6.4,19],"texture":"#roots"},"south":{"uv":[6.4,14,7.2,19],"texture":"#roots"},"west":{"uv":[7.2,14,8,19],"texture":"#roots"}}
+		},
+		{
+			"name": "B_top",
+			"from": [8.7, 14, 7.4],
+			"to": [9.1, 16, 7.8],
+			"faces": {"north":{"uv":[8,14,8.4,16],"texture":"#roots"},"east":{"uv":[8.4,14,8.8,16],"texture":"#roots"},"south":{"uv":[8.8,14,9.2,16],"texture":"#roots"},"west":{"uv":[9.2,14,9.6,16],"texture":"#roots"}}
+		},
+
+		/* MAJOR STALK C — rear-left curve */
+		{
+			"name": "C_lower",
+			"from": [6.5, 3, 8.5],
+			"to": [7.7, 9, 9.7],
+			"rotation": {"angle": -14, "axis": "x", "origin": [7,3,9]},
+			"faces": {"north":{"uv":[10,8,11.2,14],"texture":"#roots"},"east":{"uv":[11.2,8,12.4,14],"texture":"#roots"},"south":{"uv":[12.4,8,13.6,14],"texture":"#roots"},"west":{"uv":[13.6,8,14.8,14],"texture":"#roots"}}
+		},
+		{
+			"name": "C_mid",
+			"from": [6.7, 9, 8.7],
+			"to": [7.5, 14, 9.5],
+			"rotation": {"angle": 10, "axis": "x", "origin": [7,9,9]},
+			"faces": {"north":{"uv":[10,14,10.8,19],"texture":"#roots"},"east":{"uv":[10.8,14,11.6,19],"texture":"#roots"},"south":{"uv":[11.6,14,12.4,19],"texture":"#roots"},"west":{"uv":[12.4,14,13.2,19],"texture":"#roots"}}
+		},
+		{
+			"name": "C_top",
+			"from": [6.9, 14, 8.9],
+			"to": [7.3, 16, 9.3],
+			"faces": {"north":{"uv":[13.2,14,13.6,16],"texture":"#roots"},"east":{"uv":[13.6,14,14,16],"texture":"#roots"},"south":{"uv":[14,14,14.4,16],"texture":"#roots"},"west":{"uv":[14.4,14,14.8,16],"texture":"#roots"}}
+		},
+
+		/* MAJOR STALK D — rear-right curve */
+		{
+			"name": "D_lower",
+			"from": [8.3, 3, 8.5],
+			"to": [9.5, 9, 9.7],
+			"rotation": {"angle": -12, "axis": "x", "origin": [8.8,3,9]},
+			"faces": {"north":{"uv":[0,20,1.2,26],"texture":"#roots"},"east":{"uv":[1.2,20,2.4,26],"texture":"#roots"},"south":{"uv":[2.4,20,3.6,26],"texture":"#roots"},"west":{"uv":[3.6,20,4.8,26],"texture":"#roots"}}
+		},
+		{
+			"name": "D_mid",
+			"from": [8.5, 9, 8.7],
+			"to": [9.3, 14, 9.5],
+			"rotation": {"angle": 8, "axis": "x", "origin": [8.8,9,9]},
+			"faces": {"north":{"uv":[4.8,20,5.6,25],"texture":"#roots"},"east":{"uv":[5.6,20,6.4,25],"texture":"#roots"},"south":{"uv":[6.4,20,7.2,25],"texture":"#roots"},"west":{"uv":[7.2,20,8,25],"texture":"#roots"}}
+		},
+		{
+			"name": "D_top",
+			"from": [8.7, 14, 8.9],
+			"to": [9.1, 16, 9.3],
+			"faces": {"north":{"uv":[8,20,8.4,22],"texture":"#roots"},"east":{"uv":[8.4,20,8.8,22],"texture":"#roots"},"south":{"uv":[8.8,20,9.2,22],"texture":"#roots"},"west":{"uv":[9.2,20,9.6,22],"texture":"#roots"}}
+		},
+
+		/* THIN TENDRILS (crossing) */
+		{
+			"name": "tendril_1",
+			"from": [7.2, 2, 7.2],
+			"to": [7.6, 10, 7.6],
+			"rotation": {"angle": 25, "axis": "y", "origin": [8,5,8]},
+			"faces": {"north":{"uv":[15,8,15.4,16],"texture":"#roots"},"east":{"uv":[15.4,8,15.8,16],"texture":"#roots"},"south":{"uv":[15.8,8,16.2,16],"texture":"#roots"},"west":{"uv":[16.2,8,16.6,16],"texture":"#roots"}}
+		},
+		{
+			"name": "tendril_2",
+			"from": [8.4, 1.5, 7.4],
+			"to": [8.8, 9.5, 7.8],
+			"rotation": {"angle": -30, "axis": "y", "origin": [8,5,8]},
+			"faces": {"north":{"uv":[16.6,8,17,16],"texture":"#roots"},"east":{"uv":[17,8,17.4,16],"texture":"#roots"},"south":{"uv":[17.4,8,17.8,16],"texture":"#roots"},"west":{"uv":[17.8,8,18.2,16],"texture":"#roots"}}
+		},
+		{
+			"name": "tendril_3",
+			"from": [7.6, 1, 8.4],
+			"to": [8, 9, 8.8],
+			"rotation": {"angle": 18, "axis": "y", "origin": [8,5,8]},
+			"faces": {"north":{"uv":[18.2,8,18.6,16],"texture":"#roots"},"east":{"uv":[18.6,8,19,16],"texture":"#roots"},"south":{"uv":[19,8,19.4,16],"texture":"#roots"},"west":{"uv":[19.4,8,19.8,16],"texture":"#roots"}}
+		},
+		{
+			"name": "tendril_4",
+			"from": [8.2, 2, 8.6],
+			"to": [8.6, 11, 9],
+			"rotation": {"angle": -22, "axis": "y", "origin": [8,5,8]},
+			"faces": {"north":{"uv":[19.8,8,20.2,16],"texture":"#roots"},"east":{"uv":[20.2,8,20.6,16],"texture":"#roots"},"south":{"uv":[20.6,8,21,16],"texture":"#roots"},"west":{"uv":[21,8,21.4,16],"texture":"#roots"}}
 		}
+
 	],
 	"gui_light": "front"
 }
