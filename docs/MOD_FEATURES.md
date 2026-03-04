@@ -410,7 +410,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
     - Visual feedback: at high moisture, it swaps to a moist top texture (vanilla farmland-style).
 - Wayfall vegetation patches snap each placement attempt to the local surface heightmap (floating-island friendly) and only place into replaceable blocks (no carving holes in terrain).
 - Wayfall water flora:
-  - Waylily (above-water surface flower) + vanilla seagrass (underwater) generate across all Wayfall biomes with per-biome rarity tiers (Waylily uses the `waylily_patch*` placed features).
+  - Waylily grows kelp-style: an underwater stalk rises from the floor, shows an underwater bud while submerged, and blooms into an above-water surface flower when it reaches the surface (worldgen uses the `waylily_patch*` placed features).
   - The deep lake feature (`wayfall_big_water_lake`) also adds extra Waylily on exposed lake surfaces and adds underwater seagrass by dressing parts of the lake floor (sand/gravel/clay) during generation.
   - Deep lakes are clamped to a chunk-safe size during worldgen to avoid “setBlock in a far chunk” warnings and severe world creation lag.
   - Underwater plants scan downward from the surface to the bottom of water columns, so they can survive and generate inside floating-island lakes.

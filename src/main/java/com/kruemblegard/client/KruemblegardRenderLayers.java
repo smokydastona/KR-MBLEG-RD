@@ -44,6 +44,8 @@ public final class KruemblegardRenderLayers {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof WaylilyBlock) {
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
+                } else if (block == ModBlocks.WAYLILY_BUD.get() || block == ModBlocks.WAYLILY_STALK.get()) {
+                    ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
                 } else if (block instanceof AshspireCactusBlock || block instanceof AshspireColossusBlock) {
                     // Match vanilla cactus: cutout for transparent pixels.
                     ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());

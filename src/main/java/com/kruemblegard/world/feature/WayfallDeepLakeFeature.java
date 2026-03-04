@@ -1,6 +1,5 @@
 package com.kruemblegard.world.feature;
 
-import com.kruemblegard.block.WaylilyBlock;
 import com.kruemblegard.init.ModBlocks;
 import com.mojang.serialization.Codec;
 
@@ -419,54 +418,30 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             return;
         }
 
-        // Lower tail sits in the surface water block.
-        BlockPos lowerPos = surfacePos;
-
-        // Optional second tail block one deeper.
-        BlockPos lower2Pos = surfacePos.below();
-        boolean canHaveLower2 = level.getFluidState(lower2Pos).getType() == Fluids.WATER;
-        boolean wantsLower2 = canHaveLower2 && random.nextBoolean();
-
-        BlockState upperState = ModBlocks.WAYLILY.get()
-                .defaultBlockState()
-                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.UPPER)
-                .setValue(WaylilyBlock.WATERLOGGED, Boolean.FALSE);
-
-        BlockState lowerState = ModBlocks.WAYLILY.get()
-                .defaultBlockState()
-                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.LOWER)
-                .setValue(WaylilyBlock.WATERLOGGED, Boolean.TRUE);
-
-        BlockState lower2State = ModBlocks.WAYLILY.get()
-                .defaultBlockState()
-                .setValue(WaylilyBlock.PART, WaylilyBlock.Part.LOWER2)
-                .setValue(WaylilyBlock.WATERLOGGED, Boolean.TRUE);
-
-        // Replace only air/replaceable for the upper, and only water for the tails.
-        if (!level.getBlockState(upperPos).canBeReplaced()) {
+        BlockState flowerState = ModBlocks.WAYLILY.get().defaultBlockState();
+        if (!flowerState.canSurvive(level, upperPos)) {
             return;
         }
 
-        if (level.getFluidState(lowerPos).getType() != Fluids.WATER) {
+        if (!canWrite(level, originChunk, upperPos)) {
             return;
         }
 
-        if (!canWrite(level, originChunk, upperPos)
-            || !canWrite(level, originChunk, lowerPos)
-            || (wantsLower2 && !canWrite(level, originChunk, lower2Pos))) {
-            return;
-        }
+        level.setBlock(upperPos, flowerState, 2);
 
-        level.setBlock(upperPos, upperState, 2);
-        level.setBlock(lowerPos, lowerState, 2);
-        if (wantsLower2) {
-            level.setBlock(lower2Pos, lower2State, 2);
-        }
+        // Fill the entire water column beneath the surface flower with stalk blocks, down to the lakebed.
+        BlockPos cursor = surfacePos;
+        int depth = 0;
+        while (depth < 64 && level.getFluidState(cursor).getType() == Fluids.WATER) {
+            if (!canWrite(level, originChunk, cursor)) {
+                break;
+            }
 
-        // Ensure water ticks for the tails.
-        level.scheduleTick(lowerPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        if (wantsLower2) {
-            level.scheduleTick(lower2Pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            level.setBlock(cursor, ModBlocks.WAYLILY_STALK.get().defaultBlockState(), 2);
+            level.scheduleTick(cursor, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
+            cursor = cursor.below();
+            depth++;
         }
     }
 

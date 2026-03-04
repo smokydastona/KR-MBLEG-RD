@@ -72,6 +72,11 @@ public final class ModAutoBlockItems {
                     continue;
                 }
 
+                // Internal blocks that should not have their own item.
+                if ("waylily_bud".equals(id.getPath())) {
+                    continue;
+                }
+
                 helper.register(id, new BlockItem(block, new Item.Properties()));
             }
         });

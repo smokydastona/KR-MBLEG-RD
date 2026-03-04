@@ -1,16 +1,15 @@
 package com.kruemblegard.item;
 
+import com.kruemblegard.init.ModBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
 
 public class WaylilyItem extends BlockItem {
 
@@ -23,10 +22,9 @@ public class WaylilyItem extends BlockItem {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
 
-        // Lily-pad-like behavior: allow clicking anywhere in a water column, but always place on the
-        // true surface water block (the highest water block with non-water above it).
+        // Kelp-like behavior: allow clicking anywhere in a water column, but always plant at the
+        // bottom of the water column (the lowest water block, directly above the floor).
 
-        // Raycasts against water often report the solid block below the water surface.
         BlockPos candidateWaterPos;
         if (level.getFluidState(clickedPos).getType() == Fluids.WATER) {
             candidateWaterPos = clickedPos;
@@ -36,44 +34,35 @@ public class WaylilyItem extends BlockItem {
             return InteractionResult.FAIL;
         }
 
-        BlockPos surfaceWaterPos = candidateWaterPos;
-        while (level.getFluidState(surfaceWaterPos.above()).getType() == Fluids.WATER) {
-            surfaceWaterPos = surfaceWaterPos.above();
+        BlockPos bottomWaterPos = candidateWaterPos;
+        while (level.getFluidState(bottomWaterPos.below()).getType() == Fluids.WATER) {
+            bottomWaterPos = bottomWaterPos.below();
         }
 
-        // Place the flower block in the air *above* the surface water block.
-        // This keeps the water surface intact (no "hole" where water got replaced).
-        BlockPos placePos = surfaceWaterPos.above();
-
-        // Require air (or replaceable) above the surface, and at least one water block below for the tail.
-        if (!level.getBlockState(placePos).canBeReplaced()) {
+        // Must be a real water block and have a solid floor below.
+        if (level.getFluidState(bottomWaterPos).getType() != Fluids.WATER) {
             return InteractionResult.FAIL;
         }
 
-        if (level.getFluidState(surfaceWaterPos).getType() != Fluids.WATER) {
+        BlockPos floorPos = bottomWaterPos.below();
+        if (!level.getBlockState(floorPos).isFaceSturdy(level, floorPos, Direction.UP)) {
             return InteractionResult.FAIL;
         }
 
-        BlockHitResult hitResult = new BlockHitResult(
-                context.getClickLocation(),
-                Direction.UP,
-            placePos,
-                false
-        );
-
-        BlockPlaceContext placeContext = new BlockPlaceContext(
-                level,
-                context.getPlayer(),
-                context.getHand(),
-                context.getItemInHand(),
-                hitResult
-        );
-
-        BlockState placementState = this.getPlacementState(placeContext);
-        if (placementState == null) {
+        // Don't overwrite non-water plants/blocks.
+        if (!level.getBlockState(bottomWaterPos).canBeReplaced()) {
             return InteractionResult.FAIL;
         }
 
-        return this.place(placeContext);
+        if (!level.isClientSide) {
+            level.setBlock(bottomWaterPos, ModBlocks.WAYLILY_BUD.get().defaultBlockState(), Block.UPDATE_ALL);
+            level.scheduleTick(bottomWaterPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+
+        if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
+            context.getItemInHand().shrink(1);
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 }
