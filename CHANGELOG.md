@@ -37,9 +37,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(assets/waylily): update the Waylily middle stalk model to blend more naturally between the base and bud/flower.
 
 ## 1.0.1045 (2026-03-04)
-- Tuning(assets/waylily): refine the Waylily middle stalk model geometry for a more organic silhouette.
 
-## 1.0.1046 (2026-03-04)
+## 1.0.1057 (2026-03-04)
+- Assets(moogloom): add simple head horns (geo).
 - Fix(assets/waylily): clamp middle stalk model geometry to avoid slight below-block clipping.
 
 ## 1.0.1047 (2026-03-04)

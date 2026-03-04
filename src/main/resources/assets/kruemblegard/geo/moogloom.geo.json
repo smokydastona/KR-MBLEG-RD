@@ -47,6 +47,30 @@
 					]
 				},
 				{
+					"name": "left_horn",
+					"parent": "head",
+					"pivot": [4, 21, -11],
+					"cubes": [
+						{
+							"origin": [3, 21, -12],
+							"size": [2, 2, 2],
+							"uv": [0, 0]
+						}
+					]
+				},
+				{
+					"name": "right_horn",
+					"parent": "head",
+					"pivot": [-4, 21, -11],
+					"cubes": [
+						{
+							"origin": [-5, 21, -12],
+							"size": [2, 2, 2],
+							"uv": [0, 0]
+						}
+					]
+				},
+				{
 					"name": "head",
 					"parent": "root",
 					"pivot": [0, 18, -8],
