@@ -1,36 +1,85 @@
 {
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
   "textures": {
     "particle": "kruemblegard:block/waylilly_stalk_base",
-    "stalk": "kruemblegard:block/waylilly_stalk_base"
+    "middle": "kruemblegard:block/waylilly_stalk_base"
   },
   "elements": [
     {
+      "name": "stalk_a",
       "from": [7.5, 0, 6.5],
-      "to": [8.5, 16, 9.5],
+      "to": [8.5, 12.8, 9.5],
       "shade": false,
       "faces": {
-        "north": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "east": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "south": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "west": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "up": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "down": {"uv": [0, 0, 16, 16], "texture": "#stalk"}
+        "north": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#middle"}
       }
     },
     {
+      "name": "stalk_b",
       "from": [6.5, 0, 7.5],
-      "to": [9.5, 16, 8.5],
+      "to": [9.5, 12.8, 8.5],
       "shade": false,
       "faces": {
-        "north": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "east": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "south": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "west": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "up": {"uv": [0, 0, 16, 16], "texture": "#stalk"},
-        "down": {"uv": [0, 0, 16, 16], "texture": "#stalk"}
+        "north": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#middle"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#middle"}
+      }
+    },
+    {
+      "name": "middle_lower",
+      "from": [6.4, 12.8, 6.4],
+      "to": [9.6, 14.0, 9.6],
+      "shade": false,
+      "faces": {
+        "north": {"uv": [0, 0, 3, 1], "texture": "#middle"},
+        "east": {"uv": [0, 0, 3, 1], "texture": "#middle"},
+        "south": {"uv": [0, 0, 3, 1], "texture": "#middle"},
+        "west": {"uv": [0, 0, 3, 1], "texture": "#middle"},
+        "up": {"uv": [0, 0, 3, 3], "texture": "#middle"},
+        "down": {"uv": [0, 0, 3, 3], "texture": "#middle"}
+      }
+    },
+    {
+      "name": "middle_mid",
+      "from": [7.0, 14.0, 7.0],
+      "to": [9.0, 15.3, 9.0],
+      "shade": false,
+      "rotation": {"angle": 6, "axis": "x", "origin": [8, 14.0, 8]},
+      "faces": {
+        "north": {"uv": [3, 0, 5, 2], "texture": "#middle"},
+        "east": {"uv": [3, 0, 5, 2], "texture": "#middle"},
+        "south": {"uv": [3, 0, 5, 2], "texture": "#middle"},
+        "west": {"uv": [3, 0, 5, 2], "texture": "#middle"},
+        "up": {"uv": [3, 0, 5, 2], "texture": "#middle"},
+        "down": {"uv": [3, 0, 5, 2], "texture": "#middle"}
+      }
+    },
+    {
+      "name": "middle_top",
+      "from": [7.6, 15.3, 7.6],
+      "to": [8.4, 16.0, 8.4],
+      "shade": false,
+      "rotation": {"angle": -4, "axis": "x", "origin": [8, 15.3, 8]},
+      "faces": {
+        "north": {"uv": [5, 0, 6, 1], "texture": "#middle"},
+        "east": {"uv": [5, 0, 6, 1], "texture": "#middle"},
+        "south": {"uv": [5, 0, 6, 1], "texture": "#middle"},
+        "west": {"uv": [5, 0, 6, 1], "texture": "#middle"},
+        "up": {"uv": [5, 0, 6, 1], "texture": "#middle"},
+        "down": {"uv": [5, 0, 6, 1], "texture": "#middle"}
       }
     }
-  ]
+  ],
+  "gui_light": "front"
 }
