@@ -30,6 +30,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1042 (2026-03-04)
 - Fix(waylily): add a distinct stalk base block at the lakebed, with a separate middle stalk segment that grows between the base and the bud/flower.
 
+## 1.0.1043 (2026-03-04)
+- Fix(assets/waylily): ensure `waylilly_stalk_base` model resolves its texture key correctly.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
