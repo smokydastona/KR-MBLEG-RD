@@ -73,7 +73,8 @@ public final class TraderBeetleCarpetColorLayer extends GeoRenderLayer<TraderBee
             "textures/entity/scaralon_beetle/trader_decor/" + color.getName() + ".png"
         );
 
-        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
+        // Use translucent to avoid alpha-test + mipmap artifacts that can occlude the base texture.
+        RenderType overlayType = RenderType.entityTranslucent(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
         super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
