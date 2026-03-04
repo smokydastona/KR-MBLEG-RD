@@ -10,7 +10,7 @@
 	"elements": [
 		{
 			"name": "A_top",
-			"from": [6.9, -0.1, 7.4],
+			"from": [6.9, 0, 7.4],
 			"to": [7.3, 14.4, 7.8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1.6, 0]},
 			"faces": {
@@ -24,7 +24,7 @@
 		},
 		{
 			"name": "B_top",
-			"from": [8.7, -0.1, 7.4],
+			"from": [8.7, 0, 7.4],
 			"to": [9.1, 14.4, 7.8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1.6, 0]},
 			"faces": {
@@ -38,7 +38,7 @@
 		},
 		{
 			"name": "C_top",
-			"from": [6.9, -0.1, 8.9],
+			"from": [6.9, 0, 8.9],
 			"to": [7.3, 14.4, 9.3],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1.6, 0]},
 			"faces": {
@@ -52,7 +52,7 @@
 		},
 		{
 			"name": "D_top",
-			"from": [8.7, -0.1, 8.9],
+			"from": [8.7, 0, 8.9],
 			"to": [9.1, 14.4, 9.3],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1.6, 0]},
 			"faces": {
