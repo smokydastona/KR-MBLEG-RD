@@ -241,6 +241,11 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private int unmountedHoverTicks = 0;
     private int unmountedFlightTicks = 0;
 
+    private int unmountedNoLandingTicks = 0;
+
+    private @Nullable BlockPos lastGroundedLandPos = null;
+    private @Nullable BlockPos lastTakeoffLandPos = null;
+
     private int flightToggleGraceTicks = 0;
     private int lastGroundJumpTapTick = -9999;
 
@@ -253,6 +258,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final int IDLE_TAP_DURATION_TICKS = 24;
 
     private static final int THREAT_AFTER_HURT_TICKS = 20 * 4;
+
+    private static final int RETURN_TO_TAKEOFF_AFTER_NO_LANDING_TICKS = 20 * 5;
 
     private int idleActionTicks = 0;
     private IdleAction idleAction = IdleAction.NONE;
@@ -480,6 +487,12 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             }
         }
 
+        if (!level().isClientSide && flying && !wasFlying) {
+            // Record a conservative "return" landing spot (feet-level air block above a sturdy surface).
+            // This is used as a fallback if unmounted autopilot can't find a valid landing surface.
+            lastTakeoffLandPos = lastGroundedLandPos != null ? lastGroundedLandPos : blockPosition();
+        }
+
         if (!level().isClientSide && flying != wasFlying) {
             triggerAnim("actionController", flying ? "takeoff" : "land");
         }
@@ -560,6 +573,9 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         super.tick();
 
         if (!level().isClientSide) {
+            if (onGround() && !isInWaterOrBubble()) {
+                lastGroundedLandPos = blockPosition();
+            }
             if (larvaSapCooldownTicks > 0) {
                 larvaSapCooldownTicks--;
             }
@@ -1091,6 +1107,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             unmountedLandingAttemptTicks = 0;
             unmountedLandingStuckTicks = 0;
             unmountedHoverTicks = 0;
+            unmountedNoLandingTicks = 0;
             return;
         }
 
@@ -1104,6 +1121,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             unmountedLandingAttemptTicks = 0;
             unmountedLandingStuckTicks = 0;
             unmountedHoverTicks = 0;
+            unmountedNoLandingTicks = 0;
             return;
         }
 
@@ -1133,6 +1151,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         if (hasTarget) {
             unmountedLandingPos = null;
             unmountedLandingRepathTicks = 0;
+            unmountedNoLandingTicks = 0;
             unmountedFlightTarget = target.position().add(0.0D, target.getBbHeight() * 0.45D, 0.0D);
             unmountedFlightTargetTicks = 6;
         }
@@ -1148,6 +1167,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             unmountedLandingCooldownTicks = forcedLanding ? 0 : 20 * 10;
             unmountedLandingAttemptTicks = 0;
             unmountedLandingStuckTicks = 0;
+            unmountedNoLandingTicks = 0;
             // Brief hover before committing to a turn/descend.
             unmountedHoverTicks = forcedLanding ? 0 : Mth.nextInt(random, 6, 18);
         }
@@ -1170,6 +1190,22 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             // If we couldn't find any safe landing surface yet (common when over large bodies of water),
             // clear landing mode and keep roaming outward until we discover land.
             if (unmountedLandingPos == null) {
+                unmountedNoLandingTicks++;
+
+                // If we can't find a safe surface for a while, return to the last known takeoff spot.
+                if (unmountedNoLandingTicks >= RETURN_TO_TAKEOFF_AFTER_NO_LANDING_TICKS && lastTakeoffLandPos != null) {
+                    BlockPos fallback = isSafeLandingSpot(serverLevel, lastTakeoffLandPos)
+                            ? lastTakeoffLandPos
+                            : findRescueLandingPos(serverLevel, lastTakeoffLandPos, 40, 18);
+                    if (fallback != null) {
+                        unmountedLandingPos = fallback;
+                        unmountedLandingRepathTicks = 0;
+                        unmountedLandingAttemptTicks = 0;
+                        unmountedLandingStuckTicks = 0;
+                        return;
+                    }
+                }
+
                 unmountedLandingRepathTicks = 0;
                 unmountedLandingAttemptTicks = 0;
                 unmountedLandingStuckTicks = 0;
@@ -1218,6 +1254,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                         unmountedLandingRepathTicks = 0;
                         unmountedHoverTicks = 0;
                         unmountedFlightTicks = 0;
+                        unmountedNoLandingTicks = 0;
                         Vec3 v = getDeltaMovement();
                         setDeltaMovement(v.x * 0.25D, Math.min(v.y, -0.04D), v.z * 0.25D);
                         hasImpulse = true;
@@ -1237,6 +1274,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                     unmountedLandingRepathTicks = 20;
                     unmountedLandingAttemptTicks = 0;
                     unmountedLandingStuckTicks = 0;
+                    unmountedNoLandingTicks = 0;
                     return;
                 }
 
@@ -1261,7 +1299,22 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 unmountedLandingRepathTicks = 0;
                 unmountedLandingAttemptTicks = 0;
                 unmountedLandingStuckTicks = 0;
+                unmountedNoLandingTicks = 0;
                 return;
+            }
+
+            unmountedNoLandingTicks++;
+            if (unmountedNoLandingTicks >= RETURN_TO_TAKEOFF_AFTER_NO_LANDING_TICKS && lastTakeoffLandPos != null) {
+                BlockPos fallback = isSafeLandingSpot(serverLevel, lastTakeoffLandPos)
+                        ? lastTakeoffLandPos
+                        : findRescueLandingPos(serverLevel, lastTakeoffLandPos, 40, 18);
+                if (fallback != null) {
+                    unmountedLandingPos = fallback;
+                    unmountedLandingRepathTicks = 0;
+                    unmountedLandingAttemptTicks = 0;
+                    unmountedLandingStuckTicks = 0;
+                    return;
+                }
             }
 
             Vec3 searchTarget = pickForcedLandingSearchTarget(serverLevel);
@@ -1402,6 +1455,48 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
     private @Nullable BlockPos findRescueLandingPos(ServerLevel level) {
         return findRescueLandingPos(level, 28, 10);
+    }
+
+    private @Nullable BlockPos findRescueLandingPos(ServerLevel level, BlockPos origin, int maxRadius, int samplesPerRing) {
+        BlockPos best = null;
+        double bestScore = -1.0E18;
+
+        for (int r = 4; r <= maxRadius; r += 4) {
+            for (int i = 0; i < samplesPerRing; i++) {
+                int dx = Mth.nextInt(random, -r, r);
+                int dz = Mth.nextInt(random, -r, r);
+
+                BlockPos col = new BlockPos(origin.getX() + dx, origin.getY(), origin.getZ() + dz);
+                if (!level.isLoaded(col)) {
+                    continue;
+                }
+
+                BlockPos surface = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, col);
+                if (surface.getY() <= level.getMinBuildHeight() + 1) {
+                    continue;
+                }
+
+                BlockPos landAt = surface.above();
+                if (!level.isLoaded(landAt) || !level.isLoaded(landAt.above())) {
+                    continue;
+                }
+
+                if (!isSafeLandingSpot(level, landAt)) {
+                    continue;
+                }
+
+                Vec3 target = new Vec3(landAt.getX() + 0.5D, landAt.getY(), landAt.getZ() + 0.5D);
+                double distSq = target.distanceToSqr(position());
+
+                double score = surface.getY() * 3.0D - distSq * 0.015D;
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = landAt;
+                }
+            }
+        }
+
+        return best;
     }
 
     private @Nullable BlockPos findRescueLandingPos(ServerLevel level, int maxRadius, int samplesPerRing) {
