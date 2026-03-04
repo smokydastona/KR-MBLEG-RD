@@ -252,6 +252,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final int IDLE_GROOM_DURATION_TICKS = 44;
     private static final int IDLE_TAP_DURATION_TICKS = 24;
 
+    private static final int THREAT_AFTER_HURT_TICKS = 20 * 4;
+
     private int idleActionTicks = 0;
     private IdleAction idleAction = IdleAction.NONE;
 
@@ -2893,7 +2895,9 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 return PlayState.STOP;
             }
 
-            if (getTarget() == null) {
+            boolean hasTarget = getTarget() != null;
+            boolean recentlyHurt = tickCount - lastHurtGameTick <= THREAT_AFTER_HURT_TICKS;
+            if (!hasTarget && !recentlyHurt) {
                 return PlayState.STOP;
             }
 

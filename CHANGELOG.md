@@ -61,6 +61,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Tuning(anim/scaralon_beetle): add ambient/mount/environment behavior clips (breathe, antenna scan/flick, groom, weight shift, heavy step, threat, rain shake, heat fan, mount/dismount, tap).
 - Feature(anim/scaralon_beetle): wire new behavior clips via GeckoLib controllers + triggers (idle overlays, mount/dismount, rain shake, idle grooming/tapping).
 
+## 1.0.1053 (2026-03-04)
+- Tuning(anim/scaralon_beetle): threat display can now trigger for a short window after taking damage (even without an active target).
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
