@@ -16,10 +16,10 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class WaylilyStalkBlock extends GrowingPlantBodyBlock {
+public class WaylilyStalkBaseBlock extends GrowingPlantBodyBlock {
     private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D);
 
-    public WaylilyStalkBlock(Properties properties) {
+    public WaylilyStalkBaseBlock(Properties properties) {
         super(properties, Direction.UP, SHAPE, true);
     }
 
@@ -37,23 +37,17 @@ public class WaylilyStalkBlock extends GrowingPlantBodyBlock {
         BlockPos abovePos = pos.above();
         BlockState aboveState = level.getBlockState(abovePos);
 
-        // Normal chain: stalk -> stalk/bud.
-        if (aboveState.is(this) || aboveState.is(ModBlocks.WAYLILY_BUD.get())) {
-            return true;
+        // Base must be part of a waylily column.
+        if (!(aboveState.is(ModBlocks.WAYLILY_STALK.get())
+                || aboveState.is(ModBlocks.WAYLILY_BUD.get())
+                || aboveState.is(ModBlocks.WAYLILY.get()))) {
+            return false;
         }
 
-        // Surface termination: stalk in the surface water, flower in the air above.
-        if (aboveState.is(ModBlocks.WAYLILY.get())) {
-            return true;
-        }
-
-        // Prevent floating segments: require a stalk/base below, or a solid floor for the lowest segment.
         BlockPos belowPos = pos.below();
         BlockState belowState = level.getBlockState(belowPos);
-        if (belowState.is(this) || belowState.is(ModBlocks.WAYLILY_STALK_BASE.get())) {
-            return true;
-        }
 
+        // Must be rooted on a solid floor (no water below).
         return belowState.isFaceSturdy(level, belowPos, Direction.UP) && level.getFluidState(belowPos).isEmpty();
     }
 

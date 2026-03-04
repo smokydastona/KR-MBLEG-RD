@@ -73,7 +73,7 @@ public final class ModAutoBlockItems {
                 }
 
                 // Internal blocks that should not have their own item.
-                if ("waylily_bud".equals(id.getPath())) {
+                if ("waylily_bud".equals(id.getPath()) || "waylily_stalk_base".equals(id.getPath())) {
                     continue;
                 }
 

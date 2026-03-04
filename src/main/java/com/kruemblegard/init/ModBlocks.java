@@ -50,6 +50,7 @@ import com.kruemblegard.block.WayfallPlantBlock;
 import com.kruemblegard.block.WaylilyBlock;
 import com.kruemblegard.block.WaylilyBudBlock;
 import com.kruemblegard.block.WaylilyStalkBlock;
+import com.kruemblegard.block.WaylilyStalkBaseBlock;
 import com.kruemblegard.block.WispstalkBlock;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.world.grower.TwoByTwoConfiguredFeatureTreeGrower;
@@ -818,6 +819,15 @@ public final class ModBlocks {
     public static final RegistryObject<Block> WAYLILY_STALK = BLOCKS.register(
             "waylily_stalk",
             () -> new WaylilyStalkBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLUE)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.LILY_PAD))
+    );
+
+    public static final RegistryObject<Block> WAYLILY_STALK_BASE = BLOCKS.register(
+            "waylily_stalk_base",
+            () -> new WaylilyStalkBaseBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLUE)
                     .noCollission()
                     .instabreak()

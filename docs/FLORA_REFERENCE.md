@@ -389,7 +389,7 @@ Current limitations:
 - Worldgen (current): Generates where water columns exist (including deep lakes), placing a surface flower with a stalk descending to the bottom.
 - Placeholder textures:
   - `assets/kruemblegard/textures/block/waylily.png` (upper pad)
-  - `assets/kruemblegard/textures/block/waylilly_stalk_base.png` (stalk base)
+  - `assets/kruemblegard/textures/block/waylilly_stalk_base.png` (stalk base + middle stalk segments)
 
 ### Fungi & weird growths
 

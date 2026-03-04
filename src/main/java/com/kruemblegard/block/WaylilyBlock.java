@@ -91,6 +91,7 @@ public class WaylilyBlock extends Block {
     private static void ensureStalkColumn(LevelAccessor level, BlockPos flowerPos) {
         BlockPos cursor = flowerPos.below();
         int placed = 0;
+        BlockPos lastWaterPos = null;
 
         // Fill the entire water column beneath the flower with stalk blocks, down to the floor.
         while (placed < MAX_STALK_DEPTH && level.getFluidState(cursor).getType() == Fluids.WATER) {
@@ -99,8 +100,12 @@ public class WaylilyBlock extends Block {
             // Only replace true water/replaceable blocks; don't overwrite other plants/blocks.
             if (existing.is(Blocks.WATER)) {
                 level.setBlock(cursor, ModBlocks.WAYLILY_STALK.get().defaultBlockState(), Block.UPDATE_ALL);
+                lastWaterPos = cursor;
             } else if (existing.is(ModBlocks.WAYLILY_STALK.get()) || existing.is(ModBlocks.WAYLILY_BUD.get())) {
                 // Already part of a waylily column; keep going.
+                lastWaterPos = cursor;
+            } else if (existing.is(ModBlocks.WAYLILY_STALK_BASE.get())) {
+                lastWaterPos = cursor;
             } else {
                 break;
             }
@@ -111,9 +116,13 @@ public class WaylilyBlock extends Block {
 
         // Keep water ticking where we replaced it.
         if (placed > 0) {
+            if (lastWaterPos != null) {
+                level.setBlock(lastWaterPos, ModBlocks.WAYLILY_STALK_BASE.get().defaultBlockState(), Block.UPDATE_ALL);
+            }
             BlockPos surfaceWater = flowerPos.below();
             level.scheduleTick(surfaceWater, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
     }
-            }
+
+}
 

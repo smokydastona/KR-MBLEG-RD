@@ -54,9 +54,22 @@ public class WaylilyItem extends BlockItem {
             return InteractionResult.FAIL;
         }
 
+        BlockPos budPos = bottomWaterPos;
+        boolean canPlaceBaseAndBud = level.getFluidState(bottomWaterPos.above()).getType() == Fluids.WATER
+                && level.getBlockState(bottomWaterPos.above()).canBeReplaced();
+
+        if (canPlaceBaseAndBud) {
+            budPos = bottomWaterPos.above();
+        }
+
         if (!level.isClientSide) {
-            level.setBlock(bottomWaterPos, ModBlocks.WAYLILY_BUD.get().defaultBlockState(), Block.UPDATE_ALL);
-            level.scheduleTick(bottomWaterPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            if (canPlaceBaseAndBud) {
+                level.setBlock(bottomWaterPos, ModBlocks.WAYLILY_STALK_BASE.get().defaultBlockState(), Block.UPDATE_ALL);
+                level.scheduleTick(bottomWaterPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            }
+
+            level.setBlock(budPos, ModBlocks.WAYLILY_BUD.get().defaultBlockState(), Block.UPDATE_ALL);
+            level.scheduleTick(budPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {

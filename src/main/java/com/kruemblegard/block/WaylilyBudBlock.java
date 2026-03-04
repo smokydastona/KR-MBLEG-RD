@@ -71,8 +71,8 @@ public class WaylilyBudBlock extends GrowingPlantHeadBlock {
         BlockPos belowPos = pos.below();
         BlockState belowState = level.getBlockState(belowPos);
 
-        // Allow starting from any solid floor in water, or continuing from an existing stalk.
-        if (belowState.is(ModBlocks.WAYLILY_STALK.get())) {
+        // Allow continuing from an existing stalk/base.
+        if (belowState.is(ModBlocks.WAYLILY_STALK.get()) || belowState.is(ModBlocks.WAYLILY_STALK_BASE.get())) {
             return true;
         }
 

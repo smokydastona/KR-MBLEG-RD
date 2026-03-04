@@ -431,6 +431,7 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
 
         // Fill the entire water column beneath the surface flower with stalk blocks, down to the lakebed.
         BlockPos cursor = surfacePos;
+        BlockPos lastWaterPos = null;
         int depth = 0;
         while (depth < 64 && level.getFluidState(cursor).getType() == Fluids.WATER) {
             if (!canWrite(level, originChunk, cursor)) {
@@ -440,8 +441,15 @@ public class WayfallDeepLakeFeature extends Feature<WayfallDeepLakeConfiguration
             level.setBlock(cursor, ModBlocks.WAYLILY_STALK.get().defaultBlockState(), 2);
             level.scheduleTick(cursor, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
+            lastWaterPos = cursor;
+
             cursor = cursor.below();
             depth++;
+        }
+
+        if (lastWaterPos != null && canWrite(level, originChunk, lastWaterPos)) {
+            level.setBlock(lastWaterPos, ModBlocks.WAYLILY_STALK_BASE.get().defaultBlockState(), 2);
+            level.scheduleTick(lastWaterPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
     }
 
