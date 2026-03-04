@@ -385,11 +385,11 @@ Current limitations:
 - Appearance: Flat, rune-marked lily pads over void gaps.
 - Use: Temporary platforms.
 - Mechanic: Disappear after being stepped on too long.
-- Behavior (current): Lily-pad-like water plant; places only on water surfaces and includes a 1-block-deep, waterlogged tail.
-- Worldgen (current): Generates near water across all Wayfall biomes (only where water exists), with per-biome rarity tiers.
+- Behavior (current): Kelp-like water plant. Planted at the bottom of a water column; grows upward through water as a stalk and blooms into a surface flower.
+- Worldgen (current): Generates where water columns exist (including deep lakes), placing a surface flower with a stalk descending to the bottom.
 - Placeholder textures:
   - `assets/kruemblegard/textures/block/waylily.png` (upper pad)
-  - `assets/kruemblegard/textures/block/waylily_tail.png` (lower tail)
+  - `assets/kruemblegard/textures/block/waylilly_stalk_base.png` (stalk base)
 
 ### Fungi & weird growths
 

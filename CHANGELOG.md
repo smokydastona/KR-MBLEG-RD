@@ -24,6 +24,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1040 (2026-03-04)
 - Tuning(assets/waylily): update Waylily stalk/tail model (root crown + multi-stalk shape).
 
+## 1.0.1041 (2026-03-04)
+- Chore(assets/waylily): rename Waylily stalk base model/texture resource from `waylily_tail` to `waylilly_stalk_base`.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
