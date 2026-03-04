@@ -11,6 +11,7 @@ import com.kruemblegard.client.render.MoogloomRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.ScaralonBeetleRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
+import com.kruemblegard.client.render.TraderBeetleRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
 import com.kruemblegard.client.render.WyrdwingRenderer;
 import com.kruemblegard.client.render.layer.PebblitShoulderLayer;
@@ -40,6 +41,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.MOOGLOOM.get(), MoogloomRenderer::new);
         event.registerEntityRenderer(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerRenderer::new);
         event.registerEntityRenderer(ModEntities.SCARALON_BEETLE.get(), ScaralonBeetleRenderer::new);
+        event.registerEntityRenderer(ModEntities.TRADER_BEETLE.get(), TraderBeetleRenderer::new);
         event.registerEntityRenderer(ModEntities.WYRDWING.get(), WyrdwingRenderer::new);
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);

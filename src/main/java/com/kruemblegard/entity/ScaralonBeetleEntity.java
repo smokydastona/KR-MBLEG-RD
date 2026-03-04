@@ -9,10 +9,12 @@ import net.minecraft.world.level.block.Block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -50,6 +52,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -94,6 +97,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final String NBT_SHEAR_COOLDOWN = "ShearCooldown";
     private static final String NBT_FLIGHT_STAMINA = "FlightStamina";
     private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
+    private static final String NBT_CARPET_COLOR = "CarpetColor";
     private static final String NBT_HAS_EGGS = "HasEggsToLay";
     private static final String NBT_EGG_COUNT = "EggLayCount";
     private static final String NBT_EGG_LAY_POS = "EggLayPos";
@@ -108,6 +112,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final int TEXTURE_VARIANT_MAX = 9;
 
     private static final float BABY_TEXTURE_MUTATION_CHANCE = 0.03F;
+
+    private static final int CARPET_COLOR_NONE = -1;
 
     // Flight stamina is measured in ticks. Max stamina is intentionally modest so flight feels meaningful.
     // When stamina is depleted, the beetle can no longer gain altitude and will flutter down slowly.
@@ -158,6 +164,10 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
     /** 1..9, assigned once on spawn and persisted. */
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
+            SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
+
+        /** DyeColor id (0..15), or -1 for none. */
+        private static final EntityDataAccessor<Integer> CARPET_COLOR =
             SynchedEntityData.defineId(ScaralonBeetleEntity.class, EntityDataSerializers.INT);
 
         private static final EntityDataAccessor<Boolean> LARVA_SAP_SUCKING =
@@ -277,9 +287,27 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         this.entityData.define(JUMP_CHARGING, false);
         this.entityData.define(JUMP_CHARGE_POWER, 0);
         this.entityData.define(TEXTURE_VARIANT, TEXTURE_VARIANT_MIN);
+        this.entityData.define(CARPET_COLOR, CARPET_COLOR_NONE);
         this.entityData.define(LARVA_SAP_SUCKING, false);
         this.entityData.define(LARVA_CLIMBING, false);
         this.entityData.define(LARVA_CLIMB_FACE, (byte) -1);
+    }
+
+    public boolean hasCarpet() {
+        return this.entityData.get(CARPET_COLOR) != CARPET_COLOR_NONE;
+    }
+
+    public @Nullable DyeColor getCarpetColor() {
+        int id = this.entityData.get(CARPET_COLOR);
+        if (id == CARPET_COLOR_NONE) {
+            return null;
+        }
+
+        return DyeColor.byId(Mth.clamp(id, 0, 15));
+    }
+
+    public void setCarpetColor(@Nullable DyeColor color) {
+        this.entityData.set(CARPET_COLOR, color == null ? CARPET_COLOR_NONE : color.getId());
     }
 
     /** Client-visible helper for larva wall climbing (spider-style). */
@@ -2280,6 +2308,22 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         }
 
         boolean isFoodInteraction = isFood(stack);
+
+        // Carpet/wool decor (Trader Llama-style): can be applied regardless of saddle/chest.
+        DyeColor carpet = getCarpetColorFromItem(stack);
+        if (carpet != null && !isBaby()) {
+            if (level().isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+
+            setCarpetColor(carpet);
+            playSound(SoundEvents.LLAMA_SWAG, 0.9F, 1.0F);
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+            return InteractionResult.CONSUME;
+        }
+
         InteractionResult result = super.mobInteract(player, hand);
 
         if (!level().isClientSide && isFoodInteraction && result.consumesAction()) {
@@ -2287,6 +2331,31 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         }
 
         return result;
+    }
+
+    private static @Nullable DyeColor getCarpetColorFromItem(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return null;
+        }
+
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (key == null) {
+            return null;
+        }
+
+        String path = key.getPath();
+
+        // Accept both wool and carpet items.
+        if (path.endsWith("_wool")) {
+            path = path.substring(0, path.length() - "_wool".length());
+        } else if (path.endsWith("_carpet")) {
+            path = path.substring(0, path.length() - "_carpet".length());
+        } else {
+            return null;
+        }
+
+        // Map item name prefix to a DyeColor (handles light_gray, light_blue, etc).
+        return DyeColor.byName(path, null);
     }
 
     @Override
@@ -2436,6 +2505,11 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         tag.putInt(NBT_FLIGHT_STAMINA, getFlightStamina());
         tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
 
+        DyeColor carpet = getCarpetColor();
+        if (carpet != null) {
+            tag.putInt(NBT_CARPET_COLOR, carpet.getId());
+        }
+
         tag.putInt(NBT_LARVA_SAP_COOLDOWN, larvaSapCooldownTicks);
         if (larvaSapAnchor != null) {
             tag.putLong(NBT_LARVA_SAP_ANCHOR, larvaSapAnchor.asLong());
@@ -2464,6 +2538,12 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
         if (tag.contains(NBT_TEXTURE_VARIANT)) {
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
+        }
+
+        if (tag.contains(NBT_CARPET_COLOR)) {
+            setCarpetColor(DyeColor.byId(Mth.clamp(tag.getInt(NBT_CARPET_COLOR), 0, 15)));
+        } else {
+            setCarpetColor(null);
         }
 
         hasEggsToLay = tag.getBoolean(NBT_HAS_EGGS);

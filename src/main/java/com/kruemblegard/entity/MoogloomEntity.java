@@ -24,12 +24,45 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class MoogloomEntity extends MushroomCow {
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+public class MoogloomEntity extends MushroomCow implements GeoEntity {
 
     private static final int MUTATE_CHANCE = 1024;
 
+    private static final RawAnimation IDLE_LOOP =
+        RawAnimation.begin().thenLoop("animation.moogloom.idle");
+
+    private static final RawAnimation WALK_LOOP =
+        RawAnimation.begin().thenLoop("animation.moogloom.walk");
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public MoogloomEntity(EntityType<? extends MushroomCow> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+            if (state.isMoving()) {
+                state.setAnimation(WALK_LOOP);
+            } else {
+                state.setAnimation(IDLE_LOOP);
+            }
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     @Override

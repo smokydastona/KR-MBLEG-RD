@@ -46,6 +46,7 @@ Configs generate under the instance `config/` folder.
 ## Useful commands (testing)
 - Spawn Traprock: `/summon kruemblegard:traprock`
 - Spawn Pebblit: `/summon kruemblegard:pebblit`
+- Spawn Trader Beetle: `/summon kruemblegard:trader_beetle`
 - Teleport to Wayfall: `/execute in kruemblegard:wayfall run tp @s 0 160 0`
 
 ## For pack makers / artists

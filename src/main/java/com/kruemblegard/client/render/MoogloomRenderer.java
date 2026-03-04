@@ -1,27 +1,17 @@
 package com.kruemblegard.client.render;
 
-import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.MoogloomEntity;
 import com.kruemblegard.client.render.layer.MoogloomGriefcapLayer;
+import com.kruemblegard.client.render.model.MoogloomModel;
 
-import net.minecraft.client.model.CowModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class MoogloomRenderer extends MobRenderer<MoogloomEntity, CowModel<MoogloomEntity>> {
-
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/moogloom.png");
+public class MoogloomRenderer extends GeoEntityRenderer<MoogloomEntity> {
 
     public MoogloomRenderer(EntityRendererProvider.Context context) {
-        super(context, new CowModel<>(context.bakeLayer(ModelLayers.MOOSHROOM)), 0.7F);
-        this.addLayer(new MoogloomGriefcapLayer(this, context.getBlockRenderDispatcher()));
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(MoogloomEntity entity) {
-        return TEXTURE;
+        super(context, new MoogloomModel());
+        this.shadowRadius = 0.7F;
+        this.addRenderLayer(new MoogloomGriefcapLayer(this));
     }
 }

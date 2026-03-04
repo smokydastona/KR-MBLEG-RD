@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1036 (2026-03-03)
+- Feature(scaralon): Scaralon Beetles can now be decorated with wool/carpet (16-color decor textures; placeholder PNGs copied from `scaralon_beetle_1.png`).
+- Feature(trader_beetle): add a Wandering Trader mount variant of Scaralon that despawns (Trader Llama-style).
+- Feature(trader_beetle): trader beetles only use Scaralon texture variants 1, 3, and 6.
+- Feature(trader_beetle): Wayfall-spawned trader mounts always have a chest pre-attached with trader-themed loot.
+- Feature(wayfall): Wandering Traders can spawn in Wayfall and always spawn with a Trader Beetle mount there.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 

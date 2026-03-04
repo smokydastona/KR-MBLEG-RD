@@ -182,6 +182,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Scaralon Beetle** (`scaralon_beetle`)
   - Large, rune-etched flying beetle **mount** (horse-style taming + saddle riding).
   - Can be fitted with a **Chest** (donkey/mule-style) to gain extra inventory storage.
+  - Can be decorated with **wool/carpet** (Trader Llama-style decor): applying a carpet/wool item sets the Scaralon's decor color.
   - Natural spawns: **Wayfall warm biomes** (biome tag: `#kruemblegard:wayfall_warm`).
   - Wild Scaralons are skittish and will avoid players.
   - Tough baseline: high base **armor** and **armor toughness**.
@@ -220,12 +221,27 @@ Keep it up to date whenever you add/remove/rename content.
     - Adult:
       - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
-      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle_1.png` .. `_8.png` (randomly assigned on natural spawn; bred offspring inherit 50/50 + small mutation chance)
+      - Textures: `assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_1.png` .. `_9.png` (randomly assigned on spawn; bred offspring inherit 50/50 + small mutation chance)
+      - Carpet textures (16 colors): `assets/kruemblegard/textures/entity/scaralon_beetle/decor/<color>.png`
       - Rider seat marker: geo bone named `seat` (its `pivot` is used to align the player while mounted)
     - Baby (larva form):
       - Geo: `assets/kruemblegard/geo/scaralon_larva.geo.json`
       - Animations: `assets/kruemblegard/animations/scaralon_larva.animation.json`
-      - Texture: `assets/kruemblegard/textures/entity/scaralon_larva.png`
+      - Texture: `assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_larva.png`
+
+- **Trader Beetle** (`trader_beetle`)
+  - Wandering Trader mount variant of Scaralon.
+  - **Despawns** on a timer (Trader Llama-style).
+  - Wayfall behavior: Wandering Traders can spawn in **Wayfall**, and any trader that spawns there will **always** have a Trader Beetle mount.
+  - Traders that spawn with a Trader Beetle mount will always have a **chest attached** containing some **wandering trader-themed loot**.
+  - Default trader decor: spawns with the default trader-style carpet color.
+  - Texture variants: Trader beetles only use Scaralon textures **1, 3, and 6**.
+  - Breeding: Trader beetles can breed with regular Scaralons; eggs always hatch into a **regular Scaralon** (not a trader beetle).
+  - Rendered via GeckoLib (same geo/animations as Scaralon):
+    - Geo: `assets/kruemblegard/geo/scaralon_beetle.geo.json`
+    - Animations: `assets/kruemblegard/animations/scaralon_beetle.animation.json`
+    - Base textures: uses `assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_1.png`, `_3.png`, and `_6.png`
+    - Carpet textures (16 colors): `assets/kruemblegard/textures/entity/scaralon_beetle/trader_decor/<color>.png`
 
 - **Wyrdwing** (`wyrdwing`)
   - Yi qi-inspired, membrane-winged creature with **default gliding** aerial locomotion.

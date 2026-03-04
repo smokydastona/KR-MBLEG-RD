@@ -5,6 +5,7 @@ import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
+import com.kruemblegard.entity.TraderBeetleEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.registry.ModEntities;
@@ -48,6 +49,7 @@ public final class CommonModEvents {
         event.put(ModEntities.MOOGLOOM.get(), Cow.createAttributes().build());
         event.put(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerEntity.createAttributes().build());
         event.put(ModEntities.SCARALON_BEETLE.get(), ScaralonBeetleEntity.createAttributes().build());
+        event.put(ModEntities.TRADER_BEETLE.get(), TraderBeetleEntity.createAttributes().build());
         event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
     }
 
