@@ -192,11 +192,26 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final RawAnimation LOVE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.love");
     private static final RawAnimation SAP_SUCK_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.sap_suck");
 
+    private static final RawAnimation BREATHE_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.breathe");
+    private static final RawAnimation ANTENNA_SCAN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.antenna_scan");
+    private static final RawAnimation WEIGHT_SHIFT_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.weight_shift");
+    private static final RawAnimation STEP_HEAVY_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.step_heavy");
+    private static final RawAnimation HEAT_FAN_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.heat_fan");
+    private static final RawAnimation THREAT_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.threat");
+
+    private static final RawAnimation GROOM_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.groom");
+    private static final RawAnimation TAP_LOOP = RawAnimation.begin().thenLoop("animation.scaralon_beetle.tap");
+
     private static final RawAnimation TAKEOFF_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.takeoff");
     private static final RawAnimation LAND_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.land");
     private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.hurt");
     private static final RawAnimation DEATH_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.death");
     private static final RawAnimation EAT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.eat");
+
+    private static final RawAnimation ANTENNA_FLICK_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.antenna_flick");
+    private static final RawAnimation RAIN_SHAKE_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.rain_shake");
+    private static final RawAnimation MOUNT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.mount");
+    private static final RawAnimation DISMOUNT_ONCE = RawAnimation.begin().thenPlay("animation.scaralon_beetle.dismount");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -234,10 +249,25 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
     private boolean playedDeathAnim = false;
 
+    private static final int IDLE_GROOM_DURATION_TICKS = 44;
+    private static final int IDLE_TAP_DURATION_TICKS = 24;
+
+    private int idleActionTicks = 0;
+    private IdleAction idleAction = IdleAction.NONE;
+
+    private boolean wasInRainLastTick = false;
+    private int rainShakeCooldownTicks = 0;
+
     private @Nullable BlockPos larvaSapAnchor = null;
     private @Nullable Direction larvaSapFace = null;
     private int larvaSapCooldownTicks = 0;
     private int lastHurtGameTick = -9999;
+
+    private enum IdleAction {
+        NONE,
+        GROOM,
+        TAP
+    }
 
 
     private boolean hasEggsToLay = false;
@@ -608,6 +638,18 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 shearCooldownTicks--;
             }
 
+            if (idleActionTicks > 0) {
+                idleActionTicks--;
+                if (idleActionTicks <= 0) {
+                    idleActionTicks = 0;
+                    idleAction = IdleAction.NONE;
+                }
+            }
+
+            if (rainShakeCooldownTicks > 0) {
+                rainShakeCooldownTicks--;
+            }
+
             // Babies shed Elytra Scutes when they mature.
             boolean isBabyNow = isBaby();
             if (wasBabyLastTick && !isBabyNow && !hasShedAdultScutes) {
@@ -754,6 +796,42 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 boolean rescueActive = tickUnmountedSelfRescue();
                 if (!rescueActive) {
                     tickUnmountedAutopilotFlight();
+                }
+            }
+
+            boolean inRainNow = level().isRainingAt(blockPosition());
+            if (inRainNow && !wasInRainLastTick
+                    && rainShakeCooldownTicks <= 0
+                    && !isBaby()
+                    && onGround()
+                    && !shouldPlayAirborneFlyAnim()) {
+                triggerAnim("actionController", "rain_shake");
+                rainShakeCooldownTicks = 20 * 6;
+            }
+            wasInRainLastTick = inRainNow;
+
+            // Small idle-life behaviors (server-driven so they replicate).
+            if (!isBaby()
+                    && idleAction == IdleAction.NONE
+                    && idleActionTicks <= 0
+                    && !isVehicle()
+                    && onGround()
+                    && !shouldPlayAirborneFlyAnim()
+                    && !isInLove()) {
+
+                Vec3 dm = getDeltaMovement();
+                boolean basicallyStill = dm.horizontalDistanceSqr() < 0.0005D;
+                if (basicallyStill) {
+                    // Roughly: groom ~ every 15s, tap ~ every 20s (on average).
+                    if (random.nextInt(20 * 15) == 0) {
+                        idleAction = IdleAction.GROOM;
+                        idleActionTicks = IDLE_GROOM_DURATION_TICKS;
+                    } else if (random.nextInt(20 * 20) == 0) {
+                        idleAction = IdleAction.TAP;
+                        idleActionTicks = IDLE_TAP_DURATION_TICKS;
+                    } else if (random.nextInt(20 * 10) == 0) {
+                        triggerAnim("actionController", "antenna_flick");
+                    }
                 }
             }
 
@@ -2251,6 +2329,10 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             // If the player jumps/falls off, immediately restore stamina.
             setFlightStamina(MAX_FLIGHT_STAMINA_TICKS);
 
+            if (!wasInAir && onGround() && !shouldPlayAirborneFlyAnim() && !isBaby()) {
+                triggerAnim("actionController", "dismount");
+            }
+
             if (wasInAir) {
                 // Prevent fall damage and keep the beetle nearby.
                 sp.fallDistance = 0.0F;
@@ -2260,6 +2342,23 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 dismountFollowTicks = DISMOUNT_FOLLOW_TICKS;
                 setFlying(true);
             }
+        }
+    }
+
+    @Override
+    protected void addPassenger(net.minecraft.world.entity.Entity passenger) {
+        super.addPassenger(passenger);
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (!(passenger instanceof Player)) {
+            return;
+        }
+
+        if (!isBaby() && isSaddled() && isTamed()) {
+            triggerAnim("actionController", "mount");
         }
     }
 
@@ -2715,12 +2814,127 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             return PlayState.CONTINUE;
         }));
 
+        controllers.add(new AnimationController<>(this, "breatheController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim() || state.isMoving() || isInLove()) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(BREATHE_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "antennaScanController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim() || state.isMoving() || isInLove()) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(ANTENNA_SCAN_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "weightShiftController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim() || state.isMoving() || isInLove()) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(WEIGHT_SHIFT_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "stepHeavyController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim() || !state.isMoving()) {
+                return PlayState.STOP;
+            }
+
+            // Only apply the heavier compression while being actively ridden as a mount.
+            if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() instanceof Player)) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(STEP_HEAVY_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "heatFanController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!isOnFire() || !onGround() || shouldPlayAirborneFlyAnim()) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(HEAT_FAN_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "threatController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim() || state.isMoving()) {
+                return PlayState.STOP;
+            }
+
+            if (getTarget() == null) {
+                return PlayState.STOP;
+            }
+
+            state.setAnimation(THREAT_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "idleActionController", 0, state -> {
+            if (isBaby()) {
+                return PlayState.STOP;
+            }
+
+            if (idleAction == IdleAction.NONE || idleActionTicks <= 0) {
+                return PlayState.STOP;
+            }
+
+            if (!onGround() || shouldPlayAirborneFlyAnim()) {
+                return PlayState.STOP;
+            }
+
+            switch (idleAction) {
+                case GROOM -> state.setAnimation(GROOM_LOOP);
+                case TAP -> state.setAnimation(TAP_LOOP);
+                default -> {
+                    return PlayState.STOP;
+                }
+            }
+
+            return PlayState.CONTINUE;
+        }));
+
         controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
                 .triggerableAnim("takeoff", TAKEOFF_ONCE)
                 .triggerableAnim("land", LAND_ONCE)
                 .triggerableAnim("hurt", HURT_ONCE)
             .triggerableAnim("death", DEATH_ONCE)
-            .triggerableAnim("eat", EAT_ONCE));
+            .triggerableAnim("eat", EAT_ONCE)
+            .triggerableAnim("antenna_flick", ANTENNA_FLICK_ONCE)
+            .triggerableAnim("rain_shake", RAIN_SHAKE_ONCE)
+            .triggerableAnim("mount", MOUNT_ONCE)
+            .triggerableAnim("dismount", DISMOUNT_ONCE));
     }
 
     @Override

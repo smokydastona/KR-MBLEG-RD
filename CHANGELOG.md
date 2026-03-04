@@ -57,6 +57,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1051 (2026-03-04)
 - Tuning(assets/moogloom): upgrade Moogloom animation suite (idle/walk polish + breathe/cap wobble + run and extra clips).
 
+## 1.0.1052 (2026-03-04)
+- Tuning(anim/scaralon_beetle): add ambient/mount/environment behavior clips (breathe, antenna scan/flick, groom, weight shift, heavy step, threat, rain shake, heat fan, mount/dismount, tap).
+- Feature(anim/scaralon_beetle): wire new behavior clips via GeckoLib controllers + triggers (idle overlays, mount/dismount, rain shake, idle grooming/tapping).
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 

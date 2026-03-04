@@ -1034,6 +1034,240 @@
 					}
 				}
 			}
+		},
+		"animation.scaralon_beetle.breathe": {
+			"loop": true,
+			"animation_length": 3,
+			"bones": {
+				"body": {
+					"scale": {
+						"0.0": [1, 1, 1],
+						"1.5": [1.02, 1.015, 1.02],
+						"3.0": [1, 1, 1]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.5": [0, 0.2, 0],
+						"3.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.antenna_scan": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"left_antenna": {
+					"rotation": {
+						"0.0": [4, -18, -2],
+						"2.0": [10, -32, 1],
+						"4.0": [4, -18, -2]
+					}
+				},
+				"right_antenna": {
+					"rotation": {
+						"0.0": [4, 18, 2],
+						"2.0": [10, 32, -1],
+						"4.0": [4, 18, 2]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.antenna_flick": {
+			"loop": false,
+			"animation_length": 0.35,
+			"bones": {
+				"left_antenna": {
+					"rotation": {
+						"0.0": [4, -18, -2],
+						"0.15": [18, -40, 4],
+						"0.35": [4, -18, -2]
+					}
+				},
+				"right_antenna": {
+					"rotation": {
+						"0.0": [4, 18, 2],
+						"0.15": [18, 40, -4],
+						"0.35": [4, 18, 2]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.groom": {
+			"loop": true,
+			"animation_length": 2.2,
+			"bones": {
+				"left_mandible": {
+					"rotation": {
+						"0.0": [2, -6, -1],
+						"1.1": [8, -14, -5],
+						"2.2": [2, -6, -1]
+					}
+				},
+				"right_mandible": {
+					"rotation": {
+						"0.0": [2, 6, 1],
+						"1.1": [8, 14, 5],
+						"2.2": [2, 6, 1]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.weight_shift": {
+			"loop": true,
+			"animation_length": 3,
+			"bones": {
+				"leg_middle_left": {
+					"rotation": {
+						"0.0": [0, 28, -8],
+						"1.5": [4, 32, -6],
+						"3.0": [0, 28, -8]
+					}
+				},
+				"leg_middle_right": {
+					"rotation": {
+						"0.0": [0, -28, -8],
+						"1.5": [4, -32, -6],
+						"3.0": [0, -28, -8]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.step_heavy": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"body": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, -0.3, 0],
+						"0.5": [0, 0, 0],
+						"0.75": [0, -0.3, 0],
+						"1.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.threat": {
+			"loop": true,
+			"animation_length": 1.2,
+			"bones": {
+				"head": {
+					"rotation": {
+						"0.0": [-6, 0, 0],
+						"0.6": [18, 0, 0],
+						"1.2": [-6, 0, 0]
+					}
+				},
+				"left_mandible": {
+					"rotation": {
+						"0.0": [2, -6, -1],
+						"0.6": [14, -20, -8],
+						"1.2": [2, -6, -1]
+					}
+				},
+				"right_mandible": {
+					"rotation": {
+						"0.0": [2, 6, 1],
+						"0.6": [14, 20, 8],
+						"1.2": [2, 6, 1]
+					}
+				},
+				"leg_front_left": {
+					"rotation": {
+						"0.0": [-10, 28, -8],
+						"0.6": [-45, 28, -8],
+						"1.2": [-10, 28, -8]
+					}
+				},
+				"leg_front_right": {
+					"rotation": {
+						"0.0": [-10, -28, -8],
+						"0.6": [-45, -28, -8],
+						"1.2": [-10, -28, -8]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.rain_shake": {
+			"loop": false,
+			"animation_length": 0.8,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [0, 12, 0],
+						"0.4": [0, -12, 0],
+						"0.6": [0, 12, 0],
+						"0.8": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.heat_fan": {
+			"loop": true,
+			"animation_length": 0.4,
+			"bones": {
+				"left_wing": {
+					"rotation": {
+						"0.0": [0, 74, -18],
+						"0.2": [0, 60, -18],
+						"0.4": [0, 74, -18]
+					}
+				},
+				"right_wing": {
+					"rotation": {
+						"0.0": [0, -74, 18],
+						"0.2": [0, -60, 18],
+						"0.4": [0, -74, 18]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.mount": {
+			"loop": false,
+			"animation_length": 0.6,
+			"bones": {
+				"body": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.3": [0, -1.2, 0],
+						"0.6": [0, -0.6, 0]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.dismount": {
+			"loop": false,
+			"animation_length": 0.6,
+			"bones": {
+				"body": {
+					"position": {
+						"0.0": [0, -0.6, 0],
+						"0.6": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.scaralon_beetle.tap": {
+			"loop": true,
+			"animation_length": 1.2,
+			"bones": {
+				"leg_front_left": {
+					"rotation": {
+						"0.0": [0, 28, -8],
+						"0.6": [-20, 28, -8],
+						"1.2": [0, 28, -8]
+					}
+				},
+				"leg_front_right": {
+					"rotation": {
+						"0.0": [0, -28, -8],
+						"0.6": [-20, -28, -8],
+						"1.2": [0, -28, -8]
+					}
+				}
+			}
 		}
 	}
 }
