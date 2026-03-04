@@ -15,6 +15,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(render/decor): Scaralon + Trader Beetle carpet/decor overlays now follow animated bone transforms correctly (prevents the “disconnected rotation” look).
 - Fix(scaralon): wool/carpet decor is now stored as an actual inventory item in the slot under the saddle (and legacy NBT-only decor is migrated on load).
 
+## 1.0.1038 (2026-03-04)
+- Tuning(assets/waylily): update Waylily block model/texture.
+
 ## 1.0.1035 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be fitted with a chest (donkey/mule-style) for extra storage.
 
