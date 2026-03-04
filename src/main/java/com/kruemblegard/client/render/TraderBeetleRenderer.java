@@ -1,6 +1,7 @@
 package com.kruemblegard.client.render;
 
 import com.kruemblegard.client.render.layer.TraderBeetleCarpetColorLayer;
+import com.kruemblegard.client.render.layer.TraderBeetleDefaultCarpetLayer;
 import com.kruemblegard.client.render.model.TraderBeetleModel;
 import com.kruemblegard.entity.TraderBeetleEntity;
 
@@ -13,6 +14,7 @@ public class TraderBeetleRenderer extends GeoEntityRenderer<TraderBeetleEntity> 
         super(renderManager, new TraderBeetleModel());
         this.shadowRadius = 0.7F;
 
+        addRenderLayer(new TraderBeetleDefaultCarpetLayer(this));
         addRenderLayer(new TraderBeetleCarpetColorLayer(this));
     }
 }

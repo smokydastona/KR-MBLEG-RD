@@ -87,17 +87,17 @@ public class TraderBeetleModel extends GeoModel<TraderBeetleEntity> {
 
         CoreGeoBone carpet = this.getAnimationProcessor().getBone(CARPET_BONE);
         if (carpet != null) {
-            carpet.setHidden(false);
+            carpet.setHidden(true);
         }
 
         CoreGeoBone carpetFrame = this.getAnimationProcessor().getBone("carpet_frame");
         if (carpetFrame != null) {
-            carpetFrame.setHidden(false);
+            carpetFrame.setHidden(true);
         }
 
         CoreGeoBone carpetColor = this.getAnimationProcessor().getBone("carpet_color");
         if (carpetColor != null) {
-            carpetColor.setHidden(false);
+            carpetColor.setHidden(true);
         }
     }
 }
