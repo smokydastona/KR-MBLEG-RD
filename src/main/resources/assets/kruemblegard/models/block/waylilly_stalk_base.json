@@ -3,6 +3,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"ambientocclusion": false,
+	"textures": {
+		"particle": "kruemblegard:block/waylilly_stalk_base",
+		"missing": "kruemblegard:block/waylilly_stalk_base"
+	},
 	"elements": [
 		{
 			"name": "root_crown",
