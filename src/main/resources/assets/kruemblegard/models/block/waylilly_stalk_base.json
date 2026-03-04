@@ -5,7 +5,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"particle": "kruemblegard:block/waylilly_stalk_base",
-		"missing": "kruemblegard:block/waylilly_stalk_base"
+		"missing": "#particle"
 	},
 	"elements": [
 		{
