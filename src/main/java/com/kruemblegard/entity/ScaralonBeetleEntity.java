@@ -7,6 +7,7 @@ import com.kruemblegard.registry.ModTags;
 import com.kruemblegard.block.ScaralonEggBlock;
 import net.minecraft.world.level.block.Block;
 
+import net.minecraft.world.Container;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -308,6 +309,38 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
     public void setCarpetColor(@Nullable DyeColor color) {
         this.entityData.set(CARPET_COLOR, color == null ? CARPET_COLOR_NONE : color.getId());
+    }
+
+    @Override
+    public boolean canWearArmor() {
+        // Use the "armor" slot as the Scaralon's decor slot (wool/carpet under the saddle).
+        return true;
+    }
+
+    @Override
+    public boolean isArmor(ItemStack stack) {
+        // Accept both wool and carpet as decor.
+        return getCarpetColorFromItem(stack) != null;
+    }
+
+    private static final int DECOR_SLOT_INDEX = 1;
+
+    private ItemStack getDecorStack() {
+        return this.inventory.getItem(DECOR_SLOT_INDEX);
+    }
+
+    private void setDecorStack(ItemStack stack) {
+        this.inventory.setItem(DECOR_SLOT_INDEX, stack);
+        this.updateContainerEquipment();
+    }
+
+    @Override
+    public void containerChanged(Container container) {
+        super.containerChanged(container);
+
+        if (container == this.inventory) {
+            setCarpetColor(getCarpetColorFromItem(getDecorStack()));
+        }
     }
 
     /** Client-visible helper for larva wall climbing (spider-style). */
@@ -2316,10 +2349,17 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 return InteractionResult.SUCCESS;
             }
 
-            setCarpetColor(carpet);
+            ItemStack previousDecor = getDecorStack().copy();
+            setDecorStack(stack.copyWithCount(1));
             playSound(SoundEvents.LLAMA_SWAG, 0.9F, 1.0F);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
+
+                if (!previousDecor.isEmpty()) {
+                    if (!player.getInventory().add(previousDecor)) {
+                        player.drop(previousDecor, false);
+                    }
+                }
             }
             return InteractionResult.CONSUME;
         }
@@ -2356,6 +2396,11 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
         // Map item name prefix to a DyeColor (handles light_gray, light_blue, etc).
         return DyeColor.byName(path, null);
+    }
+
+    private static ItemStack createDecorStackFromColor(DyeColor color) {
+        ResourceLocation woolId = new ResourceLocation(color.getName() + "_wool");
+        return new ItemStack(BuiltInRegistries.ITEM.get(woolId));
     }
 
     @Override
@@ -2540,10 +2585,14 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
         }
 
-        if (tag.contains(NBT_CARPET_COLOR)) {
-            setCarpetColor(DyeColor.byId(Mth.clamp(tag.getInt(NBT_CARPET_COLOR), 0, 15)));
+        // Decor migration:
+        // - New saves store the actual decor item in the armor slot (via vanilla horse inventory).
+        // - Old saves stored only the color in NBT; migrate that into an actual item so it shows in the GUI.
+        if (tag.contains(NBT_CARPET_COLOR) && getDecorStack().isEmpty()) {
+            DyeColor color = DyeColor.byId(Mth.clamp(tag.getInt(NBT_CARPET_COLOR), 0, 15));
+            setDecorStack(createDecorStackFromColor(color));
         } else {
-            setCarpetColor(null);
+            setCarpetColor(getCarpetColorFromItem(getDecorStack()));
         }
 
         hasEggsToLay = tag.getBoolean(NBT_HAS_EGGS);

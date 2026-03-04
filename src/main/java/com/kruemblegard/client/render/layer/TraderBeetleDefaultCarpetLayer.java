@@ -10,12 +10,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-import java.util.Optional;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 /**
  * Renders the default Trader Beetle "blanket" texture on the carpet bones.
@@ -51,35 +50,11 @@ public final class TraderBeetleDefaultCarpetLayer extends GeoRenderLayer<TraderB
         int packedLight,
         int packedOverlay
     ) {
-        if (animatable.isBaby()) {
-            return;
-        }
-
-        RenderType blanketType = RenderType.entityCutoutNoCull(DEFAULT_CARPET_TEXTURE);
-        VertexConsumer blanketBuffer = bufferSource.getBuffer(blanketType);
-
-        GeoBone frame = getBone(bakedModel, CARPET_FRAME_BONE);
-        if (frame != null) {
-            renderBone(poseStack, animatable, frame, blanketType, bufferSource, blanketBuffer, partialTick, packedLight, packedOverlay);
-        }
-
-        // If no carpet color is selected, show the default color section from trader_beetle.png.
-        if (!animatable.hasCarpet()) {
-            GeoBone color = getBone(bakedModel, CARPET_COLOR_BONE);
-            if (color != null) {
-                renderBone(poseStack, animatable, color, blanketType, bufferSource, blanketBuffer, partialTick, packedLight, packedOverlay);
-                return;
-            }
-
-            // Legacy/fallback: if the model doesn't have split bones, render the whole carpet.
-            GeoBone carpet = getBone(bakedModel, CARPET_BONE_FALLBACK);
-            if (carpet != null) {
-                renderBone(poseStack, animatable, carpet, blanketType, bufferSource, blanketBuffer, partialTick, packedLight, packedOverlay);
-            }
-        }
+        // No-op: render per-bone in renderForBone so the blanket stays aligned with animation transforms.
     }
 
-    private void renderBone(
+    @Override
+    public void renderForBone(
         PoseStack poseStack,
         TraderBeetleEntity animatable,
         GeoBone bone,
@@ -90,26 +65,22 @@ public final class TraderBeetleDefaultCarpetLayer extends GeoRenderLayer<TraderB
         int packedLight,
         int packedOverlay
     ) {
-        getRenderer().renderRecursively(
-            poseStack,
-            animatable,
-            bone,
-            renderType,
-            bufferSource,
-            buffer,
-            true,
-            partialTick,
-            packedLight,
-            packedOverlay,
-            1.0F,
-            1.0F,
-            1.0F,
-            1.0F
-        );
-    }
+        if (animatable.isBaby()) {
+            return;
+        }
 
-    private static GeoBone getBone(BakedGeoModel bakedModel, String name) {
-        Optional<GeoBone> bone = bakedModel.getBone(name);
-        return bone.orElse(null);
+        String name = bone.getName();
+        boolean renderFrame = CARPET_FRAME_BONE.equals(name);
+        boolean renderDefaultColor = !animatable.hasCarpet() && CARPET_COLOR_BONE.equals(name);
+        boolean renderFallbackWholeCarpet = !animatable.hasCarpet() && CARPET_BONE_FALLBACK.equals(name);
+
+        if (!renderFrame && !renderDefaultColor && !renderFallbackWholeCarpet) {
+            return;
+        }
+
+        RenderType blanketType = RenderType.entityCutoutNoCull(DEFAULT_CARPET_TEXTURE);
+        VertexConsumer blanketBuffer = bufferSource.getBuffer(blanketType);
+
+        super.renderForBone(poseStack, animatable, bone, blanketType, bufferSource, blanketBuffer, partialTick, packedLight, packedOverlay);
     }
 }

@@ -17,8 +17,6 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
-import java.util.Optional;
-
 /**
  * Renders only the carpet color geometry with a separate texture, so the frame can stay on the base entity texture.
  *
@@ -45,12 +43,32 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         int packedLight,
         int packedOverlay
     ) {
+        // No-op: we render per-bone in renderForBone so the overlay stays in sync with animation transforms.
+    }
+
+    @Override
+    public void renderForBone(
+        PoseStack poseStack,
+        ScaralonBeetleEntity animatable,
+        GeoBone bone,
+        RenderType renderType,
+        MultiBufferSource bufferSource,
+        VertexConsumer buffer,
+        float partialTick,
+        int packedLight,
+        int packedOverlay
+    ) {
         if (animatable.isBaby()) {
             return;
         }
 
         DyeColor color = animatable.getCarpetColor();
         if (color == null) {
+            return;
+        }
+
+        String name = bone.getName();
+        if (!CARPET_COLOR_BONE.equals(name) && !CARPET_BONE_FALLBACK.equals(name)) {
             return;
         }
 
@@ -62,36 +80,6 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
-        GeoBone bone = getBone(bakedModel, CARPET_COLOR_BONE);
-        if (bone == null) {
-            bone = getBone(bakedModel, CARPET_BONE_FALLBACK);
-        }
-
-        if (bone == null) {
-            return;
-        }
-
-        // Render only the carpet color geometry with the overlay texture.
-        getRenderer().renderRecursively(
-            poseStack,
-            animatable,
-            bone,
-            overlayType,
-            bufferSource,
-            overlayBuffer,
-            true,
-            partialTick,
-            packedLight,
-            packedOverlay,
-            1.0F,
-            1.0F,
-            1.0F,
-            1.0F
-        );
-    }
-
-    private static GeoBone getBone(BakedGeoModel bakedModel, String name) {
-        Optional<GeoBone> bone = bakedModel.getBone(name);
-        return bone.orElse(null);
+        super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
     }
 }
