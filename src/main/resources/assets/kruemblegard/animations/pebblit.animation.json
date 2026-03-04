@@ -5,18 +5,18 @@
 			"loop": true,
 			"bones": {
 				"face_hurt": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"angry_spikes": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"clavicle_align": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"Body": {
 					"position": [0, "math.sin(query.anim_time * 90) * 0.25", 0]
 				},
-				"Head2": {
+				"head": {
 					"rotation": ["-math.sin(query.anim_time * 70) * 4", 0, "math.cos(query.anim_time * 60) * 3"],
 					"position": [0, "math.sin(query.anim_time * 90) * 0.15", 0]
 				},
@@ -30,13 +30,13 @@
 			"animation_length": 0.7083,
 			"bones": {
 				"face_hurt": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"angry_spikes": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"clavicle_align": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"Body": {
 					"rotation": [0, 0, "math.sin(query.anim_time * 220) * 2.5"],
@@ -55,7 +55,7 @@
 						"0.6667": [360, "-0.5104+math.sin(query.anim_time * 220) * 5", 0]
 					}
 				},
-				"Head2": {
+				"head": {
 					"rotation": ["-math.sin(query.anim_time * 220) * 8", 0, "math.cos(query.anim_time * 220) * 5"],
 					"position": [0, "math.sin(query.anim_time * 220) * 0.35", 0]
 				}
@@ -117,7 +117,7 @@
 					"rotation": [0, 0, 20],
 					"position": [0, 0.2, 0]
 				},
-				"Head2": {
+				"head": {
 					"rotation": [-15, 0, 0],
 					"position": [0, -0.2, 0]
 				},
@@ -130,19 +130,19 @@
 			"loop": true,
 			"bones": {
 				"face_hurt": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"angry_spikes": {
-					"scale": [1, 1, 1]
+					"scale": 1
 				},
 				"clavicle_align": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"Body": {
-					"position": [0, "math.sin(query.anim_time * 120) * 0.35", 0],
-					"rotation": [0, 0, "math.sin(query.anim_time * 80) * 4"]
+					"rotation": [0, 0, "math.sin(query.anim_time * 80) * 4"],
+					"position": [0, "math.sin(query.anim_time * 120) * 0.35", 0]
 				},
-				"Head2": {
+				"head": {
 					"rotation": ["-10 + -math.sin(query.anim_time * 90) * 6", 0, "math.cos(query.anim_time * 70) * 4"]
 				},
 				"torso": {
@@ -155,13 +155,13 @@
 			"animation_length": 0.7083,
 			"bones": {
 				"face_hurt": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"angry_spikes": {
-					"scale": [1, 1, 1]
+					"scale": 1
 				},
 				"clavicle_align": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"Body": {
 					"rotation": [0, 0, "math.sin(query.anim_time * 220) * 3.5"],
@@ -180,7 +180,7 @@
 						"0.6667": [360, "-0.5104+math.sin(query.anim_time * 220) * 7", 0]
 					}
 				},
-				"Head2": {
+				"head": {
 					"rotation": ["-15 + -math.sin(query.anim_time * 220) * 10", 0, "math.cos(query.anim_time * 220) * 6"],
 					"position": [0, "math.sin(query.anim_time * 220) * 0.45", 0]
 				}
@@ -190,7 +190,7 @@
 			"animation_length": 0.4167,
 			"bones": {
 				"face_hurt": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"angry_spikes": {
 					"scale": 1
@@ -218,7 +218,7 @@
 						"0.4167": [0, 0, 0]
 					}
 				},
-				"Head2": {
+				"head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.125": [-12, 0, 0],
@@ -232,21 +232,16 @@
 			"animation_length": 0.75,
 			"bones": {
 				"face_hurt": {
-					"scale": [1, 1, 1]
+					"scale": {
+						"0.0": [1, 1, 1.03],
+						"0.375": [1, 1, 1],
+						"0.4167": [1, 1, 1.03],
+						"0.4583": [1, 1, 1],
+						"0.5": [1, 1, 1.03]
+					}
 				},
 				"angry_spikes": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.125": [-55, 0, 0],
-						"0.625": [-55, 0, 0],
-						"0.75": [0, 0, 0]
-					},
-					"position": {
-						"0.0": [0, 0, 0],
-						"0.125": [0, 1.9, -0.5],
-						"0.625": [0, 1.9, -0.5],
-						"0.75": [0, 0, 0]
-					},
+					"position": [0, 0, 0],
 					"scale": {
 						"0.0": [0, 0, 0],
 						"0.0833": [1, 1, 1]
@@ -260,7 +255,7 @@
 						"0.75": [0, 0, 0]
 					}
 				},
-				"Head2": {
+				"head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.125": [-47, 0, 0],
@@ -304,6 +299,14 @@
 						"0.625": [-0.27, -3.87, 6.8],
 						"0.75": [0, 0, 0]
 					}
+				},
+				"angry_spikes2": {
+					"scale": {
+						"0.0": [1, 1, 1],
+						"0.375": [1, 1, 1.03],
+						"0.4167": [1, 1, 1],
+						"0.4583": [1, 1, 1.03]
+					}
 				}
 			}
 		},
@@ -311,13 +314,13 @@
 			"animation_length": 0.25,
 			"bones": {
 				"face_hurt": {
-					"scale": [1, 1, 1]
+					"scale": 1
 				},
 				"angry_spikes": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"clavicle_align": {
-					"scale": [0, 0, 0]
+					"scale": 0
 				},
 				"Body": {
 					"position": {
@@ -326,7 +329,7 @@
 						"0.25": [0, 0, 0]
 					}
 				},
-				"Head2": {
+				"head": {
 					"rotation": {
 						"0.0": [0, 0, 0],
 						"0.0833": [10, 0, 0],
