@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(trader_beetle): Wayfall-spawned trader mounts always have a chest pre-attached with trader-themed loot.
 - Feature(wayfall): Wandering Traders can spawn in Wayfall and always spawn with a Trader Beetle mount there.
 
+## 1.0.1092 (2026-03-04)
+- Fix(scaralon): align ridden player position to the `seat` bone from the Scaralon geo.
+
 ## 1.0.1037 (2026-03-04)
 - Fix(render/decor): Scaralon + Trader Beetle carpet/decor overlays now follow animated bone transforms correctly (prevents the “disconnected rotation” look).
 - Fix(scaralon): wool/carpet decor is now stored as an actual inventory item in the slot under the saddle (and legacy NBT-only decor is migrated on load).

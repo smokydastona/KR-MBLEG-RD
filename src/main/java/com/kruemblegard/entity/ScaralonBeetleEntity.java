@@ -2277,7 +2277,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
                 double px = pivot.get(0).getAsDouble() / 16.0D;
                 double py = pivot.get(1).getAsDouble() / 16.0D;
-                double pz = pivot.get(2).getAsDouble() / 16.0D;
+                double pz = -pivot.get(2).getAsDouble() / 16.0D;
 
                 // Clamp to avoid absurd values if the resource is malformed.
                 px = Mth.clamp(px, -2.5D, 2.5D);
