@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1106 (2026-03-05)
+## 1.0.1108 (2026-03-05)
 - Feature(cephalari/mounts): add 4 rideable Cephalari mounts as real entities (Spiral Strider, DriftSkimmer, Treadwinder, Echo Harness).
 - Feature(cephalari/mounts): Cephalari spawn mounted; zombification removes the current mount and spawns a new mount; curing restores the stored mount type.
 - Feature(cephalari/mounts): mount rider positioning aligns to the model `seat` bone (seat pivot loaded from the mount geo).
