@@ -2498,6 +2498,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 
+- Fix: Beetle carpet/wool decor overlays no longer make the beetle body invisible (render overlays as cutout, avoiding depth occlusion).
+
 - Wayfall: place `wayfall_origin_island` once at `(0, 175, 0)` on first Wayfall dimension load.
 - Fix: Wayfall origin island will re-place itself if an old save marked it placed while templates were missing/empty.
 - Wayfall: add rare high-altitude waterfall sources in Underway Falls.

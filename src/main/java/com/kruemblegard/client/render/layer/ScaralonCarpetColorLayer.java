@@ -2,8 +2,6 @@ package com.kruemblegard.client.render.layer;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
-
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -78,17 +76,12 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
             "textures/entity/scaralon_beetle/decor/" + color.getName() + ".png"
         );
 
-        // Use translucent to avoid alpha-test + mipmap artifacts that can occlude the base texture.
-        RenderType overlayType = RenderType.entityTranslucent(overlayTexture);
+        // Critical: use cutout so fully transparent pixels do NOT write depth.
+        // This prevents the overlay pass from hiding the base beetle even if the overlay geometry
+        // includes fully-transparent areas (e.g., a full-body overlay mesh).
+        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
-        // Critical: translucent render types write depth even when fully transparent. If this layer
-        // renders before the base model, it can cause the whole beetle to disappear.
-        RenderSystem.depthMask(false);
-        try {
-            super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
-        } finally {
-            RenderSystem.depthMask(true);
-        }
+        super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
     }
 }
