@@ -1,0 +1,47 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.driftskimmer",
+        "texture_width": 128,
+        "texture_height": 128,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [0, 0.5, 0]
+      },
+      "bones": [
+        { "name": "root", "pivot": [0, 0, 0] },
+        {
+          "name": "body",
+          "parent": "root",
+          "pivot": [0, 10, 0],
+          "cubes": [
+            { "origin": [-10, 8, -10], "size": [20, 4, 20], "uv": [0, 0] }
+          ]
+        },
+        {
+          "name": "seat",
+          "parent": "body",
+          "pivot": [0, 12, 0]
+        },
+        {
+          "name": "wing_left",
+          "parent": "body",
+          "pivot": [10, 10, 0],
+          "cubes": [
+            { "origin": [10, 9, -8], "size": [12, 2, 16], "uv": [0, 32] }
+          ]
+        },
+        {
+          "name": "wing_right",
+          "parent": "body",
+          "pivot": [-10, 10, 0],
+          "cubes": [
+            { "origin": [-22, 9, -8], "size": [12, 2, 16], "uv": [40, 32] }
+          ]
+        }
+      ]
+    }
+  ]
+}

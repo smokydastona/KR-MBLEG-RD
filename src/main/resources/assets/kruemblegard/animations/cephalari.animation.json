@@ -1,6 +1,30 @@
 {
   "format_version": "1.8.0",
   "animations": {
+    "animation.cephalari.riding_pose": {
+      "loop": true,
+      "animation_length": 2.0,
+      "bones": {
+        "root": {
+          "rotation": [-8, 0, 0]
+        },
+        "head": {
+          "rotation": [8, 0, 0]
+        },
+        "shell": {
+          "rotation": [6, 0, 0]
+        },
+        "body2": {
+          "rotation": [4, 0, 0]
+        },
+        "arm_left": {
+          "rotation": [-12, 0, -18]
+        },
+        "arm_right": {
+          "rotation": [-12, 0, 18]
+        }
+      }
+    },
     "animation.cephalari.idle": {
       "loop": true,
       "animation_length": 2.0,

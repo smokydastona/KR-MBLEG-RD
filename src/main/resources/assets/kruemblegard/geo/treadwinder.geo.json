@@ -1,0 +1,47 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.treadwinder",
+        "texture_width": 128,
+        "texture_height": 128,
+        "visible_bounds_width": 2.5,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [0, 0.5, 0]
+      },
+      "bones": [
+        { "name": "root", "pivot": [0, 0, 0] },
+        {
+          "name": "chassis",
+          "parent": "root",
+          "pivot": [0, 10, 0],
+          "cubes": [
+            { "origin": [-8, 6, -10], "size": [16, 6, 20], "uv": [0, 0] }
+          ]
+        },
+        {
+          "name": "seat",
+          "parent": "chassis",
+          "pivot": [0, 12, 0]
+        },
+        {
+          "name": "tread_left",
+          "parent": "chassis",
+          "pivot": [8, 6, 0],
+          "cubes": [
+            { "origin": [8, 4, -10], "size": [4, 8, 20], "uv": [0, 32] }
+          ]
+        },
+        {
+          "name": "tread_right",
+          "parent": "chassis",
+          "pivot": [-8, 6, 0],
+          "cubes": [
+            { "origin": [-12, 4, -10], "size": [4, 8, 20], "uv": [48, 32] }
+          ]
+        }
+      ]
+    }
+  ]
+}

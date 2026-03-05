@@ -35,6 +35,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
+    private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
     private static final int NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS = 40;
     private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
@@ -70,6 +71,11 @@ public class CephalariEntity extends Villager implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+            if (this.isPassenger()) {
+                state.setAnimation(RIDING_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));

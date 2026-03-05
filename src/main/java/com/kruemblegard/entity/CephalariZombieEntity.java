@@ -26,6 +26,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.walk");
+    private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.riding_pose");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -41,6 +42,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+            if (this.isPassenger()) {
+                state.setAnimation(RIDING_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));

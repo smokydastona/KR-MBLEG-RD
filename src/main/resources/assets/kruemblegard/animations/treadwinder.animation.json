@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "animations": {
+    "animation.treadwinder.idle": {
+      "loop": true,
+      "bones": {
+        "chassis": { "rotation": [0, "math.sin(query.anim_time * 1.2) * 1.5", 0] }
+      }
+    },
+    "animation.treadwinder.move": {
+      "loop": true,
+      "bones": {
+        "tread_left": { "rotation": [0, 0, "query.walk_cycle * 360"] },
+        "tread_right": { "rotation": [0, 0, "-query.walk_cycle * 360"] }
+      }
+    }
+  }
+}
