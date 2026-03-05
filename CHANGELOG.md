@@ -2498,6 +2498,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## Unreleased
 
+- Cephalari: sync `cephalari.geo.json` bone layout + UVs to match `cephalari_zombie.geo.json`.
 - Fix: Beetle carpet/wool decor overlays no longer make the beetle body invisible (render overlays as cutout, avoiding depth occlusion).
 
 - Wayfall: place `wayfall_origin_island` once at `(0, 175, 0)` on first Wayfall dimension load.
