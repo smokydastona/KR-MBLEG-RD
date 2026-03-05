@@ -2,6 +2,8 @@ package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.GreatHungerEntity;
+import com.kruemblegard.entity.CephalariEntity;
+import com.kruemblegard.entity.CephalariZombieEntity;
 import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.MoogloomEntity;
@@ -114,6 +116,24 @@ public class ModEntities {
                     MoogloomEntity::new, MobCategory.CREATURE)
                 .sized(0.9f, 1.4f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "moogloom").toString())
+        );
+
+    public static final RegistryObject<EntityType<CephalariEntity>> CEPHALARI =
+        ENTITIES.register(
+            "cephalari",
+            () -> EntityType.Builder.<CephalariEntity>of(
+                    CephalariEntity::new, MobCategory.MISC)
+                .sized(0.6f, 1.95f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari").toString())
+        );
+
+    public static final RegistryObject<EntityType<CephalariZombieEntity>> CEPHALARI_ZOMBIE =
+        ENTITIES.register(
+            "cephalari_zombie",
+            () -> EntityType.Builder.<CephalariZombieEntity>of(
+                    CephalariZombieEntity::new, MobCategory.MONSTER)
+                .sized(0.6f, 1.95f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_zombie").toString())
         );
 
     public static final RegistryObject<EntityType<KruemblegardBoatEntity>> KRUEMBLEGARD_BOAT =

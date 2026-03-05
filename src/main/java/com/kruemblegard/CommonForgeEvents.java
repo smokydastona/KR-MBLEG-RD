@@ -1,12 +1,14 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.MoogloomEntity;
+import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.registry.ModEntities;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.npc.Villager;
 
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,6 +24,20 @@ public final class CommonForgeEvents {
     public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
         Mob parentA = event.getParentA();
         Mob parentB = event.getParentB();
+
+        boolean aIsCephalari = parentA instanceof CephalariEntity;
+        boolean bIsCephalari = parentB instanceof CephalariEntity;
+        boolean aIsVanillaVillager = parentA instanceof Villager && !aIsCephalari;
+        boolean bIsVanillaVillager = parentB instanceof Villager && !bIsCephalari;
+
+        // Cephalari and vanilla villagers must not cross-breed.
+        if ((aIsCephalari && bIsVanillaVillager) || (bIsCephalari && aIsVanillaVillager)) {
+            if (event.isCancelable()) {
+                event.setCanceled(true);
+            }
+            event.setChild(null);
+            return;
+        }
 
         if (!(parentA instanceof MushroomCow a) || !(parentB instanceof MushroomCow b)) {
             return;

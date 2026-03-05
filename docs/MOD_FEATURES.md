@@ -275,6 +275,15 @@ Keep it up to date whenever you add/remove/rename content.
   - Silverfish and Endermites drop `Bug Meat`.
   - Silverfish, Endermites, and Spiders avoid nearby Wyrdwings.
 
+- **Cephalari** (`cephalari`)
+  - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
+  - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
+  - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
+  - Rendered via GeckoLib (placeholder assets):
+    - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`
+    - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
+    - Textures: `assets/kruemblegard/textures/entity/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari_zombie.png`
+
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.

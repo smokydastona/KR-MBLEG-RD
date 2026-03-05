@@ -23,6 +23,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -51,6 +53,8 @@ public final class CommonModEvents {
         event.put(ModEntities.SCARALON_BEETLE.get(), ScaralonBeetleEntity.createAttributes().build());
         event.put(ModEntities.TRADER_BEETLE.get(), TraderBeetleEntity.createAttributes().build());
         event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
+        event.put(ModEntities.CEPHALARI.get(), Villager.createAttributes().build());
+        event.put(ModEntities.CEPHALARI_ZOMBIE.get(), ZombieVillager.createAttributes().build());
     }
 
     @SubscribeEvent

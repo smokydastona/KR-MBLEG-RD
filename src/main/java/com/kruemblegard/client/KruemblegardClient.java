@@ -2,6 +2,8 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
+import com.kruemblegard.client.render.CephalariRenderer;
+import com.kruemblegard.client.render.CephalariZombieRenderer;
 import com.kruemblegard.client.render.FaultCrawlerRenderer;
 import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBoatRenderer;
@@ -43,6 +45,8 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.SCARALON_BEETLE.get(), ScaralonBeetleRenderer::new);
         event.registerEntityRenderer(ModEntities.TRADER_BEETLE.get(), TraderBeetleRenderer::new);
         event.registerEntityRenderer(ModEntities.WYRDWING.get(), WyrdwingRenderer::new);
+        event.registerEntityRenderer(ModEntities.CEPHALARI.get(), CephalariRenderer::new);
+        event.registerEntityRenderer(ModEntities.CEPHALARI_ZOMBIE.get(), CephalariZombieRenderer::new);
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_CHEST_BOAT.get(), KruemblegardChestBoatRenderer::new);
