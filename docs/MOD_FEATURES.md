@@ -279,7 +279,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
-  - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures.
+  - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`

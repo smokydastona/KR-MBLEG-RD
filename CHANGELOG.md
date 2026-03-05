@@ -11,6 +11,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1098 (2026-03-05)
 - Feature(render/cephalari): render vanilla villager profession + level-badge overlays when Cephalari have a job.
 
+## 1.0.1099 (2026-03-05)
+- Feature(render/cephalari): render vanilla zombie-villager profession + level-badge overlays for Zombified Cephalari.
+
 ## 1.0.1036 (2026-03-03)
 - Feature(scaralon): Scaralon Beetles can now be decorated with wool/carpet (16-color decor textures; placeholder PNGs copied from `scaralon_beetle_1.png`).
 - Feature(trader_beetle): add a Wandering Trader mount variant of Scaralon that despawns (Trader Llama-style).

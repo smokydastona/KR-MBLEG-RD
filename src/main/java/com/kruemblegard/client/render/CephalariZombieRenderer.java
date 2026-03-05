@@ -1,5 +1,6 @@
 package com.kruemblegard.client.render;
 
+import com.kruemblegard.client.render.layer.CephalariZombieProfessionLayer;
 import com.kruemblegard.client.render.model.CephalariZombieModel;
 import com.kruemblegard.entity.CephalariZombieEntity;
 
@@ -11,5 +12,7 @@ public class CephalariZombieRenderer extends GeoEntityRenderer<CephalariZombieEn
     public CephalariZombieRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CephalariZombieModel());
         this.shadowRadius = 0.5F;
+
+        addRenderLayer(new CephalariZombieProfessionLayer(this));
     }
 }
