@@ -1,6 +1,7 @@
 package com.kruemblegard.entity;
 
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
@@ -35,10 +36,35 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
 
+    private static final int NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS = 40;
+    private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return;
+        }
+
+        if (this.tickCount % NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS == 0) {
+            this.hurt(this.damageSources().drown(), NON_WAYFALL_SUFFOCATION_DAMAGE);
+        }
+    }
+
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
     }
 
     @Override

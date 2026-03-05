@@ -278,6 +278,8 @@ Keep it up to date whenever you add/remove/rename content.
 - **Cephalari** (`cephalari`)
   - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
+  - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
+  - Mobility: takes **no fall damage**.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):

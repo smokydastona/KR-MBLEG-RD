@@ -2,6 +2,7 @@ package com.kruemblegard.entity;
 
 import com.kruemblegard.registry.ModEntities;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -30,6 +31,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     public CephalariZombieEntity(EntityType<? extends ZombieVillager> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
     }
 
     @Override
