@@ -8,6 +8,10 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraderBeetleEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
+import com.kruemblegard.entity.mount.DriftSkimmerEntity;
+import com.kruemblegard.entity.mount.EchoHarnessEntity;
+import com.kruemblegard.entity.mount.SpiralStriderEntity;
+import com.kruemblegard.entity.mount.TreadwinderEntity;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
@@ -55,6 +59,11 @@ public final class CommonModEvents {
         event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
         event.put(ModEntities.CEPHALARI.get(), Villager.createAttributes().build());
         event.put(ModEntities.CEPHALARI_ZOMBIE.get(), ZombieVillager.createAttributes().build());
+
+        event.put(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderEntity.createAttributes().build());
+        event.put(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerEntity.createAttributes().build());
+        event.put(ModEntities.TREADWINDER.get(), TreadwinderEntity.createAttributes().build());
+        event.put(ModEntities.ECHO_HARNESS.get(), EchoHarnessEntity.createAttributes().build());
     }
 
     @SubscribeEvent

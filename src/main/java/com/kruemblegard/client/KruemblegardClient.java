@@ -4,6 +4,8 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
 import com.kruemblegard.client.render.CephalariRenderer;
 import com.kruemblegard.client.render.CephalariZombieRenderer;
+import com.kruemblegard.client.render.DriftSkimmerRenderer;
+import com.kruemblegard.client.render.EchoHarnessRenderer;
 import com.kruemblegard.client.render.FaultCrawlerRenderer;
 import com.kruemblegard.client.render.GreatHungerRenderer;
 import com.kruemblegard.client.render.KruemblegardBoatRenderer;
@@ -13,8 +15,10 @@ import com.kruemblegard.client.render.MoogloomRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.ScaralonBeetleRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
+import com.kruemblegard.client.render.SpiralStriderRenderer;
 import com.kruemblegard.client.render.TraderBeetleRenderer;
 import com.kruemblegard.client.render.TraprockRenderer;
+import com.kruemblegard.client.render.TreadwinderRenderer;
 import com.kruemblegard.client.render.WyrdwingRenderer;
 import com.kruemblegard.client.render.layer.PebblitShoulderLayer;
 import com.kruemblegard.init.ModBlocks;
@@ -47,6 +51,11 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.WYRDWING.get(), WyrdwingRenderer::new);
         event.registerEntityRenderer(ModEntities.CEPHALARI.get(), CephalariRenderer::new);
         event.registerEntityRenderer(ModEntities.CEPHALARI_ZOMBIE.get(), CephalariZombieRenderer::new);
+
+        event.registerEntityRenderer(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderRenderer::new);
+        event.registerEntityRenderer(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerRenderer::new);
+        event.registerEntityRenderer(ModEntities.TREADWINDER.get(), TreadwinderRenderer::new);
+        event.registerEntityRenderer(ModEntities.ECHO_HARNESS.get(), EchoHarnessRenderer::new);
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_CHEST_BOAT.get(), KruemblegardChestBoatRenderer::new);

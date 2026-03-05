@@ -13,6 +13,10 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraderBeetleEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
+import com.kruemblegard.entity.mount.DriftSkimmerEntity;
+import com.kruemblegard.entity.mount.EchoHarnessEntity;
+import com.kruemblegard.entity.mount.SpiralStriderEntity;
+import com.kruemblegard.entity.mount.TreadwinderEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardChestBoatEntity;
 
@@ -134,6 +138,42 @@ public class ModEntities {
                     CephalariZombieEntity::new, MobCategory.MONSTER)
                 .sized(0.6f, 1.95f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_zombie").toString())
+        );
+
+    public static final RegistryObject<EntityType<SpiralStriderEntity>> SPIRAL_STRIDER =
+        ENTITIES.register(
+            "spiral_strider",
+            () -> EntityType.Builder.<SpiralStriderEntity>of(
+                    SpiralStriderEntity::new, MobCategory.CREATURE)
+                .sized(1.4f, 1.8f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "spiral_strider").toString())
+        );
+
+    public static final RegistryObject<EntityType<DriftSkimmerEntity>> DRIFTSKIMMER =
+        ENTITIES.register(
+            "driftskimmer",
+            () -> EntityType.Builder.<DriftSkimmerEntity>of(
+                    DriftSkimmerEntity::new, MobCategory.CREATURE)
+                .sized(2.2f, 0.9f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "driftskimmer").toString())
+        );
+
+    public static final RegistryObject<EntityType<TreadwinderEntity>> TREADWINDER =
+        ENTITIES.register(
+            "treadwinder",
+            () -> EntityType.Builder.<TreadwinderEntity>of(
+                    TreadwinderEntity::new, MobCategory.CREATURE)
+                .sized(1.6f, 1.1f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "treadwinder").toString())
+        );
+
+    public static final RegistryObject<EntityType<EchoHarnessEntity>> ECHO_HARNESS =
+        ENTITIES.register(
+            "echo_harness",
+            () -> EntityType.Builder.<EchoHarnessEntity>of(
+                    EchoHarnessEntity::new, MobCategory.CREATURE)
+                .sized(1.1f, 2.6f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "echo_harness").toString())
         );
 
     public static final RegistryObject<EntityType<KruemblegardBoatEntity>> KRUEMBLEGARD_BOAT =

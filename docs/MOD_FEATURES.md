@@ -280,12 +280,24 @@ Keep it up to date whenever you add/remove/rename content.
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
+  - Mounts: adult Cephalari spawn mounted on one of four rideable mounts.
+    - **Spiral Strider** (`spiral_strider`)
+    - **DriftSkimmer** (`driftskimmer`)
+    - **Treadwinder** (`treadwinder`)
+    - **Echo Harness** (`echo_harness`)
+  - Mount lifecycle:
+    - When a Cephalari converts to **Zombified Cephalari**, its current mount is removed and a new mount is spawned.
+    - When a Zombified Cephalari is cured back into Cephalari, it restores its stored mount type.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
     - Textures: `assets/kruemblegard/textures/entity/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari_zombie.png`
+  - Mount assets (GeckoLib placeholder assets):
+    - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
+    - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
+    - Textures: `assets/kruemblegard/textures/entity/{spiral_strider,driftskimmer,treadwinder,echo_harness}.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.

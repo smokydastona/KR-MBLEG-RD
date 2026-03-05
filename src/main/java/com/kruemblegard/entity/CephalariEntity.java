@@ -1,6 +1,8 @@
 package com.kruemblegard.entity;
 
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.entity.mount.CephalariMountEntity;
+import com.kruemblegard.entity.mount.CephalariMounts;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.server.level.ServerLevel;
@@ -9,11 +11,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +49,26 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+        ServerLevelAccessor level,
+        net.minecraft.world.DifficultyInstance difficulty,
+        MobSpawnType spawnType,
+        @Nullable SpawnGroupData spawnData,
+        @Nullable net.minecraft.nbt.CompoundTag tag
+    ) {
+        SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
+
+        if (level instanceof ServerLevel serverLevel) {
+            if (!this.isBaby() && !this.isPassenger()) {
+                String mountId = CephalariMounts.getOrAssignMountId(this);
+                CephalariMounts.spawnMountAndRide(this, serverLevel, mountId);
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -125,6 +150,16 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 }
 
                 if (shouldConvert) {
+                    String mountId = CephalariMounts.getMountId(this);
+                    if (mountId == null && this.getVehicle() != null) {
+                        mountId = CephalariMounts.getMountIdFromVehicle(this.getVehicle());
+                    }
+
+                    if (this.getVehicle() instanceof CephalariMountEntity mount) {
+                        this.stopRiding();
+                        mount.discard();
+                    }
+
                     CephalariZombieEntity zombie = ModEntities.CEPHALARI_ZOMBIE.get().create(serverLevel);
                     if (zombie != null) {
                         zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
@@ -134,6 +169,13 @@ public class CephalariEntity extends Villager implements GeoEntity {
                         zombie.setCustomName(this.getCustomName());
                         zombie.setCustomNameVisible(this.isCustomNameVisible());
 
+                        if (mountId != null) {
+                            CephalariMounts.setMountId(zombie, mountId);
+                        }
+
+                        String zombieMount = CephalariMounts.getRandomMountId(serverLevel, serverLevel.getRandom().nextInt());
+                        CephalariMounts.spawnMountAndRide(zombie, serverLevel, zombieMount);
+
                         serverLevel.addFreshEntity(zombie);
                     }
 
@@ -141,6 +183,11 @@ public class CephalariEntity extends Villager implements GeoEntity {
                     return;
                 }
             }
+        }
+
+        if (this.getVehicle() instanceof CephalariMountEntity mount) {
+            this.stopRiding();
+            mount.discard();
         }
 
         super.die(source);

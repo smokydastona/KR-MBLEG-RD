@@ -1,12 +1,15 @@
 package com.kruemblegard.entity;
 
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.entity.mount.CephalariMountEntity;
+import com.kruemblegard.entity.mount.CephalariMounts;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -63,16 +66,41 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             @SuppressWarnings("unchecked")
             EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI.get();
 
+            String storedMountId = CephalariMounts.getMountId(this);
+            if (this.getVehicle() instanceof CephalariMountEntity mount) {
+                this.stopRiding();
+                mount.discard();
+            }
+
             T converted = super.convertTo(target, keepEquipment);
             if (converted instanceof CephalariEntity cephalari) {
                 cephalari.setVillagerData(this.getVillagerData());
                 cephalari.setNoAi(this.isNoAi());
                 cephalari.setCustomName(this.getCustomName());
                 cephalari.setCustomNameVisible(this.isCustomNameVisible());
+
+                if (storedMountId != null) {
+                    CephalariMounts.setMountId(cephalari, storedMountId);
+                }
+
+                if (cephalari.level() instanceof ServerLevel serverLevel && !cephalari.isPassenger() && !cephalari.isBaby()) {
+                    String mountId = CephalariMounts.getOrAssignMountId(cephalari);
+                    CephalariMounts.spawnMountAndRide(cephalari, serverLevel, mountId);
+                }
             }
             return converted;
         }
 
         return super.convertTo(entityType, keepEquipment);
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        if (!level().isClientSide && this.getVehicle() instanceof CephalariMountEntity mount) {
+            this.stopRiding();
+            mount.discard();
+        }
+
+        super.die(source);
     }
 }
