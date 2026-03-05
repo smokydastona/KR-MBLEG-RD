@@ -20,7 +20,6 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  */
 public final class TraderBeetleCarpetColorLayer extends GeoRenderLayer<TraderBeetleEntity> {
     private static final String CARPET_COLOR_BONE = "carpet_color";
-    private static final String CARPET_BONE_FALLBACK = "carpet";
 
     public TraderBeetleCarpetColorLayer(GeoRenderer<TraderBeetleEntity> renderer) {
         super(renderer);
@@ -63,7 +62,7 @@ public final class TraderBeetleCarpetColorLayer extends GeoRenderLayer<TraderBee
         }
 
         String name = bone.getName();
-        if (!CARPET_COLOR_BONE.equals(name) && !CARPET_BONE_FALLBACK.equals(name)) {
+        if (!CARPET_COLOR_BONE.equals(name)) {
             return;
         }
 

@@ -24,7 +24,6 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  */
 public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetleEntity> {
     private static final String CARPET_COLOR_BONE = "carpet_color";
-    private static final String CARPET_BONE_FALLBACK = "carpet";
 
     public ScaralonCarpetColorLayer(GeoRenderer<ScaralonBeetleEntity> renderer) {
         super(renderer);
@@ -67,7 +66,7 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         }
 
         String name = bone.getName();
-        if (!CARPET_COLOR_BONE.equals(name) && !CARPET_BONE_FALLBACK.equals(name)) {
+        if (!CARPET_COLOR_BONE.equals(name)) {
             return;
         }
 
