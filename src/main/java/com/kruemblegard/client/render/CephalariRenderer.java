@@ -1,5 +1,6 @@
 package com.kruemblegard.client.render;
 
+import com.kruemblegard.client.render.layer.CephalariProfessionLayer;
 import com.kruemblegard.client.render.model.CephalariModel;
 import com.kruemblegard.entity.CephalariEntity;
 
@@ -11,5 +12,7 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
     public CephalariRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CephalariModel());
         this.shadowRadius = 0.5F;
+
+        addRenderLayer(new CephalariProfessionLayer(this));
     }
 }
