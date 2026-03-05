@@ -16,7 +16,10 @@ public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
 
     @Override
     public ResourceLocation getTextureResource(DriftSkimmerEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MODID, "textures/entity/driftskimmer.png");
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getTextureVariant() + ".png"
+        );
     }
 
     @Override

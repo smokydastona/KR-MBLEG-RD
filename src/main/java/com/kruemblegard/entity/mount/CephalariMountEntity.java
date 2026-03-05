@@ -6,6 +6,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,6 +17,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -22,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +48,11 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     private static final String SEAT_BONE_NAME = "seat";
 
+    private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariMountTextureVariant";
+    private static final int MOUNT_TEXTURE_VARIANTS = 5;
+
+    private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(CephalariMountEntity.class, EntityDataSerializers.INT);
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private final String geoResourcePath;
@@ -58,6 +69,54 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
         super(type, level);
         this.geoResourcePath = geoResourcePath;
         this.defaultSeatOffsetBlocks = defaultSeatOffsetBlocks;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        // 1..MOUNT_TEXTURE_VARIANTS (we use 1-based because the files are named _1.._5)
+        this.entityData.define(DATA_TEXTURE_VARIANT, 1);
+    }
+
+    public int getTextureVariant() {
+        return this.entityData.get(DATA_TEXTURE_VARIANT);
+    }
+
+    public void setTextureVariant(int variant) {
+        int clamped = Mth.clamp(variant, 1, MOUNT_TEXTURE_VARIANTS);
+        this.entityData.set(DATA_TEXTURE_VARIANT, clamped);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+        ServerLevelAccessor level,
+        net.minecraft.world.DifficultyInstance difficulty,
+        MobSpawnType spawnType,
+        @Nullable SpawnGroupData spawnData,
+        @Nullable net.minecraft.nbt.CompoundTag tag
+    ) {
+        SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
+
+        // Assign a stable random look per mount.
+        if (!this.level().isClientSide) {
+            setTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+        }
+
+        return result;
+    }
+
+    @Override
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains(NBT_TEXTURE_VARIANT)) {
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
+        }
     }
 
     public static AttributeSupplier.Builder createBaseAttributes() {

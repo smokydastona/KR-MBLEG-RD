@@ -16,7 +16,10 @@ public class SpiralStriderModel extends GeoModel<SpiralStriderEntity> {
 
     @Override
     public ResourceLocation getTextureResource(SpiralStriderEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MODID, "textures/entity/spiral_strider.png");
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getTextureVariant() + ".png"
+        );
     }
 
     @Override

@@ -215,6 +215,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
                     CephalariMountEntity mount = mountType.get().create(serverLevel);
                     if (mount != null) {
                         mount.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                        mount.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                         serverLevel.addFreshEntity(mount);
                         mount.playManifest();
                         this.startRiding(mount, true);

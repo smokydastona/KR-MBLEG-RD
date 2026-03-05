@@ -16,7 +16,10 @@ public class EchoHarnessModel extends GeoModel<EchoHarnessEntity> {
 
     @Override
     public ResourceLocation getTextureResource(EchoHarnessEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MODID, "textures/entity/echo_harness.png");
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getTextureVariant() + ".png"
+        );
     }
 
     @Override

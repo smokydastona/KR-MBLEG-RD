@@ -9,6 +9,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(cephalari/mounts): Cephalari spawn mounted; zombification removes the current mount and spawns a new mount; curing restores the stored mount type.
 - Feature(cephalari/mounts): mount rider positioning aligns to the model `seat` bone (seat pivot loaded from the mount geo).
 
+## 1.0.1109 (2026-03-05)
+- Feature(cephalari): zombification now plays a timed cinematic (animation + VFX), manifests a zombie mount mid-way, then swaps to Zombified Cephalari.
+- Feature(cephalari): curing now plays VFX and sound.
+- Tuning(assets/cephalari/mounts): all 4 mounts now share a common mount texture set with per-mount randomized variants.
+
 ## 1.0.1097 (2026-03-05)
 - Tuning(assets/cephalari): retarget and expand Cephalari + Zombified Cephalari animations to match the updated geo bone set.
 - Fix(assets/cephalari): resize placeholder textures to match the new UV layout (64x128).

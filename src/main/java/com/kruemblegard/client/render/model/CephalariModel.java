@@ -15,7 +15,7 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari.png");
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari.png");
     }
 
     @Override

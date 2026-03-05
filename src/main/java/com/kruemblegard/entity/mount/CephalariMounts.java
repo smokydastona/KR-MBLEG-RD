@@ -79,6 +79,7 @@ public final class CephalariMounts {
         }
 
         mount.moveTo(rider.getX(), rider.getY(), rider.getZ(), rider.getYRot(), rider.getXRot());
+        mount.finalizeSpawn(level, level.getCurrentDifficultyAt(mount.blockPosition()), net.minecraft.world.entity.MobSpawnType.MOB_SUMMONED, null, null);
         level.addFreshEntity(mount);
         rider.startRiding(mount, true);
         return true;

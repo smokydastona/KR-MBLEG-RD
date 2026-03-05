@@ -16,7 +16,10 @@ public class TreadwinderModel extends GeoModel<TreadwinderEntity> {
 
     @Override
     public ResourceLocation getTextureResource(TreadwinderEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MODID, "textures/entity/treadwinder.png");
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getTextureVariant() + ".png"
+        );
     }
 
     @Override

@@ -293,11 +293,11 @@ Keep it up to date whenever you add/remove/rename content.
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
-    - Textures: `assets/kruemblegard/textures/entity/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari_zombie.png`
+    - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari/cephalari_zombie.png`
   - Mount assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
-    - Textures: `assets/kruemblegard/textures/entity/{spiral_strider,driftskimmer,treadwinder,echo_harness}.png`
+    - Textures: shared variants `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_5.png` (randomly chosen per mount)
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
