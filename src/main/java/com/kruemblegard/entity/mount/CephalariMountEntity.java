@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kruemblegard.entity.CephalariEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -23,9 +24,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -57,6 +60,8 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     private final String geoResourcePath;
     private final Vec3 defaultSeatOffsetBlocks;
+
+    private boolean forwardingLinkedDamage = false;
 
     private volatile @Nullable Vec3 cachedSeatOffsetBlocks;
 
@@ -121,7 +126,8 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     public static AttributeSupplier.Builder createBaseAttributes() {
         return LivingEntity.createLivingAttributes()
-            .add(Attributes.MAX_HEALTH, 24.0D)
+            // Match villager-class health so linked Cephalari + mount die together.
+            .add(Attributes.MAX_HEALTH, 20.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.25D)
             .add(Attributes.FOLLOW_RANGE, 24.0D);
     }
@@ -135,9 +141,88 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D));
+        goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (getFirstPassenger() instanceof CephalariEntity cephalari) {
+            // Keep the pair alive/dead together.
+            if (!cephalari.isAlive() && this.isAlive()) {
+                this.kill();
+            }
+        }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (!level().isClientSide && !forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari) {
+            boolean result = super.hurt(source, amount);
+            if (result && cephalari.isAlive()) {
+                cephalari.hurtLinkedFromMount(source, amount);
+            }
+            return result;
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    public boolean hurtLinkedFromCephalari(DamageSource source, float amount) {
+        if (level().isClientSide) {
+            return super.hurt(source, amount);
+        }
+
+        if (forwardingLinkedDamage) {
+            return super.hurt(source, amount);
+        }
+
+        forwardingLinkedDamage = true;
+        try {
+            return super.hurt(source, amount);
+        } finally {
+            forwardingLinkedDamage = false;
+        }
+    }
+
+    @Override
+    public void heal(float amount) {
+        super.heal(amount);
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (!forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari && cephalari.isAlive()) {
+            cephalari.healLinkedFromMount(amount);
+        }
+    }
+
+    public void healLinkedFromCephalari(float amount) {
+        if (level().isClientSide) {
+            super.heal(amount);
+            return;
+        }
+
+        if (forwardingLinkedDamage) {
+            super.heal(amount);
+            return;
+        }
+
+        forwardingLinkedDamage = true;
+        try {
+            super.heal(amount);
+        } finally {
+            forwardingLinkedDamage = false;
+        }
     }
 
     @Override
@@ -208,6 +293,13 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
         if (player.isSecondaryUseActive()) {
             return InteractionResult.PASS;
+        }
+
+        // If a Cephalari with a profession is riding, forward interaction to open trades.
+        if (getFirstPassenger() instanceof CephalariEntity cephalari
+            && cephalari.isAlive()
+            && cephalari.getVillagerData().getProfession() != VillagerProfession.NONE) {
+            return cephalari.mobInteract(player, hand);
         }
 
         if (!isVehicle()) {

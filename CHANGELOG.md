@@ -14,6 +14,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(cephalari): curing now plays VFX and sound.
 - Tuning(assets/cephalari/mounts): all 4 mounts now share a common mount texture set with per-mount randomized variants.
 
+## 1.0.1113 (2026-03-05)
+- Feature(cephalari/mounts): right-clicking a mount with a professioned Cephalari rider opens the Cephalari trading UI.
+- Feature(cephalari/mounts): Cephalari and their mounts now mirror damage/healing while mounted and die together.
+- Tuning(cephalari/mounts): mount goal set updated (panic + water-avoiding stroll) to better match villager-like wandering.
+
 ## 1.0.1097 (2026-03-05)
 - Tuning(assets/cephalari): retarget and expand Cephalari + Zombified Cephalari animations to match the updated geo bone set.
 - Fix(assets/cephalari): resize placeholder textures to match the new UV layout (64x128).

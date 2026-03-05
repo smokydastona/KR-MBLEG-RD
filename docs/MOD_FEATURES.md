@@ -288,6 +288,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Mount lifecycle:
     - When a Cephalari converts to **Zombified Cephalari**, its current mount is removed and a new mount is spawned.
     - When a Zombified Cephalari is cured back into Cephalari, it restores its stored mount type.
+  - Trading: if a Cephalari has a profession, right-clicking the Cephalari **or its mount** opens the Cephalari trading UI.
+  - Linked health: while mounted, the Cephalari and its mount mirror damage/healing and die together.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):

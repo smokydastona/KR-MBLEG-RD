@@ -62,6 +62,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private @Nullable UUID zombifySpawnedMountUuid;
     private boolean zombifyMountSpawned = false;
 
+    private boolean forwardingLinkedDamage = false;
+
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
     }
@@ -98,6 +100,14 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         if (level().isClientSide) {
             return;
+        }
+
+        if (this.getVehicle() instanceof CephalariMountEntity mount) {
+            // Keep the pair alive/dead together.
+            if (!mount.isAlive() && this.isAlive()) {
+                this.kill();
+                return;
+            }
         }
 
         if (level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
@@ -159,7 +169,64 @@ public class CephalariEntity extends Villager implements GeoEntity {
             }
         }
 
+        if (!level().isClientSide && !forwardingLinkedDamage && this.getVehicle() instanceof CephalariMountEntity mount) {
+            boolean result = super.hurt(source, amount);
+            if (result && mount.isAlive()) {
+                mount.hurtLinkedFromCephalari(source, amount);
+            }
+            return result;
+        }
+
         return super.hurt(source, amount);
+    }
+
+    public boolean hurtLinkedFromMount(DamageSource source, float amount) {
+        if (level().isClientSide) {
+            return super.hurt(source, amount);
+        }
+
+        if (forwardingLinkedDamage) {
+            return super.hurt(source, amount);
+        }
+
+        forwardingLinkedDamage = true;
+        try {
+            return super.hurt(source, amount);
+        } finally {
+            forwardingLinkedDamage = false;
+        }
+    }
+
+    @Override
+    public void heal(float amount) {
+        super.heal(amount);
+
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (!forwardingLinkedDamage && this.getVehicle() instanceof CephalariMountEntity mount && mount.isAlive()) {
+            mount.healLinkedFromCephalari(amount);
+        }
+    }
+
+    public void healLinkedFromMount(float amount) {
+        if (level().isClientSide) {
+            super.heal(amount);
+            return;
+        }
+
+        if (forwardingLinkedDamage) {
+            super.heal(amount);
+            return;
+        }
+
+        forwardingLinkedDamage = true;
+        try {
+            super.heal(amount);
+        } finally {
+            forwardingLinkedDamage = false;
+        }
     }
 
     private void startZombifySequence(ServerLevel serverLevel) {
