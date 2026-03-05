@@ -19,6 +19,9 @@
     "entity.kruemblegard.cephalari_zombie": "Zombified Cephalari",
     "item.kruemblegard.cephalari_spawn_egg": "Cephalari Spawn Egg",
 
+    "subtitles.kruemblegard.cephalari.zombify": "Cephalari zombifies",
+    "subtitles.kruemblegard.cephalari.cure": "Cephalari is cured",
+
     "entity.kruemblegard.fault_crawler": "Fault Crawler",
     "item.kruemblegard.fault_crawler_spawn_egg": "Fault Crawler Spawn Egg",
     "item.kruemblegard.fault_shard": "Fault Shard",

@@ -71,6 +71,8 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     protected abstract RawAnimation getMoveAnimation();
 
+    protected abstract RawAnimation getManifestAnimation();
+
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
@@ -85,6 +87,15 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
             state.setAnimation(state.isMoving() ? getMoveAnimation() : getIdleAnimation());
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
+            .triggerableAnim("manifest", getManifestAnimation()));
+    }
+
+    public void playManifest() {
+        if (!level().isClientSide) {
+            triggerAnim("actionController", "manifest");
+        }
     }
 
     @Override

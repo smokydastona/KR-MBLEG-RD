@@ -99,6 +99,9 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> WAYFALL_MUSIC = register("music.wayfall");
 
+    public static final RegistryObject<SoundEvent> CEPHALARI_ZOMBIFY = register("entity.cephalari.zombify");
+    public static final RegistryObject<SoundEvent> CEPHALARI_CURE = register("entity.cephalari.cure");
+
     private static RegistryObject<SoundEvent> register(String path) {
         return SOUNDS.register(path,
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Kruemblegard.MOD_ID, path)));

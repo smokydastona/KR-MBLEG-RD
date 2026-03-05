@@ -3,6 +3,8 @@ package com.kruemblegard.entity;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.entity.mount.CephalariMountEntity;
 import com.kruemblegard.entity.mount.CephalariMounts;
+import com.kruemblegard.registry.ModParticles;
+import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -65,6 +67,13 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         if (entityType == EntityType.VILLAGER) {
             @SuppressWarnings("unchecked")
             EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI.get();
+
+            if (this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ModParticles.CEPHALARI_CURE.get(), getX(), getY() + 0.85D, getZ(), 18, 0.35D, 0.35D, 0.35D, 0.06D);
+                serverLevel.sendParticles(ModParticles.CEPHALARI_SHELL_SPIRAL.get(), getX(), getY() + 0.85D, getZ(), 10, 0.25D, 0.35D, 0.25D, 0.03D);
+                serverLevel.sendParticles(ModParticles.CEPHALARI_SHELL_DUST.get(), getX(), getY() + 0.85D, getZ(), 12, 0.30D, 0.25D, 0.30D, 0.04D);
+            }
+            playSound(ModSounds.CEPHALARI_CURE.get(), 0.95F, 0.95F + random.nextFloat() * 0.1F);
 
             String storedMountId = CephalariMounts.getMountId(this);
             if (this.getVehicle() instanceof CephalariMountEntity mount) {

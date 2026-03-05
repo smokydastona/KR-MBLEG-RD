@@ -11,6 +11,7 @@ public class EchoHarnessEntity extends CephalariMountEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.echo_harness.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.echo_harness.move");
+    private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.echo_harness.zombie_manifest");
 
     public EchoHarnessEntity(EntityType<? extends EchoHarnessEntity> type, Level level) {
         super(type, level,
@@ -31,5 +32,10 @@ public class EchoHarnessEntity extends CephalariMountEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getManifestAnimation() {
+        return MANIFEST;
     }
 }

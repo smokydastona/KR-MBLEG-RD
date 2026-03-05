@@ -13,6 +13,31 @@
         "wing_left": { "rotation": [0, 0, "math.sin(query.anim_time * 2) * 10"] },
         "wing_right": { "rotation": [0, 0, "-math.sin(query.anim_time * 2) * 10"] }
       }
+    },
+    "animation.driftskimmer.move": {
+      "loop": true,
+      "bones": {
+        "wing_left": { "rotation": [0, 0, "math.sin(query.anim_time * 2) * 10"] },
+        "wing_right": { "rotation": [0, 0, "-math.sin(query.anim_time * 2) * 10"] }
+      }
+    },
+    "animation.driftskimmer.zombie_manifest": {
+      "loop": false,
+      "animation_length": 1.4,
+      "bones": {
+        "*": {
+          "scale": [
+            "math.lerp(0.05, 1, query.anim_time / 1.4)",
+            "math.lerp(0.05, 1, query.anim_time / 1.4)",
+            "math.lerp(0.05, 1, query.anim_time / 1.4)"
+          ],
+          "rotation": [
+            "math.sin(query.anim_time * 300) * 12",
+            "math.sin(query.anim_time * 260) * 12",
+            "math.sin(query.anim_time * 280) * 12"
+          ]
+        }
+      }
     }
   }
 }

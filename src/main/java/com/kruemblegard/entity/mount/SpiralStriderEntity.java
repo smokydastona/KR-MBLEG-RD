@@ -11,6 +11,7 @@ public class SpiralStriderEntity extends CephalariMountEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.spiral_strider.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.spiral_strider.move");
+    private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.spiral_strider.zombie_manifest");
 
     public SpiralStriderEntity(EntityType<? extends SpiralStriderEntity> type, Level level) {
         super(type, level,
@@ -31,5 +32,10 @@ public class SpiralStriderEntity extends CephalariMountEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getManifestAnimation() {
+        return MANIFEST;
     }
 }

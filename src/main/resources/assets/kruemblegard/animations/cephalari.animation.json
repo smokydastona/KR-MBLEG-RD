@@ -1,6 +1,54 @@
 {
   "format_version": "1.8.0",
   "animations": {
+    "animation.cephalari.zombify_cinematic": {
+      "loop": false,
+      "animation_length": 1.2,
+      "bones": {
+        "root": {
+          "rotation": [
+            "math.lerp(-5, -35, query.anim_time / 1.2)",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.lerp(10, 40, query.anim_time / 1.2)",
+            0,
+            0
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            "math.lerp(0, -30, query.anim_time / 1.2)",
+            0,
+            "math.lerp(-15, -50, query.anim_time / 1.2)"
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            "math.lerp(0, -30, query.anim_time / 1.2)",
+            0,
+            "math.lerp(15, 50, query.anim_time / 1.2)"
+          ]
+        },
+        "shell": {
+          "rotation": [
+            "math.lerp(6, 18, query.anim_time / 1.2)",
+            0,
+            0
+          ]
+        },
+        "body2": {
+          "rotation": [
+            "math.lerp(10, 45, query.anim_time / 1.2)",
+            0,
+            0
+          ]
+        }
+      }
+    },
     "animation.cephalari.riding_pose": {
       "loop": true,
       "animation_length": 2.0,

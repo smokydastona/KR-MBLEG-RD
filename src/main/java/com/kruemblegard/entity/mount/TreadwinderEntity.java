@@ -11,6 +11,7 @@ public class TreadwinderEntity extends CephalariMountEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.treadwinder.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.treadwinder.move");
+    private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.treadwinder.zombie_manifest");
 
     public TreadwinderEntity(EntityType<? extends TreadwinderEntity> type, Level level) {
         super(type, level,
@@ -31,5 +32,10 @@ public class TreadwinderEntity extends CephalariMountEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getManifestAnimation() {
+        return MANIFEST;
     }
 }

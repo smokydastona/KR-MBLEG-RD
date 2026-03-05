@@ -13,6 +13,24 @@
         "tread_left": { "rotation": [0, 0, "query.walk_cycle * 360"] },
         "tread_right": { "rotation": [0, 0, "-query.walk_cycle * 360"] }
       }
+    },
+    "animation.treadwinder.zombie_manifest": {
+      "loop": false,
+      "animation_length": 1.4,
+      "bones": {
+        "*": {
+          "scale": [
+            "math.lerp(0.05, 1, query.anim_time / 1.4)",
+            "math.lerp(0.05, 1, query.anim_time / 1.4)",
+            "math.lerp(0.05, 1, query.anim_time / 1.4)"
+          ],
+          "rotation": [
+            "math.sin(query.anim_time * 300) * 12",
+            "math.sin(query.anim_time * 260) * 12",
+            "math.sin(query.anim_time * 280) * 12"
+          ]
+        }
+      }
     }
   }
 }

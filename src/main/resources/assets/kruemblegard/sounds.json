@@ -307,4 +307,17 @@
       {"name": "kruemblegard:entity/wyrdwing/call"}
     ]
   }
+
+  "entity.cephalari.zombify": {
+    "subtitle": "subtitles.kruemblegard.cephalari.zombify",
+    "sounds": [
+      {"name": "kruemblegard:entity/cephalari/zombify"}
+    ]
+  },
+  "entity.cephalari.cure": {
+    "subtitle": "subtitles.kruemblegard.cephalari.cure",
+    "sounds": [
+      {"name": "kruemblegard:entity/cephalari/cure"}
+    ]
+  },
 }

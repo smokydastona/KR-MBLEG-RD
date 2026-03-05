@@ -2,6 +2,7 @@ package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
+import com.kruemblegard.client.particle.CephalariVfxParticle;
 import com.kruemblegard.client.render.CephalariRenderer;
 import com.kruemblegard.client.render.CephalariZombieRenderer;
 import com.kruemblegard.client.render.DriftSkimmerRenderer;
@@ -77,6 +78,12 @@ public class KruemblegardClient {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModParticles.ARCANE_SPARK.get(), ArcaneSparkParticle.Provider::new);
+
+        event.registerSpriteSet(ModParticles.CEPHALARI_SHELL_DUST.get(), sprites -> new CephalariVfxParticle.Provider(sprites, CephalariVfxParticle.Kind.SHELL_DUST));
+        event.registerSpriteSet(ModParticles.CEPHALARI_SHELL_FRAGMENT.get(), sprites -> new CephalariVfxParticle.Provider(sprites, CephalariVfxParticle.Kind.SHELL_FRAGMENT));
+        event.registerSpriteSet(ModParticles.CEPHALARI_SHELL_SPIRAL.get(), sprites -> new CephalariVfxParticle.Provider(sprites, CephalariVfxParticle.Kind.SHELL_SPIRAL));
+        event.registerSpriteSet(ModParticles.CEPHALARI_ZOMBIFY.get(), sprites -> new CephalariVfxParticle.Provider(sprites, CephalariVfxParticle.Kind.ZOMBIFY));
+        event.registerSpriteSet(ModParticles.CEPHALARI_CURE.get(), sprites -> new CephalariVfxParticle.Provider(sprites, CephalariVfxParticle.Kind.CURE));
     }
 
     @SubscribeEvent

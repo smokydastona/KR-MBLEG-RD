@@ -11,6 +11,7 @@ public class DriftSkimmerEntity extends CephalariMountEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.driftskimmer.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.driftskimmer.move");
+    private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.driftskimmer.zombie_manifest");
 
     public DriftSkimmerEntity(EntityType<? extends DriftSkimmerEntity> type, Level level) {
         super(type, level,
@@ -31,5 +32,10 @@ public class DriftSkimmerEntity extends CephalariMountEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getManifestAnimation() {
+        return MANIFEST;
     }
 }
