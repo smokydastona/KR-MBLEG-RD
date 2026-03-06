@@ -24,6 +24,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(items): add missing spawn egg item model JSONs for Cephalari and Zombified Cephalari.
 - Tuning(cephalari/mounts): mounts now follow the Cephalari villager walk-target memory (so mounted Cephalari path to jobs/beds/breeding targets and through doors).
 
+## 1.0.1115 (2026-03-05)
+- Tuning(wayfall): Wandering Trader spawns in Wayfall now follow vanilla-like cadence (day-scale attempts instead of frequent retries).
+
 ## 1.0.1097 (2026-03-05)
 - Tuning(assets/cephalari): retarget and expand Cephalari + Zombified Cephalari animations to match the updated geo bone set.
 - Fix(assets/cephalari): resize placeholder textures to match the new UV layout (64x128).

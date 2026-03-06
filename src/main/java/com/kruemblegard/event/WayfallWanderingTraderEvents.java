@@ -15,6 +15,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.phys.AABB;
 
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -116,24 +117,37 @@ public final class WayfallWanderingTraderEvents {
      * This is intentionally simple: it tries periodically and uses vanilla-ish timing.
      */
     static final class WayfallTraderSpawnerData extends SavedData {
-        private static final String TAG_DELAY = "Delay";
+        private static final String TAG_TICK_DELAY = "TickDelay";
+        private static final String TAG_SPAWN_DELAY = "SpawnDelay";
         private static final String TAG_CHANCE = "Chance";
 
-        private int delayTicks = 1200; // vanilla spawner ticks every 1200
+        // Vanilla spawner logic (approx): ticks every 1200, but only attempts a spawn about once per day.
+        private int tickDelayTicks = 1200;
+        private int spawnDelayTicks = 24000;
         private int chance = 25; // scales up when failing
 
         WayfallTraderSpawnerData() {}
 
         static WayfallTraderSpawnerData load(CompoundTag tag) {
             WayfallTraderSpawnerData data = new WayfallTraderSpawnerData();
-            data.delayTicks = Math.max(1, tag.getInt(TAG_DELAY));
+
+            if (tag.contains(TAG_TICK_DELAY)) {
+                data.tickDelayTicks = Math.max(1, tag.getInt(TAG_TICK_DELAY));
+                data.spawnDelayTicks = Math.max(1, tag.getInt(TAG_SPAWN_DELAY));
+            } else {
+                // Back-compat: older saves stored a single "Delay" which behaved like the tick delay.
+                data.tickDelayTicks = Math.max(1, tag.getInt("Delay"));
+                data.spawnDelayTicks = 24000;
+            }
+
             data.chance = Math.max(1, tag.getInt(TAG_CHANCE));
             return data;
         }
 
         @Override
         public CompoundTag save(CompoundTag tag) {
-            tag.putInt(TAG_DELAY, delayTicks);
+            tag.putInt(TAG_TICK_DELAY, tickDelayTicks);
+            tag.putInt(TAG_SPAWN_DELAY, spawnDelayTicks);
             tag.putInt(TAG_CHANCE, chance);
             return tag;
         }
@@ -145,11 +159,31 @@ public final class WayfallWanderingTraderEvents {
                 return false;
             }
 
-            if (--delayTicks > 0) {
+            if (--tickDelayTicks > 0) {
                 return false;
             }
 
-            delayTicks = 1200;
+            tickDelayTicks = 1200;
+
+            // Vanilla-ish: only attempt a spawn about once per day.
+            spawnDelayTicks = Math.max(0, spawnDelayTicks - 1200);
+            if (spawnDelayTicks > 0) {
+                return false;
+            }
+
+            spawnDelayTicks = 24000;
+
+            // Keep at most one wandering trader alive in Wayfall at a time.
+            for (ServerPlayer p : level.players()) {
+                if (p.isSpectator()) {
+                    continue;
+                }
+
+                AABB nearby = p.getBoundingBox().inflate(256.0D);
+                if (!level.getEntitiesOfClass(WanderingTrader.class, nearby).isEmpty()) {
+                    return false;
+                }
+            }
 
             if (level.getRandom().nextInt(100) >= chance) {
                 chance = Math.min(75, chance + 25);
