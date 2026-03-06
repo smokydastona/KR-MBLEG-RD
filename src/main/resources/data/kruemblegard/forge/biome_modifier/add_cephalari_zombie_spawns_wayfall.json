@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:wayfall",
+  "spawners": [
+    {
+      "type": "kruemblegard:cephalari_zombie",
+      "weight": 2,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

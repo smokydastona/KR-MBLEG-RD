@@ -11,6 +11,7 @@ import com.kruemblegard.registry.ModSounds;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -66,6 +67,15 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public BlockPos blockPosition() {
+        if (this.getVehicle() instanceof CephalariMountEntity mount) {
+            return mount.blockPosition();
+        }
+
+        return super.blockPosition();
     }
 
     @Override

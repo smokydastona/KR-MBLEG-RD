@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1117 (2026-03-06)
+- Feature(cephalari_zombie): Zombified Cephalari now always spawn mounted on a zombie-type mount and mirror damage/healing with it.
+- Feature(spawns): Zombified Cephalari can now spawn naturally in Wayfall and the Overworld.
+- Tuning(cephalari): other mobs will not target Cephalari directly; zombie-type mobs treat Cephalari mounts like villager targets.
+
 ## 1.0.1108 (2026-03-05)
 - Feature(cephalari/mounts): add 4 rideable Cephalari mounts as real entities (Spiral Strider, DriftSkimmer, Treadwinder, Echo Harness).
 - Feature(cephalari/mounts): Cephalari spawn mounted; zombification removes the current mount and spawns a new mount; curing restores the stored mount type.
