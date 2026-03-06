@@ -700,4 +700,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI, 0x2d355f, 0xc8c2b0,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> CEPHALARI_ZOMBIE_SPAWN_EGG =
+        ITEMS.register(
+            "cephalari_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_ZOMBIE, 0x2b3a2f, 0xb7b2a2,
+                new Item.Properties()));
+
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -27,6 +28,10 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.WalkTarget;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.Level;
@@ -38,6 +43,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.EnumSet;
+import java.util.Optional;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -139,12 +146,64 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     protected abstract RawAnimation getManifestAnimation();
 
     @Override
+    protected PathNavigation createNavigation(Level level) {
+        GroundPathNavigation nav = new GroundPathNavigation(this, level);
+        nav.setCanOpenDoors(true);
+        nav.setCanPassDoors(true);
+        nav.setCanFloat(true);
+        return nav;
+    }
+
+    @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+        goalSelector.addGoal(1, new FollowCephalariWalkTargetGoal(this));
+        goalSelector.addGoal(2, new PanicGoal(this, 1.25D));
+        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+    }
+
+    private static final class FollowCephalariWalkTargetGoal extends Goal {
+        private final CephalariMountEntity mount;
+
+        private FollowCephalariWalkTargetGoal(CephalariMountEntity mount) {
+            this.mount = mount;
+            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!(mount.getFirstPassenger() instanceof CephalariEntity cephalari) || !cephalari.isAlive()) {
+                return false;
+            }
+
+            return cephalari.getBrain().hasMemoryValue(MemoryModuleType.WALK_TARGET);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public void tick() {
+            if (!(mount.getFirstPassenger() instanceof CephalariEntity cephalari)) {
+                return;
+            }
+
+            Optional<WalkTarget> walkTargetOpt = cephalari.getBrain().getMemory(MemoryModuleType.WALK_TARGET);
+            if (walkTargetOpt.isEmpty()) {
+                return;
+            }
+
+            WalkTarget walkTarget = walkTargetOpt.get();
+            Vec3 pos = walkTarget.getTarget().currentPosition();
+
+            // Drive the mount navigation using the Cephalari's villager walk target.
+            mount.getNavigation().moveTo(pos.x, pos.y, pos.z, walkTarget.getSpeedModifier());
+            mount.getLookControl().setLookAt(pos.x, pos.y, pos.z);
+        }
     }
 
     @Override

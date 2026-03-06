@@ -19,6 +19,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(cephalari/mounts): Cephalari and their mounts now mirror damage/healing while mounted and die together.
 - Tuning(cephalari/mounts): mount goal set updated (panic + water-avoiding stroll) to better match villager-like wandering.
 
+## 1.0.1114 (2026-03-05)
+- Feature(items): add Zombified Cephalari spawn egg.
+- Fix(items): add missing spawn egg item model JSONs for Cephalari and Zombified Cephalari.
+- Tuning(cephalari/mounts): mounts now follow the Cephalari villager walk-target memory (so mounted Cephalari path to jobs/beds/breeding targets and through doors).
+
 ## 1.0.1097 (2026-03-05)
 - Tuning(assets/cephalari): retarget and expand Cephalari + Zombified Cephalari animations to match the updated geo bone set.
 - Fix(assets/cephalari): resize placeholder textures to match the new UV layout (64x128).

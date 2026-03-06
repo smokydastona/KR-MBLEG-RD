@@ -18,6 +18,7 @@
     "entity.kruemblegard.cephalari": "Cephalari",
     "entity.kruemblegard.cephalari_zombie": "Zombified Cephalari",
     "item.kruemblegard.cephalari_spawn_egg": "Cephalari Spawn Egg",
+    "item.kruemblegard.cephalari_zombie_spawn_egg": "Zombified Cephalari Spawn Egg",
 
     "subtitles.kruemblegard.cephalari.zombify": "Cephalari zombifies",
     "subtitles.kruemblegard.cephalari.cure": "Cephalari is cured",
