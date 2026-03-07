@@ -482,6 +482,7 @@ def generate_membrane_pump() -> GeneratedBlockAssets:
         face_grids=face_grids,
         item_grid=item_grid,
         horizontal_facing=True,
+        powered=True,
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )

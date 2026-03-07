@@ -118,7 +118,7 @@ Keep it up to date whenever you add/remove/rename content.
 - Status: early scaffolding (not yet a full machinery system).
 - Blocks:
   - `pressure_conduit`: basic placeable block with palette-locked 32x32 textures.
-  - `membrane_pump`: facing block with animated membrane front texture.
+  - `membrane_pump`: facing block with animated membrane front texture and a redstone-controlled active state (`powered`; scaffolding).
   - `pressure_turbine`: facing block with animated spiral front texture.
   - `spiral_gearbox`: facing block with animated interlocking gear front texture.
   - `vent_piston`: facing block with animated vent shutter front texture.

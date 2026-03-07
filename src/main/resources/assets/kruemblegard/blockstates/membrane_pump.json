@@ -1,17 +1,32 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,powered=false": {
       "model": "kruemblegard:block/membrane_pump"
     },
-    "facing=east": {
+    "facing=north,powered=true": {
+      "model": "kruemblegard:block/membrane_pump"
+    },
+    "facing=east,powered=false": {
       "model": "kruemblegard:block/membrane_pump",
       "y": 90
     },
-    "facing=south": {
+    "facing=east,powered=true": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 90
+    },
+    "facing=south,powered=false": {
       "model": "kruemblegard:block/membrane_pump",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,powered=true": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 270
+    },
+    "facing=west,powered=true": {
       "model": "kruemblegard:block/membrane_pump",
       "y": 270
     }
