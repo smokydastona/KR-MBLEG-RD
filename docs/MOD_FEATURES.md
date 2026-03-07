@@ -127,6 +127,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `buoyancy_lift_platform`: pressure-elevator platform block with a `lift_state` (idle/rising/falling) state (scaffolding).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture and a `pulse_phase` state (scaffolding).
   - `pressure_loom`: Flowwright workstation block with an animated front texture (scaffolding).
+  - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state; scaffolding).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 

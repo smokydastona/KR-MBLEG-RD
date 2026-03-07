@@ -1875,6 +1875,144 @@ def generate_pressure_loom() -> GeneratedBlockAssets:
     )
 
 
+def generate_pressure_clutch() -> GeneratedBlockAssets:
+    # Concept-level spec in docs/PRESSURE_LOGIC.md: redstone-controlled engagement for turbines.
+    # No UV blueprint provided yet; keep this minimal + palette-locked.
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+
+    glow = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+
+    def border(g: list[list[str]]) -> None:
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Central plate.
+        for y in range(7, 25):
+            for x in range(7, 25):
+                g[y][x] = ceramic_mid
+        # Highlight + shadow bands.
+        for y in range(7, 25):
+            g[y][8] = ceramic_light
+            g[y][23] = ceramic_dark
+        for x in range(7, 25):
+            g[8][x] = ceramic_light
+            g[23][x] = ceramic_dark
+
+        # Small crystal key notch.
+        for y in range(14, 18):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    def make_bottom() -> list[list[str]]:
+        g = _make_grid(size, ceramic_mid)
+        for y in range(24, 32):
+            for x in range(size):
+                g[y][x] = ceramic_dark
+        border(g)
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Ribbing + casing depth.
+        for y in range(2, size - 2):
+            for x in range(1, size - 1):
+                if y >= 22:
+                    g[y][x] = ceramic_mid
+                if x in (6, 7, 24, 25):
+                    g[y][x] = ceramic_dark
+        # Glow seam.
+        for y in range(size):
+            g[y][16] = glow
+        border(g)
+        return g
+
+    def make_front() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Main casing.
+        for y in range(4, 28):
+            for x in range(4, 28):
+                g[y][x] = ceramic_mid
+        for y in range(5, 27):
+            g[y][4] = ceramic_deep
+            g[y][27] = ceramic_dark
+        for x in range(4, 28):
+            g[4][x] = ceramic_deep
+            g[27][x] = ceramic_dark
+
+        # Clutch ring.
+        ring = _circle_mask(size, 16, 16, 9)
+        hub = _circle_mask(size, 16, 16, 4)
+        for y in range(size):
+            for x in range(size):
+                if not ring[y][x]:
+                    continue
+                if _is_outline(ring, x, y):
+                    g[y][x] = ceramic_deep
+                else:
+                    g[y][x] = ceramic_dark
+        for y in range(size):
+            for x in range(size):
+                if not hub[y][x]:
+                    continue
+                if _is_outline(hub, x, y):
+                    g[y][x] = ceramic_line
+                else:
+                    g[y][x] = ceramic_mid
+
+        # Crystal indicator notch.
+        for y in range(12, 20):
+            g[y][24] = crystal_shadow
+            g[y][25] = crystal_mid
+        g[15][25] = glow
+        g[16][25] = glow
+
+        # Glow seam.
+        for y in range(4, 28):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = make_bottom()
+    side = make_side()
+    front = make_front()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front]
+
+    return GeneratedBlockAssets(
+        block_id="pressure_clutch",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        powered=True,
+    )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
 
@@ -1889,6 +2027,7 @@ def main() -> None:
         generate_buoyancy_lift_platform(),
         generate_conveyor_membrane(),
         generate_pressure_loom(),
+        generate_pressure_clutch(),
     ]
 
     for block_assets in blocks:
