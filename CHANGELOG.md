@@ -4,34 +4,47 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1129 (2026-03-06)
+## 1.0.1132 (2026-03-07)
+- Feature(pressurelogic): add `pressure_sequencer` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_sequencer`.
+
+## 1.0.1131 (2026-03-06)
 - Feature(pressurelogic): add `pressure_regulator` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_regulator`.
 
-## 1.0.1128 (2026-03-06)
+## 1.0.1130 (2026-03-06)
 - Feature(pressurelogic): add `pressure_clutch` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_clutch`.
 
-## 1.0.1127 (2026-03-06)
+## 1.0.1129 (2026-03-06)
 - Feature(pressurelogic): add `pressure_loom` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_loom`.
 - Assets(pressurelogic): add an animated front texture for `pressure_loom`.
 
-## 1.0.1125 (2026-03-06)
-- Feature(pressurelogic): add `buoyancy_lift_platform` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `buoyancy_lift_platform`.
-- Tools(assets): extend Cephalari engineering generator to emit enum-like blockstate variants (used for `lift_state`).
-
-## 1.0.1126 (2026-03-06)
+## 1.0.1128 (2026-03-06)
 - Feature(pressurelogic): add `conveyor_membrane` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `conveyor_membrane`.
 - Assets(pressurelogic): add an animated top texture for `conveyor_membrane`.
 - Tools(assets): extend Cephalari engineering generator to support animating non-front faces.
 
+## 1.0.1127 (2026-03-06)
+- Feature(pressurelogic): add `buoyancy_lift_platform` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `buoyancy_lift_platform`.
+- Tools(assets): extend Cephalari engineering generator to emit enum-like blockstate variants (used for `lift_state`).
+
+## 1.0.1126 (2026-03-06)
+- Feature(pressurelogic): add `pressure_valve` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_valve`.
+
+## 1.0.1125 (2026-03-06)
+- Feature(pressurelogic): add `atmospheric_compressor` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `atmospheric_compressor`.
+- Assets(pressurelogic): add an animated front texture for `atmospheric_compressor`.
+
 ## 1.0.1124 (2026-03-06)
-- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, `atmospheric_compressor`, and `pressure_valve` blocks (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, `atmospheric_compressor`, and `pressure_valve`.
-- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, and `atmospheric_compressor`.
+- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston` blocks (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
+- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
 - Tools(assets): add deterministic Cephalari engineering asset generator (`tools/generate_cephalari_engineering_assets.py`).
 
 ## 1.0.1123 (2026-03-06)

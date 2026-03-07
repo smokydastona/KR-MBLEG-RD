@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=north,powered=false,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=false,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=false,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=false,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=true,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=true,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=true,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=north,powered=true,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer"
+    },
+    "facing=east,powered=false,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=false,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=false,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=false,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=true,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=true,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=true,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=east,powered=true,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 90
+    },
+    "facing=south,powered=false,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=false,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=false,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=false,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=true,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=true,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=true,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=south,powered=true,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 180
+    },
+    "facing=west,powered=false,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=false,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=false,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=false,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=true,step=0": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=true,step=1": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=true,step=2": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    },
+    "facing=west,powered=true,step=3": {
+      "model": "kruemblegard:block/pressure_sequencer",
+      "y": 270
+    }
+  }
+}

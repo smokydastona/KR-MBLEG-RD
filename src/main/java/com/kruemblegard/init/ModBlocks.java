@@ -46,6 +46,7 @@ import com.kruemblegard.block.ConveyorMembraneBlock;
 import com.kruemblegard.block.PressureLoomBlock;
 import com.kruemblegard.block.PressureClutchBlock;
 import com.kruemblegard.block.PressureRegulatorBlock;
+import com.kruemblegard.block.PressureSequencerBlock;
 import com.kruemblegard.block.PaleweftGrassBlock;
 import com.kruemblegard.block.PaleweftCornCropBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
@@ -229,6 +230,15 @@ public final class ModBlocks {
     public static final RegistryObject<Block> PRESSURE_REGULATOR = BLOCKS.register(
             "pressure_regulator",
             () -> new PressureRegulatorBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.4F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PRESSURE_SEQUENCER = BLOCKS.register(
+            "pressure_sequencer",
+            () -> new PressureSequencerBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)

@@ -17,6 +17,7 @@
      "kruemblegard:conveyor_membrane",
     "kruemblegard:pressure_loom",
     "kruemblegard:pressure_clutch",
-    "kruemblegard:pressure_regulator"
+    "kruemblegard:pressure_regulator",
+    "kruemblegard:pressure_sequencer"
   ]
 }

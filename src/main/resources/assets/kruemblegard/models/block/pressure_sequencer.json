@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/pressure_sequencer_top",
+    "bottom": "kruemblegard:block/pressure_sequencer_bottom",
+    "north": "kruemblegard:block/pressure_sequencer_front",
+    "south": "kruemblegard:block/pressure_sequencer_side",
+    "east": "kruemblegard:block/pressure_sequencer_side",
+    "west": "kruemblegard:block/pressure_sequencer_side"
+  }
+}
