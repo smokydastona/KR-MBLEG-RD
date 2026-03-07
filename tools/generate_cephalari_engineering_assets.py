@@ -1719,6 +1719,162 @@ def generate_conveyor_membrane() -> GeneratedBlockAssets:
     )
 
 
+def generate_pressure_loom() -> GeneratedBlockAssets:
+    # Concept-level spec in docs/PRESSURE_LOGIC.md: Flowwright workstation with weaving motion.
+    # Since no UV blueprint is provided yet, keep this minimal and palette-locked:
+    # - Ceramic casing
+    # - Front face: simple "loom" frame with a moving shuttle highlight (animated)
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    glow = PALETTE["crystal"]["bright"]
+
+    membrane_hi = PALETTE["membrane"]["highlight"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+    membrane_shadow = PALETTE["membrane"]["shadow"]
+    membrane_deep = PALETTE["membrane"]["deep"]
+    membrane_line = PALETTE["membrane"]["line"]
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Subtle vertical ribbing.
+        for y in range(1, size - 1):
+            for x in range(1, size - 1):
+                if x in (6, 7, 15, 16, 24, 25):
+                    g[y][x] = ceramic_dark
+                elif x in (8, 17, 26):
+                    g[y][x] = ceramic_mid
+
+        # Glow seam.
+        for y in range(size):
+            g[y][16] = glow
+
+        # Border.
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+        return g
+
+    side = make_side()
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Central plate.
+        for y in range(6, 26):
+            for x in range(6, 26):
+                g[y][x] = ceramic_mid
+
+        # Inset + seam.
+        for y in range(10, 22):
+            for x in range(10, 22):
+                g[y][x] = ceramic_light
+        for y in range(10, 22):
+            g[y][16] = glow
+
+        # Border.
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+        return g
+
+    top = make_top()
+    bottom = _make_grid(size, ceramic_mid)
+    for i in range(size):
+        bottom[0][i] = ceramic_deep
+        bottom[size - 1][i] = ceramic_deep
+        bottom[i][0] = ceramic_deep
+        bottom[i][size - 1] = ceramic_deep
+
+    def make_front_frame(shuttle_x: int) -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Outer border.
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+
+        # Loom frame posts.
+        for y in range(5, 27):
+            for x in (7, 8, 23, 24):
+                g[y][x] = ceramic_dark
+        # Crossbar.
+        for x in range(7, 25):
+            g[7][x] = ceramic_dark
+            g[8][x] = ceramic_mid
+
+        # Weaving bed background.
+        for y in range(11, 24):
+            for x in range(10, 22):
+                g[y][x] = ceramic_mid
+
+        # Threads (membrane tension strip).
+        for y in range(12, 23):
+            for x in range(11, 21):
+                if (x + y) % 4 == 0:
+                    g[y][x] = membrane_shadow
+                else:
+                    g[y][x] = membrane_mid
+        for x in range(11, 21):
+            g[12][x] = membrane_hi
+            g[22][x] = membrane_deep
+
+        # Moving shuttle highlight line.
+        sx = max(11, min(20, shuttle_x))
+        for y in range(14, 21):
+            g[y][sx] = membrane_hi
+            if sx + 1 <= 20:
+                g[y][sx + 1] = membrane_line
+
+        # Glow seam in casing.
+        for y in range(5, 27):
+            g[y][16] = glow
+
+        return g
+
+    front_frames = [
+        make_front_frame(12),
+        make_front_frame(15),
+        make_front_frame(18),
+        make_front_frame(15),
+    ]
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front_frames[0],
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front_frames[0]]
+
+    mcmeta = {
+        "animation": {
+            "frametime": 3,
+            "frames": [0, 1, 2, 3],
+        }
+    }
+
+    return GeneratedBlockAssets(
+        block_id="pressure_loom",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        animated_textures={"front": front_frames},
+        mcmeta_by_texture={"front": mcmeta},
+    )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
 
@@ -1732,6 +1888,7 @@ def main() -> None:
         generate_pressure_valve(),
         generate_buoyancy_lift_platform(),
         generate_conveyor_membrane(),
+        generate_pressure_loom(),
     ]
 
     for block_assets in blocks:

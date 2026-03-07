@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kruemblegard:block/pressure_loom"
+    },
+    "facing=east": {
+      "model": "kruemblegard:block/pressure_loom",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kruemblegard:block/pressure_loom",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kruemblegard:block/pressure_loom",
+      "y": 270
+    }
+  }
+}

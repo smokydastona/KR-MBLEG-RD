@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1127 (2026-03-06)
+- Feature(pressurelogic): add `pressure_loom` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_loom`.
+- Assets(pressurelogic): add an animated front texture for `pressure_loom`.
+
 ## 1.0.1125 (2026-03-06)
 - Feature(pressurelogic): add `buoyancy_lift_platform` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `buoyancy_lift_platform`.

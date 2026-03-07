@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/pressure_loom_top",
+    "bottom": "kruemblegard:block/pressure_loom_bottom",
+    "north": "kruemblegard:block/pressure_loom_front",
+    "south": "kruemblegard:block/pressure_loom_side",
+    "east": "kruemblegard:block/pressure_loom_side",
+    "west": "kruemblegard:block/pressure_loom_side"
+  }
+}
