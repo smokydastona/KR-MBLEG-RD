@@ -130,6 +130,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state; scaffolding).
   - `pressure_regulator`: redstone-controlled pressure-level selector (`signal` 0..15; scaffolding).
   - `pressure_sequencer`: step sequencer block that advances on redstone rising edges (`step` 0..3; scaffolding).
+  - `pressure_sensor`: pressure sensor block that outputs a directional redstone signal (`signal` 0..15; scaffolding).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 

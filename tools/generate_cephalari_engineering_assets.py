@@ -2292,6 +2292,120 @@ def generate_pressure_sequencer() -> GeneratedBlockAssets:
     )
 
 
+def generate_pressure_sensor() -> GeneratedBlockAssets:
+    # Concept-level spec in docs/PRESSURE_LOGIC.md: pressure -> redstone output.
+    # No UV blueprint provided yet; keep this minimal + palette-locked.
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+
+    glow = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+
+    def border(g: list[list[str]]) -> None:
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        for y in range(6, 26):
+            for x in range(6, 26):
+                g[y][x] = ceramic_mid
+        for y in range(10, 22):
+            g[y][16] = glow
+        border(g)
+        return g
+
+    def make_bottom() -> list[list[str]]:
+        g = _make_grid(size, ceramic_mid)
+        for y in range(24, 32):
+            for x in range(size):
+                g[y][x] = ceramic_dark
+        border(g)
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        for y in range(2, size - 2):
+            for x in range(1, size - 1):
+                if y >= 22:
+                    g[y][x] = ceramic_mid
+                if x in (7, 8, 15, 16, 23, 24):
+                    g[y][x] = ceramic_dark
+        for y in range(size):
+            g[y][16] = glow
+        border(g)
+        return g
+
+    def make_front() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Main casing.
+        for y in range(4, 28):
+            for x in range(4, 28):
+                g[y][x] = ceramic_mid
+        for y in range(5, 27):
+            g[y][4] = ceramic_deep
+            g[y][27] = ceramic_dark
+        for x in range(4, 28):
+            g[4][x] = ceramic_deep
+            g[27][x] = ceramic_dark
+
+        # Sensor window with 16 ticks.
+        for y in range(9, 23):
+            for x in range(9, 23):
+                g[y][x] = ceramic_light
+        for i in range(16):
+            x = 10 + i
+            g[11][x] = ceramic_line if i % 2 == 0 else ceramic_mid
+            g[20][x] = ceramic_line if i % 2 == 0 else ceramic_mid
+
+        # Crystal probe.
+        for y in range(11, 21):
+            g[y][24] = crystal_shadow
+            g[y][25] = crystal_mid
+        g[15][25] = glow
+        g[16][25] = glow
+
+        # Glow seam.
+        for y in range(4, 28):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = make_bottom()
+    side = make_side()
+    front = make_front()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front]
+
+    return GeneratedBlockAssets(
+        block_id="pressure_sensor",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        enum_variants={"signal": [str(i) for i in range(16)]},
+    )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
 
@@ -2309,6 +2423,7 @@ def main() -> None:
         generate_pressure_clutch(),
         generate_pressure_regulator(),
         generate_pressure_sequencer(),
+        generate_pressure_sensor(),
     ]
 
     for block_assets in blocks:

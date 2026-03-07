@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/pressure_sensor_top",
+    "bottom": "kruemblegard:block/pressure_sensor_bottom",
+    "north": "kruemblegard:block/pressure_sensor_front",
+    "south": "kruemblegard:block/pressure_sensor_side",
+    "east": "kruemblegard:block/pressure_sensor_side",
+    "west": "kruemblegard:block/pressure_sensor_side"
+  }
+}
