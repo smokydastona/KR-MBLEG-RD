@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1124 (2026-03-06)
-- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston` blocks (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
-- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
+- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, and `atmospheric_compressor` blocks (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, and `atmospheric_compressor`.
+- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, and `atmospheric_compressor`.
 - Tools(assets): add deterministic Cephalari engineering asset generator (`tools/generate_cephalari_engineering_assets.py`).
 
 ## 1.0.1123 (2026-03-06)

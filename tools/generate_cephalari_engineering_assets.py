@@ -931,6 +931,206 @@ def generate_vent_piston() -> GeneratedBlockAssets:
     )
 
 
+def generate_atmospheric_compressor() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+
+    shell_hi = PALETTE["shell"]["highlight"]
+    shell_mid = PALETTE["shell"]["mid"]
+    shell_shadow = PALETTE["shell"]["shadow"]
+    shell_line = PALETTE["shell"]["line"]
+
+    air_bright = PALETTE["air"]["bright"]
+    air_mid = PALETTE["air"]["mid"]
+    air_shadow = PALETTE["air"]["shadow"]
+    air_deep = PALETTE["air"]["deep"]
+    air_line = PALETTE["air"]["line"]
+
+    crystal_bright = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+    crystal_deep = PALETTE["crystal"]["deep"]
+    crystal_line = PALETTE["crystal"]["line"]
+
+    def make_casing_base() -> list[list[str]]:
+        g = _make_grid(size, ceramic_mid)
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+        # Inner frame
+        for x in range(2, size - 2):
+            g[2][x] = ceramic_dark
+            g[size - 3][x] = ceramic_dark
+        for y in range(2, size - 2):
+            g[y][2] = ceramic_dark
+            g[y][size - 3] = ceramic_dark
+        # Corners
+        for (x, y) in ((4, 4), (27, 4), (4, 27), (27, 27)):
+            g[y][x] = ceramic_light
+        return g
+
+    def make_top() -> list[list[str]]:
+        g = make_casing_base()
+        # Crystal intake cap
+        outer = _circle_mask(size, 16, 16, 10)
+        inner = _circle_mask(size, 16, 16, 7)
+        core = _circle_mask(size, 16, 16, 4)
+        for y in range(size):
+            for x in range(size):
+                if outer[y][x] and not inner[y][x]:
+                    g[y][x] = crystal_shadow
+                elif inner[y][x] and not core[y][x]:
+                    g[y][x] = crystal_mid
+                elif core[y][x]:
+                    g[y][x] = crystal_bright
+        g[16][16] = air_bright
+        return g
+
+    def make_bottom() -> list[list[str]]:
+        g = make_casing_base()
+        # Ceramic baseplate with vents
+        for y in range(10, 23):
+            g[y][8] = ceramic_line
+            g[y][23] = ceramic_line
+        for x in range(9, 23):
+            g[10][x] = ceramic_line
+            g[22][x] = ceramic_line
+        for y in range(12, 21):
+            for x in range(10, 22):
+                if (x + y) % 4 == 0:
+                    g[y][x] = air_shadow
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = make_casing_base()
+        # Side conduits / ribs
+        for y in range(6, 26):
+            g[y][7] = ceramic_dark
+            g[y][24] = ceramic_dark
+        for x in range(10, 22):
+            g[8][x] = ceramic_dark
+            g[25][x] = ceramic_deep
+        # Small indicator
+        g[16][4] = crystal_bright
+        g[16][5] = crystal_mid
+        return g
+
+    def make_front_frame(frame_index: int) -> list[list[str]]:
+        g = make_casing_base()
+
+        # Crystal window frame (shell-like bezel)
+        outer = _ellipse_mask(size, 6, 6, 25, 25)
+        inner = _ellipse_mask(size, 9, 9, 22, 22)
+        core = _ellipse_mask(size, 12, 12, 19, 19)
+        for y in range(size):
+            for x in range(size):
+                if outer[y][x] and not inner[y][x]:
+                    # Bezel shading
+                    if (x - 16) + (y - 16) < 0:
+                        g[y][x] = shell_hi
+                    elif (x - 16) + (y - 16) > 0:
+                        g[y][x] = shell_shadow
+                    else:
+                        g[y][x] = shell_mid
+                elif inner[y][x] and not core[y][x]:
+                    g[y][x] = crystal_mid
+                elif core[y][x]:
+                    g[y][x] = crystal_bright
+
+        # Swirling air: 3-arm spiral with phase shift + pulsing glow
+        phase = (math.tau * frame_index) / 6.0
+        arms = _spiral_arms_mask(
+            size,
+            16,
+            16,
+            radius_min=2.0,
+            radius_max=8.5,
+            arms=3,
+            phase=phase,
+            k=0.75,
+            thickness=0.22,
+        )
+
+        pulse = 0.5 + 0.5 * math.sin(phase)
+        for y in range(size):
+            for x in range(size):
+                if not core[y][x]:
+                    continue
+                if arms[y][x]:
+                    g[y][x] = air_bright if pulse > 0.5 else air_mid
+                else:
+                    # Background air gradient
+                    dy = abs(y - 16)
+                    dx = abs(x - 16)
+                    d = dx + dy
+                    if d < 6:
+                        g[y][x] = air_mid
+                    elif d < 10:
+                        g[y][x] = air_shadow
+                    else:
+                        g[y][x] = air_deep
+
+        # Outline the bezel and window
+        for y in range(1, size - 1):
+            for x in range(1, size - 1):
+                if (outer[y][x] and not inner[y][x]) and any(
+                    not (outer[ny][nx] and not inner[ny][nx])
+                    for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                ):
+                    g[y][x] = shell_line
+                if (inner[y][x] and not core[y][x]) and any(
+                    not (inner[ny][nx] and not core[ny][nx])
+                    for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                ):
+                    g[y][x] = crystal_line
+
+        # Small air-line glyphs
+        for x in range(12, 21):
+            g[28][x] = air_line
+        g[28][16] = crystal_bright
+
+        return g
+
+    front_frames = [make_front_frame(i) for i in range(6)]
+
+    top = make_top()
+    bottom = make_bottom()
+    side = make_side()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front_frames[0],
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front_frames[0]]
+
+    mcmeta = {
+        "animation": {
+            "frametime": 3,
+            "frames": [0, 1, 2, 3, 4, 5],
+        }
+    }
+
+    return GeneratedBlockAssets(
+        block_id="atmospheric_compressor",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        animated_textures={"front": front_frames},
+        mcmeta_by_texture={"front": mcmeta},
+    )
+
+
 def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     modid = "kruemblegard"
 
@@ -1054,6 +1254,7 @@ def main() -> None:
         generate_pressure_turbine(),
         generate_spiral_gearbox(),
         generate_vent_piston(),
+        generate_atmospheric_compressor(),
     ]
 
     for block_assets in blocks:

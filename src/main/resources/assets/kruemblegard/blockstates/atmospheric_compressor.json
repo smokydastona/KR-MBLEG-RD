@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kruemblegard:block/atmospheric_compressor"
+    },
+    "facing=east": {
+      "model": "kruemblegard:block/atmospheric_compressor",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kruemblegard:block/atmospheric_compressor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kruemblegard:block/atmospheric_compressor",
+      "y": 270
+    }
+  }
+}

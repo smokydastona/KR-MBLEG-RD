@@ -22,6 +22,7 @@ import com.kruemblegard.block.KruemblegardStandingSignBlock;
 import com.kruemblegard.block.KruemblegardWallHangingSignBlock;
 import com.kruemblegard.block.KruemblegardWallSignBlock;
 import com.kruemblegard.block.MegaFranchLeavesBlock;
+import com.kruemblegard.block.AtmosphericCompressorBlock;
 import com.kruemblegard.block.MembranePumpBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
@@ -162,6 +163,15 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> ATMOSPHERIC_COMPRESSOR = BLOCKS.register(
+            "atmospheric_compressor",
+            () -> new AtmosphericCompressorBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 10.0F)
                     .sound(SoundType.STONE))
     );
 

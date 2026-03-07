@@ -26,6 +26,7 @@
     "kruemblegard:membrane_pump",
     "kruemblegard:pressure_turbine",
     "kruemblegard:spiral_gearbox",
-    "kruemblegard:vent_piston"
+    "kruemblegard:vent_piston",
+    "kruemblegard:atmospheric_compressor"
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/atmospheric_compressor_top",
+    "bottom": "kruemblegard:block/atmospheric_compressor_bottom",
+    "north": "kruemblegard:block/atmospheric_compressor_front",
+    "south": "kruemblegard:block/atmospheric_compressor_side",
+    "east": "kruemblegard:block/atmospheric_compressor_side",
+    "west": "kruemblegard:block/atmospheric_compressor_side"
+  }
+}
