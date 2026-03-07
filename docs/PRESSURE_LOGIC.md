@@ -585,6 +585,333 @@ This is what to emphasize and which faces animate.
 
 ---
 
+## 2.4 The Complete Cephalari Pneumatic Engineering Suite (Unified Overview)
+
+Here is the complete, unified, system‑level description of every Cephalari pneumatic/pressure‑tech block, including:
+- What each block does
+- How it works internally
+- How it connects to the rest of the network
+- What role it plays in the overall Cephalari engineering ecosystem
+
+This is the full, authoritative overview of the entire pneumatic suite — both the original 9 blocks and the 8 new ones.
+
+🧱 THE COMPLETE CEPHALARI PNEUMATIC ENGINEERING SUITE
+All blocks, all functions, all connections — one unified system.
+I’ll group them into functional categories so the whole ecosystem becomes intuitive.
+
+🌬️ A. PRESSURE GENERATION & FLOW CONTROL
+These blocks create, move, regulate, and store pressure — the backbone of the entire system.
+
+### 1. Pressure Conduit
+**What it does:**
+Carries compressed air between blocks.
+
+**How it works:**
+- Hollow ceramic tube
+- Crystal seam shows pressure level
+- No moving parts
+
+**Connections:**
+- Connects everything
+- Required for all pneumatic networks
+
+**Role:**
+The “pipes” of the system.
+
+### 2. Membrane Pump
+**What it does:**
+Generates pressure by pulsing a membrane.
+
+**How it works:**
+- Membrane expands/contracts
+- Pulls air in, pushes air out
+- Crystal node regulates rhythm
+
+**Connections:**
+- Feeds Pressure Conduits
+- Often first pressure source in early game
+
+**Role:**
+Entry‑level pressure generator.
+
+### 3. Pressure Turbine
+**What it does:**
+Amplifies pressure using rotational airflow.
+
+**How it works:**
+- Spiral ceramic blades
+- Crystal core stabilizes spin
+- Converts airflow into higher pressure
+
+**Connections:**
+- Sits between pumps and high‑demand machines
+- Boosts throughput
+
+**Role:**
+Mid‑game pressure amplifier.
+
+### 4. Spiral Gearbox
+**What it does:**
+Converts pressure pulses into rotational force.
+
+**How it works:**
+- Shell‑coral gears
+- Membrane clutch
+- Crystal timing nodes
+
+**Connections:**
+- Drives mechanical blocks
+- Can power Vent Piston or Conveyor Membrane
+
+**Role:**
+Pressure → mechanical motion converter.
+
+### 5. Vent Piston
+**What it does:**
+Creates linear motion using directional airflow.
+
+**How it works:**
+- Membrane chamber
+- Air pushes piston rod outward
+- Crystal valve controls stroke
+
+**Connections:**
+- Used in automation
+- Works with Gearbox for timing
+
+**Role:**
+Pneumatic piston for machines/doors.
+
+### 6. Pressure Valve
+**What it does:**
+Opens/closes pressure flow.
+
+**How it works:**
+- Ceramic valve wheel
+- Crystal seam shows open/closed
+- Membrane flap inside
+
+**Connections:**
+- Controls direction
+- Used in logic systems
+
+**Role:**
+The redstone repeater of pneumatic tech.
+
+🌀 B. MOTION & TRANSPORT SYSTEMS
+These blocks move items, mobs, or players using airflow and membrane pulses.
+
+### 7. Conveyor Membrane
+**What it does:**
+Moves items along a surface.
+
+**How it works:**
+- Membrane pulses in a wave
+- Crystal seam shows direction
+
+**Connections:**
+- Works with Vortex Funnel, Separator, Catapult
+
+**Role:**
+Organic conveyor belt.
+
+### 8. Buoyancy Lift Platform
+**What it does:**
+Creates a floating platform using upward pressure.
+
+**How it works:**
+- Membrane underside
+- Air swirl pushes upward
+- Crystal stabilizers
+
+**Connections:**
+- Works with Air‑Lift Tube
+- Can be chained vertically
+
+**Role:**
+Floating elevator platform.
+
+### 9. Vortex Funnel
+**What it does:**
+Pulls items/mobs inward.
+
+**How it works:**
+- Atmospheric swirl core
+- Ceramic vanes shape suction
+- Crystal nodes regulate radius
+
+**Connections:**
+- Feeds Pneumatic Separator
+- Works with Conveyor Membrane
+
+**Role:**
+Item/mob vacuum.
+
+### 10. Pressure Rail
+**What it does:**
+Pushes entities/items along a track.
+
+**How it works:**
+- Membrane strip pulses directionally
+- Crystal seam indicates flow
+
+**Connections:**
+- Works with Catapult, Air‑Lift Tube
+- Controlled by Pressure Valves
+
+**Role:**
+Silent organic minecart rail.
+
+### 11. Pneumatic Catapult
+**What it does:**
+Launches items/players.
+
+**How it works:**
+- Membrane cup stores pressure
+- Crystal node shows charge
+- Sudden release flings payload
+
+**Connections:**
+- Works with Pressure Rail
+- Can feed Air‑Lift Tube
+
+**Role:**
+Long‑distance transport.
+
+### 12. Air‑Lift Tube
+**What it does:**
+Vertical airflow elevator.
+
+**How it works:**
+- Atmospheric compressor at base
+- Ceramic ribs stabilize airflow
+- Crystal seam regulates lift
+
+**Connections:**
+- Works with Buoyancy Platform
+- Connects to Pressure Conduits
+
+**Role:**
+Vertical transport tube.
+
+🔥 C. PROCESSING & CRAFTING MACHINES
+These blocks transform materials using pressure, heat, membranes, and crystals.
+
+### 13. Atmospheric Compressor
+**What it does:**
+Compresses ambient air into high‑pressure flow.
+
+**How it works:**
+- Swirl chamber
+- Crystal stabilizer
+- Ceramic shell
+
+**Connections:**
+- Feeds Pressure Kiln, Infuser, Air‑Lift Tube
+
+**Role:**
+High‑tier pressure generator.
+
+### 14. Pressure Kiln
+**What it does:**
+Fuel‑free smelting using compressed air.
+
+**How it works:**
+- Ceramic crucible
+- Crystal heat nodes
+- Membrane bellows
+
+**Connections:**
+- Requires Atmospheric Compressor
+- Outputs to Membrane Press or Infuser
+
+**Role:**
+High‑temperature crafting.
+
+### 15. Membrane Press
+**What it does:**
+Flattens or compresses materials.
+
+**How it works:**
+- Large membrane plate
+- Crystal pressure gauge
+- Ceramic frame
+
+**Connections:**
+- Works with Separator
+- Powered by Membrane Pump or Turbine
+
+**Role:**
+Plate/sheet/wafer crafting.
+
+### 16. Crystal Infuser
+**What it does:**
+Injects compressed air into crystals to modify them.
+
+**How it works:**
+- Floating crystal core
+- Atmospheric swirl injection
+- Ceramic stabilizers
+
+**Connections:**
+- Requires Atmospheric Compressor
+- Produces infused materials for late‑game tech
+
+**Role:**
+Crystal upgrading.
+
+### 17. Pneumatic Separator
+**What it does:**
+Sorts items by density/pressure response.
+
+**How it works:**
+- Membrane sorting gate
+- Crystal indicator lights
+- Two output chutes
+
+**Connections:**
+- Intake from Vortex Funnel
+- Output to Conveyor Membrane or Rails
+
+**Role:**
+Automated sorting.
+
+🧩 D. HOW THE ENTIRE SYSTEM FITS TOGETHER
+Here’s the full Cephalari pneumatic loop:
+
+1. Generate pressure
+- Membrane Pump → early
+- Pressure Turbine → mid
+- Atmospheric Compressor → late
+
+2. Move pressure
+- Pressure Conduits
+- Pressure Valves
+- Spiral Gearbox
+- Vent Piston
+
+3. Move items/entities
+- Vortex Funnel → intake
+- Conveyor Membrane → horizontal
+- Pressure Rail → fast horizontal
+- Pneumatic Catapult → long‑range
+- Air‑Lift Tube → vertical
+- Buoyancy Lift Platform → platform elevator
+
+4. Process materials
+- Pressure Kiln → smelt
+- Membrane Press → shape
+- Crystal Infuser → upgrade
+- Pneumatic Separator → sort
+
+5. Build automation
+- Combine all above
+- Pressure Valves act as logic gates
+- Turbines amplify throughput
+- Gearboxes convert pressure to motion
+
+---
+
 ## 3. Pressure‑Logic + Redstone Integration
 
 They are partners, not competitors.

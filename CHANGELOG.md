@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1137 (2026-03-06)
+- Docs(pressurelogic): add unified system-level overview of the complete Cephalari pneumatic engineering suite.
+
 ## 1.0.1136 (2026-03-06)
 - Docs(pressurelogic): expand pneumatic motion/transport + processing/crafting integration spec.
 
