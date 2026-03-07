@@ -209,6 +209,10 @@ class GeneratedBlockAssets:
     # If true, emit a boolean `powered` property in the blockstate variants.
     powered: bool = False
 
+    # Optional: additional enum-like blockstate properties to include in variants.
+    # Example: {"lift_state": ["idle", "rising", "falling"]}
+    enum_variants: dict[str, list[str]] | None = None
+
     # Optional: animated face frames and runtime metadata.
     animated_textures: dict[str, list[list[list[str]]]] | None = None
     mcmeta_by_texture: dict[str, object] | None = None
@@ -1300,6 +1304,126 @@ def generate_pressure_valve() -> GeneratedBlockAssets:
     )
 
 
+def generate_buoyancy_lift_platform() -> GeneratedBlockAssets:
+    # Matches docs/PRESSURE_LOGIC.md "Buoyancy Lift Platform" blueprint.
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    crystal_bright = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    membrane_highlight = PALETTE["membrane"]["highlight"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+    membrane_shadow = PALETTE["membrane"]["shadow"]
+
+    # --- Top: ceramic disk with concentric vent rings and 2x2 crystal seam nodes.
+    top = _make_grid(size, ceramic_light)
+    disk = _circle_mask(size, 16, 16, 11)  # diameter 22
+    for y in range(size):
+        for x in range(size):
+            if disk[y][x]:
+                top[y][x] = ceramic_mid
+    for y in range(size):
+        for x in range(size):
+            if _is_outline(disk, x, y):
+                top[y][x] = ceramic_deep
+
+    ring_outer_outer = _circle_mask(size, 16, 16, 9)  # diameter 18
+    ring_outer_inner = _circle_mask(size, 16, 16, 8)
+    ring_inner_outer = _circle_mask(size, 16, 16, 7)  # diameter 14
+    ring_inner_inner = _circle_mask(size, 16, 16, 6)
+    for y in range(size):
+        for x in range(size):
+            if ring_outer_outer[y][x] and not ring_outer_inner[y][x]:
+                top[y][x] = ceramic_dark
+            if ring_inner_outer[y][x] and not ring_inner_inner[y][x]:
+                top[y][x] = ceramic_dark
+
+    def place_node(x0: int, y0: int) -> None:
+        for yy in range(y0, y0 + 2):
+            for xx in range(x0, x0 + 2):
+                if 0 <= xx < size and 0 <= yy < size:
+                    top[yy][xx] = crystal_mid
+        if 0 <= x0 < size and 0 <= y0 < size:
+            top[y0][x0] = crystal_bright
+
+    place_node(15, 3)
+    place_node(27, 15)
+    place_node(15, 27)
+    place_node(3, 15)
+
+    # --- Side: two vertical struts, three vent ports, and a 1px glow seam at x=16.
+    side = _make_grid(size, ceramic_light)
+    for y in range(size):
+        for x in range(4, 8):
+            side[y][x] = ceramic_mid
+        for x in range(24, 28):
+            side[y][x] = ceramic_mid
+        side[y][16] = crystal_mid
+
+    def place_vent_port(x0: int, y0: int) -> None:
+        for yy in range(y0, y0 + 3):
+            for xx in range(x0, x0 + 3):
+                if 0 <= xx < size and 0 <= yy < size:
+                    side[yy][xx] = ceramic_dark
+        cx = x0 + 1
+        cy = y0 + 1
+        if 0 <= cx < size and 0 <= cy < size:
+            side[cy][cx] = crystal_bright
+
+    place_vent_port(12, 8)
+    place_vent_port(12, 14)
+    place_vent_port(12, 20)
+
+    # --- Bottom: ceramic ring + membrane vent cluster with four lobes.
+    bottom = _make_grid(size, ceramic_mid)
+    for y in range(size):
+        for x in range(size):
+            if x < 2 or x >= size - 2 or y < 2 or y >= size - 2:
+                bottom[y][x] = ceramic_deep
+
+    cluster = _circle_mask(size, 16, 16, 6)  # diameter 12
+    for y in range(size):
+        for x in range(size):
+            if cluster[y][x]:
+                bottom[y][x] = membrane_mid
+    for y in range(size):
+        for x in range(size):
+            if _is_outline(cluster, x, y):
+                bottom[y][x] = membrane_shadow
+    bottom[16][16] = membrane_highlight
+
+    def place_lobe(x0: int, y0: int) -> None:
+        for yy in range(y0, y0 + 4):
+            for xx in range(x0, x0 + 4):
+                if 0 <= xx < size and 0 <= yy < size:
+                    bottom[yy][xx] = membrane_highlight
+
+    place_lobe(14, 6)
+    place_lobe(22, 14)
+    place_lobe(14, 22)
+    place_lobe(6, 14)
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in top]
+
+    return GeneratedBlockAssets(
+        block_id="buoyancy_lift_platform",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        enum_variants={"lift_state": ["idle", "rising", "falling"]},
+    )
+
+
 def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     modid = "kruemblegard"
 
@@ -1350,39 +1474,62 @@ def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     models_block_dir = repo_root / "src/main/resources/assets" / modid / "models/block"
     models_item_dir = repo_root / "src/main/resources/assets" / modid / "models/item"
 
-    if assets.horizontal_facing and assets.powered:
-        _write_json(
-            blockstates_dir / f"{assets.block_id}.json",
-            {
-                "variants": {
-                    "facing=north,powered=false": {"model": f"{modid}:block/{assets.block_id}"},
-                    "facing=east,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 90},
-                    "facing=south,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 180},
-                    "facing=west,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 270},
-                    "facing=north,powered=true": {"model": f"{modid}:block/{assets.block_id}"},
-                    "facing=east,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 90},
-                    "facing=south,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 180},
-                    "facing=west,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 270},
-                }
-            },
-        )
-    elif assets.horizontal_facing:
-        _write_json(
-            blockstates_dir / f"{assets.block_id}.json",
-            {
-                "variants": {
-                    "facing=north": {"model": f"{modid}:block/{assets.block_id}"},
-                    "facing=east": {"model": f"{modid}:block/{assets.block_id}", "y": 90},
-                    "facing=south": {"model": f"{modid}:block/{assets.block_id}", "y": 180},
-                    "facing=west": {"model": f"{modid}:block/{assets.block_id}", "y": 270},
-                }
-            },
-        )
-    else:
-        _write_json(
-            blockstates_dir / f"{assets.block_id}.json",
-            {"variants": {"": {"model": f"{modid}:block/{assets.block_id}"}}},
-        )
+    def _variant_key(props: dict[str, str]) -> str:
+        if not props:
+            return ""
+        parts: list[str] = []
+        if "facing" in props:
+            parts.append(f"facing={props['facing']}")
+        if "powered" in props:
+            parts.append(f"powered={props['powered']}")
+        for k in sorted(props.keys()):
+            if k in ("facing", "powered"):
+                continue
+            parts.append(f"{k}={props[k]}")
+        return ",".join(parts)
+
+    combos: list[tuple[dict[str, str], int | None]] = [({}, None)]
+
+    if assets.horizontal_facing:
+        expanded: list[tuple[dict[str, str], int | None]] = []
+        for props, _ in combos:
+            for facing, y in (("north", None), ("east", 90), ("south", 180), ("west", 270)):
+                p2 = dict(props)
+                p2["facing"] = facing
+                expanded.append((p2, y))
+        combos = expanded
+
+    if assets.powered:
+        expanded = []
+        for props, y in combos:
+            for powered in ("false", "true"):
+                p2 = dict(props)
+                p2["powered"] = powered
+                expanded.append((p2, y))
+        combos = expanded
+
+    if assets.enum_variants:
+        for prop_name, values in sorted(assets.enum_variants.items()):
+            expanded = []
+            for props, y in combos:
+                for v in values:
+                    p2 = dict(props)
+                    p2[prop_name] = v
+                    expanded.append((p2, y))
+            combos = expanded
+
+    variants: dict[str, dict[str, object]] = {}
+    for props, y in combos:
+        key = _variant_key(props)
+        entry: dict[str, object] = {"model": f"{modid}:block/{assets.block_id}"}
+        if y is not None:
+            entry["y"] = y
+        variants[key] = entry
+
+    _write_json(
+        blockstates_dir / f"{assets.block_id}.json",
+        {"variants": variants},
+    )
 
     _write_json(
         models_block_dir / f"{assets.block_id}.json",
@@ -1441,6 +1588,7 @@ def main() -> None:
         generate_vent_piston(),
         generate_atmospheric_compressor(),
         generate_pressure_valve(),
+        generate_buoyancy_lift_platform(),
     ]
 
     for block_assets in blocks:

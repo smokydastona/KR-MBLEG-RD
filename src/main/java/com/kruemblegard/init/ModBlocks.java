@@ -41,6 +41,7 @@ import com.kruemblegard.block.RubbleTilthBlock;
 import com.kruemblegard.block.ScaralonEggBlock;
 import com.kruemblegard.block.ScarstoneBlock;
 import com.kruemblegard.block.VoidfeltBlock;
+import com.kruemblegard.block.BuoyancyLiftPlatformBlock;
 import com.kruemblegard.block.PaleweftGrassBlock;
 import com.kruemblegard.block.PaleweftCornCropBlock;
 import com.kruemblegard.block.WayfallReactivePlantBlock;
@@ -182,6 +183,15 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> BUOYANCY_LIFT_PLATFORM = BLOCKS.register(
+            "buoyancy_lift_platform",
+            () -> new BuoyancyLiftPlatformBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 8.0F)
                     .sound(SoundType.STONE))
     );
 

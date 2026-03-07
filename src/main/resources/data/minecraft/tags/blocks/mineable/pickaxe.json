@@ -28,6 +28,7 @@
     "kruemblegard:spiral_gearbox",
     "kruemblegard:vent_piston",
     "kruemblegard:atmospheric_compressor",
-    "kruemblegard:pressure_valve"
+    "kruemblegard:pressure_valve",
+    "kruemblegard:buoyancy_lift_platform"
   ]
 }
