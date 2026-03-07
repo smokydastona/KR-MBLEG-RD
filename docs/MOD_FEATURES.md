@@ -294,7 +294,9 @@ Keep it up to date whenever you add/remove/rename content.
   - Linked health: while mounted, the Cephalari and its mount mirror damage/healing and die together.
     - Zombie-type mobs treat Cephalari mounts like villager targets.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
+    - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + mount manifestation overlap + forced riding pose sync before swap).
     - Natural spawns: Zombified Cephalari can spawn in Wayfall and the Overworld.
+    - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`

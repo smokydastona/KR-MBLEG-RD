@@ -137,6 +137,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+            if (zombifyInProgress) {
+                return PlayState.STOP;
+            }
+
             if (this.isPassenger()) {
                 state.setAnimation(RIDING_LOOP);
                 return PlayState.CONTINUE;

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1120 (2026-03-06)
+- Tuning(cephalari): finalize the 2.2s zombification cinematic timing (forced riding sync to match the zombie riding posture).
+- Assets(particles/cephalari): refresh cure/zombify VFX particle texture set (shell dust, fragments, spirals, cure burst, zombify cracks).
+- Fix(sounds): repair `assets/kruemblegard/sounds.json` formatting and layer zombify audio entries (crack + screech).
+
 ## 1.0.1117 (2026-03-06)
 - Feature(cephalari_zombie): Zombified Cephalari now always spawn mounted on a zombie-type mount and mirror damage/healing with it.
 - Feature(spawns): Zombified Cephalari can now spawn naturally in Wayfall and the Overworld.

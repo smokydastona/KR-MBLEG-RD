@@ -306,12 +306,13 @@
     "sounds": [
       {"name": "kruemblegard:entity/wyrdwing/call"}
     ]
-  }
+  },
 
   "entity.cephalari.zombify": {
     "subtitle": "subtitles.kruemblegard.cephalari.zombify",
     "sounds": [
-      {"name": "kruemblegard:entity/cephalari/zombify"}
+      {"name": "kruemblegard:entity/cephalari/zombify_crack", "volume": 1.0, "pitch": 0.8},
+      {"name": "kruemblegard:entity/cephalari/zombify_screech", "volume": 0.9, "pitch": 0.6}
     ]
   },
   "entity.cephalari.cure": {
@@ -319,5 +320,5 @@
     "sounds": [
       {"name": "kruemblegard:entity/cephalari/cure"}
     ]
-  },
+  }
 }

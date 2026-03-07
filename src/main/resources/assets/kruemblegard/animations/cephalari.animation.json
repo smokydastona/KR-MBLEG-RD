@@ -3,46 +3,46 @@
   "animations": {
     "animation.cephalari.zombify_cinematic": {
       "loop": false,
-      "animation_length": 1.2,
+      "animation_length": 2.2,
       "bones": {
         "root": {
           "rotation": [
-            "math.lerp(-5, -35, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(-5, -35, math.clamp(query.anim_time / 1.2, 0, 1)), -18, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
             0
           ]
         },
         "head": {
           "rotation": [
-            "math.lerp(10, 40, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(10, 40, math.clamp(query.anim_time / 1.2, 0, 1)), 18, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
             0
           ]
         },
         "arm_left": {
           "rotation": [
-            "math.lerp(0, -30, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(0, -30, math.clamp(query.anim_time / 1.2, 0, 1)), -20, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
-            "math.lerp(-15, -50, query.anim_time / 1.2)"
+            "math.lerp(math.lerp(-15, -50, math.clamp(query.anim_time / 1.2, 0, 1)), -35, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))"
           ]
         },
         "arm_right": {
           "rotation": [
-            "math.lerp(0, -30, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(0, -30, math.clamp(query.anim_time / 1.2, 0, 1)), -20, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
-            "math.lerp(15, 50, query.anim_time / 1.2)"
+            "math.lerp(math.lerp(15, 50, math.clamp(query.anim_time / 1.2, 0, 1)), 35, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))"
           ]
         },
         "shell": {
           "rotation": [
-            "math.lerp(6, 18, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(6, 18, math.clamp(query.anim_time / 1.2, 0, 1)), 10, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
             0
           ]
         },
         "body2": {
           "rotation": [
-            "math.lerp(10, 45, query.anim_time / 1.2)",
+            "math.lerp(math.lerp(10, 45, math.clamp(query.anim_time / 1.2, 0, 1)), 8, math.clamp((query.anim_time - 1.6) / 0.6, 0, 1))",
             0,
             0
           ]
