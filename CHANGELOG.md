@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1136 (2026-03-06)
+- Docs(pressurelogic): expand pneumatic motion/transport + processing/crafting integration spec.
+
 ## 1.0.1135 (2026-03-06)
 - Feature(pressurelogic): add redstone-controlled `powered` state to `membrane_pump` (Cephalari engineering scaffolding).
 - Assets(pressurelogic): regenerate blockstate for `membrane_pump` to include `powered` variants.

@@ -131,6 +131,460 @@ Below is the full block family, all animated, all mechanical, all pneumatic.
 
 ---
 
+## 2.1 Pneumatic Motion & Transport — Expanded Integration
+
+These four blocks can form an entire movement and logistics branch of the Cephalari tech tree.
+
+### 1. Vortex Funnel
+**Function:** Pulls items/mobs inward using a rotating air vortex.
+
+**Integration**
+- Connects to Atmospheric Compressor for swirl power.
+- Can be chained with Conveyor Membrane for item routing.
+- Works with Pressure Valve to toggle suction.
+
+**Gameplay Loop**
+- Automated mob farms
+- Item vacuum systems
+- Sorting networks
+- Player‑safe suction zones
+
+**Optional Variants**
+- Directional Vortex (pulls from one side only)
+- Gentle Vortex (no mob damage)
+- Harsh Vortex (applies damage)
+
+**Progression Tier**
+Mid‑game, after Atmospheric Compressor.
+
+### 2. Pressure Rail
+**Function:** Pushes entities along a linear track using membrane pulses.
+
+**Integration**
+- Uses Conveyor Membrane animation logic.
+- Crystal seam indicates direction (like powered rails).
+- Can be boosted by Pressure Turbine.
+
+**Gameplay Loop**
+- Silent minecart‑like transport
+- Mob relocation
+- Player‑launch corridors
+- Item shuttling
+
+**Optional Variants**
+- Bidirectional Rail (toggle direction)
+- High‑Pressure Rail (faster, consumes more pressure)
+- Soft Rail (slower, safe for mobs)
+
+**Progression Tier**
+Early‑mid game, after Membrane Pump.
+
+### 3. Pneumatic Catapult
+**Function:** Launches items or players using a pressure burst.
+
+**Integration**
+- Powered by Pressure Conduit network.
+- Charge level shown by Crystal Indicator Node.
+- Can be automated with Pressure Oscillator (if added later).
+
+**Gameplay Loop**
+- Item flingers
+- Player mobility
+- Puzzle mechanics
+- Long‑distance item transport
+
+**Optional Variants**
+- Arc‑Adjustable Catapult (crystal dial sets angle)
+- Precision Catapult (short, accurate throws)
+- Scatter Catapult (wide spray)
+
+**Progression Tier**
+Mid‑game, after Pressure Turbine.
+
+### 4. Air‑Lift Tube
+**Function:** Vertical transport tube with smooth, silent ascent.
+
+**Integration**
+- Base uses Atmospheric Compressor.
+- Tube segments use Ceramic Ribs + Crystal Seams.
+- Can be combined with Buoyancy Lift Platform for multi‑level systems.
+
+**Gameplay Loop**
+- Elevators
+- Base access
+- Mob sorting
+- Vertical item transport
+
+**Optional Variants**
+- Down‑Draft Tube (pulls downward)
+- Bidirectional Tube (toggle direction)
+- High‑Flow Tube (faster, consumes more pressure)
+
+**Progression Tier**
+Mid‑late game, after Atmospheric Compressor.
+
+---
+
+## 2.2 Pneumatic Processing & Crafting — Expanded Integration
+
+These four blocks create a pressure‑powered crafting branch, parallel to furnaces, anvils, and smithing tables.
+
+### 5. Pressure Kiln
+**Function:** Uses compressed air to superheat materials.
+
+**Integration**
+- Requires Atmospheric Compressor + Pressure Turbine.
+- Crystal heat nodes glow based on temperature.
+- Membrane bellows animate when active.
+
+**Gameplay Loop**
+- Smelting without fuel
+- High‑temperature alloys
+- Organic ceramics
+- Crystal refinement
+
+**Optional Variants**
+- Overpressure Mode (faster, risk of explosion)
+- Low‑Pressure Mode (slow, safe)
+
+**Progression Tier**
+Mid‑late game, after Pressure Turbine.
+
+### 6. Membrane Press
+**Function:** Flattens, shapes, or compresses materials.
+
+**Integration**
+- Uses large central membrane animation.
+- Pressure gauge UI uses crystal seam logic.
+- Works with Membrane Pump for force.
+
+**Gameplay Loop**
+- Plate crafting
+- Organic sheets
+- Pressed crystal wafers
+- Structural components
+
+**Optional Variants**
+- Precision Press (exact thickness)
+- Bulk Press (multi‑item)
+
+**Progression Tier**
+Early‑mid game, after Membrane Pump.
+
+### 7. Crystal Infuser
+**Function:** Injects compressed air into crystals to alter properties.
+
+**Integration**
+- Floating crystal core uses Atmospheric Swirl animation.
+- Ceramic stabilizers prevent “crystal drift.”
+- Works with Pressure Valve for fine control.
+
+**Gameplay Loop**
+- Crystal upgrades
+- Pressure‑tuned gems
+- Infused crafting materials
+- Late‑game tech unlocks
+
+**Optional Variants**
+- Multi‑Infuser (two crystals at once)
+- Deep Infuser (rare materials)
+
+**Progression Tier**
+Late game, after Atmospheric Compressor.
+
+### 8. Pneumatic Separator
+**Function:** Splits items based on density or pressure response.
+
+**Integration**
+- Two output chutes
+- Membrane sorting gate
+- Crystal indicator lights show routing
+- Works with Vortex Funnel for intake
+
+**Gameplay Loop**
+- Automated sorting
+- Ore processing
+- Mob/item classification
+- Organic vs inorganic separation
+
+**Optional Variants**
+- Tri‑Separator (three outputs)
+- Density‑Adjustable Separator (crystal dial)
+
+**Progression Tier**
+Mid‑game, after Membrane Press.
+
+---
+
+## 2.3 Asset-Generator Hand-off Notes (Schema-Grade)
+
+### 1) Extend the block list in the schema
+
+Add these 8 blocks to `blocks_to_generate`:
+
+{
+  "blocks_to_generate": [
+    "pressure_conduit",
+    "membrane_pump",
+    "pressure_turbine",
+    "spiral_gearbox",
+    "vent_piston",
+    "atmospheric_compressor",
+    "conveyor_membrane",
+    "buoyancy_lift_platform",
+    "pressure_valve",
+
+    "vortex_funnel",
+    "pressure_rail",
+    "pneumatic_catapult",
+    "air_lift_tube",
+    "pressure_kiln",
+    "membrane_press",
+    "crystal_infuser",
+    "pneumatic_separator"
+  ]
+}
+
+Everything else in the schema (palette, format, workflow) stays the same.
+
+### 2) Block blueprints for the new 8 (for texture generation)
+
+These are design blueprints—what another AI should turn into 32×32 faces using your palette + JSON format.
+
+#### 2.1 Vortex Funnel
+**Role:** Suction block that pulls items/mobs inward.
+
+**Top:**
+- Central atmospheric swirl (air palette) 10–12px diameter.
+- 4 ceramic vanes at diagonals (shell/coral or ceramic mid/dark).
+- Crystal bright ring at inner edge of vanes.
+
+**Sides:**
+- Swirl motif near center (air mid/shadow).
+- Ceramic frame around edges.
+- Small crystal nodes indicating suction strength.
+
+**Bottom:**
+- Dark ceramic ring.
+- Air deep + air linework swirl (inverted, like exhaust).
+
+**Animation:**
+- 4‑frame swirl rotation on top face (air tones rotating).
+
+#### 2.2 Pressure Rail
+**Role:** Linear transport track.
+
+**Top:**
+- Central membrane strip running along X axis, 6–8px wide.
+- Membrane highlight on one side, shadow on the other.
+- Crystal seam line offset slightly to indicate direction (e.g., one pixel off center).
+
+**Sides:**
+- Ceramic casing with ribs.
+- Crystal bright dots at intervals (like powered rail lamps).
+
+**Bottom:**
+- Flat ceramic with darker band at edges.
+
+**Animation:**
+- 4‑frame pulse moving along the membrane strip (left→right or right→left).
+
+#### 2.3 Pneumatic Catapult
+**Role:** Launches items/players.
+
+**Top:**
+- Membrane cup: circular depression, membrane mid/shadow with highlight at rim.
+- Crystal charge indicator: small crystal bright node near front edge.
+- Ceramic base around cup.
+
+**Sides:**
+- Ceramic body with a slight slope toward the launch direction.
+- Crystal line or nodes indicating charge level.
+
+**Bottom:**
+- Dark ceramic with a small air swirl (pressure vent).
+
+**Animation:**
+- 3–4 frames: membrane cup “tenses” (bulges slightly) then snaps back.
+
+#### 2.4 Air‑Lift Tube
+**Role:** Vertical transport.
+
+**Top:**
+- Open ring: ceramic ring with inner air swirl.
+- Crystal bright ring at inner edge.
+
+**Sides:**
+- Vertical ceramic ribs (3–4) evenly spaced.
+- Crystal seam running vertically (center).
+- Air mid/bright gradient inside to suggest flow.
+
+**Bottom:**
+- Atmospheric compressor‑like swirl.
+- Ceramic ring.
+
+**Animation:**
+- Air tones scrolling upward inside side faces.
+
+#### 2.5 Pressure Kiln
+**Role:** High‑temp pressure smelter.
+
+**Top:**
+- Ceramic crucible: circular recess with shell/coral or ceramic mid/dark.
+- Crystal heat nodes around rim (crystal bright/mid).
+- Inner glow: air bright + crystal bright.
+
+**Sides:**
+- Ceramic walls with vertical heat fins.
+- Crystal nodes that brighten when active.
+- Membrane bellows hinted at lower sides (membrane mid/shadow).
+
+**Bottom:**
+- Dark ceramic with small air vents.
+
+**Animation:**
+- Flickering glow inside crucible (air bright/mid + crystal bright).
+
+#### 2.6 Membrane Press
+**Role:** Presses/plates materials.
+
+**Top:**
+- Large central membrane disk (membrane mid/shadow).
+- Outer ceramic frame.
+- Small crystal gauge at one corner (pressure indicator).
+
+**Sides:**
+- Ceramic body with vertical press supports.
+- Membrane band visible at mid‑height (press plate).
+- Crystal seam showing active/inactive.
+
+**Bottom:**
+- Flat ceramic, darker band at edges.
+
+**Animation:**
+- 2–4 frames: membrane disk moves slightly down/up (press motion).
+
+#### 2.7 Crystal Infuser
+**Role:** Infuses crystals with pressure.
+
+**Top:**
+- Floating crystal core: crystal mid/bright with linework.
+- Atmospheric swirl ring around it (air mid/shadow).
+- Ceramic stabilizer arms at 3–4 points.
+
+**Sides:**
+- Ceramic pillars.
+- Crystal channels (vertical lines).
+- Air swirl hints near mid‑height.
+
+**Bottom:**
+- Ceramic base with crystal socket.
+
+**Animation:**
+- Crystal core pulses (brightness cycling).
+- Swirl ring rotates or pulses.
+
+#### 2.8 Pneumatic Separator
+**Role:** Splits items based on pressure response.
+
+**Top:**
+- Central membrane gate (membrane mid/shadow).
+- Two output chutes indicated by ceramic channels leading to opposite edges.
+- Crystal indicator lights above each chute (left/right).
+
+**Sides:**
+- Ceramic body with two distinct output sides.
+- Crystal bright/mid nodes above each output.
+- Membrane slit visible at center.
+
+**Bottom:**
+- Ceramic with small vents.
+
+**Animation:**
+- Membrane gate oscillates slightly.
+- Crystal indicator lights blink depending on “active” side (for future logic).
+
+### 3) How another AI should generate textures from these blueprints
+
+For each of the 8 blocks:
+- Read the blueprint (above).
+- For each face (top, bottom, north, south, east, west):
+  - Lay out a 32×32 grid.
+  - Place major shapes (rings, strips, cups, ribs, swirls) using the Cephalari palette.
+  - Apply shading: light → mid → dark → deep according to direction and curvature.
+  - Add crystal seams/nodes using crystal bright/mid/shadow.
+  - Add membrane regions using membrane highlight/mid/shadow/deep.
+  - Add air swirls using air bright/mid/shadow/deep.
+  - Output each face as a 32×32 JSON array of hex codes, exactly as defined in your schema.
+- Generate ASCII mockups using the symbol mapping:
+  - . ceramic light
+  - # ceramic mass
+  - @ membrane
+  - * crystal
+  - = shell‑coral
+  - ~ air/swirl
+- Generate block model JSON using the standard cube parent and texture names:
+  - <namespace>:block/<block_name>_<face>
+- If the block has animation:
+  - Define frames as separate textures or arrays.
+  - Create an animation JSON with frametime and frames list.
+- Generate a 32×32 item icon:
+  - Based on the front/most readable face.
+  - Simplified but recognizably the same block.
+
+### 4) Schema extension for these blocks (logic only)
+
+You can add a per‑block metadata section to your schema like:
+
+{
+  "block_blueprints": {
+    "vortex_funnel": {
+      "role": "suction",
+      "animated_faces": ["top"],
+      "primary_materials": ["air", "ceramic", "crystal"]
+    },
+    "pressure_rail": {
+      "role": "linear_transport",
+      "animated_faces": ["top"],
+      "primary_materials": ["membrane", "ceramic", "crystal"]
+    },
+    "pneumatic_catapult": {
+      "role": "launcher",
+      "animated_faces": ["top"],
+      "primary_materials": ["membrane", "ceramic", "crystal", "air"]
+    },
+    "air_lift_tube": {
+      "role": "vertical_transport",
+      "animated_faces": ["sides"],
+      "primary_materials": ["air", "ceramic", "crystal"]
+    },
+    "pressure_kiln": {
+      "role": "smelter",
+      "animated_faces": ["top"],
+      "primary_materials": ["ceramic", "crystal", "air", "membrane"]
+    },
+    "membrane_press": {
+      "role": "press",
+      "animated_faces": ["top"],
+      "primary_materials": ["membrane", "ceramic", "crystal"]
+    },
+    "crystal_infuser": {
+      "role": "infuser",
+      "animated_faces": ["top", "sides"],
+      "primary_materials": ["crystal", "air", "ceramic"]
+    },
+    "pneumatic_separator": {
+      "role": "separator",
+      "animated_faces": ["top"],
+      "primary_materials": ["membrane", "ceramic", "crystal"]
+    }
+  }
+}
+
+This is what to emphasize and which faces animate.
+
+---
+
 ## 3. Pressure‑Logic + Redstone Integration
 
 They are partners, not competitors.
