@@ -16,6 +16,7 @@
     "kruemblegard:buoyancy_lift_platform",
      "kruemblegard:conveyor_membrane",
     "kruemblegard:pressure_loom",
-    "kruemblegard:pressure_clutch"
+    "kruemblegard:pressure_clutch",
+    "kruemblegard:pressure_regulator"
   ]
 }

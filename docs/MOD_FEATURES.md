@@ -128,6 +128,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture and a `pulse_phase` state (scaffolding).
   - `pressure_loom`: Flowwright workstation block with an animated front texture (scaffolding).
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state; scaffolding).
+  - `pressure_regulator`: redstone-controlled pressure-level selector (`signal` 0..15; scaffolding).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 

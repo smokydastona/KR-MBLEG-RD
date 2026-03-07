@@ -2013,6 +2013,152 @@ def generate_pressure_clutch() -> GeneratedBlockAssets:
     )
 
 
+def generate_pressure_regulator() -> GeneratedBlockAssets:
+    # Concept-level spec in docs/PRESSURE_LOGIC.md: set pressure levels via redstone.
+    # No UV blueprint provided yet; keep this minimal + palette-locked. The blockstate carries
+    # a 0-15 signal level, but visuals are intentionally static for now.
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+
+    glow = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+    crystal_deep = PALETTE["crystal"]["deep"]
+
+    def border(g: list[list[str]]) -> None:
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Ribbing.
+        for y in range(2, size - 2):
+            for x in range(1, size - 1):
+                if y >= 22:
+                    g[y][x] = ceramic_mid
+                if x in (6, 7, 15, 16, 24, 25):
+                    g[y][x] = ceramic_dark
+
+        # Glow seam.
+        for y in range(size):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Central plate.
+        for y in range(6, 26):
+            for x in range(6, 26):
+                g[y][x] = ceramic_mid
+
+        # Dial ring.
+        ring = _circle_mask(size, 16, 16, 9)
+        hub = _circle_mask(size, 16, 16, 4)
+        for y in range(size):
+            for x in range(size):
+                if ring[y][x] and _is_outline(ring, x, y):
+                    g[y][x] = ceramic_deep
+                elif ring[y][x]:
+                    g[y][x] = ceramic_dark
+
+        for y in range(size):
+            for x in range(size):
+                if not hub[y][x]:
+                    continue
+                g[y][x] = ceramic_mid if not _is_outline(hub, x, y) else ceramic_line
+
+        # Crystal indicator wedge at the top.
+        for y in range(6, 12):
+            g[y][16] = glow
+            if 15 >= 0:
+                g[y][15] = crystal_mid
+            if 17 < size:
+                g[y][17] = crystal_shadow
+
+        border(g)
+        return g
+
+    def make_bottom() -> list[list[str]]:
+        g = _make_grid(size, ceramic_mid)
+        for y in range(24, 32):
+            for x in range(size):
+                g[y][x] = ceramic_dark
+        border(g)
+        return g
+
+    def make_front() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Main casing.
+        for y in range(4, 28):
+            for x in range(4, 28):
+                g[y][x] = ceramic_mid
+        for y in range(5, 27):
+            g[y][4] = ceramic_deep
+            g[y][27] = ceramic_dark
+        for x in range(4, 28):
+            g[4][x] = ceramic_deep
+            g[27][x] = ceramic_dark
+
+        # Level window with 16 ticks.
+        for y in range(9, 23):
+            for x in range(9, 23):
+                g[y][x] = ceramic_light
+        for i in range(16):
+            x = 10 + i
+            g[11][x] = ceramic_line if i % 2 == 0 else ceramic_mid
+            g[20][x] = ceramic_line if i % 2 == 0 else ceramic_mid
+
+        # Crystal bar at right.
+        for y in range(10, 22):
+            g[y][24] = crystal_deep
+            g[y][25] = crystal_mid
+            g[y][26] = crystal_shadow
+        g[15][25] = glow
+        g[16][25] = glow
+
+        # Glow seam.
+        for y in range(4, 28):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = make_bottom()
+    side = make_side()
+    front = make_front()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front]
+    signal_values = [str(i) for i in range(16)]
+
+    return GeneratedBlockAssets(
+        block_id="pressure_regulator",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        enum_variants={"signal": signal_values},
+    )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
 
@@ -2028,6 +2174,7 @@ def main() -> None:
         generate_conveyor_membrane(),
         generate_pressure_loom(),
         generate_pressure_clutch(),
+        generate_pressure_regulator(),
     ]
 
     for block_assets in blocks:

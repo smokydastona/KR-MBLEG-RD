@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=north,signal=0": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=1": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=2": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=3": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=4": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=5": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=6": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=7": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=8": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=9": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=10": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=11": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=12": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=13": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=14": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=north,signal=15": {
+      "model": "kruemblegard:block/pressure_regulator"
+    },
+    "facing=east,signal=0": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=1": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=2": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=3": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=4": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=5": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=6": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=7": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=8": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=9": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=10": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=11": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=12": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=13": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=14": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=east,signal=15": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 90
+    },
+    "facing=south,signal=0": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=1": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=2": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=3": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=4": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=5": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=6": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=7": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=8": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=9": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=10": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=11": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=12": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=13": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=14": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=south,signal=15": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 180
+    },
+    "facing=west,signal=0": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=1": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=2": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=3": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=4": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=5": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=6": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=7": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=8": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=9": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=10": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=11": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=12": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=13": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=14": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    },
+    "facing=west,signal=15": {
+      "model": "kruemblegard:block/pressure_regulator",
+      "y": 270
+    }
+  }
+}
