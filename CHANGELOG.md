@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1132 (2026-03-07)
+## 1.0.1133 (2026-03-06)
+- Docs: fix changelog date.
+
+## 1.0.1132 (2026-03-06)
 - Feature(pressurelogic): add `pressure_sequencer` block (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_sequencer`.
 
