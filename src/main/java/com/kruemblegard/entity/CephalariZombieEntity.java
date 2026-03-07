@@ -17,6 +17,7 @@ import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -68,7 +69,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
-        if (!this.level().isClientSide && level instanceof ServerLevel serverLevel && !this.isPassenger()) {
+        // Only assign a zombie-type mount for "real" spawns. Conversions handle their own mount cinematic.
+        if (spawnType != MobSpawnType.CONVERSION
+            && !this.level().isClientSide
+            && level instanceof ServerLevel serverLevel
+            && !this.isPassenger()) {
             ensureZombieMount(serverLevel);
         }
 
@@ -81,12 +86,13 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         }
 
         // Pick a zombie-type mount.
-        int roll = this.getRandom().nextInt(4);
+        int roll = this.getRandom().nextInt(5);
         EntityType<? extends Mob> mountType = switch (roll) {
             case 0 -> EntityType.ZOMBIE;
             case 1 -> EntityType.HUSK;
             case 2 -> EntityType.DROWNED;
-            default -> EntityType.ZOMBIFIED_PIGLIN;
+            case 3 -> EntityType.ZOMBIFIED_PIGLIN;
+            default -> EntityType.ZOGLIN;
         };
 
         Mob mount = mountType.create(level);
@@ -109,6 +115,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         }
         if (mount instanceof ZombifiedPiglin p) {
             p.setCanPickUpLoot(false);
+        }
+        if (mount instanceof Zoglin z) {
+            z.setCanPickUpLoot(false);
         }
 
         level.addFreshEntity(mount);
@@ -243,9 +252,13 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             playSound(ModSounds.CEPHALARI_CURE.get(), 0.95F, 0.95F + random.nextFloat() * 0.1F);
 
             String storedMountId = CephalariMounts.getMountId(this);
-            if (this.getVehicle() instanceof CephalariMountEntity mount) {
+            if (this.getVehicle() instanceof CephalariMountEntity cephalariMount) {
                 this.stopRiding();
-                mount.discard();
+                cephalariMount.discard();
+            } else if (this.getVehicle() instanceof Mob zombieMount) {
+                // Curing always removes the zombie mount and restores the Cephalari mount type.
+                this.stopRiding();
+                zombieMount.discard();
             }
 
             T converted = super.convertTo(target, keepEquipment);
@@ -276,9 +289,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             if (this.getVehicle() instanceof CephalariMountEntity mount) {
                 this.stopRiding();
                 mount.discard();
-            } else if (this.getVehicle() instanceof Mob zombieMount) {
+            } else if (this.getVehicle() instanceof Mob) {
+                // Zombie mounts persist independently after the rider dies.
                 this.stopRiding();
-                zombieMount.kill();
             }
         }
 

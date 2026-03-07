@@ -16,6 +16,54 @@
 
     "§5§lRunic Path\n\n§7Runic Debris\n§8↓\n§7Smelt → Runic Scrap\n§8↓\n§74× Scrap + 4× Copper\n§8↓\n§7Runic Ingot\n§8↓\n§7Netherite + Runic\n§8↓\n§5Attuned Ingot",
 
-    "§5§lThe Warning\n\n§7Something rules Wayfall.\n\n§7It has phases.\n\n§7It remembers you."
+    "§5§lThe Warning\n\n§7Something rules Wayfall.\n\n§7It has phases.\n\n§7It remembers you.",
+
+    "§3§lCephalari Species Codex\n§7Wayfall Stranded Variant\n\n§8Sapient nautiloid-descended\nsurvivors of a dimensional rupture.\n\n§7A people defined by amnesia,\nadaptation, and survival.",
+
+    "§3§l1. Forgotten Origins\n\n§7The Cephalari came from an\nunknown dimension. Their arrival\nin Wayfall was catastrophic: a\nrupture that shattered reality and\ndestroyed their memory-shell\narchives.",
+
+    "§3§l1. Forgotten Origins\n\n§7Only instinctive fragments remain:\n§7• Spiral motifs in art & engineering\n§7• A biological expectation of buoyancy\n§7• Pressure-based logic instincts\n§7• A cultural ache for a home\n  they cannot name",
+
+    "§3§l2. Physiology in Wayfall\n\n§7Cephalari bodies were never meant\nfor land. Their original biology\nrelied on drifting and buoyancy,\nnot walking.",
+
+    "§3§l2.1 Morphology\n\n§7• Spiral shell reinforced with\n  Wayfall crystalline dust\n§7• 20–40 tentacles: fine work + bracing\n§7• Internal pressure sacs\n§7• Chromatophores glow in air\n§7• Blink-reflex short dodges",
+
+    "§3§l2.2 Environmental Needs\n\n§7• No longer require water\n§7• Thrive only in Wayfall’s air\n§7• Suffocate slowly in overworld-type air\n§7• Immune to fall damage (pressure sacs\n  and blink reflex)",
+
+    "§3§l2.3 Lifespan\n\n§7• 180–260 years\n§7• Memory degradation is common\n  due to dimensional trauma",
+
+    "§3§l3. Mount-Bound Biology\n\n§7Cephalari cannot move efficiently\non their own. To survive in Wayfall,\nthey rely on scavenged-tech mobility\nmounts built from fragments of their\nforgotten dimension and Wayfall debris.",
+
+    "§3§lMount Rules\n\n§7• Every adult Cephalari spawns with\n  one mount\n§7• Mounts despawn with the Cephalari\n§7• Mounts are extensions of the body\n§7• Each mount reflects a survival strategy",
+
+    "§3§l4.1 Spiral Strider\n\n§7A multi-legged walker built from\nshell fragments and salvaged pistons.\n\n§7Role: height, stability, terrain mastery\n§7Movement: slow, extremely stable\n§7Symbolism: continuity, spiral memory",
+
+    "§3§l4.2 Drift Skimmer\n\n§7A hovering manta-shaped craft that\nglides using membrane wings and\npressure-vent propulsion.\n\n§7Role: speed, long traversal\n§7Movement: smooth gliding + bursts\n§7Symbolism: echoes aquatic ancestry",
+
+    "§3§l4.3 Treadwinder Chassis\n\n§7A compact armored rig on spiral-linked\ntank treads.\n\n§7Role: everyday mobility, rugged terrain\n§7Movement: smooth rolling + pivot\n§7Symbolism: resilience and ingenuity\n\n§8The iconic default mount.",
+
+    "§3§l4.4 Echo Harness\n\n§7A semi-organic exosuit the Cephalari\n“slots into,” becoming a tall armored\nwalker.\n\n§7Role: combat, defense\n§7Movement: stride + blink-dash + jumps\n§7Symbolism: fused identity & survival",
+
+    "§3§l5. Society and Culture\n\n§7Tide-Kin clusters form around:\n§7• shell pattern motifs\n§7• mount type\n§7• shared memory fragments\n\n§7Elder Spirals preserve what remains.",
+
+    "§3§l5.3 Values\n\n§7• Adaptation\n§7• Continuity\n§7• Symbiosis with mounts\n§7• Stability in a hostile dimension",
+
+    "§3§l6. Wayfall Villages\n\n§7Cephalari villages generate only in\nWayfall.\n\n§7Architecture:\n§7• Spiral platforms on coral fibers\n§7• Bio-ceramic fused with crystal\n§7• Stabilized chambers\n§7• Memory Gardens\n§7• Mount platforms",
+
+    "§3§l6.2 Village Layout\n\n§7• Central Spiral Hall\n§7• Ceramic Kilns\n§7• Flow Engine Chambers\n§7• Crystal Beds\n§7• Scent Archives\n§7• Mount Bays",
+
+    "§3§l7. Professions\n\n§7Cephalari work revolves around\nstabilizing Wayfall and maintaining\nmounts.\n\n§7• Ceramist\n§7• Flowwright\n§7• Crystal Gardener\n§7• Shellsmith\n§7• Archivist\n§7• Navigator",
+
+    "§3§l8. Threats and Predators\n\n§7Wayfall is hostile. Villages endure:\n§7• Wraithlike distortive entities\n§7• Riftborn Cephalari (corrupted)\n§7• Gravity-adapted predators\n§7• Spatial instability events\n\n§8Mounts are essential for survival.",
+
+    "§3§l9. Subspecies\n\n§7• Sky-Pelagic — gliders, bright shells\n§7• Deepfall — bioluminescent,\n  distortion-resistant\n§7• Riftborn — corrupted, hostile,\n  red-gold shells",
+
+    "§3§l10.1 Zombified Cephalari\n\n§7When a Cephalari zombifies:\n§7• Its original mount does NOT appear\n§7• It spawns riding a zombie-type mob\n§7• The zombie mount persists if the\n  Cephalari dies\n\n§8Conversion cinematic: no Zoglins.",
+
+    "§3§lEligible Zombie Mounts\n\n§7• Zombie\n§7• Drowned\n§7• Husk\n§7• Zombified Piglin\n§7• Zoglin (natural spawns only)\n§7• Other zombie-type mobs (world-dependent)",
+
+    "§3§l10.2 Conversion Back\n\n§7When a zombified Cephalari is cured:\n§7• The Cephalari returns to normal\n§7• The zombie mount is removed\n§7• The stored Cephalari mount type is\n  restored\n\n§7Zoglins cannot convert and are\nreplaced like any other zombie mount.",
+
+    "§3§l11. Player Interaction\n\n§7Players can:\n§7• Trade for Wayfall-exclusive materials\n§7• Learn pressure-logic machinery\n§7• Acquire shell-based armor\n§7• Defend villages from Riftborn raids\n§7• Use Cephalari maps to navigate\n  instability\n\n§8Safe havens in a hostile dimension."
   ]
 }

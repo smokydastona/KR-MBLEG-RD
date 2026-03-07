@@ -1,6 +1,5 @@
 package com.kruemblegard.entity;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import com.kruemblegard.registry.ModEntities;
@@ -19,7 +18,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -59,7 +62,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private boolean zombifyInProgress = false;
     private int zombifyTicks = 0;
     private @Nullable String zombifyStoredMountId;
-    private @Nullable String zombifyZombieMountId;
+    private @Nullable EntityType<? extends Mob> zombifyZombieMountType;
     private @Nullable UUID zombifySpawnedMountUuid;
     private boolean zombifyMountSpawned = false;
 
@@ -263,7 +266,14 @@ public class CephalariEntity extends Villager implements GeoEntity {
             mount.discard();
         }
 
-        zombifyZombieMountId = CephalariMounts.getRandomMountId(serverLevel, serverLevel.getRandom().nextInt());
+        // During conversion, manifest a *zombie-type* mount (never a Zoglin).
+        int roll = serverLevel.getRandom().nextInt(4);
+        zombifyZombieMountType = switch (roll) {
+            case 0 -> EntityType.ZOMBIE;
+            case 1 -> EntityType.HUSK;
+            case 2 -> EntityType.DROWNED;
+            default -> EntityType.ZOMBIFIED_PIGLIN;
+        };
         zombifySpawnedMountUuid = null;
 
         setNoAi(true);
@@ -290,18 +300,28 @@ public class CephalariEntity extends Villager implements GeoEntity {
         if (!zombifyMountSpawned && zombifyTicks >= 16) {
             zombifyMountSpawned = true;
 
-            if (zombifyZombieMountId != null) {
-                Optional<EntityType<? extends CephalariMountEntity>> mountType = CephalariMounts.getMountTypeById(zombifyZombieMountId);
-                if (mountType.isPresent()) {
-                    CephalariMountEntity mount = mountType.get().create(serverLevel);
-                    if (mount != null) {
-                        mount.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                        mount.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                        serverLevel.addFreshEntity(mount);
-                        mount.playManifest();
-                        this.startRiding(mount, true);
-                        zombifySpawnedMountUuid = mount.getUUID();
+            if (zombifyZombieMountType != null) {
+                Mob mount = zombifyZombieMountType.create(serverLevel);
+                if (mount != null) {
+                    mount.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                    mount.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+
+                    if (mount instanceof Zombie z) {
+                        z.setCanPickUpLoot(false);
                     }
+                    if (mount instanceof Husk h) {
+                        h.setCanPickUpLoot(false);
+                    }
+                    if (mount instanceof Drowned d) {
+                        d.setCanPickUpLoot(false);
+                    }
+                    if (mount instanceof ZombifiedPiglin p) {
+                        p.setCanPickUpLoot(false);
+                    }
+
+                    serverLevel.addFreshEntity(mount);
+                    this.startRiding(mount, true);
+                    zombifySpawnedMountUuid = mount.getUUID();
                 }
             }
 
@@ -328,8 +348,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
                 if (zombifySpawnedMountUuid != null) {
                     Entity mount = serverLevel.getEntity(zombifySpawnedMountUuid);
-                    if (mount instanceof CephalariMountEntity cephalariMount) {
-                        zombie.startRiding(cephalariMount, true);
+                    if (mount instanceof Mob mobMount) {
+                        zombie.startRiding(mobMount, true);
                     }
                 }
 

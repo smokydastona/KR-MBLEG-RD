@@ -287,11 +287,14 @@ Keep it up to date whenever you add/remove/rename content.
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
   - Mount lifecycle:
-    - When a Cephalari converts to **Zombified Cephalari**, its current mount is removed and a new mount is spawned.
-    - When a Zombified Cephalari is cured back into Cephalari, it restores its stored mount type.
-    - Zombified Cephalari spawn mounted on a zombie-type mount (e.g., Zombie/Husk/Drowned/Zombified Piglin).
+    - When a Cephalari converts to **Zombified Cephalari**, its Cephalari mount is removed.
+    - During the 2.2s conversion cinematic, a **zombie-type mount** manifests under it (Zombie/Husk/Drowned/Zombified Piglin).
+    - Natural spawns: Zombified Cephalari spawn mounted on a zombie-type mount (Zombie/Husk/Drowned/Zombified Piglin; rare Zoglin).
+    - When a Zombified Cephalari is cured back into Cephalari, the zombie mount is removed and the Cephalari restores its stored mount type.
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari **or its mount** opens the Cephalari trading UI.
-  - Linked health: while mounted, the Cephalari and its mount mirror damage/healing and die together.
+  - Linked health:
+    - While mounted on a Cephalari mount, the Cephalari and mount mirror damage/healing and die together.
+    - While mounted on a zombie-type mount, the Zombified Cephalari and mount mirror damage/healing, but the mount survives if the rider dies.
     - Zombie-type mobs treat Cephalari mounts like villager targets.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
     - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + mount manifestation overlap + forced riding pose sync before swap).

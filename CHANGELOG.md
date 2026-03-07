@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1121 (2026-03-06)
+- Tuning(cephalari_zombie): align zombification mount rules with lore (conversion manifests a zombie-type mount; zombified mounts persist independently after rider death).
+- Tuning(cephalari): cure now always removes the zombie mount and restores the stored Cephalari mount type.
+- Tuning(spawns): allow Zoglin as a rare *natural-spawn* zombie mount (still excluded during conversion).
+- Docs(codex+lore): add the full Cephalari Species Codex (Wayfall Stranded Variant) to the Crumbling Codex and [docs/LORE.md](docs/LORE.md).
+
 ## 1.0.1120 (2026-03-06)
 - Tuning(cephalari): finalize the 2.2s zombification cinematic timing (forced riding sync to match the zombie riding posture).
 - Assets(particles/cephalari): refresh cure/zombify VFX particle texture set (shell dust, fragments, spirals, cure burst, zombify cracks).

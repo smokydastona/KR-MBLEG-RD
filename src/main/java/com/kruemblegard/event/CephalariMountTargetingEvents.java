@@ -10,6 +10,7 @@ import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.monster.Zoglin;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,7 +33,7 @@ public final class CephalariMountTargetingEvents {
             return;
         }
 
-        if (!(mob instanceof Zombie || mob instanceof Husk || mob instanceof Drowned || mob instanceof ZombieVillager || mob instanceof ZombifiedPiglin)) {
+        if (!(mob instanceof Zombie || mob instanceof Husk || mob instanceof Drowned || mob instanceof ZombieVillager || mob instanceof ZombifiedPiglin || mob instanceof Zoglin)) {
             return;
         }
 
