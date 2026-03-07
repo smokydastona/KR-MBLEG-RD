@@ -24,6 +24,7 @@ import com.kruemblegard.block.KruemblegardWallSignBlock;
 import com.kruemblegard.block.MegaFranchLeavesBlock;
 import com.kruemblegard.block.AtmosphericCompressorBlock;
 import com.kruemblegard.block.MembranePumpBlock;
+import com.kruemblegard.block.PressureValveBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
 import com.kruemblegard.block.VentPistonBlock;
@@ -172,6 +173,15 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 10.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PRESSURE_VALVE = BLOCKS.register(
+            "pressure_valve",
+            () -> new PressureValveBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
                     .sound(SoundType.STONE))
     );
 

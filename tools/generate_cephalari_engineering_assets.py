@@ -206,6 +206,9 @@ class GeneratedBlockAssets:
     # If true, emit a horizontal-facing blockstate with rotated variants.
     horizontal_facing: bool = False
 
+    # If true, emit a boolean `powered` property in the blockstate variants.
+    powered: bool = False
+
     # Optional: animated face frames and runtime metadata.
     animated_textures: dict[str, list[list[list[str]]]] | None = None
     mcmeta_by_texture: dict[str, object] | None = None
@@ -1131,6 +1134,172 @@ def generate_atmospheric_compressor() -> GeneratedBlockAssets:
     )
 
 
+def generate_pressure_valve() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+
+    membrane_hi = PALETTE["membrane"]["highlight"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+    membrane_shadow = PALETTE["membrane"]["shadow"]
+    membrane_line = PALETTE["membrane"]["line"]
+
+    crystal_bright = PALETTE["crystal"]["bright"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+    crystal_line = PALETTE["crystal"]["line"]
+
+    air_mid = PALETTE["air"]["mid"]
+    air_shadow = PALETTE["air"]["shadow"]
+    air_line = PALETTE["air"]["line"]
+
+    def make_base() -> list[list[str]]:
+        g = _make_grid(size, ceramic_mid)
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+        # Inner frame
+        for x in range(2, size - 2):
+            g[2][x] = ceramic_dark
+            g[size - 3][x] = ceramic_dark
+        for y in range(2, size - 2):
+            g[y][2] = ceramic_dark
+            g[y][size - 3] = ceramic_dark
+        # Corner studs
+        for (x, y) in ((4, 4), (27, 4), (4, 27), (27, 27)):
+            g[y][x] = ceramic_light
+        return g
+
+    def make_front() -> list[list[str]]:
+        g = make_base()
+
+        # Central valve body.
+        outer = _circle_mask(size, 16, 16, 10)
+        mid = _circle_mask(size, 16, 16, 8)
+        inner = _circle_mask(size, 16, 16, 5)
+        core = _circle_mask(size, 16, 16, 2)
+
+        for y in range(size):
+            for x in range(size):
+                if outer[y][x] and not mid[y][x]:
+                    g[y][x] = ceramic_dark
+                elif mid[y][x] and not inner[y][x]:
+                    # membrane ring
+                    if (x - 16) + (y - 16) < 0:
+                        g[y][x] = membrane_hi
+                    elif (x - 16) + (y - 16) > 0:
+                        g[y][x] = membrane_shadow
+                    else:
+                        g[y][x] = membrane_mid
+                elif inner[y][x] and not core[y][x]:
+                    g[y][x] = ceramic_mid
+                elif core[y][x]:
+                    g[y][x] = crystal_bright
+
+        # Valve slot + arrow glyph (indicates flow direction).
+        for x in range(10, 23):
+            g[16][x] = air_shadow
+        for x in range(12, 21):
+            g[15][x] = air_mid
+            g[17][x] = air_mid
+        g[16][22] = air_mid
+        g[15][21] = air_mid
+        g[17][21] = air_mid
+        for x in range(10, 23):
+            g[14][x] = air_line
+            g[18][x] = air_line
+
+        # Crystal indicator lens on top.
+        lens_outer = _ellipse_mask(size, 13, 5, 18, 10)
+        lens_inner = _ellipse_mask(size, 14, 6, 17, 9)
+        for y in range(size):
+            for x in range(size):
+                if lens_outer[y][x] and not lens_inner[y][x]:
+                    g[y][x] = crystal_shadow
+                elif lens_inner[y][x]:
+                    g[y][x] = crystal_mid
+        g[7][16] = crystal_bright
+        g[6][16] = crystal_line
+
+        # Outlines
+        for y in range(1, size - 1):
+            for x in range(1, size - 1):
+                if (outer[y][x] and not mid[y][x]) and any(
+                    not (outer[ny][nx] and not mid[ny][nx])
+                    for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                ):
+                    g[y][x] = ceramic_line
+                if (mid[y][x] and not inner[y][x]) and any(
+                    not (mid[ny][nx] and not inner[ny][nx])
+                    for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                ):
+                    g[y][x] = membrane_line
+                if (lens_outer[y][x] and not lens_inner[y][x]) and any(
+                    not (lens_outer[ny][nx] and not lens_inner[ny][nx])
+                    for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                ):
+                    g[y][x] = crystal_line
+
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = make_base()
+        # Side ribs
+        for y in range(6, 26):
+            g[y][8] = ceramic_dark
+            g[y][23] = ceramic_dark
+        # Small conduit ports
+        for y in (12, 18):
+            for x in range(4, 7):
+                g[y][x] = air_shadow
+                g[y + 1][x] = air_mid
+        # Crystal latch
+        g[16][27] = crystal_mid
+        g[16][28] = crystal_bright
+        return g
+
+    top = make_base()
+    # Top hatch ring
+    ring_outer = _circle_mask(size, 16, 16, 9)
+    ring_inner = _circle_mask(size, 16, 16, 6)
+    for y in range(size):
+        for x in range(size):
+            if ring_outer[y][x] and not ring_inner[y][x]:
+                top[y][x] = ceramic_dark
+            elif ring_inner[y][x]:
+                top[y][x] = ceramic_light
+    top[16][16] = crystal_bright
+
+    bottom = make_base()
+
+    front = make_front()
+    side = make_side()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in front]
+
+    return GeneratedBlockAssets(
+        block_id="pressure_valve",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        horizontal_facing=True,
+        powered=True,
+    )
+
+
 def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     modid = "kruemblegard"
 
@@ -1181,7 +1350,23 @@ def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     models_block_dir = repo_root / "src/main/resources/assets" / modid / "models/block"
     models_item_dir = repo_root / "src/main/resources/assets" / modid / "models/item"
 
-    if assets.horizontal_facing:
+    if assets.horizontal_facing and assets.powered:
+        _write_json(
+            blockstates_dir / f"{assets.block_id}.json",
+            {
+                "variants": {
+                    "facing=north,powered=false": {"model": f"{modid}:block/{assets.block_id}"},
+                    "facing=east,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 90},
+                    "facing=south,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 180},
+                    "facing=west,powered=false": {"model": f"{modid}:block/{assets.block_id}", "y": 270},
+                    "facing=north,powered=true": {"model": f"{modid}:block/{assets.block_id}"},
+                    "facing=east,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 90},
+                    "facing=south,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 180},
+                    "facing=west,powered=true": {"model": f"{modid}:block/{assets.block_id}", "y": 270},
+                }
+            },
+        )
+    elif assets.horizontal_facing:
         _write_json(
             blockstates_dir / f"{assets.block_id}.json",
             {
@@ -1255,6 +1440,7 @@ def main() -> None:
         generate_spiral_gearbox(),
         generate_vent_piston(),
         generate_atmospheric_compressor(),
+        generate_pressure_valve(),
     ]
 
     for block_assets in blocks:

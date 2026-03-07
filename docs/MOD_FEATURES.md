@@ -123,6 +123,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `spiral_gearbox`: facing block with animated interlocking gear front texture.
   - `vent_piston`: facing block with animated vent shutter front texture.
   - `atmospheric_compressor`: facing block with animated swirling air front texture.
+  - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 
