@@ -24,7 +24,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 - **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
 - **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
-- **Cephalari Engineering (Pressure-Logic)**: early scaffolding + `Pressure Conduit`, `Membrane Pump`, `Pressure Turbine`, `Spiral Gearbox`, `Vent Piston`, `Atmospheric Compressor`, `Pressure Valve`, `Buoyancy Lift Platform`, `Conveyor Membrane`, `Pressure Loom`, `Pressure Clutch`, `Pressure Regulator`, `Pressure Sequencer`, `Pressure Sensor`, `Vortex Funnel`, `Pressure Rail`, `Pneumatic Catapult`, `Air Lift Tube`, `Pressure Kiln`, `Membrane Press`, `Crystal Infuser`, `Pneumatic Separator` blocks (WIP).
+- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + basic redstone integration) + `Pressure Conduit`, `Membrane Pump`, `Pressure Turbine`, `Spiral Gearbox`, `Vent Piston`, `Atmospheric Compressor`, `Pressure Valve`, `Buoyancy Lift Platform`, `Conveyor Membrane`, `Pressure Loom`, `Pressure Clutch`, `Pressure Regulator`, `Pressure Sequencer`, `Pressure Sensor`, `Vortex Funnel`, `Pressure Rail`, `Pneumatic Catapult`, `Air Lift Tube`, `Pressure Kiln`, `Membrane Press`, `Crystal Infuser`, `Pneumatic Separator` blocks (WIP).
 
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 

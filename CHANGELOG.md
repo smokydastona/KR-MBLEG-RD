@@ -13,6 +13,17 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 	- `atmospheric_compressor`: `stability_level` (0..5)
 - Assets(pressurelogic): extend deterministic generator to emit the new blockstate variants; regenerate blockstates.
 
+## 1.0.1140 (2026-03-06)
+- Feature(pressurelogic): add continuous conduit pressure storage (0..100) via `PressureConduitBlockEntity` and diffuse pressure through connected conduit networks (valves gate flow when powered).
+- Feature(pressurelogic): implement stable-air gating helper (`PressureAtmosphere`) and make `atmospheric_compressor` provide stable-air bubbles outside Wayfall.
+- Feature(pressurelogic): integrate continuous pressure with redstone/control blocks:
+	- `pressure_sensor`: outputs redstone proportional to adjacent conduit pressure.
+	- `pressure_regulator`: transfers/clamps conduit pressure based on redstone `signal`.
+	- `pressure_sequencer`: converts redstone rising edges into pressure pulses.
+- Feature(pressurelogic): integrate continuous pressure with core machines:
+	- `membrane_pump`: generates pressure into adjacent conduits when powered in stable air.
+	- `pressure_turbine`: derives `rotation_speed` from input conduit pressure and consumes pressure as it runs.
+
 ## 1.0.1138 (2026-03-06)
 - Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
 - Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).

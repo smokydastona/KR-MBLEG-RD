@@ -1,5 +1,8 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -68,7 +71,7 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock {
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         Direction facing = state.getValue(FACING);
         int current = state.getValue(ROTATION_SPEED);
-        int target = sampleInputPressure(level, pos, facing);
+        int target = PressureAtmosphere.isStable(level, pos) ? sampleInputPressure(level, pos, facing) : 0;
 
         int next;
         if (target > current) {
@@ -83,6 +86,13 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock {
             level.setBlock(pos, state.setValue(ROTATION_SPEED, next), 2);
         }
 
+        // Consume some input pressure proportional to speed.
+        if (target > 0 && PressureAtmosphere.isStable(level, pos)) {
+            BlockPos inputPos = pos.relative(facing.getOpposite());
+            int consume = target * 3; // 0..15 per tick
+            PressureUtil.addPressure(level, inputPos, -consume);
+        }
+
         level.scheduleTick(pos, this, 10);
     }
 
@@ -92,7 +102,8 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock {
         BlockState inputState = level.getBlockState(inputPos);
 
         if (inputState.getBlock() instanceof PressureConduitBlock) {
-            return inputState.getValue(PressureConduitBlock.PRESSURE_LEVEL);
+            int pressure = PressureUtil.getConduitPressureOrState(level, inputPos);
+            return PressureUtil.pressureToLevel(pressure);
         }
 
         int signal = level.getBestNeighborSignal(pos);

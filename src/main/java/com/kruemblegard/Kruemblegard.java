@@ -4,6 +4,7 @@ import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.config.ClientConfig;
 import com.kruemblegard.config.worldgen.WorldgenTuningConfig;
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
 import com.kruemblegard.book.KruemblegardGuidebook;
@@ -59,6 +60,7 @@ public final class Kruemblegard {
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.register(modBus);
+        ModBlockEntities.register(modBus);
         ModCreativeTabs.register(modBus);
 
         ModEntities.ENTITIES.register(modBus);

@@ -1,7 +1,13 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -56,6 +62,54 @@ public class PressureRegulatorBlock extends HorizontalDirectionalBlock {
         if (signalNow != state.getValue(SIGNAL)) {
             level.setBlock(pos, state.setValue(SIGNAL, signalNow), Block.UPDATE_CLIENTS);
         }
+
+        level.scheduleTick(pos, this, 10);
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        if (!level.isClientSide) {
+            level.scheduleTick(pos, this, 10);
+        }
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        Direction facing = state.getValue(FACING);
+        int signal = state.getValue(SIGNAL);
+        int targetPressure = Mth.clamp((int) Math.round((signal / 15.0) * 100.0), 0, 100);
+
+        BlockPos inPos = pos.relative(facing.getOpposite());
+        BlockPos outPos = pos.relative(facing);
+
+        int inPressure = PressureUtil.getConduitPressureOrState(level, inPos);
+        int outPressure = PressureUtil.getConduitPressureOrState(level, outPos);
+
+        int allowedOut = Math.min(inPressure, targetPressure);
+
+        // Move pressure forward up to the allowed level.
+        if (outPressure < allowedOut) {
+            int move = Math.min(allowedOut - outPressure, 8);
+            if (move > 0) {
+                PressureUtil.addPressure(level, inPos, -move);
+                PressureUtil.addPressure(level, outPos, move);
+            }
+        } else if (outPressure > allowedOut) {
+            // Bleed excess back (best-effort).
+            int bleed = Math.min(outPressure - allowedOut, 8);
+            if (bleed > 0) {
+                PressureUtil.addPressure(level, outPos, -bleed);
+                PressureUtil.addPressure(level, inPos, bleed);
+            }
+        }
+
+        level.scheduleTick(pos, this, 10);
     }
 
     @Override

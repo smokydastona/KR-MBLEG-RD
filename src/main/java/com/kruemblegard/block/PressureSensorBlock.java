@@ -1,5 +1,8 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,6 +17,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 
 public class PressureSensorBlock extends HorizontalDirectionalBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -29,7 +34,7 @@ public class PressureSensorBlock extends HorizontalDirectionalBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection().getOpposite();
-        int signal = getInputSignal(context.getLevel(), context.getClickedPos(), facing);
+        int signal = getPressureSignal(context.getLevel(), context.getClickedPos(), facing);
         return this.defaultBlockState()
                 .setValue(FACING, facing)
                 .setValue(SIGNAL, signal);
@@ -54,10 +59,24 @@ public class PressureSensorBlock extends HorizontalDirectionalBlock {
             return;
         }
 
-        int signalNow = getInputSignal(level, pos, state.getValue(FACING));
+        level.scheduleTick(pos, this, 10);
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        if (!level.isClientSide) {
+            level.scheduleTick(pos, this, 10);
+        }
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int signalNow = getPressureSignal(level, pos, state.getValue(FACING));
         if (signalNow != state.getValue(SIGNAL)) {
             level.setBlock(pos, state.setValue(SIGNAL, signalNow), Block.UPDATE_ALL);
         }
+        level.scheduleTick(pos, this, 10);
     }
 
     @Override
@@ -75,14 +94,16 @@ public class PressureSensorBlock extends HorizontalDirectionalBlock {
         return getSignal(state, level, pos, direction);
     }
 
-    private static int getInputSignal(Level level, BlockPos pos, Direction facing) {
+    private static int getPressureSignal(Level level, BlockPos pos, Direction facing) {
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            return 0;
+        }
+
         Direction inputSide = facing.getOpposite();
         BlockPos neighborPos = pos.relative(inputSide);
-        Direction towardsSensor = inputSide.getOpposite();
 
-        int weak = level.getSignal(neighborPos, towardsSensor);
-        int strong = level.getDirectSignal(neighborPos, towardsSensor);
-        return Math.max(weak, strong);
+        int pressure = PressureUtil.getConduitPressureOrState(level, neighborPos);
+        return net.minecraft.util.Mth.clamp((int) Math.round((pressure / 100.0) * 15.0), 0, 15);
     }
 
     @Override

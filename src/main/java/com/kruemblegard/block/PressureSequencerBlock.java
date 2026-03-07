@@ -1,7 +1,11 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -66,10 +70,34 @@ public class PressureSequencerBlock extends HorizontalDirectionalBlock {
         BlockState next = state.setValue(POWERED, poweredNow);
         if (poweredNow && !poweredBefore) {
             int step = state.getValue(STEP);
-            next = next.setValue(STEP, (step + 1) % 4);
+            int nextStep = (step + 1) % 4;
+            next = next.setValue(STEP, nextStep);
+            emitPulse(level, pos, next.getValue(FACING), nextStep);
         }
 
         level.setBlock(pos, next, Block.UPDATE_CLIENTS);
+    }
+
+    private static void emitPulse(Level level, BlockPos pos, Direction facing, int step) {
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            return;
+        }
+
+        Direction outDir = switch (step) {
+            case 0 -> facing;
+            case 1 -> facing.getClockWise();
+            case 2 -> facing.getOpposite();
+            default -> facing.getCounterClockWise();
+        };
+
+        int signal = level.getBestNeighborSignal(pos);
+        int pulse = Mth.clamp((int) Math.round((signal / 15.0) * 24.0), 0, 24);
+        if (pulse <= 0) {
+            pulse = 8;
+        }
+
+        BlockPos outPos = pos.relative(outDir);
+        PressureUtil.addPressure(level, outPos, pulse);
     }
 
     @Override

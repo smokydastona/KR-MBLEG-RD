@@ -1,9 +1,13 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -106,6 +110,16 @@ public class MembranePumpBlock extends HorizontalDirectionalBlock {
             level.setBlock(pos, state.setValue(PULSE_RATE, next), 2);
         }
 
+        // Generate pressure into the network when the atmosphere is stable.
+        if (PressureAtmosphere.isStable(level, pos)) {
+            Direction facing = state.getValue(FACING);
+            BlockPos outPos = pos.relative(facing);
+
+            // Low, steady generation; scales with pulse rate.
+            int delta = 2 + (next * 3);
+            PressureUtil.addPressure(level, outPos, delta);
+        }
+
         level.scheduleTick(pos, this, 10);
     }
 
@@ -136,23 +150,20 @@ public class MembranePumpBlock extends HorizontalDirectionalBlock {
     }
 
     private static int samplePulseRate(Level level, BlockPos pos) {
-        int best = 0;
+        int bestPressure = 0;
 
-        // Prefer nearby conduit pressure.
+        // Prefer nearby conduit continuous pressure.
         for (Direction dir : Direction.values()) {
-            BlockState neighbor = level.getBlockState(pos.relative(dir));
-            if (neighbor.getBlock() instanceof PressureConduitBlock) {
-                best = Math.max(best, neighbor.getValue(PressureConduitBlock.PRESSURE_LEVEL));
-            }
+            bestPressure = Math.max(bestPressure, PressureUtil.getConduitPressureOrState(level, pos.relative(dir)));
         }
+
+        int bestLevel = PressureUtil.pressureToLevel(bestPressure);
 
         // Fall back to redstone strength as scaffolding.
         int signal = level.getBestNeighborSignal(pos);
-        best = Math.max(best, (int) Math.round((signal / 15.0) * 5.0));
+        bestLevel = Math.max(bestLevel, (int) Math.round((signal / 15.0) * 5.0));
 
-        if (best < 0) best = 0;
-        if (best > 5) best = 5;
-        return best;
+        return Mth.clamp(bestLevel, 0, 5);
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -82,6 +85,14 @@ public class AtmosphericCompressorBlock extends HorizontalDirectionalBlock {
             level.setBlock(pos, state.setValue(STABILITY_LEVEL, next), 2);
         }
 
+        // Late-game generator: gently pressurize adjacent conduit networks.
+        if (next > 0) {
+            int delta = next; // 1..5 every 20 ticks
+            for (Direction dir : Direction.values()) {
+                PressureUtil.addPressure(level, pos.relative(dir), delta);
+            }
+        }
+
         level.scheduleTick(pos, this, 20);
     }
 
@@ -91,23 +102,21 @@ public class AtmosphericCompressorBlock extends HorizontalDirectionalBlock {
             return 5;
         }
 
-        int best = 0;
-
-        // Prefer nearby conduit pressure.
-        for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) {
-            BlockState neighbor = level.getBlockState(pos.relative(dir));
-            if (neighbor.getBlock() instanceof PressureConduitBlock) {
-                best = Math.max(best, neighbor.getValue(PressureConduitBlock.PRESSURE_LEVEL));
-            }
+        int bestPressure = 0;
+        for (Direction dir : Direction.values()) {
+            bestPressure = Math.max(bestPressure, PressureUtil.getConduitPressureOrState(level, pos.relative(dir)));
         }
+
+        int bestLevel = PressureUtil.pressureToLevel(bestPressure);
 
         // Fall back to redstone strength as scaffolding.
         int signal = level.getBestNeighborSignal(pos);
-        best = Math.max(best, (int) Math.round((signal / 15.0) * 5.0));
+        bestLevel = Math.max(bestLevel, (int) Math.round((signal / 15.0) * 5.0));
 
-        if (best < 0) best = 0;
-        if (best > 5) best = 5;
-        return best;
+        // Baseline: compressors should create some stability on their own.
+        bestLevel = Math.max(bestLevel, 1);
+
+        return Mth.clamp(bestLevel, 0, 5);
     }
 
     @Override
