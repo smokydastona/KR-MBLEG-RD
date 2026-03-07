@@ -88,6 +88,7 @@ public class ModItems {
     public static final RegistryObject<Item> MEMBRANE_PUMP_ITEM = registerBlockItem("membrane_pump", ModBlocks.MEMBRANE_PUMP);
     public static final RegistryObject<Item> PRESSURE_TURBINE_ITEM = registerBlockItem("pressure_turbine", ModBlocks.PRESSURE_TURBINE);
     public static final RegistryObject<Item> SPIRAL_GEARBOX_ITEM = registerBlockItem("spiral_gearbox", ModBlocks.SPIRAL_GEARBOX);
+    public static final RegistryObject<Item> SPIRAL_SHAFT_ITEM = registerBlockItem("spiral_shaft", ModBlocks.SPIRAL_SHAFT);
     public static final RegistryObject<Item> VENT_PISTON_ITEM = registerBlockItem("vent_piston", ModBlocks.VENT_PISTON);
     public static final RegistryObject<Item> ATMOSPHERIC_COMPRESSOR_ITEM = registerBlockItem("atmospheric_compressor", ModBlocks.ATMOSPHERIC_COMPRESSOR);
     public static final RegistryObject<Item> PRESSURE_VALVE_ITEM = registerBlockItem("pressure_valve", ModBlocks.PRESSURE_VALVE);

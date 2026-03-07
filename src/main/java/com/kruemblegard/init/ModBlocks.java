@@ -35,6 +35,7 @@ import com.kruemblegard.block.PressureRailBlock;
 import com.kruemblegard.block.PressureValveBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
+import com.kruemblegard.block.SpiralShaftBlock;
 import com.kruemblegard.block.VentPistonBlock;
 import com.kruemblegard.block.VortexFunnelBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
@@ -171,6 +172,15 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> SPIRAL_SHAFT = BLOCKS.register(
+            "spiral_shaft",
+            () -> new SpiralShaftBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 8.0F)
                     .sound(SoundType.STONE))
     );
 

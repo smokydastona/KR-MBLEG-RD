@@ -115,17 +115,18 @@ Keep it up to date whenever you add/remove/rename content.
 - After a player has encountered Traprock once, most newly found Traprock will spawn already awake (with a small chance to remain dormant again).
 
 ## Cephalari Engineering (Pressure-Logic)
-- Status: early implementation (pressure network + basic integration; not yet a full mechanical-power system).
+- Status: early implementation (pressure network + basic integration + first-pass mechanical rotation backbone; not yet a full mechanical-power system).
 - Blocks:
   - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state for visuals, backed by continuous pressure storage (0..100) and simple network diffusion.
   - `membrane_pump`: redstone-controlled pump (`powered`) that generates pressure into adjacent conduits when powered in stable air; also tracks `pulse_rate` (0..5).
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
+  - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: facing block with animated interlocking gear front texture. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`; scaffolding).
   - `vent_piston`: facing block with animated vent shutter front texture. Also tracks `extension` (0..16; scaffolding).
   - `atmospheric_compressor`: provides stable-air bubbles outside Wayfall (for Pressure-Logic machines). Tracks `stability_level` (0..5) and gently pressurizes adjacent conduits.
   - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
-  - `buoyancy_lift_platform`: pressure-elevator platform block with a `lift_state` (idle/rising/falling) state (scaffolding).
-  - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture and a `pulse_phase` state (scaffolding).
+  - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
+  - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
   - `pressure_loom`: Flowwright workstation block with an animated front texture (scaffolding).
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state; scaffolding).
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).

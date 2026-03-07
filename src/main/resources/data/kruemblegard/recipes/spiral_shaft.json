@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    " C ",
+    " I "
+  ],
+  "key": {
+    "I": { "item": "minecraft:copper_ingot" },
+    "C": { "item": "kruemblegard:pressure_conduit" }
+  },
+  "result": { "item": "kruemblegard:spiral_shaft", "count": 2 }
+}

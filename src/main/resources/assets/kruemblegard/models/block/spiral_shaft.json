@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "kruemblegard:block/attuned_stone",
+    "side": "kruemblegard:block/attuned_stone"
+  }
+}

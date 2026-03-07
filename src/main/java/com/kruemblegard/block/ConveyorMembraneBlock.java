@@ -1,34 +1,50 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.rotationlogic.RotationUtil;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-public class ConveyorMembraneBlock extends Block {
+import java.util.List;
+
+public class ConveyorMembraneBlock extends HorizontalDirectionalBlock {
+
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public static final IntegerProperty PULSE_PHASE = IntegerProperty.create("pulse_phase", 0, 3);
 
     public ConveyorMembraneBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(PULSE_PHASE, 0));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(PULSE_PHASE, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(PULSE_PHASE);
+        builder.add(FACING, PULSE_PHASE);
     }
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = this.defaultBlockState();
+        BlockState state = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
         if (!context.getLevel().isClientSide) {
             context.getLevel().scheduleTick(context.getClickedPos(), this, 5);
         }
@@ -45,9 +61,47 @@ public class ConveyorMembraneBlock extends Block {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int rotation = (PressureAtmosphere.isStable(level, pos)) ? RotationUtil.getRotationLevel(level, pos) : 0;
+
+        // Drive the pulse animation faster when rotation is stronger.
         int phase = state.getValue(PULSE_PHASE);
-        int next = (phase + 1) & 3;
-        level.setBlock(pos, state.setValue(PULSE_PHASE, next), 2);
+        int nextPhase = phase;
+        if (rotation > 0) {
+            int steps = Math.max(1, rotation / 2);
+            nextPhase = (phase + steps) & 3;
+        } else {
+            nextPhase = 0;
+        }
+
+        if (nextPhase != phase) {
+            level.setBlock(pos, state.setValue(PULSE_PHASE, nextPhase), 2);
+            state = level.getBlockState(pos);
+        }
+
+        if (rotation > 0) {
+            Direction out = state.getValue(FACING);
+            double speed = 0.04 + (rotation * 0.03); // 0.07..0.19
+
+            AABB box = new AABB(pos).inflate(0.55, 0.2, 0.55).move(0, 1.0, 0);
+            List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
+            for (ItemEntity itemEntity : items) {
+                double dx = out.getStepX() * speed;
+                double dz = out.getStepZ() * speed;
+                itemEntity.setDeltaMovement(dx, Math.max(itemEntity.getDeltaMovement().y, 0.02), dz);
+                itemEntity.hurtMarked = true;
+            }
+        }
+
         level.scheduleTick(pos, this, 5);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 }
