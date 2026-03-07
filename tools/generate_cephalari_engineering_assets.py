@@ -298,6 +298,574 @@ def generate_pressure_conduit() -> GeneratedBlockAssets:
         block_id="pressure_conduit",
         face_grids=face_grids,
         item_grid=item_grid,
+        enum_variants={"pressure_level": [str(i) for i in range(6)]},
+    )
+
+
+def generate_vortex_funnel() -> GeneratedBlockAssets:
+    # Matches docs/PRESSURE_LOGIC.md "Vortex Funnel" blueprint (simple, readable glyph).
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    air_mid = PALETTE["air"]["mid"]
+    air_shadow = PALETTE["air"]["shadow"]
+    glow = PALETTE["crystal"]["bright"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Shallow rim.
+        for y in range(6, 26):
+            for x in range(6, 26):
+                g[y][x] = ceramic_mid
+
+        mask = _spiral_arms_mask(size, 16, 16, 4.0, 12.0, arms=3, phase=0.2, k=0.55, thickness=0.18)
+        for y in range(size):
+            for x in range(size):
+                if mask[y][x]:
+                    g[y][x] = air_shadow
+
+        # Core.
+        core = _circle_mask(size, 16, 16, 3)
+        for y in range(size):
+            for x in range(size):
+                if core[y][x]:
+                    g[y][x] = glow
+
+        border(g)
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        for y in range(20, size):
+            for x in range(size):
+                g[y][x] = ceramic_mid
+
+        # Funnel mouth (ellipse).
+        mouth = _ellipse_mask(size, 10, 10, 21, 21)
+        for y in range(size):
+            for x in range(size):
+                if mouth[y][x]:
+                    g[y][x] = air_mid
+        for y in range(size):
+            for x in range(size):
+                if mouth[y][x] and _is_outline(mouth, x, y):
+                    g[y][x] = ceramic_line
+
+        # Center seam.
+        for y in range(4, 28):
+            g[y][16] = glow
+
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = [row[:] for row in top]
+    side = make_side()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="vortex_funnel",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in side],
+        horizontal_facing=True,
+        powered=True,
+        enum_variants={
+            "vortex_mode": ["gentle", "normal", "harsh"],
+            "directional": ["false", "true"],
+        },
+    )
+
+
+def generate_pressure_rail() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    glow = PALETTE["crystal"]["bright"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Rail grooves.
+        for y in range(6, 26):
+            g[y][12] = ceramic_line
+            g[y][19] = ceramic_line
+            g[y][15] = glow
+            g[y][16] = glow
+        # End caps.
+        for x in range(10, 22):
+            g[6][x] = ceramic_mid
+            g[25][x] = ceramic_mid
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = [row[:] for row in top]
+    side = _make_grid(size, ceramic_light)
+    for y in range(22, size):
+        for x in range(size):
+            side[y][x] = ceramic_mid
+    for y in range(6, 26):
+        side[y][16] = glow
+    border(side)
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="pressure_rail",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in top],
+        horizontal_facing=True,
+        powered=True,
+        enum_variants={"rail_mode": ["soft", "normal", "high"]},
+    )
+
+
+def generate_pneumatic_catapult() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    glow = PALETTE["crystal"]["bright"]
+    air_shadow = PALETTE["air"]["shadow"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Launch pad.
+        for y in range(10, 22):
+            for x in range(10, 22):
+                g[y][x] = ceramic_mid
+        # Arrow marker.
+        for i in range(0, 10):
+            g[16][11 + i] = glow
+        g[15][20] = glow
+        g[17][20] = glow
+        g[14][21] = glow
+        g[18][21] = glow
+        border(g)
+        return g
+
+    def make_front() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Vents.
+        for y in range(10, 22):
+            g[y][10] = ceramic_line
+            g[y][21] = ceramic_line
+            if y % 2 == 0:
+                g[y][16] = air_shadow
+        for y in range(4, 28):
+            g[y][16] = glow
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = [row[:] for row in top]
+    front = make_front()
+    side = [row[:] for row in front]
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="pneumatic_catapult",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in top],
+        horizontal_facing=True,
+        powered=True,
+        enum_variants={"charge_level": [str(i) for i in range(4)]},
+    )
+
+
+def generate_air_lift_tube() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    air_mid = PALETTE["air"]["mid"]
+    air_shadow = PALETTE["air"]["shadow"]
+    glow = PALETTE["crystal"]["bright"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        tube = _circle_mask(size, 16, 16, 9)
+        for y in range(size):
+            for x in range(size):
+                if tube[y][x]:
+                    g[y][x] = air_mid
+        for y in range(size):
+            for x in range(size):
+                if tube[y][x] and _is_outline(tube, x, y):
+                    g[y][x] = ceramic_line
+        g[16][16] = glow
+        border(g)
+        return g
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Window.
+        for y in range(6, 26):
+            for x in range(13, 19):
+                g[y][x] = air_mid
+            g[y][16] = air_shadow if y % 2 == 0 else air_mid
+        for y in range(6, 26):
+            g[y][12] = ceramic_line
+            g[y][19] = ceramic_line
+        for y in range(4, 28):
+            g[y][16] = glow if y % 6 == 0 else g[y][16]
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = [row[:] for row in top]
+    side = make_side()
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="air_lift_tube",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in side],
+        powered=True,
+        enum_variants={
+            "tube_mode": ["up", "down", "bidirectional"],
+            "flow_rate": ["soft", "normal", "high"],
+        },
+    )
+
+
+def generate_pressure_kiln() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    glow = PALETTE["crystal"]["bright"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_front() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Door frame.
+        for y in range(8, 24):
+            for x in range(10, 22):
+                g[y][x] = ceramic_mid
+        for y in range(10, 22):
+            for x in range(12, 20):
+                g[y][x] = ceramic_dark
+        # Heat line.
+        for x in range(12, 20):
+            g[20][x] = membrane_mid
+        # Seam.
+        for y in range(4, 28):
+            g[y][16] = glow
+        # Outline.
+        for y in range(8, 24):
+            g[y][10] = ceramic_line
+            g[y][21] = ceramic_line
+        for x in range(10, 22):
+            g[8][x] = ceramic_line
+            g[23][x] = ceramic_line
+        border(g)
+        return g
+
+    top = _make_grid(size, ceramic_light)
+    for y in range(12, 20):
+        for x in range(12, 20):
+            top[y][x] = ceramic_mid
+    for x in range(12, 20):
+        top[16][x] = glow
+    border(top)
+
+    bottom = [row[:] for row in top]
+    front = make_front()
+    side = [row[:] for row in front]
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": front,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="pressure_kiln",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in front],
+        horizontal_facing=True,
+        powered=True,
+        enum_variants={"kiln_mode": ["low", "normal", "overpressure"]},
+    )
+
+
+def generate_membrane_press() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    membrane_hi = PALETTE["membrane"]["highlight"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+    glow = PALETTE["crystal"]["bright"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    top = _make_grid(size, ceramic_light)
+    pad = _ellipse_mask(size, 9, 9, 22, 22)
+    for y in range(size):
+        for x in range(size):
+            if pad[y][x]:
+                top[y][x] = membrane_mid
+    for y in range(size):
+        for x in range(size):
+            if pad[y][x] and _is_outline(pad, x, y):
+                top[y][x] = membrane_hi
+    for y in range(4, 28):
+        top[y][16] = glow
+    border(top)
+
+    bottom = [row[:] for row in top]
+    side = _make_grid(size, ceramic_light)
+    for y in range(20, size):
+        for x in range(size):
+            side[y][x] = ceramic_mid
+    for y in range(10, 22):
+        side[y][12] = ceramic_line
+        side[y][19] = ceramic_line
+    for y in range(4, 28):
+        side[y][16] = glow
+    border(side)
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="membrane_press",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in top],
+        powered=True,
+        enum_variants={"press_phase": [str(i) for i in range(4)]},
+    )
+
+
+def generate_crystal_infuser() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    crystal_mid = PALETTE["crystal"]["mid"]
+    crystal_shadow = PALETTE["crystal"]["shadow"]
+    glow = PALETTE["crystal"]["bright"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    top = _make_grid(size, ceramic_light)
+    # Crystal cross.
+    for y in range(10, 22):
+        top[y][16] = crystal_mid
+        top[y][15] = crystal_shadow
+        top[y][17] = glow
+    for x in range(10, 22):
+        top[16][x] = crystal_mid
+        top[15][x] = crystal_shadow
+        top[17][x] = glow
+    # Socket.
+    for y in range(12, 20):
+        for x in range(12, 20):
+            top[y][x] = ceramic_mid
+    border(top)
+
+    bottom = [row[:] for row in top]
+    side = _make_grid(size, ceramic_light)
+    for y in range(20, size):
+        for x in range(size):
+            side[y][x] = ceramic_mid
+    for y in range(8, 24):
+        side[y][24] = crystal_shadow
+        side[y][25] = crystal_mid
+    side[16][25] = glow
+    border(side)
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="crystal_infuser",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in top],
+        powered=True,
+        enum_variants={"infuse_phase": [str(i) for i in range(4)]},
+    )
+
+
+def generate_pneumatic_separator() -> GeneratedBlockAssets:
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    ceramic_line = PALETTE["ceramic"]["line"]
+    glow = PALETTE["crystal"]["bright"]
+    air_shadow = PALETTE["air"]["shadow"]
+
+    def border(g: list[list[str]]) -> None:
+        for x in range(size):
+            g[0][x] = ceramic_deep
+            g[size - 1][x] = ceramic_deep
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][size - 1] = ceramic_deep
+
+    def make_top() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Split arrows.
+        for x in range(10, 16):
+            g[16][x] = glow
+        for x in range(16, 22):
+            g[16][x] = glow
+        g[15][10] = glow
+        g[17][10] = glow
+        g[15][21] = glow
+        g[17][21] = glow
+        g[14][9] = glow
+        g[18][9] = glow
+        g[14][22] = glow
+        g[18][22] = glow
+        # Center divider.
+        for y in range(10, 22):
+            g[y][16] = ceramic_line
+            if y % 2 == 0:
+                g[y][15] = air_shadow
+                g[y][17] = air_shadow
+        border(g)
+        return g
+
+    top = make_top()
+    bottom = [row[:] for row in top]
+    side = _make_grid(size, ceramic_light)
+    for y in range(20, size):
+        for x in range(size):
+            side[y][x] = ceramic_mid
+    for y in range(8, 24):
+        side[y][16] = glow if y % 3 == 0 else ceramic_line
+    border(side)
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top,
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    return GeneratedBlockAssets(
+        block_id="pneumatic_separator",
+        face_grids=face_grids,
+        item_grid=[row[:] for row in top],
+        horizontal_facing=True,
+        powered=True,
+        enum_variants={
+            "active_side": ["left", "right"],
+            "separator_mode": ["normal", "tri", "density"],
+        },
     )
 
 
@@ -2425,6 +2993,14 @@ def main() -> None:
         generate_pressure_regulator(),
         generate_pressure_sequencer(),
         generate_pressure_sensor(),
+        generate_vortex_funnel(),
+        generate_pressure_rail(),
+        generate_pneumatic_catapult(),
+        generate_air_lift_tube(),
+        generate_pressure_kiln(),
+        generate_membrane_press(),
+        generate_crystal_infuser(),
+        generate_pneumatic_separator(),
     ]
 
     for block_assets in blocks:

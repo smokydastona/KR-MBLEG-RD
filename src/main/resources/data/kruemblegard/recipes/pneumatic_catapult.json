@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "PRP",
+    " C "
+  ],
+  "key": {
+    "S": { "item": "minecraft:slime_ball" },
+    "P": { "item": "minecraft:piston" },
+    "R": { "item": "kruemblegard:pressure_rail" },
+    "C": { "item": "kruemblegard:pressure_conduit" }
+  },
+  "result": { "item": "kruemblegard:pneumatic_catapult" }
+}

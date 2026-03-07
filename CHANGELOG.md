@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1138 (2026-03-07)
+- Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
+- Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).
+- Feature(pressurelogic): add crafting recipes + BlockItems for all Pressure-Logic blocks.
+- Assets(pressurelogic): extend deterministic generator to emit assets/blockstates for new blocks and new blockstate variants; regenerate outputs.
+- Data(tags): add new Pressure-Logic blocks to `mineable/pickaxe` and `needs_stone_tool`.
+
 ## 1.0.1137 (2026-03-06)
 - Docs(pressurelogic): add unified system-level overview of the complete Cephalari pneumatic engineering suite.
 

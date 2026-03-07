@@ -7,6 +7,7 @@
     "kruemblegard:runed_stoneveil_rubble",
     "kruemblegard:wayfall_iron_ore",
     "kruemblegard:wayfall_copper_ore",
+    "kruemblegard:pressure_conduit",
     "kruemblegard:membrane_pump",
     "kruemblegard:pressure_turbine",
     "kruemblegard:spiral_gearbox",
@@ -19,6 +20,14 @@
     "kruemblegard:pressure_clutch",
     "kruemblegard:pressure_regulator",
     "kruemblegard:pressure_sequencer",
-    "kruemblegard:pressure_sensor"
+    "kruemblegard:pressure_sensor",
+    "kruemblegard:vortex_funnel",
+    "kruemblegard:pressure_rail",
+    "kruemblegard:pneumatic_catapult",
+    "kruemblegard:air_lift_tube",
+    "kruemblegard:pressure_kiln",
+    "kruemblegard:membrane_press",
+    "kruemblegard:crystal_infuser",
+    "kruemblegard:pneumatic_separator"
   ]
 }

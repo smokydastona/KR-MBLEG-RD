@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "CVC",
+    "RRR"
+  ],
+  "key": {
+    "R": { "item": "kruemblegard:volatile_resin" },
+    "C": { "item": "kruemblegard:pressure_conduit" },
+    "V": { "item": "minecraft:slime_ball" }
+  },
+  "result": { "item": "kruemblegard:conveyor_membrane" }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF",
+    "CRC",
+    "III"
+  ],
+  "key": {
+    "F": { "item": "minecraft:feather" },
+    "C": { "item": "kruemblegard:pressure_conduit" },
+    "R": { "item": "kruemblegard:runic_core" },
+    "I": { "item": "kruemblegard:attuned_stone" }
+  },
+  "result": { "item": "kruemblegard:buoyancy_lift_platform" }
+}

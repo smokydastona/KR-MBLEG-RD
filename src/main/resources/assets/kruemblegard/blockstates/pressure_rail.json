@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,powered=false,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=north,powered=false,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=north,powered=false,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=north,powered=true,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=north,powered=true,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=north,powered=true,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail"
+    },
+    "facing=east,powered=false,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=east,powered=false,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=east,powered=false,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=east,powered=true,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=east,powered=true,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=east,powered=true,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 90
+    },
+    "facing=south,powered=false,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=south,powered=false,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=south,powered=false,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=south,powered=true,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=south,powered=true,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=south,powered=true,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 180
+    },
+    "facing=west,powered=false,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    },
+    "facing=west,powered=false,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    },
+    "facing=west,powered=false,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    },
+    "facing=west,powered=true,rail_mode=soft": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    },
+    "facing=west,powered=true,rail_mode=normal": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    },
+    "facing=west,powered=true,rail_mode=high": {
+      "model": "kruemblegard:block/pressure_rail",
+      "y": 270
+    }
+  }
+}

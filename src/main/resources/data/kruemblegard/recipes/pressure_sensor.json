@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "RCR",
+    "IRI"
+  ],
+  "key": {
+    "I": { "item": "kruemblegard:runic_ingot" },
+    "R": { "item": "minecraft:observer" },
+    "C": { "item": "kruemblegard:pressure_conduit" }
+  },
+  "result": { "item": "kruemblegard:pressure_sensor" }
+}

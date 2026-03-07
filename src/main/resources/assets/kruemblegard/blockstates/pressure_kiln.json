@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,powered=false,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=north,powered=false,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=north,powered=false,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=north,powered=true,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=north,powered=true,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=north,powered=true,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln"
+    },
+    "facing=east,powered=false,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=east,powered=false,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=east,powered=false,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=east,powered=true,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=east,powered=true,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=east,powered=true,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 90
+    },
+    "facing=south,powered=false,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=south,powered=false,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=south,powered=false,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=south,powered=true,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=south,powered=true,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=south,powered=true,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 180
+    },
+    "facing=west,powered=false,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    },
+    "facing=west,powered=false,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    },
+    "facing=west,powered=false,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    },
+    "facing=west,powered=true,kiln_mode=low": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    },
+    "facing=west,powered=true,kiln_mode=normal": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    },
+    "facing=west,powered=true,kiln_mode=overpressure": {
+      "model": "kruemblegard:block/pressure_kiln",
+      "y": 270
+    }
+  }
+}

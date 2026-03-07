@@ -23,11 +23,20 @@ import com.kruemblegard.block.KruemblegardWallHangingSignBlock;
 import com.kruemblegard.block.KruemblegardWallSignBlock;
 import com.kruemblegard.block.MegaFranchLeavesBlock;
 import com.kruemblegard.block.AtmosphericCompressorBlock;
+import com.kruemblegard.block.AirLiftTubeBlock;
+import com.kruemblegard.block.CrystalInfuserBlock;
 import com.kruemblegard.block.MembranePumpBlock;
+import com.kruemblegard.block.MembranePressBlock;
+import com.kruemblegard.block.PneumaticCatapultBlock;
+import com.kruemblegard.block.PneumaticSeparatorBlock;
+import com.kruemblegard.block.PressureConduitBlock;
+import com.kruemblegard.block.PressureKilnBlock;
+import com.kruemblegard.block.PressureRailBlock;
 import com.kruemblegard.block.PressureValveBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
 import com.kruemblegard.block.VentPistonBlock;
+import com.kruemblegard.block.VortexFunnelBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
@@ -131,7 +140,7 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> PRESSURE_CONDUIT = BLOCKS.register(
             "pressure_conduit",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new PressureConduitBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(1.8F, 6.0F)
@@ -252,6 +261,78 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> VORTEX_FUNNEL = BLOCKS.register(
+            "vortex_funnel",
+            () -> new VortexFunnelBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PRESSURE_RAIL = BLOCKS.register(
+            "pressure_rail",
+            () -> new PressureRailBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PNEUMATIC_CATAPULT = BLOCKS.register(
+            "pneumatic_catapult",
+            () -> new PneumaticCatapultBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> AIR_LIFT_TUBE = BLOCKS.register(
+            "air_lift_tube",
+            () -> new AirLiftTubeBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PRESSURE_KILN = BLOCKS.register(
+            "pressure_kiln",
+            () -> new PressureKilnBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 10.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> MEMBRANE_PRESS = BLOCKS.register(
+            "membrane_press",
+            () -> new MembranePressBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> CRYSTAL_INFUSER = BLOCKS.register(
+            "crystal_infuser",
+            () -> new CrystalInfuserBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PNEUMATIC_SEPARATOR = BLOCKS.register(
+            "pneumatic_separator",
+            () -> new PneumaticSeparatorBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
                     .sound(SoundType.STONE))
     );
 

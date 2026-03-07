@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "RCR",
+    "IRI"
+  ],
+  "key": {
+    "I": { "item": "minecraft:copper_ingot" },
+    "R": { "item": "kruemblegard:runic_ingot" },
+    "C": { "item": "kruemblegard:runic_core" }
+  },
+  "result": { "item": "kruemblegard:spiral_gearbox" }
+}

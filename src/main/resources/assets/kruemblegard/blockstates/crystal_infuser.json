@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "powered=false,infuse_phase=0": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=false,infuse_phase=1": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=false,infuse_phase=2": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=false,infuse_phase=3": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=true,infuse_phase=0": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=true,infuse_phase=1": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=true,infuse_phase=2": {
+      "model": "kruemblegard:block/crystal_infuser"
+    },
+    "powered=true,infuse_phase=3": {
+      "model": "kruemblegard:block/crystal_infuser"
+    }
+  }
+}

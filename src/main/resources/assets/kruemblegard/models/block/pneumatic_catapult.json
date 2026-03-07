@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/pneumatic_catapult_top",
+    "bottom": "kruemblegard:block/pneumatic_catapult_bottom",
+    "north": "kruemblegard:block/pneumatic_catapult_front",
+    "south": "kruemblegard:block/pneumatic_catapult_side",
+    "east": "kruemblegard:block/pneumatic_catapult_side",
+    "west": "kruemblegard:block/pneumatic_catapult_side"
+  }
+}

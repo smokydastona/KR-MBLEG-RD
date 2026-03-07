@@ -117,7 +117,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Cephalari Engineering (Pressure-Logic)
 - Status: early scaffolding (not yet a full machinery system).
 - Blocks:
-  - `pressure_conduit`: basic placeable block with palette-locked 32x32 textures.
+  - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state (scaffolding).
   - `membrane_pump`: facing block with animated membrane front texture and a redstone-controlled active state (`powered`; scaffolding).
   - `pressure_turbine`: facing block with animated spiral front texture.
   - `spiral_gearbox`: facing block with animated interlocking gear front texture.
@@ -131,6 +131,14 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_regulator`: redstone-controlled pressure-level selector (`signal` 0..15; scaffolding).
   - `pressure_sequencer`: step sequencer block that advances on redstone rising edges (`step` 0..3; scaffolding).
   - `pressure_sensor`: pressure sensor block that outputs a directional redstone signal (`signal` 0..15; scaffolding).
+  - `vortex_funnel`: redstone-powered suction block with a `vortex_mode` and `directional` toggle (scaffolding).
+  - `pressure_rail`: redstone-powered movement strip with a `rail_mode` boost setting (scaffolding).
+  - `pneumatic_catapult`: redstone-powered launcher with a `charge_level` (0..3) state (scaffolding).
+  - `air_lift_tube`: vertical transport block with `tube_mode` and `flow_rate` states (scaffolding).
+  - `pressure_kiln`: redstone-powered item smelter with a `kiln_mode` state (scaffolding).
+  - `membrane_press`: redstone-powered press that cycles `press_phase` (0..3) and processes items (scaffolding).
+  - `crystal_infuser`: redstone-powered infuser that cycles `infuse_phase` (0..3) and processes items (scaffolding).
+  - `pneumatic_separator`: redstone-powered item splitter with `separator_mode` and `active_side` states (scaffolding).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 

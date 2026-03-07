@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IPI",
+    "CRC",
+    "IRI"
+  ],
+  "key": {
+    "I": { "item": "kruemblegard:attuned_stone" },
+    "P": { "item": "minecraft:piston" },
+    "C": { "item": "kruemblegard:pressure_conduit" },
+    "R": { "item": "kruemblegard:runic_ingot" }
+  },
+  "result": { "item": "kruemblegard:vent_piston" }
+}

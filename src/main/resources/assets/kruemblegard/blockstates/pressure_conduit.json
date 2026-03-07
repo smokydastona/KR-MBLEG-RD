@@ -1,6 +1,21 @@
 {
   "variants": {
-    "": {
+    "pressure_level=0": {
+      "model": "kruemblegard:block/pressure_conduit"
+    },
+    "pressure_level=1": {
+      "model": "kruemblegard:block/pressure_conduit"
+    },
+    "pressure_level=2": {
+      "model": "kruemblegard:block/pressure_conduit"
+    },
+    "pressure_level=3": {
+      "model": "kruemblegard:block/pressure_conduit"
+    },
+    "pressure_level=4": {
+      "model": "kruemblegard:block/pressure_conduit"
+    },
+    "pressure_level=5": {
       "model": "kruemblegard:block/pressure_conduit"
     }
   }

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/pneumatic_separator_top",
+    "bottom": "kruemblegard:block/pneumatic_separator_bottom",
+    "north": "kruemblegard:block/pneumatic_separator_front",
+    "south": "kruemblegard:block/pneumatic_separator_side",
+    "east": "kruemblegard:block/pneumatic_separator_side",
+    "west": "kruemblegard:block/pneumatic_separator_side"
+  }
+}
