@@ -1,17 +1,77 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,ratio=1_1": {
       "model": "kruemblegard:block/spiral_gearbox"
     },
-    "facing=east": {
+    "facing=north,ratio=1_2": {
+      "model": "kruemblegard:block/spiral_gearbox"
+    },
+    "facing=north,ratio=2_1": {
+      "model": "kruemblegard:block/spiral_gearbox"
+    },
+    "facing=north,ratio=1_4": {
+      "model": "kruemblegard:block/spiral_gearbox"
+    },
+    "facing=north,ratio=4_1": {
+      "model": "kruemblegard:block/spiral_gearbox"
+    },
+    "facing=east,ratio=1_1": {
       "model": "kruemblegard:block/spiral_gearbox",
       "y": 90
     },
-    "facing=south": {
+    "facing=east,ratio=1_2": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 90
+    },
+    "facing=east,ratio=2_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 90
+    },
+    "facing=east,ratio=1_4": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 90
+    },
+    "facing=east,ratio=4_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 90
+    },
+    "facing=south,ratio=1_1": {
       "model": "kruemblegard:block/spiral_gearbox",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,ratio=1_2": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 180
+    },
+    "facing=south,ratio=2_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 180
+    },
+    "facing=south,ratio=1_4": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 180
+    },
+    "facing=south,ratio=4_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 180
+    },
+    "facing=west,ratio=1_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 270
+    },
+    "facing=west,ratio=1_2": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 270
+    },
+    "facing=west,ratio=2_1": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 270
+    },
+    "facing=west,ratio=1_4": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 270
+    },
+    "facing=west,ratio=4_1": {
       "model": "kruemblegard:block/spiral_gearbox",
       "y": 270
     }

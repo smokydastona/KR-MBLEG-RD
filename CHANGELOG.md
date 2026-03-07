@@ -4,7 +4,16 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1138 (2026-03-07)
+## 1.0.1139 (2026-03-06)
+- Feature(pressurelogic): implement high-level blockstate properties for core blocks:
+	- `pressure_turbine`: `rotation_speed` (0..5)
+	- `membrane_pump`: `pulse_rate` (0..5)
+	- `vent_piston`: `extension` (0..16)
+	- `spiral_gearbox`: `ratio` (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`)
+	- `atmospheric_compressor`: `stability_level` (0..5)
+- Assets(pressurelogic): extend deterministic generator to emit the new blockstate variants; regenerate blockstates.
+
+## 1.0.1138 (2026-03-06)
 - Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
 - Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).
 - Feature(pressurelogic): add crafting recipes + BlockItems for all Pressure-Logic blocks.

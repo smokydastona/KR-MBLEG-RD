@@ -1,17 +1,92 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,rotation_speed=0": {
       "model": "kruemblegard:block/pressure_turbine"
     },
-    "facing=east": {
+    "facing=north,rotation_speed=1": {
+      "model": "kruemblegard:block/pressure_turbine"
+    },
+    "facing=north,rotation_speed=2": {
+      "model": "kruemblegard:block/pressure_turbine"
+    },
+    "facing=north,rotation_speed=3": {
+      "model": "kruemblegard:block/pressure_turbine"
+    },
+    "facing=north,rotation_speed=4": {
+      "model": "kruemblegard:block/pressure_turbine"
+    },
+    "facing=north,rotation_speed=5": {
+      "model": "kruemblegard:block/pressure_turbine"
+    },
+    "facing=east,rotation_speed=0": {
       "model": "kruemblegard:block/pressure_turbine",
       "y": 90
     },
-    "facing=south": {
+    "facing=east,rotation_speed=1": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 90
+    },
+    "facing=east,rotation_speed=2": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 90
+    },
+    "facing=east,rotation_speed=3": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 90
+    },
+    "facing=east,rotation_speed=4": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 90
+    },
+    "facing=east,rotation_speed=5": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 90
+    },
+    "facing=south,rotation_speed=0": {
       "model": "kruemblegard:block/pressure_turbine",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,rotation_speed=1": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 180
+    },
+    "facing=south,rotation_speed=2": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 180
+    },
+    "facing=south,rotation_speed=3": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 180
+    },
+    "facing=south,rotation_speed=4": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 180
+    },
+    "facing=south,rotation_speed=5": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 180
+    },
+    "facing=west,rotation_speed=0": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 270
+    },
+    "facing=west,rotation_speed=1": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 270
+    },
+    "facing=west,rotation_speed=2": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 270
+    },
+    "facing=west,rotation_speed=3": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 270
+    },
+    "facing=west,rotation_speed=4": {
+      "model": "kruemblegard:block/pressure_turbine",
+      "y": 270
+    },
+    "facing=west,rotation_speed=5": {
       "model": "kruemblegard:block/pressure_turbine",
       "y": 270
     }

@@ -118,11 +118,11 @@ Keep it up to date whenever you add/remove/rename content.
 - Status: early scaffolding (not yet a full machinery system).
 - Blocks:
   - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state (scaffolding).
-  - `membrane_pump`: facing block with animated membrane front texture and a redstone-controlled active state (`powered`; scaffolding).
-  - `pressure_turbine`: facing block with animated spiral front texture.
-  - `spiral_gearbox`: facing block with animated interlocking gear front texture.
-  - `vent_piston`: facing block with animated vent shutter front texture.
-  - `atmospheric_compressor`: facing block with animated swirling air front texture.
+  - `membrane_pump`: facing block with animated membrane front texture and a redstone-controlled active state (`powered`; scaffolding). Also tracks `pulse_rate` (0..5; scaffolding).
+  - `pressure_turbine`: facing block with animated spiral front texture. Also tracks `rotation_speed` (0..5; scaffolding).
+  - `spiral_gearbox`: facing block with animated interlocking gear front texture. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`; scaffolding).
+  - `vent_piston`: facing block with animated vent shutter front texture. Also tracks `extension` (0..16; scaffolding).
+  - `atmospheric_compressor`: facing block with animated swirling air front texture. Also tracks `stability_level` (0..5; scaffolding).
   - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
   - `buoyancy_lift_platform`: pressure-elevator platform block with a `lift_state` (idle/rising/falling) state (scaffolding).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture and a `pulse_phase` state (scaffolding).

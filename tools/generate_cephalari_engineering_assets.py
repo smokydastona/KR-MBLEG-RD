@@ -1051,6 +1051,7 @@ def generate_membrane_pump() -> GeneratedBlockAssets:
         item_grid=item_grid,
         horizontal_facing=True,
         powered=True,
+        enum_variants={"pulse_rate": ["0", "1", "2", "3", "4", "5"]},
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )
@@ -1193,6 +1194,7 @@ def generate_pressure_turbine() -> GeneratedBlockAssets:
         face_grids=face_grids,
         item_grid=item_grid,
         horizontal_facing=True,
+        enum_variants={"rotation_speed": ["0", "1", "2", "3", "4", "5"]},
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )
@@ -1345,6 +1347,7 @@ def generate_spiral_gearbox() -> GeneratedBlockAssets:
         face_grids=face_grids,
         item_grid=item_grid,
         horizontal_facing=True,
+        enum_variants={"ratio": ["1_1", "1_2", "2_1", "1_4", "4_1"]},
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )
@@ -1502,6 +1505,7 @@ def generate_vent_piston() -> GeneratedBlockAssets:
         face_grids=face_grids,
         item_grid=item_grid,
         horizontal_facing=True,
+        enum_variants={"extension": [str(i) for i in range(17)]},
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )
@@ -1702,6 +1706,7 @@ def generate_atmospheric_compressor() -> GeneratedBlockAssets:
         face_grids=face_grids,
         item_grid=item_grid,
         horizontal_facing=True,
+        enum_variants={"stability_level": ["0", "1", "2", "3", "4", "5"]},
         animated_textures={"front": front_frames},
         mcmeta_by_texture={"front": mcmeta},
     )
