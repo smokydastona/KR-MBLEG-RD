@@ -12,6 +12,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1118 (2026-03-06)
 - Fix(waylily): Waylily stalk base model no longer clips slightly below the block (prevents z-fighting / broken rendering on solid floors).
 
+## 1.0.1119 (2026-03-06)
+- Fix(lang): rename Waylily display names to Waylilly for all parts.
+
 ## 1.0.1108 (2026-03-05)
 - Feature(cephalari/mounts): add 4 rideable Cephalari mounts as real entities (Spiral Strider, DriftSkimmer, Treadwinder, Echo Harness).
 - Feature(cephalari/mounts): Cephalari spawn mounted; zombification removes the current mount and spawns a new mount; curing restores the stored mount type.
