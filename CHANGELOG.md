@@ -4,17 +4,23 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1124 (2026-03-06)
+- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston` blocks (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
+- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
+- Tools(assets): add deterministic Cephalari engineering asset generator (`tools/generate_cephalari_engineering_assets.py`).
+
+## 1.0.1123 (2026-03-06)
+- Docs(codex+lore): clarify Cephalari village/player-interaction sections as lore-facing (avoid implying village worldgen is implemented).
+
+## 1.0.1122 (2026-03-06)
+- Docs(lore): start tracking [docs/LORE.md](docs/LORE.md) and add the full Cephalari Species Codex (Wayfall Stranded Variant).
+
 ## 1.0.1121 (2026-03-06)
 - Tuning(cephalari_zombie): align zombification mount rules with lore (conversion manifests a zombie-type mount; zombified mounts persist independently after rider death).
 - Tuning(cephalari): cure now always removes the zombie mount and restores the stored Cephalari mount type.
 - Tuning(spawns): allow Zoglin as a rare *natural-spawn* zombie mount (still excluded during conversion).
 - Docs(codex): add the full Cephalari Species Codex (Wayfall Stranded Variant) to the Crumbling Codex.
-
-## 1.0.1122 (2026-03-06)
-- Docs(lore): start tracking [docs/LORE.md](docs/LORE.md) and add the full Cephalari Species Codex (Wayfall Stranded Variant).
-
-## 1.0.1123 (2026-03-06)
-- Docs(codex+lore): clarify Cephalari village/player-interaction sections as lore-facing (avoid implying village worldgen is implemented).
 
 ## 1.0.1120 (2026-03-06)
 - Tuning(cephalari): finalize the 2.2s zombification cinematic timing (forced riding sync to match the zombie riding posture).

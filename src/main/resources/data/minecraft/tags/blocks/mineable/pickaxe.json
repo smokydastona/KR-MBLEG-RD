@@ -21,6 +21,11 @@
     "kruemblegard:polished_ashfall_stone",
     "kruemblegard:polished_ashfall_stone_stairs",
     "kruemblegard:polished_ashfall_stone_slab",
-    "kruemblegard:polished_ashfall_stone_wall"
+    "kruemblegard:polished_ashfall_stone_wall",
+    "kruemblegard:pressure_conduit",
+    "kruemblegard:membrane_pump",
+    "kruemblegard:pressure_turbine",
+    "kruemblegard:spiral_gearbox",
+    "kruemblegard:vent_piston"
   ]
 }

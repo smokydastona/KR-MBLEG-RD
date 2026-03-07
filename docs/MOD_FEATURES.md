@@ -114,6 +114,17 @@ Keep it up to date whenever you add/remove/rename content.
 - It awakens if a player interacts with it or lingers too close.
 - After a player has encountered Traprock once, most newly found Traprock will spawn already awake (with a small chance to remain dormant again).
 
+## Cephalari Engineering (Pressure-Logic)
+- Status: early scaffolding (not yet a full machinery system).
+- Blocks:
+  - `pressure_conduit`: basic placeable block with palette-locked 32x32 textures.
+  - `membrane_pump`: facing block with animated membrane front texture.
+  - `pressure_turbine`: facing block with animated spiral front texture.
+  - `spiral_gearbox`: facing block with animated interlocking gear front texture.
+  - `vent_piston`: facing block with animated vent shutter front texture.
+- Asset pipeline:
+  - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
+
 ## Mobs
 - **Traprock** (`traprock`)
   - Implemented as a Blaze-derived GeckoLib mob.

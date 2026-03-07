@@ -6,6 +6,10 @@
     "kruemblegard:polished_stoneveil_rubble",
     "kruemblegard:runed_stoneveil_rubble",
     "kruemblegard:wayfall_iron_ore",
-    "kruemblegard:wayfall_copper_ore"
+    "kruemblegard:wayfall_copper_ore",
+    "kruemblegard:membrane_pump",
+    "kruemblegard:pressure_turbine",
+    "kruemblegard:spiral_gearbox",
+    "kruemblegard:vent_piston"
   ]
 }

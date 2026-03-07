@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/spiral_gearbox_top",
+    "bottom": "kruemblegard:block/spiral_gearbox_bottom",
+    "north": "kruemblegard:block/spiral_gearbox_front",
+    "south": "kruemblegard:block/spiral_gearbox_side",
+    "east": "kruemblegard:block/spiral_gearbox_side",
+    "west": "kruemblegard:block/spiral_gearbox_side"
+  }
+}

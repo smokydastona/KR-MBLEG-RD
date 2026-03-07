@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kruemblegard:block/vent_piston"
+    },
+    "facing=east": {
+      "model": "kruemblegard:block/vent_piston",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kruemblegard:block/vent_piston",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kruemblegard:block/vent_piston",
+      "y": 270
+    }
+  }
+}

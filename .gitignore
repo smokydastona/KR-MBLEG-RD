@@ -16,6 +16,8 @@ logs/
 docs/**
 !docs/MOD_FEATURES.md
 !docs/LORE.md
+!docs/PRESSURE_LOGIC.md
+!docs/CEPHALARI_ENGINEERING_ASSET_SPEC.md
 !docs/FLORA_REFERENCE.md
 !docs/WAYFALL_BIOMES.md
 !docs/WAYFALL_AETHER_MAPPING.md
@@ -40,6 +42,7 @@ examples/
 tools/**
 !tools/*.ps1
 !tools/*.md
+!tools/generate_cephalari_engineering_assets.py
 
 
 # Eclipse / IDE metadata

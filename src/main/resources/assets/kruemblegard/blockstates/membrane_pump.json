@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kruemblegard:block/membrane_pump"
+    },
+    "facing=east": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kruemblegard:block/membrane_pump",
+      "y": 270
+    }
+  }
+}

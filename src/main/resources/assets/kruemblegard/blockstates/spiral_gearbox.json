@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kruemblegard:block/spiral_gearbox"
+    },
+    "facing=east": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kruemblegard:block/spiral_gearbox",
+      "y": 270
+    }
+  }
+}

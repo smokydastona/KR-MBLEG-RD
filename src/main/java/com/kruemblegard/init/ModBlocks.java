@@ -22,6 +22,10 @@ import com.kruemblegard.block.KruemblegardStandingSignBlock;
 import com.kruemblegard.block.KruemblegardWallHangingSignBlock;
 import com.kruemblegard.block.KruemblegardWallSignBlock;
 import com.kruemblegard.block.MegaFranchLeavesBlock;
+import com.kruemblegard.block.MembranePumpBlock;
+import com.kruemblegard.block.PressureTurbineBlock;
+import com.kruemblegard.block.SpiralGearboxBlock;
+import com.kruemblegard.block.VentPistonBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
 import com.kruemblegard.block.PyrokelpPlantBlock;
 import com.kruemblegard.block.GlimmerpineLeavesBlock;
@@ -111,6 +115,53 @@ public final class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(3.0F, 30.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    // --- Cephalari engineering (Pressure-Logic) ---
+
+    public static final RegistryObject<Block> PRESSURE_CONDUIT = BLOCKS.register(
+            "pressure_conduit",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> MEMBRANE_PUMP = BLOCKS.register(
+            "membrane_pump",
+            () -> new MembranePumpBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.2F, 6.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> PRESSURE_TURBINE = BLOCKS.register(
+            "pressure_turbine",
+            () -> new PressureTurbineBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> SPIRAL_GEARBOX = BLOCKS.register(
+            "spiral_gearbox",
+            () -> new SpiralGearboxBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.6F, 8.0F)
+                    .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> VENT_PISTON = BLOCKS.register(
+            "vent_piston",
+            () -> new VentPistonBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.4F, 8.0F)
                     .sound(SoundType.STONE))
     );
 

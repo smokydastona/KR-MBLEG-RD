@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "top": "kruemblegard:block/vent_piston_top",
+    "bottom": "kruemblegard:block/vent_piston_bottom",
+    "north": "kruemblegard:block/vent_piston_front",
+    "south": "kruemblegard:block/vent_piston_side",
+    "east": "kruemblegard:block/vent_piston_side",
+    "west": "kruemblegard:block/vent_piston_side"
+  }
+}
