@@ -9,7 +9,7 @@
 	"elements": [
 		{
 			"name": "root_crown",
-			"from": [5.5, -0.1, 5.5],
+			"from": [5.5, 0.0, 5.5],
 			"to": [10.5, 1.4, 10.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1.4, 0]},
 			"faces": {
