@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1122 (2026-03-06)
 - Docs(lore): start tracking [docs/LORE.md](docs/LORE.md) and add the full Cephalari Species Codex (Wayfall Stranded Variant).
 
+## 1.0.1123 (2026-03-06)
+- Docs(codex+lore): clarify Cephalari village/player-interaction sections as lore-facing (avoid implying village worldgen is implemented).
+
 ## 1.0.1120 (2026-03-06)
 - Tuning(cephalari): finalize the 2.2s zombification cinematic timing (forced riding sync to match the zombie riding posture).
 - Assets(particles/cephalari): refresh cure/zombify VFX particle texture set (shell dust, fragments, spirals, cure burst, zombify cracks).

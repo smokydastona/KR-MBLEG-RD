@@ -123,7 +123,9 @@ Elders serve as memory anchors, preserving what little remains of pre-Wayfall hi
 - Stability in a hostile dimension
 
 ## 6. Wayfall Villages
-Cephalari villages generate only in the Wayfall dimension.
+Cephalari villages are rumored to exist only in the Wayfall dimension.
+
+Note: village worldgen is lore-only right now.
 
 ### 6.1 Architecture
 - Spiral platforms suspended by rope-like coral fibers
