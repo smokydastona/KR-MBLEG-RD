@@ -9,6 +9,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `buoyancy_lift_platform`.
 - Tools(assets): extend Cephalari engineering generator to emit enum-like blockstate variants (used for `lift_state`).
 
+## 1.0.1126 (2026-03-06)
+- Feature(pressurelogic): add `conveyor_membrane` block (Cephalari engineering scaffolding).
+- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `conveyor_membrane`.
+- Assets(pressurelogic): add an animated top texture for `conveyor_membrane`.
+- Tools(assets): extend Cephalari engineering generator to support animating non-front faces.
+
 ## 1.0.1124 (2026-03-06)
 - Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, `atmospheric_compressor`, and `pressure_valve` blocks (Cephalari engineering scaffolding).
 - Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, `vent_piston`, `atmospheric_compressor`, and `pressure_valve`.

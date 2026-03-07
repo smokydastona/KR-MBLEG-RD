@@ -13,6 +13,7 @@
     "kruemblegard:vent_piston",
     "kruemblegard:atmospheric_compressor",
     "kruemblegard:pressure_valve",
-    "kruemblegard:buoyancy_lift_platform"
+    "kruemblegard:buoyancy_lift_platform",
+    "kruemblegard:conveyor_membrane"
   ]
 }

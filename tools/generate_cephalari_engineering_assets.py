@@ -1446,27 +1446,29 @@ def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     textures_block_dir = repo_root / "src/main/resources/assets" / modid / "textures/block"
     textures_item_dir = repo_root / "src/main/resources/assets" / modid / "textures/item"
 
-    _write_png_from_grid(textures_block_dir / f"{assets.block_id}_top.png", assets.face_grids["top"])
-    _write_png_from_grid(
-        textures_block_dir / f"{assets.block_id}_bottom.png", assets.face_grids["bottom"]
-    )
+    def _write_face_texture(texture_suffix: str, face_key: str, grid: list[list[str]]) -> None:
+        png_path = textures_block_dir / f"{assets.block_id}_{texture_suffix}.png"
+        if assets.animated_textures and face_key in assets.animated_textures:
+            _write_png_from_frames_vertical(png_path, assets.animated_textures[face_key])
+            if assets.mcmeta_by_texture and face_key in assets.mcmeta_by_texture:
+                _write_json(
+                    png_path.with_suffix(png_path.suffix + ".mcmeta"),
+                    assets.mcmeta_by_texture[face_key],
+                )
+        else:
+            _write_png_from_grid(png_path, grid)
+
+    _write_face_texture("top", "top", assets.face_grids["top"])
+    _write_face_texture("bottom", "bottom", assets.face_grids["bottom"])
 
     # Convention:
     # - For symmetric blocks, we emit a single _side.
     # - For asymmetric blocks, we may emit a _front (optionally animated) and a _side.
-    if assets.animated_textures and "front" in assets.animated_textures:
-        front_png = textures_block_dir / f"{assets.block_id}_front.png"
-        _write_png_from_frames_vertical(front_png, assets.animated_textures["front"])
-        if assets.mcmeta_by_texture and "front" in assets.mcmeta_by_texture:
-            _write_json(front_png.with_suffix(front_png.suffix + ".mcmeta"), assets.mcmeta_by_texture["front"])
-    else:
-        _write_png_from_grid(
-            textures_block_dir / f"{assets.block_id}_front.png", assets.face_grids["north"]
-        )
+    _write_face_texture("front", "front", assets.face_grids["north"])
 
     # Always emit a _side texture from the south face if present, otherwise from north.
     side_source = assets.face_grids.get("south") or assets.face_grids["north"]
-    _write_png_from_grid(textures_block_dir / f"{assets.block_id}_side.png", side_source)
+    _write_face_texture("side", "side", side_source)
     _write_png_from_grid(textures_item_dir / f"{assets.block_id}.png", assets.item_grid)
 
     # Blockstate + models.
@@ -1577,6 +1579,146 @@ def emit_assets(repo_root: Path, assets: GeneratedBlockAssets) -> None:
     )
 
 
+def generate_conveyor_membrane() -> GeneratedBlockAssets:
+    # Matches docs/PRESSURE_LOGIC.md "Conveyor Membrane" blueprint.
+    size = 32
+    ceramic_light = PALETTE["ceramic"]["light"]
+    ceramic_mid = PALETTE["ceramic"]["mid"]
+    ceramic_dark = PALETTE["ceramic"]["dark"]
+    ceramic_deep = PALETTE["ceramic"]["deep"]
+    glow = PALETTE["crystal"]["bright"]
+
+    membrane_hi = PALETTE["membrane"]["highlight"]
+    membrane_mid = PALETTE["membrane"]["mid"]
+    membrane_shadow = PALETTE["membrane"]["shadow"]
+
+    def make_side() -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+        # Flat casing with a slightly darker bottom band.
+        for y in range(size):
+            for x in range(size):
+                if y >= 22:
+                    g[y][x] = ceramic_mid
+
+        # Ribs.
+        for y in range(2, size - 2):
+            for x0, x1 in ((6, 8), (14, 16), (22, 24)):
+                for x in range(x0, x1 + 1):
+                    g[y][x] = ceramic_dark
+
+        # Glow seam.
+        for y in range(size):
+            g[y][16] = glow
+
+        # Border.
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+        return g
+
+    side = make_side()
+
+    def make_top_frame(bulge: tuple[int, int, int, int] | None) -> list[list[str]]:
+        g = _make_grid(size, ceramic_light)
+
+        # Ceramic frames at left/right.
+        for y in range(size):
+            for x in range(0, 4):
+                g[y][x] = ceramic_mid
+            for x in range(28, 32):
+                g[y][x] = ceramic_mid
+
+        # Shading for ceramic frames.
+        for y in range(size):
+            g[y][0] = ceramic_deep
+            g[y][31] = ceramic_deep
+            g[y][3] = ceramic_dark
+            g[y][28] = ceramic_dark
+
+        # Membrane strip baseline: x=4..27, y=11..20
+        for y in range(11, 21):
+            for x in range(4, 28):
+                if y == 12:
+                    g[y][x] = membrane_hi
+                elif 13 <= y <= 18:
+                    g[y][x] = membrane_mid
+                elif y == 19:
+                    g[y][x] = membrane_shadow
+                else:
+                    g[y][x] = membrane_mid
+
+        # Optional bulge region (x0..x1, y0..y1 inclusive), applied as a highlight cap.
+        if bulge is not None:
+            x0, x1, y0, y1 = bulge
+            for y in range(y0, y1 + 1):
+                for x in range(x0, x1 + 1):
+                    if 0 <= x < size and 0 <= y < size:
+                        # Top of bulge is highlight, lower row is mid.
+                        g[y][x] = membrane_hi if y == y0 else membrane_mid
+
+        # Outer border.
+        for i in range(size):
+            g[0][i] = ceramic_deep
+            g[size - 1][i] = ceramic_deep
+            g[i][0] = ceramic_deep
+            g[i][size - 1] = ceramic_deep
+
+        return g
+
+    # Frames based on blueprint coordinates.
+    top_frames = [
+        make_top_frame(None),
+        make_top_frame((5, 8, 10, 11)),      # left bulge cap
+        make_top_frame((13, 18, 10, 11)),    # center bulge cap
+        make_top_frame((23, 26, 10, 11)),    # right bulge cap
+    ]
+
+    # Bottom: flat ceramic with darker bottom band.
+    bottom = _make_grid(size, ceramic_mid)
+    for y in range(size):
+        for x in range(size):
+            if y >= 22:
+                bottom[y][x] = ceramic_dark
+            elif y <= 9:
+                bottom[y][x] = ceramic_light
+            else:
+                bottom[y][x] = ceramic_mid
+    for i in range(size):
+        bottom[0][i] = ceramic_deep
+        bottom[size - 1][i] = ceramic_deep
+        bottom[i][0] = ceramic_deep
+        bottom[i][size - 1] = ceramic_deep
+
+    face_grids: dict[FaceName, list[list[str]]] = {
+        "top": top_frames[0],
+        "bottom": bottom,
+        "north": side,
+        "south": side,
+        "east": side,
+        "west": side,
+    }
+
+    item_grid = [row[:] for row in top_frames[0]]
+
+    mcmeta = {
+        "animation": {
+            "frametime": 3,
+            "frames": [0, 1, 2, 3],
+        }
+    }
+
+    return GeneratedBlockAssets(
+        block_id="conveyor_membrane",
+        face_grids=face_grids,
+        item_grid=item_grid,
+        enum_variants={"pulse_phase": ["0", "1", "2", "3"]},
+        animated_textures={"top": top_frames},
+        mcmeta_by_texture={"top": mcmeta},
+    )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
 
@@ -1589,6 +1731,7 @@ def main() -> None:
         generate_atmospheric_compressor(),
         generate_pressure_valve(),
         generate_buoyancy_lift_platform(),
+        generate_conveyor_membrane(),
     ]
 
     for block_assets in blocks:

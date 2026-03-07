@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "pulse_phase=0": {
+      "model": "kruemblegard:block/conveyor_membrane"
+    },
+    "pulse_phase=1": {
+      "model": "kruemblegard:block/conveyor_membrane"
+    },
+    "pulse_phase=2": {
+      "model": "kruemblegard:block/conveyor_membrane"
+    },
+    "pulse_phase=3": {
+      "model": "kruemblegard:block/conveyor_membrane"
+    }
+  }
+}
