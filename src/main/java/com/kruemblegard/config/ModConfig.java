@@ -19,6 +19,10 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue WAYFALL_PRELOAD_ON_SERVER_START;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_SYSTEM_ENABLED;
+    public static final ForgeConfigSpec.IntValue PRESSURE_TICK_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_LOGGING;
+
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -68,6 +72,29 @@ public final class ModConfig {
         WAYSTONE_WAYFALL_TELEPORT_CHANCE = builder
             .comment("Chance (0..1) per Waystone use to teleport a player who has never visited the Wayfall.")
             .defineInRange("waystoneWayfallTeleportChance", 0.02D, 0.0D, 1.0D);
+
+        builder.push("Pressure");
+
+        PRESSURE_SYSTEM_ENABLED = builder
+            .comment(
+                "Enable the Cephalari Engineering (Pressure-Logic) system.",
+                "When disabled, pressure conduits stop simulating and machines that depend on pressure will not function."
+            )
+            .define("enablePressureSystem", true);
+
+        PRESSURE_TICK_INTERVAL_TICKS = builder
+            .comment(
+                "Simulation interval for pressure conduits in ticks.",
+                "Higher values reduce CPU usage but make pressure changes propagate more slowly.",
+                "Default: 5 ticks (~4 updates/sec)."
+            )
+            .defineInRange("pressureTickIntervalTicks", 5, 1, 20);
+
+        PRESSURE_DEBUG_LOGGING = builder
+            .comment("Enable extra pressure debug logging (rate-limited).")
+            .define("pressureDebugLogging", false);
+
+        builder.pop();
 
         builder.push("Wayfall");
 

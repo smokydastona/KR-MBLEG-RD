@@ -39,6 +39,7 @@ Configs generate under the instance `config/` folder.
     - Boss stats/cooldowns and phase thresholds
     - Waystone-related settings (including False Waystones)
     - Wayfall initialization safety/performance toggles
+    - Pressure-Logic toggles/performance settings (enable/disable + tick interval)
 - `kruemblegard-client.toml`
     - Client-only cosmetic/performance settings
 - `kruemblegard-worldgen.json5`

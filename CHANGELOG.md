@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1156 (2026-03-07)
+- Feature(pressurelogic): expose a Forge capability for pressure (`PressureCapabilities.PRESSURE_HANDLER`) on `pressure_conduit`.
+- Feature(pressurelogic): add config guards/perf knobs: `enablePressureSystem`, `pressureTickIntervalTicks`, `pressureDebugLogging`.
+- Fix(pressurelogic): rate-limit conduit tick failure logging to avoid spam in large networks.
+
 ## 1.0.1155 (2026-03-08)
 - Feature(cephalari): expand GeckoLib animation coverage with villager-style states across updated bone sets.
 - Feature(cephalari_zombie): add villager-style loops plus triggerable `attack`/`hurt` animations.
