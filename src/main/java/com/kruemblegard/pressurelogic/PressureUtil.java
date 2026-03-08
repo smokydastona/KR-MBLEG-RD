@@ -46,6 +46,10 @@ public final class PressureUtil {
     }
 
     public static int getConduitPressureOrState(Level level, BlockPos pos) {
+        if (!level.isLoaded(pos)) {
+            return 0;
+        }
+
         PressureConduitBlockEntity be = getConduitEntity(level, pos);
         if (be != null) {
             return be.getPressure().get();
@@ -91,6 +95,9 @@ public final class PressureUtil {
         ArrayList<BlockPos> results = new ArrayList<>();
         for (Direction dir : Direction.values()) {
             BlockPos direct = pos.relative(dir);
+            if (!level.isLoaded(direct)) {
+                continue;
+            }
             BlockState directState = level.getBlockState(direct);
             if (directState.getBlock() instanceof PressureConduitBlock) {
                 results.add(direct);
@@ -109,6 +116,9 @@ public final class PressureUtil {
                 }
 
                 BlockPos otherSide = direct.relative(dir);
+                if (!level.isLoaded(otherSide)) {
+                    continue;
+                }
                 BlockState otherState = level.getBlockState(otherSide);
                 if (otherState.getBlock() instanceof PressureConduitBlock) {
                     results.add(otherSide);

@@ -122,6 +122,8 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressureDebugLogging`: enables extra (rate-limited) pressure logging.
   - `pressureSidedPortModesEnabled`: enables per-side conduit port modes; crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
   - `pressureConduitMaxPressure`: max pressure a conduit stores/advertises (default 100).
+  - `pressureConduitMaxStepPerUpdate`: max pressure change per conduit simulation update (default 4).
+  - `pressureConduitLeakPerUpdate`: optional pressure loss per conduit simulation update (default 0).
   - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
 - Interop:
   - `pressure_conduit` exposes a Forge capability (`PressureCapabilities.PRESSURE_HANDLER`) so other mods can read/write pressure without depending on internal classes.

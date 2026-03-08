@@ -24,6 +24,8 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_LOGGING;
     public static final ForgeConfigSpec.BooleanValue PRESSURE_SIDED_PORTS_ENABLED;
     public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_MAX_PRESSURE;
+    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_MAX_STEP_PER_UPDATE;
+    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_LEAK_PER_UPDATE;
     public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_INSPECT;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
@@ -111,6 +113,21 @@ public final class ModConfig {
                 "Default: 100 (no change)."
             )
             .defineInRange("pressureConduitMaxPressure", 100, 1, 100);
+
+        PRESSURE_CONDUIT_MAX_STEP_PER_UPDATE = builder
+            .comment(
+                "Max pressure change per conduit simulation update.",
+                "Lower values are smoother/more stable; higher values propagate changes faster.",
+                "Default: 4 (no change)."
+            )
+            .defineInRange("pressureConduitMaxStepPerUpdate", 4, 1, 20);
+
+        PRESSURE_CONDUIT_LEAK_PER_UPDATE = builder
+            .comment(
+                "Optional pressure loss applied each conduit simulation update (stabilization/friction).",
+                "Default: 0 (no loss)."
+            )
+            .defineInRange("pressureConduitLeakPerUpdate", 0, 0, 10);
 
         PRESSURE_DEBUG_INSPECT = builder
             .comment(

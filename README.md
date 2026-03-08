@@ -59,6 +59,8 @@ Mods should interact with Krümblegård pressure via the `pressure_conduit` bloc
 - Optional conduit-side controls (config-gated):
     - `pressureSidedPortModesEnabled`: crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
     - `pressureConduitMaxPressure`: max pressure a conduit stores/advertises (default 100).
+    - `pressureConduitMaxStepPerUpdate`: diffusion max step per simulation update (default 4).
+    - `pressureConduitLeakPerUpdate`: optional stabilization/friction per simulation update (default 0).
     - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
 
 ## For pack makers / artists

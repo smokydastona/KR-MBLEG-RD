@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1160 (2026-03-07)
+- Fix(pressurelogic): avoid interacting with unloaded neighbor positions when resolving conduit connections (prevents chunk-boundary ghost links / accidental chunk loads).
+- Feature(pressurelogic): add large-network stabilization knobs: `pressureConduitMaxStepPerUpdate` (default 4) and `pressureConduitLeakPerUpdate` (default 0).
+
 ## 1.0.1159 (2026-03-07)
 - Feature(pressurelogic): add optional per-side conduit port modes (INPUT/OUTPUT/BOTH/DISABLED) gated by `pressureSidedPortModesEnabled`.
 - Feature(pressurelogic): add optional conduit inspection readout (network stats) gated by `pressureDebugInspect`.

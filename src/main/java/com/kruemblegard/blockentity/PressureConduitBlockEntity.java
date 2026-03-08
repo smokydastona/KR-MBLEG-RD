@@ -158,7 +158,14 @@ public class PressureConduitBlockEntity extends BlockEntity {
             int target = PressureUtil.sampleNeighborAveragePressure(level, pos);
 
             // Move toward the neighborhood average with a limited step (prevents jitter/explosions).
-            int next = PressureUtil.approach(current, target, 4);
+            int maxStep = Math.max(1, ModConfig.PRESSURE_CONDUIT_MAX_STEP_PER_UPDATE.get());
+            int next = PressureUtil.approach(current, target, maxStep);
+
+            int leak = Math.max(0, ModConfig.PRESSURE_CONDUIT_LEAK_PER_UPDATE.get());
+            if (leak > 0 && next > PressureConstants.MIN_PRESSURE) {
+                next = Math.max(PressureConstants.MIN_PRESSURE, next - leak);
+            }
+
             int max = be.pressureHandler.getMaxPressure();
             next = Mth.clamp(next, PressureConstants.MIN_PRESSURE, max);
 
