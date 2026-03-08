@@ -22,6 +22,9 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue PRESSURE_SYSTEM_ENABLED;
     public static final ForgeConfigSpec.IntValue PRESSURE_TICK_INTERVAL_TICKS;
     public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_LOGGING;
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_SIDED_PORTS_ENABLED;
+    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_MAX_PRESSURE;
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_INSPECT;
 
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
@@ -93,6 +96,28 @@ public final class ModConfig {
         PRESSURE_DEBUG_LOGGING = builder
             .comment("Enable extra pressure debug logging (rate-limited).")
             .define("pressureDebugLogging", false);
+
+        PRESSURE_SIDED_PORTS_ENABLED = builder
+            .comment(
+                "Enable per-side conduit port modes (INPUT/OUTPUT/BOTH/DISABLED).",
+                "When enabled, crouch-right-click a pressure conduit face to cycle the mode.",
+                "This currently gates capability exposure and whether external callers can write pressure on that side."
+            )
+            .define("pressureSidedPortModesEnabled", false);
+
+        PRESSURE_CONDUIT_MAX_PRESSURE = builder
+            .comment(
+                "Max pressure (0..100) that a conduit will store/advertise.",
+                "Default: 100 (no change)."
+            )
+            .defineInRange("pressureConduitMaxPressure", 100, 1, 100);
+
+        PRESSURE_DEBUG_INSPECT = builder
+            .comment(
+                "Enable conduit inspection output on right-click (server-side chat message).",
+                "Crouch-right-click is reserved for cycling port modes when enabled."
+            )
+            .define("pressureDebugInspect", false);
 
         builder.pop();
 

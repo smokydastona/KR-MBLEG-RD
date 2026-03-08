@@ -120,6 +120,9 @@ Keep it up to date whenever you add/remove/rename content.
   - `enablePressureSystem`: master enable/disable for the pressure simulation.
   - `pressureTickIntervalTicks`: conduit simulation interval (higher = cheaper/slower).
   - `pressureDebugLogging`: enables extra (rate-limited) pressure logging.
+  - `pressureSidedPortModesEnabled`: enables per-side conduit port modes; crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
+  - `pressureConduitMaxPressure`: max pressure a conduit stores/advertises (default 100).
+  - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
 - Interop:
   - `pressure_conduit` exposes a Forge capability (`PressureCapabilities.PRESSURE_HANDLER`) so other mods can read/write pressure without depending on internal classes.
   - Conduit-only is the current supported interop model: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.

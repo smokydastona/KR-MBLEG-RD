@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1159 (2026-03-07)
+- Feature(pressurelogic): add optional per-side conduit port modes (INPUT/OUTPUT/BOTH/DISABLED) gated by `pressureSidedPortModesEnabled`.
+- Feature(pressurelogic): add optional conduit inspection readout (network stats) gated by `pressureDebugInspect`.
+- Feature(pressurelogic): add `pressureConduitMaxPressure` to cap conduit storage/advertised max pressure (default 100).
+- Dev(pressurelogic): add `PressureNetworkManager` snapshot utility for debugging/future network refactors.
+
 ## 1.0.1157 (2026-03-07)
 - Docs(pressurelogic): document conduit-only interop as the supported pressure capability surface.
 - Dev(pressurelogic): add `PressureApi` helpers to centralize capability lookups and avoid BE casts.

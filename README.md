@@ -56,6 +56,10 @@ Mods should interact with Krümblegård pressure via the `pressure_conduit` bloc
 
 - Capability: `PressureCapabilities.PRESSURE_HANDLER` (`IPressureHandler`)
 - Notes: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.
+- Optional conduit-side controls (config-gated):
+    - `pressureSidedPortModesEnabled`: crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
+    - `pressureConduitMaxPressure`: max pressure a conduit stores/advertises (default 100).
+    - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
 
 ## For pack makers / artists
 
