@@ -1,7 +1,7 @@
 package com.kruemblegard.pressurelogic.network;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.block.PressureConduitBlock;
+import com.kruemblegard.blockentity.PressureConduitBlockEntity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,15 +61,16 @@ public final class PressureNetworkEvents {
             return;
         }
 
-        // Mark all conduit block entities in the chunk as needing validation.
-        var chunk = event.getChunk();
+        // Mark conduit block entities in this chunk as needing validation.
+        // IMPORTANT: during ChunkEvent.Load, avoid calling level.isLoaded/level.getBlockState here.
+        // Those can block the chunk pipeline and stall integrated-server startup.
+        if (!(event.getChunk() instanceof LevelChunk chunk)) {
+            return;
+        }
 
-        final ChunkPos chunkPos = (chunk instanceof LevelChunk levelChunk) ? levelChunk.getPos() : null;
+        final ChunkPos chunkPos = chunk.getPos();
         for (var pos : chunk.getBlockEntitiesPos()) {
-            if (!level.isLoaded(pos)) {
-                continue;
-            }
-            if (level.getBlockState(pos).getBlock() instanceof PressureConduitBlock) {
+            if (chunk.getBlockEntity(pos) instanceof PressureConduitBlockEntity) {
                 PressureNetworkManager.markDirty(serverLevel, pos);
             }
         }
@@ -90,12 +91,16 @@ public final class PressureNetworkEvents {
             return;
         }
 
-        // Mark all conduit block entities in the chunk as needing validation.
-        var chunk = event.getChunk();
+        // Mark conduit block entities in this chunk as needing validation.
+        if (!(event.getChunk() instanceof LevelChunk chunk)) {
+            return;
+        }
 
-        final ChunkPos chunkPos = (chunk instanceof LevelChunk levelChunk) ? levelChunk.getPos() : null;
+        final ChunkPos chunkPos = chunk.getPos();
         for (var pos : chunk.getBlockEntitiesPos()) {
-            PressureNetworkManager.markDirty(serverLevel, pos);
+            if (chunk.getBlockEntity(pos) instanceof PressureConduitBlockEntity) {
+                PressureNetworkManager.markDirty(serverLevel, pos);
+            }
         }
 
         logIfSlow("chunk unload", startNanos, serverLevel, chunkPos);

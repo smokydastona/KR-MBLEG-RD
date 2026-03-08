@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1169 (2026-03-07)
+- Fix(pressurelogic): avoid blocking level queries in `ChunkEvent.Load` for pressure conduits (prevents integrated-server world-load stalls during spawn prep).
+
 ## 1.0.1168 (2026-03-07)
 - Debug(startup): reduce hang-watchdog threshold and add explicit armed/disarmed logs to capture world-load stalls faster.
 
