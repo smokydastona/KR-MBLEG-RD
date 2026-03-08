@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1157 (2026-03-07)
+- Docs(pressurelogic): document conduit-only interop as the supported pressure capability surface.
+- Dev(pressurelogic): add `PressureApi` helpers to centralize capability lookups and avoid BE casts.
+
 ## 1.0.1156 (2026-03-07)
 - Feature(pressurelogic): expose a Forge capability for pressure (`PressureCapabilities.PRESSURE_HANDLER`) on `pressure_conduit`.
 - Feature(pressurelogic): add config guards/perf knobs: `enablePressureSystem`, `pressureTickIntervalTicks`, `pressureDebugLogging`.

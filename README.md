@@ -51,6 +51,12 @@ Configs generate under the instance `config/` folder.
 - Spawn Trader Beetle: `/summon kruemblegard:trader_beetle`
 - Teleport to Wayfall: `/execute in kruemblegard:wayfall run tp @s 0 160 0`
 
+## Pressure interoperability (Forge capability)
+Mods should interact with Krümblegård pressure via the `pressure_conduit` block.
+
+- Capability: `PressureCapabilities.PRESSURE_HANDLER` (`IPressureHandler`)
+- Notes: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.
+
 ## For pack makers / artists
 
 ### Blockbench / GeckoLib projectile export targets

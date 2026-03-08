@@ -122,6 +122,8 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressureDebugLogging`: enables extra (rate-limited) pressure logging.
 - Interop:
   - `pressure_conduit` exposes a Forge capability (`PressureCapabilities.PRESSURE_HANDLER`) so other mods can read/write pressure without depending on internal classes.
+  - Conduit-only is the current supported interop model: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.
+  - Internal code should prefer `PressureApi` helpers over casting block entities.
 - Blocks:
   - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state for visuals, backed by continuous pressure storage (0..100) and simple network diffusion.
   - `membrane_pump`: redstone-controlled pump (`powered`) that generates pressure into adjacent conduits when powered in stable air; also tracks `pulse_rate` (0..5).
