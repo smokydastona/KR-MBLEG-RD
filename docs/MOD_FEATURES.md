@@ -121,10 +121,10 @@ Keep it up to date whenever you add/remove/rename content.
   - `membrane_pump`: redstone-controlled pump (`powered`) that generates pressure into adjacent conduits when powered in stable air; also tracks `pulse_rate` (0..5).
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
-  - `spiral_gearbox`: facing block with animated interlocking gear front texture. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`; scaffolding).
+  - `spiral_gearbox`: rotation transformer. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`) that multiplies/divides rotation level across the gearbox; right-click cycles the ratio.
   - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable).
   - `atmospheric_compressor`: provides stable-air bubbles outside Wayfall (for Pressure-Logic machines). Tracks `stability_level` (0..5) and gently pressurizes adjacent conduits.
-  - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
+  - `pressure_valve`: inline conduit gate. When powered, it connects pressure conduits through itself along its facing axis; when unpowered, it blocks pressure flow.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
   - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber` and can fuse Attuned Stone + Volatile Resin into `bio_ceramic` (outputs as item entities above the block).
