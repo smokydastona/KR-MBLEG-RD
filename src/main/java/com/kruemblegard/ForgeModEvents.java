@@ -1,6 +1,7 @@
 package com.kruemblegard;
 
 import com.kruemblegard.book.KruemblegardGuidebook;
+import com.kruemblegard.config.worldgen.WorldgenTuningConfig;
 import com.kruemblegard.playerdata.KruemblegardPlayerData;
 import com.kruemblegard.worldgen.WorldgenValidator;
 
@@ -18,7 +19,13 @@ public final class ForgeModEvents {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
-        WorldgenValidator.validate(event.getServer());
+        // Worldgen validation can be expensive (it touches registries and reads some structure NBTs).
+        // For normal gameplay, only run it when the user explicitly enables strict validation.
+        if (!WorldgenTuningConfig.get().strictValidation) {
+            return;
+        }
+
+        WorldgenValidator.validate(event.getServer(), true);
     }
 
     @SubscribeEvent

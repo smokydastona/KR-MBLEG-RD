@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1166 (2026-03-07)
+- Fix(worldgen): only run `WorldgenValidator` at server start when `strictValidation=true` (avoids potential integrated-server stalls during world creation/load).
+
 ## 1.0.1165 (2026-03-07)
 - Fix(resources): normalize invalid element rotation angles in `waylilly_stalk_base` (prevents model JSON parse failure).
 - Fix(assets): regenerate `pebblit_shoulder` mob effect icon PNG as a minimal valid PNG (avoids unsupported PNG chunk errors).

@@ -53,7 +53,8 @@ Keep it up to date whenever you add/remove/rename content.
 ## Worldgen (Tuning + Validation)
 - Worldgen tuning config file: `config/kruemblegard-worldgen.json5`
   - Auto-created and auto-extended when new keys are added.
-  - `strictValidation` (default `false`): when enabled, `WorldgenValidator` hard-fails at server start if critical worldgen registry IDs/tags are missing.
+  - `strictValidation` (default `false`): when enabled, `WorldgenValidator` runs at server start and hard-fails if critical worldgen registry IDs/tags are missing.
+    - When `strictValidation=false`, validation is skipped (keeps server start/world creation lightweight).
 - Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
 
 - **Ashmoss → Ashbloom (azalea-style)**
