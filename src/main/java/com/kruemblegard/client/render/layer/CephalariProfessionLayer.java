@@ -15,6 +15,7 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
@@ -26,6 +27,8 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * - textures/entity/villager/profession_level/<badge>.png
  */
 public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEntity> {
+
+    private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
     public CephalariProfessionLayer(GeoRenderer<CephalariEntity> renderer) {
         super(renderer);
@@ -43,6 +46,21 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         int packedLight,
         int packedOverlay
     ) {
+        // No-op: render per-bone in renderForBone so we can limit overlays to specific bones.
+    }
+
+    @Override
+    public void renderForBone(
+        PoseStack poseStack,
+        CephalariEntity animatable,
+        GeoBone bone,
+        RenderType renderType,
+        MultiBufferSource bufferSource,
+        VertexConsumer buffer,
+        float partialTick,
+        int packedLight,
+        int packedOverlay
+    ) {
         if (animatable.isBaby()) {
             return;
         }
@@ -50,6 +68,12 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         VillagerData data = animatable.getVillagerData();
         VillagerProfession profession = data.getProfession();
         if (profession == VillagerProfession.NONE) {
+            return;
+        }
+
+        // Adult Cephalari use a mount geometry with an embedded Cephalari subtree.
+        // Only render profession/badge overlays on that subtree to avoid painting the mount bones.
+        if (animatable.hasAdultMountAppearance() && !isInCephalariSubtree(bone)) {
             return;
         }
 
@@ -62,15 +86,37 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
-            super.render(poseStack, animatable, bakedModel, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
+            super.renderForBone(poseStack, animatable, bone, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
         }
 
         ResourceLocation levelTexture = getProfessionLevelTexture(data.getLevel());
         if (levelTexture != null) {
             RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
             VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
-            super.render(poseStack, animatable, bakedModel, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
+            super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
         }
+    }
+
+    private static boolean isInCephalariSubtree(GeoBone bone) {
+        if (bone == null) {
+            return false;
+        }
+
+        // Avoid matching the root itself; it is usually a pivot-only bone.
+        if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
+            return false;
+        }
+
+        GeoBone current = bone;
+        while (current != null) {
+            GeoBone parent = current.getParent();
+            if (parent != null && CEPHALARI_ROOT_BONE.equals(parent.getName())) {
+                return true;
+            }
+            current = parent;
+        }
+
+        return false;
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(int level) {

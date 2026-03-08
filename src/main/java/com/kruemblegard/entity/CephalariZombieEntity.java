@@ -45,6 +45,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.walk");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.riding_pose");
 
+    private static final RawAnimation ATTACK_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_zombie.attack");
+    private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_zombie.hurt");
+
     private static final String NBT_ADULT_ZOMBIE_VARIANT = "KruemblegardCephalariZombieAdultVariant";
     private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultMountTextureVariant";
 
@@ -60,6 +63,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean forwardingLinkedDamage = false;
+
+    private int hurtAnimCooldownTicks = 0;
 
     public CephalariZombieEntity(EntityType<? extends ZombieVillager> type, Level level) {
         super(type, level);
@@ -212,6 +217,10 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             return;
         }
 
+        if (hurtAnimCooldownTicks > 0) {
+            hurtAnimCooldownTicks--;
+        }
+
         // Legacy cleanup: old-world zombie cephalari may still be riding a zombie mount.
         Entity vehicle = this.getVehicle();
         if (vehicle instanceof Mob mob
@@ -286,8 +295,22 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean didHurt = super.doHurtTarget(target);
+        if (didHurt && !level().isClientSide) {
+            triggerAnim("attackController", "attack");
+        }
+        return didHurt;
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
-        return super.hurt(source, amount);
+        boolean result = super.hurt(source, amount);
+        if (!level().isClientSide && result && hurtAnimCooldownTicks <= 0) {
+            hurtAnimCooldownTicks = 10;
+            triggerAnim("hurtController", "hurt");
+        }
+        return result;
     }
 
     @Override
@@ -298,7 +321,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
-            if (this.hasAdultMountAppearance()) {
+            if (this.isPassenger()) {
                 state.setAnimation(RIDING_LOOP);
                 return PlayState.CONTINUE;
             }
@@ -306,6 +329,12 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "attackController", 0, state -> PlayState.STOP)
+            .triggerableAnim("attack", ATTACK_ONCE));
+
+        controllers.add(new AnimationController<>(this, "hurtController", 0, state -> PlayState.STOP)
+            .triggerableAnim("hurt", HURT_ONCE));
     }
 
     @Override

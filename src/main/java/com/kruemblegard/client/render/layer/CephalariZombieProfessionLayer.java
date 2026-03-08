@@ -15,6 +15,7 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
@@ -26,6 +27,30 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * - textures/entity/zombie_villager/profession_level/<badge>.png
  */
 public final class CephalariZombieProfessionLayer extends GeoRenderLayer<CephalariZombieEntity> {
+
+    private static final java.util.Set<String> CEPHALARI_BONES = java.util.Set.of(
+        "root",
+        "head",
+        "shell",
+        "body2",
+        "upper_mouth",
+        "inner_mouth",
+        "lower_mouth",
+        "arm_left",
+        "arm_right",
+        "arm_left2",
+        "arm_right2",
+        "middle_arm_left",
+        "middle_arm_right",
+        "middle_finger_left",
+        "middle_finger_right",
+        "little_arm_left",
+        "little_arm_right",
+        "finger_left",
+        "finger_right",
+        "leg_left",
+        "leg_right"
+    );
 
     public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
         super(renderer);
@@ -43,6 +68,25 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
         int packedLight,
         int packedOverlay
     ) {
+        // No-op: render per-bone in renderForBone so overlays only affect the intended geometry.
+    }
+
+    @Override
+    public void renderForBone(
+        PoseStack poseStack,
+        CephalariZombieEntity animatable,
+        GeoBone bone,
+        RenderType renderType,
+        MultiBufferSource bufferSource,
+        VertexConsumer buffer,
+        float partialTick,
+        int packedLight,
+        int packedOverlay
+    ) {
+        if (bone == null || !CEPHALARI_BONES.contains(bone.getName())) {
+            return;
+        }
+
         if (animatable.isBaby()) {
             return;
         }
@@ -62,14 +106,14 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
 
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
-            super.render(poseStack, animatable, bakedModel, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
+            super.renderForBone(poseStack, animatable, bone, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
         }
 
         ResourceLocation levelTexture = getProfessionLevelTexture(data.getLevel());
         if (levelTexture != null) {
             RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
             VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
-            super.render(poseStack, animatable, bakedModel, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
+            super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
         }
     }
 

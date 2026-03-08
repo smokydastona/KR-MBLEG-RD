@@ -23,6 +23,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.core.particles.ParticleOptions;
@@ -47,9 +48,17 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
+    private static final RawAnimation MOUNT_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
+    private static final RawAnimation MOUNT_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
+    private static final RawAnimation SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.sleep");
+    private static final RawAnimation TRADE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.trade");
+    private static final RawAnimation WORK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.work");
+    private static final RawAnimation CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.celebrate");
+
     private static final RawAnimation ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.zombify_cinematic");
+    private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.hurt");
 
     private static final int NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS = 40;
     private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
@@ -74,6 +83,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private boolean zombifyMountSpawned = false;
 
     private boolean forwardingLinkedDamage = false;
+
+    private int hurtAnimCooldownTicks = 0;
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
@@ -210,6 +221,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     @Override
     public void aiStep() {
+        if (!level().isClientSide && hurtAnimCooldownTicks > 0) {
+            hurtAnimCooldownTicks--;
+        }
+
         if (!level().isClientSide && zombifyInProgress) {
             tickZombifySequence();
             super.aiStep();
@@ -258,8 +273,33 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 return PlayState.STOP;
             }
 
-            if (this.hasAdultMountAppearance()) {
+            if (this.isSleeping()) {
+                state.setAnimation(SLEEP_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (this.isTrading()) {
+                state.setAnimation(TRADE_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (isCelebratingNow()) {
+                state.setAnimation(CELEBRATE_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (isWorkingNow()) {
+                state.setAnimation(WORK_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (this.isPassenger()) {
                 state.setAnimation(RIDING_LOOP);
+                return PlayState.CONTINUE;
+            }
+
+            if (this.hasAdultMountAppearance()) {
+                state.setAnimation(state.isMoving() ? MOUNT_WALK_LOOP : MOUNT_IDLE_LOOP);
                 return PlayState.CONTINUE;
             }
 
@@ -269,6 +309,17 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
             .triggerableAnim("zombify", ZOMBIFY_ONCE));
+
+        controllers.add(new AnimationController<>(this, "hurtController", 0, state -> PlayState.STOP)
+            .triggerableAnim("hurt", HURT_ONCE));
+    }
+
+    private boolean isCelebratingNow() {
+        return this.getBrain().getActiveNonCoreActivity().orElse(null) == Activity.CELEBRATE;
+    }
+
+    private boolean isWorkingNow() {
+        return this.getBrain().getActiveNonCoreActivity().orElse(null) == Activity.WORK;
     }
 
     @Override
@@ -300,7 +351,12 @@ public class CephalariEntity extends Villager implements GeoEntity {
             }
         }
 
-        return super.hurt(source, amount);
+        boolean result = super.hurt(source, amount);
+        if (!level().isClientSide && result && !zombifyInProgress && hurtAnimCooldownTicks <= 0) {
+            hurtAnimCooldownTicks = 10;
+            triggerAnim("hurtController", "hurt");
+        }
+        return result;
     }
 
     @Override

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1155 (2026-03-08)
+- Feature(cephalari): expand GeckoLib animation coverage with villager-style states across updated bone sets.
+- Feature(cephalari_zombie): add villager-style loops plus triggerable `attack`/`hurt` animations.
+- Fix(cephalari): apply vanilla profession + badge overlay textures only to the intended Cephalari bones (prevents painting mount geometry).
+- Fix(cephalari_zombie): apply zombie profession + badge overlay textures only to the intended Cephalari zombie bones.
+
 ## 1.0.1154 (2026-03-08)
 - Feature(cephalari): villages that spawn a vanilla iron golem near Cephalari now spawn a `cephalari_golem` instead.
 - Feature(cephalari_zombie): baby zombified Cephalari now always spawn as a jockey (guaranteed random mount).
