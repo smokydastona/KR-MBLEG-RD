@@ -29,11 +29,6 @@
 					]
 				},
 				{
-					"name": "seat",
-					"parent": "torso",
-					"pivot": [0, 20, 0]
-				},
-				{
 					"name": "arm_left",
 					"parent": "torso",
 					"pivot": [6, 22, 0],
