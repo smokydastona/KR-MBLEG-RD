@@ -5,12 +5,11 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1169 (2026-03-07)
-- Fix(pressurelogic): avoid blocking level queries in `ChunkEvent.Load` for pressure conduits (prevents integrated-server world-load stalls during spawn prep).
 
-## 1.0.1168 (2026-03-07)
+## 1.0.1170 (2026-03-07)
+- Scaralon Beetle: Fix carpet decor rendering so the beetle stays visible and the carpet renders as an overlay instead of replacing the whole texture.
+
 - Debug(startup): reduce hang-watchdog threshold and add explicit armed/disarmed logs to capture world-load stalls faster.
-
-## 1.0.1167 (2026-03-07)
 - Debug(startup): add a startup hang watchdog that emits thread dumps if the integrated server appears stalled during world load.
 - Debug(pressurelogic): log slow pressure-network chunk load/unload hooks (only when they exceed a high threshold).
 

@@ -1,6 +1,6 @@
 package com.kruemblegard.client.render;
 
-import com.kruemblegard.client.render.layer.ScaralonBeetleBaseTextureLayer;
+import com.kruemblegard.client.render.layer.ScaralonCarpetColorLayer;
 import com.kruemblegard.client.render.model.ScaralonBeetleModel;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 
@@ -13,6 +13,6 @@ public class ScaralonBeetleRenderer extends GeoEntityRenderer<ScaralonBeetleEnti
         super(renderManager, new ScaralonBeetleModel());
         this.shadowRadius = 0.7F;
 
-        addRenderLayer(new ScaralonBeetleBaseTextureLayer(this));
+        addRenderLayer(new ScaralonCarpetColorLayer(this));
     }
 }
