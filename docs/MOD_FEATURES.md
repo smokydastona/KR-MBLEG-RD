@@ -122,7 +122,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: facing block with animated interlocking gear front texture. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`; scaffolding).
-  - `vent_piston`: facing block with animated vent shutter front texture. Also tracks `extension` (0..16; scaffolding).
+  - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable).
   - `atmospheric_compressor`: provides stable-air bubbles outside Wayfall (for Pressure-Logic machines). Tracks `stability_level` (0..5) and gently pressurizes adjacent conduits.
   - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).

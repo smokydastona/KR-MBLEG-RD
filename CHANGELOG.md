@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1148 (2026-03-07)
+- Feature(pressurelogic): make `vent_piston` a real pneumatic actuator (stable air + conduit pressure required; redstone sets the target extension).
+
 ## 1.0.1147 (2026-03-07)
 - Assets(items): add unique textures for `coral_fiber` and `bio_ceramic`.
 

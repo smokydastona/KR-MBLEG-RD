@@ -1,5 +1,8 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -68,11 +71,26 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int current = state.getValue(EXTENSION);
-        int target = targetExtension(level, pos);
+        int desired = targetExtension(level, pos);
+
+        boolean stableAir = PressureAtmosphere.isStable(level, pos);
+        BlockPos conduitPos = stableAir ? findBestConduit(level, pos) : null;
+        int pressure = (conduitPos == null) ? 0 : PressureUtil.getConduitPressureOrState(level, conduitPos);
+
+        // Pneumatic motion requires stable air + pressure. If either is missing, retract.
+        int target = (stableAir && pressure > 0) ? desired : 0;
 
         int next;
+        boolean didExtend = false;
         if (target > current) {
-            next = current + 1;
+            int cost = extensionStepCost(current);
+            if (conduitPos != null && pressure >= cost) {
+                PressureUtil.addPressure(level, conduitPos, -cost);
+                next = current + 1;
+                didExtend = true;
+            } else {
+                next = current;
+            }
         } else if (target < current) {
             next = current - 1;
         } else {
@@ -81,7 +99,7 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
 
         if (next != current) {
             // When extending, apply a gentle push in the facing direction.
-            if (next > current) {
+            if (didExtend) {
                 Direction facing = state.getValue(FACING);
                 BlockPos front = pos.relative(facing);
                 AABB box = new AABB(front).inflate(0.25);
@@ -96,10 +114,16 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
         }
 
         if (next != target) {
-            level.scheduleTick(pos, this, 2);
+            // If we're trying to extend but waiting for pressure, don't spam ticks too hard.
+            level.scheduleTick(pos, this, didExtend ? 2 : 6);
         } else {
             level.scheduleTick(pos, this, 10);
         }
+    }
+
+    private static int extensionStepCost(int currentExtension) {
+        // Cheap early movement, slightly more expensive near max extension.
+        return (currentExtension >= 12) ? 3 : 2;
     }
 
     private static int targetExtension(Level level, BlockPos pos) {
@@ -108,6 +132,29 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
         if (target < 0) target = 0;
         if (target > 16) target = 16;
         return target;
+    }
+
+    private static @Nullable BlockPos findBestConduit(Level level, BlockPos pos) {
+        BlockPos best = null;
+        int bestPressure = 0;
+
+        BlockPos below = pos.below();
+        int belowPressure = PressureUtil.getConduitPressureOrState(level, below);
+        if (belowPressure > 0) {
+            best = below;
+            bestPressure = belowPressure;
+        }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos p = pos.relative(dir);
+            int pressure = PressureUtil.getConduitPressureOrState(level, p);
+            if (pressure > bestPressure) {
+                best = p;
+                bestPressure = pressure;
+            }
+        }
+
+        return best;
     }
 
     @Override
