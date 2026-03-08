@@ -27,8 +27,8 @@ import net.minecraftforge.event.server.ServerStoppingEvent;
 public final class ForgeModEvents {
     private ForgeModEvents() {}
 
-    private static final long STARTUP_HANG_WATCHDOG_THRESHOLD_NANOS = TimeUnit.SECONDS.toNanos(120);
-    private static final long STARTUP_HANG_WATCHDOG_DUMP_COOLDOWN_NANOS = TimeUnit.SECONDS.toNanos(90);
+    private static final long STARTUP_HANG_WATCHDOG_THRESHOLD_NANOS = TimeUnit.SECONDS.toNanos(45);
+    private static final long STARTUP_HANG_WATCHDOG_DUMP_COOLDOWN_NANOS = TimeUnit.SECONDS.toNanos(45);
 
     private static final AtomicLong startupHangWatchdogHeartbeatNanos = new AtomicLong(System.nanoTime());
     private static final AtomicLong startupHangWatchdogLastDumpNanos = new AtomicLong(0L);
@@ -97,6 +97,11 @@ public final class ForgeModEvents {
         startupHangWatchdogArmed = true;
         startupHangWatchdogHeartbeatNanos.set(System.nanoTime());
 
+        Kruemblegard.LOGGER.info(
+            "Startup hang watchdog: armed (threshold={}s)",
+            TimeUnit.NANOSECONDS.toSeconds(STARTUP_HANG_WATCHDOG_THRESHOLD_NANOS)
+        );
+
         Thread thread = startupHangWatchdogThread;
         if (thread != null && thread.isAlive()) {
             return;
@@ -108,7 +113,13 @@ public final class ForgeModEvents {
     }
 
     private static void disarmStartupHangWatchdog() {
+        if (!startupHangWatchdogArmed) {
+            return;
+        }
+
         startupHangWatchdogArmed = false;
+        Kruemblegard.LOGGER.info("Startup hang watchdog: disarmed");
+
         Thread thread = startupHangWatchdogThread;
         if (thread != null) {
             thread.interrupt();
@@ -212,6 +223,7 @@ public final class ForgeModEvents {
 
         return name.equals("Server thread")
                 || name.equals("Render thread")
+                || name.equals("main")
                 || name.startsWith("Worker-")
                 || name.startsWith("Worker-Main-")
                 || name.startsWith("ForkJoinPool")
