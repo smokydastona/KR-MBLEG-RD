@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1163 (2026-03-08)
+- Assets(cephalari): add temperament idle loop variants and small personality one-shot idles (curious head tilt / skittish twitch).
+- Dev(build): on Windows, use `%LOCALAPPDATA%/kruemblegard-build` as `buildDir` to avoid OneDrive file-lock issues during Gradle clean/compile.
+
 ## 1.0.1162 (2026-03-07)
 - Fix(cephalari): remove the Cephalari targeting suppression so raids/zombie sieges/hostile mobs treat Cephalari like vanilla villagers.
 - Feature(cephalari): add small temperament variation (`calm`/`curious`/`skittish`) that slightly changes idle animation tempo and movement speed.

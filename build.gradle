@@ -28,6 +28,15 @@ version = "${modVersionMajor}.${modVersionMinor}.${gitCommitCount()}"
 group = 'com.kruemblegard'
 archivesBaseName = 'kruemblegard'
 
+// Windows + OneDrive frequently causes file-lock issues that break `clean`/`compileJava`.
+// Keep build outputs in LOCALAPPDATA on Windows to avoid syncing/locking.
+if (System.getProperty('os.name')?.toLowerCase()?.contains('windows')) {
+    def localAppData = System.getenv('LOCALAPPDATA')
+    if (localAppData) {
+        buildDir = file("${localAppData}/kruemblegard-build")
+    }
+}
+
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }

@@ -328,7 +328,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
   - Targeting: hostile mobs treat Cephalari the same as vanilla villagers.
-  - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation tempo and movement speed.
+  - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation selection/tempo and movement speed, with occasional subtle one-shot “personality” idles.
   - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead.
   - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
     - **Spiral Strider** (`spiral_strider`)

@@ -116,6 +116,9 @@ Sound generation:
 
 ## Troubleshooting
 
+### Gradle fails to delete `build/` on Windows
+If Gradle fails with errors like “Unable to delete directory …\build” (often when the repo lives under OneDrive), this repo automatically relocates `buildDir` to `%LOCALAPPDATA%/kruemblegard-build` on Windows to avoid sync/file-lock issues.
+
 ### JVM crash: `EXCEPTION_ACCESS_VIOLATION` in `jvm.dll`
 If you get a native crash report mentioning `EXCEPTION_ACCESS_VIOLATION (0xc0000005)` with a problematic frame inside `jvm.dll` (often in a `C2 CompilerThread`), that’s a JVM/native crash (not a normal Java exception stacktrace).
 

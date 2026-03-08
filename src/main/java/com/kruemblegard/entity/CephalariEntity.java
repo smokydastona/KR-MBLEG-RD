@@ -57,7 +57,9 @@ public class CephalariEntity extends Villager implements GeoEntity {
         SKITTISH
     }
 
-    private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle");
+    private static final RawAnimation IDLE_CALM_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_calm");
+    private static final RawAnimation IDLE_CURIOUS_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_curious");
+    private static final RawAnimation IDLE_SKITTISH_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_skittish");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
     private static final RawAnimation MOUNT_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
     private static final RawAnimation MOUNT_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
@@ -70,6 +72,9 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private static final RawAnimation ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.zombify_cinematic");
     private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.hurt");
+
+    private static final RawAnimation CURIOUS_HEAD_TILT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.curious_head_tilt");
+    private static final RawAnimation SKITTISH_TWITCH_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.skittish_twitch");
 
     private static final int NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS = 40;
     private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
@@ -104,6 +109,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private int hurtAnimCooldownTicks = 0;
 
     private int appliedTemperament = TEMPERAMENT_UNASSIGNED;
+
+    private long nextPersonalityEventTick = -1L;
+    private int personalityAnimTicksRemaining = 0;
+    private @Nullable RawAnimation personalityAnim;
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
@@ -307,6 +316,13 @@ public class CephalariEntity extends Villager implements GeoEntity {
             hurtAnimCooldownTicks--;
         }
 
+        if (!level().isClientSide && personalityAnimTicksRemaining > 0) {
+            personalityAnimTicksRemaining--;
+            if (personalityAnimTicksRemaining <= 0) {
+                personalityAnim = null;
+            }
+        }
+
         if (!level().isClientSide && zombifyInProgress) {
             tickZombifySequence();
             super.aiStep();
@@ -320,6 +336,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
         }
 
         ensureTemperamentAssigned();
+
+        tickPersonalityIdleEvents();
 
         // Legacy cleanup: if an old-world Cephalari is still riding a mount entity, merge it back into a single-mob state.
         if (this.getVehicle() instanceof CephalariMountEntity mount) {
@@ -345,6 +363,58 @@ public class CephalariEntity extends Villager implements GeoEntity {
         }
     }
 
+    private void tickPersonalityIdleEvents() {
+        if (zombifyInProgress) {
+            return;
+        }
+
+        if (this.isSleeping() || this.isTrading() || isWorkingNow() || isCelebratingNow() || this.isPassenger()) {
+            return;
+        }
+
+        // Only run when idle on the ground (keeps the behavior subtle and avoids spam).
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            return;
+        }
+
+        if (this.hasAdultMountAppearance()) {
+            // Mount geometry already has richer idle motion; skip extra personality one-shots for now.
+            return;
+        }
+
+        long now = this.tickCount;
+        if (nextPersonalityEventTick < 0L) {
+            nextPersonalityEventTick = now + 80 + this.getRandom().nextInt(121);
+            return;
+        }
+
+        if (now < nextPersonalityEventTick) {
+            return;
+        }
+
+        // Schedule next check first (prevents tight loops if something below early-outs).
+        nextPersonalityEventTick = now + 80 + this.getRandom().nextInt(121);
+
+        if (personalityAnimTicksRemaining > 0) {
+            return;
+        }
+
+        Temperament temperament = getTemperament();
+        if (temperament == Temperament.CURIOUS) {
+            // Occasional short head tilt.
+            if (this.getRandom().nextFloat() < 0.55F) {
+                personalityAnim = CURIOUS_HEAD_TILT_ONCE;
+                personalityAnimTicksRemaining = 14;
+            }
+        } else if (temperament == Temperament.SKITTISH) {
+            // Occasional micro-twitch.
+            if (this.getRandom().nextFloat() < 0.75F) {
+                personalityAnim = SKITTISH_TWITCH_ONCE;
+                personalityAnimTicksRemaining = 8;
+            }
+        }
+    }
+
     @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
         return false;
@@ -352,55 +422,96 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+        // Layer 1: high-priority action/pose loops.
+        controllers.add(new AnimationController<>(this, "action_loop", 0, state -> {
             if (zombifyInProgress) {
                 return PlayState.STOP;
             }
 
+            if (this.isPassenger()) {
+                state.getController().setAnimationSpeed(1.0D);
+                return state.setAndContinue(RIDING_LOOP);
+            }
+
             if (this.isSleeping()) {
                 state.getController().setAnimationSpeed(1.0D);
-                state.setAnimation(SLEEP_LOOP);
-                return PlayState.CONTINUE;
+                return state.setAndContinue(SLEEP_LOOP);
             }
 
             if (this.isTrading()) {
                 state.getController().setAnimationSpeed(1.0D);
-                state.setAnimation(TRADE_LOOP);
-                return PlayState.CONTINUE;
+                return state.setAndContinue(TRADE_LOOP);
             }
 
             if (isCelebratingNow()) {
                 state.getController().setAnimationSpeed(1.0D);
-                state.setAnimation(CELEBRATE_LOOP);
-                return PlayState.CONTINUE;
+                return state.setAndContinue(CELEBRATE_LOOP);
             }
 
             if (isWorkingNow()) {
                 state.getController().setAnimationSpeed(1.0D);
-                state.setAnimation(WORK_LOOP);
-                return PlayState.CONTINUE;
+                return state.setAndContinue(WORK_LOOP);
             }
 
-            // Temperament: slight animation tempo variation for idle/walk cycles.
+            return PlayState.STOP;
+        }));
+
+        // Layer 2: locomotion.
+        controllers.add(new AnimationController<>(this, "walk_loop", 0, state -> {
+            if (zombifyInProgress || this.isPassenger() || this.isSleeping() || this.isTrading() || isCelebratingNow() || isWorkingNow()) {
+                return PlayState.STOP;
+            }
+
+            if (!state.isMoving()) {
+                return PlayState.STOP;
+            }
+
             double animSpeed = switch (getTemperament()) {
-                case CALM -> 0.95D;
-                case CURIOUS -> 1.05D;
-                case SKITTISH -> 1.08D;
+                case CALM -> 0.92D;
+                case CURIOUS -> 1.00D;
+                case SKITTISH -> 1.12D;
             };
             state.getController().setAnimationSpeed(animSpeed);
 
-            if (this.isPassenger()) {
-                state.setAnimation(RIDING_LOOP);
-                return PlayState.CONTINUE;
+            if (this.hasAdultMountAppearance()) {
+                return state.setAndContinue(MOUNT_WALK_LOOP);
             }
+            return state.setAndContinue(WALK_LOOP);
+        }));
+
+        // Layer 3: idle + personality.
+        controllers.add(new AnimationController<>(this, "idle_loop", 0, state -> {
+            if (zombifyInProgress || this.isPassenger() || this.isSleeping() || this.isTrading() || isCelebratingNow() || isWorkingNow()) {
+                return PlayState.STOP;
+            }
+
+            if (state.isMoving()) {
+                return PlayState.STOP;
+            }
+
+            // Play occasional one-shot personality animations when idle.
+            if (personalityAnimTicksRemaining > 0 && personalityAnim != null) {
+                state.getController().setAnimationSpeed(1.0D);
+                return state.setAndContinue(personalityAnim);
+            }
+
+            double animSpeed = switch (getTemperament()) {
+                case CALM -> 0.90D;
+                case CURIOUS -> 1.05D;
+                case SKITTISH -> 1.10D;
+            };
+            state.getController().setAnimationSpeed(animSpeed);
 
             if (this.hasAdultMountAppearance()) {
-                state.setAnimation(state.isMoving() ? MOUNT_WALK_LOOP : MOUNT_IDLE_LOOP);
-                return PlayState.CONTINUE;
+                return state.setAndContinue(MOUNT_IDLE_LOOP);
             }
 
-            state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
-            return PlayState.CONTINUE;
+            RawAnimation idle = switch (getTemperament()) {
+                case CALM -> IDLE_CALM_LOOP;
+                case CURIOUS -> IDLE_CURIOUS_LOOP;
+                case SKITTISH -> IDLE_SKITTISH_LOOP;
+            };
+            return state.setAndContinue(idle);
         }));
 
         controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
