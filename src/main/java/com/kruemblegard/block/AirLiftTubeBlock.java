@@ -1,5 +1,7 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -107,8 +109,19 @@ public class AirLiftTubeBlock extends Block {
             return;
         }
 
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            return;
+        }
+
         TubeMode mode = state.getValue(TUBE_MODE);
         boolean powered = state.getValue(POWERED);
+
+        // Redstone acts as control: UP/DOWN modes require power to run; BIDIRECTIONAL is always on,
+        // and power toggles direction.
+        if (mode != TubeMode.BIDIRECTIONAL && !powered) {
+            return;
+        }
+
         boolean down = mode == TubeMode.DOWN || (mode == TubeMode.BIDIRECTIONAL && powered);
 
         double speed = switch (state.getValue(FLOW_RATE)) {
@@ -117,8 +130,10 @@ public class AirLiftTubeBlock extends Block {
             case HIGH -> 0.26;
         };
 
-        double vy = down ? -speed : speed;
-        entity.setDeltaMovement(entity.getDeltaMovement().x, vy, entity.getDeltaMovement().z);
+        double targetY = down ? -speed : speed;
+        double currentY = entity.getDeltaMovement().y;
+        double newY = currentY * 0.6 + targetY * 0.4;
+        entity.setDeltaMovement(entity.getDeltaMovement().x, newY, entity.getDeltaMovement().z);
         entity.fallDistance = 0.0F;
         entity.hurtMarked = true;
     }

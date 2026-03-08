@@ -34,6 +34,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 	- `conveyor_membrane`: now has `facing` and moves item entities when powered by adjacent rotation in stable air.
 	- `buoyancy_lift_platform`: now lifts entities while rising by consuming conduit pressure below it (stable air required).
 
+## 1.0.1143 (2026-03-07)
+- Feature(pressurelogic): upgrade transport blocks:
+	- `pressure_rail`: now uses stable-air gating and conduit pressure to push entities; adds a simple 4-phase pulse animation state.
+	- `pneumatic_catapult`: now charges from conduit pressure while powered and fires on redstone rising edge (stable air required).
+	- `air_lift_tube`: now requires stable air to operate; redstone controls UP/DOWN run state and BIDIRECTIONAL direction toggle.
+
 ## 1.0.1138 (2026-03-06)
 - Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
 - Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).

@@ -133,9 +133,9 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).
   - `pressure_sensor`: outputs a directional redstone signal (`signal` 0..15) derived from adjacent conduit pressure (stable air required).
   - `vortex_funnel`: redstone-powered suction block with a `vortex_mode` and `directional` toggle (scaffolding).
-  - `pressure_rail`: redstone-powered movement strip with a `rail_mode` boost setting (scaffolding).
-  - `pneumatic_catapult`: redstone-powered launcher with a `charge_level` (0..3) state (scaffolding).
-  - `air_lift_tube`: vertical transport block with `tube_mode` and `flow_rate` states (scaffolding).
+  - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; pulse animation is driven by pressure/rotation availability.
+  - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required).
+  - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction).
   - `pressure_kiln`: redstone-powered item smelter with a `kiln_mode` state (scaffolding).
   - `membrane_press`: redstone-powered press that cycles `press_phase` (0..3) and processes items (scaffolding).
   - `crystal_infuser`: redstone-powered infuser that cycles `infuse_phase` (0..3) and processes items (scaffolding).
