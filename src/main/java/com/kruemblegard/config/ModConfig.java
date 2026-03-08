@@ -28,6 +28,12 @@ public final class ModConfig {
     public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_LEAK_PER_UPDATE;
     public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_INSPECT;
 
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_NETWORK_MANAGER_ENABLED;
+    public static final ForgeConfigSpec.BooleanValue PRESSURE_NETWORK_TICKING_ENABLED;
+    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_REBUILD_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_MAX_REBUILDS_PER_PASS;
+    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_MAX_NODES_PER_TICK;
+
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -135,6 +141,46 @@ public final class ModConfig {
                 "Crouch-right-click is reserved for cycling port modes when enabled."
             )
             .define("pressureDebugInspect", false);
+
+        PRESSURE_NETWORK_MANAGER_ENABLED = builder
+            .comment(
+                "Enable the Pressure Network Manager.",
+                "When enabled, conduit placement/removal/neighbor changes are coalesced and validated in batches.",
+                "This helps prevent rebuild storms on large conduit networks.",
+                "Default: false (legacy behavior)."
+            )
+            .define("pressureNetworkManagerEnabled", false);
+
+        PRESSURE_NETWORK_TICKING_ENABLED = builder
+            .comment(
+                "Tick pressure networks through the network manager instead of ticking each conduit BlockEntity.",
+                "Requires pressureNetworkManagerEnabled=true.",
+                "Default: false (legacy per-conduit ticking)."
+            )
+            .define("pressureNetworkTickingEnabled", false);
+
+        PRESSURE_NETWORK_REBUILD_INTERVAL_TICKS = builder
+            .comment(
+                "How often the network manager processes queued validation/rebuild work (ticks).",
+                "Lower values react faster but cost more CPU on churn.",
+                "Default: 10 ticks."
+            )
+            .defineInRange("pressureNetworkRebuildIntervalTicks", 10, 1, 200);
+
+        PRESSURE_NETWORK_MAX_REBUILDS_PER_PASS = builder
+            .comment(
+                "Maximum number of dirty start positions to process per rebuild pass.",
+                "Caps rebuild work when many chunks are loading/unloading.",
+                "Default: 32."
+            )
+            .defineInRange("pressureNetworkMaxRebuildsPerPass", 32, 1, 10_000);
+
+        PRESSURE_NETWORK_MAX_NODES_PER_TICK = builder
+            .comment(
+                "Maximum number of conduit nodes to simulate per tick across all networks when network ticking is enabled.",
+                "Default: 2048."
+            )
+            .defineInRange("pressureNetworkMaxNodesPerTick", 2048, 1, 1_000_000);
 
         builder.pop();
 

@@ -95,10 +95,40 @@ public class PressureConduitBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        if (!level.isClientSide && level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            PressureNetworkManager.markDirtyAround(serverLevel, pos);
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        super.onRemove(state, level, pos, newState, isMoving);
+        if (!level.isClientSide && level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            PressureNetworkManager.markDirtyAround(serverLevel, pos);
+        }
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean isMoving) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, isMoving);
+        if (!level.isClientSide && level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            PressureNetworkManager.markDirtyAround(serverLevel, pos);
+        }
+    }
+
+    @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide) {
             return null;
         }
+
+        if (ModConfig.PRESSURE_NETWORK_MANAGER_ENABLED.get() && ModConfig.PRESSURE_NETWORK_TICKING_ENABLED.get()) {
+            // Network ticking mode: simulation runs via PressureNetworkManager.
+            return null;
+        }
+
         return BaseEntityBlock.createTickerHelper(type, com.kruemblegard.init.ModBlockEntities.PRESSURE_CONDUIT.get(), PressureConduitBlockEntity::tick);
     }
 }

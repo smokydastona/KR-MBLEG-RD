@@ -1,6 +1,5 @@
 package com.kruemblegard.blockentity;
 
-import com.kruemblegard.block.PressureConduitBlock;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.init.ModBlockEntities;
@@ -28,8 +27,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class PressureConduitBlockEntity extends BlockEntity {
     private static final String TAG_PORT_MODES = "PortModes";
+    private static final String TAG_NETWORK_ID = "PressureNetworkId";
+    private static final String TAG_NETWORK_NODE_COUNT = "PressureNetworkNodeCount";
 
     private final PressureValue pressure = new PressureValue(0);
+
+    private long pressureNetworkId;
+    private int pressureNetworkNodeCount;
 
     // Indexed by Direction.get3DDataValue() (0..5). Defaults to BOTH.
     private final int[] portModes = new int[] {
@@ -79,6 +83,22 @@ public class PressureConduitBlockEntity extends BlockEntity {
         return pressure;
     }
 
+    public long getPressureNetworkId() {
+        return pressureNetworkId;
+    }
+
+    public int getPressureNetworkNodeCount() {
+        return pressureNetworkNodeCount;
+    }
+
+    public void setNetworkDebugInfo(long networkId, int nodeCount) {
+        if (this.pressureNetworkId != networkId || this.pressureNetworkNodeCount != nodeCount) {
+            this.pressureNetworkId = networkId;
+            this.pressureNetworkNodeCount = nodeCount;
+            setChanged();
+        }
+    }
+
     public PressurePortMode getPortMode(Direction side) {
         int idx = side.get3DDataValue();
         int ord = (idx >= 0 && idx < portModes.length) ? portModes[idx] : PressurePortMode.BOTH.ordinal();
@@ -114,12 +134,20 @@ public class PressureConduitBlockEntity extends BlockEntity {
         PressureNbt.save(tag, pressure);
 
         tag.putIntArray(TAG_PORT_MODES, portModes);
+
+        if (pressureNetworkId != 0L) {
+            tag.putLong(TAG_NETWORK_ID, pressureNetworkId);
+            tag.putInt(TAG_NETWORK_NODE_COUNT, pressureNetworkNodeCount);
+        }
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         PressureNbt.loadInto(tag, pressure);
+
+        pressureNetworkId = tag.getLong(TAG_NETWORK_ID);
+        pressureNetworkNodeCount = tag.getInt(TAG_NETWORK_NODE_COUNT);
 
         if (tag.contains(TAG_PORT_MODES)) {
             int[] arr = tag.getIntArray(TAG_PORT_MODES);
@@ -148,7 +176,7 @@ public class PressureConduitBlockEntity extends BlockEntity {
         if (((t + pos.asLong()) % interval) != 0) {
             // Still ensure the blockstate representation stays in sync occasionally.
             if (((t + pos.asLong()) % 20) == 0) {
-                syncState(level, pos, state, be);
+                PressureUtil.syncConduitVisualState(level, pos, be.pressure.get());
             }
             return;
         }
@@ -174,7 +202,7 @@ public class PressureConduitBlockEntity extends BlockEntity {
                 be.setChanged();
             }
 
-            syncState(level, pos, state, be);
+            PressureUtil.syncConduitVisualState(level, pos, be.pressure.get());
         } catch (Throwable ex) {
             // Rate-limit to avoid log spam if something goes sideways in a large network.
             if (t - lastPressureTickErrorLogTime >= 200) {
@@ -185,17 +213,6 @@ public class PressureConduitBlockEntity extends BlockEntity {
                     Kruemblegard.LOGGER.warn("Pressure conduit tick failed at {} (dim={})", pos, level.dimension().location());
                 }
             }
-        }
-    }
-
-    private static void syncState(Level level, BlockPos pos, BlockState state, PressureConduitBlockEntity be) {
-        if (!(state.getBlock() instanceof PressureConduitBlock)) {
-            return;
-        }
-        int level5 = PressureUtil.pressureToLevel(be.pressure.get());
-        int currentLevel5 = state.getValue(PressureConduitBlock.PRESSURE_LEVEL);
-        if (level5 != currentLevel5) {
-            level.setBlock(pos, state.setValue(PressureConduitBlock.PRESSURE_LEVEL, level5), 2);
         }
     }
 

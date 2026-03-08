@@ -62,6 +62,12 @@ Mods should interact with Krümblegård pressure via the `pressure_conduit` bloc
     - `pressureConduitMaxStepPerUpdate`: diffusion max step per simulation update (default 4).
     - `pressureConduitLeakPerUpdate`: optional stabilization/friction per simulation update (default 0).
     - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
+    - Network manager options (config-gated; all default `false` unless noted):
+        - `pressureNetworkManagerEnabled`: coalesces rebuild/validation work to avoid rebuild storms on large networks.
+        - `pressureNetworkTickingEnabled`: ticks pressure through the network manager instead of per-conduit ticking (requires `pressureNetworkManagerEnabled`).
+        - `pressureNetworkRebuildIntervalTicks`: how often rebuild/validation work is processed (default 10).
+        - `pressureNetworkMaxRebuildsPerPass`: max dirty starts processed per rebuild pass (default 32).
+        - `pressureNetworkMaxNodesPerTick`: max conduit nodes simulated per tick across all networks when network ticking is enabled (default 2048).
 
 ## For pack makers / artists
 

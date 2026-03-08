@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1161 (2026-03-07)
+- Feature(pressurelogic): add an optional server-side Pressure Network Manager that coalesces rebuild/validation work to avoid rebuild storms on large conduit networks (`pressureNetworkManagerEnabled`).
+- Feature(pressurelogic): add an optional network-level ticking mode that bounds simulation work by a per-tick node budget (`pressureNetworkTickingEnabled`, `pressureNetworkMaxNodesPerTick`).
+- Dev(pressurelogic): add manager tuning knobs: `pressureNetworkRebuildIntervalTicks` and `pressureNetworkMaxRebuildsPerPass`.
+
 ## 1.0.1160 (2026-03-07)
 - Fix(pressurelogic): avoid interacting with unloaded neighbor positions when resolving conduit connections (prevents chunk-boundary ghost links / accidental chunk loads).
 - Feature(pressurelogic): add large-network stabilization knobs: `pressureConduitMaxStepPerUpdate` (default 4) and `pressureConduitLeakPerUpdate` (default 0).

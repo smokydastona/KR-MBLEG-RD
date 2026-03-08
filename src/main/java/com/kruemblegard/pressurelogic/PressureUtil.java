@@ -28,6 +28,23 @@ public final class PressureUtil {
         return Mth.clamp((int) Math.round((level / 5.0) * 100.0), 0, 100);
     }
 
+    public static void syncConduitVisualState(Level level, BlockPos pos, int pressure) {
+        if (!level.isLoaded(pos)) {
+            return;
+        }
+
+        BlockState state = level.getBlockState(pos);
+        if (!(state.getBlock() instanceof PressureConduitBlock)) {
+            return;
+        }
+
+        int level5 = pressureToLevel(pressure);
+        int currentLevel5 = state.getValue(PressureConduitBlock.PRESSURE_LEVEL);
+        if (level5 != currentLevel5) {
+            level.setBlock(pos, state.setValue(PressureConduitBlock.PRESSURE_LEVEL, level5), 2);
+        }
+    }
+
     public static int approach(int current, int target, int maxStep) {
         if (target > current) {
             return Math.min(target, current + maxStep);

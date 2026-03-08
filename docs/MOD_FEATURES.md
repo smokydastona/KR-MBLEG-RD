@@ -125,6 +125,11 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressureConduitMaxStepPerUpdate`: max pressure change per conduit simulation update (default 4).
   - `pressureConduitLeakPerUpdate`: optional pressure loss per conduit simulation update (default 0).
   - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
+  - `pressureNetworkManagerEnabled`: enable the Pressure Network Manager (coalesces rebuild/validation work; default false).
+  - `pressureNetworkTickingEnabled`: tick pressure through the network manager instead of per-conduit ticking (requires `pressureNetworkManagerEnabled`; default false).
+  - `pressureNetworkRebuildIntervalTicks`: how often queued rebuild/validation work is processed (default 10).
+  - `pressureNetworkMaxRebuildsPerPass`: max dirty starts processed per rebuild pass (default 32).
+  - `pressureNetworkMaxNodesPerTick`: max conduit nodes simulated per tick across all networks when network ticking is enabled (default 2048).
 - Interop:
   - `pressure_conduit` exposes a Forge capability (`PressureCapabilities.PRESSURE_HANDLER`) so other mods can read/write pressure without depending on internal classes.
   - Conduit-only is the current supported interop model: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.
