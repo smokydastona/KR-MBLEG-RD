@@ -11,6 +11,8 @@ logs/
 
 # Local vendor content (not committed)
 .soundmonster_tmp/
+.tmp-forge-src/
+.tmp-geckolib-src/
 
 # Documentation (local notes / reference)
 docs/**
