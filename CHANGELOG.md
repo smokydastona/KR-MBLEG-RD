@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1165 (2026-03-07)
+- Fix(resources): normalize invalid element rotation angles in `waylilly_stalk_base` (prevents model JSON parse failure).
+- Fix(assets): regenerate `pebblit_shoulder` mob effect icon PNG as a minimal valid PNG (avoids unsupported PNG chunk errors).
+
 ## 1.0.1164 (2026-03-08)
 - Feature(cephalari_golem): convert Cephalari Golem rendering to GeckoLib with new golem geo/animations/controllers and a placeholder texture.
 - Feature(cephalari_golem): add an internal pressure meter with shutdown-at-zero behavior and simple recharge when near Pressure-Logic blocks.

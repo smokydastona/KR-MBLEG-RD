@@ -53,7 +53,7 @@
 			"name": "A_lower",
 			"from": [6.4, 1.4, 7],
 			"to": [7.7, 7.4, 8.2],
-			"rotation": {"angle": 15, "axis": "x", "origin": [7, 1.4, 7.5]},
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7, 1.4, 7.5]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -67,7 +67,7 @@
 			"name": "A_mid",
 			"from": [6.7, 7.4, 7.2],
 			"to": [7.5, 12.4, 8],
-			"rotation": {"angle": -10, "axis": "x", "origin": [7, 7.4, 7.5]},
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [7, 7.4, 7.5]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -95,7 +95,7 @@
 			"name": "B_lower",
 			"from": [8.2, 1.4, 7],
 			"to": [9.5, 7.4, 8.2],
-			"rotation": {"angle": 12, "axis": "x", "origin": [8.8, 1.4, 7.5]},
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8.8, 1.4, 7.5]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -109,7 +109,7 @@
 			"name": "B_mid",
 			"from": [8.5, 7.4, 7.2],
 			"to": [9.3, 12.4, 8],
-			"rotation": {"angle": -8, "axis": "x", "origin": [8.8, 7.4, 7.5]},
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8.8, 7.4, 7.5]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -137,7 +137,7 @@
 			"name": "C_lower",
 			"from": [6.5, 1.4, 8.5],
 			"to": [7.8, 7.4, 9.7],
-			"rotation": {"angle": -14, "axis": "x", "origin": [7, 1.4, 9]},
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [7, 1.4, 9]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -151,7 +151,7 @@
 			"name": "C_mid",
 			"from": [6.7, 7.4, 8.7],
 			"to": [7.5, 12.4, 9.5],
-			"rotation": {"angle": 10, "axis": "x", "origin": [7, 7.4, 9]},
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7, 7.4, 9]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -179,7 +179,7 @@
 			"name": "D_lower",
 			"from": [8.3, 1.4, 8.5],
 			"to": [9.6, 7.4, 9.7],
-			"rotation": {"angle": -12, "axis": "x", "origin": [8.8, 1.4, 9]},
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8.8, 1.4, 9]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -193,7 +193,7 @@
 			"name": "D_mid",
 			"from": [8.5, 7.4, 8.7],
 			"to": [9.3, 12.4, 9.5],
-			"rotation": {"angle": 8, "axis": "x", "origin": [8.8, 7.4, 9]},
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8.8, 7.4, 9]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -221,7 +221,7 @@
 			"name": "tendril_1",
 			"from": [7.2, 0.4, 7.2],
 			"to": [7.6, 8.4, 7.6],
-			"rotation": {"angle": 25, "axis": "y", "origin": [8, 3.4, 8]},
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8, 3.4, 8]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -235,7 +235,7 @@
 			"name": "tendril_2",
 			"from": [8.4, 0.1, 7.4],
 			"to": [8.8, 7.9, 7.8],
-			"rotation": {"angle": -30, "axis": "y", "origin": [8, 3.4, 8]},
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 3.4, 8]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -249,7 +249,7 @@
 			"name": "tendril_3",
 			"from": [7.6, 0.1, 8.4],
 			"to": [8, 7.4, 8.8],
-			"rotation": {"angle": 18, "axis": "y", "origin": [8, 3.4, 8]},
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8, 3.4, 8]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
@@ -263,7 +263,7 @@
 			"name": "tendril_4",
 			"from": [8.2, 0.4, 8.6],
 			"to": [8.6, 9.4, 9],
-			"rotation": {"angle": -22, "axis": "y", "origin": [8, 3.4, 8]},
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 3.4, 8]},
 			"faces": {
 				"north": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
 				"east": {"uv": [11.79063, 0.78125, 12.50625, 15.1875], "texture": "#particle"},
