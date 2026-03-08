@@ -1,19 +1,20 @@
 {
-  "variants": {
-    "facing=north": {
-      "model": "kruemblegard:block/pressure_loom"
+  "multipart": [
+    {
+      "when": { "facing": "north" },
+      "apply": { "model": "kruemblegard:block/pressure_loom" }
     },
-    "facing=east": {
-      "model": "kruemblegard:block/pressure_loom",
-      "y": 90
+    {
+      "when": { "facing": "east" },
+      "apply": { "model": "kruemblegard:block/pressure_loom", "y": 90 }
     },
-    "facing=south": {
-      "model": "kruemblegard:block/pressure_loom",
-      "y": 180
+    {
+      "when": { "facing": "south" },
+      "apply": { "model": "kruemblegard:block/pressure_loom", "y": 180 }
     },
-    "facing=west": {
-      "model": "kruemblegard:block/pressure_loom",
-      "y": 270
+    {
+      "when": { "facing": "west" },
+      "apply": { "model": "kruemblegard:block/pressure_loom", "y": 270 }
     }
-  }
+  ]
 }

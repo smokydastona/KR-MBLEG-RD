@@ -127,7 +127,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_valve`: facing block with a redstone-powered open/close state (scaffolding).
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
-  - `pressure_loom`: Flowwright workstation block with an animated front texture (scaffolding).
+  - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber` and can fuse Attuned Stone + Volatile Resin into `bio_ceramic` (outputs as item entities above the block).
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state) that gates rotation transfer through mechanical networks.
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).

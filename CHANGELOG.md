@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1146 (2026-03-07)
+- Feature(pressurelogic): implement `pressure_loom` as a stable-air + conduit-pressure + rotation powered Flowwright workstation.
+	- Weaves Paleweft into `coral_fiber`.
+	- Fuses Attuned Stone + Volatile Resin into `bio_ceramic`.
+
 ## 1.0.1139 (2026-03-06)
 - Feature(pressurelogic): implement high-level blockstate properties for core blocks:
 	- `pressure_turbine`: `rotation_speed` (0..5)

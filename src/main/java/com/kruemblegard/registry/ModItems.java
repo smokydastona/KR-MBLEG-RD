@@ -72,6 +72,18 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
+    // --- Cephalari engineering (Pressure-Logic) materials ---
+
+    public static final RegistryObject<Item> CORAL_FIBER = ITEMS.register(
+        "coral_fiber",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> BIO_CERAMIC = ITEMS.register(
+        "bio_ceramic",
+        () -> new Item(new Item.Properties())
+    );
+
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())
