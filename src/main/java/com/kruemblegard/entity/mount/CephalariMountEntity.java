@@ -59,7 +59,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     private static final String SEAT_BONE_NAME = "seat";
 
     private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariMountTextureVariant";
-    private static final int MOUNT_TEXTURE_VARIANTS = 5;
+    private static final int MOUNT_TEXTURE_VARIANTS = 6;
 
     private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(CephalariMountEntity.class, EntityDataSerializers.INT);
 
@@ -86,7 +86,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        // 1..MOUNT_TEXTURE_VARIANTS (we use 1-based because the files are named _1.._5)
+        // 1..MOUNT_TEXTURE_VARIANTS (we use 1-based because the files are named _1.._6)
         this.entityData.define(DATA_TEXTURE_VARIANT, 1);
     }
 

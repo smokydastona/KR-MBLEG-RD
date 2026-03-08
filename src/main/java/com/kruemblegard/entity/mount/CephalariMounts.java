@@ -67,6 +67,38 @@ public final class CephalariMounts {
         };
     }
 
+    /**
+     * Stable, compact mount variant mapping for rendering/sync.
+     *
+     * @return 0..3 for known mount ids, or -1 if unknown.
+     */
+    public static int getMountVariantIndex(@Nullable String mountId) {
+        if (mountId == null) {
+            return -1;
+        }
+
+        return switch (normalize(mountId)) {
+            case "spiral_strider" -> 0;
+            case "driftskimmer" -> 1;
+            case "treadwinder" -> 2;
+            case "echo_harness" -> 3;
+            default -> -1;
+        };
+    }
+
+    /**
+     * Inverse of {@link #getMountVariantIndex(String)}.
+     */
+    public static @Nullable String getMountIdByVariantIndex(int variantIndex) {
+        return switch (variantIndex) {
+            case 0 -> "spiral_strider";
+            case 1 -> "driftskimmer";
+            case 2 -> "treadwinder";
+            case 3 -> "echo_harness";
+            default -> null;
+        };
+    }
+
     public static boolean spawnMountAndRide(LivingEntity rider, ServerLevel level, String mountId) {
         Optional<EntityType<? extends CephalariMountEntity>> mountType = getMountTypeById(mountId);
         if (mountType.isEmpty()) {

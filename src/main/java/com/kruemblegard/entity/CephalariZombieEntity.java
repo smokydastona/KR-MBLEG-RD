@@ -1,13 +1,16 @@
 package com.kruemblegard.entity;
 
 import com.kruemblegard.registry.ModEntities;
-import com.kruemblegard.entity.mount.CephalariMountEntity;
 import com.kruemblegard.entity.mount.CephalariMounts;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -42,6 +45,18 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.walk");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.riding_pose");
 
+    private static final String NBT_ADULT_ZOMBIE_VARIANT = "KruemblegardCephalariZombieAdultVariant";
+    private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultMountTextureVariant";
+
+    private static final int NO_ZOMBIE_VARIANT = -1;
+    private static final int ZOMBIE_VARIANTS = 5;
+    private static final int MOUNT_TEXTURE_VARIANTS = 6;
+
+    private static final EntityDataAccessor<Integer> DATA_ADULT_ZOMBIE_VARIANT =
+        SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_TEXTURE_VARIANT =
+        SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean forwardingLinkedDamage = false;
@@ -51,11 +66,54 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     @Override
-    public BlockPos blockPosition() {
-        if (this.getVehicle() instanceof Mob mount) {
-            return mount.blockPosition();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        // 1..ZOMBIE_VARIANTS, or -1 for none (babies)
+        this.entityData.define(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
+        // 1..MOUNT_TEXTURE_VARIANTS (base layer)
+        this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
+    }
+
+    public boolean hasAdultMountAppearance() {
+        return !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) != NO_ZOMBIE_VARIANT;
+    }
+
+    public int getAdultZombieVariant() {
+        return this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT);
+    }
+
+    public int getAdultMountTextureVariant() {
+        return this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
+    }
+
+    public void setAdultZombieVariant(int variant) {
+        int clamped = Math.max(1, Math.min(ZOMBIE_VARIANTS, variant));
+        this.entityData.set(DATA_ADULT_ZOMBIE_VARIANT, clamped);
+    }
+
+    public void setAdultMountTextureVariant(int variant) {
+        int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, variant));
+        this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
+    }
+
+    private void ensureAdultVariantsAssigned() {
+        if (this.isBaby()) {
+            this.entityData.set(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
+            return;
         }
 
+        if (this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == NO_ZOMBIE_VARIANT) {
+            setAdultZombieVariant(1 + this.getRandom().nextInt(ZOMBIE_VARIANTS));
+        }
+
+        int tex = this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
+        if (tex < 1 || tex > MOUNT_TEXTURE_VARIANTS) {
+            setAdultMountTextureVariant(1);
+        }
+    }
+
+    @Override
+    public BlockPos blockPosition() {
         return super.blockPosition();
     }
 
@@ -69,63 +127,39 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
-        // Only assign a zombie-type mount for "real" spawns. Conversions handle their own mount cinematic.
-        if (spawnType != MobSpawnType.CONVERSION
-            && !this.level().isClientSide
-            && level instanceof ServerLevel serverLevel
-            && !this.isPassenger()) {
-            ensureZombieMount(serverLevel);
+        if (!this.level().isClientSide && !this.isBaby()) {
+            ensureAdultVariantsAssigned();
+            if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
+                setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+            }
         }
 
         return data;
     }
 
-    private void ensureZombieMount(ServerLevel level) {
-        if (this.isPassenger()) {
-            return;
-        }
-
-        // Pick a zombie-type mount.
-        int roll = this.getRandom().nextInt(5);
-        EntityType<? extends Mob> mountType = switch (roll) {
-            case 0 -> EntityType.ZOMBIE;
-            case 1 -> EntityType.HUSK;
-            case 2 -> EntityType.DROWNED;
-            case 3 -> EntityType.ZOMBIFIED_PIGLIN;
-            default -> EntityType.ZOGLIN;
-        };
-
-        Mob mount = mountType.create(level);
-        if (mount == null) {
-            return;
-        }
-
-        mount.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-        mount.finalizeSpawn(level, level.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-
-        // Let the mount navigate like a normal mob.
-        if (mount instanceof Zombie z) {
-            z.setCanPickUpLoot(false);
-        }
-        if (mount instanceof Husk h) {
-            h.setCanPickUpLoot(false);
-        }
-        if (mount instanceof Drowned d) {
-            d.setCanPickUpLoot(false);
-        }
-        if (mount instanceof ZombifiedPiglin p) {
-            p.setCanPickUpLoot(false);
-        }
-        if (mount instanceof Zoglin z) {
-            z.setCanPickUpLoot(false);
-        }
-
-        level.addFreshEntity(mount);
-        this.startRiding(mount, true);
+    @Override
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt(NBT_ADULT_ZOMBIE_VARIANT, this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT));
+        tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
     }
 
-    public boolean isForwardingLinkedDamage() {
-        return forwardingLinkedDamage;
+    @Override
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains(NBT_ADULT_ZOMBIE_VARIANT)) {
+            int variant = tag.getInt(NBT_ADULT_ZOMBIE_VARIANT);
+            if (variant == NO_ZOMBIE_VARIANT) {
+                this.entityData.set(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
+            } else {
+                setAdultZombieVariant(variant);
+            }
+        }
+
+        if (tag.contains(NBT_ADULT_MOUNT_TEXTURE_VARIANT)) {
+            setAdultMountTextureVariant(tag.getInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT));
+        }
     }
 
     @Override
@@ -141,63 +175,57 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             return;
         }
 
-        if (this.getVehicle() instanceof Mob mount) {
-            if (!mount.isAlive() && this.isAlive()) {
-                this.kill();
+        // Legacy cleanup: old-world zombie cephalari may still be riding a zombie mount.
+        Entity vehicle = this.getVehicle();
+        if (vehicle instanceof Mob mob
+            && (mob instanceof Zombie
+                || mob instanceof Husk
+                || mob instanceof Drowned
+                || mob instanceof ZombifiedPiglin
+                || mob instanceof Zoglin)) {
+            int variant;
+            if (mob instanceof Zombie) {
+                variant = 1;
+            } else if (mob instanceof Husk) {
+                variant = 2;
+            } else if (mob instanceof Drowned) {
+                variant = 3;
+            } else if (mob instanceof ZombifiedPiglin) {
+                variant = 4;
+            } else {
+                variant = 5;
             }
+
+            setAdultZombieVariant(variant);
+            this.stopRiding();
+            mob.discard();
+        }
+
+        if (!this.isBaby()) {
+            ensureAdultVariantsAssigned();
         }
     }
 
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (!level().isClientSide && !forwardingLinkedDamage && this.getVehicle() instanceof Mob mount && mount.isAlive()) {
-            boolean result = super.hurt(source, amount);
-            if (result) {
-                forwardingLinkedDamage = true;
-                try {
-                    mount.hurt(source, amount);
-                } finally {
-                    forwardingLinkedDamage = false;
-                }
-            }
-            return result;
-        }
-
-        return super.hurt(source, amount);
+    public boolean isForwardingLinkedDamage() {
+        return forwardingLinkedDamage;
     }
 
-    public boolean hurtLinkedFromMount(DamageSource source, float amount) {
+    public void hurtLinkedFromMount(DamageSource source, float amount) {
         if (level().isClientSide) {
-            return super.hurt(source, amount);
+            super.hurt(source, amount);
+            return;
         }
 
         if (forwardingLinkedDamage) {
-            return super.hurt(source, amount);
+            super.hurt(source, amount);
+            return;
         }
 
         forwardingLinkedDamage = true;
         try {
-            return super.hurt(source, amount);
+            super.hurt(source, amount);
         } finally {
             forwardingLinkedDamage = false;
-        }
-    }
-
-    @Override
-    public void heal(float amount) {
-        super.heal(amount);
-
-        if (level().isClientSide) {
-            return;
-        }
-
-        if (!forwardingLinkedDamage && this.getVehicle() instanceof Mob mount && mount.isAlive()) {
-            forwardingLinkedDamage = true;
-            try {
-                mount.heal(amount);
-            } finally {
-                forwardingLinkedDamage = false;
-            }
         }
     }
 
@@ -221,9 +249,19 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     @Override
+    public boolean hurt(DamageSource source, float amount) {
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public void heal(float amount) {
+        super.heal(amount);
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
-            if (this.isPassenger()) {
+            if (this.hasAdultMountAppearance()) {
                 state.setAnimation(RIDING_LOOP);
                 return PlayState.CONTINUE;
             }
@@ -252,14 +290,6 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             playSound(ModSounds.CEPHALARI_CURE.get(), 0.95F, 0.95F + random.nextFloat() * 0.1F);
 
             String storedMountId = CephalariMounts.getMountId(this);
-            if (this.getVehicle() instanceof CephalariMountEntity cephalariMount) {
-                this.stopRiding();
-                cephalariMount.discard();
-            } else if (this.getVehicle() instanceof Mob zombieMount) {
-                // Curing always removes the zombie mount and restores the Cephalari mount type.
-                this.stopRiding();
-                zombieMount.discard();
-            }
 
             T converted = super.convertTo(target, keepEquipment);
             if (converted instanceof CephalariEntity cephalari) {
@@ -269,12 +299,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 cephalari.setCustomNameVisible(this.isCustomNameVisible());
 
                 if (storedMountId != null) {
-                    CephalariMounts.setMountId(cephalari, storedMountId);
+                    cephalari.setAdultMountId(storedMountId);
                 }
 
-                if (cephalari.level() instanceof ServerLevel serverLevel && !cephalari.isPassenger() && !cephalari.isBaby()) {
-                    String mountId = CephalariMounts.getOrAssignMountId(cephalari);
-                    CephalariMounts.spawnMountAndRide(cephalari, serverLevel, mountId);
+                if (!cephalari.isBaby()) {
+                    cephalari.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
                 }
             }
             return converted;
@@ -285,16 +314,6 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     @Override
     public void die(DamageSource source) {
-        if (!level().isClientSide) {
-            if (this.getVehicle() instanceof CephalariMountEntity mount) {
-                this.stopRiding();
-                mount.discard();
-            } else if (this.getVehicle() instanceof Mob) {
-                // Zombie mounts persist independently after the rider dies.
-                this.stopRiding();
-            }
-        }
-
         super.die(source);
     }
 }

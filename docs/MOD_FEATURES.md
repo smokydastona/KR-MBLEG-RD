@@ -310,34 +310,26 @@ Keep it up to date whenever you add/remove/rename content.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
   - Stealth: other mobs will not target Cephalari directly.
-  - Mounts: adult Cephalari spawn mounted on one of four rideable mounts.
+  - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
     - **Spiral Strider** (`spiral_strider`)
     - **DriftSkimmer** (`driftskimmer`)
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
-  - Mount lifecycle:
-    - When a Cephalari converts to **Zombified Cephalari**, its Cephalari mount is removed.
-    - During the 2.2s conversion cinematic, a **zombie-type mount** manifests under it (Zombie/Husk/Drowned/Zombified Piglin).
-    - Natural spawns: Zombified Cephalari spawn mounted on a zombie-type mount (Zombie/Husk/Drowned/Zombified Piglin; rare Zoglin).
-    - When a Zombified Cephalari is cured back into Cephalari, the zombie mount is removed and the Cephalari restores its stored mount type.
-  - Trading: if a Cephalari has a profession, right-clicking the Cephalari **or its mount** opens the Cephalari trading UI.
-  - Linked health:
-    - While mounted on a Cephalari mount, the Cephalari and mount mirror damage/healing and die together.
-    - While mounted on a zombie-type mount, the Zombified Cephalari and mount mirror damage/healing, but the mount survives if the rider dies.
-    - Zombie-type mobs treat Cephalari mounts like villager targets.
+  - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
-    - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + mount manifestation overlap + forced riding pose sync before swap).
+    - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + forced riding-pose sync before swap; no spawned zombie mount entity).
     - Natural spawns: Zombified Cephalari can spawn in Wayfall and the Overworld.
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):
-    - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json`
+    - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json` (babies)
+    - Geo (adult zombie variants): `assets/kruemblegard/geo/cephalari_zombie_1.geo.json` .. `_5.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
     - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari/cephalari_zombie.png`
   - Mount assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
-    - Textures: shared variants `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_5.png` (randomly chosen per mount)
+    - Textures: shared variants `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.

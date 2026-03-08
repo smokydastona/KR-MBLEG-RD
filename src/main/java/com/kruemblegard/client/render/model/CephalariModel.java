@@ -10,12 +10,31 @@ import software.bernie.geckolib.model.GeoModel;
 public class CephalariModel extends GeoModel<CephalariEntity> {
     @Override
     public ResourceLocation getModelResource(CephalariEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari.geo.json");
+        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari.geo.json");
+        }
+
+        String geoPath = switch (animatable.getAdultMountVariant()) {
+            case 0 -> "geo/spiral_strider.geo.json";
+            case 1 -> "geo/driftskimmer.geo.json";
+            case 2 -> "geo/treadwinder.geo.json";
+            case 3 -> "geo/echo_harness.geo.json";
+            default -> "geo/cephalari.geo.json";
+        };
+
+        return new ResourceLocation(Kruemblegard.MOD_ID, geoPath);
     }
 
     @Override
     public ResourceLocation getTextureResource(CephalariEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari.png");
+        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari.png");
+        }
+
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
+        );
     }
 
     @Override

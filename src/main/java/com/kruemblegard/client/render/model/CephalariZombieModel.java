@@ -10,12 +10,24 @@ import software.bernie.geckolib.model.GeoModel;
 public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
     @Override
     public ResourceLocation getModelResource(CephalariZombieEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
+        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
+        }
+
+        int variant = animatable.getAdultZombieVariant();
+        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie_" + variant + ".geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari_zombie.png");
+        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari_zombie.png");
+        }
+
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
+        );
     }
 
     @Override
