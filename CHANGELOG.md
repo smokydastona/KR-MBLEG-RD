@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1152 (2026-03-08)
+## 1.0.1153 (2026-03-07)
+- Docs: fix changelog date for `1.0.1152`.
+
+## 1.0.1152 (2026-03-07)
 - Feature(cephalari): adult Cephalari and Zombified Cephalari are now single-mob visuals (no spawned mount entities), using mount geos + base mount texture with a layered Cephalari/Zombie overlay texture.
 - Assets(cephalari): add placeholder adult zombie geo variants `cephalari_zombie_1` .. `_5`.
 - Fix(cephalari): align mount texture variant range to `_1`..`_6`.
