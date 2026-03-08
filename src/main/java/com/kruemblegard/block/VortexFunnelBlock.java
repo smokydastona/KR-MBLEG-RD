@@ -1,5 +1,8 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -110,11 +113,37 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock {
             return;
         }
 
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
         VortexMode mode = state.getValue(VORTEX_MODE);
         Direction facing = state.getValue(FACING);
         boolean directional = state.getValue(DIRECTIONAL);
 
-        double range = 3.5;
+        BlockPos conduitPos = findBestAdjacentConduit(level, pos);
+        if (conduitPos == null) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        int availablePressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
+        int costPerTick = switch (mode) {
+            case GENTLE -> 1;
+            case NORMAL -> 2;
+            case HARSH -> 3;
+        };
+
+        if (availablePressure < costPerTick) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        int pLevel = PressureUtil.pressureToLevel(availablePressure);
+        double pressureScale = pLevel / 5.0;
+
+        double range = 2.5 + (2.0 * pressureScale);
         Vec3 center = Vec3.atCenterOf(pos);
         AABB box = new AABB(pos).inflate(range);
 
@@ -138,13 +167,19 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock {
                 case HARSH -> 0.10;
             };
 
+            strength *= (0.35 + (0.65 * pressureScale));
+
             Vec3 pull = delta.scale(strength / dist);
             entity.setDeltaMovement(entity.getDeltaMovement().add(pull.x, pull.y * 0.02, pull.z));
             entity.hurtMarked = true;
 
         }
 
-        List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, box, e -> e.isAlive() && !e.isSpectator());
+        List<LivingEntity> livingEntities = level.getEntitiesOfClass(
+            LivingEntity.class,
+            box,
+            e -> e.isAlive() && !e.isSpectator() && !(e instanceof Player)
+        );
         for (LivingEntity entity : livingEntities) {
             Vec3 delta = center.subtract(entity.position());
             double dist = Math.max(0.2, delta.length());
@@ -164,6 +199,8 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock {
                 case HARSH -> 0.10;
             };
 
+            strength *= (0.35 + (0.65 * pressureScale));
+
             Vec3 pull = delta.scale(strength / dist);
             entity.setDeltaMovement(entity.getDeltaMovement().add(pull.x, pull.y * 0.02, pull.z));
             entity.hurtMarked = true;
@@ -173,7 +210,26 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock {
             }
         }
 
+        PressureUtil.addPressure(level, conduitPos, -costPerTick);
+
         level.scheduleTick(pos, this, 5);
+    }
+
+    private static @Nullable BlockPos findBestAdjacentConduit(Level level, BlockPos pos) {
+        // Prefer below, then direct neighbors.
+        BlockPos below = pos.below();
+        if (PressureUtil.getConduitEntity(level, below) != null) {
+            return below;
+        }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos p = pos.relative(dir);
+            if (PressureUtil.getConduitEntity(level, p) != null) {
+                return p;
+            }
+        }
+
+        return null;
     }
 
     @Override

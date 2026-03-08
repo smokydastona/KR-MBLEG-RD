@@ -47,6 +47,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 	- `crystal_infuser`: now requires stable air + conduit pressure and consumes conduit pressure while infusing.
 	- `pneumatic_separator`: now requires stable air + conduit pressure and consumes conduit pressure while routing; separator mode is now derived from redstone strength.
 
+## 1.0.1145 (2026-03-07)
+- Feature(pressurelogic): make `pressure_clutch` gate rotation propagation through mechanical networks (`RotationUtil`).
+- Feature(pressurelogic): make `vortex_funnel` require stable air + adjacent conduit pressure; suction strength/range scale with available pressure and it consumes conduit pressure while running.
+
 ## 1.0.1138 (2026-03-06)
 - Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
 - Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).

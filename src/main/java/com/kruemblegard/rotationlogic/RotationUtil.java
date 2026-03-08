@@ -1,5 +1,6 @@
 package com.kruemblegard.rotationlogic;
 
+import com.kruemblegard.block.PressureClutchBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
 import com.kruemblegard.block.SpiralShaftBlock;
@@ -99,6 +100,27 @@ public final class RotationUtil {
                     }
                     queue.add(new Node(nextPos, nextCameFrom, node.invMultiplier, node.depth + 1));
                 }
+                continue;
+            }
+
+            // Gate: clutch (inline between FACING and FACING.opposite). Can be tapped from any side.
+            if (state.getBlock() instanceof PressureClutchBlock) {
+                if (!state.getValue(PressureClutchBlock.POWERED)) {
+                    continue;
+                }
+
+                Direction outDir = state.getValue(PressureClutchBlock.FACING);
+                Direction inDir = outDir.getOpposite();
+
+                if (node.cameFrom == inDir) {
+                    queue.add(new Node(node.pos.relative(outDir), outDir.getOpposite(), node.invMultiplier, node.depth + 1));
+                } else if (node.cameFrom == outDir) {
+                    queue.add(new Node(node.pos.relative(inDir), inDir.getOpposite(), node.invMultiplier, node.depth + 1));
+                } else {
+                    queue.add(new Node(node.pos.relative(outDir), outDir.getOpposite(), node.invMultiplier, node.depth + 1));
+                    queue.add(new Node(node.pos.relative(inDir), inDir.getOpposite(), node.invMultiplier, node.depth + 1));
+                }
+
                 continue;
             }
 

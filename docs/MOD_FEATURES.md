@@ -128,11 +128,11 @@ Keep it up to date whenever you add/remove/rename content.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
   - `pressure_loom`: Flowwright workstation block with an animated front texture (scaffolding).
-  - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state; scaffolding).
+  - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state) that gates rotation transfer through mechanical networks.
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).
   - `pressure_sensor`: outputs a directional redstone signal (`signal` 0..15) derived from adjacent conduit pressure (stable air required).
-  - `vortex_funnel`: redstone-powered suction block with a `vortex_mode` and `directional` toggle (scaffolding).
+  - `vortex_funnel`: stable-air + conduit-pressure powered suction block with a `vortex_mode` and `directional` toggle; consumes conduit pressure while running.
   - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; pulse animation is driven by pressure/rotation availability.
   - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required).
   - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction).
