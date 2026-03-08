@@ -1,0 +1,44 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.cephalari_golem.main": {
+      "states": {
+        "default": {
+          "animations": [
+            "animation.cephalari_golem.idle"
+          ],
+          "transitions": [
+            { "walking": "query.is_moving" },
+            { "attacking": "query.is_attacking" },
+            { "shutdown": "query.cephalari_is_shutdown" }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "animation.cephalari_golem.walk"
+          ],
+          "transitions": [
+            { "default": "!query.is_moving" },
+            { "attacking": "query.is_attacking" },
+            { "shutdown": "query.cephalari_is_shutdown" }
+          ]
+        },
+        "attacking": {
+          "animations": [
+            "animation.cephalari_golem.attack"
+          ],
+          "transitions": [
+            { "default": "query.animation_finished" },
+            { "shutdown": "query.cephalari_is_shutdown" }
+          ]
+        },
+        "shutdown": {
+          "animations": [
+            "animation.cephalari_golem.shutdown"
+          ],
+          "transitions": []
+        }
+      }
+    }
+  }
+}

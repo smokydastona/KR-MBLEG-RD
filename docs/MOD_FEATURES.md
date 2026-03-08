@@ -352,6 +352,17 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
     - Textures: shared variants `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
 
+- **Cephalari Golem** (`cephalari_golem`)
+  - Iron Golem-class village defender used by Cephalari villages.
+  - Pressure-powered: has an internal pressure meter (0..100) that slowly leaks down over time.
+  - Shutdown: at 0 pressure, the golem becomes inert (no AI / no movement) until recharged.
+  - Recharge: recharges when near Pressure-Logic infrastructure (e.g., `pressure_conduit`, `membrane_pump`, `pressure_rail`, `air_lift_tube`).
+  - Rendered via GeckoLib:
+    - Geo: `assets/kruemblegard/geo/cephalari_golem.geo.json`
+    - Animations: `assets/kruemblegard/animations/cephalari_golem.animation.json`
+    - Controllers: `assets/kruemblegard/controllers/cephalari_golem.animation_controllers.json`
+    - Texture: `assets/kruemblegard/textures/entity/cephalari/cephalari_golem.png` (currently a placeholder)
+
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
   - Special behavior: shearing converts it into a normal Cow (vanilla mooshroom behavior) and drops Griefcap.

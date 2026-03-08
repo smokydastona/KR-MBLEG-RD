@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1164 (2026-03-08)
+- Feature(cephalari_golem): convert Cephalari Golem rendering to GeckoLib with new golem geo/animations/controllers and a placeholder texture.
+- Feature(cephalari_golem): add an internal pressure meter with shutdown-at-zero behavior and simple recharge when near Pressure-Logic blocks.
+- Fix(build): use `Entity#setMaxUpStep` (avoid private field access) and clean up new golem `ResourceLocation` usage.
+
 ## 1.0.1163 (2026-03-08)
 - Assets(cephalari): add temperament idle loop variants and small personality one-shot idles (curious head tilt / skittish twitch).
 - Dev(build): on Windows, use `%LOCALAPPDATA%/kruemblegard-build` as `buildDir` to avoid OneDrive file-lock issues during Gradle clean/compile.
