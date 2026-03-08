@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1167 (2026-03-07)
+- Debug(startup): add a startup hang watchdog that emits thread dumps if the integrated server appears stalled during world load.
+- Debug(pressurelogic): log slow pressure-network chunk load/unload hooks (only when they exceed a high threshold).
+
 ## 1.0.1166 (2026-03-07)
 - Fix(worldgen): only run `WorldgenValidator` at server start when `strictValidation=true` (avoids potential integrated-server stalls during world creation/load).
 

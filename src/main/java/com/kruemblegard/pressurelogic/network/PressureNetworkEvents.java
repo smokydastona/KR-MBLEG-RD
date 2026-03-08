@@ -3,8 +3,12 @@ package com.kruemblegard.pressurelogic.network;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.PressureConduitBlock;
 
+import java.util.concurrent.TimeUnit;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -18,6 +22,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class PressureNetworkEvents {
     private PressureNetworkEvents() {}
+
+    private static final long SLOW_CHUNK_HOOK_LOG_THRESHOLD_NANOS = TimeUnit.MILLISECONDS.toNanos(100);
 
     @SubscribeEvent
     public static void onLevelUnload(LevelEvent.Unload event) {
@@ -44,6 +50,8 @@ public final class PressureNetworkEvents {
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {
+        final long startNanos = System.nanoTime();
+
         Level level = (Level) event.getLevel();
         if (level.isClientSide) {
             return;
@@ -55,6 +63,8 @@ public final class PressureNetworkEvents {
 
         // Mark all conduit block entities in the chunk as needing validation.
         var chunk = event.getChunk();
+
+        final ChunkPos chunkPos = (chunk instanceof LevelChunk levelChunk) ? levelChunk.getPos() : null;
         for (var pos : chunk.getBlockEntitiesPos()) {
             if (!level.isLoaded(pos)) {
                 continue;
@@ -63,10 +73,14 @@ public final class PressureNetworkEvents {
                 PressureNetworkManager.markDirty(serverLevel, pos);
             }
         }
+
+        logIfSlow("chunk load", startNanos, serverLevel, chunkPos);
     }
 
     @SubscribeEvent
     public static void onChunkUnload(ChunkEvent.Unload event) {
+        final long startNanos = System.nanoTime();
+
         Level level = (Level) event.getLevel();
         if (level.isClientSide) {
             return;
@@ -78,8 +92,29 @@ public final class PressureNetworkEvents {
 
         // Mark all conduit block entities in the chunk as needing validation.
         var chunk = event.getChunk();
+
+        final ChunkPos chunkPos = (chunk instanceof LevelChunk levelChunk) ? levelChunk.getPos() : null;
         for (var pos : chunk.getBlockEntitiesPos()) {
             PressureNetworkManager.markDirty(serverLevel, pos);
         }
+
+        logIfSlow("chunk unload", startNanos, serverLevel, chunkPos);
+    }
+
+    private static void logIfSlow(String action, long startNanos, ServerLevel level, ChunkPos chunkPos) {
+        long elapsedNanos = System.nanoTime() - startNanos;
+        if (elapsedNanos < SLOW_CHUNK_HOOK_LOG_THRESHOLD_NANOS) {
+            return;
+        }
+
+        double elapsedMs = elapsedNanos / 1_000_000.0;
+        String chunk = chunkPos == null ? "<unknown>" : (chunkPos.x + "," + chunkPos.z);
+        Kruemblegard.LOGGER.warn(
+                "PressureNetworkEvents {} slow: {} ms (dim={}, chunk={})",
+                action,
+                String.format("%.2f", elapsedMs),
+                level.dimension().location(),
+                chunk
+        );
     }
 }
