@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1162 (2026-03-07)
+- Fix(cephalari): remove the Cephalari targeting suppression so raids/zombie sieges/hostile mobs treat Cephalari like vanilla villagers.
+- Feature(cephalari): add small temperament variation (`calm`/`curious`/`skittish`) that slightly changes idle animation tempo and movement speed.
+
 ## 1.0.1161 (2026-03-07)
 - Feature(pressurelogic): add an optional server-side Pressure Network Manager that coalesces rebuild/validation work to avoid rebuild storms on large conduit networks (`pressureNetworkManagerEnabled`).
 - Feature(pressurelogic): add an optional network-level ticking mode that bounds simulation work by a per-tick node budget (`pressureNetworkTickingEnabled`, `pressureNetworkMaxNodesPerTick`).

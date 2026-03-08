@@ -19,6 +19,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -38,6 +41,8 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.UUID;
+
 /**
  * Cephalari
  *
@@ -45,6 +50,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * brain/POI/profession/trading behavior, and the rest of the game treats it as a villager-class mob.
  */
 public class CephalariEntity extends Villager implements GeoEntity {
+
+    public enum Temperament {
+        CALM,
+        CURIOUS,
+        SKITTISH
+    }
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
@@ -65,13 +76,19 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private static final String NBT_ADULT_MOUNT_VARIANT = "KruemblegardCephalariAdultMountVariant";
     private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariAdultMountTextureVariant";
+    private static final String NBT_TEMPERAMENT = "KruemblegardCephalariTemperament";
 
     private static final int NO_MOUNT_VARIANT = -1;
     private static final int MOUNT_TEXTURE_VARIANTS = 6;
 
+    private static final int TEMPERAMENT_UNASSIGNED = -1;
+    private static final UUID TEMPERAMENT_SPEED_UUID = UUID.fromString("d1da79a2-5c62-4c1c-bc4d-8a8bb0b03091");
+
     private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_VARIANT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_TEXTURE_VARIANT =
+        SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_TEMPERAMENT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -86,6 +103,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private int hurtAnimCooldownTicks = 0;
 
+    private int appliedTemperament = TEMPERAMENT_UNASSIGNED;
+
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
     }
@@ -96,6 +115,59 @@ public class CephalariEntity extends Villager implements GeoEntity {
         this.entityData.define(DATA_ADULT_MOUNT_VARIANT, NO_MOUNT_VARIANT);
         // 1..MOUNT_TEXTURE_VARIANTS (1-based because textures are named _1.._6)
         this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
+        this.entityData.define(DATA_TEMPERAMENT, TEMPERAMENT_UNASSIGNED);
+    }
+
+    public Temperament getTemperament() {
+        int raw = this.entityData.get(DATA_TEMPERAMENT);
+        if (raw < 0 || raw >= Temperament.values().length) {
+            return Temperament.CALM;
+        }
+        return Temperament.values()[raw];
+    }
+
+    private void ensureTemperamentAssigned() {
+        if (this.entityData.get(DATA_TEMPERAMENT) == TEMPERAMENT_UNASSIGNED) {
+            this.entityData.set(DATA_TEMPERAMENT, this.getRandom().nextInt(Temperament.values().length));
+        }
+
+        if (!this.level().isClientSide) {
+            applyTemperamentMovementModifier();
+        }
+    }
+
+    private void applyTemperamentMovementModifier() {
+        int raw = this.entityData.get(DATA_TEMPERAMENT);
+        if (raw == TEMPERAMENT_UNASSIGNED || raw == appliedTemperament) {
+            return;
+        }
+
+        AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (speed == null) {
+            appliedTemperament = raw;
+            return;
+        }
+
+        // Remove any previous modifier (safe even if absent).
+        speed.removeModifier(TEMPERAMENT_SPEED_UUID);
+
+        Temperament temperament = getTemperament();
+        double mult = switch (temperament) {
+            case CALM -> -0.03D;
+            case CURIOUS -> 0.00D;
+            case SKITTISH -> 0.03D;
+        };
+
+        if (mult != 0.0D) {
+            speed.addPermanentModifier(new AttributeModifier(
+                TEMPERAMENT_SPEED_UUID,
+                "Cephalari temperament",
+                mult,
+                AttributeModifier.Operation.MULTIPLY_TOTAL
+            ));
+        }
+
+        appliedTemperament = raw;
     }
 
     public boolean hasAdultMountAppearance() {
@@ -181,6 +253,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
         if (level instanceof ServerLevel) {
+            ensureTemperamentAssigned();
             if (!this.isBaby()) {
                 ensureAdultMountAppearance();
                 if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
@@ -197,6 +270,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putInt(NBT_ADULT_MOUNT_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_VARIANT));
         tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
+        tag.putInt(NBT_TEMPERAMENT, this.entityData.get(DATA_TEMPERAMENT));
     }
 
     @Override
@@ -217,6 +291,14 @@ public class CephalariEntity extends Villager implements GeoEntity {
             int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, textureVariant));
             this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
         }
+
+        if (tag.contains(NBT_TEMPERAMENT)) {
+            int raw = tag.getInt(NBT_TEMPERAMENT);
+            if (raw < 0 || raw >= Temperament.values().length) {
+                raw = Temperament.CALM.ordinal();
+            }
+            this.entityData.set(DATA_TEMPERAMENT, raw);
+        }
     }
 
     @Override
@@ -236,6 +318,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
         if (level().isClientSide) {
             return;
         }
+
+        ensureTemperamentAssigned();
 
         // Legacy cleanup: if an old-world Cephalari is still riding a mount entity, merge it back into a single-mob state.
         if (this.getVehicle() instanceof CephalariMountEntity mount) {
@@ -274,24 +358,36 @@ public class CephalariEntity extends Villager implements GeoEntity {
             }
 
             if (this.isSleeping()) {
+                state.getController().setAnimationSpeed(1.0D);
                 state.setAnimation(SLEEP_LOOP);
                 return PlayState.CONTINUE;
             }
 
             if (this.isTrading()) {
+                state.getController().setAnimationSpeed(1.0D);
                 state.setAnimation(TRADE_LOOP);
                 return PlayState.CONTINUE;
             }
 
             if (isCelebratingNow()) {
+                state.getController().setAnimationSpeed(1.0D);
                 state.setAnimation(CELEBRATE_LOOP);
                 return PlayState.CONTINUE;
             }
 
             if (isWorkingNow()) {
+                state.getController().setAnimationSpeed(1.0D);
                 state.setAnimation(WORK_LOOP);
                 return PlayState.CONTINUE;
             }
+
+            // Temperament: slight animation tempo variation for idle/walk cycles.
+            double animSpeed = switch (getTemperament()) {
+                case CALM -> 0.95D;
+                case CURIOUS -> 1.05D;
+                case SKITTISH -> 1.08D;
+            };
+            state.getController().setAnimationSpeed(animSpeed);
 
             if (this.isPassenger()) {
                 state.setAnimation(RIDING_LOOP);

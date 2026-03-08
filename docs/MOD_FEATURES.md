@@ -327,7 +327,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
-  - Stealth: other mobs will not target Cephalari directly.
+  - Targeting: hostile mobs treat Cephalari the same as vanilla villagers.
+  - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation tempo and movement speed.
   - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead.
   - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
     - **Spiral Strider** (`spiral_strider`)
