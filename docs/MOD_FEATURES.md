@@ -136,10 +136,10 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; pulse animation is driven by pressure/rotation availability.
   - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required).
   - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction).
-  - `pressure_kiln`: redstone-powered item smelter with a `kiln_mode` state (scaffolding).
-  - `membrane_press`: redstone-powered press that cycles `press_phase` (0..3) and processes items (scaffolding).
-  - `crystal_infuser`: redstone-powered infuser that cycles `infuse_phase` (0..3) and processes items (scaffolding).
-  - `pneumatic_separator`: redstone-powered item splitter with `separator_mode` and `active_side` states (scaffolding).
+  - `pressure_kiln`: fuel-free smelter that requires stable air + adjacent conduit pressure + nearby mechanical rotation; consumes conduit pressure per smelt. `kiln_mode` (LOW/NORMAL/OVERPRESSURE) is controlled by redstone strength; OVERPRESSURE is faster but can vent violently at high pressure.
+  - `membrane_press`: stable-air + conduit-pressure powered press that cycles `press_phase` (0..3) while running and consumes pressure to process items.
+  - `crystal_infuser`: stable-air + conduit-pressure powered infuser that cycles `infuse_phase` (0..3) while running and consumes pressure to infuse items.
+  - `pneumatic_separator`: stable-air + conduit-pressure powered item router with `separator_mode` (set by redstone strength) and `active_side` indicators; pushes items into left/right (and forward for TRI mode).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.
 

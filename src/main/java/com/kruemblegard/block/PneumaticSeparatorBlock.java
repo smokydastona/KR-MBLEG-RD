@@ -1,11 +1,15 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -75,12 +79,13 @@ public class PneumaticSeparatorBlock extends HorizontalDirectionalBlock {
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean powered = context.getLevel().hasNeighborSignal(context.getClickedPos());
+        int signal = context.getLevel().getBestNeighborSignal(context.getClickedPos());
+        boolean powered = signal > 0;
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(POWERED, powered)
                 .setValue(ACTIVE_SIDE, ActiveSide.LEFT)
-                .setValue(SEPARATOR_MODE, SeparatorMode.NORMAL);
+            .setValue(SEPARATOR_MODE, modeFromSignal(signal));
     }
 
     @Override
@@ -103,9 +108,13 @@ public class PneumaticSeparatorBlock extends HorizontalDirectionalBlock {
             return;
         }
 
-        boolean poweredNow = level.hasNeighborSignal(pos);
-        if (poweredNow != state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, poweredNow), Block.UPDATE_CLIENTS);
+        int signal = level.getBestNeighborSignal(pos);
+        boolean poweredNow = signal > 0;
+        BlockState next = state
+                .setValue(POWERED, poweredNow)
+                .setValue(SEPARATOR_MODE, modeFromSignal(signal));
+        if (next != state) {
+            level.setBlock(pos, next, Block.UPDATE_CLIENTS);
         }
 
         level.scheduleTick(pos, this, 10);
@@ -118,6 +127,26 @@ public class PneumaticSeparatorBlock extends HorizontalDirectionalBlock {
             return;
         }
 
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        BlockPos conduitPos = findBestConduit(level, pos);
+        if (conduitPos == null) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
+        if (pressure <= 0) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
+        int pressureLevel = PressureUtil.pressureToLevel(pressure);
+        int costPerItem = Math.max(1, 2 - (pressureLevel >= 4 ? 1 : 0));
+
         Direction facing = state.getValue(FACING);
         Direction left = facing.getCounterClockWise();
         Direction right = facing.getClockWise();
@@ -126,6 +155,10 @@ public class PneumaticSeparatorBlock extends HorizontalDirectionalBlock {
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
 
         for (ItemEntity itemEntity : items) {
+            if (PressureUtil.getConduitPressureOrState(level, conduitPos) < costPerItem) {
+                break;
+            }
+
             ItemStack stack = itemEntity.getItem();
 
             Direction outDir;
@@ -137,22 +170,69 @@ public class PneumaticSeparatorBlock extends HorizontalDirectionalBlock {
                 } else {
                     outDir = facing;
                 }
+            } else if (state.getValue(SEPARATOR_MODE) == SeparatorMode.DENSITY) {
+                // "Density" heuristic: block-items are treated as heavier.
+                if (stack.is(net.minecraft.tags.ItemTags.LOGS)) {
+                    outDir = left;
+                } else if (stack.getItem() instanceof BlockItem) {
+                    outDir = right;
+                } else {
+                    outDir = left;
+                }
             } else {
                 outDir = stack.is(net.minecraft.tags.ItemTags.LOGS) ? left : right;
             }
 
-            double speed = 0.15;
+            PressureUtil.addPressure(level, conduitPos, -costPerItem);
+
+            double speed = 0.10 + 0.02 * pressureLevel;
             itemEntity.setDeltaMovement(outDir.getStepX() * speed, 0.05, outDir.getStepZ() * speed);
             itemEntity.hurtMarked = true;
 
             ActiveSide side = (outDir == left) ? ActiveSide.LEFT : ActiveSide.RIGHT;
-            if (side != state.getValue(ACTIVE_SIDE)) {
+            if (outDir != facing && side != state.getValue(ACTIVE_SIDE)) {
                 level.setBlock(pos, state.setValue(ACTIVE_SIDE, side), 2);
                 state = level.getBlockState(pos);
             }
         }
 
         level.scheduleTick(pos, this, 10);
+    }
+
+    private static SeparatorMode modeFromSignal(int signal) {
+        if (signal <= 0) {
+            return SeparatorMode.NORMAL;
+        }
+        if (signal <= 5) {
+            return SeparatorMode.NORMAL;
+        }
+        if (signal <= 10) {
+            return SeparatorMode.TRI;
+        }
+        return SeparatorMode.DENSITY;
+    }
+
+    private static @Nullable BlockPos findBestConduit(Level level, BlockPos pos) {
+        BlockPos best = null;
+        int bestPressure = 0;
+
+        BlockPos below = pos.below();
+        int belowPressure = PressureUtil.getConduitPressureOrState(level, below);
+        if (belowPressure > 0) {
+            best = below;
+            bestPressure = belowPressure;
+        }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos p = pos.relative(dir);
+            int pressure = PressureUtil.getConduitPressureOrState(level, p);
+            if (pressure > bestPressure) {
+                best = p;
+                bestPressure = pressure;
+            }
+        }
+
+        return best;
     }
 
     @Override

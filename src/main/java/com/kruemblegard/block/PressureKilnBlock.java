@@ -1,5 +1,9 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
+import com.kruemblegard.rotationlogic.RotationUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -110,6 +114,51 @@ public class PressureKilnBlock extends HorizontalDirectionalBlock {
             return;
         }
 
+        if (!PressureAtmosphere.isStable(level, pos)) {
+            level.scheduleTick(pos, this, 20);
+            return;
+        }
+
+        // Spec: kiln requires a turbine (rotation) and pressure.
+        int rotation = RotationUtil.getRotationLevel(level, pos);
+        if (rotation <= 0) {
+            level.scheduleTick(pos, this, 20);
+            return;
+        }
+
+        BlockPos conduitPos = findBestConduit(level, pos);
+        if (conduitPos == null) {
+            level.scheduleTick(pos, this, 20);
+            return;
+        }
+
+        int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
+        if (pressure <= 0) {
+            level.scheduleTick(pos, this, 20);
+            return;
+        }
+
+        if (state.getValue(KILN_MODE) == KilnMode.OVERPRESSURE && pressure >= 85) {
+            // Overpressure risk: vent violently (no block damage).
+            if (random.nextInt(120) == 0) {
+                double x = pos.getX() + 0.5;
+                double y = pos.getY() + 0.5;
+                double z = pos.getZ() + 0.5;
+                level.explode(null, x, y, z, 1.2F, Level.ExplosionInteraction.NONE);
+                PressureUtil.addPressure(level, conduitPos, -40);
+                level.scheduleTick(pos, this, 40);
+                return;
+            }
+        }
+
+        int pressureLevel = PressureUtil.pressureToLevel(pressure);
+        int baseCost = switch (state.getValue(KILN_MODE)) {
+            case LOW -> 6;
+            case NORMAL -> 10;
+            case OVERPRESSURE -> 14;
+        };
+        int costPerSmelt = Math.max(2, baseCost + (5 - rotation) - (pressureLevel / 2));
+
         int tries = 0;
         AABB box = new AABB(pos).inflate(0.5, 1.0, 0.5).move(0, 1.0, 0);
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
@@ -118,8 +167,17 @@ public class PressureKilnBlock extends HorizontalDirectionalBlock {
                 break;
             }
 
+            if (PressureUtil.getConduitPressureOrState(level, conduitPos) < costPerSmelt) {
+                break;
+            }
+
             ItemStack stack = itemEntity.getItem();
-            var container = new SimpleContainer(stack);
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            ItemStack one = stack.copyWithCount(1);
+            var container = new SimpleContainer(one);
             var recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, container, level);
             if (recipe.isEmpty()) {
                 continue;
@@ -130,15 +188,29 @@ public class PressureKilnBlock extends HorizontalDirectionalBlock {
                 continue;
             }
 
-            itemEntity.setItem(result.copy());
+            PressureUtil.addPressure(level, conduitPos, -costPerSmelt);
+
+            // Consume 1 input and emit the recipe output.
+            stack.shrink(1);
+            if (stack.isEmpty()) {
+                itemEntity.setItem(result.copy());
+            } else {
+                itemEntity.setItem(stack);
+                ItemEntity out = new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), result.copy());
+                out.setDeltaMovement(0, 0.05, 0);
+                level.addFreshEntity(out);
+            }
+
             level.playSound(null, pos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.6F, 1.1F);
         }
 
-        int tickDelay = switch (state.getValue(KILN_MODE)) {
+        int baseDelay = switch (state.getValue(KILN_MODE)) {
             case LOW -> 40;
             case NORMAL -> 20;
             case OVERPRESSURE -> 10;
         };
+        int speedBonus = Math.min(8, pressureLevel + rotation);
+        int tickDelay = Math.max(6, baseDelay - speedBonus);
         level.scheduleTick(pos, this, tickDelay);
     }
 
@@ -147,6 +219,30 @@ public class PressureKilnBlock extends HorizontalDirectionalBlock {
         if (signal <= 5) return KilnMode.LOW;
         if (signal <= 10) return KilnMode.NORMAL;
         return KilnMode.OVERPRESSURE;
+    }
+
+    private static @Nullable BlockPos findBestConduit(Level level, BlockPos pos) {
+        BlockPos best = null;
+        int bestPressure = 0;
+
+        // Prefer below (expected placement).
+        BlockPos below = pos.below();
+        int belowPressure = PressureUtil.getConduitPressureOrState(level, below);
+        if (belowPressure > 0) {
+            best = below;
+            bestPressure = belowPressure;
+        }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos p = pos.relative(dir);
+            int pressure = PressureUtil.getConduitPressureOrState(level, p);
+            if (pressure > bestPressure) {
+                best = p;
+                bestPressure = pressure;
+            }
+        }
+
+        return best;
     }
 
     @Override

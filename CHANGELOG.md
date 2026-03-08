@@ -40,6 +40,13 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 	- `pneumatic_catapult`: now charges from conduit pressure while powered and fires on redstone rising edge (stable air required).
 	- `air_lift_tube`: now requires stable air to operate; redstone controls UP/DOWN run state and BIDIRECTIONAL direction toggle.
 
+## 1.0.1144 (2026-03-07)
+- Feature(pressurelogic): upgrade processing/crafting blocks:
+	- `pressure_kiln`: now requires stable air + conduit pressure + rotation and consumes conduit pressure per smelt (no fuel). Overpressure mode is faster but can vent violently at high pressure.
+	- `membrane_press`: now requires stable air + conduit pressure and consumes conduit pressure while processing.
+	- `crystal_infuser`: now requires stable air + conduit pressure and consumes conduit pressure while infusing.
+	- `pneumatic_separator`: now requires stable air + conduit pressure and consumes conduit pressure while routing; separator mode is now derived from redstone strength.
+
 ## 1.0.1138 (2026-03-06)
 - Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
 - Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).

@@ -73,7 +73,9 @@ public class PneumaticCatapultBlock extends HorizontalDirectionalBlock {
 
         if (poweredNow && !wasPowered) {
             // Fire on rising edge (redstone as a signal, not the power source).
-            tryFire(level, pos, state);
+            if (level instanceof ServerLevel serverLevel) {
+                tryFire(serverLevel, pos, state);
+            }
             // Start/continue charging while powered.
             level.scheduleTick(pos, this, 2);
         } else if (poweredNow) {
