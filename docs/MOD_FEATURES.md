@@ -310,6 +310,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
   - Stealth: other mobs will not target Cephalari directly.
+  - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead.
   - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
     - **Spiral Strider** (`spiral_strider`)
     - **DriftSkimmer** (`driftskimmer`)
@@ -319,6 +320,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
     - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + forced riding-pose sync before swap; no spawned zombie mount entity).
     - Natural spawns: Zombified Cephalari can spawn in Wayfall and the Overworld.
+    - Baby zombies: baby Zombified Cephalari always spawn as a jockey (guaranteed random mount).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):

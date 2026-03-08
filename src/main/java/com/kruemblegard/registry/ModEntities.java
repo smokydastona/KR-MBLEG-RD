@@ -3,6 +3,7 @@ package com.kruemblegard.registry;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.CephalariEntity;
+import com.kruemblegard.entity.CephalariGolemEntity;
 import com.kruemblegard.entity.CephalariZombieEntity;
 import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
@@ -138,6 +139,15 @@ public class ModEntities {
                     CephalariZombieEntity::new, MobCategory.MONSTER)
                 .sized(0.6f, 1.95f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_zombie").toString())
+        );
+
+    public static final RegistryObject<EntityType<CephalariGolemEntity>> CEPHALARI_GOLEM =
+        ENTITIES.register(
+            "cephalari_golem",
+            () -> EntityType.Builder.<CephalariGolemEntity>of(
+                    CephalariGolemEntity::new, MobCategory.MISC)
+                .sized(1.4f, 2.7f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_golem").toString())
         );
 
     public static final RegistryObject<EntityType<SpiralStriderEntity>> SPIRAL_STRIDER =

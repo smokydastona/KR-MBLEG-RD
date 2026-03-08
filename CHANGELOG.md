@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1154 (2026-03-08)
+- Feature(cephalari): villages that spawn a vanilla iron golem near Cephalari now spawn a `cephalari_golem` instead.
+- Feature(cephalari_zombie): baby zombified Cephalari now always spawn as a jockey (guaranteed random mount).
+- Fix(scaralon_beetle): render beetle texture layer above carpet color texture.
+
 ## 1.0.1153 (2026-03-07)
 - Docs: fix changelog date for `1.0.1152`.
 

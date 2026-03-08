@@ -6,6 +6,7 @@ import com.kruemblegard.entity.ScaralonBeetleEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
 
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -31,6 +32,15 @@ public class ScaralonBeetleModel extends GeoModel<ScaralonBeetleEntity> {
         if (animatable.isBaby()) {
             return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_beetle/scaralon_larva.png");
         }
+
+        // If decor is applied, render the carpet color underlay first; a render layer will put the beetle texture over it.
+        if (animatable.hasCarpet()) {
+            DyeColor color = animatable.getCarpetColor();
+            if (color != null) {
+                return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_beetle/decor/" + color.getName() + ".png");
+            }
+        }
+
         int variant = animatable.getTextureVariant();
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/scaralon_beetle/scaralon_beetle_" + variant + ".png");
     }

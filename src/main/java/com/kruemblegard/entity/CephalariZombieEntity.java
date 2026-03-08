@@ -127,14 +127,51 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
-        if (!this.level().isClientSide && !this.isBaby()) {
-            ensureAdultVariantsAssigned();
-            if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
-                setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+        if (!this.level().isClientSide) {
+            if (this.isBaby()) {
+                ensureBabyHasMount(level);
+            } else {
+                ensureAdultVariantsAssigned();
+                if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
+                    setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+                }
             }
         }
 
         return data;
+    }
+
+    private void ensureBabyHasMount(ServerLevelAccessor accessor) {
+        if (!(accessor instanceof ServerLevel level)) {
+            return;
+        }
+
+        if (!this.isBaby() || this.isPassenger()) {
+            return;
+        }
+
+        // Pick from a small, vanilla-ish jockey pool.
+        int pick = this.getRandom().nextInt(5);
+        EntityType<? extends Mob> mountType = switch (pick) {
+            case 0 -> EntityType.CHICKEN;
+            case 1 -> EntityType.WOLF;
+            case 2 -> EntityType.PIG;
+            case 3 -> EntityType.SHEEP;
+            default -> EntityType.RABBIT;
+        };
+
+        Mob mount = mountType.create(level);
+        if (mount == null) {
+            return;
+        }
+
+        mount.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+        mount.finalizeSpawn(level, level.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.JOCKEY, null, null);
+        mount.setPersistenceRequired();
+
+        level.addFreshEntity(mount);
+        this.startRiding(mount, true);
+        this.setPersistenceRequired();
     }
 
     @Override

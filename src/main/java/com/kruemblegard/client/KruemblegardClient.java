@@ -3,6 +3,7 @@ package com.kruemblegard.client;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
 import com.kruemblegard.client.particle.CephalariVfxParticle;
+import com.kruemblegard.client.render.CephalariGolemRenderer;
 import com.kruemblegard.client.render.CephalariRenderer;
 import com.kruemblegard.client.render.CephalariZombieRenderer;
 import com.kruemblegard.client.render.DriftSkimmerRenderer;
@@ -52,6 +53,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.WYRDWING.get(), WyrdwingRenderer::new);
         event.registerEntityRenderer(ModEntities.CEPHALARI.get(), CephalariRenderer::new);
         event.registerEntityRenderer(ModEntities.CEPHALARI_ZOMBIE.get(), CephalariZombieRenderer::new);
+        event.registerEntityRenderer(ModEntities.CEPHALARI_GOLEM.get(), CephalariGolemRenderer::new);
 
         event.registerEntityRenderer(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderRenderer::new);
         event.registerEntityRenderer(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerRenderer::new);

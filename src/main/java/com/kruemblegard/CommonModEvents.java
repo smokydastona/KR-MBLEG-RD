@@ -29,6 +29,7 @@ import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -59,6 +60,7 @@ public final class CommonModEvents {
         event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
         event.put(ModEntities.CEPHALARI.get(), Villager.createAttributes().build());
         event.put(ModEntities.CEPHALARI_ZOMBIE.get(), ZombieVillager.createAttributes().build());
+        event.put(ModEntities.CEPHALARI_GOLEM.get(), IronGolem.createAttributes().build());
 
         event.put(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderEntity.createAttributes().build());
         event.put(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerEntity.createAttributes().build());
