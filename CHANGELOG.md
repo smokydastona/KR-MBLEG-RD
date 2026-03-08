@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1147 (2026-03-07)
+- Assets(items): add unique textures for `coral_fiber` and `bio_ceramic`.
+
 ## 1.0.1146 (2026-03-07)
 - Feature(pressurelogic): implement `pressure_loom` as a stable-air + conduit-pressure + rotation powered Flowwright workstation.
 	- Weaves Paleweft into `coral_fiber`.
