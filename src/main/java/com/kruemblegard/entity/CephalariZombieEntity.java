@@ -253,6 +253,14 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             return;
         }
 
+        // Some creation paths (notably vanilla conversion mechanics) can bypass finalizeSpawn.
+        // Ensure adult visuals (geo variant + zombie/husk/drowned texture selection) are always initialized.
+        boolean variantsWereUnassigned = !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == NO_ZOMBIE_VARIANT;
+        ensureAdultVariantsAssigned();
+        if (variantsWereUnassigned && !this.isBaby() && this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
+            setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+        }
+
         if (hurtAnimCooldownTicks > 0) {
             hurtAnimCooldownTicks--;
         }
