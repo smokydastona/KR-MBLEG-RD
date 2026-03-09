@@ -6,6 +6,7 @@ import com.kruemblegard.entity.CephalariGolemEntity;
 import com.kruemblegard.registry.ModEntities;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -32,6 +33,12 @@ public final class CephalariGolemEvents {
         }
 
         if (!(event.getEntity() instanceof IronGolem golem)) {
+            return;
+        }
+
+        // Critical: Cephalari golems extend IronGolem, so we must only handle *vanilla* iron golems.
+        // Otherwise, spawning the replacement golem would recursively trigger this event and spawn thousands.
+        if (event.getEntity().getType() != EntityType.IRON_GOLEM) {
             return;
         }
 
