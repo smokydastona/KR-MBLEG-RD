@@ -19,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -165,6 +166,31 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     public CephalariEntity(EntityType<? extends Villager> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public <T extends Mob> T convertTo(EntityType<T> entityType, boolean keepEquipment) {
+        // When vanilla tries to convert villagers (including our Cephalari) into zombie villagers,
+        // route that conversion into our zombified Cephalari entity type instead.
+        if (entityType == EntityType.ZOMBIE_VILLAGER) {
+            @SuppressWarnings("unchecked")
+            EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI_ZOMBIE.get();
+            T converted = super.convertTo(target, keepEquipment);
+            if (converted instanceof CephalariZombieEntity cephalariZombie) {
+                cephalariZombie.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
+
+                String mountId = CephalariMounts.getMountId(this);
+                if (mountId == null && this.getVehicle() != null) {
+                    mountId = CephalariMounts.getMountIdFromVehicle(this.getVehicle());
+                }
+                if (mountId != null) {
+                    CephalariMounts.setMountId(cephalariZombie, mountId);
+                }
+            }
+            return converted;
+        }
+
+        return super.convertTo(entityType, keepEquipment);
     }
 
     @Override
