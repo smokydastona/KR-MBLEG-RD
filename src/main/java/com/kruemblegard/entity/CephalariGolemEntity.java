@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -34,7 +35,14 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     private static final int PRESSURE_MAX = 100;
     private static final String NBT_PRESSURE = "CephalariPressure";
 
+    private static final int TEXTURE_VARIANT_MIN = 1;
+    private static final int TEXTURE_VARIANT_MAX = 6;
+    private static final String NBT_TEXTURE_VARIANT = "CephalariGolemTextureVariant";
+
     private static final EntityDataAccessor<Integer> PRESSURE =
+        SynchedEntityData.defineId(CephalariGolemEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
         SynchedEntityData.defineId(CephalariGolemEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle");
@@ -66,6 +74,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PRESSURE, PRESSURE_MAX);
+        this.entityData.define(TEXTURE_VARIANT, 0);
     }
 
     public int getPressure() {
@@ -80,6 +89,34 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         return getPressure() <= 0;
     }
 
+    public int getTextureVariant() {
+        int variant = this.entityData.get(TEXTURE_VARIANT);
+        if (variant < TEXTURE_VARIANT_MIN || variant > TEXTURE_VARIANT_MAX) {
+            return TEXTURE_VARIANT_MIN;
+        }
+        return variant;
+    }
+
+    public void setTextureVariant(int variant) {
+        this.entityData.set(TEXTURE_VARIANT, Mth.clamp(variant, TEXTURE_VARIANT_MIN, TEXTURE_VARIANT_MAX));
+    }
+
+    private void ensureTextureVariantAssigned() {
+        if (this.entityData.get(TEXTURE_VARIANT) != 0) {
+            return;
+        }
+
+        int variant = TEXTURE_VARIANT_MIN + this.random.nextInt(TEXTURE_VARIANT_MAX - TEXTURE_VARIANT_MIN + 1);
+        setTextureVariant(variant);
+    }
+
+    public ResourceLocation getTextureResource() {
+        return ResourceLocation.tryBuild(
+            "kruemblegard",
+            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + getTextureVariant() + ".png"
+        );
+    }
+
     private void addPressure(int delta) {
         if (delta == 0) return;
         setPressure(getPressure() + delta);
@@ -89,6 +126,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt(NBT_PRESSURE, getPressure());
+        tag.putInt(NBT_TEXTURE_VARIANT, this.entityData.get(TEXTURE_VARIANT));
     }
 
     @Override
@@ -96,6 +134,16 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         super.readAdditionalSaveData(tag);
         if (tag.contains(NBT_PRESSURE)) {
             setPressure(tag.getInt(NBT_PRESSURE));
+        }
+
+        if (tag.contains(NBT_TEXTURE_VARIANT)) {
+            int variant = tag.getInt(NBT_TEXTURE_VARIANT);
+            if (variant == 0) {
+                // Legacy/invalid: assign on next server tick.
+                this.entityData.set(TEXTURE_VARIANT, 0);
+            } else {
+                setTextureVariant(variant);
+            }
         }
     }
 
@@ -106,6 +154,8 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         if (level().isClientSide) {
             return;
         }
+
+        ensureTextureVariantAssigned();
 
         // Passive leak: ~1 unit/sec.
         if (tickCount % 20 == 0 && getPressure() > 0) {

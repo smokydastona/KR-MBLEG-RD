@@ -26,7 +26,11 @@ public class CephalariGolemRenderer extends GeoEntityRenderer<CephalariGolemEnti
 
         @Override
         public ResourceLocation getTextureResource(CephalariGolemEntity animatable) {
-            return rl("textures/entity/cephalari/cephalari_golem.png");
+            ResourceLocation id = animatable.getTextureResource();
+            if (id == null) {
+                throw new IllegalArgumentException("CephalariGolemEntity returned null texture ResourceLocation");
+            }
+            return id;
         }
 
         @Override
