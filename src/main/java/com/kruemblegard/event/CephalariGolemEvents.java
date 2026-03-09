@@ -52,6 +52,14 @@ public final class CephalariGolemEvents {
             return;
         }
 
+        // Villages only count vanilla iron golems when deciding whether to spawn another.
+        // Treat existing Cephalari golems as equivalent by blocking vanilla golem spawns when one is already nearby.
+        // This prevents villages from repeatedly trying to spawn golems even though a Cephalari golem is present.
+        if (!level.getEntitiesOfClass(CephalariGolemEntity.class, golem.getBoundingBox().inflate(SEARCH_RADIUS)).isEmpty()) {
+            event.setCanceled(true);
+            return;
+        }
+
         try {
             CephalariGolemEntity cephalariGolem = ModEntities.CEPHALARI_GOLEM.get().create(level);
             if (cephalariGolem == null) {

@@ -10,6 +10,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1181 (2026-03-08)
 - Fix(cephalari_golem): prevent recursive village golem replacement from spawning thousands of golems.
 
+## 1.0.1182 (2026-03-08)
+- Fix(cephalari_golem): villages now treat nearby `cephalari_golem` as an existing golem, preventing repeated extra golem spawn attempts.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
