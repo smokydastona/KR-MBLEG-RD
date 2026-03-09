@@ -105,7 +105,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private static final ResourceLocation DEFAULT_BODY_TEXTURE = new ResourceLocation(
         Kruemblegard.MOD_ID,
-        "textures/entity/cephalari/cephalari.png"
+        "textures/entity/cephalari/cephalari/cephalari_underway_falls.png"
     );
 
     private static final List<ResourceLocation> WAYFALL_BIOME_BODY_TEXTURES = List.of(

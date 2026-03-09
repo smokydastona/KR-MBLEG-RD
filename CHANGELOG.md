@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1177 (2026-03-09)
+## 1.0.1178 (2026-03-08)
+- Fix(cephalari): correct the default body texture path so Cephalari always render a real texture (fallback now points at an existing Wayfall variant).
+
+## 1.0.1177 (2026-03-08)
 - Fix(cephalari): make the iron golem → Cephalari golem replacement fail-safe (if replacement errors, vanilla golem spawn proceeds).
 
 ## 1.0.1174 (2026-03-08)
