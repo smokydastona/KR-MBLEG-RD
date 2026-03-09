@@ -45,21 +45,27 @@ public final class CephalariGolemEvents {
             return;
         }
 
-        // Replace the vanilla golem spawn.
-        event.setCanceled(true);
+        try {
+            CephalariGolemEntity cephalariGolem = ModEntities.CEPHALARI_GOLEM.get().create(level);
+            if (cephalariGolem == null) {
+                return;
+            }
 
-        CephalariGolemEntity cephalariGolem = ModEntities.CEPHALARI_GOLEM.get().create(level);
-        if (cephalariGolem == null) {
-            return;
+            cephalariGolem.moveTo(golem.getX(), golem.getY(), golem.getZ(), golem.getYRot(), golem.getXRot());
+            cephalariGolem.setHealth(golem.getHealth());
+            cephalariGolem.setCustomName(golem.getCustomName());
+            cephalariGolem.setCustomNameVisible(golem.isCustomNameVisible());
+            cephalariGolem.setPersistenceRequired();
+            cephalariGolem.setPlayerCreated(false);
+
+            if (!level.addFreshEntity(cephalariGolem)) {
+                return;
+            }
+
+            // Replace the vanilla golem spawn.
+            event.setCanceled(true);
+        } catch (Throwable ignored) {
+            // Avoid crashing the game if something goes wrong during replacement.
         }
-
-        cephalariGolem.moveTo(golem.getX(), golem.getY(), golem.getZ(), golem.getYRot(), golem.getXRot());
-        cephalariGolem.setHealth(golem.getHealth());
-        cephalariGolem.setCustomName(golem.getCustomName());
-        cephalariGolem.setCustomNameVisible(golem.isCustomNameVisible());
-        cephalariGolem.setPersistenceRequired();
-        cephalariGolem.setPlayerCreated(false);
-
-        level.addFreshEntity(cephalariGolem);
     }
 }
