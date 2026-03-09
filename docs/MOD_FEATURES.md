@@ -325,6 +325,9 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Cephalari** (`cephalari`)
   - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
+  - Body texture variants: assigned at spawn/birth based on the biome.
+    - Spawn: **10%** bonus variant, **5%** other-biome variant, otherwise current biome.
+    - Breeding: baby texture is **25%** parent A / **25%** parent B / **50%** current biome, with a **10%** chance to be random.
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
   - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
   - Mobility: takes **no fall damage**.
@@ -341,6 +344,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + forced riding-pose sync before swap; no spawned zombie mount entity).
     - Natural spawns: Zombified Cephalari can spawn in Wayfall and the Overworld.
     - Baby zombies: baby Zombified Cephalari always spawn as a jockey (guaranteed random mount).
+    - Drowned visual: the drowned variant renders a vanilla Drowned-style outer overlay layer.
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):

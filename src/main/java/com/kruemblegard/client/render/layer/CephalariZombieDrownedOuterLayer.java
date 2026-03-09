@@ -14,11 +14,14 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the zombified Cephalari texture over the mount base texture for adult Zombified Cephalari.
+ * Extra outer layer for the "drowned" zombified Cephalari variant.
+ *
+ * This mimics vanilla Drowned's outer layer behavior by rendering an additional texture pass
+ * over the base zombified texture.
  */
-public final class CephalariZombieBodyOverlayLayer extends GeoRenderLayer<CephalariZombieEntity> {
+public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
-    public CephalariZombieBodyOverlayLayer(GeoRenderer<CephalariZombieEntity> renderer) {
+    public CephalariZombieDrownedOuterLayer(GeoRenderer<CephalariZombieEntity> renderer) {
         super(renderer);
     }
 
@@ -38,9 +41,13 @@ public final class CephalariZombieBodyOverlayLayer extends GeoRenderLayer<Cephal
             return;
         }
 
-        ResourceLocation overlayTexture = animatable.getBodyTextureResource();
-        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
-        VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
-        super.render(poseStack, animatable, bakedModel, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
+        if (!animatable.isDrownedVariant()) {
+            return;
+        }
+
+        ResourceLocation outerTexture = animatable.getDrownedOuterTextureResource();
+        RenderType outerType = RenderType.entityCutoutNoCull(outerTexture);
+        VertexConsumer outerBuffer = bufferSource.getBuffer(outerType);
+        super.render(poseStack, animatable, bakedModel, outerType, bufferSource, outerBuffer, partialTick, packedLight, packedOverlay);
     }
 }

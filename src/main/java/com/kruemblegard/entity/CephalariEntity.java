@@ -1,5 +1,6 @@
 package com.kruemblegard.entity;
 
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.entity.mount.CephalariMountEntity;
 import com.kruemblegard.entity.mount.CephalariMounts;
@@ -12,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -41,6 +43,8 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -82,6 +86,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final String NBT_ADULT_MOUNT_VARIANT = "KruemblegardCephalariAdultMountVariant";
     private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariAdultMountTextureVariant";
     private static final String NBT_TEMPERAMENT = "KruemblegardCephalariTemperament";
+    private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
 
     private static final int NO_MOUNT_VARIANT = -1;
     private static final int MOUNT_TEXTURE_VARIANTS = 6;
@@ -95,6 +100,50 @@ public class CephalariEntity extends Villager implements GeoEntity {
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TEMPERAMENT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<String> DATA_BODY_TEXTURE =
+        SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.STRING);
+
+    private static final ResourceLocation DEFAULT_BODY_TEXTURE = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari.png"
+    );
+
+    private static final List<ResourceLocation> WAYFALL_BIOME_BODY_TEXTURES = List.of(
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_basin_of_scars.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_crumbled_crossing.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_driftway_chasm.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_faulted_expanse.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_fracture_shoals.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_glyphscar_reach.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_hollow_transit_plains.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_midweft_wilds.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_riven_causeways.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_shatterplate_flats.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_strata_collapse.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_underway_falls.png")
+    );
+
+    private static final Set<String> WAYFALL_BIOME_TEXTURE_PATHS = Set.of(
+        "basin_of_scars",
+        "crumbled_crossing",
+        "driftway_chasm",
+        "faulted_expanse",
+        "fracture_shoals",
+        "glyphscar_reach",
+        "hollow_transit_plains",
+        "midweft_wilds",
+        "riven_causeways",
+        "shatterplate_flats",
+        "strata_collapse",
+        "underway_falls"
+    );
+
+    private static final List<ResourceLocation> BONUS_BODY_TEXTURES = List.of(
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_bonus_1.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_bonus_2.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_bonus_3.png"),
+        new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari/cephalari_bonus_4.png")
+    );
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -125,6 +174,78 @@ public class CephalariEntity extends Villager implements GeoEntity {
         // 1..MOUNT_TEXTURE_VARIANTS (1-based because textures are named _1.._6)
         this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
         this.entityData.define(DATA_TEMPERAMENT, TEMPERAMENT_UNASSIGNED);
+        // Empty means "use default" (and allows breeding to set explicit textures before finalizeSpawn).
+        this.entityData.define(DATA_BODY_TEXTURE, "");
+    }
+
+    public ResourceLocation getBodyTextureResource() {
+        String raw = this.entityData.get(DATA_BODY_TEXTURE);
+        if (raw == null || raw.isEmpty()) {
+            return DEFAULT_BODY_TEXTURE;
+        }
+
+        ResourceLocation parsed = ResourceLocation.tryParse(raw);
+        return parsed != null ? parsed : DEFAULT_BODY_TEXTURE;
+    }
+
+    public void setBodyTextureResource(ResourceLocation texture) {
+        if (texture == null) {
+            this.entityData.set(DATA_BODY_TEXTURE, "");
+            return;
+        }
+        this.entityData.set(DATA_BODY_TEXTURE, texture.toString());
+    }
+
+    private void ensureBodyTextureAssigned(ServerLevelAccessor levelAccessor) {
+        if (this.entityData.get(DATA_BODY_TEXTURE) != null && !this.entityData.get(DATA_BODY_TEXTURE).isEmpty()) {
+            return;
+        }
+
+        ResourceLocation chosen = pickSpawnBodyTexture(levelAccessor, this.blockPosition());
+        setBodyTextureResource(chosen);
+    }
+
+    private ResourceLocation pickSpawnBodyTexture(ServerLevelAccessor accessor, BlockPos pos) {
+        // 10% bonus, 5% "different biome", otherwise current biome.
+        float roll = this.getRandom().nextFloat();
+        if (roll < 0.10F && !BONUS_BODY_TEXTURES.isEmpty()) {
+            return BONUS_BODY_TEXTURES.get(this.getRandom().nextInt(BONUS_BODY_TEXTURES.size()));
+        }
+
+        ResourceLocation currentBiome = getBiomeBodyTexture(accessor, pos);
+        if (roll < 0.15F && !WAYFALL_BIOME_BODY_TEXTURES.isEmpty()) {
+            // Pick a different Wayfall biome texture (fallback to current if identical).
+            for (int i = 0; i < 6; i++) {
+                ResourceLocation candidate = WAYFALL_BIOME_BODY_TEXTURES.get(this.getRandom().nextInt(WAYFALL_BIOME_BODY_TEXTURES.size()));
+                if (!candidate.equals(currentBiome)) {
+                    return candidate;
+                }
+            }
+        }
+
+        return currentBiome;
+    }
+
+    private static ResourceLocation getBiomeBodyTexture(ServerLevelAccessor accessor, BlockPos pos) {
+        var biomeKey = accessor.getBiome(pos).unwrapKey().orElse(null);
+        if (biomeKey == null) {
+            return DEFAULT_BODY_TEXTURE;
+        }
+
+        ResourceLocation biomeId = biomeKey.location();
+        if (!Kruemblegard.MOD_ID.equals(biomeId.getNamespace())) {
+            return DEFAULT_BODY_TEXTURE;
+        }
+
+        String path = biomeId.getPath();
+        if (!WAYFALL_BIOME_TEXTURE_PATHS.contains(path)) {
+            return DEFAULT_BODY_TEXTURE;
+        }
+
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/cephalari/cephalari_" + path + ".png"
+        );
     }
 
     public Temperament getTemperament() {
@@ -263,6 +384,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         if (level instanceof ServerLevel) {
             ensureTemperamentAssigned();
+            ensureBodyTextureAssigned(level);
             if (!this.isBaby()) {
                 ensureAdultMountAppearance();
                 if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
@@ -280,6 +402,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
         tag.putInt(NBT_ADULT_MOUNT_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_VARIANT));
         tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
         tag.putInt(NBT_TEMPERAMENT, this.entityData.get(DATA_TEMPERAMENT));
+        String bodyTex = this.entityData.get(DATA_BODY_TEXTURE);
+        if (bodyTex != null && !bodyTex.isEmpty()) {
+            tag.putString(NBT_BODY_TEXTURE, bodyTex);
+        }
     }
 
     @Override
@@ -307,6 +433,15 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 raw = Temperament.CALM.ordinal();
             }
             this.entityData.set(DATA_TEMPERAMENT, raw);
+        }
+
+        if (tag.contains(NBT_BODY_TEXTURE)) {
+            String raw = tag.getString(NBT_BODY_TEXTURE);
+            if (raw != null && !raw.isEmpty() && ResourceLocation.tryParse(raw) != null) {
+                this.entityData.set(DATA_BODY_TEXTURE, raw);
+            } else {
+                this.entityData.set(DATA_BODY_TEXTURE, "");
+            }
         }
     }
 
@@ -718,8 +853,45 @@ public class CephalariEntity extends Villager implements GeoEntity {
         if (baby != null) {
             VillagerData data = this.getVillagerData();
             baby.setVillagerData(new VillagerData(data.getType(), VillagerProfession.NONE, 1));
+
+            ResourceLocation babyTexture = pickOffspringBodyTexture(level, (CephalariEntity) otherParent, this.blockPosition());
+            baby.setBodyTextureResource(babyTexture);
         }
         return baby;
+    }
+
+    private ResourceLocation pickOffspringBodyTexture(ServerLevel level, CephalariEntity otherParent, BlockPos pos) {
+        // 10% chance: completely random texture (biome or bonus).
+        if (this.getRandom().nextFloat() < 0.10F) {
+            return pickAnyBodyTexture(level, pos);
+        }
+
+        float roll = this.getRandom().nextFloat();
+        if (roll < 0.25F) {
+            return this.getBodyTextureResource();
+        }
+        if (roll < 0.50F) {
+            return otherParent.getBodyTextureResource();
+        }
+
+        // 50%: current biome texture (no bonus/off-biome overrides).
+        return getBiomeBodyTexture(level, pos);
+    }
+
+    private ResourceLocation pickAnyBodyTexture(ServerLevelAccessor accessor, BlockPos pos) {
+        // Mix biome + bonus pools; fall back to biome-derived.
+        int biomeCount = WAYFALL_BIOME_BODY_TEXTURES.size();
+        int bonusCount = BONUS_BODY_TEXTURES.size();
+        int total = biomeCount + bonusCount;
+        if (total <= 0) {
+            return getBiomeBodyTexture(accessor, pos);
+        }
+
+        int pick = this.getRandom().nextInt(total);
+        if (pick < biomeCount) {
+            return WAYFALL_BIOME_BODY_TEXTURES.get(pick);
+        }
+        return BONUS_BODY_TEXTURES.get(pick - biomeCount);
     }
 
     /**

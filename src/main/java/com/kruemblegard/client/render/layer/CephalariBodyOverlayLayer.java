@@ -1,6 +1,5 @@
 package com.kruemblegard.client.render.layer;
 
-import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.CephalariEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,11 +17,6 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * Renders the Cephalari body texture over the mount base texture for adult Cephalari.
  */
 public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEntity> {
-
-    private static final ResourceLocation CEPHALARI_OVERLAY = new ResourceLocation(
-        Kruemblegard.MOD_ID,
-        "textures/entity/cephalari/cephalari.png"
-    );
 
     public CephalariBodyOverlayLayer(GeoRenderer<CephalariEntity> renderer) {
         super(renderer);
@@ -44,7 +38,8 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
             return;
         }
 
-        RenderType overlayType = RenderType.entityCutoutNoCull(CEPHALARI_OVERLAY);
+        ResourceLocation overlayTexture = animatable.getBodyTextureResource();
+        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
         super.render(poseStack, animatable, bakedModel, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
     }

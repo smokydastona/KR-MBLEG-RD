@@ -21,7 +21,7 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
         if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
-            return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/cephalari/cephalari_zombie.png");
+            return animatable.getBodyTextureResource();
         }
 
         return new ResourceLocation(

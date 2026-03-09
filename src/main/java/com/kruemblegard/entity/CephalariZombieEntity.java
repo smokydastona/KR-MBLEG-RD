@@ -1,5 +1,6 @@
 package com.kruemblegard.entity;
 
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.entity.mount.CephalariMounts;
 import com.kruemblegard.registry.ModParticles;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,6 +42,23 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * but swaps the cured result to {@link CephalariEntity}.
  */
 public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
+
+    private static final ResourceLocation TEXTURE_ZOMBIE = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari_zombie/cephalari_zombie.png"
+    );
+    private static final ResourceLocation TEXTURE_HUSK = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari_zombie/cephalari_husk.png"
+    );
+    private static final ResourceLocation TEXTURE_DROWNED = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari_zombie/cephalari_drown.png"
+    );
+    private static final ResourceLocation TEXTURE_DROWNED_OUTER = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari_zombie/cephalari_drowned_outer_layer.png"
+    );
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_zombie.walk");
@@ -89,6 +108,23 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     public int getAdultMountTextureVariant() {
         return this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
+    }
+
+    public boolean isDrownedVariant() {
+        return !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == 3;
+    }
+
+    public ResourceLocation getBodyTextureResource() {
+        int variant = this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT);
+        return switch (variant) {
+            case 2 -> TEXTURE_HUSK;
+            case 3 -> TEXTURE_DROWNED;
+            default -> TEXTURE_ZOMBIE;
+        };
+    }
+
+    public ResourceLocation getDrownedOuterTextureResource() {
+        return TEXTURE_DROWNED_OUTER;
     }
 
     public void setAdultZombieVariant(int variant) {

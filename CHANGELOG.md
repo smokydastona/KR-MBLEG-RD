@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1174 (2026-03-08)
+- Feature(cephalari): add biome-based body texture variants (spawn-time selection; bred babies inherit from parents/current biome with a small random chance).
+- Feature(cephalari_zombie): add a drowned-style outer overlay layer for the drowned zombified variant.
+
 ## 1.0.1169 (2026-03-07)
 
 ## 1.0.1170 (2026-03-07)
