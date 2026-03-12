@@ -37,7 +37,9 @@ public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<Cepha
         int packedLight,
         int packedOverlay
     ) {
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        // Outer overlay should render for all non-baby zombified Cephalari.
+        // (Geo variant / adult-appearance selection is independent from the texture scheme.)
+        if (animatable.isBaby()) {
             return;
         }
 

@@ -49,7 +49,16 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
         "finger_left",
         "finger_right",
         "leg_left",
-        "leg_right"
+        "leg_right",
+
+        // Some adult geo variants include vanilla zombie-style bones.
+        // Include these so profession/badge overlays still render.
+        "body",
+        "head2",
+        "right_arm",
+        "left_arm",
+        "right_leg",
+        "left_leg"
     );
 
     public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
