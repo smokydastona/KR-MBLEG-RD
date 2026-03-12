@@ -10,12 +10,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
     @Override
     public ResourceLocation getModelResource(CephalariZombieEntity animatable) {
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
-            return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
-        }
-
-        int variant = animatable.getAdultZombieVariant();
-        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie_" + variant + ".geo.json");
+        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
     }
 
     @Override
