@@ -25,6 +25,8 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -152,6 +154,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private int zombifyTicks = 0;
     private @Nullable String zombifyStoredMountId;
     private int zombifyZombieVariant = 1;
+    private int zombifyBodyTextureType = 1;
     private boolean zombifyMountSpawned = false;
 
     private boolean forwardingLinkedDamage = false;
@@ -712,7 +715,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 }
 
                 if (shouldConvert) {
-                    startZombifySequence(serverLevel);
+                    startZombifySequence(serverLevel, (Zombie) attacker);
                     // Cancel the lethal hit; the sequence will handle the swap.
                     return false;
                 }
@@ -774,7 +777,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         }
     }
 
-    private void startZombifySequence(ServerLevel serverLevel) {
+    private void startZombifySequence(ServerLevel serverLevel, Zombie attacker) {
         if (zombifyInProgress) {
             return;
         }
@@ -791,6 +794,15 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         // During conversion, pick a zombie mount-variant for the adult model (1..5).
         zombifyZombieVariant = 1 + serverLevel.getRandom().nextInt(5);
+
+        // Select which zombified body texture to use (independent from the geo variant).
+        if (attacker instanceof Husk) {
+            zombifyBodyTextureType = 2;
+        } else if (attacker instanceof Drowned) {
+            zombifyBodyTextureType = 3;
+        } else {
+            zombifyBodyTextureType = 1;
+        }
 
         setNoAi(true);
         getNavigation().stop();
@@ -836,6 +848,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 }
 
                 zombie.setAdultZombieVariant(zombifyZombieVariant);
+                zombie.setBodyTextureType(zombifyBodyTextureType);
                 zombie.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
 
                 serverLevel.addFreshEntity(zombie);

@@ -68,13 +68,23 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_zombie.hurt");
 
     private static final String NBT_ADULT_ZOMBIE_VARIANT = "KruemblegardCephalariZombieAdultVariant";
+    private static final String NBT_BODY_TEXTURE_TYPE = "KruemblegardCephalariZombieBodyTextureType";
     private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultMountTextureVariant";
 
     private static final int NO_ZOMBIE_VARIANT = -1;
     private static final int ZOMBIE_VARIANTS = 5;
+
+    // Body texture selection is independent from the geo variant.
+    // 1=zombie, 2=husk, 3=drowned
+    private static final int BODY_TEXTURE_ZOMBIE = 1;
+    private static final int BODY_TEXTURE_HUSK = 2;
+    private static final int BODY_TEXTURE_DROWNED = 3;
+    private static final int BODY_TEXTURE_TYPES = 3;
     private static final int MOUNT_TEXTURE_VARIANTS = 6;
 
     private static final EntityDataAccessor<Integer> DATA_ADULT_ZOMBIE_VARIANT =
+        SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_BODY_TEXTURE_TYPE =
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_TEXTURE_VARIANT =
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
@@ -94,6 +104,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         super.defineSynchedData();
         // 1..ZOMBIE_VARIANTS, or -1 for none (babies)
         this.entityData.define(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
+        // 1..BODY_TEXTURE_TYPES
+        this.entityData.define(DATA_BODY_TEXTURE_TYPE, BODY_TEXTURE_ZOMBIE);
         // 1..MOUNT_TEXTURE_VARIANTS (base layer)
         this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
     }
@@ -110,15 +122,19 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         return this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
     }
 
+    public int getBodyTextureType() {
+        return this.entityData.get(DATA_BODY_TEXTURE_TYPE);
+    }
+
     public boolean isDrownedVariant() {
-        return !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == 3;
+        return !this.isBaby() && this.entityData.get(DATA_BODY_TEXTURE_TYPE) == BODY_TEXTURE_DROWNED;
     }
 
     public ResourceLocation getBodyTextureResource() {
-        int variant = this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT);
-        return switch (variant) {
-            case 2 -> TEXTURE_HUSK;
-            case 3 -> TEXTURE_DROWNED;
+        int type = this.entityData.get(DATA_BODY_TEXTURE_TYPE);
+        return switch (type) {
+            case BODY_TEXTURE_HUSK -> TEXTURE_HUSK;
+            case BODY_TEXTURE_DROWNED -> TEXTURE_DROWNED;
             default -> TEXTURE_ZOMBIE;
         };
     }
@@ -130,6 +146,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     public void setAdultZombieVariant(int variant) {
         int clamped = Math.max(1, Math.min(ZOMBIE_VARIANTS, variant));
         this.entityData.set(DATA_ADULT_ZOMBIE_VARIANT, clamped);
+    }
+
+    public void setBodyTextureType(int type) {
+        int clamped = Math.max(1, Math.min(BODY_TEXTURE_TYPES, type));
+        this.entityData.set(DATA_BODY_TEXTURE_TYPE, clamped);
     }
 
     public void setAdultMountTextureVariant(int variant) {
@@ -145,6 +166,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
         if (this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == NO_ZOMBIE_VARIANT) {
             setAdultZombieVariant(1 + this.getRandom().nextInt(ZOMBIE_VARIANTS));
+        }
+
+        int bodyType = this.entityData.get(DATA_BODY_TEXTURE_TYPE);
+        if (bodyType < 1 || bodyType > BODY_TEXTURE_TYPES) {
+            setBodyTextureType(BODY_TEXTURE_ZOMBIE);
         }
 
         int tex = this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
@@ -219,6 +245,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt(NBT_ADULT_ZOMBIE_VARIANT, this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT));
+        tag.putInt(NBT_BODY_TEXTURE_TYPE, this.entityData.get(DATA_BODY_TEXTURE_TYPE));
         tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
     }
 
@@ -226,12 +253,29 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
+        boolean readLegacyVariant = false;
+        int legacyVariant = 1;
         if (tag.contains(NBT_ADULT_ZOMBIE_VARIANT)) {
             int variant = tag.getInt(NBT_ADULT_ZOMBIE_VARIANT);
             if (variant == NO_ZOMBIE_VARIANT) {
                 this.entityData.set(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
             } else {
                 setAdultZombieVariant(variant);
+            }
+            readLegacyVariant = true;
+            legacyVariant = variant;
+        }
+
+        // Newer saves store body texture selection explicitly; older saves inferred it from variant.
+        if (tag.contains(NBT_BODY_TEXTURE_TYPE)) {
+            setBodyTextureType(tag.getInt(NBT_BODY_TEXTURE_TYPE));
+        } else if (readLegacyVariant) {
+            if (legacyVariant == 2) {
+                setBodyTextureType(BODY_TEXTURE_HUSK);
+            } else if (legacyVariant == 3) {
+                setBodyTextureType(BODY_TEXTURE_DROWNED);
+            } else {
+                setBodyTextureType(BODY_TEXTURE_ZOMBIE);
             }
         }
 
@@ -273,20 +317,15 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 || mob instanceof Drowned
                 || mob instanceof ZombifiedPiglin
                 || mob instanceof Zoglin)) {
-            int variant;
-            if (mob instanceof Zombie) {
-                variant = 1;
-            } else if (mob instanceof Husk) {
-                variant = 2;
+            // Old worlds could have used the mount type as the "texture variant".
+            // Now: keep the existing geo variant, and only translate the mount type into a body texture type.
+            if (mob instanceof Husk) {
+                setBodyTextureType(BODY_TEXTURE_HUSK);
             } else if (mob instanceof Drowned) {
-                variant = 3;
-            } else if (mob instanceof ZombifiedPiglin) {
-                variant = 4;
+                setBodyTextureType(BODY_TEXTURE_DROWNED);
             } else {
-                variant = 5;
+                setBodyTextureType(BODY_TEXTURE_ZOMBIE);
             }
-
-            setAdultZombieVariant(variant);
             this.stopRiding();
             mob.discard();
         }

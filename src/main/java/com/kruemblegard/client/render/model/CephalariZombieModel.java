@@ -30,6 +30,8 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
+        // Zombified Cephalari always use Kruemblegard's dedicated zombified textures.
+        // (Adult "variant" selects the geo, not the texture.)
         return animatable.getBodyTextureResource();
     }
 
