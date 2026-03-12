@@ -38,7 +38,7 @@ public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<Cepha
         int packedOverlay
     ) {
         ResourceLocation outerTexture = animatable.getOuterTextureResource();
-        RenderType outerType = RenderType.entityTranslucent(outerTexture);
+        RenderType outerType = RenderType.entityCutoutNoCull(outerTexture);
         VertexConsumer outerBuffer = bufferSource.getBuffer(outerType);
         super.render(poseStack, animatable, bakedModel, outerType, bufferSource, outerBuffer, partialTick, packedLight, packedOverlay);
     }

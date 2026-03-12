@@ -28,7 +28,7 @@ public class CephalariZombieRenderer extends GeoEntityRenderer<CephalariZombieEn
         MultiBufferSource bufferSource,
         float partialTick
     ) {
-        // The zombified inner/outer textures rely on alpha; cutout can make them appear invisible.
-        return RenderType.entityTranslucent(texture);
+        // Explicitly use cutout/no-cull so alpha pixels render predictably with GeckoLib models.
+        return RenderType.entityCutoutNoCull(texture);
     }
 }
