@@ -27,6 +27,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari_zombie): decouple adult geo variants (1..5) from body texture type (zombie/husk/drowned) so husk/drowned textures can render on any geo variant.
 - Fix(cephalari_zombie): always use Kruemblegard zombified textures (no vanilla zombie/husk/drowned texture selection).
 - Fix(cephalari_zombie): select husk/drowned body texture based on the infecting mob (Husk/Drowned) during conversion.
+- Fix(cephalari_zombie): remove redundant full-body overlay render pass (base renderer already uses the selected zombified body texture).
 
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
