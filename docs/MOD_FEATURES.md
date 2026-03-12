@@ -351,7 +351,8 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json` (babies)
     - Geo (adult zombie variants): `assets/kruemblegard/geo/cephalari_zombie_1.geo.json` .. `_5.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
-    - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari.png` and `assets/kruemblegard/textures/entity/cephalari/cephalari_zombie.png`
+    - Textures (Cephalari): `assets/kruemblegard/textures/entity/cephalari/cephalari/*.png`
+    - Textures (Zombified Cephalari): `assets/kruemblegard/textures/entity/cephalari/cephalari_zombie/*.png`
   - Mount assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`

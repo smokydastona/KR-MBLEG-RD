@@ -20,14 +20,7 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
-            return animatable.getBodyTextureResource();
-        }
-
-        return new ResourceLocation(
-            Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
-        );
+        return animatable.getBodyTextureResource();
     }
 
     @Override

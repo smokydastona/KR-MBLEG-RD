@@ -13,6 +13,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1182 (2026-03-08)
 - Fix(cephalari_golem): villages now treat nearby `cephalari_golem` as an existing golem, preventing repeated extra golem spawn attempts.
 
+## 1.0.1183 (2026-03-11)
+- Fix(cephalari_zombie): stop stacking zombified textures (base now renders the selected zombified body texture directly; drowned outer overlay remains drowned-only).
+- Docs: update Cephalari/Zombified Cephalari texture path references.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 

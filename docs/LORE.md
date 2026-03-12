@@ -171,17 +171,11 @@ Three known variants exist:
 ### 10.1 Zombified Cephalari
 When a Cephalari is zombified:
 - Their original mount does NOT appear
-- Instead, they spawn riding a random zombie-type mob
-- This zombie mount does NOT despawn with the zombified Cephalari (it persists independently)
-- After the Cephalari dies, the zombie mount continues attacking independently
+- No separate zombie-type mount entity is spawned during conversion
+- Babies can spawn as jockeys on a small, random vanilla mount
 
-Eligible zombie mounts:
-- Zombie
-- Drowned
-- Husk
-- Zombified Piglin
-- Zoglin (natural spawns only; not allowed during conversion)
-- Any modded zombie-type mob (world-dependent)
+Note: earlier design drafts included a “random zombie-type mount” system for zombified Cephalari.
+The current implementation does **not** spawn a zombie-type mount entity.
 
 ### 10.2 Conversion Back to Cephalari
 When a zombified Cephalari is cured:
