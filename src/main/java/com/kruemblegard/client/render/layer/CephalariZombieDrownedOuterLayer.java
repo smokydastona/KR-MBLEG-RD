@@ -14,10 +14,10 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Extra outer layer for the "drowned" zombified Cephalari variant.
+ * Outer overlay layer for zombified Cephalari.
  *
- * This mimics vanilla Drowned's outer layer behavior by rendering an additional texture pass
- * over the base zombified texture.
+ * The base texture is the shared inner layer; this renders one of the three outer variants
+ * (zombie / husk / drowned) on top.
  */
 public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
@@ -41,11 +41,7 @@ public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<Cepha
             return;
         }
 
-        if (!animatable.isDrownedVariant()) {
-            return;
-        }
-
-        ResourceLocation outerTexture = animatable.getDrownedOuterTextureResource();
+        ResourceLocation outerTexture = animatable.getOuterTextureResource();
         RenderType outerType = RenderType.entityCutoutNoCull(outerTexture);
         VertexConsumer outerBuffer = bufferSource.getBuffer(outerType);
         super.render(poseStack, animatable, bakedModel, outerType, bufferSource, outerBuffer, partialTick, packedLight, packedOverlay);

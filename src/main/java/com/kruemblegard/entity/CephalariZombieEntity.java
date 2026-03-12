@@ -43,19 +43,20 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  */
 public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
-    private static final ResourceLocation TEXTURE_ZOMBIE = new ResourceLocation(
+    // Textures: one shared inner/base texture, plus an outer overlay variant.
+    private static final ResourceLocation TEXTURE_INNER = new ResourceLocation(
         Kruemblegard.MOD_ID,
-        "textures/entity/cephalari/cephalari_zombie/cephalari_zombie.png"
+        "textures/entity/cephalari/cephalari_zombie/cephalari_inner_layer.png"
     );
-    private static final ResourceLocation TEXTURE_HUSK = new ResourceLocation(
+    private static final ResourceLocation TEXTURE_OUTER_ZOMBIE = new ResourceLocation(
         Kruemblegard.MOD_ID,
-        "textures/entity/cephalari/cephalari_zombie/cephalari_husk.png"
+        "textures/entity/cephalari/cephalari_zombie/cephalari_zombie_outer_layer.png"
     );
-    private static final ResourceLocation TEXTURE_DROWNED = new ResourceLocation(
+    private static final ResourceLocation TEXTURE_OUTER_HUSK = new ResourceLocation(
         Kruemblegard.MOD_ID,
-        "textures/entity/cephalari/cephalari_zombie/cephalari_drown.png"
+        "textures/entity/cephalari/cephalari_zombie/cephalari_husk_outer_layer.png"
     );
-    private static final ResourceLocation TEXTURE_DROWNED_OUTER = new ResourceLocation(
+    private static final ResourceLocation TEXTURE_OUTER_DROWNED = new ResourceLocation(
         Kruemblegard.MOD_ID,
         "textures/entity/cephalari/cephalari_zombie/cephalari_drowned_outer_layer.png"
     );
@@ -131,16 +132,17 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     public ResourceLocation getBodyTextureResource() {
-        int type = this.entityData.get(DATA_BODY_TEXTURE_TYPE);
-        return switch (type) {
-            case BODY_TEXTURE_HUSK -> TEXTURE_HUSK;
-            case BODY_TEXTURE_DROWNED -> TEXTURE_DROWNED;
-            default -> TEXTURE_ZOMBIE;
-        };
+        // Base texture is always the shared inner layer.
+        return TEXTURE_INNER;
     }
 
-    public ResourceLocation getDrownedOuterTextureResource() {
-        return TEXTURE_DROWNED_OUTER;
+    public ResourceLocation getOuterTextureResource() {
+        int type = this.entityData.get(DATA_BODY_TEXTURE_TYPE);
+        return switch (type) {
+            case BODY_TEXTURE_HUSK -> TEXTURE_OUTER_HUSK;
+            case BODY_TEXTURE_DROWNED -> TEXTURE_OUTER_DROWNED;
+            default -> TEXTURE_OUTER_ZOMBIE;
+        };
     }
 
     public void setAdultZombieVariant(int variant) {
