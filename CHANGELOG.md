@@ -20,6 +20,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1184 (2026-03-11)
 - Fix(cephalari_zombie): disable broken adult geo variants and always use `cephalari_zombie.geo.json` (prevents invisibility/culling and restores animations).
 
+## 1.0.1185 (2026-03-11)
+- Fix(cephalari_zombie): re-enable adult geo variants with a safe fallback, and animate the vanilla zombie bones used by adult variants so they walk/attack like vanilla zombies.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
