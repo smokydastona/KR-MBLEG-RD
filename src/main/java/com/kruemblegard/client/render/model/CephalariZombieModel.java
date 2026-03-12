@@ -30,17 +30,9 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
-        // Base pass:
-        // - Babies (or any non-mount appearance path) use the inner texture directly.
-        // - Adults with mount appearance render the mount base texture, then layers add inner+outer.
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
-            return animatable.getBodyTextureResource();
-        }
-
-        return new ResourceLocation(
-            Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
-        );
+        // Base pass always uses the shared inner layer texture.
+        // Outer variant + profession/badge are rendered via render layers.
+        return animatable.getBodyTextureResource();
     }
 
     @Override
