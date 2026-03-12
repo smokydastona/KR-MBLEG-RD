@@ -29,6 +29,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari_zombie): select husk/drowned body texture based on the infecting mob (Husk/Drowned) during conversion.
 - Fix(cephalari_zombie): remove redundant full-body overlay render pass (base renderer already uses the selected zombified body texture).
 - Fix(cephalari_zombie): update zombified texture wiring to the renamed set: `cephalari_inner_layer.png` base + one of `cephalari_zombie_outer_layer.png` / `cephalari_husk_outer_layer.png` / `cephalari_drowned_outer_layer.png`.
+- Fix(cephalari_zombie): restore adult mount base texture rendering and layer inner+outer zombified textures on top (prevents invisibility when overlay textures contain transparency).
 
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
