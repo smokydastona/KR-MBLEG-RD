@@ -38,6 +38,9 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
     private static final java.util.Map<ResourceLocation, java.util.Optional<ResourceLocation>> PROFESSION_TEXTURE_CACHE =
         new java.util.concurrent.ConcurrentHashMap<>();
 
+    private static final java.util.Map<String, java.util.Optional<ResourceLocation>> PROFESSION_LEVEL_TEXTURE_CACHE =
+        new java.util.concurrent.ConcurrentHashMap<>();
+
     public CephalariProfessionLayer(GeoRenderer<CephalariEntity> renderer) {
         super(renderer);
     }
@@ -126,7 +129,12 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         }
 
         // Badge overlay: render only on the dedicated profession_level bone.
-        ResourceLocation levelTexture = getProfessionLevelTexture(data.getLevel());
+        ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+        if (professionId == null) {
+            return;
+        }
+
+        ResourceLocation levelTexture = getProfessionLevelTexture(professionId, data.getLevel());
         if (levelTexture == null) {
             return;
         }
@@ -158,7 +166,7 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         return false;
     }
 
-    private static @Nullable ResourceLocation getProfessionLevelTexture(int level) {
+    private static @Nullable ResourceLocation getProfessionLevelTexture(ResourceLocation professionId, int level) {
         int clamped = Math.max(1, Math.min(5, level));
         String badge = switch (clamped) {
             case 1 -> "stone";
@@ -169,7 +177,19 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             default -> "stone";
         };
 
-        return new ResourceLocation("minecraft", "textures/entity/villager/profession_level/" + badge + ".png");
+        String cacheKey = professionId.getNamespace() + "|" + badge;
+        return PROFESSION_LEVEL_TEXTURE_CACHE
+            .computeIfAbsent(
+                cacheKey,
+                key -> java.util.Optional.ofNullable(
+                    resolveProfessionTexture(
+                        professionId,
+                        "textures/entity/villager/profession_level/" + badge + ".png",
+                        new ResourceLocation("minecraft", "textures/entity/villager/profession_level/" + badge + ".png")
+                    )
+                )
+            )
+            .orElse(null);
     }
 
     private static @Nullable ResourceLocation resolveProfessionTexture(ResourceLocation professionId, String path, ResourceLocation vanillaFallback) {
