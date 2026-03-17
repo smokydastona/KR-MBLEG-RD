@@ -7,6 +7,7 @@ import com.kruemblegard.entity.CephalariEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,6 +36,9 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
     private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
         "profession"
     );
+
+    private static final java.util.Map<ResourceLocation, java.util.Optional<ResourceLocation>> PROFESSION_TEXTURE_CACHE =
+        new java.util.concurrent.ConcurrentHashMap<>();
 
     public CephalariProfessionLayer(GeoRenderer<CephalariEntity> renderer) {
         super(renderer);
@@ -89,10 +93,22 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
         ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
         if (professionId != null) {
-            ResourceLocation professionTexture = new ResourceLocation(
-                "minecraft",
-                "textures/entity/villager/profession/" + professionId.getPath() + ".png"
-            );
+            ResourceLocation professionTexture = PROFESSION_TEXTURE_CACHE
+                .computeIfAbsent(
+                    professionId,
+                    id -> java.util.Optional.ofNullable(
+                        resolveProfessionTexture(
+                            id,
+                            "textures/entity/villager/profession/" + id.getPath() + ".png",
+                            new ResourceLocation("minecraft", "textures/entity/villager/profession/" + id.getPath() + ".png")
+                        )
+                    )
+                )
+                .orElse(null);
+
+            if (professionTexture == null) {
+                return;
+            }
 
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
@@ -141,5 +157,25 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         };
 
         return new ResourceLocation("minecraft", "textures/entity/villager/profession_level/" + badge + ".png");
+    }
+
+    private static @Nullable ResourceLocation resolveProfessionTexture(ResourceLocation professionId, String path, ResourceLocation vanillaFallback) {
+        // Prefer a mod-provided texture under the profession's namespace.
+        ResourceLocation namespaced = new ResourceLocation(professionId.getNamespace(), path);
+        if (resourceExists(namespaced)) {
+            return namespaced;
+        }
+
+        // Then try the vanilla path as a fallback.
+        if (resourceExists(vanillaFallback)) {
+            return vanillaFallback;
+        }
+
+        // No texture found: skip overlay rather than rendering a missing-texture placeholder.
+        return null;
+    }
+
+    private static boolean resourceExists(ResourceLocation location) {
+        return Minecraft.getInstance().getResourceManager().getResource(location).isPresent();
     }
 }
