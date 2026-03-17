@@ -32,6 +32,7 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
     private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_HAT_BONE = "profession_hat";
     private static final String PROFESSION_LEVEL_BONE = "profession_level";
 
     private static final java.util.Map<ResourceLocation, java.util.Optional<ResourceLocation>> PROFESSION_TEXTURE_CACHE =
@@ -73,8 +74,9 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         }
 
         boolean isProfessionBone = PROFESSION_BONE.equals(bone.getName());
+        boolean isProfessionHatBone = PROFESSION_HAT_BONE.equals(bone.getName());
         boolean isProfessionLevelBone = PROFESSION_LEVEL_BONE.equals(bone.getName());
-        if (!isProfessionBone && !isProfessionLevelBone) {
+        if (!isProfessionBone && !isProfessionHatBone && !isProfessionLevelBone) {
             return;
         }
 
@@ -94,7 +96,7 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             return;
         }
 
-        if (isProfessionBone) {
+        if (isProfessionBone || isProfessionHatBone) {
             ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
             if (professionId == null) {
                 return;
