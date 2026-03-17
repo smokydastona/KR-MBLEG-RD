@@ -65,6 +65,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari): allow profession overlay textures to be provided by modded professions (prefer profession namespace; fallback to vanilla; skip if neither exists).
 - Fix(cephalari_zombie): allow zombie-villager profession overlay textures to be provided by modded professions (prefer profession namespace; fallback to vanilla; skip if neither exists).
 
+## 1.0.1211 (2026-03-17)
+- Fix(cephalari): split profession vs badge overlays onto separate dedicated bones (`profession` and `profession_level`) across base + adult mounts, matching `spiral_strider` layout.
+- Fix(cephalari_zombie): split profession vs badge overlays onto separate dedicated bones (`profession` and `profession_level`) across base + all adult zombie variants.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 

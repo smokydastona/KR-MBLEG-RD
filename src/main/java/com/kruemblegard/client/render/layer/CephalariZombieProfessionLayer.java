@@ -29,11 +29,8 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  */
 public final class CephalariZombieProfessionLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
-    // Profession/badge overlays should only apply to dedicated profession-only bones.
-    // Do NOT paint shell/mouth/limbs with villager overlays.
-    private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        "profession"
-    );
+    private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_LEVEL_BONE = "profession_level";
 
     private static final java.util.Map<ResourceLocation, java.util.Optional<ResourceLocation>> PROFESSION_TEXTURE_CACHE =
         new java.util.concurrent.ConcurrentHashMap<>();
@@ -69,7 +66,13 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
         int packedLight,
         int packedOverlay
     ) {
-        if (bone == null || !PROFESSION_BONES.contains(bone.getName())) {
+        if (bone == null) {
+            return;
+        }
+
+        boolean isProfessionBone = PROFESSION_BONE.equals(bone.getName());
+        boolean isProfessionLevelBone = PROFESSION_LEVEL_BONE.equals(bone.getName());
+        if (!isProfessionBone && !isProfessionLevelBone) {
             return;
         }
 
@@ -83,8 +86,12 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
             return;
         }
 
-        ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
-        if (professionId != null) {
+        if (isProfessionBone) {
+            ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+            if (professionId == null) {
+                return;
+            }
+
             ResourceLocation professionTexture = PROFESSION_TEXTURE_CACHE
                 .computeIfAbsent(
                     professionId,
@@ -105,14 +112,17 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
             super.renderForBone(poseStack, animatable, bone, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
+            return;
         }
 
         ResourceLocation levelTexture = getProfessionLevelTexture(data.getLevel());
-        if (levelTexture != null) {
-            RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
-            VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
-            super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
+        if (levelTexture == null) {
+            return;
         }
+
+        RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
+        VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
+        super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(int level) {

@@ -31,11 +31,8 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
-    // Profession/badge overlays should only apply to the dedicated profession-only bones.
-    // This prevents painting shell/mouth/limbs (and, for adult mounts, any mount bones).
-    private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        "profession"
-    );
+    private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_LEVEL_BONE = "profession_level";
 
     private static final java.util.Map<ResourceLocation, java.util.Optional<ResourceLocation>> PROFESSION_TEXTURE_CACHE =
         new java.util.concurrent.ConcurrentHashMap<>();
@@ -71,7 +68,13 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
         int packedLight,
         int packedOverlay
     ) {
-        if (bone == null || !PROFESSION_BONES.contains(bone.getName())) {
+        if (bone == null) {
+            return;
+        }
+
+        boolean isProfessionBone = PROFESSION_BONE.equals(bone.getName());
+        boolean isProfessionLevelBone = PROFESSION_LEVEL_BONE.equals(bone.getName());
+        if (!isProfessionBone && !isProfessionLevelBone) {
             return;
         }
 
@@ -91,8 +94,12 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             return;
         }
 
-        ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
-        if (professionId != null) {
+        if (isProfessionBone) {
+            ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+            if (professionId == null) {
+                return;
+            }
+
             ResourceLocation professionTexture = PROFESSION_TEXTURE_CACHE
                 .computeIfAbsent(
                     professionId,
@@ -113,14 +120,18 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
             super.renderForBone(poseStack, animatable, bone, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
+            return;
         }
 
+        // Badge overlay: render only on the dedicated profession_level bone.
         ResourceLocation levelTexture = getProfessionLevelTexture(data.getLevel());
-        if (levelTexture != null) {
-            RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
-            VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
-            super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
+        if (levelTexture == null) {
+            return;
         }
+
+        RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
+        VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
+        super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
     }
 
     private static boolean isInCephalariSubtree(GeoBone bone) {

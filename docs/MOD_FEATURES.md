@@ -346,7 +346,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Baby zombies: baby Zombified Cephalari always spawn as a jockey (guaranteed random mount).
     - Drowned visual: the drowned variant renders a vanilla Drowned-style outer overlay layer.
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
-  - Visual: when a Cephalari has a profession, it renders the vanilla villager profession + level badge overlay textures (and the zombified form uses the zombie-villager overlay set).
+  - Visual: when a Cephalari has a profession, it renders the vanilla villager profession overlay on the dedicated `profession` geo bone and the level badge overlay on the dedicated `profession_level` geo bone (zombified form uses the zombie-villager overlay set).
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json` (babies)
     - Geo (adult zombie variants): `assets/kruemblegard/geo/cephalari_zombie_1.geo.json` .. `_5.geo.json`

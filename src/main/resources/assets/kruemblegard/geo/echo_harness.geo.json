@@ -23,46 +23,40 @@
 						{"origin": [-4, 14, -1], "size": [8, 5, 4], "uv": [94, 64]},
 						{"origin": [-6, 12, -4], "size": [12, 6, 8], "uv": [88, 60]},
 						{"origin": [4.5, 12, -1], "size": [1, 14, 3], "uv": [104, 65]},
-						{"origin": [4.7, 24.4, -0.8], "size": [2.3, 1, 1], "uv": [109, 69]},
-						{"origin": [-5.5, 12, -1], "size": [1, 14, 3], "uv": [104, 65], "mirror": true},
-						{"origin": [-7, 24.4, -0.8], "size": [2.3, 1, 1], "uv": [109, 69], "mirror": true}
-					]
-				},
-				{
-					"name": "arm_left",
-					"parent": "torso",
-					"pivot": [6, 22, 0],
-					"cubes": [
-						{"origin": [6, 14, -2], "size": [4, 12, 4], "uv": [31, 81]}
-					]
-				},
 				{
 					"name": "arm_right",
 					"parent": "torso",
 					"pivot": [-6, 22, 0],
-					"cubes": [
-						{"origin": [-10, 14, -2], "size": [4, 12, 4], "uv": [18, 87]}
-					]
-				},
-				{
-					"name": "leg_left",
-					"parent": "torso",
-					"pivot": [3, 12, 0],
-					"cubes": [
-						{"origin": [2, 0, -2], "size": [4, 12, 4], "uv": [71, 33]}
-					]
-				},
-				{
-					"name": "leg_right",
-					"parent": "torso",
-					"pivot": [-3, 12, 0],
-					"cubes": [
-						{"origin": [-6, 0, -2], "size": [4, 12, 4], "uv": [76, 32]}
-					]
+									"north": {"uv": [42, 90], "uv_size": [14, 38]},
+									"east": {"uv": [40, 86], "uv_size": [-40, 42]},
+									"south": {"uv": [98, 8], "uv_size": [14, 22]},
+									"west": {"uv": [0, 86], "uv_size": [40, 42]},
+									"up": {"uv": [40, 78], "uv_size": [-40, 7.8], "uv_rotation": 90},
+									"down": {"uv": [62, 34], "uv_size": [-14, -8]}
 				},
 				{
 					"name": "cephalari",
 					"parent": "root",
+					{
+						"name": "profession_level",
+						"parent": "shell",
+						"pivot": [0, 22.32, -1.92],
+						"cubes": [
+							{
+								"origin": [-3.04, 23.96, -1.74],
+								"size": [6.08, 0.56, 1.2],
+								"inflate": 0.011,
+								"uv": {
+									"north": {"uv": [41, 11], "uv_size": [-7, -4]},
+									"east": {"uv": [34, 46], "uv_size": [19.9, 8]},
+									"south": {"uv": [18, 46], "uv_size": [18, 8]},
+									"west": {"uv": [0, 46], "uv_size": [20, 8]},
+									"up": {"uv": [48, 43], "uv_size": [5, 0]},
+									"down": {"uv": [34, 30], "uv_size": [14, 16]}
+								}
+							}
+						]
+					},
 					"pivot": [0, 24, 0]
 				},
 				{
