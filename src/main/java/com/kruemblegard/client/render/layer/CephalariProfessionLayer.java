@@ -30,13 +30,10 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
-    // Profession/badge overlays should only apply to the dedicated body/torso bones.
-    // Everything else (shell, mouth, limbs) should not be painted by villager overlays.
+    // Profession/badge overlays should only apply to the dedicated profession-only bones.
+    // This prevents painting shell/mouth/limbs (and, for adult mounts, any mount bones).
     private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        // Cephalari-style torso
-        "body2",
-        // Some variant rigs may include a vanilla-style torso
-        "body"
+        "profession_body2"
     );
 
     public CephalariProfessionLayer(GeoRenderer<CephalariEntity> renderer) {

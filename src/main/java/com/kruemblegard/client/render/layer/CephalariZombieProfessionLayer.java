@@ -28,13 +28,10 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  */
 public final class CephalariZombieProfessionLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
-    // Profession/badge overlays should only apply to dedicated body/torso bones.
+    // Profession/badge overlays should only apply to dedicated profession-only bones.
     // Do NOT paint shell/mouth/limbs with villager overlays.
     private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        // Cephalari-style torso
-        "body2",
-        // Some adult geo variants include a vanilla zombie-style torso.
-        "body"
+        "profession_body2"
     );
 
     public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
