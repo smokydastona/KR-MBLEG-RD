@@ -28,37 +28,13 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  */
 public final class CephalariZombieProfessionLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
-    private static final java.util.Set<String> CEPHALARI_BONES = java.util.Set.of(
-        "root",
-        "head",
-        "shell",
+    // Profession/badge overlays should only apply to dedicated body/torso bones.
+    // Do NOT paint shell/mouth/limbs with villager overlays.
+    private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
+        // Cephalari-style torso
         "body2",
-        "upper_mouth",
-        "inner_mouth",
-        "lower_mouth",
-        "arm_left",
-        "arm_right",
-        "arm_left2",
-        "arm_right2",
-        "middle_arm_left",
-        "middle_arm_right",
-        "middle_finger_left",
-        "middle_finger_right",
-        "little_arm_left",
-        "little_arm_right",
-        "finger_left",
-        "finger_right",
-        "leg_left",
-        "leg_right",
-
-        // Some adult geo variants include vanilla zombie-style bones.
-        // Include these so profession/badge overlays still render.
-        "body",
-        "head2",
-        "right_arm",
-        "left_arm",
-        "right_leg",
-        "left_leg"
+        // Some adult geo variants include a vanilla zombie-style torso.
+        "body"
     );
 
     public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
@@ -92,7 +68,7 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
         int packedLight,
         int packedOverlay
     ) {
-        if (bone == null || !CEPHALARI_BONES.contains(bone.getName())) {
+        if (bone == null || !PROFESSION_BONES.contains(bone.getName())) {
             return;
         }
 

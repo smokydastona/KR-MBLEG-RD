@@ -44,6 +44,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1199 (2026-03-17)
 - Fix(cephalari_zombie): give each adult zombified Cephalari geo variant a unique geometry identifier to avoid GeckoLib treating multiple files as the same model at runtime (Blockbench preview was correct, but in-game variants could resolve/collapse incorrectly).
 
+## 1.0.1200 (2026-03-17)
+- Fix(cephalari): restrict villager profession + badge overlays to the dedicated torso bones only (prevents profession textures painting shell/mouth/limbs).
+- Fix(cephalari_zombie): restrict zombie villager profession + badge overlays to the dedicated torso bones only.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
