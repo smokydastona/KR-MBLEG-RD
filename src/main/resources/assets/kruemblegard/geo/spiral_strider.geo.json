@@ -530,7 +530,7 @@
 				},
 				{
 					"name": "profession",
-					"parent": "head",
+					"parent": "shell",
 					"pivot": [0, 20.43, 1.146],
 					"cubes": [
 						{
