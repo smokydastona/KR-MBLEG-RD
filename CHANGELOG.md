@@ -41,6 +41,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1198 (2026-03-17)
 - Fix(cephalari_zombie): re-align UV parity for `cephalari_zombie` and `cephalari_zombie_5` after follow-up edits (both now match `cephalari_zombie_4.geo.json`).
 
+## 1.0.1199 (2026-03-17)
+- Fix(cephalari_zombie): give each adult zombified Cephalari geo variant a unique geometry identifier to avoid GeckoLib treating multiple files as the same model at runtime (Blockbench preview was correct, but in-game variants could resolve/collapse incorrectly).
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
