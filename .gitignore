@@ -45,6 +45,7 @@ tools/**
 !tools/*.ps1
 !tools/*.md
 !tools/generate_cephalari_engineering_assets.py
+!tools/compare_profession_geo_to_spiral_strider.py
 
 
 # Eclipse / IDE metadata

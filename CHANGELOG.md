@@ -74,6 +74,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari_zombie): add `profession_hat` and render zombie-villager profession overlays on both `profession` and `profession_hat` (badge remains `profession_level`).
 - Fix(assets): repair corrupted Cephalari geo JSON files that could fail to load.
 
+## 1.0.1213 (2026-03-17)
+- Fix(assets): align Cephalari profession + badge overlay UVs across all related geo files to match `spiral_strider.geo.json`.
+- Dev(tools): add a validator script to diff profession-related bones/UVs against the `spiral_strider` reference.
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
