@@ -519,8 +519,36 @@
 				},
 				{
 					"name": "profession_hat",
-					"parent": "shell",
-					"pivot": [0, 22.32, -1.92]
+					"parent": "profession",
+					"pivot": [0, 1, 0],
+					"cubes": [
+						{
+							"origin": [-3.14, 26.52, -1.96],
+							"size": [6.18, 1, 6.92],
+							"inflate": 0.011,
+							"uv": {
+								"north": {"uv": [80, 16], "uv_size": [16, 7.8]},
+								"east": {"uv": [96, 16], "uv_size": [16, 7.8]},
+								"south": {"uv": [80, 15.8], "uv_size": [16, -15.8], "uv_rotation": 90},
+								"west": {"uv": [64, 16], "uv_size": [16, 7.8]},
+								"up": {"uv": [96, 0], "uv_size": [-16, 15.8]},
+								"down": {"uv": [112, 0], "uv_size": [-16, 15.8], "uv_rotation": 90}
+							}
+						},
+						{
+							"origin": [-4.14, 26.52, -2.96],
+							"size": [8.18, 0, 8.92],
+							"inflate": 0.011,
+							"uv": {
+								"north": {"uv": [42, 90], "uv_size": [14, 38]},
+								"east": {"uv": [40, 86], "uv_size": [-40, 42]},
+								"south": {"uv": [98, 8], "uv_size": [14, 22]},
+								"west": {"uv": [0, 86], "uv_size": [40, 42]},
+								"up": {"uv": [94, 96], "uv_size": [-32, 32], "uv_rotation": 90},
+								"down": {"uv": [62, 34], "uv_size": [-14, -8]}
+							}
+						}
+					]
 				},
 				{
 					"name": "profession_level",
