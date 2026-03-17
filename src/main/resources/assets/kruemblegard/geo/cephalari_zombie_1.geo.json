@@ -101,7 +101,7 @@
 					]
 				},
 				{
-					"name": "profession_body2",
+					"name": "profession",
 					"parent": "head",
 					"pivot": [12.03324, 28.50324, -0.854],
 					"cubes": [

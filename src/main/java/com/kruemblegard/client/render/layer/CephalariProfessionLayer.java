@@ -33,7 +33,7 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
     // Profession/badge overlays should only apply to the dedicated profession-only bones.
     // This prevents painting shell/mouth/limbs (and, for adult mounts, any mount bones).
     private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        "profession_body2"
+        "profession"
     );
 
     public CephalariProfessionLayer(GeoRenderer<CephalariEntity> renderer) {

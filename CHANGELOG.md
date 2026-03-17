@@ -49,8 +49,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari_zombie): restrict zombie villager profession + badge overlays to the dedicated torso bones only.
 
 ## 1.0.1201 (2026-03-17)
-- Fix(cephalari): add a dedicated `profession_body2` geo bone (base + all adult mount geos) and render profession/badge overlays ONLY on that bone.
-- Fix(cephalari_zombie): add a dedicated `profession_body2` geo bone (base + all adult zombie variant geos) and render profession/badge overlays ONLY on that bone.
+- Fix(cephalari): add a dedicated `profession` geo bone (base + all adult mount geos) and render profession/badge overlays ONLY on that bone.
+- Fix(cephalari_zombie): add a dedicated `profession` geo bone (base + all adult zombie variant geos) and render profession/badge overlays ONLY on that bone.
 
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.

@@ -31,7 +31,7 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
     // Profession/badge overlays should only apply to dedicated profession-only bones.
     // Do NOT paint shell/mouth/limbs with villager overlays.
     private static final java.util.Set<String> PROFESSION_BONES = java.util.Set.of(
-        "profession_body2"
+        "profession"
     );
 
     public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
