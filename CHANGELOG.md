@@ -55,6 +55,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.1207 (2026-03-17)
 - Fix(cephalari): move the `profession` bone under `shell` across all Cephalari geo variants (base + adult mounts + zombified variants).
+- Fix(cephalari): align the `profession` bone pivot to `shell` (offsetting cube origins to keep overlay placement unchanged) for cleaner Blockbench editing.
 
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
