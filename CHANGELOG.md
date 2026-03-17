@@ -38,6 +38,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1197 (2026-03-17)
 - Fix(cephalari_zombie): align UVs across all adult zombified Cephalari geo variants to match `cephalari_zombie_4.geo.json` (prevents variant-specific texture misalignment).
 
+## 1.0.1198 (2026-03-17)
+- Fix(cephalari_zombie): re-align UV parity for `cephalari_zombie` and `cephalari_zombie_5` after follow-up edits (both now match `cephalari_zombie_4.geo.json`).
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
