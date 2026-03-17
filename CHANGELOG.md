@@ -32,6 +32,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari_zombie): restore adult mount base texture rendering and layer inner+outer zombified textures on top (prevents invisibility when overlay textures contain transparency).
 - Fix(cephalari_zombie): render inner/outer layers with cutout/no-cull (revert translucent path which could make the whole model disappear).
 
+## 1.0.1196 (2026-03-17)
+- Fix(cephalari_zombie): stop forcing a custom render type in `CephalariZombieRenderer` (use GeckoLib defaults; avoids an all-geometry "renders nothing" failure mode some clients hit).
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
