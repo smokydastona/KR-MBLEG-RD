@@ -7,9 +7,11 @@ import com.kruemblegard.registry.ModEntities;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.IronGolem;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -21,6 +23,42 @@ public final class CephalariGolemEvents {
     private CephalariGolemEvents() {}
 
     private static final double SEARCH_RADIUS = 32.0D;
+    private static final String NBT_REPLACE_GOLEM = "KruemblegardReplaceIronGolemWithCephalariGolem";
+
+    /**
+     * Mark village-spawned iron golems for replacement.
+     *
+     * We intentionally only target {@link MobSpawnType#MOB_SUMMONED} so:
+     * - player-built iron golems are never affected (they set {@code playerCreated=true})
+     * - spawn eggs / commands / custom spawners are not restricted
+     */
+    @SubscribeEvent
+    public static void onFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof IronGolem golem)) {
+            return;
+        }
+
+        // Only mark vanilla iron golems.
+        if (event.getEntity().getType() != EntityType.IRON_GOLEM) {
+            return;
+        }
+
+        // Only mark villager-spawned golems.
+        if (event.getSpawnType() != MobSpawnType.MOB_SUMMONED) {
+            return;
+        }
+
+        // Extra safety: never interfere with player-built iron golems.
+        if (golem.isPlayerCreated()) {
+            return;
+        }
+
+        golem.getPersistentData().putBoolean(NBT_REPLACE_GOLEM, true);
+    }
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -41,6 +79,14 @@ public final class CephalariGolemEvents {
         if (event.getEntity().getType() != EntityType.IRON_GOLEM) {
             return;
         }
+
+        // Only replace golems that were explicitly marked as villager-spawned.
+        if (!golem.getPersistentData().getBoolean(NBT_REPLACE_GOLEM)) {
+            return;
+        }
+
+        // Clear the marker immediately to avoid any weird re-entrancy.
+        golem.getPersistentData().remove(NBT_REPLACE_GOLEM);
 
         // Don’t replace player-built golems.
         if (golem.isPlayerCreated()) {

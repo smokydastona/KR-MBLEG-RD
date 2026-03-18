@@ -333,7 +333,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Mobility: takes **no fall damage**.
   - Targeting: hostile mobs treat Cephalari the same as vanilla villagers.
   - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation selection/tempo and movement speed, with occasional subtle one-shot “personality” idles.
-  - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead.
+  - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead (player-built / player-spawned iron golems are unaffected).
   - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
     - **Spiral Strider** (`spiral_strider`)
     - **DriftSkimmer** (`driftskimmer`)
@@ -372,6 +372,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
+  - Spawn egg: `Cephalari Golem Spawn Egg`.
   - Pressure-powered: has an internal pressure meter (0..100) that slowly leaks down over time.
   - Shutdown: at 0 pressure, the golem becomes inert (no AI / no movement) until recharged.
   - Recharge: recharges when near Pressure-Logic infrastructure (e.g., `pressure_conduit`, `membrane_pump`, `pressure_rail`, `air_lift_tube`).

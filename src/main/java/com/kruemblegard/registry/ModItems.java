@@ -758,4 +758,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_DROWNED, 0x2b3a2f, 0x3a6e9a,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> CEPHALARI_GOLEM_SPAWN_EGG =
+        ITEMS.register(
+            "cephalari_golem_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_GOLEM, 0x4f5863, 0x78c8ff,
+                new Item.Properties()));
+
 }
