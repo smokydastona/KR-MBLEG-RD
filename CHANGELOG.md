@@ -83,6 +83,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari): restrict adult body overlay re-texture pass to the embedded `cephalari` subtree (mount/body bones keep mount textures).
 - Fix(cephalari_zombie): allow modded zombie-villager profession level badge textures (prefer profession namespace; fallback to vanilla).
 
+## 1.0.1215 (2026-03-17)
+- Fix(cephalari_zombie): wire adult mount base textures back in (base pass uses mount texture; inner+outer zombified layers render as overlays restricted to the embedded `cephalari` subtree).
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 
