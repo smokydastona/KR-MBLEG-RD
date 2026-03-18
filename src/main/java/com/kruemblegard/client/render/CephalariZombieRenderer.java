@@ -9,12 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class CephalariZombieRenderer extends GeoEntityRenderer<CephalariZombieEntity> {
+public class CephalariZombieRenderer<T extends CephalariZombieEntity> extends GeoEntityRenderer<T> {
     public CephalariZombieRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new CephalariZombieModel());
+        super(renderManager, new CephalariZombieModel<>());
         this.shadowRadius = 0.5F;
 
-        addRenderLayer(new CephalariZombieDrownedOuterLayer(this));
-        addRenderLayer(new CephalariZombieProfessionLayer(this));
+        addRenderLayer(new CephalariZombieDrownedOuterLayer<>(this));
+        addRenderLayer(new CephalariZombieProfessionLayer<>(this));
     }
 }

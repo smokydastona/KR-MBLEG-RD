@@ -59,6 +59,8 @@ public final class CommonModEvents {
         event.put(ModEntities.WYRDWING.get(), WyrdwingEntity.createAttributes().build());
         event.put(ModEntities.CEPHALARI.get(), Villager.createAttributes().build());
         event.put(ModEntities.CEPHALARI_ZOMBIE.get(), ZombieVillager.createAttributes().build());
+        event.put(ModEntities.CEPHALARI_HUSK.get(), ZombieVillager.createAttributes().build());
+        event.put(ModEntities.CEPHALARI_DROWNED.get(), ZombieVillager.createAttributes().build());
         event.put(ModEntities.CEPHALARI_GOLEM.get(), com.kruemblegard.entity.CephalariGolemEntity.createAttributes().build());
 
         event.put(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderEntity.createAttributes().build());
@@ -183,6 +185,42 @@ public final class CommonModEvents {
             CommonModEvents::canSpawnWyrdwing,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+
+        event.register(
+            ModEntities.CEPHALARI_DROWNED.get(),
+            SpawnPlacements.Type.IN_WATER,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnCephalariDrowned,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+    }
+
+    private static boolean canSpawnCephalariDrowned(
+        net.minecraft.world.entity.EntityType<? extends Monster> type,
+        ServerLevelAccessor level,
+        MobSpawnType spawnType,
+        BlockPos pos,
+        RandomSource random
+    ) {
+        // Must be fully submerged.
+        if (level.getFluidState(pos).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        if (level.getFluidState(pos.above()).getType() != Fluids.WATER) {
+            return false;
+        }
+
+        // Require space for the mob.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
     }
 
     private static boolean canSpawnWyrdwing(

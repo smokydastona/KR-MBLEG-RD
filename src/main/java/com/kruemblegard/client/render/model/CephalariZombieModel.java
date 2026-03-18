@@ -8,9 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.model.GeoModel;
 
-public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
+public class CephalariZombieModel<T extends CephalariZombieEntity> extends GeoModel<T> {
     @Override
-    public ResourceLocation getModelResource(CephalariZombieEntity animatable) {
+    public ResourceLocation getModelResource(T animatable) {
         ResourceLocation base = new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
         if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
             return base;
@@ -29,14 +29,14 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
+    public ResourceLocation getTextureResource(T animatable) {
         // Zombified Cephalari never use mount textures.
         // The base pass always renders the selected zombified inner layer directly.
         return animatable.getBodyTextureResource();
     }
 
     @Override
-    public ResourceLocation getAnimationResource(CephalariZombieEntity animatable) {
+    public ResourceLocation getAnimationResource(T animatable) {
         return new ResourceLocation(Kruemblegard.MOD_ID, "animations/cephalari_zombie.animation.json");
     }
 }

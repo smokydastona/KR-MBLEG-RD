@@ -17,8 +17,12 @@
 
     "entity.kruemblegard.cephalari": "Cephalari",
     "entity.kruemblegard.cephalari_zombie": "Zombified Cephalari",
+    "entity.kruemblegard.cephalari_husk": "Husked Cephalari",
+    "entity.kruemblegard.cephalari_drowned": "Drowned Cephalari",
     "item.kruemblegard.cephalari_spawn_egg": "Cephalari Spawn Egg",
     "item.kruemblegard.cephalari_zombie_spawn_egg": "Zombified Cephalari Spawn Egg",
+    "item.kruemblegard.cephalari_husk_spawn_egg": "Husked Cephalari Spawn Egg",
+    "item.kruemblegard.cephalari_drowned_spawn_egg": "Drowned Cephalari Spawn Egg",
 
     "subtitles.kruemblegard.cephalari.zombify": "Cephalari zombifies",
     "subtitles.kruemblegard.cephalari.cure": "Cephalari is cured",

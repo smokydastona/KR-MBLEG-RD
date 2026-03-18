@@ -20,15 +20,15 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * The base texture is the shared inner layer; this renders one of the three outer variants
  * (zombie / husk / drowned) on top.
  */
-public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<CephalariZombieEntity> {
-    public CephalariZombieDrownedOuterLayer(GeoRenderer<CephalariZombieEntity> renderer) {
+public final class CephalariZombieDrownedOuterLayer<T extends CephalariZombieEntity> extends GeoRenderLayer<T> {
+    public CephalariZombieDrownedOuterLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
 
     @Override
     public void render(
         PoseStack poseStack,
-        CephalariZombieEntity animatable,
+        T animatable,
         BakedGeoModel bakedModel,
         RenderType renderType,
         MultiBufferSource bufferSource,
@@ -43,7 +43,7 @@ public final class CephalariZombieDrownedOuterLayer extends GeoRenderLayer<Cepha
     @Override
     public void renderForBone(
         PoseStack poseStack,
-        CephalariZombieEntity animatable,
+        T animatable,
         GeoBone bone,
         RenderType renderType,
         MultiBufferSource bufferSource,

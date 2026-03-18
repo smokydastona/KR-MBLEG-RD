@@ -78,6 +78,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(assets): align Cephalari profession + badge overlay UVs across all related geo files to match `spiral_strider.geo.json`.
 - Dev(tools): add a validator script to diff profession-related bones/UVs against the `spiral_strider` reference.
 
+## 1.0.1214 (2026-03-18)
+- Feat(cephalari_undead): split `cephalari_zombie` into three separate mobs: `cephalari_zombie`, `cephalari_husk`, `cephalari_drowned`.
+- Feat(cephalari_undead): Wayfall spawns are now biome/water based (husk: 3 hottest + 2 coldest; zombie: other Wayfall biomes; drowned: water).
+- Feat(cephalari_undead): add vanilla-like water conversions (husk -> zombie; zombie -> drowned) and mirror vanilla loot tables for each variant.
+
 ## 1.0.1214 (2026-03-17)
 - Fix(cephalari): allow modded profession level badge textures (prefer profession namespace; fallback to vanilla).
 - Fix(cephalari): restrict adult body overlay re-texture pass to the embedded `cephalari` subtree (mount/body bones keep mount textures).

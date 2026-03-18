@@ -19,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -176,8 +177,19 @@ public class CephalariEntity extends Villager implements GeoEntity {
         // When vanilla tries to convert villagers (including our Cephalari) into zombie villagers,
         // route that conversion into our zombified Cephalari entity type instead.
         if (entityType == EntityType.ZOMBIE_VILLAGER) {
+            EntityType<?> targetRaw = ModEntities.CEPHALARI_ZOMBIE.get();
+
+            // Best-effort: pick the appropriate undead variant based on the last attacker.
+            // (Vanilla conversion APIs don't pass the infecting mob directly.)
+            LivingEntity lastAttacker = this.getLastHurtByMob();
+            if (lastAttacker instanceof Husk) {
+                targetRaw = ModEntities.CEPHALARI_HUSK.get();
+            } else if (lastAttacker instanceof Drowned) {
+                targetRaw = ModEntities.CEPHALARI_DROWNED.get();
+            }
+
             @SuppressWarnings("unchecked")
-            EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI_ZOMBIE.get();
+            EntityType<T> target = (EntityType<T>) targetRaw;
             T converted = super.convertTo(target, keepEquipment);
             if (converted instanceof CephalariZombieEntity cephalariZombie) {
                 cephalariZombie.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
@@ -834,25 +846,33 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         // +2.2s: swap to zombified entity and keep the mount.
         if (zombifyTicks >= 44) {
-            CephalariZombieEntity zombie = ModEntities.CEPHALARI_ZOMBIE.get().create(serverLevel);
-            if (zombie != null) {
-                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                zombie.setVillagerData(this.getVillagerData());
-                zombie.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                zombie.setNoAi(true);
-                zombie.setCustomName(this.getCustomName());
-                zombie.setCustomNameVisible(this.isCustomNameVisible());
+            EntityType<? extends CephalariZombieEntity> targetType;
+            if (zombifyBodyTextureType == 2) {
+                targetType = ModEntities.CEPHALARI_HUSK.get();
+            } else if (zombifyBodyTextureType == 3) {
+                targetType = ModEntities.CEPHALARI_DROWNED.get();
+            } else {
+                targetType = ModEntities.CEPHALARI_ZOMBIE.get();
+            }
+
+            CephalariZombieEntity undead = targetType.create(serverLevel);
+            if (undead != null) {
+                undead.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                undead.setVillagerData(this.getVillagerData());
+                undead.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                undead.setNoAi(true);
+                undead.setCustomName(this.getCustomName());
+                undead.setCustomNameVisible(this.isCustomNameVisible());
 
                 if (zombifyStoredMountId != null) {
-                    CephalariMounts.setMountId(zombie, zombifyStoredMountId);
+                    CephalariMounts.setMountId(undead, zombifyStoredMountId);
                 }
 
-                zombie.setAdultZombieVariant(zombifyZombieVariant);
-                zombie.setBodyTextureType(zombifyBodyTextureType);
-                zombie.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
+                undead.setAdultZombieVariant(zombifyZombieVariant);
+                undead.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
 
-                serverLevel.addFreshEntity(zombie);
-                zombie.setNoAi(false);
+                serverLevel.addFreshEntity(undead);
+                undead.setNoAi(false);
             }
 
             spawnBurst(serverLevel, ModParticles.CEPHALARI_ZOMBIFY.get(), 14, 0.25D, 0.30D, 0.25D, 0.05D);

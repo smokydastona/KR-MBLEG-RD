@@ -7,6 +7,7 @@ import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModSounds;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -77,11 +79,17 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     // Body texture selection is independent from the geo variant.
     // 1=zombie, 2=husk, 3=drowned
-    private static final int BODY_TEXTURE_ZOMBIE = 1;
-    private static final int BODY_TEXTURE_HUSK = 2;
-    private static final int BODY_TEXTURE_DROWNED = 3;
-    private static final int BODY_TEXTURE_TYPES = 3;
-    private static final int MOUNT_TEXTURE_VARIANTS = 6;
+    protected static final int BODY_TEXTURE_ZOMBIE = 1;
+    protected static final int BODY_TEXTURE_HUSK = 2;
+    protected static final int BODY_TEXTURE_DROWNED = 3;
+    protected static final int BODY_TEXTURE_TYPES = 3;
+    protected static final int MOUNT_TEXTURE_VARIANTS = 6;
+
+    public enum UndeadVariant {
+        ZOMBIE,
+        HUSK,
+        DROWNED
+    }
 
     private static final EntityDataAccessor<Integer> DATA_ADULT_ZOMBIE_VARIANT =
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
@@ -95,6 +103,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private boolean forwardingLinkedDamage = false;
 
     private int hurtAnimCooldownTicks = 0;
+
+    private int submergedConversionTicks = 0;
 
     public CephalariZombieEntity(EntityType<? extends ZombieVillager> type, Level level) {
         super(type, level);
@@ -158,6 +168,67 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     public void setAdultMountTextureVariant(int variant) {
         int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, variant));
         this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
+    }
+
+    /**
+     * Returns the body texture type that this entity type should always use.
+     *
+     * Subclasses override this to lock to husk/drowned variants.
+     */
+    public int getFixedBodyTextureType() {
+        return BODY_TEXTURE_ZOMBIE;
+    }
+
+    protected final void convertToUndeadVariant(UndeadVariant target) {
+        EntityType<? extends CephalariZombieEntity> targetType = switch (target) {
+            case HUSK -> ModEntities.CEPHALARI_HUSK.get();
+            case DROWNED -> ModEntities.CEPHALARI_DROWNED.get();
+            case ZOMBIE -> ModEntities.CEPHALARI_ZOMBIE.get();
+        };
+
+        convertToUndead(targetType, true);
+    }
+
+    private <T extends Mob> T convertToUndead(EntityType<T> targetType, boolean keepEquipment) {
+        String storedMountId = CephalariMounts.getMountId(this);
+        VillagerData storedVillagerData = this.getVillagerData();
+        Component storedName = this.getCustomName();
+        boolean storedNameVisible = this.isCustomNameVisible();
+        boolean storedNoAi = this.isNoAi();
+        boolean storedPersistence = this.isPersistenceRequired();
+
+        int storedAdultVariant = this.getAdultZombieVariant();
+        int storedMountTextureVariant = this.getAdultMountTextureVariant();
+
+        T converted = super.convertTo(targetType, keepEquipment);
+        if (converted instanceof CephalariZombieEntity undead) {
+            undead.setVillagerData(storedVillagerData);
+            undead.setNoAi(storedNoAi);
+
+            if (storedName != null) {
+                undead.setCustomName(storedName);
+            }
+            undead.setCustomNameVisible(storedNameVisible);
+
+            if (storedPersistence) {
+                undead.setPersistenceRequired();
+            }
+
+            if (storedMountId != null) {
+                CephalariMounts.setMountId(undead, storedMountId);
+            }
+
+            if (!undead.isBaby()) {
+                if (storedAdultVariant != NO_ZOMBIE_VARIANT) {
+                    undead.setAdultZombieVariant(storedAdultVariant);
+                }
+                undead.setAdultMountTextureVariant(storedMountTextureVariant);
+            }
+
+            undead.setBodyTextureType(undead.getFixedBodyTextureType());
+        }
+
+        return converted;
     }
 
     private void ensureAdultVariantsAssigned() {
@@ -300,11 +371,31 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         }
 
         // Some creation paths (notably vanilla conversion mechanics) can bypass finalizeSpawn.
-        // Ensure adult visuals (geo variant + zombie/husk/drowned texture selection) are always initialized.
+        // Ensure adult visuals (geo variant + texture selection) are always initialized.
         boolean variantsWereUnassigned = !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == NO_ZOMBIE_VARIANT;
         ensureAdultVariantsAssigned();
         if (variantsWereUnassigned && !this.isBaby() && this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
             setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+        }
+
+        // Migrate legacy cephalari_zombie entities that used bodyTextureType to represent husk/drowned.
+        // With separate entity types, those should become cephalari_husk / cephalari_drowned.
+        if (this.getType() == ModEntities.CEPHALARI_ZOMBIE.get() && !this.isBaby()) {
+            int type = this.getBodyTextureType();
+            if (type == BODY_TEXTURE_HUSK) {
+                convertToUndeadVariant(UndeadVariant.HUSK);
+                return;
+            }
+            if (type == BODY_TEXTURE_DROWNED) {
+                convertToUndeadVariant(UndeadVariant.DROWNED);
+                return;
+            }
+        }
+
+        // Enforce fixed texture type per entity class.
+        int fixedType = getFixedBodyTextureType();
+        if (this.getBodyTextureType() != fixedType) {
+            setBodyTextureType(fixedType);
         }
 
         if (hurtAnimCooldownTicks > 0) {
@@ -334,6 +425,21 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
         if (!this.isBaby()) {
             ensureAdultVariantsAssigned();
+        }
+
+        // Vanilla-like: Zombie -> Drowned after time submerged.
+        if (this.getType() == ModEntities.CEPHALARI_ZOMBIE.get() && !this.isBaby()) {
+            if (isInWaterOrBubble()) {
+                submergedConversionTicks++;
+                if (submergedConversionTicks >= 600) {
+                    submergedConversionTicks = 0;
+                    convertToUndeadVariant(UndeadVariant.DROWNED);
+                }
+            } else {
+                submergedConversionTicks = 0;
+            }
+        } else {
+            submergedConversionTicks = 0;
         }
     }
 
@@ -458,6 +564,26 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 }
             }
             return converted;
+        }
+
+        // Redirect vanilla undead conversions to the modded variants.
+        // This prevents e.g. water conversion creating a vanilla Drowned.
+        if (entityType == EntityType.DROWNED) {
+            @SuppressWarnings("unchecked")
+            EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI_DROWNED.get();
+            return convertToUndead(target, keepEquipment);
+        }
+
+        if (entityType == EntityType.ZOMBIE) {
+            @SuppressWarnings("unchecked")
+            EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI_ZOMBIE.get();
+            return convertToUndead(target, keepEquipment);
+        }
+
+        if (entityType == EntityType.HUSK) {
+            @SuppressWarnings("unchecked")
+            EntityType<T> target = (EntityType<T>) ModEntities.CEPHALARI_HUSK.get();
+            return convertToUndead(target, keepEquipment);
         }
 
         return super.convertTo(entityType, keepEquipment);

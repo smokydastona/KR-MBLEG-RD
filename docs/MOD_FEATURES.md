@@ -340,11 +340,21 @@ Keep it up to date whenever you add/remove/rename content.
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
-  - Zombification: converts into **Zombified Cephalari** (`cephalari_zombie`) when killed by a zombie; curing converts back into Cephalari.
+  - Zombification: converts into an undead Cephalari variant when killed by an undead; curing converts back into Cephalari.
+    - **Zombified Cephalari** (`cephalari_zombie`) when killed by a Zombie.
+    - **Husked Cephalari** (`cephalari_husk`) when killed by a Husk.
+    - **Drowned Cephalari** (`cephalari_drowned`) when killed by a Drowned.
     - Cinematic: conversion plays a 2.2s transformation (cephalari collapse + forced riding-pose sync before swap; no spawned zombie mount entity).
-    - Natural spawns: Zombified Cephalari can spawn in Wayfall and the Overworld.
-    - Baby zombies: baby Zombified Cephalari always spawn as a jockey (guaranteed random mount).
-    - Drowned visual: the drowned variant renders a vanilla Drowned-style outer overlay layer.
+    - Natural spawns:
+      - Overworld: Zombified Cephalari can spawn in the Overworld.
+      - Wayfall (biome-driven split):
+        - Husked Cephalari spawn only in the 3 hottest + 2 coldest Wayfall biomes (tag: `#kruemblegard:wayfall_cephalari_husk`).
+        - Zombified Cephalari spawn in the remaining Wayfall biomes (tag: `#kruemblegard:wayfall_cephalari_zombie`).
+        - Drowned Cephalari spawn in water across all Wayfall biomes.
+    - Water conversions (vanilla-like): Husked -> Zombified when submerged long enough; Zombified -> Drowned when submerged long enough.
+    - Baby zombies: baby undead Cephalari always spawn as a jockey (guaranteed random mount).
+    - Drowned visual: drowned Cephalari render a vanilla Drowned-style outer overlay layer.
+    - Loot: undead variants use the same loot behavior as their vanilla counterparts (Zombie/Husk/Drowned).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual (adult mount appearance): the base render uses the mount texture for mount/body bones, and an overlay pass re-textures only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools).
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.

@@ -52,7 +52,9 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.TRADER_BEETLE.get(), TraderBeetleRenderer::new);
         event.registerEntityRenderer(ModEntities.WYRDWING.get(), WyrdwingRenderer::new);
         event.registerEntityRenderer(ModEntities.CEPHALARI.get(), CephalariRenderer::new);
-        event.registerEntityRenderer(ModEntities.CEPHALARI_ZOMBIE.get(), CephalariZombieRenderer::new);
+        event.registerEntityRenderer(ModEntities.CEPHALARI_ZOMBIE.get(), ctx -> new CephalariZombieRenderer<>(ctx));
+        event.registerEntityRenderer(ModEntities.CEPHALARI_HUSK.get(), ctx -> new CephalariZombieRenderer<>(ctx));
+        event.registerEntityRenderer(ModEntities.CEPHALARI_DROWNED.get(), ctx -> new CephalariZombieRenderer<>(ctx));
         event.registerEntityRenderer(ModEntities.CEPHALARI_GOLEM.get(), CephalariGolemRenderer::new);
 
         event.registerEntityRenderer(ModEntities.SPIRAL_STRIDER.get(), SpiralStriderRenderer::new);

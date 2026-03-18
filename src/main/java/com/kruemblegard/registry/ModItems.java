@@ -746,4 +746,16 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_ZOMBIE, 0x2b3a2f, 0xb7b2a2,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> CEPHALARI_HUSK_SPAWN_EGG =
+        ITEMS.register(
+            "cephalari_husk_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_HUSK, 0x2b3a2f, 0xd2c79c,
+                new Item.Properties()));
+
+    public static final RegistryObject<Item> CEPHALARI_DROWNED_SPAWN_EGG =
+        ITEMS.register(
+            "cephalari_drowned_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_DROWNED, 0x2b3a2f, 0x3a6e9a,
+                new Item.Properties()));
+
 }

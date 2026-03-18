@@ -27,7 +27,7 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * - textures/entity/zombie_villager/profession/<profession>.png
  * - textures/entity/zombie_villager/profession_level/<badge>.png
  */
-public final class CephalariZombieProfessionLayer extends GeoRenderLayer<CephalariZombieEntity> {
+public final class CephalariZombieProfessionLayer<T extends CephalariZombieEntity> extends GeoRenderLayer<T> {
 
     private static final String PROFESSION_BONE = "profession";
     private static final String PROFESSION_HAT_BONE = "profession_hat";
@@ -39,14 +39,14 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
     private static final java.util.Map<String, java.util.Optional<ResourceLocation>> PROFESSION_LEVEL_TEXTURE_CACHE =
         new java.util.concurrent.ConcurrentHashMap<>();
 
-    public CephalariZombieProfessionLayer(GeoRenderer<CephalariZombieEntity> renderer) {
+    public CephalariZombieProfessionLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
 
     @Override
     public void render(
         PoseStack poseStack,
-        CephalariZombieEntity animatable,
+        T animatable,
         BakedGeoModel bakedModel,
         RenderType renderType,
         MultiBufferSource bufferSource,
@@ -61,7 +61,7 @@ public final class CephalariZombieProfessionLayer extends GeoRenderLayer<Cephala
     @Override
     public void renderForBone(
         PoseStack poseStack,
-        CephalariZombieEntity animatable,
+        T animatable,
         GeoBone bone,
         RenderType renderType,
         MultiBufferSource bufferSource,

@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.GreatHungerEntity;
 import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.entity.CephalariGolemEntity;
+import com.kruemblegard.entity.CephalariHuskEntity;
 import com.kruemblegard.entity.CephalariZombieEntity;
 import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
@@ -139,6 +140,24 @@ public class ModEntities {
                     CephalariZombieEntity::new, MobCategory.MONSTER)
                 .sized(0.6f, 1.95f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_zombie").toString())
+        );
+
+    public static final RegistryObject<EntityType<CephalariHuskEntity>> CEPHALARI_HUSK =
+        ENTITIES.register(
+            "cephalari_husk",
+            () -> EntityType.Builder.<CephalariHuskEntity>of(
+                    CephalariHuskEntity::new, MobCategory.MONSTER)
+                .sized(0.6f, 1.95f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_husk").toString())
+        );
+
+    public static final RegistryObject<EntityType<com.kruemblegard.entity.CephalariDrownedEntity>> CEPHALARI_DROWNED =
+        ENTITIES.register(
+            "cephalari_drowned",
+            () -> EntityType.Builder.<com.kruemblegard.entity.CephalariDrownedEntity>of(
+                    com.kruemblegard.entity.CephalariDrownedEntity::new, MobCategory.MONSTER)
+                .sized(0.6f, 1.95f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "cephalari_drowned").toString())
         );
 
     public static final RegistryObject<EntityType<CephalariGolemEntity>> CEPHALARI_GOLEM =
