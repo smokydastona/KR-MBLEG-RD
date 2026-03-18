@@ -1,7 +1,7 @@
 {
   "format_version": "1.8.0",
   "animation_controllers": {
-    "controller.animation.cephalari_golem.main": {
+    "controller.animation.cephalari_golem.moveController": {
       "states": {
         "default": {
           "animations": [
@@ -9,7 +9,6 @@
           ],
           "transitions": [
             { "walking": "query.is_moving" },
-            { "attacking": "query.is_attacking" },
             { "shutdown": "query.cephalari_is_shutdown" }
           ]
         },
@@ -19,6 +18,22 @@
           ],
           "transitions": [
             { "default": "!query.is_moving" },
+            { "shutdown": "query.cephalari_is_shutdown" }
+          ]
+        },
+        "shutdown": {
+          "animations": [],
+          "transitions": [
+            { "default": "!query.cephalari_is_shutdown" }
+          ]
+        }
+      }
+    },
+    "controller.animation.cephalari_golem.actionController": {
+      "states": {
+        "default": {
+          "animations": [],
+          "transitions": [
             { "attacking": "query.is_attacking" },
             { "shutdown": "query.cephalari_is_shutdown" }
           ]
