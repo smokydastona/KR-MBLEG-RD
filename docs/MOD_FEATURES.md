@@ -329,7 +329,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Spawn: **10%** bonus variant, **5%** other-biome variant, otherwise current biome.
     - Breeding: baby texture is **25%** parent A / **25%** parent B / **50%** current biome, with a **10%** chance to be random.
   - Breeding: Cephalari can breed with Cephalari, but **cannot** cross-breed with vanilla villagers.
-  - Wayfall-adapted: Cephalari take periodic suffocation damage outside the **Wayfall** dimension.
+  - Wayfall-adapted: Cephalari take periodic suffocation damage in non-Wayfall dimensions **other than the Overworld**.
   - Mobility: takes **no fall damage**.
   - Targeting: hostile mobs treat Cephalari the same as vanilla villagers.
   - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation selection/tempo and movement speed, with occasional subtle one-shot “personality” idles.

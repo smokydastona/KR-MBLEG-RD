@@ -51,7 +51,7 @@ Cephalari bodies were never meant for land. Their original biology relied on dri
 ### 2.2 Environmental Needs
 - No longer require water
 - Thrive only in Wayfall’s atmosphere
-- Suffocate slowly in overworld-type air
+- Can survive in Overworld air, but their physiology struggles in harsher non-Wayfall atmospheres (e.g., Nether/End-like conditions)
 - Immune to fall damage due to pressure sacs and blink reflex
 
 ### 2.3 Lifespan

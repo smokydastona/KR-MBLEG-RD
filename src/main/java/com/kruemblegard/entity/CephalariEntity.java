@@ -530,7 +530,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
             ensureAdultMountAppearance();
         }
 
-        if (level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+        if (level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)
+            || level().dimension().equals(Level.OVERWORLD)) {
             return;
         }
 
