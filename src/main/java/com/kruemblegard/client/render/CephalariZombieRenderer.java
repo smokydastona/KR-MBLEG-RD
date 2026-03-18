@@ -1,6 +1,7 @@
 package com.kruemblegard.client.render;
 
 import com.kruemblegard.client.render.layer.CephalariZombieDrownedOuterLayer;
+import com.kruemblegard.client.render.layer.CephalariZombieInnerLayer;
 import com.kruemblegard.client.render.layer.CephalariZombieProfessionLayer;
 import com.kruemblegard.client.render.model.CephalariZombieModel;
 import com.kruemblegard.entity.CephalariZombieEntity;
@@ -14,6 +15,7 @@ public class CephalariZombieRenderer<T extends CephalariZombieEntity> extends Ge
         super(renderManager, new CephalariZombieModel<>());
         this.shadowRadius = 0.5F;
 
+        addRenderLayer(new CephalariZombieInnerLayer<>(this));
         addRenderLayer(new CephalariZombieDrownedOuterLayer<>(this));
         addRenderLayer(new CephalariZombieProfessionLayer<>(this));
     }

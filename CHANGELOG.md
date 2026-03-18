@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1225 (2026-03-18)
 - Fix(cephalari): stop applying periodic non-Wayfall suffocation damage in the Overworld.
 
+## 1.0.1226 (2026-03-18)
+- Fix(cephalari_drowned): always render the shared inner layer before the drowned outer overlay (prevents transparency "holes").
+
 ## 1.0.1180 (2026-03-08)
 - Fix(scaralon_beetle): prevent carpet decor from making the beetle invisible (force cutout render type so transparent pixels don't depth-occlude the base model).
 
