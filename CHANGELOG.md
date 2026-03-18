@@ -86,6 +86,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1215 (2026-03-17)
 - Fix(cephalari_zombie): wire adult mount base textures back in (base pass uses mount texture; inner+outer zombified layers render as overlays restricted to the embedded `cephalari` subtree).
 
+## 1.0.1216 (2026-03-17)
+- Fix(cephalari_zombie): zombified Cephalari never use mount textures (revert adult mount base usage; base renders zombified inner layer and outer overlay renders on top).
+
 ## 1.0.1179 (2026-03-08)
 - Fix(cephalari): when Cephalari are infected/killed by zombie-family mobs, they now convert into `cephalari_zombie` instead of vanilla zombie villagers.
 

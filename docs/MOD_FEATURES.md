@@ -348,7 +348,7 @@ Keep it up to date whenever you add/remove/rename content.
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual (adult mount appearance): the base render uses the mount texture for mount/body bones, and an overlay pass re-textures only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools).
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
-  - Visual (zombified adult mount appearance): adult Zombified Cephalari also use a mount texture base; the zombified inner+outer layers render as overlays only on the embedded `cephalari` subtree so mount/body bones keep mount textures.
+  - Visual (zombified): Zombified Cephalari never use mount textures. The base render uses the selected zombified **inner layer** texture, and the selected zombified **outer layer** texture renders on top.
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json` (babies)
     - Geo (adult zombie variants): `assets/kruemblegard/geo/cephalari_zombie_1.geo.json` .. `_5.geo.json`

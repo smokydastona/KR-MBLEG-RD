@@ -30,16 +30,9 @@ public class CephalariZombieModel extends GeoModel<CephalariZombieEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariZombieEntity animatable) {
-        // Babies (and non-adult appearance) use the zombified inner layer directly.
-        // Adults use a mount base texture and render the inner/outer zombified layers as overlays.
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
-            return animatable.getBodyTextureResource();
-        }
-
-        return new ResourceLocation(
-            Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
-        );
+        // Zombified Cephalari never use mount textures.
+        // The base pass always renders the selected zombified inner layer directly.
+        return animatable.getBodyTextureResource();
     }
 
     @Override
