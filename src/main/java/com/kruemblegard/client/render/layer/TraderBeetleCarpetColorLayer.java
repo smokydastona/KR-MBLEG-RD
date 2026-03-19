@@ -77,6 +77,7 @@ public final class TraderBeetleCarpetColorLayer extends GeoRenderLayer<TraderBee
         RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
-        super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        getRenderer().renderCubesOfBone(poseStack, bone, overlayBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

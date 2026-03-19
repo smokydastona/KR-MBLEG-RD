@@ -23,7 +23,9 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
  * - textures/entity/scaralon_beetle_carpet_<color>.png should have transparency everywhere except the color area.
  */
 public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetleEntity> {
+    private static final String CARPET_FRAME_BONE = "carpet_frame";
     private static final String CARPET_COLOR_BONE = "carpet_color";
+    private static final String CARPET_BONE_FALLBACK = "carpet";
 
     public ScaralonCarpetColorLayer(GeoRenderer<ScaralonBeetleEntity> renderer) {
         super(renderer);
@@ -66,7 +68,11 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         }
 
         String name = bone.getName();
-        if (!CARPET_COLOR_BONE.equals(name)) {
+        boolean renderFrame = CARPET_FRAME_BONE.equals(name);
+        boolean renderColor = CARPET_COLOR_BONE.equals(name);
+        boolean renderFallbackWholeCarpet = CARPET_BONE_FALLBACK.equals(name);
+
+        if (!renderFrame && !renderColor && !renderFallbackWholeCarpet) {
             return;
         }
 
@@ -81,6 +87,8 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
-        super.renderForBone(poseStack, animatable, bone, overlayType, bufferSource, overlayBuffer, partialTick, packedLight, packedOverlay);
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        // We must explicitly render the bone cubes using the owning GeoRenderer.
+        getRenderer().renderCubesOfBone(poseStack, bone, overlayBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

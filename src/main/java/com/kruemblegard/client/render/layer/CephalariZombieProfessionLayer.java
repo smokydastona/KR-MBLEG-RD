@@ -116,7 +116,9 @@ public final class CephalariZombieProfessionLayer<T extends CephalariZombieEntit
 
             RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
-            super.renderForBone(poseStack, animatable, bone, professionType, bufferSource, professionBuffer, partialTick, packedLight, packedOverlay);
+
+            // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+            getRenderer().renderCubesOfBone(poseStack, bone, professionBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
             return;
         }
 
@@ -132,7 +134,9 @@ public final class CephalariZombieProfessionLayer<T extends CephalariZombieEntit
 
         RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
         VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
-        super.renderForBone(poseStack, animatable, bone, levelType, bufferSource, levelBuffer, partialTick, packedLight, packedOverlay);
+
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(ResourceLocation professionId, int level) {

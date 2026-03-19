@@ -59,6 +59,8 @@ public final class CephalariZombieDrownedOuterLayer<T extends CephalariZombieEnt
         ResourceLocation outerTexture = animatable.getOuterTextureResource();
         RenderType outerType = RenderType.entityCutoutNoCull(outerTexture);
         VertexConsumer outerBuffer = bufferSource.getBuffer(outerType);
-        super.renderForBone(poseStack, animatable, bone, outerType, bufferSource, outerBuffer, partialTick, packedLight, packedOverlay);
+
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        getRenderer().renderCubesOfBone(poseStack, bone, outerBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

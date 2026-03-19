@@ -81,6 +81,7 @@ public final class TraderBeetleDefaultCarpetLayer extends GeoRenderLayer<TraderB
         RenderType blanketType = RenderType.entityCutoutNoCull(DEFAULT_CARPET_TEXTURE);
         VertexConsumer blanketBuffer = bufferSource.getBuffer(blanketType);
 
-        super.renderForBone(poseStack, animatable, bone, blanketType, bufferSource, blanketBuffer, partialTick, packedLight, packedOverlay);
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        getRenderer().renderCubesOfBone(poseStack, bone, blanketBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

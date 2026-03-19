@@ -61,6 +61,8 @@ public final class CephalariZombieInnerLayer<T extends CephalariZombieEntity> ex
         ResourceLocation innerTexture = animatable.getBodyTextureResource();
         RenderType innerType = RenderType.entityCutoutNoCull(innerTexture);
         VertexConsumer innerBuffer = bufferSource.getBuffer(innerType);
-        super.renderForBone(poseStack, animatable, bone, innerType, bufferSource, innerBuffer, partialTick, packedLight, packedOverlay);
+
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        getRenderer().renderCubesOfBone(poseStack, bone, innerBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

@@ -53,6 +53,22 @@ public final class ScaralonBeetleBaseTextureLayer extends GeoRenderLayer<Scaralo
         RenderType beetleType = RenderType.entityCutoutNoCull(beetleTexture);
         VertexConsumer beetleBuffer = bufferSource.getBuffer(beetleType);
 
-        super.render(poseStack, animatable, bakedModel, beetleType, bufferSource, beetleBuffer, partialTick, packedLight, packedOverlay);
+        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
+        // Re-render the full baked model with the beetle texture.
+        getRenderer().reRender(
+            bakedModel,
+            poseStack,
+            bufferSource,
+            animatable,
+            beetleType,
+            beetleBuffer,
+            partialTick,
+            packedLight,
+            packedOverlay,
+            1.0F,
+            1.0F,
+            1.0F,
+            1.0F
+        );
     }
 }
