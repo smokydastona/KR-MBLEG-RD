@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1230 (2026-03-19)
+## 1.0.1231 (2026-03-18)
+- Feat(cephalari_golem): render a Runebloom in-hand when offering a flower (targets nearby child villagers).
+- Feat(cephalari_golem): add a dedicated loot table that drops Runebloom with vanilla iron golem poppy-equivalent odds.
+
+## 1.0.1230 (2026-03-18)
 - Fix(cephalari_golem): align attributes and melee attack behavior with vanilla iron golems.
 - Feat(cephalari_golem): add a vanilla-like offer-flower animation loop when offering flowers to villagers.
 

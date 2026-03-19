@@ -12,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.Level;
 
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -211,9 +212,21 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         return super.doHurtTarget(target);
     }
 
-    private boolean isOfferingFlower() {
-        // Vanilla Iron Golem uses a timed "offer flower" state.
-        return this.getOfferFlowerTick() > 0;
+    private boolean hasNearbyChildVillager(double radius) {
+        return !this.level().getEntitiesOfClass(
+            Villager.class,
+            this.getBoundingBox().inflate(radius),
+            villager -> villager != null && villager.isBaby()
+        ).isEmpty();
+    }
+
+    /**
+     * Vanilla Iron Golems offer a poppy. Cephalari golems visually offer a Runebloom instead.
+     *
+     * We intentionally only show this offering when a child villager is nearby (vanilla or Cephalari).
+     */
+    public boolean isOfferingRunebloom() {
+        return this.getOfferFlowerTick() > 0 && hasNearbyChildVillager(6.0D);
     }
 
     @Override
@@ -223,7 +236,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
                 return PlayState.STOP;
             }
 
-            if (isOfferingFlower()) {
+            if (isOfferingRunebloom()) {
                 state.setAndContinue(OFFER_FLOWER_LOOP);
                 return PlayState.CONTINUE;
             }

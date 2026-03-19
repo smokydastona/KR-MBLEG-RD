@@ -373,10 +373,12 @@ Keep it up to date whenever you add/remove/rename content.
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
   - Vanilla parity: uses vanilla Iron Golem attributes/combat and retains vanilla behaviors like offering flowers to villagers.
+  - Runebloom offering: when offering a flower, it visually offers a **Runebloom** to nearby child villagers (vanilla or Cephalari).
   - Spawn egg: `Cephalari Golem Spawn Egg`.
   - Pressure-powered: has an internal pressure meter (0..100) that slowly leaks down over time.
   - Shutdown: at 0 pressure, the golem becomes inert (no AI / no movement) until recharged.
   - Recharge: recharges when near Pressure-Logic infrastructure (e.g., `pressure_conduit`, `membrane_pump`, `pressure_rail`, `air_lift_tube`).
+  - Loot: drops Runebloom with the same count/chances as vanilla iron golems drop poppies.
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/cephalari_golem.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari_golem.animation.json`

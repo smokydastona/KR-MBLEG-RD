@@ -2,6 +2,7 @@ package com.kruemblegard.client.render;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.CephalariGolemEntity;
+import com.kruemblegard.client.render.layer.CephalariGolemRunebloomLayer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -42,5 +43,6 @@ public class CephalariGolemRenderer extends GeoEntityRenderer<CephalariGolemEnti
     public CephalariGolemRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CephalariGolemModel());
         this.shadowRadius = 0.95F;
+        this.addRenderLayer(new CephalariGolemRunebloomLayer(this));
     }
 }
