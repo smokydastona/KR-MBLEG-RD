@@ -2201,8 +2201,9 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             return;
         }
 
-        // Only apply special seating when actively ridden like a mount.
-        if (!(isVehicle() && isSaddled() && isTamed() && getControllingPassenger() == passenger)) {
+        // Only apply special seating when actively controlled by a player.
+        // This must work whether the Scaralon is tamed or not.
+        if (!(isVehicle() && getControllingPassenger() == passenger)) {
             super.positionRider(passenger, moveFunction);
             return;
         }
@@ -2219,7 +2220,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         double dz = seat.x * sin + seat.z * cos;
 
         double x = getX() + dx;
-        double y = getY() + seat.y + passenger.getMyRidingOffset();
+        // The seat pivot is authored to be the exact rider origin in-world; don't apply vanilla offsets.
+        double y = getY() + seat.y;
         double z = getZ() + dz;
 
         moveFunction.accept(passenger, x, y, z);

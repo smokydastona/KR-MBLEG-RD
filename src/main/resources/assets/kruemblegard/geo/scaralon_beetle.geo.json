@@ -387,7 +387,7 @@
 				{
 					"name": "seat",
 					"parent": "body",
-					"pivot": [0, 28.9, -9.5]
+					"pivot": [0, 28.9, -9.2]
 				},
 				{
 					"name": "head",
