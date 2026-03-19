@@ -135,7 +135,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
     private static final double UNMOUNTED_MAX_AIR_TIME_STAMINA_MULT = 1.5D;
 
-    private static final String SEAT_BONE_NAME = "seat";
+    private static final String SEAT_BONE_NAME_PRIMARY = "seat";
     private static final String SCARALON_GEO_RESOURCE = "assets/kruemblegard/geo/scaralon_beetle.geo.json";
     private static final Vec3 DEFAULT_SEAT_OFFSET_BLOCKS = new Vec3(0.0D, 1.35D, 0.15D);
     private static volatile @Nullable Vec3 CACHED_SEAT_OFFSET_BLOCKS = null;
@@ -2266,7 +2266,7 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
                 JsonObject bone = boneEl.getAsJsonObject();
                 String name = bone.has("name") ? bone.get("name").getAsString() : "";
-                if (!SEAT_BONE_NAME.equals(name)) {
+                if (!isSeatBoneName(name)) {
                     continue;
                 }
 
@@ -2291,6 +2291,20 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         }
 
         return DEFAULT_SEAT_OFFSET_BLOCKS;
+    }
+
+    private static boolean isSeatBoneName(@Nullable String name) {
+        if (name == null || name.isBlank()) {
+            return false;
+        }
+
+        // Primary name used across our geos.
+        if (SEAT_BONE_NAME_PRIMARY.equals(name)) {
+            return true;
+        }
+
+        // Allow safe renames like "seat_mount", "seat_rider", etc.
+        return name.startsWith(SEAT_BONE_NAME_PRIMARY + "_");
     }
 
     /**

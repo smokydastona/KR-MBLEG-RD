@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1233 (2026-03-19)
+## 1.0.1234 (2026-03-18)
+- Fix(scaralon_beetle): make rider seat offset lookup resilient to `seat_*` bone renames in the geo.
+
+## 1.0.1233 (2026-03-18)
 - Fix(render): make GeckoLib overlay layers actually render by explicitly drawing bone cubes (GeoRenderLayer base methods are no-ops in GeckoLib 4.8).
 - Fix(scaralon_beetle): render carpet decor without affecting/hiding unrelated beetle geometry.
 - Fix(cephalari): restore villager profession + badge overlays.
