@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1235 (2026-03-18)
+- Fix(scaralon_beetle): render carpet decor with a translucent pass so it cannot depth-occlude unrelated bones.
+- Fix(scaralon_beetle): seat pivot lookup now auto-detects a renamed seat bone (fallback to first `*seat*` bone).
+
 ## 1.0.1234 (2026-03-18)
 - Fix(scaralon_beetle): make rider seat offset lookup resilient to `seat_*` bone renames in the geo.
 

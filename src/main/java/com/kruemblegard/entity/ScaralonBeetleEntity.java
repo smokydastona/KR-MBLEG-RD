@@ -2259,6 +2259,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                 return DEFAULT_SEAT_OFFSET_BLOCKS;
             }
 
+            JsonArray fallbackSeatPivot = null;
+
             for (JsonElement boneEl : bones) {
                 if (!boneEl.isJsonObject()) {
                     continue;
@@ -2266,31 +2268,42 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
                 JsonObject bone = boneEl.getAsJsonObject();
                 String name = bone.has("name") ? bone.get("name").getAsString() : "";
-                if (!isSeatBoneName(name)) {
+                JsonArray pivot = bone.getAsJsonArray("pivot");
+                if (pivot == null || pivot.size() < 3) {
                     continue;
                 }
 
-                JsonArray pivot = bone.getAsJsonArray("pivot");
-                if (pivot == null || pivot.size() < 3) {
-                    return DEFAULT_SEAT_OFFSET_BLOCKS;
+                if (isSeatBoneName(name)) {
+                    return seatOffsetFromPivot(pivot);
                 }
 
-                double px = pivot.get(0).getAsDouble() / 16.0D;
-                double py = pivot.get(1).getAsDouble() / 16.0D;
-                double pz = -pivot.get(2).getAsDouble() / 16.0D;
+                // If the seat bone was renamed to something non-standard, keep the first "*seat*" bone as a fallback.
+                if (fallbackSeatPivot == null && name != null && name.toLowerCase(java.util.Locale.ROOT).contains("seat")) {
+                    fallbackSeatPivot = pivot;
+                }
+            }
 
-                // Clamp to avoid absurd values if the resource is malformed.
-                px = Mth.clamp(px, -2.5D, 2.5D);
-                py = Mth.clamp(py, 0.0D, 4.0D);
-                pz = Mth.clamp(pz, -2.5D, 2.5D);
-
-                return new Vec3(px, py, pz);
+            if (fallbackSeatPivot != null) {
+                return seatOffsetFromPivot(fallbackSeatPivot);
             }
         } catch (Exception ignored) {
             // Fall back silently; seat alignment isn't worth crashing the game.
         }
 
         return DEFAULT_SEAT_OFFSET_BLOCKS;
+    }
+
+    private static Vec3 seatOffsetFromPivot(JsonArray pivot) {
+        double px = pivot.get(0).getAsDouble() / 16.0D;
+        double py = pivot.get(1).getAsDouble() / 16.0D;
+        double pz = -pivot.get(2).getAsDouble() / 16.0D;
+
+        // Clamp to avoid absurd values if the resource is malformed.
+        px = Mth.clamp(px, -2.5D, 2.5D);
+        py = Mth.clamp(py, 0.0D, 4.0D);
+        pz = Mth.clamp(pz, -2.5D, 2.5D);
+
+        return new Vec3(px, py, pz);
     }
 
     private static boolean isSeatBoneName(@Nullable String name) {

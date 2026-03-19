@@ -84,7 +84,9 @@ public final class ScaralonCarpetColorLayer extends GeoRenderLayer<ScaralonBeetl
         // Critical: use cutout so fully transparent pixels do NOT write depth.
         // This prevents the overlay pass from hiding the base beetle even if the overlay geometry
         // includes fully-transparent areas (e.g., a full-body overlay mesh).
-        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
+        // IMPORTANT: Use translucent here so the decor pass can't depth-occlude bones that render later
+        // (e.g., if the texture has non-zero alpha in "transparent" areas).
+        RenderType overlayType = RenderType.entityTranslucent(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
