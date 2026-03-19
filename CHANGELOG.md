@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1230 (2026-03-19)
+- Fix(cephalari_golem): align attributes and melee attack behavior with vanilla iron golems.
+- Feat(cephalari_golem): add a vanilla-like offer-flower animation loop when offering flowers to villagers.
+
 ## 1.0.1229 (2026-03-18)
 - Fix(lang): update `en_us` with missing registered entity/block names (mounts + projectiles) and correct the Kr\u00fcmbleg\u00e5rd boss name encoding.
 

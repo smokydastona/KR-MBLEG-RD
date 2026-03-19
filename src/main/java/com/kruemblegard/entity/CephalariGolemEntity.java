@@ -12,7 +12,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -47,6 +46,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.walk");
+    private static final RawAnimation OFFER_FLOWER_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.offer_flower");
 
     private static final RawAnimation ATTACK_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_golem.attack");
     private static final RawAnimation SHUTDOWN_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_golem.shutdown");
@@ -61,13 +61,8 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        // Baseline tuned toward the blueprint (tough, slightly slower than an iron golem).
-        return IronGolem.createAttributes()
-            .add(Attributes.MAX_HEALTH, 120.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.20D)
-            .add(Attributes.ATTACK_DAMAGE, 14.0D)
-            .add(Attributes.ARMOR, 18.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.9D);
+        // Match vanilla Iron Golem baseline (AI/behavior parity).
+        return IronGolem.createAttributes();
     }
 
     @Override
@@ -213,30 +208,12 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         }
 
         triggerAnim("actionController", "attack");
-
-        // Pressure burst (rare): small AOE knockback when well-pressurized.
-        if (getPressure() >= 20 && random.nextFloat() < 0.10F) {
-            addPressure(-8);
-            float radius = 3.0F;
-            for (var entity : level().getEntities(this, getBoundingBox().inflate(radius), e -> e != this)) {
-                if (!(entity instanceof net.minecraft.world.entity.LivingEntity living)) continue;
-                if (living.isAlliedTo(this)) continue;
-                living.knockback(0.7D, this.getX() - living.getX(), this.getZ() - living.getZ());
-            }
-        }
-
-        // Scale damage slightly with pressure (14..20-ish via temporary attribute boost).
-        // (Keep it conservative; the base attribute is already 14.)
-        if (getPressure() >= 80) {
-            // High pressure: a little extra punch.
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(18.0D);
-        } else if (getPressure() >= 40) {
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(16.0D);
-        } else {
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(14.0D);
-        }
-
         return super.doHurtTarget(target);
+    }
+
+    private boolean isOfferingFlower() {
+        // Vanilla Iron Golem uses a timed "offer flower" state.
+        return this.getOfferFlowerTick() > 0;
     }
 
     @Override
@@ -244,6 +221,11 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         controllers.add(new AnimationController<>(this, "moveController", 2, state -> {
             if (isShutdown()) {
                 return PlayState.STOP;
+            }
+
+            if (isOfferingFlower()) {
+                state.setAndContinue(OFFER_FLOWER_LOOP);
+                return PlayState.CONTINUE;
             }
 
             if (state.isMoving()) {

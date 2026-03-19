@@ -8,8 +8,19 @@
             "animation.cephalari_golem.idle"
           ],
           "transitions": [
+            { "offering_flower": "query.is_offering_flower" },
             { "walking": "query.is_moving" },
             { "shutdown": "query.cephalari_is_shutdown" }
+          ]
+        },
+        "offering_flower": {
+          "animations": [
+            "animation.cephalari_golem.offer_flower"
+          ],
+          "transitions": [
+            { "shutdown": "query.cephalari_is_shutdown" },
+            { "walking": "query.is_moving" },
+            { "default": "!query.is_moving && !query.is_offering_flower" }
           ]
         },
         "walking": {
@@ -17,6 +28,7 @@
             "animation.cephalari_golem.walk"
           ],
           "transitions": [
+            { "offering_flower": "query.is_offering_flower" },
             { "default": "!query.is_moving" },
             { "shutdown": "query.cephalari_is_shutdown" }
           ]

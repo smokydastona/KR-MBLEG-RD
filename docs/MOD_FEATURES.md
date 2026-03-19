@@ -372,6 +372,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
+  - Vanilla parity: uses vanilla Iron Golem attributes/combat and retains vanilla behaviors like offering flowers to villagers.
   - Spawn egg: `Cephalari Golem Spawn Egg`.
   - Pressure-powered: has an internal pressure meter (0..100) that slowly leaks down over time.
   - Shutdown: at 0 pressure, the golem becomes inert (no AI / no movement) until recharged.
@@ -380,7 +381,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/cephalari_golem.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari_golem.animation.json`
     - Controllers: `assets/kruemblegard/controllers/cephalari_golem.animation_controllers.json`
-    - Texture: `assets/kruemblegard/textures/entity/cephalari/cephalari_golem.png` (currently a placeholder)
+    - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
