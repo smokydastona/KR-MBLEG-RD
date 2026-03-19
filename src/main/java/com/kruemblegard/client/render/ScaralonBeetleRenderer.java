@@ -17,6 +17,9 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.util.RenderUtils;
 
 public class ScaralonBeetleRenderer extends GeoEntityRenderer<ScaralonBeetleEntity> {
+    private static final String BODY_BONE = "body";
+
+    private static final String CARPET_BONE = "carpet";
     private static final String CARPET_FRAME_BONE = "carpet_frame";
     private static final String CARPET_COLOR_BONE = "carpet_color";
 
@@ -51,7 +54,7 @@ public class ScaralonBeetleRenderer extends GeoEntityRenderer<ScaralonBeetleEnti
             && !animatable.isBaby()
             && animatable.hasCarpet()
             && bone != null
-            && (CARPET_FRAME_BONE.equals(bone.getName()) || CARPET_COLOR_BONE.equals(bone.getName()))) {
+            && isCarpetBoneName(bone.getName())) {
 
             poseStack.pushPose();
             RenderUtils.translateMatrixToBone(poseStack, bone);
@@ -62,6 +65,78 @@ public class ScaralonBeetleRenderer extends GeoEntityRenderer<ScaralonBeetleEnti
 
             applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+
+            poseStack.popPose();
+            return;
+        }
+
+        // When a carpet is applied, ensure the carpet subtree is rendered last.
+        // This guarantees the carpet cannot affect (depth-occlude) unrelated bones regardless of
+        // render-order quirks in the baked model.
+        if (!isReRender
+            && animatable != null
+            && !animatable.isBaby()
+            && animatable.hasCarpet()
+            && bone != null
+            && BODY_BONE.equals(bone.getName())) {
+
+            poseStack.pushPose();
+            RenderUtils.translateMatrixToBone(poseStack, bone);
+            RenderUtils.translateToPivotPoint(poseStack, bone);
+            RenderUtils.rotateMatrixAroundBone(poseStack, bone);
+            RenderUtils.scaleMatrixForBone(poseStack, bone);
+            RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
+
+            renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
+
+            java.util.List<GeoBone> carpetChildren = new java.util.ArrayList<>();
+            for (GeoBone child : bone.getChildBones()) {
+                if (child == null) {
+                    continue;
+                }
+
+                if (isCarpetBoneName(child.getName())) {
+                    carpetChildren.add(child);
+                    continue;
+                }
+
+                renderRecursively(
+                    poseStack,
+                    animatable,
+                    child,
+                    renderType,
+                    bufferSource,
+                    buffer,
+                    isReRender,
+                    partialTick,
+                    packedLight,
+                    packedOverlay,
+                    red,
+                    green,
+                    blue,
+                    alpha
+                );
+            }
+
+            for (GeoBone child : carpetChildren) {
+                renderRecursively(
+                    poseStack,
+                    animatable,
+                    child,
+                    renderType,
+                    bufferSource,
+                    buffer,
+                    isReRender,
+                    partialTick,
+                    packedLight,
+                    packedOverlay,
+                    red,
+                    green,
+                    blue,
+                    alpha
+                );
+            }
 
             poseStack.popPose();
             return;
@@ -83,6 +158,17 @@ public class ScaralonBeetleRenderer extends GeoEntityRenderer<ScaralonBeetleEnti
             blue,
             alpha
         );
+    }
+
+    private static boolean isCarpetBoneName(String name) {
+        if (name == null || name.isBlank()) {
+            return false;
+        }
+
+        return CARPET_BONE.equals(name)
+            || CARPET_FRAME_BONE.equals(name)
+            || CARPET_COLOR_BONE.equals(name)
+            || name.startsWith(CARPET_BONE + "_");
     }
 
     @Override
