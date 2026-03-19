@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1229 (2026-03-18)
+- Fix(lang): update `en_us` with missing registered entity/block names (mounts + projectiles) and correct the Kr\u00fcmbleg\u00e5rd boss name encoding.
+
 ## 1.0.1228 (2026-03-18)
 - Feat(cephalari_golem): add a dedicated spawn egg.
 - Fix(cephalari_golem): only replace villager-spawned iron golems near Cephalari (player-built/spawn-egg/command iron golems are unaffected).
