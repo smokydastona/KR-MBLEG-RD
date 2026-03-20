@@ -8,6 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class CephalariModel extends GeoModel<CephalariEntity> {
+    private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
+    private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
+
     @Override
     public ResourceLocation getModelResource(CephalariEntity animatable) {
         if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
@@ -31,9 +34,14 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
             return animatable.getBodyTextureResource();
         }
 
+        int variant = animatable.getAdultMountTextureVariant();
+        if (variant < GOLEM_TEXTURE_VARIANT_MIN || variant > GOLEM_TEXTURE_VARIANT_MAX) {
+            variant = GOLEM_TEXTURE_VARIANT_MIN;
+        }
+
         return new ResourceLocation(
             Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getAdultMountTextureVariant() + ".png"
+            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + variant + ".png"
         );
     }
 

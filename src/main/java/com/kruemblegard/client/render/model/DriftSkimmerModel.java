@@ -8,6 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
+    private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
+    private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
 
     @Override
     public ResourceLocation getModelResource(DriftSkimmerEntity animatable) {
@@ -16,9 +18,14 @@ public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
 
     @Override
     public ResourceLocation getTextureResource(DriftSkimmerEntity animatable) {
+        int variant = animatable.getTextureVariant();
+        if (variant < GOLEM_TEXTURE_VARIANT_MIN || variant > GOLEM_TEXTURE_VARIANT_MAX) {
+            variant = GOLEM_TEXTURE_VARIANT_MIN;
+        }
+
         return new ResourceLocation(
             Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/mounts/cephalari_mount_" + animatable.getTextureVariant() + ".png"
+            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + variant + ".png"
         );
     }
 

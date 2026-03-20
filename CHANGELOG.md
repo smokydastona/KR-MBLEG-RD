@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1237 (2026-03-20)
+- Fix(textures): reuse Cephalari golem textures for Cephalari adult mount appearances and Wayfall mount mobs (removes dependency on deleted `cephalari_mount_*.png`).
+
 ## 1.0.1236 (2026-03-18)
 - Fix(scaralon_beetle): render the carpet bone subtree last so it cannot depth-occlude unrelated bones (head/saddle/chest/legs).
 - Fix(scaralon_beetle): seat the controlling player exactly on the seat bone pivot (no vanilla riding Y offset), regardless of tame state.
