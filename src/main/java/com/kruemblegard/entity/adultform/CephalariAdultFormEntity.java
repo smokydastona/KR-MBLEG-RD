@@ -4,12 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.CephalariEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -60,9 +62,20 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
     private static final String NBT_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariMountTextureVariant";
+    private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
+    private static final String NBT_PROFESSION = "KruemblegardCephalariProfession";
+    private static final String NBT_VILLAGER_LEVEL = "KruemblegardCephalariLevel";
     private static final int TEXTURE_VARIANTS = 6;
 
     private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(CephalariAdultFormEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<String> DATA_BODY_TEXTURE = SynchedEntityData.defineId(CephalariAdultFormEntity.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<String> DATA_PROFESSION = SynchedEntityData.defineId(CephalariAdultFormEntity.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Integer> DATA_VILLAGER_LEVEL = SynchedEntityData.defineId(CephalariAdultFormEntity.class, EntityDataSerializers.INT);
+
+    private static final ResourceLocation DEFAULT_BODY_TEXTURE = new ResourceLocation(
+        Kruemblegard.MOD_ID,
+        "textures/entity/cephalari/cephalari/cephalari_underway_falls.png"
+    );
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -89,6 +102,66 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         super.defineSynchedData();
         // 1..TEXTURE_VARIANTS (we use 1-based because the files are named _1.._6)
         this.entityData.define(DATA_TEXTURE_VARIANT, 1);
+
+        // Cephalari appearance data lives on the adult-form entity itself.
+        // Empty means "use default".
+        this.entityData.define(DATA_BODY_TEXTURE, "");
+        // Stored as a ResourceLocation string for the profession registry key. Empty means NONE.
+        this.entityData.define(DATA_PROFESSION, "");
+        // 1..5 (vanilla villager levels). Default 1.
+        this.entityData.define(DATA_VILLAGER_LEVEL, 1);
+    }
+
+    public ResourceLocation getBodyTextureResource() {
+        String raw = this.entityData.get(DATA_BODY_TEXTURE);
+        if (raw == null || raw.isEmpty()) {
+            return DEFAULT_BODY_TEXTURE;
+        }
+
+        ResourceLocation parsed = ResourceLocation.tryParse(raw);
+        return parsed != null ? parsed : DEFAULT_BODY_TEXTURE;
+    }
+
+    public void setBodyTextureResource(@Nullable ResourceLocation texture) {
+        if (texture == null) {
+            this.entityData.set(DATA_BODY_TEXTURE, "");
+            return;
+        }
+        this.entityData.set(DATA_BODY_TEXTURE, texture.toString());
+    }
+
+    public VillagerProfession getProfession() {
+        String raw = this.entityData.get(DATA_PROFESSION);
+        if (raw == null || raw.isEmpty()) {
+            return VillagerProfession.NONE;
+        }
+
+        ResourceLocation id = ResourceLocation.tryParse(raw);
+        if (id == null) {
+            return VillagerProfession.NONE;
+        }
+
+        VillagerProfession profession = net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION.get(id);
+        return profession != null ? profession : VillagerProfession.NONE;
+    }
+
+    public void setProfession(@Nullable VillagerProfession profession) {
+        if (profession == null || profession == VillagerProfession.NONE) {
+            this.entityData.set(DATA_PROFESSION, "");
+            return;
+        }
+
+        ResourceLocation key = net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+        this.entityData.set(DATA_PROFESSION, key != null ? key.toString() : "");
+    }
+
+    public int getVillagerLevel() {
+        return this.entityData.get(DATA_VILLAGER_LEVEL);
+    }
+
+    public void setVillagerLevel(int level) {
+        int clamped = Mth.clamp(level, 1, 5);
+        this.entityData.set(DATA_VILLAGER_LEVEL, clamped);
     }
 
     public int getTextureVariant() {
@@ -113,6 +186,13 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         // Assign a stable random look per adult-form entity.
         if (!this.level().isClientSide) {
             setTextureVariant(1 + this.getRandom().nextInt(TEXTURE_VARIANTS));
+
+            // If nothing provided via NBT/commands, start with the default body texture.
+            // (If this entity is still used in a legacy linked-pair setup, we will copy the linked
+            // Cephalari appearance on server tick.)
+            if (this.entityData.get(DATA_BODY_TEXTURE) == null || this.entityData.get(DATA_BODY_TEXTURE).isEmpty()) {
+                setBodyTextureResource(DEFAULT_BODY_TEXTURE);
+            }
         }
 
         return result;
@@ -122,6 +202,18 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+
+        tag.putString(NBT_BODY_TEXTURE, getBodyTextureResource().toString());
+
+        VillagerProfession profession = getProfession();
+        if (profession != VillagerProfession.NONE) {
+            ResourceLocation id = net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+            if (id != null) {
+                tag.putString(NBT_PROFESSION, id.toString());
+            }
+        }
+
+        tag.putInt(NBT_VILLAGER_LEVEL, getVillagerLevel());
     }
 
     @Override
@@ -132,6 +224,25 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         } else if (tag.contains(NBT_TEXTURE_VARIANT_LEGACY)) {
             // Backward compat for older saves.
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT_LEGACY));
+        }
+
+        if (tag.contains(NBT_BODY_TEXTURE)) {
+            ResourceLocation parsed = ResourceLocation.tryParse(tag.getString(NBT_BODY_TEXTURE));
+            setBodyTextureResource(parsed != null ? parsed : DEFAULT_BODY_TEXTURE);
+        }
+
+        if (tag.contains(NBT_PROFESSION)) {
+            ResourceLocation profId = ResourceLocation.tryParse(tag.getString(NBT_PROFESSION));
+            if (profId != null) {
+                VillagerProfession prof = net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION.get(profId);
+                setProfession(prof);
+            } else {
+                setProfession(VillagerProfession.NONE);
+            }
+        }
+
+        if (tag.contains(NBT_VILLAGER_LEVEL)) {
+            setVillagerLevel(tag.getInt(NBT_VILLAGER_LEVEL));
         }
     }
 
@@ -226,10 +337,30 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         }
 
         if (getFirstPassenger() instanceof CephalariEntity cephalari) {
+            // Backward compat: if a legacy linked Cephalari exists, copy appearance/profession
+            // onto this entity so rendering does not depend on passenger scanning.
+            syncAppearanceFromCephalari(cephalari);
+
             // Keep the pair alive/dead together.
             if (!cephalari.isAlive() && this.isAlive()) {
                 this.kill();
             }
+        }
+    }
+
+    private void syncAppearanceFromCephalari(CephalariEntity cephalari) {
+        if (cephalari == null || !cephalari.isAlive()) {
+            return;
+        }
+
+        // Body texture
+        setBodyTextureResource(cephalari.getBodyTextureResource());
+
+        // Profession + level
+        var villagerData = cephalari.getVillagerData();
+        if (villagerData != null) {
+            setProfession(villagerData.getProfession());
+            setVillagerLevel(villagerData.getLevel());
         }
     }
 

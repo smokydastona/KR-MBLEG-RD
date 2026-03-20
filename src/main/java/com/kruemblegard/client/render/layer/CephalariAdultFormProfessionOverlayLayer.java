@@ -2,7 +2,6 @@ package com.kruemblegard.client.render.layer;
 
 import javax.annotation.Nullable;
 
-import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -22,7 +20,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the linked Cephalari profession overlays (and level badge) onto dedicated bones embedded in adult-form geos.
+ * Renders the adult-form entity's profession overlays (and level badge) onto dedicated bones embedded in adult-form geos.
  */
 public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariAdultFormEntity> extends GeoRenderLayer<T> {
 
@@ -71,11 +69,6 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
             return;
         }
 
-        CephalariEntity rider = findAdultCephalariRider(animatable);
-        if (rider == null) {
-            return;
-        }
-
         boolean isProfessionBone = PROFESSION_BONE.equals(bone.getName());
         boolean isProfessionHatBone = PROFESSION_HAT_BONE.equals(bone.getName());
         boolean isProfessionLevelBone = PROFESSION_LEVEL_BONE.equals(bone.getName());
@@ -83,8 +76,7 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
             return;
         }
 
-        VillagerData data = rider.getVillagerData();
-        VillagerProfession profession = data.getProfession();
+        VillagerProfession profession = animatable.getProfession();
         if (profession == VillagerProfession.NONE) {
             return;
         }
@@ -119,7 +111,7 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
             return;
         }
 
-        ResourceLocation levelTexture = getProfessionLevelTexture(professionId, data.getLevel());
+        ResourceLocation levelTexture = getProfessionLevelTexture(professionId, animatable.getVillagerLevel());
         if (levelTexture == null) {
             return;
         }
@@ -128,20 +120,6 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
         VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
 
         getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    private static CephalariEntity findAdultCephalariRider(CephalariAdultFormEntity adultForm) {
-        if (adultForm == null) {
-            return null;
-        }
-
-        for (net.minecraft.world.entity.Entity passenger : adultForm.getPassengers()) {
-            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
-                return cephalari;
-            }
-        }
-
-        return null;
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(ResourceLocation professionId, int level) {

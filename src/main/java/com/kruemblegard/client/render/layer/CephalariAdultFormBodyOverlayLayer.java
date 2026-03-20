@@ -1,6 +1,5 @@
 package com.kruemblegard.client.render.layer;
 
-import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the linked Cephalari body texture on the embedded {@code cephalari} subtree inside adult-form geos.
+ * Renders the adult-form entity's body texture on the embedded {@code cephalari} subtree inside adult-form geos.
  */
 public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFormEntity> extends GeoRenderLayer<T> {
 
@@ -61,11 +60,6 @@ public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFo
             return;
         }
 
-        CephalariEntity rider = findAdultCephalariRider(animatable);
-        if (rider == null) {
-            return;
-        }
-
         if (!isInCephalariSubtree(bone)) {
             return;
         }
@@ -76,26 +70,12 @@ public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFo
             return;
         }
 
-        ResourceLocation overlayTexture = rider.getBodyTextureResource();
+        ResourceLocation overlayTexture = animatable.getBodyTextureResource();
         RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
         getRenderer().renderCubesOfBone(poseStack, bone, overlayBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    private static CephalariEntity findAdultCephalariRider(CephalariAdultFormEntity adultForm) {
-        if (adultForm == null) {
-            return null;
-        }
-
-        for (net.minecraft.world.entity.Entity passenger : adultForm.getPassengers()) {
-            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
-                return cephalari;
-            }
-        }
-
-        return null;
     }
 
     private static boolean isInCephalariSubtree(GeoBone bone) {

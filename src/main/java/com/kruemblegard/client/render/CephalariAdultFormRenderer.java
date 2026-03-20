@@ -2,7 +2,6 @@ package com.kruemblegard.client.render;
 
 import com.kruemblegard.client.render.layer.CephalariAdultFormBodyOverlayLayer;
 import com.kruemblegard.client.render.layer.CephalariAdultFormProfessionOverlayLayer;
-import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,8 +21,8 @@ import software.bernie.geckolib.util.RenderUtils;
  * Shared renderer for Cephalari adult-form entities.
  *
  * The adult-form geo embeds a {@code cephalari} subtree (plus profession overlay bones). We must avoid
- * painting those bones with the base texture, and instead re-texture that subtree using the linked
- * Cephalari entity's body texture and profession/badge layers.
+ * painting those bones with the base texture, and instead re-texture that subtree using the adult-form
+ * entity's own body texture and profession/badge layers.
  */
 public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> extends GeoEntityRenderer<T> {
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
@@ -54,13 +53,6 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         float alpha
     ) {
         if (!isReRender && animatable != null && bone != null) {
-            CephalariEntity rider = findAdultCephalariRider(animatable);
-
-            // If no rider is present, hide the embedded cephalari subtree entirely.
-            if (rider == null && CEPHALARI_ROOT_BONE.equals(bone.getName())) {
-                return;
-            }
-
             poseStack.pushPose();
             RenderUtils.translateMatrixToBone(poseStack, bone);
             RenderUtils.translateToPivotPoint(poseStack, bone);
@@ -68,10 +60,8 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
             RenderUtils.scaleMatrixForBone(poseStack, bone);
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
-            // Render rider layers first (profession + body overlay).
-            if (rider != null) {
-                applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
-            }
+            // Render overlays first (profession + body overlay).
+            applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
 
             // Render base texture last, but never paint the embedded Cephalari subtree.
             if (!isInCephalariSubtree(bone)) {
@@ -131,19 +121,5 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
     ) {
         // Cutout prevents fully-transparent pixels from writing depth (Scaralon carpet fix behavior).
         return RenderType.entityCutoutNoCull(texture);
-    }
-
-    private static CephalariEntity findAdultCephalariRider(CephalariAdultFormEntity adultForm) {
-        if (adultForm == null) {
-            return null;
-        }
-
-        for (net.minecraft.world.entity.Entity passenger : adultForm.getPassengers()) {
-            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
-                return cephalari;
-            }
-        }
-
-        return null;
     }
 }
