@@ -21,6 +21,10 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
 
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
+    private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_HAT_BONE = "profession_hat";
+    private static final String PROFESSION_LEVEL_BONE = "profession_level";
+
     public CephalariBodyOverlayLayer(GeoRenderer<CephalariEntity> renderer) {
         super(renderer);
     }
@@ -61,6 +65,13 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
         }
 
         if (!isInCephalariSubtree(bone)) {
+            return;
+        }
+
+        // Do not paint over the dedicated profession overlay bones.
+        // Those are rendered by CephalariProfessionLayer.
+        String name = bone.getName();
+        if (PROFESSION_BONE.equals(name) || PROFESSION_HAT_BONE.equals(name) || PROFESSION_LEVEL_BONE.equals(name)) {
             return;
         }
 

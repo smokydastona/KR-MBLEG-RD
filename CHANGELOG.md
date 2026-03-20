@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1251 (2026-03-20)
+- Fix(render/cephalari): enforce Scaralon-style deterministic pass ordering for adult mount appearances: profession + badge first, then Cephalari biome/bonus body overlay (excluding profession bones), then golem/base texture on non-`cephalari` bones.
+
 ## 1.0.1250 (2026-03-20)
 - Fix(textures): Cephalari golem textures now have non-transparent pixels in the left half so mount geos (which use UVs across the full texture width) render fully while still using the golem texture set (no UV edits; no mount atlases).
 

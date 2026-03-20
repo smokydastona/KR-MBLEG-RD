@@ -24,8 +24,8 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
         super(renderManager, new CephalariModel());
         this.shadowRadius = 0.5F;
 
-        addRenderLayer(new CephalariBodyOverlayLayer(this));
         addRenderLayer(new CephalariProfessionLayer(this));
+        addRenderLayer(new CephalariBodyOverlayLayer(this));
     }
 
     @Override
@@ -46,14 +46,15 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
         float alpha
     ) {
         // Adult Cephalari mount appearances use a mount geo that embeds a Cephalari subtree.
-        // The base texture for the mount should NOT paint the embedded Cephalari bones.
-        // The Cephalari body overlay layer renders the biome/boss body texture on that subtree instead.
+        // We want explicit, deterministic pass ordering like the Scaralon carpet fix:
+        // 1) profession + badge overlays (on their dedicated bones)
+        // 2) Cephalari biome/bonus body overlay (only on embedded Cephalari bones)
+        // 3) golem/base texture (only on non-Cephalari bones)
         if (!isReRender
             && animatable != null
             && !animatable.isBaby()
             && animatable.hasAdultMountAppearance()
-            && bone != null
-            && isInCephalariSubtree(bone)) {
+            && bone != null) {
 
             poseStack.pushPose();
             RenderUtils.translateMatrixToBone(poseStack, bone);
@@ -62,7 +63,14 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
             RenderUtils.scaleMatrixForBone(poseStack, bone);
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
+            // Render layers first (registered in the requested order).
             applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
+
+            // Then render the golem/base texture last, but never paint the embedded Cephalari subtree.
+            if (!isInCephalariSubtree(bone)) {
+                renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            }
+
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
             poseStack.popPose();
