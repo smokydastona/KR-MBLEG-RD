@@ -4,9 +4,6 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1238 (2026-03-20)
-- Fix(cephalari): re-map adult mount geo UVs to the populated half of the shared Cephalari golem textures (prevents invisible bones after mount texture deletion).
-
 ## 1.0.1237 (2026-03-20)
 - Fix(textures): reuse Cephalari golem textures for Cephalari adult mount appearances and Wayfall mount mobs (removes dependency on deleted `cephalari_mount_*.png`).
 
