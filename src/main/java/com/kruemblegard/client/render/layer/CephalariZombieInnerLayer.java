@@ -23,6 +23,10 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * - Outer overlays with transparency (especially drowned) never render "hollow".
  */
 public final class CephalariZombieInnerLayer<T extends CephalariZombieEntity> extends GeoRenderLayer<T> {
+    private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_HAT_BONE = "profession_hat";
+    private static final String PROFESSION_LEVEL_BONE = "profession_level";
+
     public CephalariZombieInnerLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
@@ -55,6 +59,13 @@ public final class CephalariZombieInnerLayer<T extends CephalariZombieEntity> ex
         int packedOverlay
     ) {
         if (bone == null) {
+            return;
+        }
+
+        // Profession overlay cubes must only be drawn by the profession layer.
+        // (Otherwise the inner/outer passes can interfere with transparency and depth.)
+        String name = bone.getName();
+        if (PROFESSION_BONE.equals(name) || PROFESSION_HAT_BONE.equals(name) || PROFESSION_LEVEL_BONE.equals(name)) {
             return;
         }
 

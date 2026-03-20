@@ -21,6 +21,10 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * (zombie / husk / drowned) on top.
  */
 public final class CephalariZombieDrownedOuterLayer<T extends CephalariZombieEntity> extends GeoRenderLayer<T> {
+    private static final String PROFESSION_BONE = "profession";
+    private static final String PROFESSION_HAT_BONE = "profession_hat";
+    private static final String PROFESSION_LEVEL_BONE = "profession_level";
+
     public CephalariZombieDrownedOuterLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
@@ -53,6 +57,12 @@ public final class CephalariZombieDrownedOuterLayer<T extends CephalariZombieEnt
         int packedOverlay
     ) {
         if (bone == null) {
+            return;
+        }
+
+        // Profession overlay cubes must only be drawn by the profession layer.
+        String name = bone.getName();
+        if (PROFESSION_BONE.equals(name) || PROFESSION_HAT_BONE.equals(name) || PROFESSION_LEVEL_BONE.equals(name)) {
             return;
         }
 
