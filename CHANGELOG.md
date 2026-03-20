@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1257 (2026-03-20)
+- Fix(render/mounts): make mount layered rendering resilient to passenger ordering by locating the first adult Cephalari rider in the full passenger list (not only `getFirstPassenger()`), so embedded rider overlays don't disappear when another passenger is in slot 0.
+
 ## 1.0.1256 (2026-03-20)
 - Fix(render/cephalari_zombie): render zombified Cephalari (including Drowned Cephalari) as Scaralon-style deterministic layered passes (cutout/no-cull inner, then outer overlay, then profession/badge), and prevent the inner/outer passes from painting the dedicated profession overlay bones.
 

@@ -61,7 +61,8 @@ public final class CephalariMountRiderBodyOverlayLayer<T extends CephalariMountE
             return;
         }
 
-        if (!(animatable.getFirstPassenger() instanceof CephalariEntity rider) || !rider.isAlive() || rider.isBaby()) {
+        CephalariEntity rider = findAdultCephalariRider(animatable);
+        if (rider == null) {
             return;
         }
 
@@ -81,6 +82,20 @@ public final class CephalariMountRiderBodyOverlayLayer<T extends CephalariMountE
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
         getRenderer().renderCubesOfBone(poseStack, bone, overlayBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    private static CephalariEntity findAdultCephalariRider(CephalariMountEntity mount) {
+        if (mount == null) {
+            return null;
+        }
+
+        for (net.minecraft.world.entity.Entity passenger : mount.getPassengers()) {
+            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
+                return cephalari;
+            }
+        }
+
+        return null;
     }
 
     private static boolean isInCephalariSubtree(GeoBone bone) {

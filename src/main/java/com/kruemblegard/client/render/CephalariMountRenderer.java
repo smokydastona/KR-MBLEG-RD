@@ -54,10 +54,7 @@ public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoE
         float alpha
     ) {
         if (!isReRender && animatable != null && bone != null) {
-            CephalariEntity rider = null;
-            if (animatable.getFirstPassenger() instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
-                rider = cephalari;
-            }
+            CephalariEntity rider = findAdultCephalariRider(animatable);
 
             // If no rider is present, hide the embedded cephalari subtree entirely.
             if (rider == null && CEPHALARI_ROOT_BONE.equals(bone.getName())) {
@@ -134,5 +131,19 @@ public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoE
     ) {
         // Cutout prevents fully-transparent pixels from writing depth (Scaralon carpet fix behavior).
         return RenderType.entityCutoutNoCull(texture);
+    }
+
+    private static CephalariEntity findAdultCephalariRider(CephalariMountEntity mount) {
+        if (mount == null) {
+            return null;
+        }
+
+        for (net.minecraft.world.entity.Entity passenger : mount.getPassengers()) {
+            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
+                return cephalari;
+            }
+        }
+
+        return null;
     }
 }

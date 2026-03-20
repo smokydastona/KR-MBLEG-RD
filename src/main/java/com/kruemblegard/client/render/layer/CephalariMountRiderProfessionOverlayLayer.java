@@ -71,7 +71,8 @@ public final class CephalariMountRiderProfessionOverlayLayer<T extends Cephalari
             return;
         }
 
-        if (!(animatable.getFirstPassenger() instanceof CephalariEntity rider) || !rider.isAlive() || rider.isBaby()) {
+        CephalariEntity rider = findAdultCephalariRider(animatable);
+        if (rider == null) {
             return;
         }
 
@@ -127,6 +128,20 @@ public final class CephalariMountRiderProfessionOverlayLayer<T extends Cephalari
         VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
 
         getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    private static CephalariEntity findAdultCephalariRider(CephalariMountEntity mount) {
+        if (mount == null) {
+            return null;
+        }
+
+        for (net.minecraft.world.entity.Entity passenger : mount.getPassengers()) {
+            if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
+                return cephalari;
+            }
+        }
+
+        return null;
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(ResourceLocation professionId, int level) {
