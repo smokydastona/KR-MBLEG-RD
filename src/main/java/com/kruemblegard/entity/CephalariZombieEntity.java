@@ -2,7 +2,7 @@ package com.kruemblegard.entity;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEntities;
-import com.kruemblegard.entity.mount.CephalariMounts;
+import com.kruemblegard.entity.adultform.CephalariAdultForms;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModSounds;
 
@@ -72,7 +72,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
     private static final String NBT_ADULT_ZOMBIE_VARIANT = "KruemblegardCephalariZombieAdultVariant";
     private static final String NBT_BODY_TEXTURE_TYPE = "KruemblegardCephalariZombieBodyTextureType";
-    private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultMountTextureVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultFormTextureVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariZombieAdultMountTextureVariant";
 
     private static final int NO_ZOMBIE_VARIANT = -1;
     private static final int ZOMBIE_VARIANTS = 5;
@@ -83,7 +84,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     protected static final int BODY_TEXTURE_HUSK = 2;
     protected static final int BODY_TEXTURE_DROWNED = 3;
     protected static final int BODY_TEXTURE_TYPES = 3;
-    protected static final int MOUNT_TEXTURE_VARIANTS = 6;
+    protected static final int ADULT_FORM_TEXTURE_VARIANTS = 6;
 
     public enum UndeadVariant {
         ZOMBIE,
@@ -95,7 +96,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_BODY_TEXTURE_TYPE =
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_TEXTURE_VARIANT =
+    private static final EntityDataAccessor<Integer> DATA_ADULT_FORM_TEXTURE_VARIANT =
         SynchedEntityData.defineId(CephalariZombieEntity.class, EntityDataSerializers.INT);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -117,11 +118,11 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         this.entityData.define(DATA_ADULT_ZOMBIE_VARIANT, NO_ZOMBIE_VARIANT);
         // 1..BODY_TEXTURE_TYPES
         this.entityData.define(DATA_BODY_TEXTURE_TYPE, BODY_TEXTURE_ZOMBIE);
-        // 1..MOUNT_TEXTURE_VARIANTS (base layer)
-        this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
+        // 1..ADULT_FORM_TEXTURE_VARIANTS (base layer)
+        this.entityData.define(DATA_ADULT_FORM_TEXTURE_VARIANT, 1);
     }
 
-    public boolean hasAdultMountAppearance() {
+    public boolean hasAdultFormAppearance() {
         return !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) != NO_ZOMBIE_VARIANT;
     }
 
@@ -129,8 +130,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         return this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT);
     }
 
-    public int getAdultMountTextureVariant() {
-        return this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
+    public int getAdultFormTextureVariant() {
+        return this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT);
     }
 
     public int getBodyTextureType() {
@@ -165,9 +166,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         this.entityData.set(DATA_BODY_TEXTURE_TYPE, clamped);
     }
 
-    public void setAdultMountTextureVariant(int variant) {
-        int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, variant));
-        this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
+    public void setAdultFormTextureVariant(int variant) {
+        int clamped = Math.max(1, Math.min(ADULT_FORM_TEXTURE_VARIANTS, variant));
+        this.entityData.set(DATA_ADULT_FORM_TEXTURE_VARIANT, clamped);
     }
 
     /**
@@ -190,7 +191,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     private <T extends Mob> T convertToUndead(EntityType<T> targetType, boolean keepEquipment) {
-        String storedMountId = CephalariMounts.getMountId(this);
+        String storedAdultFormId = CephalariAdultForms.getAdultFormId(this);
         VillagerData storedVillagerData = this.getVillagerData();
         Component storedName = this.getCustomName();
         boolean storedNameVisible = this.isCustomNameVisible();
@@ -198,7 +199,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         boolean storedPersistence = this.isPersistenceRequired();
 
         int storedAdultVariant = this.getAdultZombieVariant();
-        int storedMountTextureVariant = this.getAdultMountTextureVariant();
+        int storedAdultFormTextureVariant = this.getAdultFormTextureVariant();
 
         T converted = super.convertTo(targetType, keepEquipment);
         if (converted instanceof CephalariZombieEntity undead) {
@@ -214,15 +215,15 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 undead.setPersistenceRequired();
             }
 
-            if (storedMountId != null) {
-                CephalariMounts.setMountId(undead, storedMountId);
+            if (storedAdultFormId != null) {
+                CephalariAdultForms.setAdultFormId(undead, storedAdultFormId);
             }
 
             if (!undead.isBaby()) {
                 if (storedAdultVariant != NO_ZOMBIE_VARIANT) {
                     undead.setAdultZombieVariant(storedAdultVariant);
                 }
-                undead.setAdultMountTextureVariant(storedMountTextureVariant);
+                undead.setAdultFormTextureVariant(storedAdultFormTextureVariant);
             }
 
             undead.setBodyTextureType(undead.getFixedBodyTextureType());
@@ -246,9 +247,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             setBodyTextureType(BODY_TEXTURE_ZOMBIE);
         }
 
-        int tex = this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
-        if (tex < 1 || tex > MOUNT_TEXTURE_VARIANTS) {
-            setAdultMountTextureVariant(1);
+        int tex = this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT);
+        if (tex < 1 || tex > ADULT_FORM_TEXTURE_VARIANTS) {
+            setAdultFormTextureVariant(1);
         }
     }
 
@@ -272,8 +273,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 ensureBabyHasMount(level);
             } else {
                 ensureAdultVariantsAssigned();
-                if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
-                    setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+                if (this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT) == 1) {
+                    setAdultFormTextureVariant(1 + this.getRandom().nextInt(ADULT_FORM_TEXTURE_VARIANTS));
                 }
             }
         }
@@ -319,7 +320,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putInt(NBT_ADULT_ZOMBIE_VARIANT, this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT));
         tag.putInt(NBT_BODY_TEXTURE_TYPE, this.entityData.get(DATA_BODY_TEXTURE_TYPE));
-        tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
+        tag.putInt(NBT_ADULT_FORM_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT));
     }
 
     @Override
@@ -352,8 +353,9 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             }
         }
 
-        if (tag.contains(NBT_ADULT_MOUNT_TEXTURE_VARIANT)) {
-            setAdultMountTextureVariant(tag.getInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT));
+        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY;
+        if (tag.contains(textureVariantKey)) {
+            setAdultFormTextureVariant(tag.getInt(textureVariantKey));
         }
     }
 
@@ -374,8 +376,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         // Ensure adult visuals (geo variant + texture selection) are always initialized.
         boolean variantsWereUnassigned = !this.isBaby() && this.entityData.get(DATA_ADULT_ZOMBIE_VARIANT) == NO_ZOMBIE_VARIANT;
         ensureAdultVariantsAssigned();
-        if (variantsWereUnassigned && !this.isBaby() && this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
-            setAdultMountTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+        if (variantsWereUnassigned && !this.isBaby() && this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT) == 1) {
+            setAdultFormTextureVariant(1 + this.getRandom().nextInt(ADULT_FORM_TEXTURE_VARIANTS));
         }
 
         // Migrate legacy cephalari_zombie entities that used bodyTextureType to represent husk/drowned.
@@ -447,7 +449,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         return forwardingLinkedDamage;
     }
 
-    public void hurtLinkedFromMount(DamageSource source, float amount) {
+    public void hurtLinkedFromAdultForm(DamageSource source, float amount) {
         if (level().isClientSide) {
             super.hurt(source, amount);
             return;
@@ -466,7 +468,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         }
     }
 
-    public void healLinkedFromMount(float amount) {
+    public void healLinkedFromAdultForm(float amount) {
         if (level().isClientSide) {
             super.heal(amount);
             return;
@@ -546,7 +548,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             }
             playSound(ModSounds.CEPHALARI_CURE.get(), 0.95F, 0.95F + random.nextFloat() * 0.1F);
 
-            String storedMountId = CephalariMounts.getMountId(this);
+            String storedAdultFormId = CephalariAdultForms.getAdultFormId(this);
 
             T converted = super.convertTo(target, keepEquipment);
             if (converted instanceof CephalariEntity cephalari) {
@@ -555,12 +557,12 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
                 cephalari.setCustomName(this.getCustomName());
                 cephalari.setCustomNameVisible(this.isCustomNameVisible());
 
-                if (storedMountId != null) {
-                    cephalari.setAdultMountId(storedMountId);
+                if (storedAdultFormId != null) {
+                    cephalari.setAdultFormId(storedAdultFormId);
                 }
 
                 if (!cephalari.isBaby()) {
-                    cephalari.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
+                    cephalari.setAdultFormTextureVariant(this.getAdultFormTextureVariant());
                 }
             }
             return converted;

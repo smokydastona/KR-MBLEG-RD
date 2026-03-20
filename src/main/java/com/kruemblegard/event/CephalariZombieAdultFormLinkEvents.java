@@ -17,13 +17,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Links damage/healing between a Zombified Cephalari and its zombie-type mount.
+ * Links damage/healing between a zombified Cephalari and its adult-form host entity.
  *
- * The mount side is vanilla, so we mirror via events and avoid bounce-back loops.
+ * The host side is vanilla, so we mirror via events and avoid bounce-back loops.
  */
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public final class CephalariZombieMountLinkEvents {
-    private CephalariZombieMountLinkEvents() {}
+public final class CephalariZombieAdultFormLinkEvents {
+    private CephalariZombieAdultFormLinkEvents() {}
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
@@ -48,7 +48,7 @@ public final class CephalariZombieMountLinkEvents {
             return;
         }
 
-        cephalari.hurtLinkedFromMount(event.getSource(), amount);
+        cephalari.hurtLinkedFromAdultForm(event.getSource(), amount);
     }
 
     @SubscribeEvent
@@ -74,6 +74,6 @@ public final class CephalariZombieMountLinkEvents {
             return;
         }
 
-        cephalari.healLinkedFromMount(amount);
+        cephalari.healLinkedFromAdultForm(amount);
     }
 }

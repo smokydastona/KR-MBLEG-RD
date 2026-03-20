@@ -1,9 +1,9 @@
 package com.kruemblegard.client.render;
 
-import com.kruemblegard.client.render.layer.CephalariMountRiderBodyOverlayLayer;
-import com.kruemblegard.client.render.layer.CephalariMountRiderProfessionOverlayLayer;
+import com.kruemblegard.client.render.layer.CephalariAdultFormBodyOverlayLayer;
+import com.kruemblegard.client.render.layer.CephalariAdultFormProfessionOverlayLayer;
 import com.kruemblegard.entity.CephalariEntity;
-import com.kruemblegard.entity.mount.CephalariMountEntity;
+import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,21 +19,21 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.util.RenderUtils;
 
 /**
- * Shared renderer for Cephalari mount entities.
+ * Shared renderer for Cephalari adult-form entities.
  *
- * The mount geo embeds a {@code cephalari} subtree (plus profession overlay bones). We must avoid painting
- * those bones with the mount base texture, and instead re-texture that subtree using the rider Cephalari's
- * body texture and profession/badge layers.
+ * The adult-form geo embeds a {@code cephalari} subtree (plus profession overlay bones). We must avoid
+ * painting those bones with the base texture, and instead re-texture that subtree using the linked
+ * Cephalari entity's body texture and profession/badge layers.
  */
-public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoEntityRenderer<T> {
+public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> extends GeoEntityRenderer<T> {
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
-    public CephalariMountRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
+    public CephalariAdultFormRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
         super(renderManager, model);
         this.shadowRadius = 0.7F;
 
-        addRenderLayer(new CephalariMountRiderProfessionOverlayLayer<>(this));
-        addRenderLayer(new CephalariMountRiderBodyOverlayLayer<>(this));
+        addRenderLayer(new CephalariAdultFormProfessionOverlayLayer<>(this));
+        addRenderLayer(new CephalariAdultFormBodyOverlayLayer<>(this));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoE
                 applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
             }
 
-            // Render mount/base texture last, but never paint the embedded Cephalari subtree.
+            // Render base texture last, but never paint the embedded Cephalari subtree.
             if (!isInCephalariSubtree(bone)) {
                 renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             }
@@ -133,12 +133,12 @@ public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoE
         return RenderType.entityCutoutNoCull(texture);
     }
 
-    private static CephalariEntity findAdultCephalariRider(CephalariMountEntity mount) {
-        if (mount == null) {
+    private static CephalariEntity findAdultCephalariRider(CephalariAdultFormEntity adultForm) {
+        if (adultForm == null) {
             return null;
         }
 
-        for (net.minecraft.world.entity.Entity passenger : mount.getPassengers()) {
+        for (net.minecraft.world.entity.Entity passenger : adultForm.getPassengers()) {
             if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
                 return cephalari;
             }

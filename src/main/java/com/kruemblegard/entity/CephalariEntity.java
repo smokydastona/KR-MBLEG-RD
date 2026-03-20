@@ -2,8 +2,8 @@ package com.kruemblegard.entity;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEntities;
-import com.kruemblegard.entity.mount.CephalariMountEntity;
-import com.kruemblegard.entity.mount.CephalariMounts;
+import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
+import com.kruemblegard.entity.adultform.CephalariAdultForms;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModSounds;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
@@ -69,8 +69,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final RawAnimation IDLE_CURIOUS_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_curious");
     private static final RawAnimation IDLE_SKITTISH_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_skittish");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
-    private static final RawAnimation MOUNT_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
-    private static final RawAnimation MOUNT_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
+    private static final RawAnimation ADULT_FORM_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
+    private static final RawAnimation ADULT_FORM_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
     private static final RawAnimation SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.sleep");
@@ -87,20 +87,22 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final int NON_WAYFALL_SUFFOCATION_INTERVAL_TICKS = 40;
     private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
 
-    private static final String NBT_ADULT_MOUNT_VARIANT = "KruemblegardCephalariAdultMountVariant";
-    private static final String NBT_ADULT_MOUNT_TEXTURE_VARIANT = "KruemblegardCephalariAdultMountTextureVariant";
+    private static final String NBT_ADULT_FORM_VARIANT = "KruemblegardCephalariAdultFormVariant";
+    private static final String NBT_ADULT_FORM_VARIANT_LEGACY = "KruemblegardCephalariAdultMountVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariAdultMountTextureVariant";
     private static final String NBT_TEMPERAMENT = "KruemblegardCephalariTemperament";
     private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
 
-    private static final int NO_MOUNT_VARIANT = -1;
-    private static final int MOUNT_TEXTURE_VARIANTS = 6;
+    private static final int NO_ADULT_FORM_VARIANT = -1;
+    private static final int ADULT_FORM_TEXTURE_VARIANTS = 6;
 
     private static final int TEMPERAMENT_UNASSIGNED = -1;
     private static final UUID TEMPERAMENT_SPEED_UUID = UUID.fromString("d1da79a2-5c62-4c1c-bc4d-8a8bb0b03091");
 
-    private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_VARIANT =
+    private static final EntityDataAccessor<Integer> DATA_ADULT_FORM_VARIANT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_ADULT_MOUNT_TEXTURE_VARIANT =
+    private static final EntityDataAccessor<Integer> DATA_ADULT_FORM_TEXTURE_VARIANT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TEMPERAMENT =
         SynchedEntityData.defineId(CephalariEntity.class, EntityDataSerializers.INT);
@@ -153,10 +155,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     private boolean zombifyInProgress = false;
     private int zombifyTicks = 0;
-    private @Nullable String zombifyStoredMountId;
+    private @Nullable String zombifyStoredAdultFormId;
     private int zombifyZombieVariant = 1;
     private int zombifyBodyTextureType = 1;
-    private boolean zombifyMountSpawned = false;
+    private boolean zombifyAdultFormEffectsSpawned = false;
 
     private boolean forwardingLinkedDamage = false;
 
@@ -192,14 +194,14 @@ public class CephalariEntity extends Villager implements GeoEntity {
             EntityType<T> target = (EntityType<T>) targetRaw;
             T converted = super.convertTo(target, keepEquipment);
             if (converted instanceof CephalariZombieEntity cephalariZombie) {
-                cephalariZombie.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
+                cephalariZombie.setAdultFormTextureVariant(this.getAdultFormTextureVariant());
 
-                String mountId = CephalariMounts.getMountId(this);
-                if (mountId == null && this.getVehicle() != null) {
-                    mountId = CephalariMounts.getMountIdFromVehicle(this.getVehicle());
+                String adultFormId = CephalariAdultForms.getAdultFormId(this);
+                if (adultFormId == null && this.getVehicle() != null) {
+                    adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(this.getVehicle());
                 }
-                if (mountId != null) {
-                    CephalariMounts.setMountId(cephalariZombie, mountId);
+                if (adultFormId != null) {
+                    CephalariAdultForms.setAdultFormId(cephalariZombie, adultFormId);
                 }
             }
             return converted;
@@ -211,9 +213,9 @@ public class CephalariEntity extends Villager implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_ADULT_MOUNT_VARIANT, NO_MOUNT_VARIANT);
-        // 1..MOUNT_TEXTURE_VARIANTS (1-based because textures are named _1.._6)
-        this.entityData.define(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
+        this.entityData.define(DATA_ADULT_FORM_VARIANT, NO_ADULT_FORM_VARIANT);
+        // 1..ADULT_FORM_TEXTURE_VARIANTS (1-based because textures are named _1.._6)
+        this.entityData.define(DATA_ADULT_FORM_TEXTURE_VARIANT, 1);
         this.entityData.define(DATA_TEMPERAMENT, TEMPERAMENT_UNASSIGNED);
         // Empty means "use default" (and allows breeding to set explicit textures before finalizeSpawn).
         this.entityData.define(DATA_BODY_TEXTURE, "");
@@ -341,70 +343,70 @@ public class CephalariEntity extends Villager implements GeoEntity {
         appliedTemperament = raw;
     }
 
-    public boolean hasAdultMountAppearance() {
-        return !this.isBaby() && this.entityData.get(DATA_ADULT_MOUNT_VARIANT) != NO_MOUNT_VARIANT;
+    public boolean hasAdultFormAppearance() {
+        return !this.isBaby() && this.entityData.get(DATA_ADULT_FORM_VARIANT) != NO_ADULT_FORM_VARIANT;
     }
 
-    public int getAdultMountVariant() {
-        return this.entityData.get(DATA_ADULT_MOUNT_VARIANT);
+    public int getAdultFormVariant() {
+        return this.entityData.get(DATA_ADULT_FORM_VARIANT);
     }
 
-    public int getAdultMountTextureVariant() {
-        return this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
+    public int getAdultFormTextureVariant() {
+        return this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT);
     }
 
-    public void setAdultMountVariant(int variant) {
+    public void setAdultFormVariant(int variant) {
         if (this.isBaby()) {
-            this.entityData.set(DATA_ADULT_MOUNT_VARIANT, NO_MOUNT_VARIANT);
+            this.entityData.set(DATA_ADULT_FORM_VARIANT, NO_ADULT_FORM_VARIANT);
             return;
         }
 
         int clamped = Math.max(0, Math.min(3, variant));
-        this.entityData.set(DATA_ADULT_MOUNT_VARIANT, clamped);
-        String mountId = CephalariMounts.getMountIdByVariantIndex(clamped);
-        if (mountId != null) {
-            CephalariMounts.setMountId(this, mountId);
+        this.entityData.set(DATA_ADULT_FORM_VARIANT, clamped);
+        String adultFormId = CephalariAdultForms.getAdultFormIdByVariantIndex(clamped);
+        if (adultFormId != null) {
+            CephalariAdultForms.setAdultFormId(this, adultFormId);
         }
     }
 
-    public void setAdultMountTextureVariant(int variant) {
-        int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, variant));
-        this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
+    public void setAdultFormTextureVariant(int variant) {
+        int clamped = Math.max(1, Math.min(ADULT_FORM_TEXTURE_VARIANTS, variant));
+        this.entityData.set(DATA_ADULT_FORM_TEXTURE_VARIANT, clamped);
     }
 
-    public void setAdultMountId(String mountId) {
+    public void setAdultFormId(String adultFormId) {
         if (this.isBaby()) {
             return;
         }
 
-        CephalariMounts.setMountId(this, mountId);
-        int variant = CephalariMounts.getMountVariantIndex(mountId);
-        if (variant != NO_MOUNT_VARIANT) {
-            this.entityData.set(DATA_ADULT_MOUNT_VARIANT, variant);
+        CephalariAdultForms.setAdultFormId(this, adultFormId);
+        int variant = CephalariAdultForms.getAdultFormVariantIndex(adultFormId);
+        if (variant != NO_ADULT_FORM_VARIANT) {
+            this.entityData.set(DATA_ADULT_FORM_VARIANT, variant);
         }
     }
 
-    private void ensureAdultMountAppearance() {
+    private void ensureAdultFormAppearance() {
         if (this.isBaby()) {
-            if (this.entityData.get(DATA_ADULT_MOUNT_VARIANT) != NO_MOUNT_VARIANT) {
-                this.entityData.set(DATA_ADULT_MOUNT_VARIANT, NO_MOUNT_VARIANT);
+            if (this.entityData.get(DATA_ADULT_FORM_VARIANT) != NO_ADULT_FORM_VARIANT) {
+                this.entityData.set(DATA_ADULT_FORM_VARIANT, NO_ADULT_FORM_VARIANT);
             }
             return;
         }
 
-        if (this.entityData.get(DATA_ADULT_MOUNT_VARIANT) == NO_MOUNT_VARIANT) {
-            String mountId = CephalariMounts.getOrAssignMountId(this);
-            int variant = CephalariMounts.getMountVariantIndex(mountId);
-            if (variant == NO_MOUNT_VARIANT) {
+        if (this.entityData.get(DATA_ADULT_FORM_VARIANT) == NO_ADULT_FORM_VARIANT) {
+            String adultFormId = CephalariAdultForms.getOrAssignAdultFormId(this);
+            int variant = CephalariAdultForms.getAdultFormVariantIndex(adultFormId);
+            if (variant == NO_ADULT_FORM_VARIANT) {
                 variant = 0;
-                CephalariMounts.setMountId(this, "spiral_strider");
+                CephalariAdultForms.setAdultFormId(this, "spiral_strider");
             }
-            this.entityData.set(DATA_ADULT_MOUNT_VARIANT, variant);
+            this.entityData.set(DATA_ADULT_FORM_VARIANT, variant);
         }
 
-        int textureVariant = this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT);
-        if (textureVariant < 1 || textureVariant > MOUNT_TEXTURE_VARIANTS) {
-            this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1);
+        int textureVariant = this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT);
+        if (textureVariant < 1 || textureVariant > ADULT_FORM_TEXTURE_VARIANTS) {
+            this.entityData.set(DATA_ADULT_FORM_TEXTURE_VARIANT, 1);
         }
     }
 
@@ -427,9 +429,9 @@ public class CephalariEntity extends Villager implements GeoEntity {
             ensureTemperamentAssigned();
             ensureBodyTextureAssigned(level);
             if (!this.isBaby()) {
-                ensureAdultMountAppearance();
-                if (this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT) == 1) {
-                    this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, 1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+                ensureAdultFormAppearance();
+                if (this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT) == 1) {
+                    this.entityData.set(DATA_ADULT_FORM_TEXTURE_VARIANT, 1 + this.getRandom().nextInt(ADULT_FORM_TEXTURE_VARIANTS));
                 }
             }
         }
@@ -440,8 +442,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
     @Override
     public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putInt(NBT_ADULT_MOUNT_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_VARIANT));
-        tag.putInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_MOUNT_TEXTURE_VARIANT));
+        tag.putInt(NBT_ADULT_FORM_VARIANT, this.entityData.get(DATA_ADULT_FORM_VARIANT));
+        tag.putInt(NBT_ADULT_FORM_TEXTURE_VARIANT, this.entityData.get(DATA_ADULT_FORM_TEXTURE_VARIANT));
         tag.putInt(NBT_TEMPERAMENT, this.entityData.get(DATA_TEMPERAMENT));
         String bodyTex = this.entityData.get(DATA_BODY_TEXTURE);
         if (bodyTex != null && !bodyTex.isEmpty()) {
@@ -453,19 +455,21 @@ public class CephalariEntity extends Villager implements GeoEntity {
     public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
-        if (tag.contains(NBT_ADULT_MOUNT_VARIANT)) {
-            int variant = tag.getInt(NBT_ADULT_MOUNT_VARIANT);
-            this.entityData.set(DATA_ADULT_MOUNT_VARIANT, variant);
-            String mountId = CephalariMounts.getMountIdByVariantIndex(variant);
-            if (mountId != null) {
-                CephalariMounts.setMountId(this, mountId);
+        String variantKey = tag.contains(NBT_ADULT_FORM_VARIANT) ? NBT_ADULT_FORM_VARIANT : NBT_ADULT_FORM_VARIANT_LEGACY;
+        if (tag.contains(variantKey)) {
+            int variant = tag.getInt(variantKey);
+            this.entityData.set(DATA_ADULT_FORM_VARIANT, variant);
+            String adultFormId = CephalariAdultForms.getAdultFormIdByVariantIndex(variant);
+            if (adultFormId != null) {
+                CephalariAdultForms.setAdultFormId(this, adultFormId);
             }
         }
 
-        if (tag.contains(NBT_ADULT_MOUNT_TEXTURE_VARIANT)) {
-            int textureVariant = tag.getInt(NBT_ADULT_MOUNT_TEXTURE_VARIANT);
-            int clamped = Math.max(1, Math.min(MOUNT_TEXTURE_VARIANTS, textureVariant));
-            this.entityData.set(DATA_ADULT_MOUNT_TEXTURE_VARIANT, clamped);
+        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY;
+        if (tag.contains(textureVariantKey)) {
+            int textureVariant = tag.getInt(textureVariantKey);
+            int clamped = Math.max(1, Math.min(ADULT_FORM_TEXTURE_VARIANTS, textureVariant));
+            this.entityData.set(DATA_ADULT_FORM_TEXTURE_VARIANT, clamped);
         }
 
         if (tag.contains(NBT_TEMPERAMENT)) {
@@ -515,19 +519,19 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         tickPersonalityIdleEvents();
 
-        // Legacy cleanup: if an old-world Cephalari is still riding a mount entity, merge it back into a single-mob state.
-        if (this.getVehicle() instanceof CephalariMountEntity mount) {
-            String mountId = CephalariMounts.getMountIdFromVehicle(mount);
-            if (mountId != null) {
-                CephalariMounts.setMountId(this, mountId);
-                this.entityData.set(DATA_ADULT_MOUNT_VARIANT, CephalariMounts.getMountVariantIndex(mountId));
+        // Legacy cleanup: if an old-world Cephalari is still riding an adult-form entity, merge it back into a single-mob state.
+        if (this.getVehicle() instanceof CephalariAdultFormEntity adultForm) {
+            String adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(adultForm);
+            if (adultFormId != null) {
+                CephalariAdultForms.setAdultFormId(this, adultFormId);
+                this.entityData.set(DATA_ADULT_FORM_VARIANT, CephalariAdultForms.getAdultFormVariantIndex(adultFormId));
             }
             this.stopRiding();
-            mount.discard();
+            adultForm.discard();
         }
 
         if (!this.isBaby()) {
-            ensureAdultMountAppearance();
+            ensureAdultFormAppearance();
         }
 
         if (level().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)
@@ -554,8 +558,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
             return;
         }
 
-        if (this.hasAdultMountAppearance()) {
-            // Mount geometry already has richer idle motion; skip extra personality one-shots for now.
+        if (this.hasAdultFormAppearance()) {
+            // Adult-form geometry already has richer idle motion; skip extra personality one-shots for now.
             return;
         }
 
@@ -650,8 +654,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
             };
             state.getController().setAnimationSpeed(animSpeed);
 
-            if (this.hasAdultMountAppearance()) {
-                return state.setAndContinue(MOUNT_WALK_LOOP);
+            if (this.hasAdultFormAppearance()) {
+                return state.setAndContinue(ADULT_FORM_WALK_LOOP);
             }
             return state.setAndContinue(WALK_LOOP);
         }));
@@ -679,8 +683,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
             };
             state.getController().setAnimationSpeed(animSpeed);
 
-            if (this.hasAdultMountAppearance()) {
-                return state.setAndContinue(MOUNT_IDLE_LOOP);
+            if (this.hasAdultFormAppearance()) {
+                return state.setAndContinue(ADULT_FORM_IDLE_LOOP);
             }
 
             RawAnimation idle = switch (getTemperament()) {
@@ -752,7 +756,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         return forwardingLinkedDamage;
     }
 
-    public void hurtLinkedFromMount(DamageSource source, float amount) {
+    public void hurtLinkedFromAdultForm(DamageSource source, float amount) {
         if (level().isClientSide) {
             super.hurt(source, amount);
             return;
@@ -771,7 +775,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         }
     }
 
-    public void healLinkedFromMount(float amount) {
+    public void healLinkedFromAdultForm(float amount) {
         if (level().isClientSide) {
             super.heal(amount);
             return;
@@ -797,15 +801,15 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         zombifyInProgress = true;
         zombifyTicks = 0;
-        zombifyMountSpawned = false;
+        zombifyAdultFormEffectsSpawned = false;
 
-        String mountId = CephalariMounts.getMountId(this);
-        if (mountId == null && this.getVehicle() != null) {
-            mountId = CephalariMounts.getMountIdFromVehicle(this.getVehicle());
+        String adultFormId = CephalariAdultForms.getAdultFormId(this);
+        if (adultFormId == null && this.getVehicle() != null) {
+            adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(this.getVehicle());
         }
-        zombifyStoredMountId = mountId;
+        zombifyStoredAdultFormId = adultFormId;
 
-        // During conversion, pick a zombie mount-variant for the adult model (1..5).
+        // During conversion, pick a zombie adult-form geo variant for the adult model (1..5).
         zombifyZombieVariant = 1 + serverLevel.getRandom().nextInt(5);
 
         // Select which zombified body texture to use (independent from the geo variant).
@@ -837,15 +841,15 @@ public class CephalariEntity extends Villager implements GeoEntity {
         getNavigation().stop();
         setDeltaMovement(0.0D, 0.0D, 0.0D);
 
-        // +0.8s: manifest burst effects (legacy mount spawn removed; this is now a single-mob visual system).
-        if (!zombifyMountSpawned && zombifyTicks >= 16) {
-            zombifyMountSpawned = true;
+        // +0.8s: manifest burst effects.
+        if (!zombifyAdultFormEffectsSpawned && zombifyTicks >= 16) {
+            zombifyAdultFormEffectsSpawned = true;
 
             spawnBurst(serverLevel, ModParticles.CEPHALARI_SHELL_FRAGMENT.get(), 18, 0.40D, 0.25D, 0.40D, 0.08D);
             spawnBurst(serverLevel, ModParticles.CEPHALARI_SHELL_SPIRAL.get(), 12, 0.25D, 0.35D, 0.25D, 0.03D);
         }
 
-        // +2.2s: swap to zombified entity and keep the mount.
+        // +2.2s: swap to zombified entity and keep the adult-form id/appearance.
         if (zombifyTicks >= 44) {
             EntityType<? extends CephalariZombieEntity> targetType;
             if (zombifyBodyTextureType == 2) {
@@ -865,12 +869,12 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 undead.setCustomName(this.getCustomName());
                 undead.setCustomNameVisible(this.isCustomNameVisible());
 
-                if (zombifyStoredMountId != null) {
-                    CephalariMounts.setMountId(undead, zombifyStoredMountId);
+                if (zombifyStoredAdultFormId != null) {
+                    CephalariAdultForms.setAdultFormId(undead, zombifyStoredAdultFormId);
                 }
 
                 undead.setAdultZombieVariant(zombifyZombieVariant);
-                undead.setAdultMountTextureVariant(this.getAdultMountTextureVariant());
+                undead.setAdultFormTextureVariant(this.getAdultFormTextureVariant());
 
                 serverLevel.addFreshEntity(undead);
                 undead.setNoAi(false);

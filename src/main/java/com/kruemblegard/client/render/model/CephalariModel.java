@@ -13,11 +13,11 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
 
     @Override
     public ResourceLocation getModelResource(CephalariEntity animatable) {
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        if (animatable.isBaby() || !animatable.hasAdultFormAppearance()) {
             return new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari.geo.json");
         }
 
-        String geoPath = switch (animatable.getAdultMountVariant()) {
+        String geoPath = switch (animatable.getAdultFormVariant()) {
             case 0 -> "geo/spiral_strider.geo.json";
             case 1 -> "geo/driftskimmer.geo.json";
             case 2 -> "geo/treadwinder.geo.json";
@@ -30,11 +30,11 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CephalariEntity animatable) {
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        if (animatable.isBaby() || !animatable.hasAdultFormAppearance()) {
             return animatable.getBodyTextureResource();
         }
 
-        int variant = animatable.getAdultMountTextureVariant();
+        int variant = animatable.getAdultFormTextureVariant();
         if (variant < GOLEM_TEXTURE_VARIANT_MIN || variant > GOLEM_TEXTURE_VARIANT_MAX) {
             variant = GOLEM_TEXTURE_VARIANT_MIN;
         }

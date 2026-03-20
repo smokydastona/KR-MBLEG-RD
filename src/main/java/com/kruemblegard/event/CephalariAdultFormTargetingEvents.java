@@ -1,7 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.entity.mount.CephalariMountEntity;
+import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -17,11 +17,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Ensure Cephalari mounts are treated like villager targets by zombie-type mobs.
+ * Ensure Cephalari adult forms are treated like villager targets by zombie-type mobs.
  */
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public final class CephalariMountTargetingEvents {
-    private CephalariMountTargetingEvents() {}
+public final class CephalariAdultFormTargetingEvents {
+    private CephalariAdultFormTargetingEvents() {}
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -37,7 +37,7 @@ public final class CephalariMountTargetingEvents {
             return;
         }
 
-        // Add a villager-like target selector for the custom mount entity.
-        mob.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, CephalariMountEntity.class, true));
+        // Add a villager-like target selector for the custom adult-form entity.
+        mob.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, CephalariAdultFormEntity.class, true));
     }
 }

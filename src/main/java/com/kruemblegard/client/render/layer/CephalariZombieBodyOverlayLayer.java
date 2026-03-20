@@ -15,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the zombified Cephalari texture over the mount base texture for adult Zombified Cephalari.
+ * Renders the zombified Cephalari texture over the adult-form base texture for adult Zombified Cephalari.
  */
 public final class CephalariZombieBodyOverlayLayer extends GeoRenderLayer<CephalariZombieEntity> {
 
@@ -56,7 +56,7 @@ public final class CephalariZombieBodyOverlayLayer extends GeoRenderLayer<Cephal
             return;
         }
 
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        if (animatable.isBaby() || !animatable.hasAdultFormAppearance()) {
             return;
         }
 

@@ -15,10 +15,10 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraderBeetleEntity;
 import com.kruemblegard.entity.TraprockEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
-import com.kruemblegard.entity.mount.DriftSkimmerEntity;
-import com.kruemblegard.entity.mount.EchoHarnessEntity;
-import com.kruemblegard.entity.mount.SpiralStriderEntity;
-import com.kruemblegard.entity.mount.TreadwinderEntity;
+import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
+import com.kruemblegard.entity.adultform.EchoHarnessEntity;
+import com.kruemblegard.entity.adultform.SpiralStriderEntity;
+import com.kruemblegard.entity.adultform.TreadwinderEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatEntity;
 import com.kruemblegard.entity.vehicle.KruemblegardChestBoatEntity;
 

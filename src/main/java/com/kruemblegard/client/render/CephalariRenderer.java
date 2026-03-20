@@ -45,7 +45,7 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
         float blue,
         float alpha
     ) {
-        // Adult Cephalari mount appearances use a mount geo that embeds a Cephalari subtree.
+        // Adult Cephalari adult-form appearances use an adult-form geo that embeds a Cephalari subtree.
         // We want explicit, deterministic pass ordering like the Scaralon carpet fix:
         // 1) profession + badge overlays (on their dedicated bones)
         // 2) Cephalari biome/bonus body overlay (only on embedded Cephalari bones)
@@ -53,7 +53,7 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
         if (!isReRender
             && animatable != null
             && !animatable.isBaby()
-            && animatable.hasAdultMountAppearance()
+            && animatable.hasAdultFormAppearance()
             && bone != null) {
 
             poseStack.pushPose();

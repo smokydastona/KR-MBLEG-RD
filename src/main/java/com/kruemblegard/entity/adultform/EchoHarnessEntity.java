@@ -1,4 +1,4 @@
-package com.kruemblegard.entity.mount;
+package com.kruemblegard.entity.adultform;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 import software.bernie.geckolib.core.animation.RawAnimation;
 
-public class EchoHarnessEntity extends CephalariMountEntity {
+public class EchoHarnessEntity extends CephalariAdultFormEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.echo_harness.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.echo_harness.move");
@@ -21,7 +21,7 @@ public class EchoHarnessEntity extends CephalariMountEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return CephalariMountEntity.createBaseAttributes().add(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED, 0.28D);
+        return CephalariAdultFormEntity.createBaseAttributes().add(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED, 0.28D);
     }
 
     @Override

@@ -15,7 +15,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the Cephalari body texture over the mount base texture for adult Cephalari.
+ * Renders the Cephalari body texture over the adult-form base texture for adult Cephalari.
  */
 public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEntity> {
 
@@ -60,7 +60,7 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
             return;
         }
 
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        if (animatable.isBaby() || !animatable.hasAdultFormAppearance()) {
             return;
         }
 

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1260 (2026-03-20)
+- Refactor(cephalari/adult_forms): complete internal “mount” → “adult form” rename sweep across the Cephalari adult-form system (renderers/models/layers/events) while keeping legacy NBT keys readable for existing worlds.
+
 ## 1.0.1259 (2026-03-20)
 - Docs/wording: rename remaining “mount” phrasing to “adult-form” for Cephalari adult body types (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`). These are adult forms, not rideable mounts.
 

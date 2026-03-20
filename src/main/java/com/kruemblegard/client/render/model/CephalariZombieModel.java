@@ -12,7 +12,7 @@ public class CephalariZombieModel<T extends CephalariZombieEntity> extends GeoMo
     @Override
     public ResourceLocation getModelResource(T animatable) {
         ResourceLocation base = new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");
-        if (animatable.isBaby() || !animatable.hasAdultMountAppearance()) {
+        if (animatable.isBaby() || !animatable.hasAdultFormAppearance()) {
             return base;
         }
 
@@ -30,7 +30,7 @@ public class CephalariZombieModel<T extends CephalariZombieEntity> extends GeoMo
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        // Zombified Cephalari never use mount textures.
+        // Zombified Cephalari never use adult-form base textures.
         // The base pass always renders the selected zombified inner layer directly.
         return animatable.getBodyTextureResource();
     }

@@ -1,7 +1,7 @@
 package com.kruemblegard.client.render.model;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.entity.mount.SpiralStriderEntity;
+import com.kruemblegard.entity.adultform.SpiralStriderEntity;
 
 import net.minecraft.resources.ResourceLocation;
 

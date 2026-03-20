@@ -3,7 +3,7 @@ package com.kruemblegard.client.render.layer;
 import javax.annotation.Nullable;
 
 import com.kruemblegard.entity.CephalariEntity;
-import com.kruemblegard.entity.mount.CephalariMountEntity;
+import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,9 +22,9 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the rider Cephalari profession overlays (and level badge) onto dedicated bones embedded in mount geos.
+ * Renders the linked Cephalari profession overlays (and level badge) onto dedicated bones embedded in adult-form geos.
  */
-public final class CephalariMountRiderProfessionOverlayLayer<T extends CephalariMountEntity> extends GeoRenderLayer<T> {
+public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariAdultFormEntity> extends GeoRenderLayer<T> {
 
     private static final String PROFESSION_BONE = "profession";
     private static final String PROFESSION_HAT_BONE = "profession_hat";
@@ -36,7 +36,7 @@ public final class CephalariMountRiderProfessionOverlayLayer<T extends Cephalari
     private static final java.util.Map<String, java.util.Optional<ResourceLocation>> PROFESSION_LEVEL_TEXTURE_CACHE =
         new java.util.concurrent.ConcurrentHashMap<>();
 
-    public CephalariMountRiderProfessionOverlayLayer(GeoRenderer<T> renderer) {
+    public CephalariAdultFormProfessionOverlayLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
 
@@ -130,12 +130,12 @@ public final class CephalariMountRiderProfessionOverlayLayer<T extends Cephalari
         getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private static CephalariEntity findAdultCephalariRider(CephalariMountEntity mount) {
-        if (mount == null) {
+    private static CephalariEntity findAdultCephalariRider(CephalariAdultFormEntity adultForm) {
+        if (adultForm == null) {
             return null;
         }
 
-        for (net.minecraft.world.entity.Entity passenger : mount.getPassengers()) {
+        for (net.minecraft.world.entity.Entity passenger : adultForm.getPassengers()) {
             if (passenger instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
                 return cephalari;
             }

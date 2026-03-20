@@ -1,4 +1,4 @@
-package com.kruemblegard.entity.mount;
+package com.kruemblegard.entity.adultform;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -54,14 +54,15 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public abstract class CephalariMountEntity extends PathfinderMob implements GeoEntity {
+public abstract class CephalariAdultFormEntity extends PathfinderMob implements GeoEntity {
 
     private static final String SEAT_BONE_NAME = "seat";
 
-    private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariMountTextureVariant";
-    private static final int MOUNT_TEXTURE_VARIANTS = 6;
+    private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
+    private static final String NBT_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariMountTextureVariant";
+    private static final int TEXTURE_VARIANTS = 6;
 
-    private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(CephalariMountEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(CephalariAdultFormEntity.class, EntityDataSerializers.INT);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -72,7 +73,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     private volatile @Nullable Vec3 cachedSeatOffsetBlocks;
 
-    protected CephalariMountEntity(
+    protected CephalariAdultFormEntity(
         EntityType<? extends PathfinderMob> type,
         Level level,
         String geoResourcePath,
@@ -86,7 +87,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        // 1..MOUNT_TEXTURE_VARIANTS (we use 1-based because the files are named _1.._6)
+        // 1..TEXTURE_VARIANTS (we use 1-based because the files are named _1.._6)
         this.entityData.define(DATA_TEXTURE_VARIANT, 1);
     }
 
@@ -95,7 +96,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     }
 
     public void setTextureVariant(int variant) {
-        int clamped = Mth.clamp(variant, 1, MOUNT_TEXTURE_VARIANTS);
+        int clamped = Mth.clamp(variant, 1, TEXTURE_VARIANTS);
         this.entityData.set(DATA_TEXTURE_VARIANT, clamped);
     }
 
@@ -109,9 +110,9 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     ) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
-        // Assign a stable random look per mount.
+        // Assign a stable random look per adult-form entity.
         if (!this.level().isClientSide) {
-            setTextureVariant(1 + this.getRandom().nextInt(MOUNT_TEXTURE_VARIANTS));
+            setTextureVariant(1 + this.getRandom().nextInt(TEXTURE_VARIANTS));
         }
 
         return result;
@@ -128,6 +129,9 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
         super.readAdditionalSaveData(tag);
         if (tag.contains(NBT_TEXTURE_VARIANT)) {
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
+        } else if (tag.contains(NBT_TEXTURE_VARIANT_LEGACY)) {
+            // Backward compat for older saves.
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT_LEGACY));
         }
     }
 
@@ -165,16 +169,16 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     }
 
     private static final class FollowCephalariWalkTargetGoal extends Goal {
-        private final CephalariMountEntity mount;
+        private final CephalariAdultFormEntity adultForm;
 
-        private FollowCephalariWalkTargetGoal(CephalariMountEntity mount) {
-            this.mount = mount;
+        private FollowCephalariWalkTargetGoal(CephalariAdultFormEntity adultForm) {
+            this.adultForm = adultForm;
             setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
         public boolean canUse() {
-            if (!(mount.getFirstPassenger() instanceof CephalariEntity cephalari) || !cephalari.isAlive()) {
+            if (!(adultForm.getFirstPassenger() instanceof CephalariEntity cephalari) || !cephalari.isAlive()) {
                 return false;
             }
 
@@ -188,7 +192,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
         @Override
         public void tick() {
-            if (!(mount.getFirstPassenger() instanceof CephalariEntity cephalari)) {
+            if (!(adultForm.getFirstPassenger() instanceof CephalariEntity cephalari)) {
                 return;
             }
 
@@ -200,9 +204,9 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
             WalkTarget walkTarget = walkTargetOpt.get();
             Vec3 pos = walkTarget.getTarget().currentPosition();
 
-            // Drive the mount navigation using the Cephalari's villager walk target.
-            mount.getNavigation().moveTo(pos.x, pos.y, pos.z, walkTarget.getSpeedModifier());
-            mount.getLookControl().setLookAt(pos.x, pos.y, pos.z);
+            // Drive the adult-form navigation using the Cephalari's villager walk target.
+            adultForm.getNavigation().moveTo(pos.x, pos.y, pos.z, walkTarget.getSpeedModifier());
+            adultForm.getLookControl().setLookAt(pos.x, pos.y, pos.z);
         }
     }
 
@@ -234,7 +238,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
         if (!level().isClientSide && !forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari) {
             boolean result = super.hurt(source, amount);
             if (result && cephalari.isAlive()) {
-                cephalari.hurtLinkedFromMount(source, amount);
+                cephalari.hurtLinkedFromAdultForm(source, amount);
             }
             return result;
         }
@@ -268,7 +272,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
         }
 
         if (!forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari && cephalari.isAlive()) {
-            cephalari.healLinkedFromMount(amount);
+            cephalari.healLinkedFromAdultForm(amount);
         }
     }
 
@@ -392,7 +396,7 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
     }
 
     private Vec3 loadSeatOffsetFromGeo() {
-        try (InputStream is = CephalariMountEntity.class.getClassLoader().getResourceAsStream(geoResourcePath)) {
+        try (InputStream is = CephalariAdultFormEntity.class.getClassLoader().getResourceAsStream(geoResourcePath)) {
             if (is == null) {
                 return defaultSeatOffsetBlocks;
             }
