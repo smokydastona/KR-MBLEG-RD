@@ -92,9 +92,8 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
             return false;
         }
 
-        // Avoid matching the root itself; it is usually a pivot-only bone.
         if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
-            return false;
+            return true;
         }
 
         GeoBone current = bone;

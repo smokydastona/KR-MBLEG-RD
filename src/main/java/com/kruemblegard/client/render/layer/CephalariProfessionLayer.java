@@ -29,8 +29,6 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  */
 public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEntity> {
 
-    private static final String CEPHALARI_ROOT_BONE = "cephalari";
-
     private static final String PROFESSION_BONE = "profession";
     private static final String PROFESSION_HAT_BONE = "profession_hat";
     private static final String PROFESSION_LEVEL_BONE = "profession_level";
@@ -93,12 +91,6 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             return;
         }
 
-        // Adult Cephalari use a mount geometry with an embedded Cephalari subtree.
-        // Only render profession/badge overlays on that subtree to avoid painting the mount bones.
-        if (animatable.hasAdultMountAppearance() && !isInCephalariSubtree(bone)) {
-            return;
-        }
-
         if (isProfessionBone || isProfessionHatBone) {
             ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
             if (professionId == null) {
@@ -146,28 +138,6 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
         getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    private static boolean isInCephalariSubtree(GeoBone bone) {
-        if (bone == null) {
-            return false;
-        }
-
-        // Avoid matching the root itself; it is usually a pivot-only bone.
-        if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
-            return false;
-        }
-
-        GeoBone current = bone;
-        while (current != null) {
-            GeoBone parent = current.getParent();
-            if (parent != null && CEPHALARI_ROOT_BONE.equals(parent.getName())) {
-                return true;
-            }
-            current = parent;
-        }
-
-        return false;
     }
 
     private static @Nullable ResourceLocation getProfessionLevelTexture(ResourceLocation professionId, int level) {

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1250 (2026-03-20)
+- Fix(textures): Cephalari golem textures now have non-transparent pixels in the left half so mount geos (which use UVs across the full texture width) render fully while still using the golem texture set (no UV edits; no mount atlases).
+
 ## 1.0.1249 (2026-03-20)
 - Fix(cephalari): render adult mount appearances as bone-masked multi-pass layers: golem texture on non-`cephalari` bones (mount/body), Cephalari biome/bonus body texture only on the embedded `cephalari` subtree, then profession + badge overlays only on their dedicated bones (no UV edits; removes mount atlas texture dependency).
 
