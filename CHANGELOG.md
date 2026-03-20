@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1249 (2026-03-20)
+- Fix(cephalari): render adult mount appearances as bone-masked multi-pass layers: golem texture on non-`cephalari` bones (mount/body), Cephalari biome/bonus body texture only on the embedded `cephalari` subtree, then profession + badge overlays only on their dedicated bones (no UV edits; removes mount atlas texture dependency).
+
 ## 1.0.1248 (2026-03-20)
 - Fix(cephalari): restore dedicated mount texture atlases (downscaled) so mount/adult-mount UVs render correctly without modifying authored UV layouts.
 

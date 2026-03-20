@@ -356,9 +356,9 @@ Keep it up to date whenever you add/remove/rename content.
     - Drowned visual: drowned Cephalari render a vanilla Drowned-style outer overlay layer.
     - Loot: undead variants use the same loot behavior as their vanilla counterparts (Zombie/Husk/Drowned).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
-  - Visual (adult mount appearance): the base render uses the mount texture for mount/body bones, and an overlay pass re-textures only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools).
+  - Visual (adult mount appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (mount/body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools) plus profession + badge overlays on their dedicated bones.
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
-  - Visual (zombified): Zombified Cephalari never use mount textures. The base render uses the selected zombified **inner layer** texture, and the selected zombified **outer layer** texture renders on top.
+  - Visual (zombified): the base render uses the selected zombified **inner layer** texture, and the selected zombified **outer layer** texture renders on top.
   - Rendered via GeckoLib (placeholder assets):
     - Geo: `assets/kruemblegard/geo/cephalari.geo.json` and `assets/kruemblegard/geo/cephalari_zombie.geo.json` (babies)
     - Geo (adult zombie variants): `assets/kruemblegard/geo/cephalari_zombie_1.geo.json` .. `_5.geo.json`
@@ -368,7 +368,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Mount assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
-    - Textures: `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
+    - Textures: shared variants reused from the golem set `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`
 
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
@@ -383,7 +383,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/cephalari_golem.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari_golem.animation.json`
     - Controllers: `assets/kruemblegard/controllers/cephalari_golem.animation_controllers.json`
-    - Textures: `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
+    - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
