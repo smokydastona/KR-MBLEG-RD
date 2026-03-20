@@ -357,6 +357,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Loot: undead variants use the same loot behavior as their vanilla counterparts (Zombie/Husk/Drowned).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual (adult mount appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (mount/body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools) plus profession + badge overlays on their dedicated bones.
+    - Visual (mount mobs): the stand-alone mount entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the riding Cephalari's body/profession layers (the mount/base texture only paints non-`cephalari` bones).
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
   - Visual (zombified): the base render uses the selected zombified **inner layer** texture, and the selected zombified **outer layer** texture renders on top.
   - Rendered via GeckoLib (placeholder assets):

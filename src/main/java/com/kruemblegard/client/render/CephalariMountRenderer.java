@@ -1,0 +1,138 @@
+package com.kruemblegard.client.render;
+
+import com.kruemblegard.client.render.layer.CephalariMountRiderBodyOverlayLayer;
+import com.kruemblegard.client.render.layer.CephalariMountRiderProfessionOverlayLayer;
+import com.kruemblegard.entity.CephalariEntity;
+import com.kruemblegard.entity.mount.CephalariMountEntity;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.util.RenderUtils;
+
+/**
+ * Shared renderer for Cephalari mount entities.
+ *
+ * The mount geo embeds a {@code cephalari} subtree (plus profession overlay bones). We must avoid painting
+ * those bones with the mount base texture, and instead re-texture that subtree using the rider Cephalari's
+ * body texture and profession/badge layers.
+ */
+public class CephalariMountRenderer<T extends CephalariMountEntity> extends GeoEntityRenderer<T> {
+    private static final String CEPHALARI_ROOT_BONE = "cephalari";
+
+    public CephalariMountRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
+        super(renderManager, model);
+        this.shadowRadius = 0.7F;
+
+        addRenderLayer(new CephalariMountRiderProfessionOverlayLayer<>(this));
+        addRenderLayer(new CephalariMountRiderBodyOverlayLayer<>(this));
+    }
+
+    @Override
+    public void renderRecursively(
+        PoseStack poseStack,
+        T animatable,
+        GeoBone bone,
+        RenderType renderType,
+        MultiBufferSource bufferSource,
+        VertexConsumer buffer,
+        boolean isReRender,
+        float partialTick,
+        int packedLight,
+        int packedOverlay,
+        float red,
+        float green,
+        float blue,
+        float alpha
+    ) {
+        if (!isReRender && animatable != null && bone != null) {
+            CephalariEntity rider = null;
+            if (animatable.getFirstPassenger() instanceof CephalariEntity cephalari && cephalari.isAlive() && !cephalari.isBaby()) {
+                rider = cephalari;
+            }
+
+            // If no rider is present, hide the embedded cephalari subtree entirely.
+            if (rider == null && CEPHALARI_ROOT_BONE.equals(bone.getName())) {
+                return;
+            }
+
+            poseStack.pushPose();
+            RenderUtils.translateMatrixToBone(poseStack, bone);
+            RenderUtils.translateToPivotPoint(poseStack, bone);
+            RenderUtils.rotateMatrixAroundBone(poseStack, bone);
+            RenderUtils.scaleMatrixForBone(poseStack, bone);
+            RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
+
+            // Render rider layers first (profession + body overlay).
+            if (rider != null) {
+                applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
+            }
+
+            // Render mount/base texture last, but never paint the embedded Cephalari subtree.
+            if (!isInCephalariSubtree(bone)) {
+                renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            }
+
+            renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+            poseStack.popPose();
+            return;
+        }
+
+        super.renderRecursively(
+            poseStack,
+            animatable,
+            bone,
+            renderType,
+            bufferSource,
+            buffer,
+            isReRender,
+            partialTick,
+            packedLight,
+            packedOverlay,
+            red,
+            green,
+            blue,
+            alpha
+        );
+    }
+
+    private static boolean isInCephalariSubtree(GeoBone bone) {
+        if (bone == null) {
+            return false;
+        }
+
+        if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
+            return true;
+        }
+
+        GeoBone current = bone;
+        while (current != null) {
+            GeoBone parent = current.getParent();
+            if (parent != null && CEPHALARI_ROOT_BONE.equals(parent.getName())) {
+                return true;
+            }
+            current = parent;
+        }
+
+        return false;
+    }
+
+    @Override
+    public RenderType getRenderType(
+        T animatable,
+        ResourceLocation texture,
+        MultiBufferSource bufferSource,
+        float partialTick
+    ) {
+        // Cutout prevents fully-transparent pixels from writing depth (Scaralon carpet fix behavior).
+        return RenderType.entityCutoutNoCull(texture);
+    }
+}

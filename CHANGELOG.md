@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1253 (2026-03-20)
+- Fix(render/mounts): render the embedded Cephalari subtree inside the 4 Cephalari mount geos as Scaralon-style layered passes (rider profession + badge, then rider body texture), while the mount/base texture only paints non-`cephalari` bones.
+
 ## 1.0.1252 (2026-03-20)
 - Fix(textures): remove remaining fully-transparent pixels from Cephalari golem textures so adult mount appearances can't render holes on Spiral Strider / DriftSkimmer / Echo Harness when sampling golem textures.
 

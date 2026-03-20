@@ -5,9 +5,7 @@ import com.kruemblegard.entity.mount.DriftSkimmerEntity;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-
-public class DriftSkimmerRenderer extends GeoEntityRenderer<DriftSkimmerEntity> {
+public class DriftSkimmerRenderer extends CephalariMountRenderer<DriftSkimmerEntity> {
 
     public DriftSkimmerRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DriftSkimmerModel());
