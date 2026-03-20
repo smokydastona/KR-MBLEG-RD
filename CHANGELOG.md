@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1262 (2026-03-20)
+- Fix(cephalari/adult_forms): adult-form entities now pick their Cephalari body texture using the exact same historical spawn selection logic as `cephalari`.
+- Fix(cephalari/adult_forms): adult-form entities now reject and forcibly eject all passengers (including legacy linked Cephalari), preventing any passenger-based behavior from returning.
+- Fix(cephalari_zombie): baby undead Cephalari jockey mounts are now forced to be permanently hostile.
+
 ## 1.0.1261 (2026-03-20)
 - Fix(render/adult_forms): adult-form entities now carry their own Cephalari appearance data (body texture + profession + level) and the layered renderer no longer depends on any linked passenger entity for embedded Cephalari overlays.
 

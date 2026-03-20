@@ -17,7 +17,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
@@ -25,6 +29,7 @@ import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -310,9 +315,25 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         mount.finalizeSpawn(level, level.getCurrentDifficultyAt(mount.blockPosition()), MobSpawnType.JOCKEY, null, null);
         mount.setPersistenceRequired();
 
+        makeMountPermanentlyHostile(mount);
+
         level.addFreshEntity(mount);
         this.startRiding(mount, true);
         this.setPersistenceRequired();
+    }
+
+    private static void makeMountPermanentlyHostile(Mob mount) {
+        // Force the mount to behave like a hostile mob, even if it's normally passive/neutral.
+        // We do this by injecting a simple melee + player-targeting goal set.
+        if (!(mount instanceof PathfinderMob pathfinder)) {
+            return;
+        }
+
+        pathfinder.setAggressive(true);
+
+        pathfinder.goalSelector.addGoal(1, new MeleeAttackGoal(pathfinder, 1.2D, true));
+        pathfinder.targetSelector.addGoal(1, new HurtByTargetGoal(pathfinder));
+        pathfinder.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(pathfinder, Player.class, true));
     }
 
     @Override
@@ -370,6 +391,12 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
 
         if (level().isClientSide) {
             return;
+        }
+
+        // Some creation paths can bypass finalizeSpawn. Ensure baby jockey behavior still happens,
+        // but only during the initial spawn window (avoid endlessly respawning mounts).
+        if (this.isBaby() && !this.isPassenger() && this.tickCount < 20 && level() instanceof ServerLevelAccessor accessor) {
+            ensureBabyHasMount(accessor);
         }
 
         // Some creation paths (notably vanilla conversion mechanics) can bypass finalizeSpawn.

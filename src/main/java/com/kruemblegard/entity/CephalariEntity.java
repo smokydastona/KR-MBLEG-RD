@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -249,17 +250,27 @@ public class CephalariEntity extends Villager implements GeoEntity {
     }
 
     private ResourceLocation pickSpawnBodyTexture(ServerLevelAccessor accessor, BlockPos pos) {
+        return pickSpawnBodyTexture(accessor, pos, this.getRandom());
+    }
+
+    /**
+     * Picks the body texture used for newly-spawned Cephalari.
+     *
+     * This method intentionally preserves the exact historical selection logic (bonus pool chance,
+     * "different biome" chance, otherwise current biome).
+     */
+    public static ResourceLocation pickSpawnBodyTexture(ServerLevelAccessor accessor, BlockPos pos, RandomSource random) {
         // 10% bonus, 5% "different biome", otherwise current biome.
-        float roll = this.getRandom().nextFloat();
+        float roll = random.nextFloat();
         if (roll < 0.10F && !BONUS_BODY_TEXTURES.isEmpty()) {
-            return BONUS_BODY_TEXTURES.get(this.getRandom().nextInt(BONUS_BODY_TEXTURES.size()));
+            return BONUS_BODY_TEXTURES.get(random.nextInt(BONUS_BODY_TEXTURES.size()));
         }
 
         ResourceLocation currentBiome = getBiomeBodyTexture(accessor, pos);
         if (roll < 0.15F && !WAYFALL_BIOME_BODY_TEXTURES.isEmpty()) {
             // Pick a different Wayfall biome texture (fallback to current if identical).
             for (int i = 0; i < 6; i++) {
-                ResourceLocation candidate = WAYFALL_BIOME_BODY_TEXTURES.get(this.getRandom().nextInt(WAYFALL_BIOME_BODY_TEXTURES.size()));
+                ResourceLocation candidate = WAYFALL_BIOME_BODY_TEXTURES.get(random.nextInt(WAYFALL_BIOME_BODY_TEXTURES.size()));
                 if (!candidate.equals(currentBiome)) {
                     return candidate;
                 }

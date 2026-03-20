@@ -22,7 +22,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -30,8 +29,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -45,8 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.EnumSet;
-import java.util.Optional;
+
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -81,8 +77,6 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     private final String geoResourcePath;
     private final Vec3 defaultSeatOffsetBlocks;
-
-    private boolean forwardingLinkedDamage = false;
 
     private volatile @Nullable Vec3 cachedSeatOffsetBlocks;
 
@@ -187,11 +181,10 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         if (!this.level().isClientSide) {
             setTextureVariant(1 + this.getRandom().nextInt(TEXTURE_VARIANTS));
 
-            // If nothing provided via NBT/commands, start with the default body texture.
-            // (If this entity is still used in a legacy linked-pair setup, we will copy the linked
-            // Cephalari appearance on server tick.)
+            // If nothing provided via NBT/commands, pick body texture using the exact historical
+            // Cephalari spawn selection logic.
             if (this.entityData.get(DATA_BODY_TEXTURE) == null || this.entityData.get(DATA_BODY_TEXTURE).isEmpty()) {
-                setBodyTextureResource(DEFAULT_BODY_TEXTURE);
+                setBodyTextureResource(CephalariEntity.pickSpawnBodyTexture(level, this.blockPosition(), this.getRandom()));
             }
         }
 
@@ -272,53 +265,10 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(1, new FollowCephalariWalkTargetGoal(this));
-        goalSelector.addGoal(2, new PanicGoal(this, 1.25D));
-        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D));
-        goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-    }
-
-    private static final class FollowCephalariWalkTargetGoal extends Goal {
-        private final CephalariAdultFormEntity adultForm;
-
-        private FollowCephalariWalkTargetGoal(CephalariAdultFormEntity adultForm) {
-            this.adultForm = adultForm;
-            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        @Override
-        public boolean canUse() {
-            if (!(adultForm.getFirstPassenger() instanceof CephalariEntity cephalari) || !cephalari.isAlive()) {
-                return false;
-            }
-
-            return cephalari.getBrain().hasMemoryValue(MemoryModuleType.WALK_TARGET);
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return canUse();
-        }
-
-        @Override
-        public void tick() {
-            if (!(adultForm.getFirstPassenger() instanceof CephalariEntity cephalari)) {
-                return;
-            }
-
-            Optional<WalkTarget> walkTargetOpt = cephalari.getBrain().getMemory(MemoryModuleType.WALK_TARGET);
-            if (walkTargetOpt.isEmpty()) {
-                return;
-            }
-
-            WalkTarget walkTarget = walkTargetOpt.get();
-            Vec3 pos = walkTarget.getTarget().currentPosition();
-
-            // Drive the adult-form navigation using the Cephalari's villager walk target.
-            adultForm.getNavigation().moveTo(pos.x, pos.y, pos.z, walkTarget.getSpeedModifier());
-            adultForm.getLookControl().setLookAt(pos.x, pos.y, pos.z);
-        }
+        goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+        goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -329,22 +279,24 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
             return;
         }
 
-        // Hard guarantee: never allow a player to remain mounted, even if forced by commands/other mods.
+        // Hard guarantee: adult-form entities never keep passengers.
+        // If an older world/mod/command forces a passenger, migrate appearance once (legacy only),
+        // then immediately eject.
+        boolean bodyUnset = this.entityData.get(DATA_BODY_TEXTURE) == null || this.entityData.get(DATA_BODY_TEXTURE).isEmpty();
+        boolean professionUnset = this.entityData.get(DATA_PROFESSION) == null || this.entityData.get(DATA_PROFESSION).isEmpty();
+
         for (Entity passenger : new java.util.ArrayList<>(getPassengers())) {
-            if (passenger instanceof Player) {
-                passenger.stopRiding();
+            if (passenger instanceof CephalariEntity cephalari && (bodyUnset || professionUnset)) {
+                syncAppearanceFromCephalari(cephalari);
+                bodyUnset = this.entityData.get(DATA_BODY_TEXTURE) == null || this.entityData.get(DATA_BODY_TEXTURE).isEmpty();
+                professionUnset = this.entityData.get(DATA_PROFESSION) == null || this.entityData.get(DATA_PROFESSION).isEmpty();
             }
+            passenger.stopRiding();
         }
 
-        if (getFirstPassenger() instanceof CephalariEntity cephalari) {
-            // Backward compat: if a legacy linked Cephalari exists, copy appearance/profession
-            // onto this entity so rendering does not depend on passenger scanning.
-            syncAppearanceFromCephalari(cephalari);
-
-            // Keep the pair alive/dead together.
-            if (!cephalari.isAlive() && this.isAlive()) {
-                this.kill();
-            }
+        // Some creation paths can bypass finalizeSpawn; ensure we always get a stable body texture.
+        if (bodyUnset && level() instanceof ServerLevelAccessor accessor) {
+            setBodyTextureResource(CephalariEntity.pickSpawnBodyTexture(accessor, this.blockPosition(), this.getRandom()));
         }
     }
 
@@ -361,68 +313,6 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         if (villagerData != null) {
             setProfession(villagerData.getProfession());
             setVillagerLevel(villagerData.getLevel());
-        }
-    }
-
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (!level().isClientSide && !forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari) {
-            boolean result = super.hurt(source, amount);
-            if (result && cephalari.isAlive()) {
-                cephalari.hurtLinkedFromAdultForm(source, amount);
-            }
-            return result;
-        }
-
-        return super.hurt(source, amount);
-    }
-
-    public boolean hurtLinkedFromCephalari(DamageSource source, float amount) {
-        if (level().isClientSide) {
-            return super.hurt(source, amount);
-        }
-
-        if (forwardingLinkedDamage) {
-            return super.hurt(source, amount);
-        }
-
-        forwardingLinkedDamage = true;
-        try {
-            return super.hurt(source, amount);
-        } finally {
-            forwardingLinkedDamage = false;
-        }
-    }
-
-    @Override
-    public void heal(float amount) {
-        super.heal(amount);
-
-        if (level().isClientSide) {
-            return;
-        }
-
-        if (!forwardingLinkedDamage && getFirstPassenger() instanceof CephalariEntity cephalari && cephalari.isAlive()) {
-            cephalari.healLinkedFromAdultForm(amount);
-        }
-    }
-
-    public void healLinkedFromCephalari(float amount) {
-        if (level().isClientSide) {
-            super.heal(amount);
-            return;
-        }
-
-        if (forwardingLinkedDamage) {
-            super.heal(amount);
-            return;
-        }
-
-        forwardingLinkedDamage = true;
-        try {
-            super.heal(amount);
-        } finally {
-            forwardingLinkedDamage = false;
         }
     }
 
@@ -450,9 +340,8 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     @Override
     protected boolean canAddPassenger(Entity passenger) {
-        // Adult Cephalari forms are NOT player-rideable. The only valid passenger is the linked
-        // Cephalari villager entity (used for AI/trades/appearance syncing).
-        return getPassengers().isEmpty() && passenger instanceof CephalariEntity;
+        // Adult-form entities never accept passengers.
+        return false;
     }
 
     @Override
@@ -467,23 +356,7 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (level().isClientSide) {
-            return InteractionResult.SUCCESS;
-        }
-
-        if (player.isSecondaryUseActive()) {
-            return InteractionResult.PASS;
-        }
-
-        // If a Cephalari with a profession is riding, forward interaction to open trades.
-        if (getFirstPassenger() instanceof CephalariEntity cephalari
-            && cephalari.isAlive()
-            && cephalari.getVillagerData().getProfession() != VillagerProfession.NONE) {
-            return cephalari.mobInteract(player, hand);
-        }
-
-        // Never allow players to mount these entities.
-        return InteractionResult.PASS;
+        return level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 
     @Override
