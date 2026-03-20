@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1252 (2026-03-20)
+- Fix(textures): remove remaining fully-transparent pixels from Cephalari golem textures so adult mount appearances can't render holes on Spiral Strider / DriftSkimmer / Echo Harness when sampling golem textures.
+
 ## 1.0.1251 (2026-03-20)
 - Fix(render/cephalari): enforce Scaralon-style deterministic pass ordering for adult mount appearances: profession + badge first, then Cephalari biome/bonus body overlay (excluding profession bones), then golem/base texture on non-`cephalari` bones.
 
