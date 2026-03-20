@@ -4,17 +4,20 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1259 (2026-03-20)
+- Docs/wording: rename remaining “mount” phrasing to “adult-form” for Cephalari adult body types (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`). These are adult forms, not rideable mounts.
+
 ## 1.0.1258 (2026-03-20)
 - Fix(cephalari/adult_forms): prevent players from riding Cephalari adult-form body entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`). These entities now reject player passengers and no longer start riding on right-click (only the Scaralon Beetle is player-rideable).
 
 ## 1.0.1257 (2026-03-20)
-- Fix(render/mounts): make mount layered rendering resilient to passenger ordering by locating the first adult Cephalari rider in the full passenger list (not only `getFirstPassenger()`), so embedded rider overlays don't disappear when another passenger is in slot 0.
+- Fix(render/adult_forms): make adult-form layered rendering resilient to passenger ordering by locating the first adult Cephalari in the full passenger list (not only `getFirstPassenger()`), so embedded Cephalari overlays don't disappear when another passenger is in slot 0.
 
 ## 1.0.1256 (2026-03-20)
 - Fix(render/cephalari_zombie): render zombified Cephalari (including Drowned Cephalari) as Scaralon-style deterministic layered passes (cutout/no-cull inner, then outer overlay, then profession/badge), and prevent the inner/outer passes from painting the dedicated profession overlay bones.
 
 ## 1.0.1253 (2026-03-20)
-- Fix(render/mounts): render the embedded Cephalari subtree inside the 4 Cephalari mount geos as Scaralon-style layered passes (rider profession + badge, then rider body texture), while the mount/base texture only paints non-`cephalari` bones.
+- Fix(render/adult_forms): render the embedded Cephalari subtree inside the 4 Cephalari adult-form geos as Scaralon-style layered passes (profession + badge, then body texture), while the base texture only paints non-`cephalari` bones.
 
 ## 1.0.1252 (2026-03-20)
 - Fix(textures): remove remaining fully-transparent pixels from Cephalari golem textures so adult mount appearances can't render holes on Spiral Strider / DriftSkimmer / Echo Harness when sampling golem textures.
