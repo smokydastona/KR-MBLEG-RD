@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1248 (2026-03-20)
+- Fix(cephalari): restore dedicated mount texture atlases (downscaled) so mount/adult-mount UVs render correctly without modifying authored UV layouts.
+
 ## 1.0.1237 (2026-03-20)
 - Fix(textures): reuse Cephalari golem textures for Cephalari adult mount appearances and Wayfall mount mobs (removes dependency on deleted `cephalari_mount_*.png`).
 

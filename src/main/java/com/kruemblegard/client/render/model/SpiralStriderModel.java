@@ -25,7 +25,7 @@ public class SpiralStriderModel extends GeoModel<SpiralStriderEntity> {
 
         return new ResourceLocation(
             Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + variant + ".png"
+            "textures/entity/cephalari/mounts/cephalari_mount_" + variant + ".png"
         );
     }
 

@@ -368,7 +368,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Mount assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
-    - Textures: shared variants reused from the golem set `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`
+    - Textures: `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
 
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
@@ -383,7 +383,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/cephalari_golem.geo.json`
     - Animations: `assets/kruemblegard/animations/cephalari_golem.animation.json`
     - Controllers: `assets/kruemblegard/controllers/cephalari_golem.animation_controllers.json`
-    - Textures: `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`
+    - Textures: `assets/kruemblegard/textures/entity/cephalari/mounts/cephalari_mount_1.png` .. `_6.png`
 
 - **Moogloom** (`moogloom`)
   - Mooshroom-like passive creature (vanilla model/AI) unique to **Shatterplate Flats**.
