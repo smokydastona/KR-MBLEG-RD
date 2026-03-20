@@ -334,11 +334,12 @@ Keep it up to date whenever you add/remove/rename content.
   - Targeting: hostile mobs treat Cephalari the same as vanilla villagers.
   - Personality: Cephalari have a small temperament variation (`calm`/`curious`/`skittish`) that slightly affects idle animation selection/tempo and movement speed, with occasional subtle one-shot “personality” idles.
   - Village defense: villages that spawn iron golems near Cephalari will spawn **Cephalari Golems** (`cephalari_golem`) instead (player-built / player-spawned iron golems are unaffected).
-  - Adult appearance: adult Cephalari render using one of four mount geometries (no separate mount entity is spawned).
+  - Adult forms: adult Cephalari use one of four adult-form body types.
     - **Spiral Strider** (`spiral_strider`)
     - **DriftSkimmer** (`driftskimmer`)
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
+    - These adult-form entities are **not rideable by players** (the Scaralon Beetle is the only player-rideable mob).
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
   - Zombification: converts into an undead Cephalari variant when killed by an undead; curing converts back into Cephalari.
     - **Zombified Cephalari** (`cephalari_zombie`) when killed by a Zombie.
@@ -357,7 +358,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Loot: undead variants use the same loot behavior as their vanilla counterparts (Zombie/Husk/Drowned).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual (adult mount appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (mount/body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture (picked from biome + bonus pools) plus profession + badge overlays on their dedicated bones.
-    - Visual (mount mobs): the stand-alone mount entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the first adult Cephalari found in the mount's passenger list (body + profession layers; the mount/base texture only paints non-`cephalari` bones).
+      - Visual (adult-form entities): the stand-alone adult-form entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the linked Cephalari passenger entity (body + profession layers; the body/base texture only paints non-`cephalari` bones).
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
   - Visual (zombified): rendered as Scaralon-style deterministic cutout/no-cull layered passes: zombified **inner layer** first, then the selected zombified **outer layer** overlay, then profession + badge overlays. The dedicated profession overlay bones are only painted by the profession layer (inner/outer passes do not paint those bones).
   - Rendered via GeckoLib (placeholder assets):
@@ -366,7 +367,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/cephalari.animation.json` and `assets/kruemblegard/animations/cephalari_zombie.animation.json`
     - Textures (Cephalari): `assets/kruemblegard/textures/entity/cephalari/cephalari/*.png`
     - Textures (Zombified Cephalari): `assets/kruemblegard/textures/entity/cephalari/cephalari_zombie/*.png`
-  - Mount assets (GeckoLib placeholder assets):
+  - Adult-form assets (GeckoLib placeholder assets):
     - Geo: `assets/kruemblegard/geo/{spiral_strider,driftskimmer,treadwinder,echo_harness}.geo.json`
     - Animations: `assets/kruemblegard/animations/{spiral_strider,driftskimmer,treadwinder,echo_harness}.animation.json`
     - Textures: shared variants reused from the golem set `assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png` .. `_6.png`

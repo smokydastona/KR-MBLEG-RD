@@ -214,6 +214,13 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
             return;
         }
 
+        // Hard guarantee: never allow a player to remain mounted, even if forced by commands/other mods.
+        for (Entity passenger : new java.util.ArrayList<>(getPassengers())) {
+            if (passenger instanceof Player) {
+                passenger.stopRiding();
+            }
+        }
+
         if (getFirstPassenger() instanceof CephalariEntity cephalari) {
             // Keep the pair alive/dead together.
             if (!cephalari.isAlive() && this.isAlive()) {
@@ -308,39 +315,18 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
 
     @Override
     protected boolean canAddPassenger(Entity passenger) {
-        return getPassengers().isEmpty() && passenger instanceof LivingEntity;
+        // Adult Cephalari forms are NOT player-rideable. The only valid passenger is the linked
+        // Cephalari villager entity (used for AI/trades/appearance syncing).
+        return getPassengers().isEmpty() && passenger instanceof CephalariEntity;
     }
 
     @Override
     public @Nullable LivingEntity getControllingPassenger() {
-        if (getFirstPassenger() instanceof Player player) {
-            return player;
-        }
         return null;
     }
 
     @Override
     public void travel(Vec3 travelVector) {
-        LivingEntity controlling = getControllingPassenger();
-        if (controlling instanceof Player player) {
-            this.setYRot(player.getYRot());
-            this.yRotO = this.getYRot();
-            this.setXRot(player.getXRot() * 0.5F);
-            this.setRot(this.getYRot(), this.getXRot());
-            this.yBodyRot = this.getYRot();
-            this.yHeadRot = this.getYRot();
-
-            float strafe = player.xxa * 0.5F;
-            float forward = player.zza;
-            if (forward <= 0.0F) {
-                forward *= 0.25F;
-            }
-
-            this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            super.travel(new Vec3(strafe, travelVector.y, forward));
-            return;
-        }
-
         super.travel(travelVector);
     }
 
@@ -361,12 +347,8 @@ public abstract class CephalariMountEntity extends PathfinderMob implements GeoE
             return cephalari.mobInteract(player, hand);
         }
 
-        if (!isVehicle()) {
-            player.startRiding(this, true);
-            return InteractionResult.CONSUME;
-        }
-
-        return super.mobInteract(player, hand);
+        // Never allow players to mount these entities.
+        return InteractionResult.PASS;
     }
 
     @Override

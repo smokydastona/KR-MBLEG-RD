@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1258 (2026-03-20)
+- Fix(cephalari/adult_forms): prevent players from riding Cephalari adult-form body entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`). These entities now reject player passengers and no longer start riding on right-click (only the Scaralon Beetle is player-rideable).
+
 ## 1.0.1257 (2026-03-20)
 - Fix(render/mounts): make mount layered rendering resilient to passenger ordering by locating the first adult Cephalari rider in the full passenger list (not only `getFirstPassenger()`), so embedded rider overlays don't disappear when another passenger is in slot 0.
 
