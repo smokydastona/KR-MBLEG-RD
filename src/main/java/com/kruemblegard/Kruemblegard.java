@@ -165,11 +165,6 @@ public final class Kruemblegard {
             event.accept(ModItems.CEPHALARI_HUSK_SPAWN_EGG);
             event.accept(ModItems.CEPHALARI_DROWNED_SPAWN_EGG);
             event.accept(ModItems.CEPHALARI_GOLEM_SPAWN_EGG);
-
-            event.accept(ModItems.SPIRAL_STRIDER_SPAWN_EGG);
-            event.accept(ModItems.DRIFTSKIMMER_SPAWN_EGG);
-            event.accept(ModItems.TREADWINDER_SPAWN_EGG);
-            event.accept(ModItems.ECHO_HARNESS_SPAWN_EGG);
         }
     }
 }

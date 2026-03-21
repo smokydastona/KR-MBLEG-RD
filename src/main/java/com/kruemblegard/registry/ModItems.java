@@ -729,30 +729,6 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.TRADER_BEETLE, 0x3b2b1d, 0xcaa461,
                 new Item.Properties()));
 
-    public static final RegistryObject<Item> SPIRAL_STRIDER_SPAWN_EGG =
-        ITEMS.register(
-            "spiral_strider_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.SPIRAL_STRIDER, 0x2f3b35, 0xa6d4c8,
-                new Item.Properties()));
-
-    public static final RegistryObject<Item> DRIFTSKIMMER_SPAWN_EGG =
-        ITEMS.register(
-            "driftskimmer_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.DRIFTSKIMMER, 0x243244, 0xaec7e8,
-                new Item.Properties()));
-
-    public static final RegistryObject<Item> TREADWINDER_SPAWN_EGG =
-        ITEMS.register(
-            "treadwinder_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.TREADWINDER, 0x2b2420, 0xb27b4a,
-                new Item.Properties()));
-
-    public static final RegistryObject<Item> ECHO_HARNESS_SPAWN_EGG =
-        ITEMS.register(
-            "echo_harness_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.ECHO_HARNESS, 0x1f232b, 0x63d4ff,
-                new Item.Properties()));
-
     public static final RegistryObject<Item> SCARALON_LARVA_BUCKET =
         ITEMS.register(
             "scaralon_larva_bucket",

@@ -45,11 +45,11 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 13:26:34
+Generated: 2026-03-21 14:02:35
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
-- schemaVersion: `9`
+- schemaVersion: `10`
 - mobCount: `23`
 - generatedBy: `tools/_reports/mob_audit_runner.py`
 
@@ -77,9 +77,9 @@ Generated: 2026-03-21 13:26:34
 | `cephalari_golem` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_husk` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_zombie` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `driftskimmer` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `driftskimmer` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ |
 | `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `echo_harness` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `echo_harness` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ |
 | `fault_crawler` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -89,10 +89,10 @@ Generated: 2026-03-21 13:26:34
 | `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scattered_enderman` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `spiral_strider` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `spiral_strider` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ |
 | `trader_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `treadwinder` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `treadwinder` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ |
 | `unkeeper` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `wyrdwing` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
@@ -172,26 +172,27 @@ Generated: 2026-03-21 13:26:34
 
 #### `driftskimmer`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=— integration=✅ perf=✅
 - Classes: Entity: `DriftSkimmerEntity` | Renderer: `DriftSkimmerRenderer` | Model: `DriftSkimmerModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/driftskimmer.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/driftskimmer.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: `(vanilla)`
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.driftskimmer` spawnEgg=`item.kruemblegard.driftskimmer_spawn_egg`
+- Lang keys: entity=`entity.kruemblegard.driftskimmer` spawnEgg=(missing)
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
   - Uses vanilla Cephalari (adult form) sounds
   - Uses vanilla loot (no custom entity loot table expected)
   - Spawns are not biome-modifier-driven (intentional)
   - Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)
+  - No spawn egg (adult form / intentional)
 
 #### `driftwhale`
 - Score: `95`
 - Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `DriftwhaleEntity` | Renderer: `DriftwhaleRenderer` | Model: `DriftwhaleModel`
-- Geo: `src/main/resources/assets/kruemblegard/geo/driftwhale.geo.json`
+- Geo: `src/main/resources/assets/kruemblegard/geo/driftwhale_baby.geo.json`, `src/main/resources/assets/kruemblegard/geo/driftwhale.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/driftwhale.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/driftwhale.png`
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/driftwhale.json`
@@ -203,20 +204,21 @@ Generated: 2026-03-21 13:26:34
 
 #### `echo_harness`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=— integration=✅ perf=✅
 - Classes: Entity: `EchoHarnessEntity` | Renderer: `EchoHarnessRenderer` | Model: `EchoHarnessModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/echo_harness.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/echo_harness.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: `(vanilla)`
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.echo_harness` spawnEgg=`item.kruemblegard.echo_harness_spawn_egg`
+- Lang keys: entity=`entity.kruemblegard.echo_harness` spawnEgg=(missing)
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
   - Uses vanilla Cephalari (adult form) sounds
   - Uses vanilla loot (no custom entity loot table expected)
   - Spawns are not biome-modifier-driven (intentional)
   - Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)
+  - No spawn egg (adult form / intentional)
 
 #### `fault_crawler`
 - Score: `100`
@@ -336,20 +338,21 @@ Generated: 2026-03-21 13:26:34
 
 #### `spiral_strider`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=— integration=✅ perf=✅
 - Classes: Entity: `SpiralStriderEntity` | Renderer: `SpiralStriderRenderer` | Model: `SpiralStriderModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/spiral_strider.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/spiral_strider.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: `(vanilla)`
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.spiral_strider` spawnEgg=`item.kruemblegard.spiral_strider_spawn_egg`
+- Lang keys: entity=`entity.kruemblegard.spiral_strider` spawnEgg=(missing)
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
   - Uses vanilla Cephalari (adult form) sounds
   - Uses vanilla loot (no custom entity loot table expected)
   - Spawns are not biome-modifier-driven (intentional)
   - Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)
+  - No spawn egg (adult form / intentional)
 
 #### `trader_beetle`
 - Score: `100`
@@ -382,20 +385,21 @@ Generated: 2026-03-21 13:26:34
 
 #### `treadwinder`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=— integration=✅ perf=✅
 - Classes: Entity: `TreadwinderEntity` | Renderer: `TreadwinderRenderer` | Model: `TreadwinderModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/treadwinder.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/treadwinder.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: `(vanilla)`
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.treadwinder` spawnEgg=`item.kruemblegard.treadwinder_spawn_egg`
+- Lang keys: entity=`entity.kruemblegard.treadwinder` spawnEgg=(missing)
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
   - Uses vanilla Cephalari (adult form) sounds
   - Uses vanilla loot (no custom entity loot table expected)
   - Spawns are not biome-modifier-driven (intentional)
   - Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)
+  - No spawn egg (adult form / intentional)
 
 #### `unkeeper`
 - Score: `90`

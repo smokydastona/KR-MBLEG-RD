@@ -35,6 +35,14 @@ OK = "✅"
 WARN = "⚠️"
 FAIL = "❌"
 
+# Some mobs intentionally do not have spawn eggs (adult-form bodies, internal variants, etc.).
+NO_SPAWN_EGG_MOBS = {
+    "driftskimmer",
+    "echo_harness",
+    "spiral_strider",
+    "treadwinder",
+}
+
 # Some mobs intentionally use vanilla systems (no custom sounds.json entries / loot tables).
 VANILLA_SOUNDS_MOBS = {
     "cephalari_drowned",
@@ -191,6 +199,12 @@ def has_attribute_registration(common_events_text: str, const: str):
 
 def status_from_bool(ok: bool, warn_ok: bool = False):
     return OK if ok else (WARN if warn_ok else FAIL)
+
+
+def has_spawn_egg_item_model(egg_id: str) -> bool:
+    # Spawn eggs render via item model JSON; missing model shows missing-texture.
+    # Most eggs should use vanilla template: "minecraft:item/template_spawn_egg".
+    return (ASSETS / "models" / "item" / f"{egg_id}.json").exists()
 
 
 def parse_client_renderers(client_text: str):
@@ -397,7 +411,7 @@ def main() -> int:
     client_map = parse_client_renderers(client_text)
 
     report = {
-        "schemaVersion": 9,
+        "schemaVersion": 10,
         "modid": "kruemblegard",
         "mobCount": len(mobs),
         "generatedBy": "tools/_reports/mob_audit_runner.py",
@@ -466,10 +480,12 @@ def main() -> int:
 
         lang_entity_key = f"entity.kruemblegard.{ent_id}"
         egg_id = f"{ent_id}_spawn_egg"
+        expects_spawn_egg = ent_id not in NO_SPAWN_EGG_MOBS
         has_spawn_egg = egg_id in spawn_eggs
+        egg_model_ok = has_spawn_egg_item_model(egg_id) if has_spawn_egg else False
 
         lang_ok = lang_entity_key in lang
-        if has_spawn_egg and (f"item.kruemblegard.{egg_id}" not in lang):
+        if expects_spawn_egg and has_spawn_egg and (f"item.kruemblegard.{egg_id}" not in lang):
             lang_ok = False
 
         vanilla_sounds = ent_id in VANILLA_SOUNDS_MOBS
@@ -544,7 +560,16 @@ def main() -> int:
 
         sounds_status = OK if sounds_ok else WARN
 
-        spawn_egg_status = OK if has_spawn_egg else WARN
+        spawn_egg_ok = (not expects_spawn_egg) or (
+            has_spawn_egg
+            and egg_model_ok
+            and (f"item.kruemblegard.{egg_id}" in lang)
+        )
+
+        if not expects_spawn_egg:
+            spawn_egg_status = "—"
+        else:
+            spawn_egg_status = OK if spawn_egg_ok else WARN
         stability_status = WARN if anim_struct_notes else OK
         stability_notes = ["Animation JSON structural issues can crash/disable animations"] if anim_struct_notes else []
 
@@ -560,7 +585,7 @@ def main() -> int:
                 "lang_ok": lang_ok,
                 "biome_spawn_ok": biome_spawn_ok or ent_id == "kruemblegard",
                 "sounds_ok": sounds_ok,
-                "spawn_egg_ok": has_spawn_egg,
+                "spawn_egg_ok": spawn_egg_ok,
             }
         )
 
@@ -603,7 +628,7 @@ def main() -> int:
                 "biomeModifiers": biome_refs,
                 "langKeys": {
                     "entity": lang_entity_key,
-                    "spawnEgg": f"item.kruemblegard.{egg_id}" if has_spawn_egg else None,
+                    "spawnEgg": f"item.kruemblegard.{egg_id}" if expects_spawn_egg and has_spawn_egg else None,
                 },
             },
             "checks": {
@@ -611,6 +636,8 @@ def main() -> int:
                 "attributesRegistered": attributes_ok,
                 "spawnPlacementRegistered": spawn_place_ok,
                 "hasSpawnEggItemId": has_spawn_egg,
+                "expectsSpawnEgg": expects_spawn_egg,
+                "spawnEggItemModelOk": egg_model_ok,
                 "animationKeyFlags": anim_flags,
                 "animationIssues": anim_struct_notes,
                 "geoAnimBoneNotes": bone_notes,
@@ -635,8 +662,12 @@ def main() -> int:
             extra = NON_BIOME_SPAWN_NOTES.get(ent_id)
             if extra:
                 mob_entry["notes"].append(extra)
-        if has_spawn_egg and f"item.kruemblegard.{egg_id}" not in lang:
+        if expects_spawn_egg and has_spawn_egg and f"item.kruemblegard.{egg_id}" not in lang:
             mob_entry["notes"].append("Spawn egg is registered but missing lang key")
+        if expects_spawn_egg and has_spawn_egg and not egg_model_ok:
+            mob_entry["notes"].append("Spawn egg is registered but missing item model (renders as missing texture)")
+        if not expects_spawn_egg:
+            mob_entry["notes"].append("No spawn egg (adult form / intentional)")
         if lang_entity_key not in lang:
             mob_entry["notes"].append("Missing entity lang key")
 
