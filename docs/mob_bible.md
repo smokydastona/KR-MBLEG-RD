@@ -45,7 +45,7 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 10:43:29
+Generated: 2026-03-21 10:47:30
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
@@ -64,8 +64,7 @@ Generated: 2026-03-21 10:43:29
   - `traprock`
 
 ### Confirmed Failures
-- `grave_cairn`: animations=❌ stability_perf=⚠️ | Animation animation.grave_cairn.attack has invalid bone key that looks like an animation name: animation.grave_cairn.hit; Animation animation.grave_cairn.attack has nested animation-like object under bone animation.grave_cairn.hit
-  - Animation file(s): `src/main/resources/assets/kruemblegard/animations/grave_cairn.animation.json`
+- (none)
 
 ### Roster Status Table
 
@@ -80,7 +79,7 @@ Generated: 2026-03-21 10:43:29
 | `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `echo_harness` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
 | `fault_crawler` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ |
-| `grave_cairn` | 80 | ✅ | ✅ | ❌ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ⚠️ |
+| `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `moogloom` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
@@ -235,8 +234,8 @@ Generated: 2026-03-21 10:43:29
   - No biome modifier references found (may not spawn naturally)
 
 #### `grave_cairn`
-- Score: `80`
-- Status: geo=✅ tex=✅ anim=❌ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=⚠️
+- Score: `95`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
 - Classes: Entity: `GraveCairnEntity` | Renderer: `GraveCairnRenderer` | Model: `GraveCairnModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/grave_cairn.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/grave_cairn.animation.json`
@@ -244,14 +243,9 @@ Generated: 2026-03-21 10:43:29
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/grave_cairn.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_grave_cairn_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.grave_cairn` spawnEgg=`item.kruemblegard.grave_cairn_spawn_egg`
-- TODO: Fix broken animations; Confirm vanilla sounds or add custom sounds; Resolve stability/perf notes
+- TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
-  - Animation animation.grave_cairn.attack has invalid bone key that looks like an animation name: animation.grave_cairn.hit
-  - Animation animation.grave_cairn.attack has nested animation-like object under bone animation.grave_cairn.hit
-  - 1 animation bone names not found in geo bones (may include controller-only bones)
   - No sounds.json entries matched this mob id (may rely on vanilla sounds)
-  - Animation JSON structural issues can crash/disable animations
-  - Fix animation JSON structure issues
 
 #### `kruemblegard`
 - Score: `100`
