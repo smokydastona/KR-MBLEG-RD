@@ -193,6 +193,25 @@ public final class CommonModEvents {
             CommonModEvents::canSpawnCephalariDrowned,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+
+        // Cephalari undead forms must obey normal ground-spawn rules; without explicit spawn
+        // placement registration, custom EntityTypes can effectively become "no restrictions"
+        // and spawn in mid-air (Wayfall void).
+        event.register(
+            ModEntities.CEPHALARI_ZOMBIE.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.CEPHALARI_HUSK.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
     }
 
     private static boolean canSpawnCephalariDrowned(

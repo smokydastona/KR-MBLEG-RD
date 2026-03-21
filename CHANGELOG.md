@@ -7,6 +7,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1263 (2026-03-21)
 - Fix(loot_tables/cephalari): correct loot table reference JSON schema (`name`, not `value`) so Cephalari zombie/husk/drowned loot tables load without parse errors.
 
+## 1.0.1264 (2026-03-21)
+- Fix(spawns/wayfall): prevent `cephalari_zombie` and `cephalari_husk` from spawning over void by enforcing ON_GROUND spawn placement (solid block required underneath).
+
 ## 1.0.1262 (2026-03-20)
 - Fix(cephalari/adult_forms): adult-form entities now pick their Cephalari body texture using the exact same historical spawn selection logic as `cephalari`.
 - Fix(cephalari/adult_forms): adult-form entities now reject and forcibly eject all passengers (including legacy linked Cephalari), preventing any passenger-based behavior from returning.
