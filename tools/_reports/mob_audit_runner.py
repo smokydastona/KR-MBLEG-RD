@@ -37,7 +37,10 @@ FAIL = "❌"
 
 # Some mobs intentionally use vanilla systems (no custom sounds.json entries / loot tables).
 VANILLA_SOUNDS_MOBS = {
+    "cephalari_drowned",
+    "cephalari_husk",
     "cephalari_golem",
+    "cephalari_zombie",
     "driftskimmer",
     "echo_harness",
     "moogloom",
@@ -47,7 +50,10 @@ VANILLA_SOUNDS_MOBS = {
 }
 
 VANILLA_SOUND_SOURCES: dict[str, str] = {
+    "cephalari_drowned": "vanilla Drowned",
     "cephalari_golem": "vanilla Iron Golem",
+    "cephalari_husk": "vanilla Husk",
+    "cephalari_zombie": "vanilla Zombie",
     "driftskimmer": "vanilla Cephalari (adult form)",
     "echo_harness": "vanilla Cephalari (adult form)",
     "spiral_strider": "vanilla Cephalari (adult form)",
@@ -391,7 +397,7 @@ def main() -> int:
     client_map = parse_client_renderers(client_text)
 
     report = {
-        "schemaVersion": 8,
+        "schemaVersion": 9,
         "modid": "kruemblegard",
         "mobCount": len(mobs),
         "generatedBy": "tools/_reports/mob_audit_runner.py",

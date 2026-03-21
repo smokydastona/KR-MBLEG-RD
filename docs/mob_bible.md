@@ -45,11 +45,11 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 13:22:09
+Generated: 2026-03-21 13:26:34
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
-- schemaVersion: `8`
+- schemaVersion: `9`
 - mobCount: `23`
 - generatedBy: `tools/_reports/mob_audit_runner.py`
 
@@ -58,8 +58,8 @@ Generated: 2026-03-21 13:22:09
   - `cephalari`, `pebblit`, `traprock`, `unkeeper`, `wyrdwing`
 - No biome modifier refs (may not spawn naturally): 0
   - (none)
-- No sounds.json matches (may rely on vanilla sounds): 7
-  - `cephalari_drowned`, `cephalari_husk`, `cephalari_zombie`, `driftwhale`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`
+- No sounds.json matches (may rely on vanilla sounds): 4
+  - `driftwhale`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`
 - Missing spawn eggs: 0
   - (none)
 - Animation warnings (non-fatal): 1
@@ -73,10 +73,10 @@ Generated: 2026-03-21 13:22:09
 | Mob | Score | Geo | Tex | Anim | AI | Loot | Sounds | Spawns | Egg | Integr | Perf |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `cephalari` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `cephalari_drowned` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_drowned` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_golem` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `cephalari_husk` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `cephalari_zombie` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_husk` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_zombie` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `driftskimmer` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `echo_harness` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -114,8 +114,8 @@ Generated: 2026-03-21 13:22:09
   - No entity loot table found under data/.../loot_tables/entities/
 
 #### `cephalari_drowned`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariDrownedEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -123,10 +123,9 @@ Generated: 2026-03-21 13:22:09
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/cephalari_drowned.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_cephalari_drowned_spawns_wayfall.json`
 - Lang keys: entity=`entity.kruemblegard.cephalari_drowned` spawnEgg=`item.kruemblegard.cephalari_drowned_spawn_egg`
-- TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - 5 animation bone names not found in geo bones (may include controller-only bones)
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+  - Uses vanilla Drowned sounds
 
 #### `cephalari_golem`
 - Score: `100`
@@ -144,8 +143,8 @@ Generated: 2026-03-21 13:22:09
   - Spawns via village mechanics (replaces villager-spawned iron golems when Cephalari are nearby)
 
 #### `cephalari_husk`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariHuskEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -153,14 +152,13 @@ Generated: 2026-03-21 13:22:09
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/cephalari_husk.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_cephalari_husk_spawns_wayfall.json`
 - Lang keys: entity=`entity.kruemblegard.cephalari_husk` spawnEgg=`item.kruemblegard.cephalari_husk_spawn_egg`
-- TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - 5 animation bone names not found in geo bones (may include controller-only bones)
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+  - Uses vanilla Husk sounds
 
 #### `cephalari_zombie`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariZombieEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -168,10 +166,9 @@ Generated: 2026-03-21 13:22:09
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/cephalari_zombie.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_cephalari_zombie_spawns_overworld.json`, `src/main/resources/data/kruemblegard/forge/biome_modifier/add_cephalari_zombie_spawns_wayfall.json`
 - Lang keys: entity=`entity.kruemblegard.cephalari_zombie` spawnEgg=`item.kruemblegard.cephalari_zombie_spawn_egg`
-- TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - 5 animation bone names not found in geo bones (may include controller-only bones)
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+  - Uses vanilla Zombie sounds
 
 #### `driftskimmer`
 - Score: `100`
