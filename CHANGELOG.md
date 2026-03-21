@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1268 (2026-03-21)
+- Fix(unkeeper/ai): make Unkeeper explicitly hostile with retaliation targeting and improved GeckoLib controller logic for bite/death animations.
+
 ## 1.0.1267 (2026-03-21)
 - Refactor(unkeeper/assets): update `unkeeper.geo.json` to the new tentacle/horn/jaw hierarchy and refresh Unkeeper animations to match.
 

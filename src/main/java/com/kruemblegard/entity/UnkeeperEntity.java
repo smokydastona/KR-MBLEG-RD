@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +38,15 @@ public class UnkeeperEntity extends Monster implements GeoEntity {
     private static final RawAnimation BITE_ATTACK_ONCE =
             RawAnimation.begin().thenPlay("animation.unkeeper.bite_attack");
 
+        private static final RawAnimation DIE_ONCE =
+            RawAnimation.begin().thenPlay("animation.unkeeper.die");
+
+        private static final int BITE_ATTACK_ANIM_TICKS = 11;
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    private int biteAttackAnimTicks;
+    private boolean wasSwinging;
 
     public UnkeeperEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -52,13 +61,29 @@ public class UnkeeperEntity extends Monster implements GeoEntity {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+
+        boolean swingingNow = this.swinging;
+        if (swingingNow && !this.wasSwinging) {
+            this.biteAttackAnimTicks = BITE_ATTACK_ANIM_TICKS;
+        }
+        this.wasSwinging = swingingNow;
+
+        if (this.biteAttackAnimTicks > 0) {
+            --this.biteAttackAnimTicks;
+        }
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.05D, true));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -67,7 +92,6 @@ public class UnkeeperEntity extends Monster implements GeoEntity {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
             this.playSound(ModSounds.UNKEEPER_BITE.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
-            triggerAnim("attackController", "bite");
         }
         return didHurt;
     }
@@ -99,13 +123,17 @@ public class UnkeeperEntity extends Monster implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "moveController", 0, state -> {
-            state.setAnimation(state.isMoving() ? MOVE_LOOP : IDLE_LOOP);
+        controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+            boolean dead = this.isDeadOrDying() || this.getHealth() <= 0.0F;
+            if (dead) {
+                state.setAnimation(DIE_ONCE);
+            } else if (this.biteAttackAnimTicks > 0) {
+                state.setAnimation(BITE_ATTACK_ONCE);
+            } else {
+                state.setAnimation(state.isMoving() ? MOVE_LOOP : IDLE_LOOP);
+            }
             return PlayState.CONTINUE;
         }));
-
-        controllers.add(new AnimationController<>(this, "attackController", 0, state -> PlayState.STOP)
-                .triggerableAnim("bite", BITE_ATTACK_ONCE));
     }
 
     @Override
