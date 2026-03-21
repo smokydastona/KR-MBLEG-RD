@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1300 (2026-03-21)
+- Change(creative): keep Pressure-Logic blocks/items exclusively in the Pressure-Logic creative tab (no duplication into the other Krümblegård tabs).
+
 ## 1.0.1299 (2026-03-21)
 - Feat(creative): add a dedicated Pressure-Logic creative tab containing Pressure-Logic blocks + materials.
 

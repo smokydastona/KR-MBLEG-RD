@@ -118,7 +118,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 ## Cephalari Engineering (Pressure-Logic)
 - Status: early implementation (pressure network + basic integration + first-pass mechanical rotation backbone; not yet a full mechanical-power system).
-- Creative tab: Pressure-Logic blocks and items are grouped under a dedicated creative mode tab.
+- Creative tab: Pressure-Logic blocks and items are in a dedicated creative mode tab (not duplicated into the other Krümblegård tabs).
 - Config (in `kruemblegard-common.toml`):
   - `enablePressureSystem`: master enable/disable for the pressure simulation.
   - `pressureTickIntervalTicks`: conduit simulation interval (higher = cheaper/slower).
