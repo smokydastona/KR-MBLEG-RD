@@ -5,9 +5,12 @@ import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -16,9 +19,12 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.phys.Vec3;
+
+import org.jetbrains.annotations.Nullable;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -33,7 +39,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  *
  * Design notes:
  * - Uses a lightweight flying navigation + random drift goal.
- * - Spawns on solid ground like other Wayfall mobs (see spawn placement), then immediately drifts airborne.
+ * - Spawns with ground support (for safety) but lifts into open air immediately.
  */
 public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
@@ -79,9 +85,72 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
         if (!this.level().isClientSide) {
             Vec3 delta = this.getDeltaMovement();
+
+            // If a Driftwhale ever ends up grounded (spawned/teleported onto solid blocks),
+            // nudge it back into the air so it doesn't get stuck sliding along terrain.
+            if (this.onGround() && delta.y <= 0.02D) {
+                this.setDeltaMovement(delta.x, 0.10D, delta.z);
+                this.hasImpulse = true;
+                delta = this.getDeltaMovement();
+            }
+
             if (delta.y < -0.06D) {
                 this.setDeltaMovement(delta.x, -0.06D, delta.z);
             }
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(
+        ServerLevelAccessor level,
+        DifficultyInstance difficulty,
+        MobSpawnType spawnType,
+        @Nullable SpawnGroupData spawnGroupData,
+        @Nullable net.minecraft.nbt.CompoundTag dataTag
+    ) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
+
+        // Natural spawns are chosen from a grounded position for safety; lift into open air
+        // so the mob behaves like a sky-swimmer immediately.
+        if (spawnType == MobSpawnType.NATURAL || spawnType == MobSpawnType.CHUNK_GENERATION) {
+            liftIntoAir(level);
+        }
+
+        return data;
+    }
+
+    private void liftIntoAir(ServerLevelAccessor level) {
+        RandomSource random = this.getRandom();
+        BlockPos base = this.blockPosition();
+
+        int minLift = 6;
+        int maxLift = 14;
+        int attempts = 10;
+
+        int minY = level.getLevel().getMinBuildHeight() + 2;
+        int maxY = level.getLevel().getMaxBuildHeight() - 3;
+
+        for (int i = 0; i < attempts; i++) {
+            int lift = minLift + random.nextInt(maxLift - minLift + 1);
+            BlockPos candidate = new BlockPos(base.getX(), Mth.clamp(base.getY() + lift, minY, maxY), base.getZ());
+
+            if (!level.getBlockState(candidate).getCollisionShape(level, candidate).isEmpty()) {
+                continue;
+            }
+
+            if (!level.getBlockState(candidate.above()).getCollisionShape(level, candidate.above()).isEmpty()) {
+                continue;
+            }
+
+            // Leave a little buffer below so we don't immediately collide with the ground.
+            this.moveTo(this.getX(), candidate.getY() + 0.15D, this.getZ(), this.getYRot(), this.getXRot());
+            Vec3 delta = this.getDeltaMovement();
+            if (delta.y < 0.06D) {
+                this.setDeltaMovement(delta.x, 0.08D, delta.z);
+            }
+            this.hasImpulse = true;
+            return;
         }
     }
 

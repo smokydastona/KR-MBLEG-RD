@@ -197,7 +197,8 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Driftwhale** (`driftwhale`)
   - Peaceful sky-swimmer (GeckoLib-rendered).
-  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`).
+  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`), but only where there's enough vertical clearance.
+  - Spawn behavior: chooses a safe grounded spawn position, then lifts into open air immediately.
   - Drops Phantom Membrane.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/driftwhale.geo.json`
@@ -205,6 +206,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/driftwhale.animation_controllers.json`
     - Texture: `assets/kruemblegard/textures/entity/driftwhale.png`
 
+- **Pebble Wren** (`pebble_wren`)
   - Small, breedable seed-eater (GeckoLib-rendered).
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
   - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping.

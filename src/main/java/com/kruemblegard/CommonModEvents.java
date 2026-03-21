@@ -226,7 +226,7 @@ public final class CommonModEvents {
             ModEntities.DRIFTWHALE.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-            CommonModEvents::canSpawnCreatureOnSolidGround,
+            CommonModEvents::canSpawnDriftwhale,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
 
@@ -365,6 +365,30 @@ public final class CommonModEvents {
         // Similar to vanilla animals, but avoid hard-tag constraints.
         if (level.getLevel().getRawBrightness(pos, 0) < 8) {
             return false;
+        }
+
+        return true;
+    }
+
+    private static boolean canSpawnDriftwhale(
+        net.minecraft.world.entity.EntityType<? extends Mob> type,
+        ServerLevelAccessor level,
+        MobSpawnType spawnType,
+        BlockPos pos,
+        RandomSource random
+    ) {
+        // Base grounded-spawn safety (prevents void spawns in sparse terrain).
+        if (!canSpawnCreatureOnSolidGround(type, level, spawnType, pos, random)) {
+            return false;
+        }
+
+        // Require vertical clearance so the Driftwhale doesn't spawn in cramped areas.
+        // This also improves the odds the entity can lift into air immediately.
+        for (int i = 2; i <= 8; i++) {
+            BlockPos check = pos.above(i);
+            if (!level.getBlockState(check).getCollisionShape(level, check).isEmpty()) {
+                return false;
+            }
         }
 
         return true;
