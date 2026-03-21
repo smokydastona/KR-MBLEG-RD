@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1280 (2026-03-21)
+- Refactor(pebble_wren/assets): replace geo with an upright “display bird” silhouette (crest + fan tail) and update animations to match.
+- Feat(pebble_wren): add a fan-tail display animation triggered when performing the ore-find ping.
+- Refactor(driftwhale/assets): replace geo with a tapered body + tail fluke (plus drifting stone fragments) and update animations to match new bones.
+
 ## 1.0.1279 (2026-03-21)
 - Fix(driftwhale): lift into open air on natural spawn and nudge upward if grounded to prevent sticking.
 - Tweak(spawns): require vertical clearance for Driftwhale natural spawns (reduces cramped/terrain-collision spawns).

@@ -53,6 +53,9 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final RawAnimation WALK_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.walk");
 
+    private static final RawAnimation DISPLAY_LOOP =
+        RawAnimation.begin().thenLoop("animation.pebble_wren.display");
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private static final int ORE_FIND_COOLDOWN_TICKS = 20 * 8;
@@ -60,7 +63,11 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final int ORE_FIND_RADIUS = 14;
     private static final int ORE_FIND_Y_RANGE = 8;
 
+    private static final byte ENTITY_EVENT_DISPLAY = 15;
+    private static final int DISPLAY_ANIM_TICKS = 20 * 3;
+
     private int oreFindCooldownTicks = 0;
+    private int displayAnimTicks = 0;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -129,6 +136,20 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         if (this.oreFindCooldownTicks > 0) {
             --this.oreFindCooldownTicks;
         }
+
+        if (this.displayAnimTicks > 0) {
+            --this.displayAnimTicks;
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == ENTITY_EVENT_DISPLAY) {
+            this.displayAnimTicks = DISPLAY_ANIM_TICKS;
+            return;
+        }
+
+        super.handleEntityEvent(id);
     }
 
     @Override
@@ -219,6 +240,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, getX(), getY(0.6D), getZ(), 4, 0.18D, 0.18D, 0.18D, 0.02D);
         this.playSound(SoundEvents.PARROT_AMBIENT, 0.7F, 1.35F);
 
+        // Kick off the fan-tail display animation client-side.
+        this.displayAnimTicks = DISPLAY_ANIM_TICKS;
+        this.level().broadcastEntityEvent(this, ENTITY_EVENT_DISPLAY);
+
         this.oreFindCooldownTicks = ORE_FIND_COOLDOWN_TICKS;
     }
 
@@ -248,7 +273,11 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
-            state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+            if (this.displayAnimTicks > 0) {
+                state.setAnimation(DISPLAY_LOOP);
+            } else {
+                state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+            }
             return PlayState.CONTINUE;
         }));
     }

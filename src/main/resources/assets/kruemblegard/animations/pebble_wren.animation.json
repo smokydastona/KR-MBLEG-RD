@@ -5,16 +5,26 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"position": [0, "math.sin(query.anim_time * 90) * 0.15", 0]
+					"position": [0, "math.sin(query.anim_time * 90) * 0.14", 0],
+					"rotation": [0, "math.cos(query.anim_time * 35) * 2.0", 0]
+				},
+				"chest": {
+					"position": [0, 0, "math.sin(query.anim_time * 70) * 0.06"]
 				},
 				"head": {
 					"rotation": ["-math.sin(query.anim_time * 70) * 6", "math.cos(query.anim_time * 40) * 10", 0]
+				},
+				"crest": {
+					"rotation": ["math.sin(query.anim_time * 120) * 6", 0, 0]
 				},
 				"wing_L": {
 					"rotation": [0, 0, "math.sin(query.anim_time * 120) * 10"]
 				},
 				"wing_R": {
 					"rotation": [0, 0, "-math.sin(query.anim_time * 120) * 10"]
+				},
+				"tail_fan": {
+					"rotation": ["-18 + math.sin(query.anim_time * 60) * 4", 0, 0]
 				}
 			}
 		},
@@ -22,10 +32,14 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"position": [0, "math.sin(query.anim_time * 220) * 0.2", 0]
+					"position": [0, "math.sin(query.anim_time * 220) * 0.22", 0],
+					"rotation": [0, "math.sin(query.anim_time * 110) * 3.0", 0]
 				},
 				"head": {
 					"rotation": ["-math.sin(query.anim_time * 220) * 10", 0, 0]
+				},
+				"crest": {
+					"rotation": ["math.sin(query.anim_time * 220) * 8", 0, 0]
 				},
 				"leg_L": {
 					"rotation": ["math.sin(query.anim_time * 220) * 35", 0, 0]
@@ -38,6 +52,37 @@
 				},
 				"wing_R": {
 					"rotation": [0, 0, "-math.sin(query.anim_time * 220) * 6"]
+				},
+				"tail_fan": {
+					"rotation": ["-14 + math.sin(query.anim_time * 220) * 10", 0, 0]
+				}
+			}
+		},
+		"animation.pebble_wren.display": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, 0.22, 0],
+					"rotation": [0, "math.sin(query.anim_time * 55) * 14", "math.sin(query.anim_time * 55) * 2.5"]
+				},
+				"chest": {
+					"position": [0, 0, "0.18 + math.sin(query.anim_time * 110) * 0.05"],
+					"rotation": ["-6 + math.sin(query.anim_time * 70) * 4", 0, 0]
+				},
+				"head": {
+					"rotation": ["-8 + math.sin(query.anim_time * 75) * 5", "math.sin(query.anim_time * 55) * 10", 0]
+				},
+				"crest": {
+					"rotation": ["10 + math.sin(query.anim_time * 140) * 10", 0, 0]
+				},
+				"wing_L": {
+					"rotation": [0, 0, "22 + math.sin(query.anim_time * 140) * 10"]
+				},
+				"wing_R": {
+					"rotation": [0, 0, "-22 - math.sin(query.anim_time * 140) * 10"]
+				},
+				"tail_fan": {
+					"rotation": ["-55 + math.sin(query.anim_time * 95) * 10", "math.sin(query.anim_time * 55) * 4", 0]
 				}
 			}
 		}

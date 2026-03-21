@@ -199,6 +199,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Peaceful sky-swimmer (GeckoLib-rendered).
   - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`), but only where there's enough vertical clearance.
   - Spawn behavior: chooses a safe grounded spawn position, then lifts into open air immediately.
+  - Visual: tapered body + tail fluke with small drifting stone fragments.
   - Drops Phantom Membrane.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/driftwhale.geo.json`
@@ -208,8 +209,9 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Pebble Wren** (`pebble_wren`)
   - Small, breedable seed-eater (GeckoLib-rendered).
+  - Visual: upright “display bird” silhouette with crest + fan tail.
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
-  - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping.
+  - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping (plays a brief display animation).
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
   - Drops Feathers and (occasionally) Wheat Seeds.

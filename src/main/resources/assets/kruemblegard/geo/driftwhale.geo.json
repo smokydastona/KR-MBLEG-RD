@@ -7,20 +7,19 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 4,
-				"visible_bounds_height": 3,
-				"visible_bounds_offset": [0, 1.0, 0]
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.2, 0]
 			},
 			"bones": [
-				{
-					"name": "root",
-					"pivot": [0, 0, 0]
-				},
+				{ "name": "root", "pivot": [0, 0, 0] },
 				{
 					"name": "body",
 					"parent": "root",
 					"pivot": [0, 14, 0],
 					"cubes": [
-						{ "origin": [-8, 10, -16], "size": [16, 8, 32], "uv": [0, 0] }
+						{ "origin": [-6, 11, -10], "size": [12, 7, 20], "uv": [0, 0] },
+						{ "origin": [-5, 12, -16], "size": [10, 6, 8], "uv": [0, 30] },
+						{ "origin": [-4, 12, 10], "size": [8, 5, 8], "uv": [36, 30] }
 					]
 				},
 				{
@@ -28,31 +27,56 @@
 					"parent": "body",
 					"pivot": [0, 14, -16],
 					"cubes": [
-						{ "origin": [-6, 11, -24], "size": [12, 6, 8], "uv": [0, 40] }
+						{ "origin": [-5, 12, -22], "size": [10, 5, 6], "uv": [0, 44] },
+						{ "origin": [-3, 11, -24], "size": [6, 4, 4], "uv": [24, 44] }
 					]
 				},
 				{
-					"name": "tail",
+					"name": "tail_base",
 					"parent": "body",
-					"pivot": [0, 14, 16],
+					"pivot": [0, 14, 18],
 					"cubes": [
-						{ "origin": [-4, 11, 16], "size": [8, 6, 12], "uv": [32, 40] }
+						{ "origin": [-3, 12, 18], "size": [6, 4, 6], "uv": [40, 40] }
+					]
+				},
+				{
+					"name": "tail_fluke",
+					"parent": "tail_base",
+					"pivot": [0, 14, 24],
+					"cubes": [
+						{ "origin": [-10, 13, 24], "size": [20, 1, 6], "uv": [0, 54] }
 					]
 				},
 				{
 					"name": "fin_L",
 					"parent": "body",
-					"pivot": [8, 13, -2],
+					"pivot": [6, 14, -2],
 					"cubes": [
-						{ "origin": [8, 12, -10], "size": [6, 2, 16], "uv": [32, 0] }
+						{ "origin": [6, 13, -8], "size": [8, 1, 12], "uv": [32, 0] }
 					]
 				},
 				{
 					"name": "fin_R",
 					"parent": "body",
-					"pivot": [-8, 13, -2],
+					"pivot": [-6, 14, -2],
 					"cubes": [
-						{ "origin": [-14, 12, -10], "size": [6, 2, 16], "uv": [32, 18] }
+						{ "origin": [-14, 13, -8], "size": [8, 1, 12], "uv": [32, 14] }
+					]
+				},
+				{
+					"name": "drift_stone_1",
+					"parent": "body",
+					"pivot": [4, 18, 2],
+					"cubes": [
+						{ "origin": [4, 18, 2], "size": [2, 2, 2], "uv": [50, 0] }
+					]
+				},
+				{
+					"name": "drift_stone_2",
+					"parent": "body",
+					"pivot": [-3, 17, -4],
+					"cubes": [
+						{ "origin": [-4, 17, -5], "size": [2, 2, 2], "uv": [50, 4] }
 					]
 				}
 			]

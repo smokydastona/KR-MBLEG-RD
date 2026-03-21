@@ -8,14 +8,26 @@
 					"position": [0, "math.sin(query.anim_time * 60) * 0.35", 0],
 					"rotation": [0, "math.sin(query.anim_time * 30) * 2.0", 0]
 				},
+				"head": {
+					"rotation": ["math.sin(query.anim_time * 45) * 1.2", "math.sin(query.anim_time * 35) * 2.0", 0]
+				},
 				"fin_L": {
 					"rotation": [0, 0, "math.sin(query.anim_time * 90) * 8.0"]
 				},
 				"fin_R": {
 					"rotation": [0, 0, "-math.sin(query.anim_time * 90) * 8.0"]
 				},
-				"tail": {
-					"rotation": [0, "math.sin(query.anim_time * 45) * 6.0", 0]
+				"tail_base": {
+					"rotation": [0, "math.sin(query.anim_time * 45) * 5.0", 0]
+				},
+				"tail_fluke": {
+					"rotation": [0, "math.sin(query.anim_time * 45 + 10) * 10.0", 0]
+				},
+				"drift_stone_1": {
+					"rotation": ["math.sin(query.anim_time * 40) * 4.0", "math.sin(query.anim_time * 35) * 6.0", 0]
+				},
+				"drift_stone_2": {
+					"rotation": ["-math.sin(query.anim_time * 45) * 3.0", "-math.sin(query.anim_time * 30) * 5.0", 0]
 				}
 			}
 		},
@@ -26,14 +38,26 @@
 					"position": [0, "math.sin(query.anim_time * 120) * 0.25", 0],
 					"rotation": [0, "math.sin(query.anim_time * 90) * 3.5", "math.sin(query.anim_time * 90) * 1.5"]
 				},
+				"head": {
+					"rotation": ["math.sin(query.anim_time * 90) * 1.8", "math.sin(query.anim_time * 90) * 3.0", 0]
+				},
 				"fin_L": {
 					"rotation": [0, 0, "math.sin(query.anim_time * 180) * 18.0"]
 				},
 				"fin_R": {
 					"rotation": [0, 0, "-math.sin(query.anim_time * 180) * 18.0"]
 				},
-				"tail": {
-					"rotation": [0, "math.sin(query.anim_time * 180) * 14.0", 0]
+				"tail_base": {
+					"rotation": [0, "math.sin(query.anim_time * 180) * 10.0", 0]
+				},
+				"tail_fluke": {
+					"rotation": [0, "math.sin(query.anim_time * 180 + 12) * 18.0", 0]
+				},
+				"drift_stone_1": {
+					"rotation": ["math.sin(query.anim_time * 120) * 6.0", "math.sin(query.anim_time * 100) * 10.0", 0]
+				},
+				"drift_stone_2": {
+					"rotation": ["-math.sin(query.anim_time * 120) * 5.0", "-math.sin(query.anim_time * 90) * 9.0", 0]
 				}
 			}
 		}
