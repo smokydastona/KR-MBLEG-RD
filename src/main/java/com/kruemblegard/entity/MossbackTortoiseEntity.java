@@ -2,7 +2,6 @@ package com.kruemblegard.entity;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;

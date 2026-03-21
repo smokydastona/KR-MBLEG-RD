@@ -4,14 +4,17 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1285 (2026-03-21)
-- Fix(driftwhale/assets): update `driftwhale.animation.json` bone tracks to match the new `driftwhale.geo.json` (tentacles + tail_base; remove stale tail bone).
+## 1.0.1288 (2026-03-21)
+- Feat(spawn_eggs): add missing spawn eggs for Trader Beetle + Cephalari adult-form bodies, and include all mod spawn eggs in the vanilla Spawn Eggs tab.
+
+## 1.0.1287 (2026-03-21)
+- Fix(driftwhale): add missing `Attributes.FLYING_SPEED` to prevent a ticking crash (`Can't find attribute minecraft:generic.flying_speed`).
 
 ## 1.0.1286 (2026-03-21)
 - Fix(build/entities): correct Mojmap import paths for Pebble Wren + Mossback Tortoise so CI compiles.
 
-## 1.0.1287 (2026-03-21)
-- Fix(driftwhale): add missing `Attributes.FLYING_SPEED` to prevent a ticking crash (`Can't find attribute minecraft:generic.flying_speed`).
+## 1.0.1285 (2026-03-21)
+- Fix(driftwhale/assets): update `driftwhale.animation.json` bone tracks to match the new `driftwhale.geo.json` (tentacles + tail_base; remove stale tail bone).
 
 ## 1.0.1283 (2026-03-21)
 - Feat(spawns/wayfall): add biome modifiers for natural spawns of Pebblit, Traprock, Unkeeper, and Fault Crawler.

@@ -143,7 +143,33 @@ public final class Kruemblegard {
         }
 
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            // Added via ModItems event subscriber.
+            event.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG);
+            event.accept(ModItems.TRAPROCK_SPAWN_EGG);
+            event.accept(ModItems.PEBBLIT_SPAWN_EGG);
+            event.accept(ModItems.UNKEEPER_SPAWN_EGG);
+            event.accept(ModItems.SCATTERED_ENDERMAN_SPAWN_EGG);
+            event.accept(ModItems.MOOGLOOM_SPAWN_EGG);
+            event.accept(ModItems.FAULT_CRAWLER_SPAWN_EGG);
+
+            event.accept(ModItems.SCARALON_BEETLE_SPAWN_EGG);
+            event.accept(ModItems.TRADER_BEETLE_SPAWN_EGG);
+
+            event.accept(ModItems.WYRDWING_SPAWN_EGG);
+            event.accept(ModItems.DRIFTWHALE_SPAWN_EGG);
+            event.accept(ModItems.PEBBLE_WREN_SPAWN_EGG);
+            event.accept(ModItems.MOSSBACK_TORTOISE_SPAWN_EGG);
+            event.accept(ModItems.GRAVE_CAIRN_SPAWN_EGG);
+
+            event.accept(ModItems.CEPHALARI_SPAWN_EGG);
+            event.accept(ModItems.CEPHALARI_ZOMBIE_SPAWN_EGG);
+            event.accept(ModItems.CEPHALARI_HUSK_SPAWN_EGG);
+            event.accept(ModItems.CEPHALARI_DROWNED_SPAWN_EGG);
+            event.accept(ModItems.CEPHALARI_GOLEM_SPAWN_EGG);
+
+            event.accept(ModItems.SPIRAL_STRIDER_SPAWN_EGG);
+            event.accept(ModItems.DRIFTSKIMMER_SPAWN_EGG);
+            event.accept(ModItems.TREADWINDER_SPAWN_EGG);
+            event.accept(ModItems.ECHO_HARNESS_SPAWN_EGG);
         }
     }
 }

@@ -67,7 +67,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.ECHO_HARNESS.get(), EchoHarnessRenderer::new);
 
         event.registerEntityRenderer(ModEntities.DRIFTWHALE.get(), DriftwhaleRenderer::new);
-        event.registerEntityRenderer(ModEntities.PEBBLE_WREN.get(), PebbleWrenRenderer::new);
+        event.registerEntityRenderer(ModEntities.PEBBLE_WREN.get(), ctx -> new PebbleWrenRenderer(ctx));
         event.registerEntityRenderer(ModEntities.MOSSBACK_TORTOISE.get(), MossbackTortoiseRenderer::new);
         event.registerEntityRenderer(ModEntities.GRAVE_CAIRN.get(), GraveCairnRenderer::new);
 

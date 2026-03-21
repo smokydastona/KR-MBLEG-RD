@@ -69,6 +69,7 @@
     "entity.kruemblegard.grave_cairn_stone": "Grave Cairn Stone",
 
     "entity.kruemblegard.trader_beetle": "Trader Beetle",
+    "item.kruemblegard.trader_beetle_spawn_egg": "Trader Beetle Spawn Egg",
     "entity.kruemblegard.kruemblegard_boat": "Kr\u00fcmbleg\u00e5rd Boat",
     "entity.kruemblegard.kruemblegard_chest_boat": "Kr\u00fcmbleg\u00e5rd Chest Boat",
 
@@ -76,6 +77,11 @@
     "entity.kruemblegard.driftskimmer": "Drift Skimmer",
     "entity.kruemblegard.treadwinder": "Treadwinder",
     "entity.kruemblegard.echo_harness": "Echo Harness",
+
+    "item.kruemblegard.spiral_strider_spawn_egg": "Spiral Strider Spawn Egg",
+    "item.kruemblegard.driftskimmer_spawn_egg": "Drift Skimmer Spawn Egg",
+    "item.kruemblegard.treadwinder_spawn_egg": "Treadwinder Spawn Egg",
+    "item.kruemblegard.echo_harness_spawn_egg": "Echo Harness Spawn Egg",
 
     "item.kruemblegard.rune_etched_chitin_plate": "Rune-Etched Chitin Plate",
     "item.kruemblegard.bug_meat": "Bug Meat",
