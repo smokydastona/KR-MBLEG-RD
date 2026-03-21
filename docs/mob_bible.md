@@ -45,21 +45,21 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 13:12:25
+Generated: 2026-03-21 13:14:17
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
-- schemaVersion: `6`
+- schemaVersion: `7`
 - mobCount: `23`
 - generatedBy: `tools/_reports/mob_audit_runner.py`
 
 ### Backlog (from audit)
-- Missing entity loot tables: 10
-  - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `spiral_strider`, `trader_beetle`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
-- No biome modifier refs (may not spawn naturally): 6
-  - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `trader_beetle`, `treadwinder`
-- No sounds.json matches (may rely on vanilla sounds): 13
-  - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`, `spiral_strider`, `trader_beetle`, `treadwinder`
+- Missing entity loot tables: 9
+  - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `spiral_strider`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
+- No biome modifier refs (may not spawn naturally): 5
+  - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `treadwinder`
+- No sounds.json matches (may rely on vanilla sounds): 12
+  - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`, `spiral_strider`, `treadwinder`
 - Missing spawn eggs: 0
   - (none)
 - Animation warnings (non-fatal): 1
@@ -90,7 +90,7 @@ Generated: 2026-03-21 13:12:25
 | `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scattered_enderman` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `spiral_strider` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
-| `trader_beetle` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `trader_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `treadwinder` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
 | `unkeeper` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -354,20 +354,19 @@ Generated: 2026-03-21 13:12:25
   - No biome modifier references found (may not spawn naturally)
 
 #### `trader_beetle`
-- Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `TraderBeetleEntity` | Renderer: `TraderBeetleRenderer` | Model: `TraderBeetleModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/scaralon_larva.geo.json`, `src/main/resources/assets/kruemblegard/geo/scaralon_beetle.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/scaralon_larva.animation.json`, `src/main/resources/assets/kruemblegard/animations/scaralon_beetle.animation.json`
 - Textures (10): `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_larva.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_6.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_7.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_8.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_9.png`
-- Loot table: **MISSING**
+- Loot table: `(shared: scaralon_beetle)`
 - Biome modifiers: **NONE FOUND**
 - Lang keys: entity=`entity.kruemblegard.trader_beetle` spawnEgg=`item.kruemblegard.trader_beetle_spawn_egg`
-- TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
-  - No entity loot table found under data/.../loot_tables/entities/
-  - No biome modifier references found (may not spawn naturally)
+  - Uses scaralon_beetle sounds (shared)
+  - Loot is shared from scaralon_beetle
+  - Spawns are not biome-modifier-driven (intentional)
 
 #### `traprock`
 - Score: `90`

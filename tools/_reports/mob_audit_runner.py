@@ -45,6 +45,21 @@ VANILLA_LOOT_MOBS = {
     "scattered_enderman",
 }
 
+# Some mobs intentionally share other mobs' content.
+# NOTE: This is a doc/audit hint; it does not create/merge loot tables at runtime.
+SHARED_LOOT_FROM: dict[str, str] = {
+    "trader_beetle": "scaralon_beetle",
+}
+
+SHARED_SOUNDS_FROM: dict[str, str] = {
+    "trader_beetle": "scaralon_beetle",
+}
+
+# Some mobs intentionally do not spawn via biome modifiers (structure/event-driven, commands only, etc.).
+NO_BIOME_MOD_SPAWN_MOBS = {
+    "trader_beetle",
+}
+
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
@@ -346,7 +361,7 @@ def main() -> int:
     client_map = parse_client_renderers(client_text)
 
     report = {
-        "schemaVersion": 6,
+        "schemaVersion": 7,
         "modid": "kruemblegard",
         "mobCount": len(mobs),
         "generatedBy": "tools/_reports/mob_audit_runner.py",
@@ -401,7 +416,8 @@ def main() -> int:
         anim_ok = any(p.exists() for p in anim_files)
         tex_ok = any(p.exists() for p in tex_files)
         vanilla_loot = ent_id in VANILLA_LOOT_MOBS
-        loot_ok = loot_path.exists() or vanilla_loot
+        shared_loot_from = SHARED_LOOT_FROM.get(ent_id)
+        loot_ok = loot_path.exists() or vanilla_loot or (shared_loot_from is not None)
 
         renderer_ok = renderer_class is not None
         attributes_ok = has_attribute_registration(common_text, const)
@@ -409,6 +425,8 @@ def main() -> int:
 
         biome_refs = biome_modifier_refs(ent_id)
         biome_spawn_ok = len(biome_refs) > 0
+        if ent_id in NO_BIOME_MOD_SPAWN_MOBS:
+            biome_spawn_ok = True
 
         lang_entity_key = f"entity.kruemblegard.{ent_id}"
         egg_id = f"{ent_id}_spawn_egg"
@@ -419,9 +437,10 @@ def main() -> int:
             lang_ok = False
 
         vanilla_sounds = ent_id in VANILLA_SOUNDS_MOBS
-        sounds_ok = vanilla_sounds
+        shared_sounds_from = SHARED_SOUNDS_FROM.get(ent_id)
+        sounds_ok = vanilla_sounds or (shared_sounds_from is not None)
         sound_notes = []
-        if not vanilla_sounds and isinstance(sounds, dict):
+        if (not vanilla_sounds) and (shared_sounds_from is None) and isinstance(sounds, dict):
             for k in sounds.keys():
                 if ent_id in k:
                     sounds_ok = True
@@ -429,6 +448,8 @@ def main() -> int:
 
         if vanilla_sounds:
             sound_notes.append("Uses vanilla sounds (no sounds.json entries expected)")
+        elif shared_sounds_from is not None:
+            sound_notes.append(f"Uses {shared_sounds_from} sounds (shared)")
         elif not sounds_ok:
             sound_notes.append("No sounds.json entries matched this mob id (may rely on vanilla sounds)")
 
@@ -526,7 +547,19 @@ def main() -> int:
                 "geo": [p.as_posix().replace(WS.as_posix() + "/", "") for p in geo_files if p.exists()],
                 "animation": [p.as_posix().replace(WS.as_posix() + "/", "") for p in anim_files if p.exists()],
                 "textures": [p.as_posix().replace(WS.as_posix() + "/", "") for p in tex_files if p.exists()][:30],
-                "lootTable": loot_path.as_posix().replace(WS.as_posix() + "/", "") if loot_path.exists() else ("(vanilla)" if vanilla_loot else None),
+                "lootTable": (
+                    loot_path.as_posix().replace(WS.as_posix() + "/", "")
+                    if loot_path.exists()
+                    else (
+                        "(vanilla)"
+                        if vanilla_loot
+                        else (
+                            f"(shared: {shared_loot_from})"
+                            if shared_loot_from is not None
+                            else None
+                        )
+                    )
+                ),
                 "biomeModifiers": biome_refs,
                 "langKeys": {
                     "entity": lang_entity_key,
@@ -549,10 +582,14 @@ def main() -> int:
 
         if not loot_ok and ent_id != "kruemblegard":
             mob_entry["notes"].append("No entity loot table found under data/.../loot_tables/entities/")
+        if shared_loot_from is not None:
+            mob_entry["notes"].append(f"Loot is shared from {shared_loot_from}")
         if anim_struct_notes:
             mob_entry["notes"].append("Fix animation JSON structure issues")
         if not (biome_spawn_ok or ent_id == "kruemblegard"):
             mob_entry["notes"].append("No biome modifier references found (may not spawn naturally)")
+        if ent_id in NO_BIOME_MOD_SPAWN_MOBS:
+            mob_entry["notes"].append("Spawns are not biome-modifier-driven (intentional)")
         if has_spawn_egg and f"item.kruemblegard.{egg_id}" not in lang:
             mob_entry["notes"].append("Spawn egg is registered but missing lang key")
         if lang_entity_key not in lang:
