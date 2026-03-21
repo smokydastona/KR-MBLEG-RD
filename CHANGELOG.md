@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1277 (2026-03-21)
+- Feat(mossback_tortoise): add moss variants via moss patch geometry and synced variant selection.
+- Feat(mossback_tortoise): add shearing interaction to remove moss patches and drop Moss Carpet.
+- Fix(mossback_tortoise/assets): align animation bone names with the current geo so idle/walk actually animate.
+
 ## 1.0.1276 (2026-03-21)
 - Feat(grave_cairn): add hit reaction collapse (rubble burst + brief slow) and a dedicated "hit" animation track.
 - Feat(grave_cairn): allow damage to sometimes eject a Pebblit (rate-limited to prevent spam).

@@ -218,6 +218,8 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Mossback Tortoise** (`mossback_tortoise`)
   - Slow, armored, breedable grazer (GeckoLib-rendered).
+  - Moss variants: spawns with one of several moss patch patterns.
+  - Shearing: use Shears to remove moss patches and get Moss Carpet.
   - Tempt/breed item: Seagrass.
   - Natural spawns: Underway Falls (`#kruemblegard:underway_falls`).
   - Drops Seagrass and has a rare Scute drop.

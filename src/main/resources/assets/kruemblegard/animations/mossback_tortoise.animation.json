@@ -4,29 +4,35 @@
 		"animation.mossback_tortoise.idle": {
 			"loop": true,
 			"bones": {
-				"head": {
-					"rotation": ["math.sin(query.anim_time * 50) * 4", "math.cos(query.anim_time * 30) * 6", 0],
-					"position": [0, "math.sin(query.anim_time * 70) * 0.1", 0]
+				"head2": {
+					"rotation": ["math.sin(query.anim_time * 50) * 3", "math.cos(query.anim_time * 30) * 5", 0],
+					"position": [0, "math.sin(query.anim_time * 70) * 0.10", 0]
+				},
+				"t1": {
+					"rotation": ["math.sin(query.anim_time * 35) * 2", 0, 0]
 				}
 			}
 		},
 		"animation.mossback_tortoise.walk": {
 			"loop": true,
 			"bones": {
-				"head": {
-					"rotation": ["math.sin(query.anim_time * 160) * 2", 0, 0]
+				"head2": {
+					"rotation": ["math.sin(query.anim_time * 140) * 2", 0, 0]
 				},
-				"leg_FL": {
-					"rotation": ["math.sin(query.anim_time * 160) * 18", 0, 0]
+				"leftarm": {
+					"rotation": ["math.sin(query.anim_time * 160) * 14", 0, 0]
 				},
-				"leg_BR": {
-					"rotation": ["math.sin(query.anim_time * 160) * 18", 0, 0]
+				"rightleg": {
+					"rotation": ["math.sin(query.anim_time * 160) * 14", 0, 0]
 				},
-				"leg_FR": {
-					"rotation": ["-math.sin(query.anim_time * 160) * 18", 0, 0]
+				"rightarm": {
+					"rotation": ["-math.sin(query.anim_time * 160) * 14", 0, 0]
 				},
-				"leg_BL": {
-					"rotation": ["-math.sin(query.anim_time * 160) * 18", 0, 0]
+				"leftleg": {
+					"rotation": ["-math.sin(query.anim_time * 160) * 14", 0, 0]
+				},
+				"t2": {
+					"rotation": ["math.sin(query.anim_time * 120) * 5", 0, 0]
 				}
 			}
 		}

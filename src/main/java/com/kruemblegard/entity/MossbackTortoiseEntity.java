@@ -1,6 +1,15 @@
 package com.kruemblegard.entity;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerLevelAccessor;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -15,6 +24,17 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.spawndata.SpawnGroupData;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,6 +53,17 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MossbackTortoiseEntity extends Animal implements GeoEntity {
 
+    private static final String NBT_SHEARED = "Sheared";
+    private static final String NBT_MOSS_VARIANT = "MossVariant";
+
+    private static final int MOSS_VARIANT_COUNT = 3;
+
+    private static final EntityDataAccessor<Boolean> DATA_SHEARED =
+        SynchedEntityData.defineId(MossbackTortoiseEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Integer> DATA_MOSS_VARIANT =
+        SynchedEntityData.defineId(MossbackTortoiseEntity.class, EntityDataSerializers.INT);
+
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.mossback_tortoise.idle");
 
@@ -44,6 +75,27 @@ public class MossbackTortoiseEntity extends Animal implements GeoEntity {
     public MossbackTortoiseEntity(EntityType<? extends Animal> type, Level level) {
         super(type, level);
         this.setMaxUpStep(1.0F);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_SHEARED, false);
+        this.entityData.define(DATA_MOSS_VARIANT, 0);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+        ServerLevelAccessor level,
+        DifficultyInstance difficulty,
+        MobSpawnType reason,
+        @Nullable SpawnGroupData spawnData,
+        @Nullable CompoundTag tag
+    ) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
+        this.setSheared(false);
+        this.setMossVariant(this.random.nextInt(MOSS_VARIANT_COUNT));
+        return data;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -73,7 +125,71 @@ public class MossbackTortoiseEntity extends Animal implements GeoEntity {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return ModEntities.MOSSBACK_TORTOISE.get().create(level);
+        MossbackTortoiseEntity child = ModEntities.MOSSBACK_TORTOISE.get().create(level);
+        if (child != null) {
+            child.setSheared(false);
+            child.setMossVariant(this.random.nextInt(MOSS_VARIANT_COUNT));
+        }
+        return child;
+    }
+
+    public boolean isSheared() {
+        return this.entityData.get(DATA_SHEARED);
+    }
+
+    public void setSheared(boolean sheared) {
+        this.entityData.set(DATA_SHEARED, sheared);
+    }
+
+    public int getMossVariant() {
+        return this.entityData.get(DATA_MOSS_VARIANT);
+    }
+
+    public void setMossVariant(int variant) {
+        this.entityData.set(DATA_MOSS_VARIANT, Mth.clamp(variant, 0, MOSS_VARIANT_COUNT - 1));
+    }
+
+    private boolean readyForShearing() {
+        return !this.isBaby() && !this.isSheared();
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(Items.SHEARS) && readyForShearing()) {
+            if (!this.level().isClientSide) {
+                this.gameEvent(GameEvent.SHEAR, player);
+                this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+                this.setSheared(true);
+
+                int count = 1 + this.random.nextInt(2);
+                for (int i = 0; i < count; i++) {
+                    this.spawnAtLocation(new ItemStack(Blocks.MOSS_CARPET.asItem()), 1.0F);
+                }
+
+                stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean(NBT_SHEARED, this.isSheared());
+        tag.putInt(NBT_MOSS_VARIANT, this.getMossVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setSheared(tag.getBoolean(NBT_SHEARED));
+        if (tag.contains(NBT_MOSS_VARIANT, Tag.TAG_INT)) {
+            this.setMossVariant(tag.getInt(NBT_MOSS_VARIANT));
+        }
     }
 
     @Override
