@@ -114,7 +114,7 @@ Below is the full block family, all animated, all mechanical, all pneumatic.
 
 **Uses:**
 - Crafting
-- Village profession block
+- (Optional) Village profession block (only if/when Cephalari villages + professions exist)
 - Player automation
 
 ### H. Conveyor Membranes
@@ -927,9 +927,11 @@ This mirrors Create’s clutch/gearshift/redstone‑controlled machines.
 
 ---
 
-## 4. Player Progression Tree
+## 4. Player Progression Tree (Optional)
 
-How players naturally enter the system.
+How players *could* naturally enter the system.
+
+This section is **optional content guidance** (onboarding/progression pacing). It is **not** a mandatory runtime requirement for Pressure‑Logic mechanics, and it does not imply that villages/NPCs/quests/worldgen must exist.
 
 **Stage 1 — Discovery**
 - Find Cephalari village
@@ -964,7 +966,9 @@ How players naturally enter the system.
 
 ---
 
-## 5. Village Structures (Updated for Mechanical System)
+## 5. Village Structures (Optional; future worldgen/content)
+
+This section is **optional**. It is a blueprint for how Pressure‑Logic might appear in Cephalari villages, but it is not required as runtime worldgen/NPC content.
 
 ### Flow Engine Chamber → Pressure Engine Hall
 - Turbines powering village machinery
@@ -1196,6 +1200,8 @@ Together, they form a hybrid engineering system.
 ---
 
 ## 12. Player Tutorial Questline (Optional)
+
+This questline is **optional** and must remain non‑blocking: Pressure‑Logic progression should not require quests to function.
 
 **Quest 1: “Breath of Wayfall”**
 - Discover a Cephalari village

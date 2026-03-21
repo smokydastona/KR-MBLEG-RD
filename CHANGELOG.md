@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1303 (2026-03-21)
+- Docs(pressure_logic): reclassify progression/village/questline sections as optional guidance (not mandatory runtime worldgen/NPC/quest systems).
+- Docs(pressure_logic): align traceability checklist to reflect the optional classification.
+
 ## 1.0.1302 (2026-03-21)
 - Change(pressure_logic): treat spec "optional variants" as mandatory for mechanical behaviors.
 - Feat(pressure_logic): Air-Lift Tube now requires adjacent conduit pressure and consumes more at higher flow.
