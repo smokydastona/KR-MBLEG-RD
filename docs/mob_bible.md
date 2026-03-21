@@ -282,6 +282,7 @@ Generated: 2026-03-21 14:02:35
 - TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+  - Immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior)
 
 #### `pebble_wren`
 - Score: `95`

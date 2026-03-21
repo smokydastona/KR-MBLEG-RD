@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1305 (2026-03-21)
+- Fix(mobs): Mossback Tortoise is now immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior).
+
 ## 1.0.1304 (2026-03-21)
 - Feat(pressure_logic): add unique per-machine BlockEntities across the full Pressure-Logic machinery set (animation-ready; no shared stub).
 - Refactor(pressure_logic): introduce `CephalariMachineBlockEntity` base for shared persistent activity sampling + animation accumulator.

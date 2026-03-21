@@ -8,6 +8,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -48,6 +50,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.Locale;
 
 public class MossbackTortoiseEntity extends Animal implements GeoEntity {
 
@@ -179,6 +183,40 @@ public class MossbackTortoiseEntity extends Animal implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putBoolean(NBT_SHEARED, this.isSheared());
         tag.putInt(NBT_MOSS_VARIANT, this.getMossVariant());
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        // Match Scaralon Beetle behavior: immune to thorny / berry-bush collision damage.
+        if (isBerryBushTypeDamage(source)) {
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
+    private boolean isBerryBushTypeDamage(DamageSource source) {
+        if (source == null) {
+            return false;
+        }
+
+        if (source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.CACTUS)) {
+            return true;
+        }
+
+        String id = source.getMsgId();
+        if (id == null || id.isBlank()) {
+            return false;
+        }
+
+        String msg = id.toLowerCase(Locale.ROOT);
+        return msg.equals("sweetberrybush")
+                || msg.equals("sweet_berry_bush")
+                || msg.contains("berry_bush")
+                || msg.contains("sweetberry")
+                || msg.contains("sweet_berry")
+                || msg.equals("cactus")
+                || msg.contains("thorn")
+                || msg.contains("bramble");
     }
 
     @Override
