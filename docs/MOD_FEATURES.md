@@ -118,6 +118,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 ## Cephalari Engineering (Pressure-Logic)
 - Status: early implementation (pressure network + basic integration + first-pass mechanical rotation backbone; not yet a full mechanical-power system).
+- Spec authority: `docs/PRESSURE_LOGIC.md` (requirements) + `docs/PRESSURE_LOGIC_TRACEABILITY.md` (requirement→implementation checklist).
 - Creative tab: Pressure-Logic blocks and items are in a dedicated creative mode tab (not duplicated into the other Krümblegård tabs).
 - Config (in `kruemblegard-common.toml`):
   - `enablePressureSystem`: master enable/disable for the pressure simulation.
@@ -143,7 +144,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: rotation transformer. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`) that multiplies/divides rotation level across the gearbox; right-click cycles the ratio.
-  - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable).
+  - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable). Strong redstone (>= 12) switches into a rotate mode that attempts to rotate the block in front on extension steps.
   - `atmospheric_compressor`: provides stable-air bubbles outside Wayfall (for Pressure-Logic machines). Tracks `stability_level` (0..5) and gently pressurizes adjacent conduits.
   - `pressure_valve`: inline conduit gate. When powered, it connects pressure conduits through itself along its facing axis; when unpowered, it blocks pressure flow.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
@@ -154,9 +155,9 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).
   - `pressure_sensor`: outputs a directional redstone signal (`signal` 0..15) derived from adjacent conduit pressure (stable air required).
   - `vortex_funnel`: stable-air + conduit-pressure powered suction block with a `vortex_mode` and `directional` toggle; consumes conduit pressure while running.
-  - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; pulse animation is driven by pressure/rotation availability.
+  - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; shift-right-click flips facing (direction toggle); pulse animation is driven by pressure/rotation availability.
   - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required).
-  - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction).
+  - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction); requires adjacent conduit pressure and consumes more pressure at higher `flow_rate`.
   - `pressure_kiln`: fuel-free smelter that requires stable air + adjacent conduit pressure + nearby mechanical rotation; consumes conduit pressure per smelt. `kiln_mode` (LOW/NORMAL/OVERPRESSURE) is controlled by redstone strength; OVERPRESSURE is faster but can vent violently at high pressure.
   - `membrane_press`: stable-air + conduit-pressure powered press that cycles `press_phase` (0..3) while running and consumes pressure to process items.
   - `crystal_infuser`: stable-air + conduit-pressure powered infuser that cycles `infuse_phase` (0..3) while running and consumes pressure to infuse items.

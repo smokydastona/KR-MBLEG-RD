@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1302 (2026-03-21)
+- Change(pressure_logic): treat spec "optional variants" as mandatory for mechanical behaviors.
+- Feat(pressure_logic): Air-Lift Tube now requires adjacent conduit pressure and consumes more at higher flow.
+- Feat(pressure_logic): Pressure Rail shift-right-click flips direction.
+- Feat(pressure_logic): Vent Piston strong-redstone rotate mode rotates the block in front on extension steps.
+
+## 1.0.1301 (2026-03-21)
+- Docs(pressure_logic): add a spec traceability checklist mapping `docs/PRESSURE_LOGIC.md` requirements to code/assets/tooling.
+
 ## 1.0.1300 (2026-03-21)
 - Change(creative): keep Pressure-Logic blocks/items exclusively in the Pressure-Logic creative tab (no duplication into the other Krümblegård tabs).
 

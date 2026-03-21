@@ -1,8 +1,10 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureUtil;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -124,6 +126,28 @@ public class AirLiftTubeBlock extends Block {
 
         boolean down = mode == TubeMode.DOWN || (mode == TubeMode.BIDIRECTIONAL && powered);
 
+        // Mandatory spec interpretation: higher flow consumes more pressure.
+        BlockPos conduitPos = findBestConduit(level, pos);
+        if (conduitPos == null) {
+            return;
+        }
+
+        int available = PressureUtil.getConduitPressureOrState(level, conduitPos);
+        if (available <= 0) {
+            return;
+        }
+
+        int cost = switch (state.getValue(FLOW_RATE)) {
+            case SOFT -> 1;
+            case NORMAL -> 2;
+            case HIGH -> 4;
+        };
+
+        if (available < cost) {
+            return;
+        }
+        PressureUtil.addPressure(level, conduitPos, -cost);
+
         double speed = switch (state.getValue(FLOW_RATE)) {
             case SOFT -> 0.08;
             case NORMAL -> 0.16;
@@ -136,6 +160,29 @@ public class AirLiftTubeBlock extends Block {
         entity.setDeltaMovement(entity.getDeltaMovement().x, newY, entity.getDeltaMovement().z);
         entity.fallDistance = 0.0F;
         entity.hurtMarked = true;
+    }
+
+    private static @Nullable BlockPos findBestConduit(Level level, BlockPos pos) {
+        BlockPos best = null;
+        int bestPressure = 0;
+
+        BlockPos below = pos.below();
+        int belowPressure = PressureUtil.getConduitPressureOrState(level, below);
+        if (belowPressure > 0) {
+            best = below;
+            bestPressure = belowPressure;
+        }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos p = pos.relative(dir);
+            int pressure = PressureUtil.getConduitPressureOrState(level, p);
+            if (pressure > bestPressure) {
+                best = p;
+                bestPressure = pressure;
+            }
+        }
+
+        return best;
     }
 
     @Override

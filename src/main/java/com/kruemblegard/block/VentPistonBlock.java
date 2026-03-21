@@ -98,15 +98,29 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
         }
 
         if (next != current) {
-            // When extending, apply a gentle push in the facing direction.
+            // When extending, apply a gentle push OR rotate the target block when configured.
             if (didExtend) {
                 Direction facing = state.getValue(FACING);
                 BlockPos front = pos.relative(facing);
-                AABB box = new AABB(front).inflate(0.25);
-                double dx = facing.getStepX() * 0.05;
-                double dz = facing.getStepZ() * 0.05;
-                for (net.minecraft.world.entity.Entity entity : level.getEntities(null, box)) {
-                    entity.push(dx, 0.0, dz);
+
+                // Mandatory spec interpretation: "can rotate blocks if configured".
+                // Configuration is represented as a strong redstone signal at the piston.
+                boolean rotateMode = level.getBestNeighborSignal(pos) >= 12;
+                if (rotateMode) {
+                    BlockState frontState = level.getBlockState(front);
+                    if (!frontState.isAir()) {
+                        BlockState rotated = frontState.rotate(level, front, Rotation.CLOCKWISE_90);
+                        if (rotated != frontState) {
+                            level.setBlock(front, rotated, 2);
+                        }
+                    }
+                } else {
+                    AABB box = new AABB(front).inflate(0.25);
+                    double dx = facing.getStepX() * 0.05;
+                    double dz = facing.getStepZ() * 0.05;
+                    for (net.minecraft.world.entity.Entity entity : level.getEntities(null, box)) {
+                        entity.push(dx, 0.0, dz);
+                    }
                 }
             }
 
