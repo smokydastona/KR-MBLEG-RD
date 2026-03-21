@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1306 (2026-03-21)
+- Assets(unkeeper): sync `unkeeper.animation.json` with the updated `unkeeper.geo.json` bone names and keep the controller references current.
+- Assets(unkeeper): resize `unkeeper.png` to 128×128.
+
 ## 1.0.1305 (2026-03-21)
 - Fix(mobs): Mossback Tortoise is now immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior).
 
