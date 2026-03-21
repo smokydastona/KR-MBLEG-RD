@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1295 (2026-03-21)
+- Tweak(spawns/wayfall): Driftwhale now spawns in pods (group size 2–4).
+
 ## 1.0.1294 (2026-03-21)
 - Docs(tools/mobs): mark Cephalari Drowned/Husk/Zombie as vanilla-sound mobs in Mob Bible scoring.
 
