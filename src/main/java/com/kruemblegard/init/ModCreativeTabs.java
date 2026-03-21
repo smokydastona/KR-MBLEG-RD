@@ -72,6 +72,47 @@ public final class ModCreativeTabs {
                     .build()
     );
 
+        public static final RegistryObject<CreativeModeTab> PRESSURE_LOGIC = TABS.register(
+            "kruemblegard_pressure_logic",
+            () -> CreativeModeTab.builder()
+                .title(Component.translatable("creativetab.kruemblegard.pressure_logic"))
+                .icon(() -> new ItemStack(ModItems.PRESSURE_CONDUIT_ITEM.get()))
+                .displayItems((parameters, output) -> displayPressureLogic(output))
+                .build()
+        );
+
+        private static void displayPressureLogic(CreativeModeTab.Output output) {
+        output.accept(ModItems.CORAL_FIBER.get());
+        output.accept(ModItems.BIO_CERAMIC.get());
+
+        output.accept(ModItems.PRESSURE_CONDUIT_ITEM.get());
+        output.accept(ModItems.MEMBRANE_PUMP_ITEM.get());
+        output.accept(ModItems.PRESSURE_TURBINE_ITEM.get());
+        output.accept(ModItems.SPIRAL_GEARBOX_ITEM.get());
+        output.accept(ModItems.SPIRAL_SHAFT_ITEM.get());
+        output.accept(ModItems.VENT_PISTON_ITEM.get());
+        output.accept(ModItems.ATMOSPHERIC_COMPRESSOR_ITEM.get());
+        output.accept(ModItems.PRESSURE_VALVE_ITEM.get());
+        output.accept(ModItems.BUOYANCY_LIFT_PLATFORM_ITEM.get());
+        output.accept(ModItems.CONVEYOR_MEMBRANE_ITEM.get());
+
+        output.accept(ModItems.PRESSURE_LOOM_ITEM.get());
+        output.accept(ModItems.PRESSURE_CLUTCH_ITEM.get());
+        output.accept(ModItems.PRESSURE_REGULATOR_ITEM.get());
+        output.accept(ModItems.PRESSURE_SEQUENCER_ITEM.get());
+        output.accept(ModItems.PRESSURE_SENSOR_ITEM.get());
+
+        output.accept(ModItems.VORTEX_FUNNEL_ITEM.get());
+        output.accept(ModItems.PRESSURE_RAIL_ITEM.get());
+        output.accept(ModItems.PNEUMATIC_CATAPULT_ITEM.get());
+        output.accept(ModItems.AIR_LIFT_TUBE_ITEM.get());
+
+        output.accept(ModItems.PRESSURE_KILN_ITEM.get());
+        output.accept(ModItems.MEMBRANE_PRESS_ITEM.get());
+        output.accept(ModItems.CRYSTAL_INFUSER_ITEM.get());
+        output.accept(ModItems.PNEUMATIC_SEPARATOR_ITEM.get());
+        }
+
     private static void displayCategory(CreativeModeTab.Output output, Category category) {
         var entries = new ArrayList<ItemEntry>();
 

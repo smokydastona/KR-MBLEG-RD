@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1299 (2026-03-21)
+- Feat(creative): add a dedicated Pressure-Logic creative tab containing Pressure-Logic blocks + materials.
+
 ## 1.0.1298 (2026-03-21)
 - Change(spawn_eggs/cephalari): remove spawn eggs for adult Cephalari forms (Driftskimmer, Echo Harness, Spiral Strider, Treadwinder).
 - Docs(tools/mobs): treat adult Cephalari forms as “no spawn egg by design” and require an item model JSON for any egg to be considered complete.
