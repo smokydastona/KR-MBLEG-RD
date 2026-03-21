@@ -6,7 +6,12 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.1269 (2026-03-21)
 - Fix(unkeeper/render): add full-bright eye-glow rendering layer (RenderType.eyes) and make Unkeeper renderer use cutout + safe packed light.
-- Fix(unkeeper/assets): align Unkeeper geo identifier to `geo.unkeeper` and ensure `eye_glow_*` cubes have thickness so they can render.
+- Fix(unkeeper/assets): ensure `eye_glow_*` cubes have thickness so they can render.
+
+## 1.0.1270 (2026-03-21)
+- Fix(unkeeper/render): render eye glow from a dedicated emissive mask texture (`unkeeper_eyes.png`) so the glow is always visible.
+- Fix(unkeeper/assets): set Unkeeper geo identifier to `geometry.unkeeper` (schema-valid pattern) so tooling/validation doesn't fail.
+- Docs(unkeeper): treat Unkeeper base texture as shipped (remove placeholder wording).
 
 ## 1.0.1268 (2026-03-21)
 - Fix(unkeeper/ai): make Unkeeper explicitly hostile with retaliation targeting and improved GeckoLib controller logic for bite/death animations.

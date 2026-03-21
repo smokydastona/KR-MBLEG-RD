@@ -16,7 +16,6 @@ public class UnkeeperModel extends GeoModel<UnkeeperEntity> {
 
     @Override
     public ResourceLocation getTextureResource(UnkeeperEntity animatable) {
-        // Placeholder texture (can be replaced later with real art).
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/unkeeper.png");
     }
 
