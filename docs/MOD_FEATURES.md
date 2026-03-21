@@ -205,8 +205,9 @@ Keep it up to date whenever you add/remove/rename content.
     - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/driftwhale.animation_controllers.json`
     - Texture: `assets/kruemblegard/textures/entity/driftwhale.png`
 
-- **Pebble Wren** (`pebble_wren`)
   - Small, breedable seed-eater (GeckoLib-rendered).
+  - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
+  - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping.
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
   - Drops Feathers and (occasionally) Wheat Seeds.

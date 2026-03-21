@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1278 (2026-03-21)
+- Feat(pebble_wren): add befriend/taming via Wheat Seeds with owner follow + sit/stand toggle.
+- Feat(pebble_wren): add ore-find direction ping (crouch-feed Wheat Seeds while befriended).
+
 ## 1.0.1277 (2026-03-21)
 - Feat(mossback_tortoise): add moss variants via moss patch geometry and synced variant selection.
 - Feat(mossback_tortoise): add shearing interaction to remove moss patches and drop Moss Carpet.
