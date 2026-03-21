@@ -45,7 +45,7 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 13:14:17
+Generated: 2026-03-21 13:18:33
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
@@ -56,10 +56,10 @@ Generated: 2026-03-21 13:14:17
 ### Backlog (from audit)
 - Missing entity loot tables: 9
   - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `spiral_strider`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
-- No biome modifier refs (may not spawn naturally): 5
-  - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `treadwinder`
-- No sounds.json matches (may rely on vanilla sounds): 12
-  - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`, `spiral_strider`, `treadwinder`
+- No biome modifier refs (may not spawn naturally): 4
+  - `driftskimmer`, `echo_harness`, `spiral_strider`, `treadwinder`
+- No sounds.json matches (may rely on vanilla sounds): 11
+  - `cephalari_drowned`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`, `spiral_strider`, `treadwinder`
 - Missing spawn eggs: 0
   - (none)
 - Animation warnings (non-fatal): 1
@@ -74,7 +74,7 @@ Generated: 2026-03-21 13:14:17
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `cephalari` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_drowned` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `cephalari_golem` | 90 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `cephalari_golem` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_husk` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `cephalari_zombie` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `driftskimmer` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
@@ -129,8 +129,8 @@ Generated: 2026-03-21 13:14:17
   - No sounds.json entries matched this mob id (may rely on vanilla sounds)
 
 #### `cephalari_golem`
-- Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariGolemEntity` | Renderer: `CephalariGolemRenderer` | Model: `CephalariGolemModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_golem.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_golem.animation.json`
@@ -138,10 +138,10 @@ Generated: 2026-03-21 13:14:17
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/cephalari_golem.json`
 - Biome modifiers: **NONE FOUND**
 - Lang keys: entity=`entity.kruemblegard.cephalari_golem` spawnEgg=`item.kruemblegard.cephalari_golem_spawn_egg`
-- TODO: Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
-  - No biome modifier references found (may not spawn naturally)
+  - Uses vanilla Iron Golem sounds
+  - Spawns are not biome-modifier-driven (intentional)
+  - Spawns via village mechanics (replaces villager-spawned iron golems when Cephalari are nearby)
 
 #### `cephalari_husk`
 - Score: `95`

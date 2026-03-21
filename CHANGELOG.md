@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1292 (2026-03-21)
+- Docs(tools/mobs): treat Cephalari Golem as village-mechanics spawned (non-biome) and explicitly vanilla Iron Golem sounds in Mob Bible scoring.
+
 ## 1.0.1291 (2026-03-21)
 - Docs(tools/mobs): mark Trader Beetle as complete by sharing Scaralon Beetle loot/sounds in Mob Bible scoring.
 

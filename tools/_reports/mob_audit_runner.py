@@ -37,8 +37,13 @@ FAIL = "❌"
 
 # Some mobs intentionally use vanilla systems (no custom sounds.json entries / loot tables).
 VANILLA_SOUNDS_MOBS = {
+    "cephalari_golem",
     "moogloom",
     "scattered_enderman",
+}
+
+VANILLA_SOUND_SOURCES: dict[str, str] = {
+    "cephalari_golem": "vanilla Iron Golem",
 }
 
 VANILLA_LOOT_MOBS = {
@@ -57,7 +62,12 @@ SHARED_SOUNDS_FROM: dict[str, str] = {
 
 # Some mobs intentionally do not spawn via biome modifiers (structure/event-driven, commands only, etc.).
 NO_BIOME_MOD_SPAWN_MOBS = {
+    "cephalari_golem",
     "trader_beetle",
+}
+
+NON_BIOME_SPAWN_NOTES: dict[str, str] = {
+    "cephalari_golem": "Spawns via village mechanics (replaces villager-spawned iron golems when Cephalari are nearby)",
 }
 
 
@@ -447,7 +457,11 @@ def main() -> int:
                     break
 
         if vanilla_sounds:
-            sound_notes.append("Uses vanilla sounds (no sounds.json entries expected)")
+            src = VANILLA_SOUND_SOURCES.get(ent_id)
+            if src:
+                sound_notes.append(f"Uses {src} sounds")
+            else:
+                sound_notes.append("Uses vanilla sounds (no sounds.json entries expected)")
         elif shared_sounds_from is not None:
             sound_notes.append(f"Uses {shared_sounds_from} sounds (shared)")
         elif not sounds_ok:
@@ -590,6 +604,9 @@ def main() -> int:
             mob_entry["notes"].append("No biome modifier references found (may not spawn naturally)")
         if ent_id in NO_BIOME_MOD_SPAWN_MOBS:
             mob_entry["notes"].append("Spawns are not biome-modifier-driven (intentional)")
+            extra = NON_BIOME_SPAWN_NOTES.get(ent_id)
+            if extra:
+                mob_entry["notes"].append(extra)
         if has_spawn_egg and f"item.kruemblegard.{egg_id}" not in lang:
             mob_entry["notes"].append("Spawn egg is registered but missing lang key")
         if lang_entity_key not in lang:
