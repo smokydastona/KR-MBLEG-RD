@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1276 (2026-03-21)
+- Feat(grave_cairn): add hit reaction collapse (rubble burst + brief slow) and a dedicated "hit" animation track.
+- Feat(grave_cairn): allow damage to sometimes eject a Pebblit (rate-limited to prevent spam).
+- Feat(grave_cairn): on death, collapse into rubble and release a final Pebblit swarm.
+- Tweak(grave_cairn): reduce step-sound cadence so it reads more like dragging rubble than walking.
+
 ## 1.0.1274 (2026-03-21)
 - Refactor(grave_cairn/assets): replace humanoid geo with an asymmetrical rubble mound (no head/arms silhouette).
 - Refactor(grave_cairn/assets): reauthor idle/walk/attack/die animations to shift/jitter rubble chunks for an unstable mound read.

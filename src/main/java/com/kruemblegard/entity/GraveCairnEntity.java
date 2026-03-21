@@ -69,10 +69,16 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
     private static final RawAnimation ATTACK_ONCE =
         RawAnimation.begin().thenPlay("animation.grave_cairn.attack");
 
+    private static final RawAnimation HIT_ONCE =
+        RawAnimation.begin().thenPlay("animation.grave_cairn.hit");
+
     private static final RawAnimation DIE_ONCE =
         RawAnimation.begin().thenPlay("animation.grave_cairn.die");
 
     private static final int ATTACK_ANIM_TICKS = 10;
+    private static final int HIT_ANIM_TICKS = 8;
+
+    private static final int DAMAGE_BURST_COOLDOWN_TICKS = 40;
 
     private static final int WAKE_RADIUS_BLOCKS = 8;
     private static final double PEBBLIT_SYNERGY_RADIUS = 12.0D;
@@ -103,6 +109,12 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
 
     private int attackAnimTicks;
     private boolean wasSwinging;
+
+    private int hitAnimTicks;
+    private int damageBurstCooldownTicks;
+    private boolean didDeathCollapse;
+
+    private int stepSoundCooldownTicks;
 
     private int slamCooldownTicks;
     private int slamWindupTicks;
@@ -184,6 +196,18 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
             }
         }
 
+        if (this.hitAnimTicks > 0) {
+            --this.hitAnimTicks;
+        }
+
+        if (this.damageBurstCooldownTicks > 0) {
+            --this.damageBurstCooldownTicks;
+        }
+
+        if (this.stepSoundCooldownTicks > 0) {
+            --this.stepSoundCooldownTicks;
+        }
+
         boolean swingingNow = this.swinging;
         if (swingingNow && !this.wasSwinging) {
             this.attackAnimTicks = ATTACK_ANIM_TICKS;
@@ -192,6 +216,127 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
 
         if (this.attackAnimTicks > 0) {
             --this.attackAnimTicks;
+        }
+    }
+
+    private void triggerHitCollapse() {
+        this.hitAnimTicks = HIT_ANIM_TICKS;
+
+        // A short stumble so it reads like a heap settling.
+        this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 0, true, false, true));
+    }
+
+    private void spawnDamageRubbleBurst() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        BlockParticleOption burst = new BlockParticleOption(
+            net.minecraft.core.particles.ParticleTypes.BLOCK,
+            Blocks.COBBLESTONE.defaultBlockState()
+        );
+
+        serverLevel.sendParticles(burst, getX(), getY(0.85D), getZ(), 18, 0.55D, 0.35D, 0.55D, 0.18D);
+        serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF, getX(), getY(0.85D), getZ(), 8, 0.35D, 0.20D, 0.35D, 0.02D);
+    }
+
+    private void maybeEjectPebblitOnHit(@Nullable LivingEntity attacker) {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        if (this.damageBurstCooldownTicks > 0) {
+            return;
+        }
+
+        // Avoid runaway entity counts.
+        int nearbyPebblits = serverLevel.getEntitiesOfClass(PebblitEntity.class, getBoundingBox().inflate(6.0D)).size();
+        if (nearbyPebblits >= 6) {
+            return;
+        }
+
+        if (this.random.nextFloat() >= 0.35F) {
+            return;
+        }
+
+        PebblitEntity pebblit = ModEntities.PEBBLIT.get().create(serverLevel);
+        if (pebblit == null) {
+            return;
+        }
+
+        double angle = this.random.nextDouble() * (Math.PI * 2.0D);
+        double radius = 0.7D + (this.random.nextDouble() * 0.6D);
+        double x = getX() + (Math.cos(angle) * radius);
+        double z = getZ() + (Math.sin(angle) * radius);
+        double y = getY() + 0.15D;
+
+        pebblit.moveTo(x, y, z, this.getYRot(), 0.0F);
+        pebblit.setDeltaMovement(
+            Math.cos(angle) * 0.22D,
+            0.22D + (this.random.nextDouble() * 0.10D),
+            Math.sin(angle) * 0.22D
+        );
+
+        if (attacker != null) {
+            pebblit.setTarget(attacker);
+        }
+
+        pebblit.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 10, 0, true, false, true));
+        serverLevel.addFreshEntity(pebblit);
+
+        BlockParticleOption dust = new BlockParticleOption(net.minecraft.core.particles.ParticleTypes.FALLING_DUST, Blocks.COBBLESTONE.defaultBlockState());
+        serverLevel.sendParticles(dust, x, y + 0.1D, z, 10, 0.18D, 0.18D, 0.18D, 0.04D);
+
+        this.damageBurstCooldownTicks = DAMAGE_BURST_COOLDOWN_TICKS;
+    }
+
+    private void doDeathCollapse(@Nullable LivingEntity killer) {
+        if (this.didDeathCollapse) {
+            return;
+        }
+
+        this.didDeathCollapse = true;
+
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        BlockParticleOption burst = new BlockParticleOption(
+            net.minecraft.core.particles.ParticleTypes.BLOCK,
+            Blocks.COBBLESTONE.defaultBlockState()
+        );
+
+        serverLevel.sendParticles(burst, getX(), getY(0.85D), getZ(), 60, 0.9D, 0.6D, 0.9D, 0.22D);
+        serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD, getX(), getY(0.25D), getZ(), 22, 0.6D, 0.2D, 0.6D, 0.02D);
+        this.playSound(SoundEvents.STONE_BREAK, 1.0F, 0.75F);
+
+        // Final swarm: reinforces "it was just a pile... until it wasn't".
+        int count = 4 + this.random.nextInt(4);
+        for (int i = 0; i < count; i++) {
+            PebblitEntity pebblit = ModEntities.PEBBLIT.get().create(serverLevel);
+            if (pebblit == null) {
+                continue;
+            }
+
+            double angle = (Math.PI * 2.0D) * (i / (double) count);
+            double radius = 0.6D + (this.random.nextDouble() * 0.9D);
+            double x = getX() + (Math.cos(angle) * radius);
+            double z = getZ() + (Math.sin(angle) * radius);
+            double y = getY() + 0.15D;
+
+            pebblit.moveTo(x, y, z, this.getYRot(), 0.0F);
+            pebblit.setDeltaMovement(
+                Math.cos(angle) * 0.18D,
+                0.18D + (this.random.nextDouble() * 0.10D),
+                Math.sin(angle) * 0.18D
+            );
+
+            if (killer != null) {
+                pebblit.setTarget(killer);
+            }
+
+            pebblit.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 20, 0, true, false, true));
+            serverLevel.addFreshEntity(pebblit);
         }
     }
 
@@ -437,7 +582,13 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
 
     @Override
     protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        this.playSound(net.minecraft.sounds.SoundEvents.STONE_STEP, 0.25F, 0.9F + (this.random.nextFloat() * 0.2F));
+        // Don't sound like a walking creature; more like a dragging heap.
+        if (this.stepSoundCooldownTicks > 0) {
+            return;
+        }
+
+        this.stepSoundCooldownTicks = 6 + this.random.nextInt(6);
+        this.playSound(net.minecraft.sounds.SoundEvents.STONE_STEP, 0.18F, 0.75F + (this.random.nextFloat() * 0.25F));
     }
 
     @Override
@@ -446,6 +597,8 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
             boolean dead = this.isDeadOrDying() || this.getHealth() <= 0.0F;
             if (dead) {
                 state.setAnimation(DIE_ONCE);
+            } else if (this.hitAnimTicks > 0) {
+                state.setAnimation(HIT_ONCE);
             } else if (this.attackAnimTicks > 0) {
                 state.setAnimation(ATTACK_ONCE);
             } else {
@@ -466,7 +619,23 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
             wakeFromDisturbance(source.getEntity() instanceof Player p ? p : null);
         }
 
-        return super.hurt(source, amount);
+        boolean result = super.hurt(source, amount);
+
+        if (!level().isClientSide && result && amount > 0.0F && this.isAlive()) {
+            LivingEntity attacker = (source.getEntity() instanceof LivingEntity le) ? le : null;
+            triggerHitCollapse();
+            spawnDamageRubbleBurst();
+            maybeEjectPebblitOnHit(attacker);
+        }
+
+        return result;
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        LivingEntity killer = (source.getEntity() instanceof LivingEntity le) ? le : null;
+        doDeathCollapse(killer);
+        super.die(source);
     }
 
     @Override
