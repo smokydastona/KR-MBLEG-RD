@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1293 (2026-03-21)
+- Docs(tools/mobs): mark Cephalari adult forms (Driftskimmer, Echo Harness, Spiral Strider, Treadwinder) as complete via intentional vanilla loot/sounds and non-biome spawning.
+
 ## 1.0.1292 (2026-03-21)
 - Docs(tools/mobs): treat Cephalari Golem as village-mechanics spawned (non-biome) and explicitly vanilla Iron Golem sounds in Mob Bible scoring.
 

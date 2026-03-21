@@ -38,16 +38,28 @@ FAIL = "❌"
 # Some mobs intentionally use vanilla systems (no custom sounds.json entries / loot tables).
 VANILLA_SOUNDS_MOBS = {
     "cephalari_golem",
+    "driftskimmer",
+    "echo_harness",
     "moogloom",
     "scattered_enderman",
+    "spiral_strider",
+    "treadwinder",
 }
 
 VANILLA_SOUND_SOURCES: dict[str, str] = {
     "cephalari_golem": "vanilla Iron Golem",
+    "driftskimmer": "vanilla Cephalari (adult form)",
+    "echo_harness": "vanilla Cephalari (adult form)",
+    "spiral_strider": "vanilla Cephalari (adult form)",
+    "treadwinder": "vanilla Cephalari (adult form)",
 }
 
 VANILLA_LOOT_MOBS = {
+    "driftskimmer",
+    "echo_harness",
     "scattered_enderman",
+    "spiral_strider",
+    "treadwinder",
 }
 
 # Some mobs intentionally share other mobs' content.
@@ -63,11 +75,19 @@ SHARED_SOUNDS_FROM: dict[str, str] = {
 # Some mobs intentionally do not spawn via biome modifiers (structure/event-driven, commands only, etc.).
 NO_BIOME_MOD_SPAWN_MOBS = {
     "cephalari_golem",
+    "driftskimmer",
+    "echo_harness",
+    "spiral_strider",
+    "treadwinder",
     "trader_beetle",
 }
 
 NON_BIOME_SPAWN_NOTES: dict[str, str] = {
     "cephalari_golem": "Spawns via village mechanics (replaces villager-spawned iron golems when Cephalari are nearby)",
+    "driftskimmer": "Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)",
+    "echo_harness": "Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)",
+    "spiral_strider": "Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)",
+    "treadwinder": "Adult Cephalari form; spawned via Cephalari mechanics / commands (not biome-modifier-driven)",
 }
 
 
@@ -371,7 +391,7 @@ def main() -> int:
     client_map = parse_client_renderers(client_text)
 
     report = {
-        "schemaVersion": 7,
+        "schemaVersion": 8,
         "modid": "kruemblegard",
         "mobCount": len(mobs),
         "generatedBy": "tools/_reports/mob_audit_runner.py",
@@ -598,6 +618,8 @@ def main() -> int:
             mob_entry["notes"].append("No entity loot table found under data/.../loot_tables/entities/")
         if shared_loot_from is not None:
             mob_entry["notes"].append(f"Loot is shared from {shared_loot_from}")
+        if vanilla_loot:
+            mob_entry["notes"].append("Uses vanilla loot (no custom entity loot table expected)")
         if anim_struct_notes:
             mob_entry["notes"].append("Fix animation JSON structure issues")
         if not (biome_spawn_ok or ent_id == "kruemblegard"):
