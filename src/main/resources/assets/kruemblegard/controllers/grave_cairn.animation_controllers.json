@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.grave_cairn.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "animation.grave_cairn.idle"
+          ],
+          "transitions": [
+            { "attacking": "query.is_attacking" },
+            { "walking": "query.is_moving" },
+            { "dead": "query.health <= 0" }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "animation.grave_cairn.walk"
+          ],
+          "transitions": [
+            { "attacking": "query.is_attacking" },
+            { "default": "!query.is_moving" },
+            { "dead": "query.health <= 0" }
+          ]
+        },
+        "attacking": {
+          "animations": [
+            "animation.grave_cairn.attack"
+          ],
+          "transitions": [
+            { "dead": "query.health <= 0" },
+            { "walking": "!query.is_attacking && query.is_moving" },
+            { "default": "!query.is_attacking && !query.is_moving" }
+          ]
+        },
+        "dead": {
+          "animations": [
+            "animation.grave_cairn.die"
+          ]
+        }
+      }
+    }
+  }
+}

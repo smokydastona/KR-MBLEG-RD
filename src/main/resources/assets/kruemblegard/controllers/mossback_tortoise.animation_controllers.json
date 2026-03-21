@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.mossback_tortoise.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "animation.mossback_tortoise.idle"
+          ],
+          "transitions": [
+            { "walking": "query.is_moving" }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "animation.mossback_tortoise.walk"
+          ],
+          "transitions": [
+            { "default": "!query.is_moving" }
+          ]
+        }
+      }
+    }
+  }
+}

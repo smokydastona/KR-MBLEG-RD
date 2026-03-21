@@ -1,0 +1,67 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.mossback_tortoise",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2,
+				"visible_bounds_offset": [0, 0.6, 0]
+			},
+			"bones": [
+				{ "name": "root", "pivot": [0, 0, 0] },
+				{
+					"name": "shell",
+					"parent": "root",
+					"pivot": [0, 14, 0],
+					"cubes": [
+						{ "origin": [-7, 10, -10], "size": [14, 8, 20], "uv": [0, 0] },
+						{ "origin": [-6, 18, -8], "size": [12, 2, 16], "uv": [0, 30] }
+					]
+				},
+				{
+					"name": "head",
+					"parent": "shell",
+					"pivot": [0, 14, -10],
+					"cubes": [
+						{ "origin": [-3, 12, -14], "size": [6, 4, 4], "uv": [40, 0] }
+					]
+				},
+				{
+					"name": "leg_FL",
+					"parent": "shell",
+					"pivot": [5, 12, -7],
+					"cubes": [
+						{ "origin": [4, 9, -8], "size": [3, 3, 4], "uv": [40, 10] }
+					]
+				},
+				{
+					"name": "leg_FR",
+					"parent": "shell",
+					"pivot": [-5, 12, -7],
+					"cubes": [
+						{ "origin": [-7, 9, -8], "size": [3, 3, 4], "uv": [40, 21] }
+					]
+				},
+				{
+					"name": "leg_BL",
+					"parent": "shell",
+					"pivot": [5, 12, 7],
+					"cubes": [
+						{ "origin": [4, 9, 4], "size": [3, 3, 4], "uv": [52, 10] }
+					]
+				},
+				{
+					"name": "leg_BR",
+					"parent": "shell",
+					"pivot": [-5, 12, 7],
+					"cubes": [
+						{ "origin": [-7, 9, 4], "size": [3, 3, 4], "uv": [52, 21] }
+					]
+				}
+			]
+		}
+	]
+}

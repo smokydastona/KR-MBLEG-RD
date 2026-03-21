@@ -1,8 +1,12 @@
 package com.kruemblegard;
 
 import com.kruemblegard.entity.UnkeeperEntity;
+import com.kruemblegard.entity.DriftwhaleEntity;
 import com.kruemblegard.entity.FaultCrawlerEntity;
+import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
+import com.kruemblegard.entity.MossbackTortoiseEntity;
+import com.kruemblegard.entity.PebbleWrenEntity;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraderBeetleEntity;
@@ -67,6 +71,11 @@ public final class CommonModEvents {
         event.put(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerEntity.createAttributes().build());
         event.put(ModEntities.TREADWINDER.get(), TreadwinderEntity.createAttributes().build());
         event.put(ModEntities.ECHO_HARNESS.get(), EchoHarnessEntity.createAttributes().build());
+
+        event.put(ModEntities.DRIFTWHALE.get(), DriftwhaleEntity.createAttributes().build());
+        event.put(ModEntities.PEBBLE_WREN.get(), PebbleWrenEntity.createAttributes().build());
+        event.put(ModEntities.MOSSBACK_TORTOISE.get(), MossbackTortoiseEntity.createAttributes().build());
+        event.put(ModEntities.GRAVE_CAIRN.get(), GraveCairnEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -212,6 +221,38 @@ public final class CommonModEvents {
             CommonModEvents::canSpawnOnSolidGround,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+
+        event.register(
+            ModEntities.DRIFTWHALE.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnCreatureOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.PEBBLE_WREN.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnCreatureOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.MOSSBACK_TORTOISE.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnCreatureOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+
+        event.register(
+            ModEntities.GRAVE_CAIRN.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            CommonModEvents::canSpawnOnSolidGround,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
     }
 
     private static boolean canSpawnCephalariDrowned(
@@ -273,6 +314,35 @@ public final class CommonModEvents {
 
     private static boolean canSpawnScaralonBeetle(
             net.minecraft.world.entity.EntityType<? extends Animal> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        BlockPos below = pos.below();
+        if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+            return false;
+        }
+
+        // Require space for the mob.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        // Similar to vanilla animals, but avoid hard-tag constraints.
+        if (level.getLevel().getRawBrightness(pos, 0) < 8) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean canSpawnCreatureOnSolidGround(
+            net.minecraft.world.entity.EntityType<? extends Mob> type,
             ServerLevelAccessor level,
             MobSpawnType spawnType,
             BlockPos pos,

@@ -9,7 +9,11 @@ import com.kruemblegard.entity.CephalariZombieEntity;
 import com.kruemblegard.entity.FaultCrawlerEntity;
 import com.kruemblegard.entity.KruemblegardBossEntity;
 import com.kruemblegard.entity.MoogloomEntity;
+import com.kruemblegard.entity.MossbackTortoiseEntity;
+import com.kruemblegard.entity.PebbleWrenEntity;
 import com.kruemblegard.entity.PebblitEntity;
+import com.kruemblegard.entity.DriftwhaleEntity;
+import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.ScaralonBeetleEntity;
 import com.kruemblegard.entity.ScatteredEndermanEntity;
 import com.kruemblegard.entity.TraderBeetleEntity;
@@ -203,6 +207,42 @@ public class ModEntities {
                     EchoHarnessEntity::new, MobCategory.CREATURE)
                 .sized(1.1f, 2.6f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "echo_harness").toString())
+        );
+
+    public static final RegistryObject<EntityType<DriftwhaleEntity>> DRIFTWHALE =
+        ENTITIES.register(
+            "driftwhale",
+            () -> EntityType.Builder.<DriftwhaleEntity>of(
+                    DriftwhaleEntity::new, MobCategory.CREATURE)
+                .sized(1.8f, 1.1f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "driftwhale").toString())
+        );
+
+    public static final RegistryObject<EntityType<PebbleWrenEntity>> PEBBLE_WREN =
+        ENTITIES.register(
+            "pebble_wren",
+            () -> EntityType.Builder.<PebbleWrenEntity>of(
+                    PebbleWrenEntity::new, MobCategory.CREATURE)
+                .sized(0.45f, 0.55f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "pebble_wren").toString())
+        );
+
+    public static final RegistryObject<EntityType<MossbackTortoiseEntity>> MOSSBACK_TORTOISE =
+        ENTITIES.register(
+            "mossback_tortoise",
+            () -> EntityType.Builder.<MossbackTortoiseEntity>of(
+                    MossbackTortoiseEntity::new, MobCategory.CREATURE)
+                .sized(1.2f, 0.75f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "mossback_tortoise").toString())
+        );
+
+    public static final RegistryObject<EntityType<GraveCairnEntity>> GRAVE_CAIRN =
+        ENTITIES.register(
+            "grave_cairn",
+            () -> EntityType.Builder.<GraveCairnEntity>of(
+                    GraveCairnEntity::new, MobCategory.MONSTER)
+                .sized(0.9f, 1.7f)
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "grave_cairn").toString())
         );
 
     public static final RegistryObject<EntityType<KruemblegardBoatEntity>> KRUEMBLEGARD_BOAT =

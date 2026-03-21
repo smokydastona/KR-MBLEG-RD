@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.driftwhale.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "animation.driftwhale.idle"
+          ],
+          "transitions": [
+            { "moving": "query.is_moving" }
+          ]
+        },
+        "moving": {
+          "animations": [
+            "animation.driftwhale.move"
+          ],
+          "transitions": [
+            { "default": "!query.is_moving" }
+          ]
+        }
+      }
+    }
+  }
+}

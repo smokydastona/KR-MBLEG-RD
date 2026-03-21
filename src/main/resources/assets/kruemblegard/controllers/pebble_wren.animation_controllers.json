@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.pebble_wren.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "animation.pebble_wren.idle"
+          ],
+          "transitions": [
+            { "walking": "query.is_moving" }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "animation.pebble_wren.walk"
+          ],
+          "transitions": [
+            { "default": "!query.is_moving" }
+          ]
+        }
+      }
+    }
+  }
+}

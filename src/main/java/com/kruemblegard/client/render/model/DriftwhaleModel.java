@@ -1,0 +1,26 @@
+package com.kruemblegard.client.render.model;
+
+import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.DriftwhaleEntity;
+
+import net.minecraft.resources.ResourceLocation;
+
+import software.bernie.geckolib.model.GeoModel;
+
+public class DriftwhaleModel extends GeoModel<DriftwhaleEntity> {
+
+    @Override
+    public ResourceLocation getModelResource(DriftwhaleEntity animatable) {
+        return new ResourceLocation(Kruemblegard.MOD_ID, "geo/driftwhale.geo.json");
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(DriftwhaleEntity animatable) {
+        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/driftwhale.png");
+    }
+
+    @Override
+    public ResourceLocation getAnimationResource(DriftwhaleEntity animatable) {
+        return new ResourceLocation(Kruemblegard.MOD_ID, "animations/driftwhale.animation.json");
+    }
+}

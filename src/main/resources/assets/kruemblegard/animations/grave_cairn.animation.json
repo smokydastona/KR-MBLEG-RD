@@ -1,0 +1,90 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.grave_cairn.idle": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [0, "math.sin(query.anim_time * 35) * 2.0", "math.sin(query.anim_time * 25) * 1.5"]
+				},
+				"arm_L": {
+					"rotation": ["math.sin(query.anim_time * 35) * 3.0", 0, 0]
+				},
+				"arm_R": {
+					"rotation": ["-math.sin(query.anim_time * 35) * 3.0", 0, 0]
+				}
+			}
+		},
+		"animation.grave_cairn.walk": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, "math.sin(query.anim_time * 220) * 0.25", 0],
+					"rotation": [0, "math.sin(query.anim_time * 220) * 6.0", 0]
+				},
+				"arm_L": {
+					"rotation": ["math.sin(query.anim_time * 220) * 22.0", 0, 0]
+				},
+				"arm_R": {
+					"rotation": ["-math.sin(query.anim_time * 220) * 22.0", 0, 0]
+				},
+				"head": {
+					"rotation": [0, "math.cos(query.anim_time * 220) * 4.0", 0]
+				}
+			}
+		},
+		"animation.grave_cairn.attack": {
+			"animation_length": 0.5,
+			"bones": {
+				"arm_L": {
+					"rotation": {
+						"0.0": [-10, 0, 0],
+						"0.2": [-70, 0, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"arm_R": {
+					"rotation": {
+						"0.0": [-10, 0, 0],
+						"0.2": [-70, 0, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.2": [0, 10, 0],
+						"0.5": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.grave_cairn.die": {
+			"animation_length": 0.9,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [25, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.9": [0, -2.0, 0]
+					}
+				},
+				"arm_L": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [40, 0, -20]
+					}
+				},
+				"arm_R": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [40, 0, 20]
+					}
+				}
+			}
+		}
+	}
+}

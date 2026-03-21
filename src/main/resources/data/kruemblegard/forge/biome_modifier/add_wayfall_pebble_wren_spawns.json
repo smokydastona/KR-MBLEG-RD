@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:wayfall_forests",
+  "spawners": [
+    {
+      "type": "kruemblegard:pebble_wren",
+      "weight": 8,
+      "minCount": 2,
+      "maxCount": 5
+    }
+  ]
+}

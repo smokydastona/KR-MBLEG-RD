@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:strata_collapse",
+  "spawners": [
+    {
+      "type": "kruemblegard:grave_cairn",
+      "weight": 12,
+      "minCount": 1,
+      "maxCount": 2
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pebble_wren.idle": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, "math.sin(query.anim_time * 90) * 0.15", 0]
+				},
+				"head": {
+					"rotation": ["-math.sin(query.anim_time * 70) * 6", "math.cos(query.anim_time * 40) * 10", 0]
+				},
+				"wing_L": {
+					"rotation": [0, 0, "math.sin(query.anim_time * 120) * 10"]
+				},
+				"wing_R": {
+					"rotation": [0, 0, "-math.sin(query.anim_time * 120) * 10"]
+				}
+			}
+		},
+		"animation.pebble_wren.walk": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, "math.sin(query.anim_time * 220) * 0.2", 0]
+				},
+				"head": {
+					"rotation": ["-math.sin(query.anim_time * 220) * 10", 0, 0]
+				},
+				"leg_L": {
+					"rotation": ["math.sin(query.anim_time * 220) * 35", 0, 0]
+				},
+				"leg_R": {
+					"rotation": ["-math.sin(query.anim_time * 220) * 35", 0, 0]
+				},
+				"wing_L": {
+					"rotation": [0, 0, "math.sin(query.anim_time * 220) * 6"]
+				},
+				"wing_R": {
+					"rotation": [0, 0, "-math.sin(query.anim_time * 220) * 6"]
+				}
+			}
+		}
+	}
+}

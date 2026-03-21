@@ -7,13 +7,17 @@ import com.kruemblegard.client.render.CephalariGolemRenderer;
 import com.kruemblegard.client.render.CephalariRenderer;
 import com.kruemblegard.client.render.CephalariZombieRenderer;
 import com.kruemblegard.client.render.DriftSkimmerRenderer;
+import com.kruemblegard.client.render.DriftwhaleRenderer;
 import com.kruemblegard.client.render.EchoHarnessRenderer;
 import com.kruemblegard.client.render.FaultCrawlerRenderer;
+import com.kruemblegard.client.render.GraveCairnRenderer;
+import com.kruemblegard.client.render.MossbackTortoiseRenderer;
 import com.kruemblegard.client.render.UnkeeperRenderer;
 import com.kruemblegard.client.render.KruemblegardBoatRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
 import com.kruemblegard.client.render.KruemblegardChestBoatRenderer;
 import com.kruemblegard.client.render.MoogloomRenderer;
+import com.kruemblegard.client.render.PebbleWrenRenderer;
 import com.kruemblegard.client.render.PebblitRenderer;
 import com.kruemblegard.client.render.ScaralonBeetleRenderer;
 import com.kruemblegard.client.render.ScatteredEndermanRenderer;
@@ -61,6 +65,11 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.DRIFTSKIMMER.get(), DriftSkimmerRenderer::new);
         event.registerEntityRenderer(ModEntities.TREADWINDER.get(), TreadwinderRenderer::new);
         event.registerEntityRenderer(ModEntities.ECHO_HARNESS.get(), EchoHarnessRenderer::new);
+
+        event.registerEntityRenderer(ModEntities.DRIFTWHALE.get(), DriftwhaleRenderer::new);
+        event.registerEntityRenderer(ModEntities.PEBBLE_WREN.get(), PebbleWrenRenderer::new);
+        event.registerEntityRenderer(ModEntities.MOSSBACK_TORTOISE.get(), MossbackTortoiseRenderer::new);
+        event.registerEntityRenderer(ModEntities.GRAVE_CAIRN.get(), GraveCairnRenderer::new);
 
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_BOAT.get(), KruemblegardBoatRenderer::new);
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD_CHEST_BOAT.get(), KruemblegardChestBoatRenderer::new);

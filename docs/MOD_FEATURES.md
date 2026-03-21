@@ -195,6 +195,48 @@ Keep it up to date whenever you add/remove/rename content.
   - Rendering:
     - Eye glow bones (`eye_glow_L`, `eye_glow_R`) are rendered full-bright via `UnkeeperEyesLayer`.
 
+- **Driftwhale** (`driftwhale`)
+  - Peaceful sky-swimmer (GeckoLib-rendered).
+  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`).
+  - Drops Phantom Membrane.
+  - Uses editable resources:
+    - Geo: `assets/kruemblegard/geo/driftwhale.geo.json`
+    - Animations: `assets/kruemblegard/animations/driftwhale.animation.json`
+    - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/driftwhale.animation_controllers.json`
+    - Texture: `assets/kruemblegard/textures/entity/driftwhale.png`
+
+- **Pebble Wren** (`pebble_wren`)
+  - Small, breedable seed-eater (GeckoLib-rendered).
+  - Tempt/breed item: Wheat Seeds.
+  - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
+  - Drops Feathers and (occasionally) Wheat Seeds.
+  - Uses editable resources:
+    - Geo: `assets/kruemblegard/geo/pebble_wren.geo.json`
+    - Animations: `assets/kruemblegard/animations/pebble_wren.animation.json`
+    - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/pebble_wren.animation_controllers.json`
+    - Texture: `assets/kruemblegard/textures/entity/pebble_wren.png`
+
+- **Mossback Tortoise** (`mossback_tortoise`)
+  - Slow, armored, breedable grazer (GeckoLib-rendered).
+  - Tempt/breed item: Seagrass.
+  - Natural spawns: Underway Falls (`#kruemblegard:underway_falls`).
+  - Drops Seagrass and has a rare Scute drop.
+  - Uses editable resources:
+    - Geo: `assets/kruemblegard/geo/mossback_tortoise.geo.json`
+    - Animations: `assets/kruemblegard/animations/mossback_tortoise.animation.json`
+    - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/mossback_tortoise.animation_controllers.json`
+    - Texture: `assets/kruemblegard/textures/entity/mossback_tortoise.png`
+
+- **Grave Cairn** (`grave_cairn`)
+  - Hostile stone brute (GeckoLib-rendered).
+  - Natural spawns: Strata Collapse (`#kruemblegard:strata_collapse`).
+  - Drops Cobblestone/Bones (and occasional Iron Nuggets).
+  - Uses editable resources:
+    - Geo: `assets/kruemblegard/geo/grave_cairn.geo.json`
+    - Animations: `assets/kruemblegard/animations/grave_cairn.animation.json`
+    - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/grave_cairn.animation_controllers.json`
+    - Texture: `assets/kruemblegard/textures/entity/grave_cairn.png`
+
 - **Scattered Enderman** (`scattered_enderman`)
   - Enderman-derived hostile mob.
   - Spawns **uncommonly** in every Wayfall biome.

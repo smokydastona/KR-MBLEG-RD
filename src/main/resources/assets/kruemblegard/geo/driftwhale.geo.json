@@ -1,0 +1,61 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.driftwhale",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 1.0, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body",
+					"parent": "root",
+					"pivot": [0, 14, 0],
+					"cubes": [
+						{ "origin": [-8, 10, -16], "size": [16, 8, 32], "uv": [0, 0] }
+					]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 14, -16],
+					"cubes": [
+						{ "origin": [-6, 11, -24], "size": [12, 6, 8], "uv": [0, 40] }
+					]
+				},
+				{
+					"name": "tail",
+					"parent": "body",
+					"pivot": [0, 14, 16],
+					"cubes": [
+						{ "origin": [-4, 11, 16], "size": [8, 6, 12], "uv": [32, 40] }
+					]
+				},
+				{
+					"name": "fin_L",
+					"parent": "body",
+					"pivot": [8, 13, -2],
+					"cubes": [
+						{ "origin": [8, 12, -10], "size": [6, 2, 16], "uv": [32, 0] }
+					]
+				},
+				{
+					"name": "fin_R",
+					"parent": "body",
+					"pivot": [-8, 13, -2],
+					"cubes": [
+						{ "origin": [-14, 12, -10], "size": [6, 2, 16], "uv": [32, 18] }
+					]
+				}
+			]
+		}
+	]
+}

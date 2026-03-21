@@ -764,4 +764,28 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.CEPHALARI_GOLEM, 0x4f5863, 0x78c8ff,
                 new Item.Properties()));
 
+    public static final RegistryObject<Item> DRIFTWHALE_SPAWN_EGG =
+        ITEMS.register(
+            "driftwhale_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.DRIFTWHALE, 0x3d4d63, 0xb7d2e8,
+                new Item.Properties()));
+
+    public static final RegistryObject<Item> PEBBLE_WREN_SPAWN_EGG =
+        ITEMS.register(
+            "pebble_wren_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.PEBBLE_WREN, 0x6b645a, 0xe6d8b2,
+                new Item.Properties()));
+
+    public static final RegistryObject<Item> MOSSBACK_TORTOISE_SPAWN_EGG =
+        ITEMS.register(
+            "mossback_tortoise_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.MOSSBACK_TORTOISE, 0x3a5a3d, 0x9c8b5c,
+                new Item.Properties()));
+
+    public static final RegistryObject<Item> GRAVE_CAIRN_SPAWN_EGG =
+        ITEMS.register(
+            "grave_cairn_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.GRAVE_CAIRN, 0x2f2f2f, 0x7a7a7a,
+                new Item.Properties()));
+
 }

@@ -16,6 +16,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1271 (2026-03-21)
 - Fix(unkeeper/render): wire eye glow to the single combined `unkeeper.png` texture (no separate `unkeeper_eyes.png`).
 
+## 1.0.1272 (2026-03-21)
+- Feat(mobs): add 4 fully registered GeckoLib mobs: Driftwhale, Pebble Wren, Mossback Tortoise, and Grave Cairn.
+- Feat(spawns): add Wayfall biome modifiers for natural spawns of the new mobs.
+- Feat(loot/lang/assets): add loot tables, `en_us` names, and Geo/animation/controller assets for the new mobs.
+
 ## 1.0.1268 (2026-03-21)
 - Fix(unkeeper/ai): make Unkeeper explicitly hostile with retaliation targeting and improved GeckoLib controller logic for bite/death animations.
 
