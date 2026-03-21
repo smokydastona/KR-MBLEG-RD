@@ -14,7 +14,7 @@ public class KruemblegardPhase4BeamBoltModel extends GeoModel<KruemblegardPhase4
 
     @Override
     public ResourceLocation getTextureResource(KruemblegardPhase4BeamBoltEntity animatable) {
-        // Placeholder texture (replace with your own when you export from Blockbench)
+        // Default texture until a dedicated one is exported from Blockbench.
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/item/rune_petals.png");
     }
 

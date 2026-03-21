@@ -32,7 +32,7 @@ This is the same relationship as Create’s redstone integration — but with Ce
 
 Below is the full block family, all animated, all mechanical, all pneumatic.
 
-Implementation note (animation / Blockbench workflow): each Pressure‑Logic machine block is backed by its **own unique Block Entity**. This is required so each machine can maintain per‑block animation state and meaningful runtime state (not a shared generic stub).
+Implementation note (animation / Blockbench workflow): each Pressure‑Logic machine block is backed by its **own unique Block Entity**. This is required so each machine can maintain per‑block animation state and meaningful runtime state (not a shared generic machine implementation).
 
 ### A. Pressure Turbine
 **Role:** Converts pressure into rotational energy

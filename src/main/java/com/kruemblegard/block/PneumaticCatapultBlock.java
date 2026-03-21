@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,20 +32,49 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
 public class PneumaticCatapultBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public enum LaunchMode implements StringRepresentable {
+        ARC("arc"),
+        PRECISION("precision"),
+        SCATTER("scatter");
+
+        private final String name;
+
+        LaunchMode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name;
+        }
+    }
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
     public static final IntegerProperty CHARGE_LEVEL = IntegerProperty.create("charge_level", 0, 3);
+    public static final EnumProperty<LaunchMode> LAUNCH_MODE = EnumProperty.create("launch_mode", LaunchMode.class);
+    // 0..3 maps to a small set of arc angles ("crystal dial").
+    public static final IntegerProperty ANGLE_STEP = IntegerProperty.create("angle_step", 0, 3);
 
     public PneumaticCatapultBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
-                .setValue(CHARGE_LEVEL, 0));
+                .setValue(CHARGE_LEVEL, 0)
+                .setValue(LAUNCH_MODE, LaunchMode.ARC)
+                .setValue(ANGLE_STEP, 1));
     }
 
     @Override
@@ -53,12 +83,43 @@ public class PneumaticCatapultBlock extends HorizontalDirectionalBlock implement
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(POWERED, powered)
-            .setValue(CHARGE_LEVEL, 0);
+                .setValue(CHARGE_LEVEL, 0)
+                .setValue(LAUNCH_MODE, LaunchMode.ARC)
+                .setValue(ANGLE_STEP, 1);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, POWERED, CHARGE_LEVEL);
+        builder.add(FACING, POWERED, CHARGE_LEVEL, LAUNCH_MODE, ANGLE_STEP);
+    }
+
+    @Override
+    public InteractionResult use(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit
+    ) {
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+
+        // Variants are treated as mandatory: shift cycles mode, normal click adjusts the arc dial.
+        if (player.isShiftKeyDown()) {
+            LaunchMode next = switch (state.getValue(LAUNCH_MODE)) {
+                case ARC -> LaunchMode.PRECISION;
+                case PRECISION -> LaunchMode.SCATTER;
+                case SCATTER -> LaunchMode.ARC;
+            };
+            level.setBlock(pos, state.setValue(LAUNCH_MODE, next), Block.UPDATE_CLIENTS);
+            return InteractionResult.CONSUME;
+        }
+
+        int next = (state.getValue(ANGLE_STEP) + 1) & 3;
+        level.setBlock(pos, state.setValue(ANGLE_STEP, next), Block.UPDATE_CLIENTS);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -156,17 +217,55 @@ public class PneumaticCatapultBlock extends HorizontalDirectionalBlock implement
         }
 
         Direction facing = state.getValue(FACING);
-        double horiz = 0.6 + 0.3 * charge;
-        double up = 0.5 + 0.2 * charge;
+
+        LaunchMode launchMode = state.getValue(LAUNCH_MODE);
+
+        // Arc-adjustable uses the dial; other modes default to a familiar arc.
+        int angleDeg = 45;
+        if (launchMode == LaunchMode.ARC) {
+            angleDeg = switch (state.getValue(ANGLE_STEP)) {
+                case 0 -> 30;
+                case 1 -> 45;
+                case 2 -> 60;
+                default -> 75;
+            };
+        }
+
+        double baseSpeed = 0.85 + 0.35 * charge;
+        if (launchMode == LaunchMode.PRECISION) {
+            baseSpeed *= 0.80;
+        }
+
+        double rad = Math.toRadians(angleDeg);
+        double horiz = baseSpeed * Math.cos(rad);
+        double up = baseSpeed * Math.sin(rad);
+
+        Vec3 forward = new Vec3(facing.getStepX(), 0.0, facing.getStepZ());
+        Vec3 left = new Vec3(-facing.getStepZ(), 0.0, facing.getStepX());
+
+        RandomSource rng = level.getRandom();
+        double scatter = switch (launchMode) {
+            case ARC -> 0.0;
+            case PRECISION -> 0.0;
+            case SCATTER -> 0.35;
+        };
 
         AABB box = new AABB(pos).inflate(0.5, 1.0, 0.5).move(0, 0.1, 0);
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, box, entity -> entity.isAlive() && !entity.isSpectator())) {
-            e.setDeltaMovement(e.getDeltaMovement().add(facing.getStepX() * horiz, up, facing.getStepZ() * horiz));
+            Vec3 jitter = (scatter > 0.0)
+                    ? left.scale((rng.nextDouble() - 0.5) * scatter).add(0.0, (rng.nextDouble() - 0.5) * (scatter * 0.25), 0.0)
+                    : Vec3.ZERO;
+            Vec3 impulse = forward.scale(horiz).add(0.0, up, 0.0).add(jitter);
+            e.setDeltaMovement(e.getDeltaMovement().add(impulse));
             e.hurtMarked = true;
         }
 
         for (ItemEntity e : level.getEntitiesOfClass(ItemEntity.class, box, entity -> entity.isAlive() && !entity.getItem().isEmpty())) {
-            e.setDeltaMovement(e.getDeltaMovement().add(facing.getStepX() * horiz, up, facing.getStepZ() * horiz));
+            Vec3 jitter = (scatter > 0.0)
+                    ? left.scale((rng.nextDouble() - 0.5) * scatter).add(0.0, (rng.nextDouble() - 0.5) * (scatter * 0.25), 0.0)
+                    : Vec3.ZERO;
+            Vec3 impulse = forward.scale(horiz).add(0.0, up, 0.0).add(jitter);
+            e.setDeltaMovement(e.getDeltaMovement().add(impulse));
             e.hurtMarked = true;
         }
 

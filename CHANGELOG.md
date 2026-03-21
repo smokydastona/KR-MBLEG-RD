@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1309 (2026-03-21)
+- Feat(pressure_logic): add Pneumatic Catapult launch variants with an angle dial plus precision/scatter modes.
+- Feat(pressure_logic): add Membrane Press precision/bulk modes and Crystal Infuser multi/deep modes.
+- Feat(pressure_logic): require Vortex Funnel swirl power to come from an active adjacent Atmospheric Compressor on the conduit network.
+- Fix(assets/pressure_logic): convert catapult/press/infuser blockstates to multipart so the new blockstate properties resolve correctly.
+- Docs(pressure_logic): mark the mandatory variant/coupling checklist items complete and remove runtime placeholder/stub wording from Pressure-Logic docs/comments.
+
 ## 1.0.1306 (2026-03-21)
 - Assets(unkeeper): sync `unkeeper.animation.json` with the updated `unkeeper.geo.json` bone names and keep the controller references current.
 - Assets(unkeeper): resize `unkeeper.png` to 128×128.
@@ -12,7 +19,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(mobs): Mossback Tortoise is now immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior).
 
 ## 1.0.1304 (2026-03-21)
-- Feat(pressure_logic): add unique per-machine BlockEntities across the full Pressure-Logic machinery set (animation-ready; no shared stub).
+- Feat(pressure_logic): add unique per-machine BlockEntities across the full Pressure-Logic machinery set (animation-ready; no shared generic machine implementation).
 - Refactor(pressure_logic): introduce `CephalariMachineBlockEntity` base for shared persistent activity sampling + animation accumulator.
 - Fix(build/forge): replace uses of Mojang's protected `BaseEntityBlock.createTickerHelper` with a public helper.
 

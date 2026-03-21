@@ -23,7 +23,7 @@ public final class PebblitShoulderEffect extends MobEffect {
     // Stable UUID so the attribute modifier is consistent across sessions.
     private static final String KB_UUID = "9b063db3-468e-4b56-9a38-fd999132d955";
 
-    // Placeholder icon (we ship our own texture so it can be replaced later).
+    // Mod-provided icon (can be swapped later without changing code).
     private static final ResourceLocation ICON = new ResourceLocation(Kruemblegard.MOD_ID, "textures/mob_effect/pebblit_shoulder.png");
 
     public PebblitShoulderEffect() {

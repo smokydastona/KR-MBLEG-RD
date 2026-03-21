@@ -13,7 +13,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,27 +28,73 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class MembranePressBlock extends Block implements EntityBlock {
+    public enum PressMode implements StringRepresentable {
+        NORMAL("normal"),
+        PRECISION("precision"),
+        BULK("bulk");
+
+        private final String name;
+
+        PressMode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name;
+        }
+    }
+
     public static final BooleanProperty POWERED = net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
     public static final IntegerProperty PRESS_PHASE = IntegerProperty.create("press_phase", 0, 3);
+    public static final EnumProperty<PressMode> PRESS_MODE = EnumProperty.create("press_mode", PressMode.class);
 
     public MembranePressBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(POWERED, false)
-                .setValue(PRESS_PHASE, 0));
+                .setValue(PRESS_PHASE, 0)
+                .setValue(PRESS_MODE, PressMode.NORMAL));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, PRESS_PHASE);
+        builder.add(POWERED, PRESS_PHASE, PRESS_MODE);
+    }
+
+    @Override
+    public InteractionResult use(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit
+    ) {
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        if (!player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+
+        PressMode next = switch (state.getValue(PRESS_MODE)) {
+            case NORMAL -> PressMode.PRECISION;
+            case PRECISION -> PressMode.BULK;
+            case BULK -> PressMode.NORMAL;
+        };
+        level.setBlock(pos, state.setValue(PRESS_MODE, next), Block.UPDATE_CLIENTS);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -87,6 +137,7 @@ public class MembranePressBlock extends Block implements EntityBlock {
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         boolean powered = state.getValue(POWERED);
         int phase = state.getValue(PRESS_PHASE);
+        PressMode pressMode = state.getValue(PRESS_MODE);
 
         if (!powered) {
             if (phase != 0) {
@@ -123,37 +174,61 @@ public class MembranePressBlock extends Block implements EntityBlock {
 
         // Perform work once per cycle.
         if (next == 0 && conduitPos != null) {
-            if (PressureUtil.getConduitPressureOrState(level, conduitPos) >= costPerPress) {
-                AABB box = new AABB(pos).inflate(0.5, 0.5, 0.5).move(0, 1.0, 0);
-                List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
-                for (ItemEntity itemEntity : items) {
-                    ItemStack stack = itemEntity.getItem();
-                    if (!stack.is(com.kruemblegard.registry.ModItems.VOLATILE_PULP.get())) {
-                        continue;
-                    }
+            AABB box = new AABB(pos).inflate(0.5, 0.5, 0.5).move(0, 1.0, 0);
+            List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
 
-                    PressureUtil.addPressure(level, conduitPos, -costPerPress);
+            int maxOps = switch (pressMode) {
+                case NORMAL -> 1;
+                case PRECISION -> 1;
+                case BULK -> 4;
+            };
 
-                    // Consume 1 input, output 1 resin (repeatable).
-                    stack.shrink(1);
-                    ItemStack outStack = new ItemStack(com.kruemblegard.registry.ModItems.VOLATILE_RESIN.get(), 1);
-                    if (stack.isEmpty()) {
-                        itemEntity.setItem(outStack);
-                    } else {
-                        itemEntity.setItem(stack);
-                        ItemEntity out = new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), outStack);
-                        out.setDeltaMovement(0, 0.05, 0);
-                        level.addFreshEntity(out);
-                    }
-
-                    level.playSound(null, pos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 0.6F, 0.8F);
+            int ops = 0;
+            for (ItemEntity itemEntity : items) {
+                if (ops >= maxOps) {
                     break;
                 }
+
+                ItemStack stack = itemEntity.getItem();
+                if (!stack.is(com.kruemblegard.registry.ModItems.VOLATILE_PULP.get())) {
+                    continue;
+                }
+
+                // Precision press: only operate when the stack is exactly 1 ("exact thickness").
+                if (pressMode == PressMode.PRECISION && stack.getCount() != 1) {
+                    continue;
+                }
+
+                if (PressureUtil.getConduitPressureOrState(level, conduitPos) < costPerPress) {
+                    break;
+                }
+
+                PressureUtil.addPressure(level, conduitPos, -costPerPress);
+
+                // Consume 1 input, output 1 resin.
+                stack.shrink(1);
+                ItemStack outStack = new ItemStack(com.kruemblegard.registry.ModItems.VOLATILE_RESIN.get(), 1);
+                if (stack.isEmpty()) {
+                    itemEntity.setItem(outStack);
+                } else {
+                    itemEntity.setItem(stack);
+                    ItemEntity out = new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), outStack);
+                    out.setDeltaMovement(0, 0.05, 0);
+                    level.addFreshEntity(out);
+                }
+
+                level.playSound(null, pos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 0.6F, 0.8F);
+                ops++;
             }
         }
 
         // Faster when well supplied.
         int tickDelay = (pressureLevel >= 3 || rotation >= 3) ? 6 : 10;
+        if (pressMode == PressMode.PRECISION) {
+            tickDelay += 2;
+        } else if (pressMode == PressMode.BULK) {
+            tickDelay = Math.max(4, tickDelay - 2);
+        }
         level.scheduleTick(pos, this, tickDelay);
     }
 

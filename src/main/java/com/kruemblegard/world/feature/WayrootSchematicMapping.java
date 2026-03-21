@@ -19,7 +19,7 @@ final class WayrootSchematicMapping {
     }
 
     static BlockState mapState(BlockState original, RandomSource random) {
-        // Placeholder: tinted glass in schems means "structure void" (skip placement).
+        // Marker: tinted glass in schems means "structure void" (skip placement).
         if (original.is(Blocks.TINTED_GLASS)) {
             return Blocks.STRUCTURE_VOID.defaultBlockState();
         }
@@ -29,7 +29,7 @@ final class WayrootSchematicMapping {
             return ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState();
         }
 
-        // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
+        // Marker: use tripwire (string) in schematics to place schematic-only string franch.
         if (original.is(Blocks.TRIPWIRE)) {
             return ModBlocks.STRING_FRANCH.get().defaultBlockState();
         }
@@ -86,7 +86,7 @@ final class WayrootSchematicMapping {
     }
 
     static BlockState mapStateForMega(BlockState original, RandomSource random) {
-        // Placeholder: tinted glass in schems means "structure void" (skip placement).
+        // Marker: tinted glass in schems means "structure void" (skip placement).
         if (original.is(Blocks.TINTED_GLASS)) {
             return Blocks.STRUCTURE_VOID.defaultBlockState();
         }
@@ -96,7 +96,7 @@ final class WayrootSchematicMapping {
             return ModBlocks.WAYROOT_FRANCH_WOOD.get().defaultBlockState();
         }
 
-        // Placeholder: use tripwire (string) in schematics to place schematic-only string franch.
+        // Marker: use tripwire (string) in schematics to place schematic-only string franch.
         if (original.is(Blocks.TRIPWIRE)) {
             return ModBlocks.STRING_FRANCH.get().defaultBlockState();
         }

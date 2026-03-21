@@ -14,7 +14,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -25,27 +29,73 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class CrystalInfuserBlock extends Block implements EntityBlock {
+    public enum InfuserMode implements StringRepresentable {
+        NORMAL("normal"),
+        MULTI("multi"),
+        DEEP("deep");
+
+        private final String name;
+
+        InfuserMode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name;
+        }
+    }
+
     public static final BooleanProperty POWERED = net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
     public static final IntegerProperty INFUSE_PHASE = IntegerProperty.create("infuse_phase", 0, 3);
+    public static final EnumProperty<InfuserMode> INFUSER_MODE = EnumProperty.create("infuser_mode", InfuserMode.class);
 
     public CrystalInfuserBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(POWERED, false)
-                .setValue(INFUSE_PHASE, 0));
+                .setValue(INFUSE_PHASE, 0)
+                .setValue(INFUSER_MODE, InfuserMode.NORMAL));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, INFUSE_PHASE);
+        builder.add(POWERED, INFUSE_PHASE, INFUSER_MODE);
+    }
+
+    @Override
+    public InteractionResult use(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit
+    ) {
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        if (!player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+
+        InfuserMode next = switch (state.getValue(INFUSER_MODE)) {
+            case NORMAL -> InfuserMode.MULTI;
+            case MULTI -> InfuserMode.DEEP;
+            case DEEP -> InfuserMode.NORMAL;
+        };
+        level.setBlock(pos, state.setValue(INFUSER_MODE, next), Block.UPDATE_CLIENTS);
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -88,6 +138,7 @@ public class CrystalInfuserBlock extends Block implements EntityBlock {
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         boolean powered = state.getValue(POWERED);
         int phase = state.getValue(INFUSE_PHASE);
+        InfuserMode infuserMode = state.getValue(INFUSER_MODE);
 
         if (!powered) {
             if (phase != 0) {
@@ -120,21 +171,54 @@ public class CrystalInfuserBlock extends Block implements EntityBlock {
 
         // Work once per cycle.
         if (next == 0 && conduitPos != null) {
-            int cost = 12;
-            if (PressureUtil.getConduitPressureOrState(level, conduitPos) >= cost) {
+            int costPerOp = switch (infuserMode) {
+                case NORMAL -> 12;
+                case MULTI -> 12;
+                case DEEP -> 30;
+            };
+            int minPressure = switch (infuserMode) {
+                case NORMAL -> costPerOp;
+                case MULTI -> costPerOp;
+                case DEEP -> 40;
+            };
+            int maxOps = switch (infuserMode) {
+                case NORMAL -> 1;
+                case MULTI -> 2;
+                case DEEP -> 1;
+            };
+
+            if (PressureUtil.getConduitPressureOrState(level, conduitPos) >= minPressure) {
                 AABB box = new AABB(pos).inflate(0.5, 0.5, 0.5).move(0, 1.0, 0);
                 List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, box, e -> e.isAlive() && !e.getItem().isEmpty());
+                int ops = 0;
+
                 for (ItemEntity itemEntity : items) {
+                    if (ops >= maxOps) {
+                        break;
+                    }
+
                     ItemStack stack = itemEntity.getItem();
-                    if (!stack.is(net.minecraft.world.item.Items.AMETHYST_SHARD)) {
+
+                    boolean matchesInput = switch (infuserMode) {
+                        case NORMAL, MULTI -> stack.is(net.minecraft.world.item.Items.AMETHYST_SHARD);
+                        case DEEP -> stack.is(ModItems.FAULT_SHARD.get());
+                    };
+                    if (!matchesInput) {
                         continue;
                     }
 
-                    PressureUtil.addPressure(level, conduitPos, -cost);
+                    if (PressureUtil.getConduitPressureOrState(level, conduitPos) < costPerOp) {
+                        break;
+                    }
+                    PressureUtil.addPressure(level, conduitPos, -costPerOp);
 
-                    // Consume 1 shard, output 1 attuned shard.
+                    ItemStack outStack = switch (infuserMode) {
+                        case NORMAL, MULTI -> new ItemStack(ModItems.ATTUNED_RUNE_SHARD.get(), 1);
+                        case DEEP -> new ItemStack(ModItems.RUNIC_SCRAP.get(), 1);
+                    };
+
+                    // Consume 1 input, output 1 infused product.
                     stack.shrink(1);
-                    ItemStack outStack = new ItemStack(ModItems.ATTUNED_RUNE_SHARD.get(), 1);
                     if (stack.isEmpty()) {
                         itemEntity.setItem(outStack);
                     } else {
@@ -144,13 +228,18 @@ public class CrystalInfuserBlock extends Block implements EntityBlock {
                         level.addFreshEntity(out);
                     }
 
-                    level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.7F, 1.2F);
-                    break;
+                    float pitch = (infuserMode == InfuserMode.DEEP) ? 0.8F : 1.2F;
+                    level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.7F, pitch);
+                    ops++;
                 }
             }
         }
 
-        level.scheduleTick(pos, this, 10);
+        int tickDelay = 10;
+        if (infuserMode == InfuserMode.DEEP) {
+            tickDelay = 12;
+        }
+        level.scheduleTick(pos, this, tickDelay);
     }
 
     private static BlockPos findBestConduit(Level level, BlockPos pos) {

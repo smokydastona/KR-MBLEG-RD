@@ -14,7 +14,7 @@ public class KruemblegardPhase3MeteorModel extends GeoModel<KruemblegardPhase3Me
 
     @Override
     public ResourceLocation getTextureResource(KruemblegardPhase3MeteorEntity animatable) {
-        // Placeholder texture (replace with your own when you export from Blockbench)
+        // Default texture until a dedicated one is exported from Blockbench.
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/block/standing_stone.png");
     }
 

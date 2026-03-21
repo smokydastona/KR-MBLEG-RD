@@ -157,7 +157,7 @@ public final class ModCreativeTabs {
                 continue;
             }
 
-            // Internal/placeholder items that shouldn't appear in creative.
+            // Internal-only items that shouldn't appear in creative.
             if ("menu_tab".equals(id.getPath())) {
                 continue;
             }

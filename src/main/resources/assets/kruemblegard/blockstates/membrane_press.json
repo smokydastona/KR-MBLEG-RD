@@ -1,28 +1,9 @@
 {
-  "variants": {
-    "powered=false,press_phase=0": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=false,press_phase=1": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=false,press_phase=2": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=false,press_phase=3": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=true,press_phase=0": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=true,press_phase=1": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=true,press_phase=2": {
-      "model": "kruemblegard:block/membrane_press"
-    },
-    "powered=true,press_phase=3": {
-      "model": "kruemblegard:block/membrane_press"
+  "multipart": [
+    {
+      "apply": {
+        "model": "kruemblegard:block/membrane_press"
+      }
     }
-  }
+  ]
 }

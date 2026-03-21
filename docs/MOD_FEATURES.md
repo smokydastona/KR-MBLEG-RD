@@ -119,7 +119,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Cephalari Engineering (Pressure-Logic)
 - Status: early implementation (pressure network + basic integration + first-pass mechanical rotation backbone; not yet a full mechanical-power system).
 - Spec authority: `docs/PRESSURE_LOGIC.md` (requirements) + `docs/PRESSURE_LOGIC_TRACEABILITY.md` (requirement→implementation checklist).
-- Animation/Blockbench workflow: every Pressure‑Logic machine block has its own unique Block Entity (no shared stub); each machine BE maintains per-block animation/runtime state.
+- Animation/Blockbench workflow: every Pressure‑Logic machine block has its own unique Block Entity (no shared generic machine implementation); each machine BE maintains per-block animation/runtime state.
 - Creative tab: Pressure-Logic blocks and items are in a dedicated creative mode tab (not duplicated into the other Krümblegård tabs).
 - Config (in `kruemblegard-common.toml`):
   - `enablePressureSystem`: master enable/disable for the pressure simulation.
@@ -155,13 +155,13 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).
   - `pressure_sensor`: outputs a directional redstone signal (`signal` 0..15) derived from adjacent conduit pressure (stable air required).
-  - `vortex_funnel`: stable-air + conduit-pressure powered suction block with a `vortex_mode` and `directional` toggle; consumes conduit pressure while running.
+  - `vortex_funnel`: stable-air + conduit-pressure powered suction block with a `vortex_mode` and `directional` toggle; consumes conduit pressure while running and requires swirl power from an active adjacent `atmospheric_compressor` on the conduit network.
   - `pressure_rail`: redstone-controlled movement strip (`rail_mode`) that pushes entities along its facing when in stable air and supplied by nearby conduit pressure; shift-right-click flips facing (direction toggle); pulse animation is driven by pressure/rotation availability.
-  - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required).
+  - `pneumatic_catapult`: pressure-charged launcher that stores `charge_level` (0..3) by consuming conduit pressure while powered, and fires on redstone rising edge (stable air required). Right-click cycles the angle dial; shift-right-click cycles `ARC` / `PRECISION` / `SCATTER` launch modes.
   - `air_lift_tube`: vertical transport tube with `tube_mode` + `flow_rate`; stable-air gated, with redstone as control (UP/DOWN require power to run; BIDIRECTIONAL uses power to toggle direction); requires adjacent conduit pressure and consumes more pressure at higher `flow_rate`.
   - `pressure_kiln`: fuel-free smelter that requires stable air + adjacent conduit pressure + nearby mechanical rotation; consumes conduit pressure per smelt. `kiln_mode` (LOW/NORMAL/OVERPRESSURE) is controlled by redstone strength; OVERPRESSURE is faster but can vent violently at high pressure.
-  - `membrane_press`: stable-air + conduit-pressure powered press that cycles `press_phase` (0..3) while running and consumes pressure to process items.
-  - `crystal_infuser`: stable-air + conduit-pressure powered infuser that cycles `infuse_phase` (0..3) while running and consumes pressure to infuse items.
+  - `membrane_press`: stable-air + conduit-pressure powered press that cycles `press_phase` (0..3) while running and consumes pressure to process items. Shift-right-click cycles `NORMAL` / `PRECISION` / `BULK`, where precision only accepts single-item stacks and bulk can process multiple items per cycle.
+  - `crystal_infuser`: stable-air + conduit-pressure powered infuser that cycles `infuse_phase` (0..3) while running and consumes pressure to infuse items. Shift-right-click cycles `NORMAL` / `MULTI` / `DEEP`, where multi can process two inputs per cycle and deep infusing consumes more pressure for a different output.
   - `pneumatic_separator`: stable-air + conduit-pressure powered item router with `separator_mode` (set by redstone strength) and `active_side` indicators; pushes items into left/right (and forward for TRI mode).
 - Asset pipeline:
   - `tools/generate_cephalari_engineering_assets.py` emits both runtime PNG textures + a JSON-pixel “source of truth” under `assets/kruemblegard/textures_src/cephalari_engineering/`.

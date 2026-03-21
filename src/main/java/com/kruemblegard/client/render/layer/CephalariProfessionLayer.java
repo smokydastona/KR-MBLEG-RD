@@ -178,7 +178,7 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             return vanillaFallback;
         }
 
-        // No texture found: skip overlay rather than rendering a missing-texture placeholder.
+        // No texture found: skip overlay rather than rendering missing-texture.
         return null;
     }
 

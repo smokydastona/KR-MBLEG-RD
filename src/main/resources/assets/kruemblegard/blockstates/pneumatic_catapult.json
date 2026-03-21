@@ -1,124 +1,20 @@
 {
-  "variants": {
-    "facing=north,powered=false,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult"
+  "multipart": [
+    {
+      "when": { "facing": "north" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult" }
     },
-    "facing=north,powered=false,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult"
+    {
+      "when": { "facing": "east" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 90 }
     },
-    "facing=north,powered=false,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult"
+    {
+      "when": { "facing": "south" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 180 }
     },
-    "facing=north,powered=false,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult"
-    },
-    "facing=north,powered=true,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult"
-    },
-    "facing=north,powered=true,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult"
-    },
-    "facing=north,powered=true,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult"
-    },
-    "facing=north,powered=true,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult"
-    },
-    "facing=east,powered=false,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=false,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=false,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=false,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=true,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=true,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=true,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=east,powered=true,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 90
-    },
-    "facing=south,powered=false,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=false,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=false,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=false,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=true,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=true,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=true,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=south,powered=true,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 180
-    },
-    "facing=west,powered=false,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=false,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=false,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=false,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=true,charge_level=0": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=true,charge_level=1": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=true,charge_level=2": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
-    },
-    "facing=west,powered=true,charge_level=3": {
-      "model": "kruemblegard:block/pneumatic_catapult",
-      "y": 270
+    {
+      "when": { "facing": "west" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 270 }
     }
-  }
+  ]
 }

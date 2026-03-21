@@ -2,6 +2,7 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.blockentity.VortexFunnelBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
+import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.util.BlockEntityTickerUtil;
@@ -148,6 +149,12 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock implements Ent
             return;
         }
 
+        // Swirl power coupling: funnel requires an active Atmospheric Compressor on the same conduit network.
+        if (!hasActiveCompressorOnNetwork(level, conduitPos)) {
+            level.scheduleTick(pos, this, 10);
+            return;
+        }
+
         int availablePressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
         int costPerTick = switch (mode) {
             case GENTLE -> 1;
@@ -250,6 +257,20 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock implements Ent
         }
 
         return null;
+    }
+
+    private static boolean hasActiveCompressorOnNetwork(Level level, BlockPos conduitPos) {
+        for (Direction dir : Direction.values()) {
+            BlockPos p = conduitPos.relative(dir);
+            BlockState state = level.getBlockState(p);
+            if (!state.is(ModBlocks.ATMOSPHERIC_COMPRESSOR.get())) {
+                continue;
+            }
+            if (state.getValue(AtmosphericCompressorBlock.STABILITY_LEVEL) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -2092,7 +2092,7 @@ public final class ModBlocks {
                 public static final RegistryObject<Block> CHERRY_FRANCH_SLAB = registerVanillaFranchSlab("cherry_franch_slab", net.minecraft.world.level.block.Blocks.CHERRY_SLAB);
                 public static final RegistryObject<Block> CHERRY_FRANCH_TRAPDOOR = registerVanillaFranchTrapdoor("cherry_franch_trapdoor", net.minecraft.world.level.block.Blocks.CHERRY_TRAPDOOR, BlockSetType.CHERRY);
 
-                // Schematic-only "Franch" string block (for using string/tripwire placeholders in tree schematics).
+                // Schematic-only "Franch" string block (for using string/tripwire markers in tree schematics).
                 public static final RegistryObject<Block> STRING_FRANCH = registerStringFranch("string_franch");
 
         public static final RegistryObject<Block> STRIPPED_WAYROOT_LOG = registerLog("stripped_wayroot_log");

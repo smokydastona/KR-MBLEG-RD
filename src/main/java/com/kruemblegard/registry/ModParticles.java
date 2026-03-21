@@ -14,7 +14,7 @@ public class ModParticles {
         public static final DeferredRegister<ParticleType<?>> PARTICLES =
             DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Kruemblegard.MOD_ID);
 
-    // Example placeholder for future arcane particles:
+        // Example particle for future arcane VFX:
     public static final RegistryObject<SimpleParticleType> ARCANE_SPARK =
             PARTICLES.register("arcane_spark", () -> new SimpleParticleType(true));
 

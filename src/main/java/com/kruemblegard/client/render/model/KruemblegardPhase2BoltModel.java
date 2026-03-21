@@ -14,7 +14,7 @@ public class KruemblegardPhase2BoltModel extends GeoModel<KruemblegardPhase2Bolt
 
     @Override
     public ResourceLocation getTextureResource(KruemblegardPhase2BoltEntity animatable) {
-        // Placeholder texture (replace with your own when you export from Blockbench)
+        // Default texture until a dedicated one is exported from Blockbench.
         return new ResourceLocation(Kruemblegard.MOD_ID, "textures/block/runed_stoneveil_rubble.png");
     }
 

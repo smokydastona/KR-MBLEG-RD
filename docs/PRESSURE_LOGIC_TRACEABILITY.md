@@ -20,6 +20,8 @@ For this checklist, the previously “optional variants” that are *mechanical 
 
 Progression/village/questline sections in the spec are treated as **optional guidance** (not mandatory runtime systems) unless separately and explicitly mandated.
 
+This traceability checklist is only “complete” when there are **no** remaining **[ ] Gap** or **[~] Partial** items in the mandatory sections.
+
 ## 1) Core Identity (system-level)
 - [d] Pressure‑Logic is *mechanical/pneumatic*; redstone is *signals* (design intent and documentation).
 
@@ -60,7 +62,7 @@ Progression/village/questline sections in the spec are treated as **optional gui
   - `src/main/java/com/kruemblegard/block/PressureClutchBlock.java`
 
 ## 4.1) Animation-ready machine BlockEntities (Blockbench workflow)
-- [x] Each Pressure‑Logic machine block has its **own unique Block Entity** (no shared generic machine stub)
+- [x] Each Pressure‑Logic machine block has its **own unique Block Entity** (no shared generic machine implementation)
   - Base machine BE (shared behavior, persisted activity sampling, animation accumulator):
     - `src/main/java/com/kruemblegard/blockentity/CephalariMachineBlockEntity.java`
   - Machine block entities (one per machine block):
@@ -136,7 +138,8 @@ Progression/village/questline sections in the spec are treated as **optional gui
 ### 6.1 Vortex Funnel
 - [x] Pulls items/mobs inward when powered; stable air gating; pressure cost; includes gentle/normal/harsh and directional modes
   - `src/main/java/com/kruemblegard/block/VortexFunnelBlock.java`
-- [~] “Connects to compressor for swirl power” is represented via stable-air gating + adjacent conduit pressure; no explicit hard dependency on compressor block adjacency.
+- [x] “Connects to compressor for swirl power” is enforced: operation requires an adjacent active Atmospheric Compressor (`stability_level > 0`) on the conduit network being used.
+  - `src/main/java/com/kruemblegard/block/VortexFunnelBlock.java`
 
 ### 6.2 Pressure Rail
 - [x] Powered gating; stable air + conduit pressure cost; affects entities on step; pulse animation state; mode affects speed and cost
@@ -147,7 +150,8 @@ Progression/village/questline sections in the spec are treated as **optional gui
 ### 6.3 Pneumatic Catapult
 - [x] Uses conduit pressure to charge (`charge_level`) and fires on rising redstone edge; launches entities/items; stable air gating
   - `src/main/java/com/kruemblegard/block/PneumaticCatapultBlock.java`
-- [~] Optional variants (angle dial / precision / scatter) not implemented.
+- [x] Optional variants implemented: angle dial + precision + scatter modes (player interaction via right-click / shift-right-click).
+  - `src/main/java/com/kruemblegard/block/PneumaticCatapultBlock.java`
 
 ### 6.4 Air‑Lift Tube
 - [x] Entity vertical transport with tube mode + flow rate; stable air gating; redstone as control per mode
@@ -163,9 +167,13 @@ Progression/village/questline sections in the spec are treated as **optional gui
 ### 7.6 Membrane Press
 - [x] Stable air + pressure + rotation gated; cycles `press_phase`; consumes pressure to convert Volatile Pulp → Volatile Resin
   - `src/main/java/com/kruemblegard/block/MembranePressBlock.java`
+- [x] Optional variants implemented: precision press + bulk press (player interaction via shift-right-click).
+  - `src/main/java/com/kruemblegard/block/MembranePressBlock.java`
 
 ### 7.7 Crystal Infuser
 - [x] Stable air + pressure gated; cycles `infuse_phase`; consumes pressure to convert Amethyst Shard → Attuned Rune Shard
+  - `src/main/java/com/kruemblegard/block/CrystalInfuserBlock.java`
+- [x] Optional variants implemented: multi-infuser + deep infuser (player interaction via shift-right-click).
   - `src/main/java/com/kruemblegard/block/CrystalInfuserBlock.java`
 
 ### 7.8 Pneumatic Separator
@@ -206,10 +214,16 @@ Progression/village/questline sections in the spec are treated as **optional gui
 ## 12) Texture pipeline requirements
 - [x] Texture files exist for the Pressure‑Logic suite (block textures, including animated `.png.mcmeta` where applicable)
   - `src/main/resources/assets/kruemblegard/textures/block/`
+- [x] Blockstates/models exist for the Pressure‑Logic suite
+  - Blockstates: `src/main/resources/assets/kruemblegard/blockstates/` (e.g., `pressure_conduit.json`, `membrane_pump.json`, `pneumatic_catapult.json`, etc.)
+  - Block models: `src/main/resources/assets/kruemblegard/models/block/`
+  - Item models: `src/main/resources/assets/kruemblegard/models/item/`
 - [d] UV-safe + literal pixel-grid blueprints are treated as **asset QA requirements**; this repository currently verifies presence/paths, but does not automatically pixel-validate the blueprints.
 
 ---
 
-## TODO (optional future work)
-- [ ] Pneumatic Catapult optional variants (angle dial / precision / scatter) if/when desired.
+## Remaining work (to reach 100% of mandatory interpretation)
+- None currently tracked in this checklist.
+
+## Optional future work
 - [ ] Optional worldgen/NPC/quest onboarding (villages / Flowwright / tutorial questline) **only if desired**, and must be gated so it is never required for Pressure‑Logic to function.

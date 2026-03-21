@@ -637,7 +637,7 @@ public class ModItems {
     public static final RegistryObject<Item> ELYTRA_WING =
         ITEMS.register("elytra_wing", () -> new Item(new Item.Properties()));
 
-    // Placeholder: use iron-equivalent stats for chitin armor.
+    // Currently uses iron-equivalent stats for chitin armor.
     public static final RegistryObject<Item> CHITIN_HELMET =
         ITEMS.register("chitin_helmet", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.HELMET, new Item.Properties()));
 
