@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1267 (2026-03-21)
+- Refactor(unkeeper/assets): update `unkeeper.geo.json` to the new tentacle/horn/jaw hierarchy and refresh Unkeeper animations to match.
+
+## 1.0.1266 (2026-03-21)
+- Docs: remove stale pre-rename mob mention.
+
 ## 1.0.1265 (2026-03-21)
 - Refactor(mobs): rename mob to Unkeeper across code, assets, sounds, lang keys, and docs.
 
