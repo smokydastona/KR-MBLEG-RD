@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1289 (2026-03-21)
+- Docs(tools/mobs): include spawn eggs as a scored field in the Mob Bible.
+
 ## 1.0.1288 (2026-03-21)
 - Feat(spawn_eggs): add missing spawn eggs for Trader Beetle + Cephalari adult-form bodies, and include all mod spawn eggs in the vanilla Spawn Eggs tab.
 

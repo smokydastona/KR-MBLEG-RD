@@ -45,11 +45,11 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 11:26:58
+Generated: 2026-03-21 13:08:22
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
-- schemaVersion: `4`
+- schemaVersion: `5`
 - mobCount: `23`
 - generatedBy: `tools/_reports/mob_audit_runner.py`
 
@@ -60,6 +60,8 @@ Generated: 2026-03-21 11:26:58
   - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `trader_beetle`, `treadwinder`
 - No sounds.json matches (may rely on vanilla sounds): 15
   - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `moogloom`, `mossback_tortoise`, `pebble_wren`, `scattered_enderman`, `spiral_strider`, `trader_beetle`, `treadwinder`
+- Missing spawn eggs: 0
+  - (none)
 - Animation warnings (non-fatal): 1
   - `traprock`
 
@@ -68,37 +70,37 @@ Generated: 2026-03-21 11:26:58
 
 ### Roster Status Table
 
-| Mob | Score | Geo | Tex | Anim | AI | Loot | Sounds | Spawns | Integr | Perf |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `cephalari` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `cephalari_drowned` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `cephalari_golem` | 90 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `cephalari_husk` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `cephalari_zombie` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `driftskimmer` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `echo_harness` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `fault_crawler` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `moogloom` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `pebble_wren` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `scattered_enderman` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
-| `spiral_strider` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `trader_beetle` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `treadwinder` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `unkeeper` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `wyrdwing` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| Mob | Score | Geo | Tex | Anim | AI | Loot | Sounds | Spawns | Egg | Integr | Perf |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `cephalari` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_drowned` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_golem` | 90 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `cephalari_husk` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `cephalari_zombie` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `driftskimmer` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `echo_harness` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `fault_crawler` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `moogloom` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `pebble_wren` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `scattered_enderman` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `spiral_strider` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `trader_beetle` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `treadwinder` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
+| `unkeeper` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `wyrdwing` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ### Per-Mob Detail
 
 #### `cephalari`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariEntity` | Renderer: `CephalariRenderer` | Model: `CephalariModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari.geo.json`, `src/main/resources/assets/kruemblegard/geo/spiral_strider.geo.json`, `src/main/resources/assets/kruemblegard/geo/driftskimmer.geo.json`, `src/main/resources/assets/kruemblegard/geo/treadwinder.geo.json`, `src/main/resources/assets/kruemblegard/geo/echo_harness.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari.animation.json`
@@ -113,7 +115,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `cephalari_drowned`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariDrownedEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -128,7 +130,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `cephalari_golem`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariGolemEntity` | Renderer: `CephalariGolemRenderer` | Model: `CephalariGolemModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_golem.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_golem.animation.json`
@@ -143,7 +145,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `cephalari_husk`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariHuskEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -158,7 +160,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `cephalari_zombie`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `CephalariZombieEntity` | Renderer: `CephalariZombieRenderer` | Model: `CephalariZombieModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/cephalari_zombie.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/cephalari_zombie.animation.json`
@@ -173,14 +175,14 @@ Generated: 2026-03-21 11:26:58
 
 #### `driftskimmer`
 - Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `DriftSkimmerEntity` | Renderer: `DriftSkimmerRenderer` | Model: `DriftSkimmerModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/driftskimmer.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/driftskimmer.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: **MISSING**
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.driftskimmer` spawnEgg=(missing)
+- Lang keys: entity=`entity.kruemblegard.driftskimmer` spawnEgg=`item.kruemblegard.driftskimmer_spawn_egg`
 - TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
@@ -190,7 +192,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `driftwhale`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `DriftwhaleEntity` | Renderer: `DriftwhaleRenderer` | Model: `DriftwhaleModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/driftwhale.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/driftwhale.animation.json`
@@ -204,14 +206,14 @@ Generated: 2026-03-21 11:26:58
 
 #### `echo_harness`
 - Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `EchoHarnessEntity` | Renderer: `EchoHarnessRenderer` | Model: `EchoHarnessModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/echo_harness.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/echo_harness.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: **MISSING**
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.echo_harness` spawnEgg=(missing)
+- Lang keys: entity=`entity.kruemblegard.echo_harness` spawnEgg=`item.kruemblegard.echo_harness_spawn_egg`
 - TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
@@ -221,7 +223,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `fault_crawler`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `FaultCrawlerEntity` | Renderer: `FaultCrawlerRenderer` | Model: `FaultCrawlerModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/fault_crawler.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/fault_crawler.animation.json`
@@ -232,7 +234,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `grave_cairn`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `GraveCairnEntity` | Renderer: `GraveCairnRenderer` | Model: `GraveCairnModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/grave_cairn.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/grave_cairn.animation.json`
@@ -246,7 +248,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `kruemblegard`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `KruemblegardBossEntity` | Renderer: `KruemblegardBossRenderer` | Model: `KruemblegardBossModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/kruemblegard.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/kruemblegard.animation.json`
@@ -257,7 +259,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `moogloom`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `MoogloomEntity` | Renderer: `MoogloomRenderer` | Model: `MoogloomModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/moogloom.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/moogloom.animation.json`
@@ -271,7 +273,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `mossback_tortoise`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `MossbackTortoiseEntity` | Renderer: `MossbackTortoiseRenderer` | Model: `MossbackTortoiseModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/mossback_tortoise.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/mossback_tortoise.animation.json`
@@ -285,7 +287,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `pebble_wren`
 - Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `PebbleWrenEntity` | Renderer: `PebbleWrenRenderer` | Model: `PebbleWrenModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebble_wren.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebble_wren.animation.json`
@@ -299,7 +301,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `pebblit`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `PebblitEntity` | Renderer: `PebblitRenderer` | Model: `PebblitModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebblit.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebblit.animation.json`
@@ -313,7 +315,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `scaralon_beetle`
 - Score: `100`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `ScaralonBeetleEntity` | Renderer: `ScaralonBeetleRenderer` | Model: `ScaralonBeetleModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/scaralon_larva.geo.json`, `src/main/resources/assets/kruemblegard/geo/scaralon_beetle.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/scaralon_larva.animation.json`, `src/main/resources/assets/kruemblegard/animations/scaralon_beetle.animation.json`
@@ -324,7 +326,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `scattered_enderman`
 - Score: `85`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `ScatteredEndermanEntity` | Renderer: `ScatteredEndermanRenderer` | Model: `ScatteredEndermanModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/scattered_enderman.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/scattered_enderman.animation.json`
@@ -339,14 +341,14 @@ Generated: 2026-03-21 11:26:58
 
 #### `spiral_strider`
 - Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `SpiralStriderEntity` | Renderer: `SpiralStriderRenderer` | Model: `SpiralStriderModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/spiral_strider.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/spiral_strider.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: **MISSING**
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.spiral_strider` spawnEgg=(missing)
+- Lang keys: entity=`entity.kruemblegard.spiral_strider` spawnEgg=`item.kruemblegard.spiral_strider_spawn_egg`
 - TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
@@ -356,14 +358,14 @@ Generated: 2026-03-21 11:26:58
 
 #### `trader_beetle`
 - Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `TraderBeetleEntity` | Renderer: `TraderBeetleRenderer` | Model: `TraderBeetleModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/scaralon_larva.geo.json`, `src/main/resources/assets/kruemblegard/geo/scaralon_beetle.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/scaralon_larva.animation.json`, `src/main/resources/assets/kruemblegard/animations/scaralon_beetle.animation.json`
 - Textures (10): `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_larva.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_6.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_7.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_8.png`, `src/main/resources/assets/kruemblegard/textures/entity/scaralon_beetle/scaralon_beetle_9.png`
 - Loot table: **MISSING**
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.trader_beetle` spawnEgg=(missing)
+- Lang keys: entity=`entity.kruemblegard.trader_beetle` spawnEgg=`item.kruemblegard.trader_beetle_spawn_egg`
 - TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - No sounds.json entries matched this mob id (may rely on vanilla sounds)
@@ -372,7 +374,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `traprock`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=⚠️ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=⚠️ ai=✅ loot=⚠️ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `TraprockEntity` | Renderer: `TraprockRenderer` | Model: `TraprockModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/traprock.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/traprock.animation.json`
@@ -386,14 +388,14 @@ Generated: 2026-03-21 11:26:58
 
 #### `treadwinder`
 - Score: `80`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=⚠️ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `TreadwinderEntity` | Renderer: `TreadwinderRenderer` | Model: `TreadwinderModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/treadwinder.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/treadwinder.animation.json`
 - Textures (6): `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_1.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_2.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_3.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_4.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_5.png`, `src/main/resources/assets/kruemblegard/textures/entity/cephalari/cephalari_golem/cephalari_golem_6.png`
 - Loot table: **MISSING**
 - Biome modifiers: **NONE FOUND**
-- Lang keys: entity=`entity.kruemblegard.treadwinder` spawnEgg=(missing)
+- Lang keys: entity=`entity.kruemblegard.treadwinder` spawnEgg=`item.kruemblegard.treadwinder_spawn_egg`
 - TODO: Add entity loot table; Add biome modifier (if should spawn naturally); Confirm vanilla sounds or add custom sounds
 - Audit notes:
   - Animation uses "*" wildcard bone (verify GeckoLib compatibility for this file)
@@ -403,7 +405,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `unkeeper`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `UnkeeperEntity` | Renderer: `UnkeeperRenderer` | Model: `UnkeeperModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/unkeeper.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/unkeeper.animation.json`
@@ -417,7 +419,7 @@ Generated: 2026-03-21 11:26:58
 
 #### `wyrdwing`
 - Score: `90`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `WyrdwingEntity` | Renderer: `WyrdwingRenderer` | Model: `WyrdwingModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/wyrdwing.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/wyrdwing.animation.json`

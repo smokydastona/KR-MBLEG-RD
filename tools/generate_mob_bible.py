@@ -105,6 +105,7 @@ def _render_summary(report: dict[str, Any], rows: list[MobRow]) -> str:
     missing_loot = _bucket(rows, "loot", "⚠️")
     missing_spawns = _bucket(rows, "spawning", "⚠️")
     missing_sounds = _bucket(rows, "sounds_effects", "⚠️")
+    missing_eggs = _bucket(rows, "spawn_egg", "⚠️")
     anim_warn = _bucket(rows, "animations", "⚠️")
 
     lines: list[str] = []
@@ -124,6 +125,8 @@ def _render_summary(report: dict[str, Any], rows: list[MobRow]) -> str:
     lines.append(f"  - {_fmt_list_inline(missing_spawns)}")
     lines.append(f"- No sounds.json matches (may rely on vanilla sounds): {len(missing_sounds)}")
     lines.append(f"  - {_fmt_list_inline(missing_sounds)}")
+    lines.append(f"- Missing spawn eggs: {len(missing_eggs)}")
+    lines.append(f"  - {_fmt_list_inline(missing_eggs)}")
     lines.append(f"- Animation warnings (non-fatal): {len(anim_warn)}")
     lines.append(f"  - {_fmt_list_inline(anim_warn)}")
     lines.append("")
@@ -154,6 +157,7 @@ def _render_mob_table(rows: list[MobRow]) -> str:
         "Loot",
         "Sounds",
         "Spawns",
+        "Egg",
         "Integr",
         "Perf",
     ]
@@ -178,6 +182,7 @@ def _render_mob_table(rows: list[MobRow]) -> str:
                     s.get("loot", "?"),
                     s.get("sounds_effects", "?"),
                     s.get("spawning", "?"),
+                    s.get("spawn_egg", "?"),
                     s.get("integration", "?"),
                     s.get("stability_perf", "?"),
                 ]
@@ -209,6 +214,7 @@ def _render_per_mob(rows: list[MobRow]) -> str:
                     f"loot={s.get('loot','?')}",
                     f"sounds={s.get('sounds_effects','?')}",
                     f"spawns={s.get('spawning','?')}",
+                    f"egg={s.get('spawn_egg','?')}",
                     f"integration={s.get('integration','?')}",
                     f"perf={s.get('stability_perf','?')}"
                 ]
@@ -253,6 +259,8 @@ def _render_per_mob(rows: list[MobRow]) -> str:
             todo.append("Add entity loot table")
         if s.get("spawning") == "⚠️":
             todo.append("Add biome modifier (if should spawn naturally)")
+        if s.get("spawn_egg") == "⚠️":
+            todo.append("Add spawn egg item")
         if s.get("sounds_effects") == "⚠️":
             todo.append("Confirm vanilla sounds or add custom sounds")
         if s.get("stability_perf") == "⚠️":
