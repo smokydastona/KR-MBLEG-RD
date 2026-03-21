@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1274 (2026-03-21)
+- Refactor(grave_cairn/assets): replace humanoid geo with an asymmetrical rubble mound (no head/arms silhouette).
+- Refactor(grave_cairn/assets): reauthor idle/walk/attack/die animations to shift/jitter rubble chunks for an unstable mound read.
+
 ## 1.0.1273 (2026-03-21)
 - Feat(grave_cairn): implement dormant ambush behavior (spawns dormant; wakes on proximity, damage, or nearby block breaks).
 - Feat(grave_cairn): add slam AoE knockback and mid-range stone toss attack.

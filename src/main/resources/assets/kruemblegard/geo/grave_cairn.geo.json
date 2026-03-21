@@ -12,37 +12,69 @@
 			},
 			"bones": [
 				{ "name": "root", "pivot": [0, 0, 0] },
+
 				{
-					"name": "body",
+					"name": "pile",
 					"parent": "root",
 					"pivot": [0, 12, 0],
 					"cubes": [
-						{ "origin": [-6, 0, -4], "size": [12, 10, 8], "uv": [0, 0] },
-						{ "origin": [-5, 10, -3], "size": [10, 7, 6], "uv": [0, 20] }
+						{ "origin": [-7, 0, -5], "size": [14, 5, 10], "uv": [0, 0] },
+						{ "origin": [-5, 5, -3], "size": [9, 4, 7], "uv": [0, 16] },
+						{ "origin": [-2, 9, -2], "size": [6, 3, 5], "uv": [0, 28] }
 					]
 				},
+
 				{
-					"name": "head",
-					"parent": "body",
-					"pivot": [0, 17, 0],
+					"name": "chunk_1",
+					"parent": "pile",
+					"pivot": [3, 10, -1],
 					"cubes": [
-						{ "origin": [-4, 17, -3], "size": [8, 7, 6], "uv": [32, 0] }
+						{ "origin": [2, 10, -3], "size": [4, 4, 4], "uv": [20, 16] }
 					]
 				},
+
 				{
-					"name": "arm_L",
-					"parent": "body",
-					"pivot": [6, 12, 0],
+					"name": "chunk_2",
+					"parent": "pile",
+					"pivot": [-4, 8, 2],
 					"cubes": [
-						{ "origin": [6, 6, -2], "size": [3, 10, 4], "uv": [32, 16] }
+						{ "origin": [-6, 8, 1], "size": [5, 3, 4], "uv": [32, 0] }
 					]
 				},
+
 				{
-					"name": "arm_R",
-					"parent": "body",
-					"pivot": [-6, 12, 0],
+					"name": "chunk_3",
+					"parent": "pile",
+					"pivot": [1, 12, 3],
 					"cubes": [
-						{ "origin": [-9, 6, -2], "size": [3, 10, 4], "uv": [46, 16] }
+						{ "origin": [0, 12, 2], "size": [3, 3, 3], "uv": [32, 10] }
+					]
+				},
+
+				{
+					"name": "chunk_4",
+					"parent": "pile",
+					"pivot": [-2, 6, -4],
+					"cubes": [
+						{ "origin": [-3, 6, -6], "size": [4, 2, 3], "uv": [40, 16] }
+					]
+				},
+
+				{
+					"name": "loose_rock_1",
+					"parent": "pile",
+					"pivot": [4, 13, 1],
+					"cubes": [
+						{ "origin": [3, 13, 0], "size": [2, 2, 2], "uv": [48, 0] }
+					]
+				},
+
+				{
+					"name": "loose_rock_2",
+					"parent": "pile",
+					"pivot": [-3, 11, -2],
+					"cubes": [
+						{ "origin": [-4, 11, -3], "size": [2, 2, 2], "uv": [48, 4] }
 					]
 				}
 			]

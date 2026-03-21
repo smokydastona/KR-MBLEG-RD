@@ -4,56 +4,127 @@
 		"animation.grave_cairn.idle": {
 			"loop": true,
 			"bones": {
-				"body": {
-					"rotation": [0, "math.sin(query.anim_time * 35) * 2.0", "math.sin(query.anim_time * 25) * 1.5"]
+				"pile": {
+					"rotation": ["math.sin(query.anim_time * 18) * 1.2", "math.sin(query.anim_time * 22) * 2.5", "math.sin(query.anim_time * 14) * 1.6"],
+					"position": ["math.sin(query.anim_time * 9) * 0.10", "math.sin(query.anim_time * 12) * 0.15", "math.cos(query.anim_time * 10) * 0.08"]
 				},
-				"arm_L": {
-					"rotation": ["math.sin(query.anim_time * 35) * 3.0", 0, 0]
+				"chunk_1": {
+					"rotation": ["math.sin(query.anim_time * 38) * 3.0", "math.cos(query.anim_time * 28) * 2.0", "math.sin(query.anim_time * 31) * 2.5"]
 				},
-				"arm_R": {
-					"rotation": ["-math.sin(query.anim_time * 35) * 3.0", 0, 0]
+				"chunk_2": {
+					"rotation": ["math.sin(query.anim_time * 33) * 2.2", "math.sin(query.anim_time * 24) * 3.2", "math.cos(query.anim_time * 29) * 1.8"]
+				},
+				"chunk_3": {
+					"rotation": ["math.cos(query.anim_time * 36) * 2.6", "math.sin(query.anim_time * 30) * 2.0", "math.sin(query.anim_time * 34) * 2.0"]
+				},
+				"chunk_4": {
+					"rotation": ["math.sin(query.anim_time * 41) * 2.4", "math.cos(query.anim_time * 26) * 2.5", "math.sin(query.anim_time * 27) * 3.0"]
+				},
+				"loose_rock_1": {
+					"position": ["math.sin(query.anim_time * 55) * 0.12", "math.abs(math.sin(query.anim_time * 44)) * 0.10", "math.cos(query.anim_time * 50) * 0.10"],
+					"rotation": ["math.sin(query.anim_time * 70) * 6.0", "math.cos(query.anim_time * 62) * 6.0", "math.sin(query.anim_time * 66) * 6.0"]
+				},
+				"loose_rock_2": {
+					"position": ["math.cos(query.anim_time * 52) * 0.10", "math.abs(math.sin(query.anim_time * 46)) * 0.08", "math.sin(query.anim_time * 58) * 0.10"],
+					"rotation": ["math.cos(query.anim_time * 68) * 5.5", "math.sin(query.anim_time * 60) * 5.5", "math.cos(query.anim_time * 64) * 5.5"]
 				}
 			}
 		},
 		"animation.grave_cairn.walk": {
 			"loop": true,
 			"bones": {
-				"body": {
-					"position": [0, "math.sin(query.anim_time * 220) * 0.25", 0],
-					"rotation": [0, "math.sin(query.anim_time * 220) * 6.0", 0]
+				"pile": {
+					"position": ["math.sin(query.anim_time * 220) * 0.08", "math.abs(math.sin(query.anim_time * 220)) * 0.25", "math.cos(query.anim_time * 220) * 0.10"],
+					"rotation": ["math.sin(query.anim_time * 220) * 1.5", "math.sin(query.anim_time * 220) * 7.0", "math.cos(query.anim_time * 220) * 1.8"]
 				},
-				"arm_L": {
-					"rotation": ["math.sin(query.anim_time * 220) * 22.0", 0, 0]
+				"chunk_1": {
+					"position": ["-math.sin(query.anim_time * 220) * 0.10", 0, 0],
+					"rotation": ["math.sin(query.anim_time * 220) * 4.0", "math.cos(query.anim_time * 220) * 2.0", 0]
 				},
-				"arm_R": {
-					"rotation": ["-math.sin(query.anim_time * 220) * 22.0", 0, 0]
+				"chunk_2": {
+					"position": ["math.cos(query.anim_time * 220) * 0.08", 0, "math.sin(query.anim_time * 220) * 0.06"],
+					"rotation": ["math.cos(query.anim_time * 220) * 3.5", "-math.sin(query.anim_time * 220) * 2.5", "math.sin(query.anim_time * 220) * 2.0"]
 				},
-				"head": {
-					"rotation": [0, "math.cos(query.anim_time * 220) * 4.0", 0]
+				"chunk_3": {
+					"position": [0, 0, "-math.cos(query.anim_time * 220) * 0.07"],
+					"rotation": ["-math.sin(query.anim_time * 220) * 3.0", "math.sin(query.anim_time * 220) * 2.0", "math.cos(query.anim_time * 220) * 2.2"]
+				},
+				"chunk_4": {
+					"position": ["math.sin(query.anim_time * 220) * 0.06", 0, "math.cos(query.anim_time * 220) * 0.06"],
+					"rotation": ["math.sin(query.anim_time * 220) * 3.2", "math.cos(query.anim_time * 220) * 2.2", "-math.sin(query.anim_time * 220) * 2.6"]
+				},
+				"loose_rock_1": {
+					"position": ["math.sin(query.anim_time * 220) * 0.14", "math.abs(math.sin(query.anim_time * 220)) * 0.12", 0],
+					"rotation": [0, "math.sin(query.anim_time * 220) * 10.0", "math.cos(query.anim_time * 220) * 10.0"]
+				},
+				"loose_rock_2": {
+					"position": ["-math.cos(query.anim_time * 220) * 0.12", "math.abs(math.cos(query.anim_time * 220)) * 0.10", 0],
+					"rotation": [0, "-math.cos(query.anim_time * 220) * 9.0", "math.sin(query.anim_time * 220) * 9.0"]
 				}
 			}
 		},
 		"animation.grave_cairn.attack": {
 			"animation_length": 0.5,
 			"bones": {
-				"arm_L": {
-					"rotation": {
-						"0.0": [-10, 0, 0],
-						"0.2": [-70, 0, 0],
+				"pile": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.12": [0, -0.25, 0],
+						"0.22": [0, 0.15, 0.25],
 						"0.5": [0, 0, 0]
-					}
-				},
-				"arm_R": {
-					"rotation": {
-						"0.0": [-10, 0, 0],
-						"0.2": [-70, 0, 0],
-						"0.5": [0, 0, 0]
-					}
-				},
-				"body": {
+					},
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.2": [0, 10, 0],
+						"0.12": [6, -8, 4],
+						"0.22": [-10, 14, -6],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"chunk_1": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [12, 0, 8],
+						"0.22": [-18, 0, -10],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"chunk_2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [0, 14, -6],
+						"0.22": [0, -20, 10],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"chunk_3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [-10, 10, 0],
+						"0.22": [16, -14, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"chunk_4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [0, 0, -10],
+						"0.22": [0, 0, 16],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"loose_rock_1": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.12": [0.12, 0.08, 0.10],
+						"0.22": [-0.18, 0.12, -0.14],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"loose_rock_2": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.12": [-0.10, 0.06, 0.12],
+						"0.22": [0.16, 0.10, -0.10],
 						"0.5": [0, 0, 0]
 					}
 				}
@@ -62,26 +133,77 @@
 		"animation.grave_cairn.die": {
 			"animation_length": 0.9,
 			"bones": {
-				"body": {
+				"pile": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.9": [25, 0, 0]
+						"0.4": [10, -6, 6],
+						"0.9": [28, 0, -8]
 					},
 					"position": {
 						"0.0": [0, 0, 0],
-						"0.9": [0, -2.0, 0]
+						"0.9": [0, -2.2, 0]
 					}
 				},
-				"arm_L": {
+				"chunk_1": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.9": [40, 0, -20]
+						"0.9": [32, 18, 20]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.9": [0.3, -0.6, 0.2]
 					}
 				},
-				"arm_R": {
+				"chunk_2": {
 					"rotation": {
 						"0.0": [0, 0, 0],
-						"0.9": [40, 0, 20]
+						"0.9": [24, -28, -14]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.9": [-0.35, -0.55, -0.1]
+					}
+				},
+				"chunk_3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [-18, 16, 12]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.9": [0.15, -0.75, -0.25]
+					}
+				},
+				"chunk_4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [20, 0, -30]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.9": [-0.2, -0.5, 0.25]
+					}
+				},
+				"loose_rock_1": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [0.35, 0.15, 0.2],
+						"0.9": [0.6, -0.35, 0.4]
+					},
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [60, 40, 80]
+					}
+				},
+				"loose_rock_2": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [-0.25, 0.12, -0.15],
+						"0.9": [-0.45, -0.28, -0.25]
+					},
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.9": [55, -30, -70]
 					}
 				}
 			}
