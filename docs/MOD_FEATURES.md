@@ -200,7 +200,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Peaceful sky-swimmer (GeckoLib-rendered).
   - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`), but only where there's enough vertical clearance.
     - Spawns in pods (group size 2–4).
-    - Spawns in varying sizes (1.0×–2.5× scale; never smaller than base size).
+    - Spawns in varying sizes (adults: 1.0×–2.5× scale; never smaller than base size).
+    - Babies: 0.8×–1.0× scale.
   - Spawn behavior: chooses a safe grounded spawn position, then lifts into open air immediately.
   - Visual: tapered body + tail fluke with small drifting stone fragments.
   - Drops Phantom Membrane.

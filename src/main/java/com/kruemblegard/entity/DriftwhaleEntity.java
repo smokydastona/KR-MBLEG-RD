@@ -52,6 +52,9 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     public static final float MIN_SPAWN_SCALE = 1.0F;
     public static final float MAX_SPAWN_SCALE = 2.5F;
 
+    public static final float MIN_BABY_SCALE = 0.8F;
+    public static final float MAX_BABY_SCALE = 1.0F;
+
     private static final EntityDataAccessor<Float> SPAWN_SCALE =
         SynchedEntityData.defineId(DriftwhaleEntity.class, EntityDataSerializers.FLOAT);
 
@@ -84,12 +87,16 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     }
 
     public float getSpawnScale() {
-        return Mth.clamp(this.entityData.get(SPAWN_SCALE), MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
+        float raw = this.entityData.get(SPAWN_SCALE);
+        if (this.isBaby()) {
+            return Mth.clamp(raw, MIN_BABY_SCALE, MAX_BABY_SCALE);
+        }
+        return Mth.clamp(raw, MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
     }
 
     private void setSpawnScale(float scale) {
-        float clamped = Mth.clamp(scale, MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
-        this.entityData.set(SPAWN_SCALE, clamped);
+        // Store raw value; clamping is applied contextually in getSpawnScale() based on baby/adult.
+        this.entityData.set(SPAWN_SCALE, scale);
         this.refreshDimensions();
     }
 
@@ -155,7 +162,9 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
         // Natural Driftwhales vary in size (never smaller than the base size).
         // Synced to clients + saved to NBT so it persists across reloads.
-        float scale = Mth.lerp(this.getRandom().nextFloat(), MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
+        float minScale = this.isBaby() ? MIN_BABY_SCALE : MIN_SPAWN_SCALE;
+        float maxScale = this.isBaby() ? MAX_BABY_SCALE : MAX_SPAWN_SCALE;
+        float scale = Mth.lerp(this.getRandom().nextFloat(), minScale, maxScale);
         setSpawnScale(scale);
 
         // Natural spawns are chosen from a grounded position for safety; lift into open air

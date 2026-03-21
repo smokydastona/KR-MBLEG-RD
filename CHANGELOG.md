@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1297 (2026-03-21)
+- Tweak(driftwhale): babies now vary in size from 0.8× to 1.0× (adults remain 1.0×–2.5×).
+
 ## 1.0.1296 (2026-03-21)
 - Feat(driftwhale): spawn with a random size scale from 1.0× to 2.5× (synced + persisted).
 - Assets(driftwhale): add `driftwhale_baby.geo.json` as a separate baby geo (wired when `isBaby()`).
