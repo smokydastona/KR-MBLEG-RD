@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1265 (2026-03-21)
-- Refactor(mobs): rename `great_hunger` to `unkeeper` across code, assets, sounds, lang keys, and docs.
+- Refactor(mobs): rename mob to Unkeeper across code, assets, sounds, lang keys, and docs.
 
 ## 1.0.1264 (2026-03-21)
 - Fix(spawns/wayfall): prevent `cephalari_zombie` and `cephalari_husk` from spawning over void by enforcing ON_GROUND spawn placement (solid block required underneath).
