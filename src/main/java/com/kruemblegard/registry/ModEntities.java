@@ -1,7 +1,7 @@
 package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.entity.GreatHungerEntity;
+import com.kruemblegard.entity.UnkeeperEntity;
 import com.kruemblegard.entity.CephalariEntity;
 import com.kruemblegard.entity.CephalariGolemEntity;
 import com.kruemblegard.entity.CephalariHuskEntity;
@@ -61,13 +61,13 @@ public class ModEntities {
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "pebblit").toString())
         );
 
-    public static final RegistryObject<EntityType<GreatHungerEntity>> GREAT_HUNGER =
+    public static final RegistryObject<EntityType<UnkeeperEntity>> UNKEEPER =
         ENTITIES.register(
-            "great_hunger",
-            () -> EntityType.Builder.<GreatHungerEntity>of(
-                    GreatHungerEntity::new, MobCategory.MONSTER)
+            "unkeeper",
+            () -> EntityType.Builder.<UnkeeperEntity>of(
+                    UnkeeperEntity::new, MobCategory.MONSTER)
                 .sized(1.0f, 0.6f)
-                .build(new ResourceLocation(Kruemblegard.MOD_ID, "great_hunger").toString())
+                .build(new ResourceLocation(Kruemblegard.MOD_ID, "unkeeper").toString())
         );
 
     public static final RegistryObject<EntityType<ScatteredEndermanEntity>> SCATTERED_ENDERMAN =

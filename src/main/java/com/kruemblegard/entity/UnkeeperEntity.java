@@ -26,20 +26,20 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class GreatHungerEntity extends Monster implements GeoEntity {
+public class UnkeeperEntity extends Monster implements GeoEntity {
 
     private static final RawAnimation IDLE_LOOP =
-            RawAnimation.begin().thenLoop("animation.great_hunger.idle");
+            RawAnimation.begin().thenLoop("animation.unkeeper.idle");
 
-        private static final RawAnimation MOVE_LOOP =
-            RawAnimation.begin().thenLoop("animation.great_hunger.move");
+    private static final RawAnimation MOVE_LOOP =
+            RawAnimation.begin().thenLoop("animation.unkeeper.move");
 
-        private static final RawAnimation BITE_ATTACK_ONCE =
-            RawAnimation.begin().thenPlay("animation.great_hunger.bite_attack");
+    private static final RawAnimation BITE_ATTACK_ONCE =
+            RawAnimation.begin().thenPlay("animation.unkeeper.bite_attack");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public GreatHungerEntity(EntityType<? extends Monster> type, Level level) {
+    public UnkeeperEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
     }
 
@@ -66,7 +66,7 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
     public boolean doHurtTarget(Entity target) {
         boolean didHurt = super.doHurtTarget(target);
         if (didHurt) {
-            this.playSound(ModSounds.GREAT_HUNGER_BITE.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
+            this.playSound(ModSounds.UNKEEPER_BITE.get(), 0.9F, 0.95F + (this.random.nextFloat() * 0.1F));
             triggerAnim("attackController", "bite");
         }
         return didHurt;
@@ -79,22 +79,22 @@ public class GreatHungerEntity extends Monster implements GeoEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.GREAT_HUNGER_AMBIENT.get();
+        return ModSounds.UNKEEPER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.GREAT_HUNGER_HURT.get();
+        return ModSounds.UNKEEPER_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.GREAT_HUNGER_DEATH.get();
+        return ModSounds.UNKEEPER_DEATH.get();
     }
 
     @Override
     protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        this.playSound(ModSounds.GREAT_HUNGER_STEP.get(), 0.2F, 0.9F + (this.random.nextFloat() * 0.2F));
+        this.playSound(ModSounds.UNKEEPER_STEP.get(), 0.2F, 0.9F + (this.random.nextFloat() * 0.2F));
     }
 
     @Override

@@ -31,7 +31,7 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
 - `bear-groan-1`
   - Source: https://freesound.org/people/Animadierer/sounds/516277/
   - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
-  - Used for: Great Hunger hurt (`entity.great_hunger.hurt`)
+  - Used for: Unkeeper hurt (`entity.unkeeper.hurt`)
 
 - `growl-4`
   - Source: https://freesound.org/people/quadraslayer/sounds/398908/
@@ -81,7 +81,7 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
 - `impact-6`
   - Source: https://freesound.org/people/Metzik/sounds/387539/
   - License: CC BY 3.0 — http://creativecommons.org/licenses/by/3.0/
-  - Used for: Great Hunger step (`entity.great_hunger.step`)
+  - Used for: Unkeeper step (`entity.unkeeper.step`)
 
 - `spell-impact-1`
   - Source: https://freesound.org/people/qubodup/sounds/442827/
@@ -101,7 +101,7 @@ These entries are sourced from the SoundFxLibrary pack, with per-file attributio
 - `melee-hit-6`
   - Source: https://freesound.org/people/qubodup/sounds/442903/
   - License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
-  - Used for: Great Hunger bite (`entity.great_hunger.bite`)
+  - Used for: Unkeeper bite (`entity.unkeeper.bite`)
 
 - `throw-hit-1`
   - Source: https://freesound.org/people/SoundFlakes/sounds/492225/
@@ -147,8 +147,8 @@ These clips were generated with `ffmpeg` filter graphs (noise sources + filterin
 - (Procedural / ffmpeg) → Traprock ambient (`entity.traprock.ambient`)
 - (Procedural / ffmpeg) → Traprock death (`entity.traprock.death`)
 
-- (Procedural / ffmpeg) → Great Hunger ambient (`entity.great_hunger.ambient`)
-- (Procedural / ffmpeg) → Great Hunger death (`entity.great_hunger.death`)
+- (Procedural / ffmpeg) → Unkeeper ambient (`entity.unkeeper.ambient`)
+- (Procedural / ffmpeg) → Unkeeper death (`entity.unkeeper.death`)
 
 - (Procedural / ffmpeg) → Fault Crawler ambient (`entity.fault_crawler.ambient`)
 - (Procedural / ffmpeg) → Fault Crawler emerge (`entity.fault_crawler.emerge`)

@@ -9,7 +9,7 @@ import com.kruemblegard.client.render.CephalariZombieRenderer;
 import com.kruemblegard.client.render.DriftSkimmerRenderer;
 import com.kruemblegard.client.render.EchoHarnessRenderer;
 import com.kruemblegard.client.render.FaultCrawlerRenderer;
-import com.kruemblegard.client.render.GreatHungerRenderer;
+import com.kruemblegard.client.render.UnkeeperRenderer;
 import com.kruemblegard.client.render.KruemblegardBoatRenderer;
 import com.kruemblegard.client.render.KruemblegardBossRenderer;
 import com.kruemblegard.client.render.KruemblegardChestBoatRenderer;
@@ -44,7 +44,7 @@ public class KruemblegardClient {
         event.registerEntityRenderer(ModEntities.KRUEMBLEGARD.get(), KruemblegardBossRenderer::new);
         event.registerEntityRenderer(ModEntities.TRAPROCK.get(), TraprockRenderer::new);
         event.registerEntityRenderer(ModEntities.PEBBLIT.get(), PebblitRenderer::new);
-        event.registerEntityRenderer(ModEntities.GREAT_HUNGER.get(), GreatHungerRenderer::new);
+        event.registerEntityRenderer(ModEntities.UNKEEPER.get(), UnkeeperRenderer::new);
         event.registerEntityRenderer(ModEntities.SCATTERED_ENDERMAN.get(), ScatteredEndermanRenderer::new);
         event.registerEntityRenderer(ModEntities.MOOGLOOM.get(), MoogloomRenderer::new);
         event.registerEntityRenderer(ModEntities.FAULT_CRAWLER.get(), FaultCrawlerRenderer::new);

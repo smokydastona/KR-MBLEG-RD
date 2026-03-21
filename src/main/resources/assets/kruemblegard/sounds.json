@@ -166,34 +166,34 @@
     ]
   },
 
-  "entity.great_hunger.ambient": {
-    "subtitle": "subtitles.kruemblegard.great_hunger.ambient",
+  "entity.unkeeper.ambient": {
+    "subtitle": "subtitles.kruemblegard.unkeeper.ambient",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/ambient"}
+      {"name": "kruemblegard:entity/unkeeper/ambient"}
     ]
   },
-  "entity.great_hunger.hurt": {
-    "subtitle": "subtitles.kruemblegard.great_hunger.hurt",
+  "entity.unkeeper.hurt": {
+    "subtitle": "subtitles.kruemblegard.unkeeper.hurt",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/hurt"}
+      {"name": "kruemblegard:entity/unkeeper/hurt"}
     ]
   },
-  "entity.great_hunger.death": {
-    "subtitle": "subtitles.kruemblegard.great_hunger.death",
+  "entity.unkeeper.death": {
+    "subtitle": "subtitles.kruemblegard.unkeeper.death",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/death"}
+      {"name": "kruemblegard:entity/unkeeper/death"}
     ]
   },
-  "entity.great_hunger.step": {
-    "subtitle": "subtitles.kruemblegard.great_hunger.step",
+  "entity.unkeeper.step": {
+    "subtitle": "subtitles.kruemblegard.unkeeper.step",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/step"}
+      {"name": "kruemblegard:entity/unkeeper/step"}
     ]
   },
-  "entity.great_hunger.bite": {
-    "subtitle": "subtitles.kruemblegard.great_hunger.bite",
+  "entity.unkeeper.bite": {
+    "subtitle": "subtitles.kruemblegard.unkeeper.bite",
     "sounds": [
-      {"name": "kruemblegard:entity/great_hunger/bite"}
+      {"name": "kruemblegard:entity/unkeeper/bite"}
     ]
   },
 

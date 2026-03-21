@@ -279,50 +279,50 @@ Identity notes:
 
 ---
 
-## The Great Hunger (`great_hunger`)
+## Unkeeper (`unkeeper`)
 
 Identity notes:
 - Hostile GeckoLib monster; “hunger” implies consuming, chasing, relentless appetite.
 - Sound palette should be **predatory**, **wet/strained** but kept within Wayfall’s “stone-warped” tone.
 
-### `entity.great_hunger.ambient` (Idle)
+### `entity.unkeeper.ambient` (Idle)
 - Should sound like: low, hungry breath; a pressure growl without musical tone.
 - Current asset:
-  - SoundEvent: `kruemblegard:entity.great_hunger.ambient`
-  - sounds.json: `kruemblegard:entity/great_hunger/ambient`
-  - OGG: `assets/kruemblegard/sounds/entity/great_hunger/ambient.ogg`
+  - SoundEvent: `kruemblegard:entity.unkeeper.ambient`
+  - sounds.json: `kruemblegard:entity/unkeeper/ambient`
+  - OGG: `assets/kruemblegard/sounds/entity/unkeeper/ambient.ogg`
 - Credits: Procedural / ffmpeg.
 
-### `entity.great_hunger.hurt` (Damage)
+### `entity.unkeeper.hurt` (Damage)
 - Should sound like: pained scream/strain; quick; threatening.
 - Current asset:
-  - SoundEvent: `kruemblegard:entity.great_hunger.hurt`
-  - sounds.json: `kruemblegard:entity/great_hunger/hurt`
-  - OGG: `assets/kruemblegard/sounds/entity/great_hunger/hurt.ogg`
+  - SoundEvent: `kruemblegard:entity.unkeeper.hurt`
+  - sounds.json: `kruemblegard:entity/unkeeper/hurt`
+  - OGG: `assets/kruemblegard/sounds/entity/unkeeper/hurt.ogg`
 - Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
-### `entity.great_hunger.death` (Death)
+### `entity.unkeeper.death` (Death)
 - Should sound like: final collapse; a deep exhale into rubble.
 - Current asset:
-  - SoundEvent: `kruemblegard:entity.great_hunger.death`
-  - sounds.json: `kruemblegard:entity/great_hunger/death`
-  - OGG: `assets/kruemblegard/sounds/entity/great_hunger/death.ogg`
+  - SoundEvent: `kruemblegard:entity.unkeeper.death`
+  - sounds.json: `kruemblegard:entity/unkeeper/death`
+  - OGG: `assets/kruemblegard/sounds/entity/unkeeper/death.ogg`
 - Credits: Procedural / ffmpeg.
 
-### `entity.great_hunger.step` (Footstep)
+### `entity.unkeeper.step` (Footstep)
 - Should sound like: heavier stalking steps; stone-on-stone thuds; short.
 - Current asset:
-  - SoundEvent: `kruemblegard:entity.great_hunger.step`
-  - sounds.json: `kruemblegard:entity/great_hunger/step`
-  - OGG: `assets/kruemblegard/sounds/entity/great_hunger/step.ogg`
+  - SoundEvent: `kruemblegard:entity.unkeeper.step`
+  - sounds.json: `kruemblegard:entity/unkeeper/step`
+  - OGG: `assets/kruemblegard/sounds/entity/unkeeper/step.ogg`
 - Credits: SoundFxLibrary (CC BY 3.0; attribution required; see `docs/SOUND_CREDITS.md`).
 
-### `entity.great_hunger.bite` (Bite attack)
+### `entity.unkeeper.bite` (Bite attack)
 - Should sound like: snap/crack; sharp, readable melee cue.
 - Current asset:
-  - SoundEvent: `kruemblegard:entity.great_hunger.bite`
-  - sounds.json: `kruemblegard:entity/great_hunger/bite`
-  - OGG: `assets/kruemblegard/sounds/entity/great_hunger/bite.ogg`
+  - SoundEvent: `kruemblegard:entity.unkeeper.bite`
+  - sounds.json: `kruemblegard:entity/unkeeper/bite`
+  - OGG: `assets/kruemblegard/sounds/entity/unkeeper/bite.ogg`
 - Credits: SoundFxLibrary (CC0; see `docs/SOUND_CREDITS.md`).
 
 ---

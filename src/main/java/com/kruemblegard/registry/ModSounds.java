@@ -63,11 +63,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PEBBLIT_TAME = register("entity.pebblit.tame");
     public static final RegistryObject<SoundEvent> PEBBLIT_PERCH = register("entity.pebblit.perch");
 
-    public static final RegistryObject<SoundEvent> GREAT_HUNGER_AMBIENT = register("entity.great_hunger.ambient");
-    public static final RegistryObject<SoundEvent> GREAT_HUNGER_HURT = register("entity.great_hunger.hurt");
-    public static final RegistryObject<SoundEvent> GREAT_HUNGER_DEATH = register("entity.great_hunger.death");
-    public static final RegistryObject<SoundEvent> GREAT_HUNGER_STEP = register("entity.great_hunger.step");
-    public static final RegistryObject<SoundEvent> GREAT_HUNGER_BITE = register("entity.great_hunger.bite");
+    public static final RegistryObject<SoundEvent> UNKEEPER_AMBIENT = register("entity.unkeeper.ambient");
+    public static final RegistryObject<SoundEvent> UNKEEPER_HURT = register("entity.unkeeper.hurt");
+    public static final RegistryObject<SoundEvent> UNKEEPER_DEATH = register("entity.unkeeper.death");
+    public static final RegistryObject<SoundEvent> UNKEEPER_STEP = register("entity.unkeeper.step");
+    public static final RegistryObject<SoundEvent> UNKEEPER_BITE = register("entity.unkeeper.bite");
 
     public static final RegistryObject<SoundEvent> FAULT_CRAWLER_AMBIENT = register("entity.fault_crawler.ambient");
     public static final RegistryObject<SoundEvent> FAULT_CRAWLER_HURT = register("entity.fault_crawler.hurt");

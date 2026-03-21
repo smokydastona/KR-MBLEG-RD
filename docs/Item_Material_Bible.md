@@ -599,10 +599,10 @@ Update workflow:
 - **Type**: `BlockItem`
 - **Details**: (none parsed)
 
-#### great_hunger_spawn_egg
-- **ID**: `kruemblegard:great_hunger_spawn_egg`
+#### unkeeper_spawn_egg
+- **ID**: `kruemblegard:unkeeper_spawn_egg`
 - **Type**: `ForgeSpawnEggItem`
-- **Details**: entity=ModEntities.GREAT_HUNGER, primaryColor=0x3a2a20, secondaryColor=0xc6a35d
+- **Details**: entity=ModEntities.UNKEEPER, primaryColor=0x3a2a20, secondaryColor=0xc6a35d
 
 #### hollowway_tree_boat
 - **ID**: `kruemblegard:hollowway_tree_boat`

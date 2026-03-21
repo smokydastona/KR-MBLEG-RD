@@ -185,12 +185,12 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/pebblit.animation.json`
     - Texture: `assets/kruemblegard/textures/entity/pebblit.png`
 
-- **The Great Hunger** (`great_hunger`)
+- **Unkeeper** (`unkeeper`)
   - Hostile mob (GeckoLib-rendered).
   - Uses editable resources:
-    - Geo: `assets/kruemblegard/geo/great_hunger.geo.json`
-    - Animations: `assets/kruemblegard/animations/great_hunger.animation.json`
-    - Texture: `assets/kruemblegard/textures/entity/great_hunger.png` (currently a placeholder)
+    - Geo: `assets/kruemblegard/geo/unkeeper.geo.json`
+    - Animations: `assets/kruemblegard/animations/unkeeper.animation.json`
+    - Texture: `assets/kruemblegard/textures/entity/unkeeper.png` (currently a placeholder)
 
 - **Scattered Enderman** (`scattered_enderman`)
   - Enderman-derived hostile mob.

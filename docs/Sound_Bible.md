@@ -102,14 +102,14 @@ Notes:
   - `kruemblegard:entity.pebblit.tame`
   - `kruemblegard:entity.pebblit.perch`
 
-### `kruemblegard:great_hunger`
+### `kruemblegard:unkeeper`
 - Current sound behavior: generic LivingEntity sounds (no custom hooks yet).
 - Custom sounds to add next (recommended IDs):
-  - `kruemblegard:entity.great_hunger.ambient`
-  - `kruemblegard:entity.great_hunger.hurt`
-  - `kruemblegard:entity.great_hunger.death`
-  - `kruemblegard:entity.great_hunger.step`
-  - `kruemblegard:entity.great_hunger.bite`
+  - `kruemblegard:entity.unkeeper.ambient`
+  - `kruemblegard:entity.unkeeper.hurt`
+  - `kruemblegard:entity.unkeeper.death`
+  - `kruemblegard:entity.unkeeper.step`
+  - `kruemblegard:entity.unkeeper.bite`
 
 ### `kruemblegard:scattered_enderman`
 - Current sound behavior: inherits Enderman sounds (teleport, stare, ambient, etc).
@@ -201,53 +201,53 @@ Update workflow:
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.great_hunger.ambient
-- **SoundEvent ID**: `kruemblegard:entity.great_hunger.ambient`
-- **ModSounds field**: `GREAT_HUNGER_AMBIENT`
-- **Subtitle key**: `subtitles.kruemblegard.great_hunger.ambient`
-- **sounds.json name(s)**: kruemblegard:entity/great_hunger/ambient
+#### entity.unkeeper.ambient
+- **SoundEvent ID**: `kruemblegard:entity.unkeeper.ambient`
+- **ModSounds field**: `UNKEEPER_AMBIENT`
+- **Subtitle key**: `subtitles.kruemblegard.unkeeper.ambient`
+- **sounds.json name(s)**: kruemblegard:entity/unkeeper/ambient
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/ambient.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/unkeeper/ambient.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.great_hunger.bite
-- **SoundEvent ID**: `kruemblegard:entity.great_hunger.bite`
-- **ModSounds field**: `GREAT_HUNGER_BITE`
-- **Subtitle key**: `subtitles.kruemblegard.great_hunger.bite`
-- **sounds.json name(s)**: kruemblegard:entity/great_hunger/bite
+#### entity.unkeeper.bite
+- **SoundEvent ID**: `kruemblegard:entity.unkeeper.bite`
+- **ModSounds field**: `UNKEEPER_BITE`
+- **Subtitle key**: `subtitles.kruemblegard.unkeeper.bite`
+- **sounds.json name(s)**: kruemblegard:entity/unkeeper/bite
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/bite.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/unkeeper/bite.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.great_hunger.death
-- **SoundEvent ID**: `kruemblegard:entity.great_hunger.death`
-- **ModSounds field**: `GREAT_HUNGER_DEATH`
-- **Subtitle key**: `subtitles.kruemblegard.great_hunger.death`
-- **sounds.json name(s)**: kruemblegard:entity/great_hunger/death
+#### entity.unkeeper.death
+- **SoundEvent ID**: `kruemblegard:entity.unkeeper.death`
+- **ModSounds field**: `UNKEEPER_DEATH`
+- **Subtitle key**: `subtitles.kruemblegard.unkeeper.death`
+- **sounds.json name(s)**: kruemblegard:entity/unkeeper/death
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/death.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/unkeeper/death.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.great_hunger.hurt
-- **SoundEvent ID**: `kruemblegard:entity.great_hunger.hurt`
-- **ModSounds field**: `GREAT_HUNGER_HURT`
-- **Subtitle key**: `subtitles.kruemblegard.great_hunger.hurt`
-- **sounds.json name(s)**: kruemblegard:entity/great_hunger/hurt
+#### entity.unkeeper.hurt
+- **SoundEvent ID**: `kruemblegard:entity.unkeeper.hurt`
+- **ModSounds field**: `UNKEEPER_HURT`
+- **Subtitle key**: `subtitles.kruemblegard.unkeeper.hurt`
+- **sounds.json name(s)**: kruemblegard:entity/unkeeper/hurt
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/hurt.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/unkeeper/hurt.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 
-#### entity.great_hunger.step
-- **SoundEvent ID**: `kruemblegard:entity.great_hunger.step`
-- **ModSounds field**: `GREAT_HUNGER_STEP`
-- **Subtitle key**: `subtitles.kruemblegard.great_hunger.step`
-- **sounds.json name(s)**: kruemblegard:entity/great_hunger/step
+#### entity.unkeeper.step
+- **SoundEvent ID**: `kruemblegard:entity.unkeeper.step`
+- **ModSounds field**: `UNKEEPER_STEP`
+- **Subtitle key**: `subtitles.kruemblegard.unkeeper.step`
+- **sounds.json name(s)**: kruemblegard:entity/unkeeper/step
 - **Streamed**: `false`
-- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/great_hunger/step.ogg = True
+- **OGG present**: src/main/resources/assets/kruemblegard/sounds/entity/unkeeper/step.ogg = True
 - **DurationSeconds**: `TBD`
 - **DurationTicks**: `TBD` (round(seconds*20))
 

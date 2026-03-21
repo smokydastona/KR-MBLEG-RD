@@ -4,11 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1263 (2026-03-21)
-- Fix(loot_tables/cephalari): correct loot table reference JSON schema (`name`, not `value`) so Cephalari zombie/husk/drowned loot tables load without parse errors.
+## 1.0.1265 (2026-03-21)
+- Refactor(mobs): rename `great_hunger` to `unkeeper` across code, assets, sounds, lang keys, and docs.
 
 ## 1.0.1264 (2026-03-21)
 - Fix(spawns/wayfall): prevent `cephalari_zombie` and `cephalari_husk` from spawning over void by enforcing ON_GROUND spawn placement (solid block required underneath).
+
+## 1.0.1263 (2026-03-21)
+- Fix(loot_tables/cephalari): correct loot table reference JSON schema (`name`, not `value`) so Cephalari zombie/husk/drowned loot tables load without parse errors.
 
 ## 1.0.1262 (2026-03-20)
 - Fix(cephalari/adult_forms): adult-form entities now pick their Cephalari body texture using the exact same historical spawn selection logic as `cephalari`.
@@ -593,7 +596,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(anim/pebblit): add a melee attack one-shot that swings `angry_spikes_left/right` during hits.
 
 ## 1.0.1014 (2026-02-23)
-- Fix(assets/anim): align Great Hunger + Traprock animations to updated geo bone names.
+- Fix(assets/anim): align Unkeeper + Traprock animations to updated geo bone names.
 - Tuning(assets/traprock): update Traprock geo + texture (UV/layout refresh).
 - Feature(anim/traprock): add hurt/death/melee/ranged animation clips and GeckoLib triggers.
 - Feature(ai/traprock): ranged attack now throws a custom `traprock_stone` projectile.
@@ -628,7 +631,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) for Pebblit attributions.
 
 ## 1.0.1005 (2026-02-17)
-- Tuning(sound): replace Fault Crawler / Great Hunger / Traprock / Krümblegård hurt+roar+storm SFX with better-fitting, license-clean clips.
+- Tuning(sound): replace Fault Crawler / Unkeeper / Traprock / Krümblegård hurt+roar+storm SFX with better-fitting, license-clean clips.
 - Tuning(sound): replace Scaralon Beetle and Wyrdwing ambience/vocal/step SFX with new non-musical procedural clips.
 - Docs(sound): refresh [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) and [docs/SOUND_TRACKING.md](docs/SOUND_TRACKING.md) to match current assets.
 
@@ -676,7 +679,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Docs(sound): update [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) with boss clip reuse mapping.
 
 ## 1.0.992 (2026-02-17)
-- Feature(sound): add custom sound sets for Traprock, Pebblit, Great Hunger, and Scattered Enderman (SoundEvents + sounds.json + OGG assets).
+- Feature(sound): add custom sound sets for Traprock, Pebblit, Unkeeper, and Scattered Enderman (SoundEvents + sounds.json + OGG assets).
 - Docs(sound): add [docs/SOUND_CREDITS.md](docs/SOUND_CREDITS.md) for SoundMonster/Freesound attribution.
 
 ## 1.0.993 (2026-02-17)
@@ -2378,7 +2381,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(items): add the missing Scattered Enderman spawn egg.
 
 ## 1.0.382 (2026-01-15)
-- Chore(docs): expand the Sound Bible with a per-mob sound checklist (Traprock, Pebblit, Great Hunger, Scattered Enderman, Boss).
+- Chore(docs): expand the Sound Bible with a per-mob sound checklist (Traprock, Pebblit, Unkeeper, Scattered Enderman, Boss).
 
 ## 1.0.379 (2026-01-15)
 - Chore(items): remove the custom Wayfall music disc.
@@ -2737,7 +2740,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.242 (2026-01-08)
 - Fix(compat): harden Waystones BlockEntityType extension (avoids immutable-set crash; uses mutable copy when possible).
-- Fix(assets): add missing `great_hunger_spawn_egg` item model.
+- Fix(assets): add missing `unkeeper_spawn_egg` item model.
 - Fix(assets): normalize wood-family block model texture references and fence gate parents to eliminate missing-texture/model spam.
 
 ## 1.0.223 (2026-01-07)
@@ -2774,19 +2777,19 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(pebblit): add GeckoLib animation hooks for sit/perching/perched states.
 
 ## 1.0.234 (2026-01-07)
-- Feat(great_hunger): add initial The Great Hunger mob scaffolding (entity + GeckoLib renderer/model + geo/animations).
+- Feat(unkeeper): add initial Unkeeper mob scaffolding (entity + GeckoLib renderer/model + geo/animations).
 
 ## 1.0.235 (2026-01-07)
-- Feat(great_hunger): expand The Great Hunger animation set.
+- Feat(unkeeper): expand Unkeeper animation set.
 
 ## 1.0.236 (2026-01-07)
-- Tuning(assets): iterate on Great Hunger + Pebblit geo/animation placeholders.
+- Tuning(assets): iterate on Unkeeper + Pebblit geo/animation placeholders.
 
 ## 1.0.237 (2026-01-07)
-- Feat(great_hunger): register The Great Hunger (entity type, renderer, attributes/spawn placement, spawn egg, lang).
+- Feat(unkeeper): register Unkeeper (entity type, renderer, attributes/spawn placement, spawn egg, lang).
 
 ## 1.0.238 (2026-01-07)
-- Feat(assets): add placeholder `great_hunger.png` texture and point Great Hunger model at it.
+- Feat(assets): add placeholder `unkeeper.png` texture and point Unkeeper model at it.
 
 ## 1.0.239 (2026-01-07)
 - Fix(wayfall): increase portal landing search radius so it more reliably finds island ground (avoids spawning into empty void pockets).
