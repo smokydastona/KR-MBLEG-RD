@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1285 (2026-03-21)
+- Fix(driftwhale/assets): update `driftwhale.animation.json` bone tracks to match the new `driftwhale.geo.json` (tentacles + tail_base; remove stale tail bone).
+
 ## 1.0.1283 (2026-03-21)
 - Feat(spawns/wayfall): add biome modifiers for natural spawns of Pebblit, Traprock, Unkeeper, and Fault Crawler.
 
