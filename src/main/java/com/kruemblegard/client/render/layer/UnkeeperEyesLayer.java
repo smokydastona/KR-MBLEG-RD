@@ -29,7 +29,7 @@ public final class UnkeeperEyesLayer extends GeoRenderLayer<UnkeeperEntity> {
 
     private static final ResourceLocation EYES_TEXTURE = new ResourceLocation(
         Kruemblegard.MOD_ID,
-        "textures/entity/unkeeper_eyes.png"
+        "textures/entity/unkeeper.png"
     );
 
     public UnkeeperEyesLayer(GeoRenderer<UnkeeperEntity> renderer) {

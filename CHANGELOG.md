@@ -13,6 +13,9 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(unkeeper/assets): set Unkeeper geo identifier to `geometry.unkeeper` (schema-valid pattern) so tooling/validation doesn't fail.
 - Docs(unkeeper): treat Unkeeper base texture as shipped (remove placeholder wording).
 
+## 1.0.1271 (2026-03-21)
+- Fix(unkeeper/render): wire eye glow to the single combined `unkeeper.png` texture (no separate `unkeeper_eyes.png`).
+
 ## 1.0.1268 (2026-03-21)
 - Fix(unkeeper/ai): make Unkeeper explicitly hostile with retaliation targeting and improved GeckoLib controller logic for bite/death animations.
 

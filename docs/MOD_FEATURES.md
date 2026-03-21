@@ -192,7 +192,6 @@ Keep it up to date whenever you add/remove/rename content.
     - Animations: `assets/kruemblegard/animations/unkeeper.animation.json`
     - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/unkeeper.animation_controllers.json`
     - Texture: `assets/kruemblegard/textures/entity/unkeeper.png`
-    - Emissive mask: `assets/kruemblegard/textures/entity/unkeeper_eyes.png`
   - Rendering:
     - Eye glow bones (`eye_glow_L`, `eye_glow_R`) are rendered full-bright via `UnkeeperEyesLayer`.
 
