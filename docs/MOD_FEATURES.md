@@ -190,7 +190,10 @@ Keep it up to date whenever you add/remove/rename content.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/unkeeper.geo.json`
     - Animations: `assets/kruemblegard/animations/unkeeper.animation.json`
+    - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/unkeeper.animation_controllers.json`
     - Texture: `assets/kruemblegard/textures/entity/unkeeper.png` (currently a placeholder)
+  - Rendering:
+    - Eye glow bones (`eye_glow_L`, `eye_glow_R`) are rendered full-bright via `UnkeeperEyesLayer`.
 
 - **Scattered Enderman** (`scattered_enderman`)
   - Enderman-derived hostile mob.

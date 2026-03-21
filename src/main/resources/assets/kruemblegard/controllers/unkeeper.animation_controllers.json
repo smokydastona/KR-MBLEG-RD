@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.unkeeper.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "animation.unkeeper.idle"
+          ],
+          "transitions": [
+            { "biting": "query.is_attacking" },
+            { "walking": "query.is_moving" },
+            { "dead": "query.health <= 0" }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "animation.unkeeper.move"
+          ],
+          "transitions": [
+            { "biting": "query.is_attacking" },
+            { "default": "!query.is_moving" },
+            { "dead": "query.health <= 0" }
+          ]
+        },
+        "biting": {
+          "animations": [
+            "animation.unkeeper.bite_attack"
+          ],
+          "transitions": [
+            { "dead": "query.health <= 0" },
+            { "walking": "!query.is_attacking && query.is_moving" },
+            { "default": "!query.is_attacking && !query.is_moving" }
+          ]
+        },
+        "dead": {
+          "animations": [
+            "animation.unkeeper.die"
+          ]
+        }
+      }
+    }
+  }
+}
