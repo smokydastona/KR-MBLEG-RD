@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:strata_collapse",
+  "spawners": [
+    {
+      "type": "kruemblegard:traprock",
+      "weight": 4,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:faulted_expanse",
+  "spawners": [
+    {
+      "type": "kruemblegard:fault_crawler",
+      "weight": 6,
+      "minCount": 1,
+      "maxCount": 2
+    }
+  ]
+}

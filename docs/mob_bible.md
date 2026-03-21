@@ -45,7 +45,7 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 10:47:30
+Generated: 2026-03-21 10:53:23
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
@@ -56,8 +56,8 @@ Generated: 2026-03-21 10:47:30
 ### Backlog (from audit)
 - Missing entity loot tables: 11
   - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `scattered_enderman`, `spiral_strider`, `trader_beetle`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
-- No biome modifier refs (may not spawn naturally): 10
-  - `cephalari_golem`, `driftskimmer`, `echo_harness`, `fault_crawler`, `pebblit`, `spiral_strider`, `trader_beetle`, `traprock`, `treadwinder`, `unkeeper`
+- No biome modifier refs (may not spawn naturally): 6
+  - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `trader_beetle`, `treadwinder`
 - No sounds.json matches (may rely on vanilla sounds): 15
   - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `moogloom`, `mossback_tortoise`, `pebble_wren`, `scattered_enderman`, `spiral_strider`, `trader_beetle`, `treadwinder`
 - Animation warnings (non-fatal): 1
@@ -78,20 +78,20 @@ Generated: 2026-03-21 10:47:30
 | `driftskimmer` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
 | `driftwhale` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `echo_harness` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `fault_crawler` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ |
+| `fault_crawler` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `moogloom` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
 | `pebble_wren` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
-| `pebblit` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ |
+| `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scattered_enderman` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
 | `spiral_strider` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
 | `trader_beetle` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `traprock` | 85 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ |
+| `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `treadwinder` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
-| `unkeeper` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ |
+| `unkeeper` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `wyrdwing` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 
 ### Per-Mob Detail
@@ -220,18 +220,15 @@ Generated: 2026-03-21 10:47:30
   - No biome modifier references found (may not spawn naturally)
 
 #### `fault_crawler`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=⚠️ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ integration=✅ perf=✅
 - Classes: Entity: `FaultCrawlerEntity` | Renderer: `FaultCrawlerRenderer` | Model: `FaultCrawlerModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/fault_crawler.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/fault_crawler.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/fault_crawler.png`
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/fault_crawler.json`
-- Biome modifiers: **NONE FOUND**
+- Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_fault_crawler_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.fault_crawler` spawnEgg=`item.kruemblegard.fault_crawler_spawn_egg`
-- TODO: Add biome modifier (if should spawn naturally)
-- Audit notes:
-  - No biome modifier references found (may not spawn naturally)
 
 #### `grave_cairn`
 - Score: `95`
@@ -301,19 +298,18 @@ Generated: 2026-03-21 10:47:30
   - No sounds.json entries matched this mob id (may rely on vanilla sounds)
 
 #### `pebblit`
-- Score: `85`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=⚠️ integration=✅ perf=✅
+- Score: `90`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
 - Classes: Entity: `PebblitEntity` | Renderer: `PebblitRenderer` | Model: `PebblitModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebblit.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebblit.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/pebblit.png`
 - Loot table: **MISSING**
-- Biome modifiers: **NONE FOUND**
+- Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_pebblit_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.pebblit` spawnEgg=`item.kruemblegard.pebblit_spawn_egg`
-- TODO: Add entity loot table; Add biome modifier (if should spawn naturally)
+- TODO: Add entity loot table
 - Audit notes:
   - No entity loot table found under data/.../loot_tables/entities/
-  - No biome modifier references found (may not spawn naturally)
 
 #### `scaralon_beetle`
 - Score: `100`
@@ -375,19 +371,18 @@ Generated: 2026-03-21 10:47:30
   - No biome modifier references found (may not spawn naturally)
 
 #### `traprock`
-- Score: `85`
-- Status: geo=✅ tex=✅ anim=⚠️ ai=✅ loot=⚠️ sounds=✅ spawns=⚠️ integration=✅ perf=✅
+- Score: `90`
+- Status: geo=✅ tex=✅ anim=⚠️ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
 - Classes: Entity: `TraprockEntity` | Renderer: `TraprockRenderer` | Model: `TraprockModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/traprock.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/traprock.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/traprock.png`
 - Loot table: **MISSING**
-- Biome modifiers: **NONE FOUND**
+- Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_traprock_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.traprock` spawnEgg=`item.kruemblegard.traprock_spawn_egg`
-- TODO: Add entity loot table; Add biome modifier (if should spawn naturally)
+- TODO: Add entity loot table
 - Audit notes:
   - No entity loot table found under data/.../loot_tables/entities/
-  - No biome modifier references found (may not spawn naturally)
 
 #### `treadwinder`
 - Score: `80`
@@ -407,19 +402,18 @@ Generated: 2026-03-21 10:47:30
   - No biome modifier references found (may not spawn naturally)
 
 #### `unkeeper`
-- Score: `85`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=⚠️ integration=✅ perf=✅
+- Score: `90`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=✅ spawns=✅ integration=✅ perf=✅
 - Classes: Entity: `UnkeeperEntity` | Renderer: `UnkeeperRenderer` | Model: `UnkeeperModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/unkeeper.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/unkeeper.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/unkeeper.png`
 - Loot table: **MISSING**
-- Biome modifiers: **NONE FOUND**
+- Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_unkeeper_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.unkeeper` spawnEgg=`item.kruemblegard.unkeeper_spawn_egg`
-- TODO: Add entity loot table; Add biome modifier (if should spawn naturally)
+- TODO: Add entity loot table
 - Audit notes:
   - No entity loot table found under data/.../loot_tables/entities/
-  - No biome modifier references found (may not spawn naturally)
 
 #### `wyrdwing`
 - Score: `90`
