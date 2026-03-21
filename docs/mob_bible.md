@@ -45,21 +45,21 @@ Update workflow:
 
 <!-- AUTO-GENERATED:MOBS:START -->
 
-Generated: 2026-03-21 13:08:22
+Generated: 2026-03-21 13:12:25
 
 ### Report Metadata
 - Source: `C:/Users/smoky/OneDrive/Desktop/Homemade Mods/Krümblegård/tools/_reports/mob_audit_report.json`
-- schemaVersion: `5`
+- schemaVersion: `6`
 - mobCount: `23`
 - generatedBy: `tools/_reports/mob_audit_runner.py`
 
 ### Backlog (from audit)
-- Missing entity loot tables: 11
-  - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `scattered_enderman`, `spiral_strider`, `trader_beetle`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
+- Missing entity loot tables: 10
+  - `cephalari`, `driftskimmer`, `echo_harness`, `pebblit`, `spiral_strider`, `trader_beetle`, `traprock`, `treadwinder`, `unkeeper`, `wyrdwing`
 - No biome modifier refs (may not spawn naturally): 6
   - `cephalari_golem`, `driftskimmer`, `echo_harness`, `spiral_strider`, `trader_beetle`, `treadwinder`
-- No sounds.json matches (may rely on vanilla sounds): 15
-  - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `moogloom`, `mossback_tortoise`, `pebble_wren`, `scattered_enderman`, `spiral_strider`, `trader_beetle`, `treadwinder`
+- No sounds.json matches (may rely on vanilla sounds): 13
+  - `cephalari_drowned`, `cephalari_golem`, `cephalari_husk`, `cephalari_zombie`, `driftskimmer`, `driftwhale`, `echo_harness`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`, `spiral_strider`, `trader_beetle`, `treadwinder`
 - Missing spawn eggs: 0
   - (none)
 - Animation warnings (non-fatal): 1
@@ -83,12 +83,12 @@ Generated: 2026-03-21 13:08:22
 | `fault_crawler` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `grave_cairn` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `moogloom` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `moogloom` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `pebble_wren` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
 | `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `scattered_enderman` | 85 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `scattered_enderman` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `spiral_strider` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
 | `trader_beetle` | 80 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | ✅ |
 | `traprock` | 90 | ✅ | ✅ | ⚠️ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -258,8 +258,8 @@ Generated: 2026-03-21 13:08:22
 - Lang keys: entity=`entity.kruemblegard.kruemblegard` spawnEgg=`item.kruemblegard.kruemblegard_spawn_egg`
 
 #### `moogloom`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `MoogloomEntity` | Renderer: `MoogloomRenderer` | Model: `MoogloomModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/moogloom.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/moogloom.animation.json`
@@ -267,9 +267,8 @@ Generated: 2026-03-21 13:08:22
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/moogloom.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_moogloom_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.moogloom` spawnEgg=`item.kruemblegard.moogloom_spawn_egg`
-- TODO: Confirm vanilla sounds or add custom sounds
 - Audit notes:
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+  - Uses vanilla sounds (no sounds.json entries expected)
 
 #### `mossback_tortoise`
 - Score: `95`
@@ -325,19 +324,17 @@ Generated: 2026-03-21 13:08:22
 - Lang keys: entity=`entity.kruemblegard.scaralon_beetle` spawnEgg=`item.kruemblegard.scaralon_beetle_spawn_egg`
 
 #### `scattered_enderman`
-- Score: `85`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=⚠️ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `ScatteredEndermanEntity` | Renderer: `ScatteredEndermanRenderer` | Model: `ScatteredEndermanModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/scattered_enderman.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/scattered_enderman.animation.json`
 - Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/scattered_enderman.png`
-- Loot table: **MISSING**
+- Loot table: `(vanilla)`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_scattered_enderman_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.scattered_enderman` spawnEgg=`item.kruemblegard.scattered_enderman_spawn_egg`
-- TODO: Add entity loot table; Confirm vanilla sounds or add custom sounds
 - Audit notes:
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
-  - No entity loot table found under data/.../loot_tables/entities/
+  - Uses vanilla sounds (no sounds.json entries expected)
 
 #### `spiral_strider`
 - Score: `80`

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1290 (2026-03-21)
+- Docs(tools/mobs): mark Scattered Enderman as vanilla loot+sounds and Moogloom as vanilla sounds in Mob Bible scoring.
+
 ## 1.0.1289 (2026-03-21)
 - Docs(tools/mobs): include spawn eggs as a scored field in the Mob Bible.
 

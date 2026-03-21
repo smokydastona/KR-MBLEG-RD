@@ -35,6 +35,16 @@ OK = "✅"
 WARN = "⚠️"
 FAIL = "❌"
 
+# Some mobs intentionally use vanilla systems (no custom sounds.json entries / loot tables).
+VANILLA_SOUNDS_MOBS = {
+    "moogloom",
+    "scattered_enderman",
+}
+
+VANILLA_LOOT_MOBS = {
+    "scattered_enderman",
+}
+
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
@@ -336,7 +346,7 @@ def main() -> int:
     client_map = parse_client_renderers(client_text)
 
     report = {
-        "schemaVersion": 5,
+        "schemaVersion": 6,
         "modid": "kruemblegard",
         "mobCount": len(mobs),
         "generatedBy": "tools/_reports/mob_audit_runner.py",
@@ -390,7 +400,8 @@ def main() -> int:
         geo_ok = any(p.exists() for p in geo_files)
         anim_ok = any(p.exists() for p in anim_files)
         tex_ok = any(p.exists() for p in tex_files)
-        loot_ok = loot_path.exists()
+        vanilla_loot = ent_id in VANILLA_LOOT_MOBS
+        loot_ok = loot_path.exists() or vanilla_loot
 
         renderer_ok = renderer_class is not None
         attributes_ok = has_attribute_registration(common_text, const)
@@ -407,14 +418,18 @@ def main() -> int:
         if has_spawn_egg and (f"item.kruemblegard.{egg_id}" not in lang):
             lang_ok = False
 
-        sounds_ok = False
+        vanilla_sounds = ent_id in VANILLA_SOUNDS_MOBS
+        sounds_ok = vanilla_sounds
         sound_notes = []
-        if isinstance(sounds, dict):
+        if not vanilla_sounds and isinstance(sounds, dict):
             for k in sounds.keys():
                 if ent_id in k:
                     sounds_ok = True
                     break
-        if not sounds_ok:
+
+        if vanilla_sounds:
+            sound_notes.append("Uses vanilla sounds (no sounds.json entries expected)")
+        elif not sounds_ok:
             sound_notes.append("No sounds.json entries matched this mob id (may rely on vanilla sounds)")
 
         bone_notes = []
@@ -511,7 +526,7 @@ def main() -> int:
                 "geo": [p.as_posix().replace(WS.as_posix() + "/", "") for p in geo_files if p.exists()],
                 "animation": [p.as_posix().replace(WS.as_posix() + "/", "") for p in anim_files if p.exists()],
                 "textures": [p.as_posix().replace(WS.as_posix() + "/", "") for p in tex_files if p.exists()][:30],
-                "lootTable": loot_path.as_posix().replace(WS.as_posix() + "/", "") if loot_ok else None,
+                "lootTable": loot_path.as_posix().replace(WS.as_posix() + "/", "") if loot_path.exists() else ("(vanilla)" if vanilla_loot else None),
                 "biomeModifiers": biome_refs,
                 "langKeys": {
                     "entity": lang_entity_key,
