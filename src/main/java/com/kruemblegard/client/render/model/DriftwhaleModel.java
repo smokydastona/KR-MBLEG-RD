@@ -11,6 +11,9 @@ public class DriftwhaleModel extends GeoModel<DriftwhaleEntity> {
 
     @Override
     public ResourceLocation getModelResource(DriftwhaleEntity animatable) {
+        if (animatable.isBaby()) {
+            return new ResourceLocation(Kruemblegard.MOD_ID, "geo/driftwhale_baby.geo.json");
+        }
         return new ResourceLocation(Kruemblegard.MOD_ID, "geo/driftwhale.geo.json");
     }
 

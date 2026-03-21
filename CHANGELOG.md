@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1296 (2026-03-21)
+- Feat(driftwhale): spawn with a random size scale from 1.0× to 2.5× (synced + persisted).
+- Assets(driftwhale): add `driftwhale_baby.geo.json` as a separate baby geo (wired when `isBaby()`).
+
 ## 1.0.1295 (2026-03-21)
 - Tweak(spawns/wayfall): Driftwhale now spawns in pods (group size 2–4).
 

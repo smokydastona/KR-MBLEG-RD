@@ -3,12 +3,17 @@ package com.kruemblegard.entity;
 import java.util.EnumSet;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -43,6 +49,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  */
 public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
+    public static final float MIN_SPAWN_SCALE = 1.0F;
+    public static final float MAX_SPAWN_SCALE = 2.5F;
+
+    private static final EntityDataAccessor<Float> SPAWN_SCALE =
+        SynchedEntityData.defineId(DriftwhaleEntity.class, EntityDataSerializers.FLOAT);
+
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.driftwhale.idle");
 
@@ -55,6 +67,35 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 16, true);
         this.setNoGravity(true);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SPAWN_SCALE, MIN_SPAWN_SCALE);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (SPAWN_SCALE.equals(key)) {
+            this.refreshDimensions();
+        }
+    }
+
+    public float getSpawnScale() {
+        return Mth.clamp(this.entityData.get(SPAWN_SCALE), MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
+    }
+
+    private void setSpawnScale(float scale) {
+        float clamped = Mth.clamp(scale, MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
+        this.entityData.set(SPAWN_SCALE, clamped);
+        this.refreshDimensions();
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        return super.getDimensions(pose).scale(getSpawnScale());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -112,6 +153,11 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
 
+        // Natural Driftwhales vary in size (never smaller than the base size).
+        // Synced to clients + saved to NBT so it persists across reloads.
+        float scale = Mth.lerp(this.getRandom().nextFloat(), MIN_SPAWN_SCALE, MAX_SPAWN_SCALE);
+        setSpawnScale(scale);
+
         // Natural spawns are chosen from a grounded position for safety; lift into open air
         // so the mob behaves like a sky-swimmer immediately.
         if (spawnType == MobSpawnType.NATURAL || spawnType == MobSpawnType.CHUNK_GENERATION) {
@@ -119,6 +165,20 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         }
 
         return data;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putFloat("SpawnScale", getSpawnScale());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("SpawnScale")) {
+            setSpawnScale(tag.getFloat("SpawnScale"));
+        }
     }
 
     private void liftIntoAir(ServerLevelAccessor level) {
