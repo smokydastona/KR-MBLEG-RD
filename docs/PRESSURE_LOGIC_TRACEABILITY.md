@@ -59,6 +59,38 @@ Progression/village/questline sections in the spec are treated as **optional gui
   - `src/main/java/com/kruemblegard/block/SpiralGearboxBlock.java`
   - `src/main/java/com/kruemblegard/block/PressureClutchBlock.java`
 
+## 4.1) Animation-ready machine BlockEntities (Blockbench workflow)
+- [x] Each Pressure‑Logic machine block has its **own unique Block Entity** (no shared generic machine stub)
+  - Base machine BE (shared behavior, persisted activity sampling, animation accumulator):
+    - `src/main/java/com/kruemblegard/blockentity/CephalariMachineBlockEntity.java`
+  - Machine block entities (one per machine block):
+    - `src/main/java/com/kruemblegard/blockentity/MembranePumpBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureTurbineBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/SpiralGearboxBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/SpiralShaftBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/VentPistonBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/AtmosphericCompressorBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureValveBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/BuoyancyLiftPlatformBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/ConveyorMembraneBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureLoomBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureClutchBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureRegulatorBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureSequencerBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureSensorBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/VortexFunnelBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureRailBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PneumaticCatapultBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/AirLiftTubeBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PressureKilnBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/MembranePressBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/CrystalInfuserBlockEntity.java`
+    - `src/main/java/com/kruemblegard/blockentity/PneumaticSeparatorBlockEntity.java`
+  - BlockEntity registration:
+    - `src/main/java/com/kruemblegard/init/ModBlockEntities.java`
+  - Ticker helper used for machine blocks that do not extend `BaseEntityBlock`:
+    - `src/main/java/com/kruemblegard/util/BlockEntityTickerUtil.java`
+
 ## 5) Block family — base machinery set
 ### 5.A Pressure Turbine
 - [x] Has `rotation_speed` (0–5), samples input pressure, consumes pressure proportional to speed, schedules ticks

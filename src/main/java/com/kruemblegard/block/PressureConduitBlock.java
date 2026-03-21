@@ -6,6 +6,7 @@ import com.kruemblegard.pressurelogic.PressurePortMode;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.pressurelogic.network.PressureNetworkManager;
 import com.kruemblegard.pressurelogic.network.PressureNetworkSnapshot;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -129,6 +130,6 @@ public class PressureConduitBlock extends BaseEntityBlock {
             return null;
         }
 
-        return BaseEntityBlock.createTickerHelper(type, com.kruemblegard.init.ModBlockEntities.PRESSURE_CONDUIT.get(), PressureConduitBlockEntity::tick);
+        return BlockEntityTickerUtil.createTickerHelper(type, com.kruemblegard.init.ModBlockEntities.PRESSURE_CONDUIT.get(), PressureConduitBlockEntity::tick);
     }
 }

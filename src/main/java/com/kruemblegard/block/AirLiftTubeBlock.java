@@ -1,7 +1,10 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.AirLiftTubeBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.pressurelogic.PressureUtil;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +15,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -19,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import org.jetbrains.annotations.Nullable;
 
-public class AirLiftTubeBlock extends Block {
+public class AirLiftTubeBlock extends Block implements EntityBlock {
     public enum TubeMode implements StringRepresentable {
         UP("up"),
         DOWN("down"),
@@ -69,6 +76,19 @@ public class AirLiftTubeBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED, TUBE_MODE, FLOW_RATE);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new AirLiftTubeBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.AIR_LIFT_TUBE.get(), AirLiftTubeBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.AIR_LIFT_TUBE.get(), AirLiftTubeBlockEntity::serverTick);
     }
 
     @Override

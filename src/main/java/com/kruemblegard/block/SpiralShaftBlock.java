@@ -1,5 +1,8 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.SpiralShaftBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 import com.kruemblegard.rotationlogic.RotationUtil;
 
 import net.minecraft.core.BlockPos;
@@ -8,14 +11,18 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import org.jetbrains.annotations.Nullable;
 
-public class SpiralShaftBlock extends RotatedPillarBlock {
+public class SpiralShaftBlock extends RotatedPillarBlock implements EntityBlock {
     public static final IntegerProperty ROTATION_SPEED = IntegerProperty.create("rotation_speed", 0, 5);
 
     public SpiralShaftBlock(Properties properties) {
@@ -28,6 +35,19 @@ public class SpiralShaftBlock extends RotatedPillarBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS, ROTATION_SPEED);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new SpiralShaftBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.SPIRAL_SHAFT.get(), SpiralShaftBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.SPIRAL_SHAFT.get(), SpiralShaftBlockEntity::serverTick);
     }
 
     @Override

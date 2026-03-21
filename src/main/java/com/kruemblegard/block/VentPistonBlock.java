@@ -1,7 +1,10 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.VentPistonBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.pressurelogic.PressureUtil;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,9 +14,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -22,7 +29,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-public class VentPistonBlock extends HorizontalDirectionalBlock {
+public class VentPistonBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty EXTENSION = IntegerProperty.create("extension", 0, 16);
 
@@ -50,6 +57,19 @@ public class VentPistonBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, EXTENSION);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new VentPistonBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.VENT_PISTON.get(), VentPistonBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.VENT_PISTON.get(), VentPistonBlockEntity::serverTick);
     }
 
     @Override

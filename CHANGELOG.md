@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1304 (2026-03-21)
+- Feat(pressure_logic): add unique per-machine BlockEntities across the full Pressure-Logic machinery set (animation-ready; no shared stub).
+- Refactor(pressure_logic): introduce `CephalariMachineBlockEntity` base for shared persistent activity sampling + animation accumulator.
+- Fix(build/forge): replace uses of Mojang's protected `BaseEntityBlock.createTickerHelper` with a public helper.
+
 ## 1.0.1303 (2026-03-21)
 - Docs(pressure_logic): reclassify progression/village/questline sections as optional guidance (not mandatory runtime worldgen/NPC/quest systems).
 - Docs(pressure_logic): align traceability checklist to reflect the optional classification.

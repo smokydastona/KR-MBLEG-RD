@@ -1,7 +1,10 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.ConveyorMembraneBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.rotationlogic.RotationUtil;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,9 +14,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -24,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ConveyorMembraneBlock extends HorizontalDirectionalBlock {
+public class ConveyorMembraneBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
@@ -40,6 +47,19 @@ public class ConveyorMembraneBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, PULSE_PHASE);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ConveyorMembraneBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.CONVEYOR_MEMBRANE.get(), ConveyorMembraneBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.CONVEYOR_MEMBRANE.get(), ConveyorMembraneBlockEntity::serverTick);
     }
 
     @Override

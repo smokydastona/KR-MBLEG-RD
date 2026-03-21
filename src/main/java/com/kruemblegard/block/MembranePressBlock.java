@@ -1,8 +1,11 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.MembranePressBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.rotationlogic.RotationUtil;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,15 +17,21 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
-public class MembranePressBlock extends Block {
+public class MembranePressBlock extends Block implements EntityBlock {
     public static final BooleanProperty POWERED = net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
     public static final IntegerProperty PRESS_PHASE = IntegerProperty.create("press_phase", 0, 3);
 
@@ -36,6 +45,19 @@ public class MembranePressBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED, PRESS_PHASE);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new MembranePressBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.MEMBRANE_PRESS.get(), MembranePressBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.MEMBRANE_PRESS.get(), MembranePressBlockEntity::serverTick);
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.kruemblegard.block;
 
+import com.kruemblegard.blockentity.PressureRegulatorBlockEntity;
+import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
 import com.kruemblegard.pressurelogic.PressureUtil;
+import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,15 +15,21 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class PressureRegulatorBlock extends HorizontalDirectionalBlock {
+import org.jetbrains.annotations.Nullable;
+
+public class PressureRegulatorBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty SIGNAL = IntegerProperty.create("signal", 0, 15);
 
@@ -42,6 +51,19 @@ public class PressureRegulatorBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, SIGNAL);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new PressureRegulatorBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_REGULATOR.get(), PressureRegulatorBlockEntity::clientTick);
+        }
+        return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_REGULATOR.get(), PressureRegulatorBlockEntity::serverTick);
     }
 
     @Override
