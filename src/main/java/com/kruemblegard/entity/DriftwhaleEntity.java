@@ -61,6 +61,7 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 20.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.16D)
+            .add(Attributes.FLYING_SPEED, 0.20D)
             .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
