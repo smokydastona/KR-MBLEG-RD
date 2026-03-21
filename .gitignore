@@ -35,6 +35,7 @@ docs/**
 !docs/MAINTAINER_RUNBOOK.md
 !docs/SOUND_CREDITS.md
 !docs/SOUND_TRACKING.md
+!docs/mob_bible.md
 
 
 # Local examples / reference content (not committed)
@@ -45,6 +46,7 @@ tools/**
 !tools/*.ps1
 !tools/*.md
 !tools/generate_cephalari_engineering_assets.py
+!tools/generate_mob_bible.py
 !tools/compare_profession_geo_to_spiral_strider.py
 
 

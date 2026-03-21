@@ -7,6 +7,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Documentation
 - Block material rules + full block inventory: `docs/Block_Material_Bible.md`
 - Item material rules + full item inventory: `docs/Item_Material_Bible.md`
+- Mob roster + audit-driven TODOs: `docs/mob_bible.md`
 - Sound rules + full sound inventory (with exact length requirements): `docs/Sound_Bible.md`
 - Sound design intent + current asset tracker: `docs/SOUND_TRACKING.md`
 - After registry changes, refresh the generated inventories by running: `tools/generate_material_bibles.ps1`

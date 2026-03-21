@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1281 (2026-03-21)
+- Docs(mobs): add `docs/mob_bible.md`, an audit-driven mob roster + TODO tracker.
+- Tools(docs): add `tools/generate_mob_bible.ps1` + `tools/generate_mob_bible.py` to regenerate the Mob Bible from the latest mob audit report.
+
 ## 1.0.1280 (2026-03-21)
 - Refactor(pebble_wren/assets): replace geo with an upright “display bird” silhouette (crest + fan tail) and update animations to match.
 - Feat(pebble_wren): add a fan-tail display animation triggered when performing the ore-find ping.
