@@ -7,6 +7,7 @@ import com.kruemblegard.entity.projectile.KruemblegardPhase2BoltEntity;
 import com.kruemblegard.entity.projectile.KruemblegardPhase3MeteorEntity;
 import com.kruemblegard.entity.projectile.KruemblegardPhase4BeamBoltEntity;
 import com.kruemblegard.entity.projectile.MeteorArmEntity;
+import com.kruemblegard.entity.projectile.GraveCairnStoneProjectileEntity;
 import com.kruemblegard.entity.projectile.RuneBoltEntity;
 import com.kruemblegard.entity.projectile.TraprockStoneProjectileEntity;
 import net.minecraft.world.entity.EntityType;
@@ -76,6 +77,14 @@ public class ModProjectileEntities {
                             .updateInterval(1)
                             .build("traprock_stone"));
 
+    public static final RegistryObject<EntityType<GraveCairnStoneProjectileEntity>> GRAVE_CAIRN_STONE =
+            PROJECTILES.register("grave_cairn_stone",
+                    () -> EntityType.Builder.<GraveCairnStoneProjectileEntity>of(GraveCairnStoneProjectileEntity::new, MobCategory.MISC)
+                            .sized(0.4f, 0.4f)
+                            .clientTrackingRange(64)
+                            .updateInterval(1)
+                            .build("grave_cairn_stone"));
+
     public static final RegistryObject<EntityType<KruemblegardPhase4BeamBoltEntity>> PHASE4_BEAM_BOLT =
             PROJECTILES.register("kruemblegard_phase4_beam_bolt",
                     () -> EntityType.Builder.<KruemblegardPhase4BeamBoltEntity>of(KruemblegardPhase4BeamBoltEntity::new, MobCategory.MISC)
@@ -83,4 +92,8 @@ public class ModProjectileEntities {
                             .clientTrackingRange(64)
                             .updateInterval(1)
                             .build("kruemblegard_phase4_beam_bolt"));
+
+        public static EntityType<GraveCairnStoneProjectileEntity> graveCairnStoneType() {
+                return GRAVE_CAIRN_STONE.get();
+        }
 }

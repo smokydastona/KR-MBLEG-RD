@@ -228,8 +228,12 @@ Keep it up to date whenever you add/remove/rename content.
     - Texture: `assets/kruemblegard/textures/entity/mossback_tortoise.png`
 
 - **Grave Cairn** (`grave_cairn`)
-  - Hostile stone brute (GeckoLib-rendered).
-  - Natural spawns: Strata Collapse (`#kruemblegard:strata_collapse`).
+  - Hostile stone brute (GeckoLib-rendered) with a dormant ambush state.
+  - Dormant behavior: spawns dormant (no AI) until a player gets close, damages it, or breaks blocks nearby.
+  - Combat: melee, close-range slam knockback, and a mid-range stone toss.
+  - Summoning: summons Pebblits in waves at 75% / 50% / 25% health.
+  - Final stand: below ~20% health, gains speed/knockback resistance and more aggressively buffs nearby Pebblits.
+  - Natural spawns: Strata Collapse (`#kruemblegard:strata_collapse`) at high altitude (Wayfall-only; Y >= 96).
   - Drops Cobblestone/Bones (and occasional Iron Nuggets).
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/grave_cairn.geo.json`

@@ -1,6 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModItems;
@@ -26,11 +27,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -165,5 +168,31 @@ public final class CommonForgeEvents {
 
         zombie.goalSelector.addGoal(4, new RemoveBlockGoal(ModBlocks.SCARALON_EGG.get(), zombie, 1.0D, 3));
         zombie.getPersistentData().putBoolean(NBT_SMASH_SCARALON_EGGS, true);
+    }
+
+    @SubscribeEvent
+    public static void onWakeDormantGraveCairnsOnBlockBreak(BlockEvent.BreakEvent event) {
+        if (!(event.getLevel() instanceof ServerLevel level)) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        if (player == null || player.isSpectator()) {
+            return;
+        }
+
+        BlockPos pos = event.getPos();
+        int r = 8;
+        AABB box = new AABB(pos).inflate(r);
+
+        for (GraveCairnEntity cairn : level.getEntitiesOfClass(GraveCairnEntity.class, box)) {
+            if (!cairn.isAlive()) {
+                continue;
+            }
+
+            if (cairn.isDormant()) {
+                cairn.wakeFromDisturbance(player);
+            }
+        }
     }
 }

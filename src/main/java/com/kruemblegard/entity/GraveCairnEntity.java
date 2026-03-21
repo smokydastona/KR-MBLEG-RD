@@ -1,8 +1,21 @@
 package com.kruemblegard.entity;
 
+import java.util.Optional;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.kruemblegard.entity.projectile.GraveCairnStoneProjectileEntity;
+import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.registry.ModProjectileEntities;
+
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -13,7 +26,16 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -24,6 +46,19 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class GraveCairnEntity extends Monster implements GeoEntity {
+
+    private static final String NBT_DORMANT = "Dormant";
+    private static final String NBT_WAVE_MASK = "WaveMask";
+    private static final String NBT_FINAL_STAND = "FinalStand";
+
+    private static final EntityDataAccessor<Boolean> DORMANT =
+        SynchedEntityData.defineId(GraveCairnEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Byte> WAVE_MASK =
+        SynchedEntityData.defineId(GraveCairnEntity.class, EntityDataSerializers.BYTE);
+
+    private static final EntityDataAccessor<Boolean> FINAL_STAND =
+        SynchedEntityData.defineId(GraveCairnEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.grave_cairn.idle");
@@ -39,14 +74,83 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
 
     private static final int ATTACK_ANIM_TICKS = 10;
 
+    private static final int WAKE_RADIUS_BLOCKS = 8;
+    private static final double PEBBLIT_SYNERGY_RADIUS = 12.0D;
+    private static final int SUMMON_BUFF_TICKS = 20 * 30;
+
+    private static final int SLAM_WINDUP_TICKS = 18;
+    private static final int SLAM_COOLDOWN_TICKS = 60;
+    private static final float SLAM_RADIUS = 3.25F;
+
+    private static final int TOSS_WINDUP_TICKS = 14;
+    private static final int TOSS_COOLDOWN_TICKS = 70;
+
+    private static final int FINAL_STAND_HEALTH_PERCENT = 20;
+
+    private static final AttributeModifier FINAL_STAND_SPEED_BOOST = new AttributeModifier(
+        "kruemblegard:grave_cairn_final_stand_speed",
+        0.30D,
+        AttributeModifier.Operation.MULTIPLY_TOTAL
+    );
+
+    private static final AttributeModifier FINAL_STAND_KB_RESIST = new AttributeModifier(
+        "kruemblegard:grave_cairn_final_stand_kb_resist",
+        0.50D,
+        AttributeModifier.Operation.ADDITION
+    );
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private int attackAnimTicks;
     private boolean wasSwinging;
 
+    private int slamCooldownTicks;
+    private int slamWindupTicks;
+
+    private int tossCooldownTicks;
+    private int tossWindupTicks;
+
     public GraveCairnEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
         this.setMaxUpStep(1.0F);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DORMANT, true);
+        this.entityData.define(WAVE_MASK, (byte) 0);
+        this.entityData.define(FINAL_STAND, false);
+    }
+
+    public boolean isDormant() {
+        return this.entityData.get(DORMANT);
+    }
+
+    private boolean isFinalStand() {
+        return this.entityData.get(FINAL_STAND);
+    }
+
+    public void wakeFromDisturbance(@Nullable Player player) {
+        if (level().isClientSide) {
+            return;
+        }
+
+        if (!isDormant()) {
+            return;
+        }
+
+        this.entityData.set(DORMANT, false);
+        this.setNoAi(false);
+        this.setPersistenceRequired();
+
+        this.playSound(SoundEvents.STONE_PLACE, 0.8F, 0.7F + (this.random.nextFloat() * 0.2F));
+
+        if (level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF, getX(), getY(0.6D), getZ(), 14, 0.4D, 0.25D, 0.4D, 0.02D);
+        }
+
+        // Player parameter is intentionally unused right now (reserved for future criteria triggers).
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -62,6 +166,24 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
     public void tick() {
         super.tick();
 
+        if (!level().isClientSide) {
+            if (isDormant()) {
+                this.setNoAi(true);
+                this.getNavigation().stop();
+                this.setDeltaMovement(0.0D, this.getDeltaMovement().y, 0.0D);
+                this.setTarget(null);
+
+                Player nearby = level().getNearestPlayer(this, WAKE_RADIUS_BLOCKS);
+                if (nearby != null && !nearby.isSpectator()) {
+                    wakeFromDisturbance(nearby);
+                }
+            } else {
+                this.setNoAi(false);
+                tickSummoningAndSynergy();
+                tickCombatActions();
+            }
+        }
+
         boolean swingingNow = this.swinging;
         if (swingingNow && !this.wasSwinging) {
             this.attackAnimTicks = ATTACK_ANIM_TICKS;
@@ -71,6 +193,216 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
         if (this.attackAnimTicks > 0) {
             --this.attackAnimTicks;
         }
+    }
+
+    private void tickSummoningAndSynergy() {
+        if (isFinalStand()) {
+            applyPebblitSynergy();
+            return;
+        }
+
+        float max = getMaxHealth();
+        if (max <= 0.0F) {
+            return;
+        }
+
+        float percent = (getHealth() / max) * 100.0F;
+
+        if (percent <= FINAL_STAND_HEALTH_PERCENT) {
+            enterFinalStand();
+            applyPebblitSynergy();
+            return;
+        }
+
+        byte mask = this.entityData.get(WAVE_MASK);
+
+        if (percent <= 25.0F && (mask & 0x04) == 0) {
+            summonPebblitWave();
+            this.entityData.set(WAVE_MASK, (byte) (mask | 0x04));
+        } else if (percent <= 50.0F && (mask & 0x02) == 0) {
+            summonPebblitWave();
+            this.entityData.set(WAVE_MASK, (byte) (mask | 0x02));
+        } else if (percent <= 75.0F && (mask & 0x01) == 0) {
+            summonPebblitWave();
+            this.entityData.set(WAVE_MASK, (byte) (mask | 0x01));
+        }
+
+        applyPebblitSynergy();
+    }
+
+    private void enterFinalStand() {
+        if (isFinalStand()) {
+            return;
+        }
+
+        this.entityData.set(FINAL_STAND, true);
+
+        Optional.ofNullable(getAttribute(Attributes.MOVEMENT_SPEED))
+            .filter(attr -> !attr.hasModifier(FINAL_STAND_SPEED_BOOST))
+            .ifPresent(attr -> attr.addTransientModifier(FINAL_STAND_SPEED_BOOST));
+
+        Optional.ofNullable(getAttribute(Attributes.KNOCKBACK_RESISTANCE))
+            .filter(attr -> !attr.hasModifier(FINAL_STAND_KB_RESIST))
+            .ifPresent(attr -> attr.addTransientModifier(FINAL_STAND_KB_RESIST));
+
+        this.playSound(SoundEvents.STONE_BREAK, 0.9F, 0.6F + (this.random.nextFloat() * 0.15F));
+
+        if (level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.CRIT, getX(), getY(0.9D), getZ(), 20, 0.5D, 0.45D, 0.5D, 0.05D);
+        }
+    }
+
+    private void summonPebblitWave() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        this.playSound(SoundEvents.STONE_FALL, 1.0F, 0.65F + (this.random.nextFloat() * 0.15F));
+
+        BlockParticleOption blockBurst = new BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK, Blocks.COBBLESTONE.defaultBlockState());
+        serverLevel.sendParticles(blockBurst, getX(), getY(0.9D), getZ(), 24, 0.55D, 0.4D, 0.55D, 0.15D);
+
+        int count = 2 + this.random.nextInt(3);
+        LivingEntity currentTarget = getTarget();
+
+        for (int i = 0; i < count; i++) {
+            PebblitEntity pebblit = ModEntities.PEBBLIT.get().create(serverLevel);
+            if (pebblit == null) {
+                continue;
+            }
+
+            double angle = (Math.PI * 2.0D) * (i / (double) count);
+            double radius = 0.7D + (this.random.nextDouble() * 0.5D);
+            double x = getX() + (Math.cos(angle) * radius);
+            double z = getZ() + (Math.sin(angle) * radius);
+            double y = getY() + 0.15D;
+
+            pebblit.moveTo(x, y, z, this.getYRot(), 0.0F);
+            pebblit.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, SUMMON_BUFF_TICKS, 0, true, false, true));
+            pebblit.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, SUMMON_BUFF_TICKS, 0, true, false, true));
+
+            if (currentTarget != null) {
+                pebblit.setTarget(currentTarget);
+            }
+
+            serverLevel.addFreshEntity(pebblit);
+
+            BlockParticleOption dust = new BlockParticleOption(net.minecraft.core.particles.ParticleTypes.FALLING_DUST, Blocks.COBBLESTONE.defaultBlockState());
+            serverLevel.sendParticles(dust, x, y + 0.1D, z, 8, 0.15D, 0.15D, 0.15D, 0.03D);
+        }
+    }
+
+    private void applyPebblitSynergy() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        if ((this.tickCount % 40) != 0) {
+            return;
+        }
+
+        LivingEntity currentTarget = getTarget();
+
+        for (PebblitEntity pebblit : serverLevel.getEntitiesOfClass(PebblitEntity.class, getBoundingBox().inflate(PEBBLIT_SYNERGY_RADIUS))) {
+            if (!pebblit.isAlive()) {
+                continue;
+            }
+
+            pebblit.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0, true, false, true));
+
+            if (currentTarget != null && pebblit.getTarget() == null) {
+                pebblit.setTarget(currentTarget);
+            }
+        }
+    }
+
+    private void tickCombatActions() {
+        LivingEntity target = getTarget();
+        if (target == null || !target.isAlive()) {
+            return;
+        }
+
+        if (slamCooldownTicks > 0) {
+            slamCooldownTicks--;
+        }
+        if (tossCooldownTicks > 0) {
+            tossCooldownTicks--;
+        }
+
+        if (slamWindupTicks > 0) {
+            slamWindupTicks--;
+            if (slamWindupTicks == 5) {
+                performSlam();
+            }
+            return;
+        }
+
+        if (tossWindupTicks > 0) {
+            tossWindupTicks--;
+            if (tossWindupTicks == 4) {
+                performToss(target);
+            }
+            return;
+        }
+
+        double distSqr = this.distanceToSqr(target);
+        if (slamCooldownTicks <= 0 && distSqr <= (3.6D * 3.6D)) {
+            slamWindupTicks = SLAM_WINDUP_TICKS;
+            slamCooldownTicks = SLAM_COOLDOWN_TICKS;
+            this.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
+            this.playSound(SoundEvents.STONE_STEP, 0.6F, 0.6F);
+            return;
+        }
+
+        if (tossCooldownTicks <= 0 && distSqr >= (6.0D * 6.0D) && distSqr <= (14.0D * 14.0D) && this.hasLineOfSight(target)) {
+            tossWindupTicks = TOSS_WINDUP_TICKS;
+            tossCooldownTicks = TOSS_COOLDOWN_TICKS;
+            this.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
+            this.playSound(SoundEvents.STONE_PLACE, 0.6F, 0.7F);
+        }
+    }
+
+    private void performSlam() {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        this.playSound(SoundEvents.ANVIL_LAND, 0.55F, 0.95F);
+        serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD, getX(), getY(), getZ(), 12, 0.45D, 0.10D, 0.45D, 0.02D);
+
+        AABB area = getBoundingBox().inflate(SLAM_RADIUS, 0.75D, SLAM_RADIUS);
+        for (LivingEntity victim : serverLevel.getEntitiesOfClass(LivingEntity.class, area, e -> e != this && e.isAlive() && !e.isAlliedTo(this))) {
+            victim.hurt(this.damageSources().mobAttack(this), 6.0F);
+
+            Vec3 push = victim.position().subtract(this.position());
+            double dx = push.x;
+            double dz = push.z;
+            double len = Math.max(0.001D, Math.sqrt(dx * dx + dz * dz));
+            double strength = 0.9D;
+            victim.push((dx / len) * strength, 0.25D, (dz / len) * strength);
+        }
+    }
+
+    private void performToss(LivingEntity target) {
+        if (!(level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        GraveCairnStoneProjectileEntity proj = new GraveCairnStoneProjectileEntity(ModProjectileEntities.graveCairnStoneType(), serverLevel, this);
+        proj.setPos(getX(), getEyeY() - 0.1D, getZ());
+
+        double tx = target.getX();
+        double ty = target.getY(0.33D);
+        double tz = target.getZ();
+
+        double dx = tx - getX();
+        double dy = ty - proj.getY();
+        double dz = tz - getZ();
+
+        proj.shoot(dx, dy, dz, 1.05F, 1.0F);
+        serverLevel.addFreshEntity(proj);
+
+        serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.CRIT, proj.getX(), proj.getY(), proj.getZ(), 6, 0.1D, 0.1D, 0.1D, 0.03D);
     }
 
     @Override
@@ -96,6 +428,14 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
     }
 
     @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        if (isDormant()) {
+            return null;
+        }
+        return SoundEvents.STONE_STEP;
+    }
+
+    @Override
     protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         this.playSound(net.minecraft.sounds.SoundEvents.STONE_STEP, 0.25F, 0.9F + (this.random.nextFloat() * 0.2F));
     }
@@ -118,5 +458,39 @@ public class GraveCairnEntity extends Monster implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (!level().isClientSide && isDormant()) {
+            wakeFromDisturbance(source.getEntity() instanceof Player p ? p : null);
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean(NBT_DORMANT, isDormant());
+        tag.putByte(NBT_WAVE_MASK, this.entityData.get(WAVE_MASK));
+        tag.putBoolean(NBT_FINAL_STAND, isFinalStand());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains(NBT_DORMANT)) {
+            this.entityData.set(DORMANT, tag.getBoolean(NBT_DORMANT));
+        }
+
+        if (tag.contains(NBT_WAVE_MASK)) {
+            this.entityData.set(WAVE_MASK, tag.getByte(NBT_WAVE_MASK));
+        }
+
+        if (tag.contains(NBT_FINAL_STAND)) {
+            this.entityData.set(FINAL_STAND, tag.getBoolean(NBT_FINAL_STAND));
+        }
     }
 }

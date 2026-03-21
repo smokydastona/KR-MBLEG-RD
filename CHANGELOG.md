@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1273 (2026-03-21)
+- Feat(grave_cairn): implement dormant ambush behavior (spawns dormant; wakes on proximity, damage, or nearby block breaks).
+- Feat(grave_cairn): add slam AoE knockback and mid-range stone toss attack.
+- Feat(grave_cairn): add Pebblit summoning waves at 75%/50%/25% health and a final-stand buff state.
+- Feat(spawns): restrict Grave Cairn natural spawning to Wayfall high altitude (Y >= 96).
+- Feat(projectiles): add `grave_cairn_stone` projectile (registry + renderer + `en_us`).
+
 ## 1.0.1269 (2026-03-21)
 - Fix(unkeeper/render): add full-bright eye-glow rendering layer (RenderType.eyes) and make Unkeeper renderer use cutout + safe packed light.
 - Fix(unkeeper/assets): ensure `eye_glow_*` cubes have thickness so they can render.

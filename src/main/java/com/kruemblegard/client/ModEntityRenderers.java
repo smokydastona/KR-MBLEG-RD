@@ -34,5 +34,8 @@ public class ModEntityRenderers {
 
         event.registerEntityRenderer(ModProjectileEntities.TRAPROCK_STONE.get(),
                 ctx -> new GenericProjectileRenderer<>(ctx, 0.5f));
+
+        event.registerEntityRenderer(ModProjectileEntities.GRAVE_CAIRN_STONE.get(),
+                ctx -> new GenericProjectileRenderer<>(ctx, 0.5f));
     }
 }

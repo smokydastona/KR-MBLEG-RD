@@ -250,7 +250,7 @@ public final class CommonModEvents {
             ModEntities.GRAVE_CAIRN.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-            CommonModEvents::canSpawnOnSolidGround,
+            CommonModEvents::canSpawnGraveCairn,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }
@@ -382,6 +382,25 @@ public final class CommonModEvents {
             return false;
         }
         return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
+    }
+
+    private static boolean canSpawnGraveCairn(
+            net.minecraft.world.entity.EntityType<? extends Monster> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        if (!level.getLevel().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return false;
+        }
+
+        // Cairns should be high-altitude threats (avoid low-Y void spawns and early-game areas).
+        if (pos.getY() < 96) {
+            return false;
+        }
+
+        return canSpawnOnSolidGround(type, level, spawnType, pos, random);
     }
 
     private static boolean canSpawnMoogloom(
