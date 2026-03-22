@@ -88,6 +88,7 @@ Pacing note:
 Pacing note:
 - Fuel is compressed into a shorter, more meaningful pressure runtime so one coal item supports a work session instead of acting like a near-infinite battery.
 - That work session is now tuned to realistically keep an early turbine-plus-loom loop alive long enough to produce progression parts instead of collapsing under rotation upkeep alone.
+- Practical target: a stable starter loop backed by one coal should be able to produce about 2 Scarsteel ingots, around 2 Bio-Ceramic crafts, or a larger handful of Coral Fiber outputs depending on what the player feeds into the loom.
 
 ### C. Vent Piston (Soft‑Motion Actuator)
 **Role:** Smooth, organic movement
@@ -156,7 +157,8 @@ Progression note:
 - Player automation
 
 Pacing note:
-- Scarsteel forging is intentionally more expensive than basic weaving, but now sits in range for a short Thermo-Condenser-powered production window instead of demanding late-game surplus pressure.
+- Coral Fiber is the low-cost throughput recipe, Bio-Ceramic is the mid-tier materials recipe, and Scarsteel forging is the expensive progression recipe.
+- Scarsteel forging is still more expensive than basic weaving, but now sits in range for a short Thermo-Condenser-powered production window instead of demanding late-game surplus pressure.
 
 ### H. Conveyor Membranes
 **Role:** Organic conveyor belts

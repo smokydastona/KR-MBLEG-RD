@@ -26,7 +26,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
 - **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
 - **Cephalari Golem**: pressure-powered village guardian that shuts down when depressurized.
-- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + first-pass mechanical rotation backbone) with tiered pressure generation progression: manual `Hand Bellows`, fuel-burning `Thermo-Condenser`, then late-game `Atmospheric Compressor`; early turbine upkeep and Pressure Loom Scarsteel forging are now tuned around short fuel-powered work sessions, the compressor has to spin up from live conduit pressure outside Wayfall, and Scarsteel is forged through Pressure-Logic machinery instead of direct hand crafting.
+- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + first-pass mechanical rotation backbone) with tiered pressure generation progression: manual `Hand Bellows`, fuel-burning `Thermo-Condenser`, then late-game `Atmospheric Compressor`; an early coal-backed starter loop is now tuned to yield roughly 2 `scarsteel_ingot` crafts or a larger batch of basic loom parts, the compressor has to spin up from live conduit pressure outside Wayfall, and Scarsteel is forged through Pressure-Logic machinery instead of direct hand crafting.
 
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 

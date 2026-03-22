@@ -186,7 +186,7 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
 
             int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
             int pressureLevel = PressureUtil.pressureToLevel(pressure);
-            int cost = Math.max(2, 6 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
+            int cost = Math.max(1, 4 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
             if (pressure < cost) {
                 return;
             }
@@ -228,7 +228,7 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
         if (stoneEntity != null && resinEntity != null) {
             int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
             int pressureLevel = PressureUtil.pressureToLevel(pressure);
-            int cost = Math.max(4, 12 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
+            int cost = Math.max(3, 8 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
             if (pressure < cost) {
                 return;
             }
@@ -284,7 +284,7 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
 
         int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
         int pressureLevel = PressureUtil.pressureToLevel(pressure);
-        int cost = Math.max(6, 12 + (pressureLevel <= 1 ? 3 : 0) - rotation);
+        int cost = Math.max(5, 9 + (pressureLevel <= 1 ? 2 : 0) - rotation);
         if (pressure < cost) {
             return;
         }

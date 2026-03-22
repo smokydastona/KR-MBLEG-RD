@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1333 (2026-03-22)
+- Balance(pressure_logic): lower Pressure Loom costs for `coral_fiber`, `bio_ceramic`, and `scarsteel_ingot` so the starter production loop has a coherent shared session budget.
+- Balance(pressure_logic): tune the early coal-backed loop toward roughly 2 Scarsteel crafts per stable session, with cheaper Coral Fiber and Bio-Ceramic outputs as the lower-tier alternatives.
+
 ## 1.0.1332 (2026-03-22)
 - Balance(pressure_logic): reduce `pressure_turbine` upkeep so early rotation loops do not consume an entire Thermo-Condenser session before the attached machine can work.
 - Balance(pressure_logic): lower Pressure Loom `scarsteel_ingot` forging pressure cost so Scarsteel production lands inside the intended mid-tier fuel window.
