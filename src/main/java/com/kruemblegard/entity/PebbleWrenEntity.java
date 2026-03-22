@@ -119,6 +119,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double PERCH_CALL_RESPONSE_RADIUS = 6.0D;
     private static final int MIN_PERCH_SOCIAL_COOLDOWN = 20 * 4;
     private static final int MAX_PERCH_SOCIAL_COOLDOWN = 20 * 9;
+    private static final int MAX_PERCH_CALL_CHAIN_DEPTH = 1;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
@@ -333,7 +334,15 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             && this.getNavigation().isDone();
     }
 
-    private void receivePerchCall() {
+    private float getPerchCallPitch(boolean subdued) {
+        float variantOffset = (this.getTextureVariant() - 1) / (float) (TEXTURE_VARIANTS - 1);
+        float basePitch = subdued ? 1.05F : 1.12F;
+        float variantPitch = (variantOffset - 0.5F) * 0.12F;
+        float randomPitch = (this.random.nextFloat() - 0.5F) * (subdued ? 0.08F : 0.12F);
+        return basePitch + variantPitch + randomPitch;
+    }
+
+    private void receivePerchCall(int chainDepth) {
         if (!this.canAnswerPerchCall() || this.perchSocialCooldownTicks > (MIN_PERCH_SOCIAL_COOLDOWN / 2)) {
             return;
         }
@@ -346,13 +355,17 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.level().broadcastEntityEvent(this, ENTITY_EVENT_PERCH_FLOURISH);
 
         if (this.random.nextBoolean()) {
-            this.playSound(SoundEvents.PARROT_AMBIENT, 0.28F, 1.2F + this.random.nextFloat() * 0.2F);
+            this.playSound(SoundEvents.PARROT_AMBIENT, 0.24F, this.getPerchCallPitch(true));
+        }
+
+        if (chainDepth < MAX_PERCH_CALL_CHAIN_DEPTH && this.random.nextInt(5) == 0) {
+            this.broadcastPerchCall(chainDepth + 1);
         }
 
         this.perchSocialCooldownTicks = 20 + this.random.nextInt(20);
     }
 
-    private void broadcastPerchCall() {
+    private void broadcastPerchCall(int chainDepth) {
         AABB scan = this.getBoundingBox().inflate(PERCH_CALL_RESPONSE_RADIUS);
         List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
             PebbleWrenEntity.class,
@@ -361,7 +374,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         );
 
         for (PebbleWrenEntity mate : mates) {
-            mate.receivePerchCall();
+            mate.receivePerchCall(chainDepth);
         }
     }
 
@@ -375,8 +388,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             return;
         }
 
-        this.playSound(SoundEvents.PARROT_AMBIENT, 0.35F, 1.15F + this.random.nextFloat() * 0.25F);
-        this.broadcastPerchCall();
+        this.playSound(SoundEvents.PARROT_AMBIENT, 0.35F, this.getPerchCallPitch(false));
+        this.broadcastPerchCall(0);
 
         if (this.random.nextBoolean()) {
             this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
