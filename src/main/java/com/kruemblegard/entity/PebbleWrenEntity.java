@@ -1,14 +1,21 @@
 package com.kruemblegard.entity;
 
+import java.util.EnumSet;
+import java.util.List;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
@@ -29,6 +36,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.common.Tags;
 
@@ -45,6 +54,14 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
+
+    private static final int TEXTURE_VARIANTS = 14;
+    private static final String NBT_TEXTURE_VARIANT = "TextureVariant";
+
+    private static final EntityDataAccessor<Integer> DATA_TEXTURE_VARIANT = SynchedEntityData.defineId(
+        PebbleWrenEntity.class,
+        EntityDataSerializers.INT
+    );
 
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.idle");
@@ -65,12 +82,42 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final byte ENTITY_EVENT_DISPLAY = 15;
     private static final int DISPLAY_ANIM_TICKS = 20 * 3;
 
+    private static final double FLOCK_SCAN_RADIUS = 14.0D;
+    private static final double FLOCK_RETURN_DISTANCE = 12.0D;
+    private static final double FLOCK_MAX_WANDER_RADIUS = 8.0D;
+
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_TEXTURE_VARIANT, 1);
+    }
+
+    public int getTextureVariant() {
+        int variant = this.entityData.get(DATA_TEXTURE_VARIANT);
+        if (variant < 1) {
+            return 1;
+        }
+        if (variant > TEXTURE_VARIANTS) {
+            return TEXTURE_VARIANTS;
+        }
+        return variant;
+    }
+
+    private void setTextureVariant(int variant) {
+        if (variant < 1) {
+            variant = 1;
+        } else if (variant > TEXTURE_VARIANTS) {
+            variant = TEXTURE_VARIANTS;
+        }
+        this.entityData.set(DATA_TEXTURE_VARIANT, variant);
     }
 
     @Nullable
@@ -84,7 +131,22 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
         this.setOrderedToSit(false);
+        this.setTextureVariant(this.random.nextInt(TEXTURE_VARIANTS) + 1);
         return data;
+    }
+
+    @Override
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt(NBT_TEXTURE_VARIANT, getTextureVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains(NBT_TEXTURE_VARIANT)) {
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -103,9 +165,107 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.1D, Ingredient.of(Items.WHEAT_SEEDS), false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 6.0F, 2.0F, false));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new PebbleWrenFlockCohesionGoal(this));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+    }
+
+    private Vec3 getFlockFocusPoint() {
+        Vec3 focus = this.position();
+
+        AABB scan = this.getBoundingBox().inflate(FLOCK_SCAN_RADIUS);
+        List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive() && !other.isTame()
+        );
+
+        if (mates.isEmpty()) {
+            return focus;
+        }
+
+        double sumX = this.getX();
+        double sumY = this.getY();
+        double sumZ = this.getZ();
+        int count = 1;
+
+        int limit = Math.min(7, mates.size());
+        for (int i = 0; i < limit; i++) {
+            PebbleWrenEntity mate = mates.get(i);
+            sumX += mate.getX();
+            sumY += mate.getY();
+            sumZ += mate.getZ();
+            count++;
+        }
+
+        return new Vec3(sumX / count, sumY / count, sumZ / count);
+    }
+
+    private static final class PebbleWrenFlockCohesionGoal extends net.minecraft.world.entity.ai.goal.Goal {
+        private final PebbleWrenEntity mob;
+        private int retargetTicks;
+
+        private PebbleWrenFlockCohesionGoal(PebbleWrenEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.isTame() || mob.isBaby() || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (mob.getTarget() != null) {
+                return false;
+            }
+
+            if (mob.getNavigation().isInProgress()) {
+                return false;
+            }
+
+            RandomSource random = mob.getRandom();
+            if (random.nextInt(4) != 0) {
+                return false;
+            }
+
+            Vec3 focus = mob.getFlockFocusPoint();
+            return mob.position().distanceToSqr(focus) > (FLOCK_RETURN_DISTANCE * FLOCK_RETURN_DISTANCE);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (mob.isTame() || mob.isBaby() || mob.isOrderedToSit()) {
+                return false;
+            }
+
+            if (mob.getTarget() != null) {
+                return false;
+            }
+
+            Vec3 focus = mob.getFlockFocusPoint();
+            return mob.position().distanceToSqr(focus) > (FLOCK_MAX_WANDER_RADIUS * FLOCK_MAX_WANDER_RADIUS)
+                && mob.getNavigation().isInProgress();
+        }
+
+        @Override
+        public void start() {
+            this.retargetTicks = 0;
+            Vec3 focus = mob.getFlockFocusPoint();
+            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.10D);
+        }
+
+        @Override
+        public void tick() {
+            if (retargetTicks-- > 0) {
+                return;
+            }
+
+            retargetTicks = 20;
+            Vec3 focus = mob.getFlockFocusPoint();
+            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.10D);
+        }
     }
 
     @Override
@@ -119,6 +279,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         if (child == null) {
             return null;
         }
+
+        child.setTextureVariant(this.random.nextInt(TEXTURE_VARIANTS) + 1);
 
         if (this.isTame() && this.getOwnerUUID() != null) {
             child.setOwnerUUID(this.getOwnerUUID());

@@ -11,6 +11,10 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(pebble_wren/assets): update the Pebble Wren renderer texture path after the entity texture reorg (and update docs to match).
 - Revert(compat/create): remove unfinished Create scaffolding.
 
+## 1.0.1326 (2026-03-21)
+- Feat(pebble_wren): wild Pebble Wrens now maintain loose flock cohesion (while still respecting panic/tempt/owner-follow).
+- Feat(pebble_wren/assets): wire Pebble Wren texture variants (1..14) as a synced + persisted appearance.
+
 ## 1.0.1318 (2026-03-22)
 - Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
 - Feat(pressure_logic): empty-hand right-click shows a compact Pressure-Logic status line in the action bar.

@@ -16,7 +16,11 @@ public class PebbleWrenModel extends GeoModel<PebbleWrenEntity> {
 
     @Override
     public ResourceLocation getTextureResource(PebbleWrenEntity animatable) {
-        return new ResourceLocation(Kruemblegard.MOD_ID, "textures/entity/pebble_wren/pebble_wren_1.png");
+        int variant = animatable.getTextureVariant();
+        return new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/pebble_wren/pebble_wren_" + variant + ".png"
+        );
     }
 
     @Override

@@ -290,7 +290,7 @@ Generated: 2026-03-21 14:02:35
 - Classes: Entity: `PebbleWrenEntity` | Renderer: `PebbleWrenRenderer` | Model: `PebbleWrenModel`
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebble_wren.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebble_wren.animation.json`
-- Textures (1): `src/main/resources/assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png`
+- Textures (14): `src/main/resources/assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png` .. `pebble_wren_14.png`
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/pebble_wren.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_pebble_wren_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.pebble_wren` spawnEgg=`item.kruemblegard.pebble_wren_spawn_egg`
