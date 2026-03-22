@@ -231,7 +231,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Geo: `assets/kruemblegard/geo/pebble_wren.geo.json`
     - Animations: `assets/kruemblegard/animations/pebble_wren.animation.json`
     - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/pebble_wren.animation_controllers.json`
-    - Texture: `assets/kruemblegard/textures/entity/pebble_wren.png`
+    - Texture: `assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png`
 
 - **Mossback Tortoise** (`mossback_tortoise`)
   - Slow, armored, breedable grazer (GeckoLib-rendered).

@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1322 (2026-03-22)
+## 1.0.1325 (2026-03-22)
 - Fix(assets/pressure_logic): remove generic stone-cube models; restore per-machine models so no Pressure-Logic blocks render as generic cubes.
 - Fix(assets/pressure_logic): wire machine operating state into blockstate variants so working/non-zero states render `*_active` models (powered/signal/rotation/extension/ratio).
 - Fix(assets/pressure_logic): give `spiral_shaft` unique textures and animate/render `spiral_shaft_active` when `rotation_speed` is non-zero.
+- Fix(pebble_wren/assets): update the Pebble Wren renderer texture path after the entity texture reorg (and update docs to match).
 - Revert(compat/create): remove unfinished Create scaffolding.
 
 ## 1.0.1318 (2026-03-22)
