@@ -104,6 +104,41 @@ public final class PressureUtil {
         }
     }
 
+    public static @Nullable BlockPos resolveInlineConduit(Level level, BlockPos origin, Direction dir) {
+        BlockPos direct = origin.relative(dir);
+        if (!level.isLoaded(direct)) {
+            return null;
+        }
+
+        BlockState directState = level.getBlockState(direct);
+        if (directState.getBlock() instanceof PressureConduitBlock) {
+            return direct;
+        }
+
+        if (directState.getBlock() instanceof PressureValveBlock) {
+            if (!directState.getValue(PressureValveBlock.POWERED)) {
+                return null;
+            }
+
+            Direction valveFacing = directState.getValue(PressureValveBlock.FACING);
+            if (!(dir == valveFacing || dir == valveFacing.getOpposite())) {
+                return null;
+            }
+
+            BlockPos otherSide = direct.relative(dir);
+            if (!level.isLoaded(otherSide)) {
+                return null;
+            }
+
+            BlockState otherState = level.getBlockState(otherSide);
+            if (otherState.getBlock() instanceof PressureConduitBlock) {
+                return otherSide;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Returns a list of conduit positions that are connected for fluid flow from {@code pos}.
      * Supports in-line {@link PressureValveBlock} as a 2-block hop.
@@ -111,35 +146,9 @@ public final class PressureUtil {
     public static List<BlockPos> getConnectedConduits(Level level, BlockPos pos) {
         ArrayList<BlockPos> results = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            BlockPos direct = pos.relative(dir);
-            if (!level.isLoaded(direct)) {
-                continue;
-            }
-            BlockState directState = level.getBlockState(direct);
-            if (directState.getBlock() instanceof PressureConduitBlock) {
-                results.add(direct);
-                continue;
-            }
-
-            // Allow in-line valves to act as a gate between conduits.
-            if (directState.getBlock() instanceof PressureValveBlock) {
-                if (!directState.getValue(PressureValveBlock.POWERED)) {
-                    continue;
-                }
-
-                Direction valveFacing = directState.getValue(PressureValveBlock.FACING);
-                if (!(dir == valveFacing || dir == valveFacing.getOpposite())) {
-                    continue;
-                }
-
-                BlockPos otherSide = direct.relative(dir);
-                if (!level.isLoaded(otherSide)) {
-                    continue;
-                }
-                BlockState otherState = level.getBlockState(otherSide);
-                if (otherState.getBlock() instanceof PressureConduitBlock) {
-                    results.add(otherSide);
-                }
+            BlockPos resolved = resolveInlineConduit(level, pos, dir);
+            if (resolved != null) {
+                results.add(resolved);
             }
         }
         return results;

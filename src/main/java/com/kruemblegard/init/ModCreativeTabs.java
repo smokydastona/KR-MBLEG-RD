@@ -90,6 +90,8 @@ public final class ModCreativeTabs {
 
             // Blocks
             "pressure_conduit",
+            "hand_bellows",
+            "thermo_condenser",
             "membrane_pump",
             "pressure_turbine",
             "spiral_gearbox",
@@ -119,6 +121,8 @@ public final class ModCreativeTabs {
         output.accept(ModItems.BIO_CERAMIC.get());
 
         output.accept(ModItems.PRESSURE_CONDUIT_ITEM.get());
+        output.accept(ModItems.HAND_BELLOWS_ITEM.get());
+        output.accept(ModItems.THERMO_CONDENSER_ITEM.get());
         output.accept(ModItems.MEMBRANE_PUMP_ITEM.get());
         output.accept(ModItems.PRESSURE_TURBINE_ITEM.get());
         output.accept(ModItems.SPIRAL_GEARBOX_ITEM.get());

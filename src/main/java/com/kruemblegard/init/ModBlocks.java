@@ -17,6 +17,7 @@ import com.kruemblegard.block.FranchStairBlock;
 import com.kruemblegard.block.FranchStringBlock;
 import com.kruemblegard.block.FranchTrapDoorBlock;
 import com.kruemblegard.block.FranchWoodBlock;
+import com.kruemblegard.block.HandBellowsBlock;
 import com.kruemblegard.block.KruemblegardCeilingHangingSignBlock;
 import com.kruemblegard.block.KruemblegardStandingSignBlock;
 import com.kruemblegard.block.KruemblegardWallHangingSignBlock;
@@ -36,6 +37,7 @@ import com.kruemblegard.block.PressureValveBlock;
 import com.kruemblegard.block.PressureTurbineBlock;
 import com.kruemblegard.block.SpiralGearboxBlock;
 import com.kruemblegard.block.SpiralShaftBlock;
+import com.kruemblegard.block.ThermoCondenserBlock;
 import com.kruemblegard.block.VentPistonBlock;
 import com.kruemblegard.block.VortexFunnelBlock;
 import com.kruemblegard.block.PyrokelpHeadBlock;
@@ -146,6 +148,25 @@ public final class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(1.8F, 6.0F)
                     .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> HAND_BELLOWS = BLOCKS.register(
+            "hand_bellows",
+            () -> new HandBellowsBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.4F, 4.0F)
+                    .sound(SoundType.WOOD))
+    );
+
+    public static final RegistryObject<Block> THERMO_CONDENSER = BLOCKS.register(
+            "thermo_condenser",
+            () -> new ThermoCondenserBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 8.0F)
+                    .sound(SoundType.STONE)
+                    .lightLevel(state -> state.getValue(ThermoCondenserBlock.LIT) ? 10 : 0))
     );
 
     public static final RegistryObject<Block> MEMBRANE_PUMP = BLOCKS.register(

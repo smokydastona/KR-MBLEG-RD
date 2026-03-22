@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1330 (2026-03-22)
+- Feat(pressure_logic): add tiered pressure generation with `hand_bellows` as the manual starter source and `thermo_condenser` as the burn-fuel mid-tier generator.
+- Change(pressure_logic): turn `membrane_pump` into a directional transfer pump instead of a free pressure source, making the generator tiers matter.
+- Change(items/pressure_logic): move `scarsteel_ingot` behind Pressure-Logic machinery by forging it through the `pressure_loom`.
+- Change(recipes/pressure_logic): gate `thermo_condenser` behind Scarsteel and require `thermo_condenser` in the `atmospheric_compressor` recipe.
+
 ## 1.0.1329 (2026-03-22)
 - Assets(pressure_logic): convert all Pressure-Logic machine block models to unique non-cube machine silhouettes (removes remaining full-cube geometry).
 

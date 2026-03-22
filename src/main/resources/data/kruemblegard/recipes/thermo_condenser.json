@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "SRS",
-    "CHC",
-    "STS"
+    "FCF",
+    "SPS"
   ],
   "key": {
     "S": { "item": "kruemblegard:scarsteel_ingot" },
     "R": { "item": "kruemblegard:runic_ingot" },
+    "F": { "item": "minecraft:furnace" },
     "C": { "item": "kruemblegard:pressure_conduit" },
-    "H": { "item": "minecraft:hopper" },
-    "T": { "item": "kruemblegard:thermo_condenser" }
+    "P": { "item": "kruemblegard:membrane_pump" }
   },
-  "result": { "item": "kruemblegard:atmospheric_compressor" }
+  "result": { "item": "kruemblegard:thermo_condenser" }
 }

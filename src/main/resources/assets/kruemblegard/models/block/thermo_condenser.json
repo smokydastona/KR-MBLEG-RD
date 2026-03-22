@@ -1,0 +1,73 @@
+{
+  "textures": {
+    "up": "kruemblegard:block/pressure_kiln_top",
+    "down": "kruemblegard:block/pressure_kiln_bottom",
+    "north": "kruemblegard:block/pressure_kiln_front",
+    "south": "kruemblegard:block/pressure_kiln_side",
+    "east": "kruemblegard:block/pressure_kiln_side",
+    "west": "kruemblegard:block/pressure_kiln_side",
+    "particle": "kruemblegard:block/pressure_kiln_front"
+  },
+  "elements": [
+    {
+      "from": [1, 0, 1],
+      "to": [15, 8, 15],
+      "faces": {
+        "north": { "texture": "#north" },
+        "south": { "texture": "#south" },
+        "east": { "texture": "#east" },
+        "west": { "texture": "#west" },
+        "up": { "texture": "#up" },
+        "down": { "texture": "#down" }
+      }
+    },
+    {
+      "from": [3, 8, 3],
+      "to": [13, 12, 13],
+      "faces": {
+        "north": { "texture": "#north" },
+        "south": { "texture": "#south" },
+        "east": { "texture": "#east" },
+        "west": { "texture": "#west" },
+        "up": { "texture": "#up" },
+        "down": { "texture": "#down" }
+      }
+    },
+    {
+      "from": [6, 12, 6],
+      "to": [10, 16, 10],
+      "faces": {
+        "north": { "texture": "#north" },
+        "south": { "texture": "#south" },
+        "east": { "texture": "#east" },
+        "west": { "texture": "#west" },
+        "up": { "texture": "#up" },
+        "down": { "texture": "#down" }
+      }
+    },
+    {
+      "from": [5, 2, 0],
+      "to": [11, 7, 1],
+      "faces": {
+        "north": { "texture": "#north" },
+        "south": { "texture": "#north" },
+        "east": { "texture": "#north" },
+        "west": { "texture": "#north" },
+        "up": { "texture": "#up" },
+        "down": { "texture": "#down" }
+      }
+    },
+    {
+      "from": [15, 3, 5],
+      "to": [16, 7, 11],
+      "faces": {
+        "north": { "texture": "#south" },
+        "south": { "texture": "#south" },
+        "east": { "texture": "#south" },
+        "west": { "texture": "#south" },
+        "up": { "texture": "#up" },
+        "down": { "texture": "#down" }
+      }
+    }
+  ]
+}

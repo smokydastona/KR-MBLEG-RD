@@ -21,12 +21,12 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 
 ## Highlights
 - **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
-- **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and mid-game crafting path.
+- **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a Pressure-Logic forging step via the Pressure Loom.
 - **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
 - **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
 - **Cephalari Golem**: pressure-powered village guardian that shuts down when depressurized.
-- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + basic redstone integration + first-pass mechanical rotation backbone) + unique per-machine BlockEntities (animation-ready; no shared generic machine implementation) + `Pressure Conduit`, `Membrane Pump`, `Pressure Turbine`, `Spiral Shaft`, `Spiral Gearbox`, `Vent Piston`, `Atmospheric Compressor`, `Pressure Valve`, `Buoyancy Lift Platform`, `Conveyor Membrane`, `Pressure Loom`, `Pressure Clutch`, `Pressure Regulator`, `Pressure Sequencer`, `Pressure Sensor`, `Vortex Funnel`, `Pressure Rail`, `Pneumatic Catapult`, `Air Lift Tube`, `Pressure Kiln`, `Membrane Press`, `Crystal Infuser`, `Pneumatic Separator` blocks (WIP).
+- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + first-pass mechanical rotation backbone) with tiered pressure generation progression: manual `Hand Bellows`, fuel-burning `Thermo-Condenser`, then late-game `Atmospheric Compressor`; Scarsteel is now forged through Pressure-Logic machinery instead of direct hand crafting.
 
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 

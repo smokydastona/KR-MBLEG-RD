@@ -6,6 +6,7 @@ import com.kruemblegard.blockentity.AtmosphericCompressorBlockEntity;
 import com.kruemblegard.blockentity.BuoyancyLiftPlatformBlockEntity;
 import com.kruemblegard.blockentity.ConveyorMembraneBlockEntity;
 import com.kruemblegard.blockentity.CrystalInfuserBlockEntity;
+import com.kruemblegard.blockentity.HandBellowsBlockEntity;
 import com.kruemblegard.blockentity.MembranePressBlockEntity;
 import com.kruemblegard.blockentity.MembranePumpBlockEntity;
 import com.kruemblegard.blockentity.PneumaticCatapultBlockEntity;
@@ -22,6 +23,7 @@ import com.kruemblegard.blockentity.PressureTurbineBlockEntity;
 import com.kruemblegard.blockentity.PressureValveBlockEntity;
 import com.kruemblegard.blockentity.SpiralGearboxBlockEntity;
 import com.kruemblegard.blockentity.SpiralShaftBlockEntity;
+import com.kruemblegard.blockentity.ThermoCondenserBlockEntity;
 import com.kruemblegard.blockentity.VentPistonBlockEntity;
 import com.kruemblegard.blockentity.VortexFunnelBlockEntity;
 
@@ -42,6 +44,18 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register(
                     "pressure_conduit",
                     () -> BlockEntityType.Builder.of(PressureConduitBlockEntity::new, ModBlocks.PRESSURE_CONDUIT.get()).build(null)
+            );
+
+    public static final RegistryObject<BlockEntityType<HandBellowsBlockEntity>> HAND_BELLOWS =
+            BLOCK_ENTITIES.register(
+                    "hand_bellows",
+                    () -> BlockEntityType.Builder.of(HandBellowsBlockEntity::new, ModBlocks.HAND_BELLOWS.get()).build(null)
+            );
+
+    public static final RegistryObject<BlockEntityType<ThermoCondenserBlockEntity>> THERMO_CONDENSER =
+            BLOCK_ENTITIES.register(
+                    "thermo_condenser",
+                    () -> BlockEntityType.Builder.of(ThermoCondenserBlockEntity::new, ModBlocks.THERMO_CONDENSER.get()).build(null)
             );
 
     public static final RegistryObject<BlockEntityType<MembranePumpBlockEntity>> MEMBRANE_PUMP =

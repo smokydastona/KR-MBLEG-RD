@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,lit=false": { "model": "kruemblegard:block/thermo_condenser" },
+    "facing=east,lit=false": { "model": "kruemblegard:block/thermo_condenser", "y": 90 },
+    "facing=south,lit=false": { "model": "kruemblegard:block/thermo_condenser", "y": 180 },
+    "facing=west,lit=false": { "model": "kruemblegard:block/thermo_condenser", "y": 270 },
+    "facing=north,lit=true": { "model": "kruemblegard:block/thermo_condenser_active" },
+    "facing=east,lit=true": { "model": "kruemblegard:block/thermo_condenser_active", "y": 90 },
+    "facing=south,lit=true": { "model": "kruemblegard:block/thermo_condenser_active", "y": 180 },
+    "facing=west,lit=true": { "model": "kruemblegard:block/thermo_condenser_active", "y": 270 }
+  }
+}

@@ -136,14 +136,20 @@ public class MembranePumpBlock extends HorizontalDirectionalBlock implements Ent
             level.setBlock(pos, state.setValue(PULSE_RATE, next), 2);
         }
 
-        // Generate pressure into the network when the atmosphere is stable.
+        // Directional pump: move pressure from the back side into the front side.
         if (PressureAtmosphere.isStable(level, pos)) {
             Direction facing = state.getValue(FACING);
-            BlockPos outPos = pos.relative(facing);
+            BlockPos inputPos = PressureUtil.resolveInlineConduit(level, pos, facing.getOpposite());
+            BlockPos outPos = PressureUtil.resolveInlineConduit(level, pos, facing);
 
-            // Low, steady generation; scales with pulse rate.
-            int delta = 2 + (next * 3);
-            PressureUtil.addPressure(level, outPos, delta);
+            if (inputPos != null && outPos != null && !inputPos.equals(outPos)) {
+                int available = PressureUtil.getConduitPressureOrState(level, inputPos);
+                if (available > 0) {
+                    int delta = Math.min(available, 2 + (next * 2));
+                    PressureUtil.addPressure(level, inputPos, -delta);
+                    PressureUtil.addPressure(level, outPos, delta);
+                }
+            }
         }
 
         level.scheduleTick(pos, this, 10);

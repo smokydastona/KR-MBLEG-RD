@@ -58,6 +58,30 @@ Implementation note (animation / Blockbench workflow): each Pressure‑Logic mac
 - Feeding turbines
 - Creating pressure loops
 
+Progression note:
+- The Membrane Pump is no longer the entry-level generator. It is a directional transfer machine that needs an upstream pressure source.
+
+### B1. Hand Bellows
+**Role:** Manual early-game pressure source
+
+**Animation:**
+- Bellows body compresses on each hand pump
+
+**Uses:**
+- Bootstrapping the first conduit line
+- Spinning up the first turbine/loom loop in Wayfall
+
+### B2. Thermo-Condenser
+**Role:** Mid-tier pressure generator that burns fuel into condensed pneumatic output
+
+**Animation:**
+- Internal heat chamber glows while burning
+- Condenser stack vents while active
+
+**Uses:**
+- Sustained pressure generation before the compressor tier
+- Required crafting gate for the Atmospheric Compressor
+
 ### C. Vent Piston (Soft‑Motion Actuator)
 **Role:** Smooth, organic movement
 
@@ -107,6 +131,9 @@ Implementation note (animation / Blockbench workflow): each Pressure‑Logic mac
 - Protects Cephalari machinery
 - Enables cross‑dimension builds
 
+Progression note:
+- This is the late-game generator tier and should be crafted from at least one Thermo-Condenser.
+
 ### G. Pressure Loom (Flowwright Workstation)
 **Role:** Crafts bio‑ceramic and coral‑fiber components
 
@@ -116,6 +143,7 @@ Implementation note (animation / Blockbench workflow): each Pressure‑Logic mac
 
 **Uses:**
 - Crafting
+- Forging Scarsteel once a pressure/rotation line is online
 - (Optional) Village profession block (only if/when Cephalari villages + professions exist)
 - Player automation
 

@@ -123,7 +123,7 @@ Keep it up to date whenever you add/remove/rename content.
 - Visual identity: every Pressure‑Logic machine uses a distinct non-cube block model silhouette (no generic stone cubes), and machine operating states render dedicated `*_active` models/textures where applicable.
 - Creative tab: Pressure-Logic blocks and items are in a dedicated creative mode tab (not duplicated into the other Krümblegård tabs).
 - Config (in `kruemblegard-common.toml`):
-  - `enablePressureSystem`: master enable/disable for the pressure simulation.
+  - `enablePressureSystem`: master enable/disable for the pressure simulation (default `true`).
   - `pressureTickIntervalTicks`: conduit simulation interval (higher = cheaper/slower).
   - `pressureDebugLogging`: enables extra (rate-limited) pressure logging.
   - `pressureSidedPortModesEnabled`: enables per-side conduit port modes; crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
@@ -145,16 +145,18 @@ Keep it up to date whenever you add/remove/rename content.
   - Internal code should prefer `PressureApi` helpers over casting block entities.
 - Blocks:
   - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state for visuals, backed by continuous pressure storage (0..100) and simple network diffusion.
-  - `membrane_pump`: redstone-controlled pump (`powered`) that generates pressure into adjacent conduits when powered in stable air; also tracks `pulse_rate` (0..5).
+  - `hand_bellows`: manual early-game pressure source. Empty-hand right-click pumps a burst of pressure into the conduit in front; crouch-right-click still inspects.
+  - `thermo_condenser`: mid-tier burn generator. Consumes dropped vanilla fuel items above the block and condenses the heat into forward pressure output.
+  - `membrane_pump`: redstone-controlled directional transfer pump (`powered`) that moves pressure from the conduit behind it into the conduit in front while tracking `pulse_rate` (0..5); it no longer creates free pressure by itself.
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: rotation transformer. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`) that multiplies/divides rotation level across the gearbox; right-click cycles the ratio.
   - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable). Strong redstone (>= 12) switches into a rotate mode that attempts to rotate the block in front on extension steps.
-  - `atmospheric_compressor`: provides stable-air bubbles outside Wayfall (for Pressure-Logic machines). Tracks `stability_level` (0..5) and gently pressurizes adjacent conduits.
+  - `atmospheric_compressor`: late-game pressure/stability generator. Provides stable-air bubbles outside Wayfall, tracks `stability_level` (0..5), pressurizes adjacent conduits across all sides, and is crafted from the `thermo_condenser` tier.
   - `pressure_valve`: inline conduit gate. When powered, it connects pressure conduits through itself along its facing axis; when unpowered, it blocks pressure flow.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
-  - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber` and can fuse Attuned Stone + Volatile Resin into `bio_ceramic` (outputs as item entities above the block).
+  - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber`, fuses Attuned Stone + Volatile Resin into `bio_ceramic`, and forges `scarsteel_ingot` from 4 `scarstone` plus 1 `attuned_ingot` (outputs as item entities above the block).
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state) that gates rotation transfer through mechanical networks.
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).

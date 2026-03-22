@@ -99,6 +99,8 @@ public class ModItems {
     // --- Cephalari engineering (Pressure-Logic) block items ---
 
     public static final RegistryObject<Item> PRESSURE_CONDUIT_ITEM = registerBlockItem("pressure_conduit", ModBlocks.PRESSURE_CONDUIT);
+    public static final RegistryObject<Item> HAND_BELLOWS_ITEM = registerBlockItem("hand_bellows", ModBlocks.HAND_BELLOWS);
+    public static final RegistryObject<Item> THERMO_CONDENSER_ITEM = registerBlockItem("thermo_condenser", ModBlocks.THERMO_CONDENSER);
     public static final RegistryObject<Item> MEMBRANE_PUMP_ITEM = registerBlockItem("membrane_pump", ModBlocks.MEMBRANE_PUMP);
     public static final RegistryObject<Item> PRESSURE_TURBINE_ITEM = registerBlockItem("pressure_turbine", ModBlocks.PRESSURE_TURBINE);
     public static final RegistryObject<Item> SPIRAL_GEARBOX_ITEM = registerBlockItem("spiral_gearbox", ModBlocks.SPIRAL_GEARBOX);

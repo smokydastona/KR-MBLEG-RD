@@ -225,39 +225,92 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
             }
         }
 
-        if (stoneEntity == null || resinEntity == null) {
+        if (stoneEntity != null && resinEntity != null) {
+            int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
+            int pressureLevel = PressureUtil.pressureToLevel(pressure);
+            int cost = Math.max(4, 12 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
+            if (pressure < cost) {
+                return;
+            }
+
+            PressureUtil.addPressure(level, conduitPos, -cost);
+
+            ItemStack stoneStack = stoneEntity.getItem();
+            ItemStack resinStack = resinEntity.getItem();
+            stoneStack.shrink(1);
+            resinStack.shrink(1);
+            stoneEntity.setItem(stoneStack);
+            resinEntity.setItem(resinStack);
+
+            if (stoneStack.isEmpty()) {
+                stoneEntity.discard();
+            }
+            if (resinStack.isEmpty()) {
+                resinEntity.discard();
+            }
+
+            ItemStack outStack = new ItemStack(ModItems.BIO_CERAMIC.get(), 1);
+            ItemEntity out = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, outStack);
+            out.setDeltaMovement(0, 0.05, 0);
+            level.addFreshEntity(out);
+
+            level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 0.8F, 0.9F);
+            return;
+        }
+
+        // Recipe C: 4x Scarstone + Attuned Ingot -> Scarsteel Ingot.
+        tryForgeScarsteel(level, pos, conduitPos, rotation, items);
+    }
+
+    private static void tryForgeScarsteel(ServerLevel level, BlockPos pos, BlockPos conduitPos, int rotation, List<ItemEntity> items) {
+        ItemEntity scarstoneEntity = null;
+        ItemEntity attunedIngotEntity = null;
+        for (ItemEntity itemEntity : items) {
+            ItemStack stack = itemEntity.getItem();
+            if (scarstoneEntity == null && stack.is(ModItems.SCARSTONE_ITEM.get()) && stack.getCount() >= 4) {
+                scarstoneEntity = itemEntity;
+            } else if (attunedIngotEntity == null && stack.is(ModItems.ATTUNED_INGOT.get())) {
+                attunedIngotEntity = itemEntity;
+            }
+
+            if (scarstoneEntity != null && attunedIngotEntity != null) {
+                break;
+            }
+        }
+
+        if (scarstoneEntity == null || attunedIngotEntity == null) {
             return;
         }
 
         int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
         int pressureLevel = PressureUtil.pressureToLevel(pressure);
-        int cost = Math.max(4, 12 + (pressureLevel <= 1 ? 2 : 0) - (rotation / 2));
+        int cost = Math.max(8, 18 + (pressureLevel <= 1 ? 4 : 0) - rotation);
         if (pressure < cost) {
             return;
         }
 
         PressureUtil.addPressure(level, conduitPos, -cost);
 
-        ItemStack stoneStack = stoneEntity.getItem();
-        ItemStack resinStack = resinEntity.getItem();
-        stoneStack.shrink(1);
-        resinStack.shrink(1);
-        stoneEntity.setItem(stoneStack);
-        resinEntity.setItem(resinStack);
+        ItemStack scarstoneStack = scarstoneEntity.getItem();
+        ItemStack attunedIngotStack = attunedIngotEntity.getItem();
+        scarstoneStack.shrink(4);
+        attunedIngotStack.shrink(1);
+        scarstoneEntity.setItem(scarstoneStack);
+        attunedIngotEntity.setItem(attunedIngotStack);
 
-        if (stoneStack.isEmpty()) {
-            stoneEntity.discard();
+        if (scarstoneStack.isEmpty()) {
+            scarstoneEntity.discard();
         }
-        if (resinStack.isEmpty()) {
-            resinEntity.discard();
+        if (attunedIngotStack.isEmpty()) {
+            attunedIngotEntity.discard();
         }
 
-        ItemStack outStack = new ItemStack(ModItems.BIO_CERAMIC.get(), 1);
+        ItemStack outStack = new ItemStack(ModItems.SCARSTEEL_INGOT.get(), 1);
         ItemEntity out = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, outStack);
         out.setDeltaMovement(0, 0.05, 0);
         level.addFreshEntity(out);
 
-        level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 0.8F, 0.9F);
+        level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.8F, 0.8F);
     }
 
     private static @Nullable BlockPos findBestConduit(Level level, BlockPos pos) {

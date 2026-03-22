@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/hand_bellows",
+  "textures": {
+    "north": "kruemblegard:block/atmospheric_compressor_front"
+  }
+}
