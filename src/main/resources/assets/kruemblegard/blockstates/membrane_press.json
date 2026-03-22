@@ -1,9 +1,20 @@
 {
   "multipart": [
     {
-      "apply": {
-        "model": "kruemblegard:block/membrane_press"
-      }
+      "when": { "press_phase": "0" },
+      "apply": { "model": "kruemblegard:block/membrane_press" }
+    },
+    {
+      "when": { "press_phase": "1" },
+      "apply": { "model": "kruemblegard:block/membrane_press_active" }
+    },
+    {
+      "when": { "press_phase": "2" },
+      "apply": { "model": "kruemblegard:block/membrane_press_active" }
+    },
+    {
+      "when": { "press_phase": "3" },
+      "apply": { "model": "kruemblegard:block/membrane_press_active" }
     }
   ]
 }

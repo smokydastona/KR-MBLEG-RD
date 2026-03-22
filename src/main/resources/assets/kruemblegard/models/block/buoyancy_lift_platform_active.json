@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/buoyancy_lift_platform",
+  "textures": {
+    "north": "kruemblegard:block/buoyancy_lift_platform_front_active"
+  }
+}

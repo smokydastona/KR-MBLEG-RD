@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pneumatic_catapult",
+  "textures": {
+    "north": "kruemblegard:block/pneumatic_catapult_front_active"
+  }
+}

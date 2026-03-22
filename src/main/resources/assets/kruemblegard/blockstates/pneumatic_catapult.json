@@ -1,20 +1,68 @@
 {
   "multipart": [
     {
-      "when": { "facing": "north" },
+      "when": { "facing": "north", "charge_level": "0" },
       "apply": { "model": "kruemblegard:block/pneumatic_catapult" }
     },
     {
-      "when": { "facing": "east" },
+      "when": { "facing": "north", "charge_level": "1" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active" }
+    },
+    {
+      "when": { "facing": "north", "charge_level": "2" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active" }
+    },
+    {
+      "when": { "facing": "north", "charge_level": "3" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active" }
+    },
+    {
+      "when": { "facing": "east", "charge_level": "0" },
       "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 90 }
     },
     {
-      "when": { "facing": "south" },
+      "when": { "facing": "east", "charge_level": "1" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 90 }
+    },
+    {
+      "when": { "facing": "east", "charge_level": "2" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 90 }
+    },
+    {
+      "when": { "facing": "east", "charge_level": "3" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "charge_level": "0" },
       "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 180 }
     },
     {
-      "when": { "facing": "west" },
+      "when": { "facing": "south", "charge_level": "1" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 180 }
+    },
+    {
+      "when": { "facing": "south", "charge_level": "2" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 180 }
+    },
+    {
+      "when": { "facing": "south", "charge_level": "3" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "charge_level": "0" },
       "apply": { "model": "kruemblegard:block/pneumatic_catapult", "y": 270 }
+    },
+    {
+      "when": { "facing": "west", "charge_level": "1" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 270 }
+    },
+    {
+      "when": { "facing": "west", "charge_level": "2" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 270 }
+    },
+    {
+      "when": { "facing": "west", "charge_level": "3" },
+      "apply": { "model": "kruemblegard:block/pneumatic_catapult_active", "y": 270 }
     }
   ]
 }

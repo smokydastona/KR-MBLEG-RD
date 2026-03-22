@@ -1,23 +1,23 @@
 {
   "variants": {
     "facing=north,pulse_phase=0": { "model": "kruemblegard:block/conveyor_membrane" },
-    "facing=north,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane" },
-    "facing=north,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane" },
-    "facing=north,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane" },
+    "facing=north,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane_active" },
+    "facing=north,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane_active" },
+    "facing=north,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane_active" },
 
     "facing=south,pulse_phase=0": { "model": "kruemblegard:block/conveyor_membrane", "y": 180 },
-    "facing=south,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane", "y": 180 },
-    "facing=south,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane", "y": 180 },
-    "facing=south,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane", "y": 180 },
+    "facing=south,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 180 },
+    "facing=south,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 180 },
+    "facing=south,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 180 },
 
     "facing=west,pulse_phase=0": { "model": "kruemblegard:block/conveyor_membrane", "y": 270 },
-    "facing=west,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane", "y": 270 },
-    "facing=west,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane", "y": 270 },
-    "facing=west,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane", "y": 270 },
+    "facing=west,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 270 },
+    "facing=west,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 270 },
+    "facing=west,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 270 },
 
     "facing=east,pulse_phase=0": { "model": "kruemblegard:block/conveyor_membrane", "y": 90 },
-    "facing=east,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane", "y": 90 },
-    "facing=east,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane", "y": 90 },
-    "facing=east,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane", "y": 90 }
+    "facing=east,pulse_phase=1": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 90 },
+    "facing=east,pulse_phase=2": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 90 },
+    "facing=east,pulse_phase=3": { "model": "kruemblegard:block/conveyor_membrane_active", "y": 90 }
   }
 }

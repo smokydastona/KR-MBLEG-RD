@@ -19,22 +19,22 @@
       "model": "kruemblegard:block/membrane_pump"
     },
     "facing=north,powered=true,pulse_rate=0": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=north,powered=true,pulse_rate=1": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=north,powered=true,pulse_rate=2": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=north,powered=true,pulse_rate=3": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=north,powered=true,pulse_rate=4": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=north,powered=true,pulse_rate=5": {
-      "model": "kruemblegard:block/membrane_pump"
+      "model": "kruemblegard:block/membrane_pump_active"
     },
     "facing=east,powered=false,pulse_rate=0": {
       "model": "kruemblegard:block/membrane_pump",
@@ -61,27 +61,27 @@
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=0": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=1": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=2": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=3": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=4": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=east,powered=true,pulse_rate=5": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 90
     },
     "facing=south,powered=false,pulse_rate=0": {
@@ -109,27 +109,27 @@
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=0": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=1": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=2": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=3": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=4": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=south,powered=true,pulse_rate=5": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 180
     },
     "facing=west,powered=false,pulse_rate=0": {
@@ -157,27 +157,27 @@
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=0": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=1": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=2": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=3": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=4": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     },
     "facing=west,powered=true,pulse_rate=5": {
-      "model": "kruemblegard:block/membrane_pump",
+      "model": "kruemblegard:block/membrane_pump_active",
       "y": 270
     }
   }

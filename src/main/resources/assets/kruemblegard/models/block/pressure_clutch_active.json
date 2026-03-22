@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_clutch",
+  "textures": {
+    "north": "kruemblegard:block/pressure_clutch_front_active"
+  }
+}

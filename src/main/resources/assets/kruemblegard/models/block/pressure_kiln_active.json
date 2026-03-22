@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_kiln",
+  "textures": {
+    "north": "kruemblegard:block/pressure_kiln_front_active"
+  }
+}

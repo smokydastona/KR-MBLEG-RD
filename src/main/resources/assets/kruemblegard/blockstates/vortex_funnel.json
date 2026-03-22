@@ -19,22 +19,22 @@
       "model": "kruemblegard:block/vortex_funnel"
     },
     "facing=north,powered=true,directional=false,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=north,powered=true,directional=false,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=north,powered=true,directional=false,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=north,powered=true,directional=true,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=north,powered=true,directional=true,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=north,powered=true,directional=true,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel"
+      "model": "kruemblegard:block/vortex_funnel_active"
     },
     "facing=east,powered=false,directional=false,vortex_mode=gentle": {
       "model": "kruemblegard:block/vortex_funnel",
@@ -61,27 +61,27 @@
       "y": 90
     },
     "facing=east,powered=true,directional=false,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=east,powered=true,directional=false,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=east,powered=true,directional=false,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=east,powered=true,directional=true,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=east,powered=true,directional=true,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=east,powered=true,directional=true,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 90
     },
     "facing=south,powered=false,directional=false,vortex_mode=gentle": {
@@ -109,27 +109,27 @@
       "y": 180
     },
     "facing=south,powered=true,directional=false,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=south,powered=true,directional=false,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=south,powered=true,directional=false,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=south,powered=true,directional=true,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=south,powered=true,directional=true,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=south,powered=true,directional=true,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 180
     },
     "facing=west,powered=false,directional=false,vortex_mode=gentle": {
@@ -157,27 +157,27 @@
       "y": 270
     },
     "facing=west,powered=true,directional=false,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     },
     "facing=west,powered=true,directional=false,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     },
     "facing=west,powered=true,directional=false,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     },
     "facing=west,powered=true,directional=true,vortex_mode=gentle": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     },
     "facing=west,powered=true,directional=true,vortex_mode=normal": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     },
     "facing=west,powered=true,directional=true,vortex_mode=harsh": {
-      "model": "kruemblegard:block/vortex_funnel",
+      "model": "kruemblegard:block/vortex_funnel_active",
       "y": 270
     }
   }

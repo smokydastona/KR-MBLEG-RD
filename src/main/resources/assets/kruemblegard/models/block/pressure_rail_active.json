@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_rail",
+  "textures": {
+    "north": "kruemblegard:block/pressure_rail_front_active"
+  }
+}

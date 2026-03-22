@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/air_lift_tube",
+  "textures": {
+    "north": "kruemblegard:block/air_lift_tube_front_active"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pneumatic_separator",
+  "textures": {
+    "north": "kruemblegard:block/pneumatic_separator_front_active"
+  }
+}

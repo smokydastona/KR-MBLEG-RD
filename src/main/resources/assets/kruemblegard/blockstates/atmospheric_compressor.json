@@ -4,42 +4,42 @@
       "model": "kruemblegard:block/atmospheric_compressor"
     },
     "facing=north,stability_level=1": {
-      "model": "kruemblegard:block/atmospheric_compressor"
+      "model": "kruemblegard:block/atmospheric_compressor_active"
     },
     "facing=north,stability_level=2": {
-      "model": "kruemblegard:block/atmospheric_compressor"
+      "model": "kruemblegard:block/atmospheric_compressor_active"
     },
     "facing=north,stability_level=3": {
-      "model": "kruemblegard:block/atmospheric_compressor"
+      "model": "kruemblegard:block/atmospheric_compressor_active"
     },
     "facing=north,stability_level=4": {
-      "model": "kruemblegard:block/atmospheric_compressor"
+      "model": "kruemblegard:block/atmospheric_compressor_active"
     },
     "facing=north,stability_level=5": {
-      "model": "kruemblegard:block/atmospheric_compressor"
+      "model": "kruemblegard:block/atmospheric_compressor_active"
     },
     "facing=east,stability_level=0": {
       "model": "kruemblegard:block/atmospheric_compressor",
       "y": 90
     },
     "facing=east,stability_level=1": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 90
     },
     "facing=east,stability_level=2": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 90
     },
     "facing=east,stability_level=3": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 90
     },
     "facing=east,stability_level=4": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 90
     },
     "facing=east,stability_level=5": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 90
     },
     "facing=south,stability_level=0": {
@@ -47,23 +47,23 @@
       "y": 180
     },
     "facing=south,stability_level=1": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 180
     },
     "facing=south,stability_level=2": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 180
     },
     "facing=south,stability_level=3": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 180
     },
     "facing=south,stability_level=4": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 180
     },
     "facing=south,stability_level=5": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 180
     },
     "facing=west,stability_level=0": {
@@ -71,23 +71,23 @@
       "y": 270
     },
     "facing=west,stability_level=1": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 270
     },
     "facing=west,stability_level=2": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 270
     },
     "facing=west,stability_level=3": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 270
     },
     "facing=west,stability_level=4": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 270
     },
     "facing=west,stability_level=5": {
-      "model": "kruemblegard:block/atmospheric_compressor",
+      "model": "kruemblegard:block/atmospheric_compressor_active",
       "y": 270
     }
   }

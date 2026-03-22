@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/membrane_press",
+  "textures": {
+    "north": "kruemblegard:block/membrane_press_front_active"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_loom",
+  "textures": {
+    "north": "kruemblegard:block/pressure_loom_front_active"
+  }
+}

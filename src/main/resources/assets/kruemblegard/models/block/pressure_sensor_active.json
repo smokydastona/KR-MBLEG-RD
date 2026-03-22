@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_sensor",
+  "textures": {
+    "north": "kruemblegard:block/pressure_sensor_front_active"
+  }
+}

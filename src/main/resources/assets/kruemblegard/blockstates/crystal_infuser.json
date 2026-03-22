@@ -1,9 +1,20 @@
 {
   "multipart": [
     {
-      "apply": {
-        "model": "kruemblegard:block/crystal_infuser"
-      }
+      "when": { "infuse_phase": "0" },
+      "apply": { "model": "kruemblegard:block/crystal_infuser" }
+    },
+    {
+      "when": { "infuse_phase": "1" },
+      "apply": { "model": "kruemblegard:block/crystal_infuser_active" }
+    },
+    {
+      "when": { "infuse_phase": "2" },
+      "apply": { "model": "kruemblegard:block/crystal_infuser_active" }
+    },
+    {
+      "when": { "infuse_phase": "3" },
+      "apply": { "model": "kruemblegard:block/crystal_infuser_active" }
     }
   ]
 }

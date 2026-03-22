@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_valve",
+  "textures": {
+    "north": "kruemblegard:block/pressure_valve_front_active"
+  }
+}

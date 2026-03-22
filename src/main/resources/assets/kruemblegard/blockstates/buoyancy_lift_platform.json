@@ -4,10 +4,10 @@
       "model": "kruemblegard:block/buoyancy_lift_platform"
     },
     "lift_state=rising": {
-      "model": "kruemblegard:block/buoyancy_lift_platform"
+      "model": "kruemblegard:block/buoyancy_lift_platform_active"
     },
     "lift_state=falling": {
-      "model": "kruemblegard:block/buoyancy_lift_platform"
+      "model": "kruemblegard:block/buoyancy_lift_platform_active"
     }
   }
 }

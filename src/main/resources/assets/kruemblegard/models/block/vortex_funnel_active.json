@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/vortex_funnel",
+  "textures": {
+    "north": "kruemblegard:block/vortex_funnel_front_active"
+  }
+}

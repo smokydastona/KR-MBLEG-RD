@@ -4,119 +4,119 @@
       "model": "kruemblegard:block/vent_piston"
     },
     "facing=north,extension=1": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=2": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=3": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=4": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=5": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=6": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=7": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=8": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=9": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=10": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=11": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=12": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=13": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=14": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=15": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=north,extension=16": {
-      "model": "kruemblegard:block/vent_piston"
+      "model": "kruemblegard:block/vent_piston_active"
     },
     "facing=east,extension=0": {
       "model": "kruemblegard:block/vent_piston",
       "y": 90
     },
     "facing=east,extension=1": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=2": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=3": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=4": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=5": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=6": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=7": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=8": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=9": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=10": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=11": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=12": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=13": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=14": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=15": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=east,extension=16": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 90
     },
     "facing=south,extension=0": {
@@ -124,67 +124,67 @@
       "y": 180
     },
     "facing=south,extension=1": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=2": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=3": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=4": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=5": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=6": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=7": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=8": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=9": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=10": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=11": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=12": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=13": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=14": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=15": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=south,extension=16": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 180
     },
     "facing=west,extension=0": {
@@ -192,67 +192,67 @@
       "y": 270
     },
     "facing=west,extension=1": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=2": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=3": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=4": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=5": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=6": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=7": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=8": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=9": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=10": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=11": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=12": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=13": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=14": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=15": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     },
     "facing=west,extension=16": {
-      "model": "kruemblegard:block/vent_piston",
+      "model": "kruemblegard:block/vent_piston_active",
       "y": 270
     }
   }

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "kruemblegard:block/pressure_conduit_top",
+    "down": "kruemblegard:block/pressure_conduit_bottom",
+    "north": "kruemblegard:block/pressure_conduit_front_level5",
+    "south": "kruemblegard:block/pressure_conduit_side_level5",
+    "east": "kruemblegard:block/pressure_conduit_side_level5",
+    "west": "kruemblegard:block/pressure_conduit_side_level5"
+  }
+}

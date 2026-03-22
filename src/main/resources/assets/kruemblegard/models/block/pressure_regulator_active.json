@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/pressure_regulator",
+  "textures": {
+    "north": "kruemblegard:block/pressure_regulator_front_active"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "kruemblegard:block/conveyor_membrane",
+  "textures": {
+    "north": "kruemblegard:block/conveyor_membrane_front_active"
+  }
+}
