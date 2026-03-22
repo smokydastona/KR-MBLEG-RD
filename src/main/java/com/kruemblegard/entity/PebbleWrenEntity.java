@@ -6,7 +6,9 @@ import java.util.List;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -39,6 +41,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -98,11 +101,12 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double FLOCK_RETURN_DISTANCE = 12.0D;
     private static final double FLOCK_MAX_WANDER_RADIUS = 8.0D;
     private static final int MIN_AIRBORNE_TICKS = 14;
-    private static final int MAX_AIRBORNE_TICKS = 20 * 3;
-    private static final int MIN_GROUNDED_TICKS = 8;
-    private static final int MAX_GROUNDED_TICKS = 20 * 2;
-    private static final double OWNER_TAKEOFF_DISTANCE = 5.5D;
-    private static final double FLOCK_TAKEOFF_DISTANCE = 6.5D;
+    private static final int MAX_AIRBORNE_TICKS = 20 * 2;
+    private static final int MIN_GROUNDED_TICKS = 6;
+    private static final int MAX_GROUNDED_TICKS = 20 + 12;
+    private static final double OWNER_TAKEOFF_DISTANCE = 5.0D;
+    private static final double FLOCK_TAKEOFF_DISTANCE = 6.0D;
+    private static final int PERCH_SEARCH_RADIUS = 6;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
@@ -243,7 +247,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
         }
 
-        return this.groundedTicks >= this.flightPhaseTargetTicks && this.random.nextInt(10) == 0;
+        return this.groundedTicks >= this.flightPhaseTargetTicks && this.random.nextInt(7) == 0;
     }
 
     private boolean shouldLand() {
@@ -270,7 +274,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
         }
 
-        return this.airborneTicks >= this.flightPhaseTargetTicks && (this.onGround() || this.random.nextInt(12) == 0);
+        return this.airborneTicks >= this.flightPhaseTargetTicks && (this.onGround() || this.isNearPreferredPerch() || this.random.nextInt(10) == 0);
     }
 
     private void beginFlightPhase() {
@@ -281,6 +285,65 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private void beginGroundPhase() {
         this.groundedTicks = 0;
         this.flightPhaseTargetTicks = MIN_GROUNDED_TICKS + this.random.nextInt((MAX_GROUNDED_TICKS - MIN_GROUNDED_TICKS) + 1);
+    }
+
+    private boolean isPreferredPerch(BlockPos pos) {
+        BlockState state = this.level().getBlockState(pos);
+        if (state.isAir()) {
+            return false;
+        }
+
+        if (state.is(BlockTags.FENCES) || state.is(BlockTags.WALLS) || state.is(BlockTags.LEAVES)
+            || state.is(BlockTags.LOGS) || state.is(BlockTags.LOGS_THAT_BURN)) {
+            return true;
+        }
+
+        return state.isFaceSturdy(this.level(), pos, Direction.UP)
+            && this.level().getBlockState(pos.above()).isAir()
+            && this.level().getBlockState(pos.above(2)).isAir();
+    }
+
+    private boolean isNearPreferredPerch() {
+        BlockPos below = this.blockPosition().below();
+        return this.isPreferredPerch(below) || this.isPreferredPerch(below.north()) || this.isPreferredPerch(below.south())
+            || this.isPreferredPerch(below.east()) || this.isPreferredPerch(below.west());
+    }
+
+    @Nullable
+    private Vec3 findNearbyPerchTarget(Vec3 origin, int radius) {
+        RandomSource random = this.getRandom();
+
+        for (int attempt = 0; attempt < 18; attempt++) {
+            int x = BlockPos.containing(origin).getX() + random.nextInt(radius * 2 + 1) - radius;
+            int z = BlockPos.containing(origin).getZ() + random.nextInt(radius * 2 + 1) - radius;
+            int y = BlockPos.containing(origin).getY() + random.nextInt(5) - 2;
+
+            BlockPos perch = new BlockPos(x, y, z);
+            if (!this.isPreferredPerch(perch)) {
+                continue;
+            }
+
+            BlockPos landing = perch.above();
+            if (!this.level().getBlockState(landing).getCollisionShape(this.level(), landing).isEmpty()) {
+                continue;
+            }
+
+            if (!this.level().getBlockState(landing.above()).getCollisionShape(this.level(), landing.above()).isEmpty()) {
+                continue;
+            }
+
+            if (!this.level().noCollision(this, this.getBoundingBox().move(
+                landing.getX() + 0.5D - this.getX(),
+                landing.getY() - this.getY(),
+                landing.getZ() + 0.5D - this.getZ()
+            ))) {
+                continue;
+            }
+
+            return Vec3.atBottomCenterOf(landing).add(0.0D, 0.05D, 0.0D);
+        }
+
+        return null;
     }
 
     private Vec3 getFlockFocusPoint() {
@@ -416,6 +479,13 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             RandomSource random = mob.getRandom();
             Vec3 origin = mob.isTame() && mob.getOwner() != null ? mob.getOwner().position() : mob.getFlockFocusPoint();
 
+            Vec3 perchTarget = mob.findNearbyPerchTarget(origin, PERCH_SEARCH_RADIUS);
+            if (perchTarget != null && random.nextInt(5) != 0) {
+                mob.getNavigation().moveTo(perchTarget.x, perchTarget.y, perchTarget.z, 1.08D);
+                cooldownTicks = 6 + random.nextInt(10);
+                return;
+            }
+
             double dx = origin.x + (random.nextDouble() * 10.0D - 5.0D);
             double dz = origin.z + (random.nextDouble() * 10.0D - 5.0D);
             double dy = origin.y + 1.5D + (random.nextDouble() * 4.0D - 1.5D);
@@ -433,7 +503,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
 
             mob.getNavigation().moveTo(dx, dy, dz, 1.05D);
-            cooldownTicks = 8 + random.nextInt(12);
+            cooldownTicks = 6 + random.nextInt(10);
         }
     }
 
