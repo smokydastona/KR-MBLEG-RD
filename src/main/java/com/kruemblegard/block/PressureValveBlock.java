@@ -2,6 +2,7 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.blockentity.PressureValveBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -59,6 +65,20 @@ public class PressureValveBlock extends HorizontalDirectionalBlock implements En
             return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_VALVE.get(), PressureValveBlockEntity::clientTick);
         }
         return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_VALVE.get(), PressureValveBlockEntity::serverTick);
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        InteractionResult inspect = PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
+        if (inspect != InteractionResult.PASS) {
+            return inspect;
+        }
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

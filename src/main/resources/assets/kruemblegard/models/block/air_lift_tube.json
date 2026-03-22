@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/air_lift_tube_top",
-    "bottom": "kruemblegard:block/air_lift_tube_bottom",
+    "up": "kruemblegard:block/air_lift_tube_top",
+    "down": "kruemblegard:block/air_lift_tube_bottom",
     "north": "kruemblegard:block/air_lift_tube_front",
     "south": "kruemblegard:block/air_lift_tube_side",
     "east": "kruemblegard:block/air_lift_tube_side",

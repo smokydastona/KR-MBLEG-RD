@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1318 (2026-03-22)
+- Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
+- Feat(pressure_logic): empty-hand right-click shows a compact Pressure-Logic status line in the action bar.
+- Feat(pressure_logic): add subtle “working” cloud particles for powered/pressurized Pressure-Logic blocks (stable-air gated).
+
 ## 1.0.1317 (2026-03-21)
 - Tweak(driftwhale): Driftwhales now wander more actively and stay closer to their pod (reduced long-range spread).
 - Feat(mobs): Driftwhales will target and attack Glow Squid.

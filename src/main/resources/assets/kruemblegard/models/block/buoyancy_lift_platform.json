@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/buoyancy_lift_platform_top",
-    "bottom": "kruemblegard:block/buoyancy_lift_platform_bottom",
+    "up": "kruemblegard:block/buoyancy_lift_platform_top",
+    "down": "kruemblegard:block/buoyancy_lift_platform_bottom",
     "north": "kruemblegard:block/buoyancy_lift_platform_front",
     "south": "kruemblegard:block/buoyancy_lift_platform_side",
     "east": "kruemblegard:block/buoyancy_lift_platform_side",

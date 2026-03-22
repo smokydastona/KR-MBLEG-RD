@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.blockentity.CrystalInfuserBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 
 import com.kruemblegard.registry.ModItems;
@@ -82,11 +83,17 @@ public class CrystalInfuserBlock extends Block implements EntityBlock {
             InteractionHand hand,
             BlockHitResult hit
     ) {
+        // Empty-hand right click: inspect/status. Shift+right click: cycle mode.
+        if (!player.getItemInHand(hand).isEmpty() && !player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
+
         if (!player.isShiftKeyDown()) {
-            return InteractionResult.PASS;
+            return PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
         }
 
         InfuserMode next = switch (state.getValue(INFUSER_MODE)) {
@@ -96,6 +103,11 @@ public class CrystalInfuserBlock extends Block implements EntityBlock {
         };
         level.setBlock(pos, state.setValue(INFUSER_MODE, next), Block.UPDATE_CLIENTS);
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

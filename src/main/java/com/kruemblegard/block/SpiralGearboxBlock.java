@@ -2,11 +2,13 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.blockentity.SpiralGearboxBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.util.BlockEntityTickerUtil;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -102,8 +104,20 @@ public class SpiralGearboxBlock extends HorizontalDirectionalBlock implements En
         }
 
         Ratio next = state.getValue(RATIO).next();
-        level.setBlock(pos, state.setValue(RATIO, next), 2);
+        BlockState nextState = state.setValue(RATIO, next);
+        level.setBlock(pos, nextState, 2);
+
+        InteractionResult inspect = PressureFeedback.tryInspect(nextState, level, pos, player, hand, hit);
+        if (inspect != InteractionResult.PASS) {
+            return inspect;
+        }
+
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.blockentity.MembranePressBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.rotationlogic.RotationUtil;
 import com.kruemblegard.util.BlockEntityTickerUtil;
@@ -81,11 +82,17 @@ public class MembranePressBlock extends Block implements EntityBlock {
             InteractionHand hand,
             BlockHitResult hit
     ) {
+        // Empty-hand right click: inspect/status. Shift+right click: cycle mode.
+        if (!player.getItemInHand(hand).isEmpty() && !player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
+
         if (!player.isShiftKeyDown()) {
-            return InteractionResult.PASS;
+            return PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
         }
 
         PressMode next = switch (state.getValue(PRESS_MODE)) {
@@ -95,6 +102,11 @@ public class MembranePressBlock extends Block implements EntityBlock {
         };
         level.setBlock(pos, state.setValue(PRESS_MODE, next), Block.UPDATE_CLIENTS);
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

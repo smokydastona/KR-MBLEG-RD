@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/pressure_regulator_top",
-    "bottom": "kruemblegard:block/pressure_regulator_bottom",
+    "up": "kruemblegard:block/pressure_regulator_top",
+    "down": "kruemblegard:block/pressure_regulator_bottom",
     "north": "kruemblegard:block/pressure_regulator_front",
     "south": "kruemblegard:block/pressure_regulator_side",
     "east": "kruemblegard:block/pressure_regulator_side",

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/membrane_pump_top",
-    "bottom": "kruemblegard:block/membrane_pump_bottom",
+    "up": "kruemblegard:block/membrane_pump_top",
+    "down": "kruemblegard:block/membrane_pump_bottom",
     "north": "kruemblegard:block/membrane_pump_front",
     "south": "kruemblegard:block/membrane_pump_side",
     "east": "kruemblegard:block/membrane_pump_side",

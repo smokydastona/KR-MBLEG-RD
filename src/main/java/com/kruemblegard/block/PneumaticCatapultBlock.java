@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.blockentity.PneumaticCatapultBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.util.BlockEntityTickerUtil;
 
@@ -107,19 +108,32 @@ public class PneumaticCatapultBlock extends HorizontalDirectionalBlock implement
         }
 
         // Variants are treated as mandatory: shift cycles mode, normal click adjusts the arc dial.
+        BlockState nextState;
         if (player.isShiftKeyDown()) {
             LaunchMode next = switch (state.getValue(LAUNCH_MODE)) {
                 case ARC -> LaunchMode.PRECISION;
                 case PRECISION -> LaunchMode.SCATTER;
                 case SCATTER -> LaunchMode.ARC;
             };
-            level.setBlock(pos, state.setValue(LAUNCH_MODE, next), Block.UPDATE_CLIENTS);
-            return InteractionResult.CONSUME;
+            nextState = state.setValue(LAUNCH_MODE, next);
+        } else {
+            int next = (state.getValue(ANGLE_STEP) + 1) & 3;
+            nextState = state.setValue(ANGLE_STEP, next);
         }
 
-        int next = (state.getValue(ANGLE_STEP) + 1) & 3;
-        level.setBlock(pos, state.setValue(ANGLE_STEP, next), Block.UPDATE_CLIENTS);
+        level.setBlock(pos, nextState, Block.UPDATE_CLIENTS);
+
+        InteractionResult inspect = PressureFeedback.tryInspect(nextState, level, pos, player, hand, hit);
+        if (inspect != InteractionResult.PASS) {
+            return inspect;
+        }
+
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

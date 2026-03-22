@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.blockentity.PressureLoomBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.rotationlogic.RotationUtil;
 import com.kruemblegard.registry.ModItems;
@@ -14,7 +15,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -33,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -75,6 +80,16 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
             return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_LOOM.get(), PressureLoomBlockEntity::clientTick);
         }
         return BlockEntityTickerUtil.createTickerHelper(type, ModBlockEntities.PRESSURE_LOOM.get(), PressureLoomBlockEntity::serverTick);
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

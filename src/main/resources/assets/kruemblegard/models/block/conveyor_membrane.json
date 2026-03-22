@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/conveyor_membrane_top",
-    "bottom": "kruemblegard:block/conveyor_membrane_bottom",
+    "up": "kruemblegard:block/conveyor_membrane_top",
+    "down": "kruemblegard:block/conveyor_membrane_bottom",
     "north": "kruemblegard:block/conveyor_membrane_front",
     "south": "kruemblegard:block/conveyor_membrane_side",
     "east": "kruemblegard:block/conveyor_membrane_side",

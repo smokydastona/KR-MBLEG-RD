@@ -2,6 +2,7 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.blockentity.PressureConduitBlockEntity;
 import com.kruemblegard.config.ModConfig;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressurePortMode;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.pressurelogic.network.PressureNetworkManager;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,6 +57,10 @@ public class PressureConduitBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!player.getItemInHand(hand).isEmpty()) {
+            return InteractionResult.PASS;
+        }
+
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -92,7 +98,12 @@ public class PressureConduitBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
-        return InteractionResult.PASS;
+        return PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

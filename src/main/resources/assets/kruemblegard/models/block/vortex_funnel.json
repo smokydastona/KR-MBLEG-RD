@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "top": "kruemblegard:block/vortex_funnel_top",
-    "bottom": "kruemblegard:block/vortex_funnel_bottom",
+    "up": "kruemblegard:block/vortex_funnel_top",
+    "down": "kruemblegard:block/vortex_funnel_bottom",
     "north": "kruemblegard:block/vortex_funnel_front",
     "south": "kruemblegard:block/vortex_funnel_side",
     "east": "kruemblegard:block/vortex_funnel_side",

@@ -135,6 +135,9 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressureNetworkRebuildIntervalTicks`: how often queued rebuild/validation work is processed (default 10).
   - `pressureNetworkMaxRebuildsPerPass`: max dirty starts processed per rebuild pass (default 32).
   - `pressureNetworkMaxNodesPerTick`: max conduit nodes simulated per tick across all networks when network ticking is enabled (default 2048).
+- Player feedback:
+  - Empty-hand right-click: prints a compact Pressure-Logic status line in the action bar (stable/unstable air, powered state where applicable, and local/nearby pressure).
+  - Working particles: emits subtle cloud particles in stable air when powered and/or near pressurized conduits (gated by `enablePressureSystem`).
 - Interop:
   - `pressure_conduit` exposes a Forge capability (`PressureCapabilities.PRESSURE_HANDLER`) so other mods can read/write pressure without depending on internal classes.
   - Conduit-only is the current supported interop model: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.

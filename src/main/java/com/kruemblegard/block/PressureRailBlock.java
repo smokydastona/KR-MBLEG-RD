@@ -3,6 +3,7 @@ package com.kruemblegard.block;
 import com.kruemblegard.blockentity.PressureRailBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.rotationlogic.RotationUtil;
 import com.kruemblegard.util.BlockEntityTickerUtil;
@@ -80,6 +81,13 @@ public class PressureRailBlock extends HorizontalDirectionalBlock implements Ent
             InteractionHand hand,
             BlockHitResult hit
     ) {
+        if (!player.isShiftKeyDown()) {
+            InteractionResult inspect = PressureFeedback.tryInspect(state, level, pos, player, hand, hit);
+            if (inspect != InteractionResult.PASS) {
+                return inspect;
+            }
+        }
+
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -88,7 +96,14 @@ public class PressureRailBlock extends HorizontalDirectionalBlock implements Ent
         // Implemented as a shift-right-click 180° flip using existing FACING.
         if (player.isShiftKeyDown()) {
             Direction next = state.getValue(FACING).getOpposite();
-            level.setBlock(pos, state.setValue(FACING, next), Block.UPDATE_CLIENTS);
+            BlockState nextState = state.setValue(FACING, next);
+            level.setBlock(pos, nextState, Block.UPDATE_CLIENTS);
+
+            InteractionResult inspect = PressureFeedback.tryInspect(nextState, level, pos, player, hand, hit);
+            if (inspect != InteractionResult.PASS) {
+                return inspect;
+            }
+
             return InteractionResult.CONSUME;
         }
 
@@ -202,25 +217,7 @@ public class PressureRailBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        super.animateTick(state, level, pos, random);
-        if (!state.getValue(POWERED)) {
-            return;
-        }
-        if (!PressureAtmosphere.isStable(level, pos)) {
-            return;
-        }
-        if (random.nextInt(6) != 0) {
-            return;
-        }
-
-        Direction facing = state.getValue(FACING);
-        double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.6;
-        double y = pos.getY() + 0.1;
-        double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.6;
-        double vx = facing.getStepX() * 0.02;
-        double vy = 0.01;
-        double vz = facing.getStepZ() * 0.02;
-        level.addParticle(net.minecraft.core.particles.ParticleTypes.CLOUD, x, y, z, vx, vy, vz);
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.kruemblegard.blockentity.VortexFunnelBlockEntity;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.pressurelogic.PressureAtmosphere;
+import com.kruemblegard.pressurelogic.PressureFeedback;
 import com.kruemblegard.pressurelogic.PressureUtil;
 import com.kruemblegard.util.BlockEntityTickerUtil;
 
@@ -279,19 +280,32 @@ public class VortexFunnelBlock extends HorizontalDirectionalBlock implements Ent
             return InteractionResult.SUCCESS;
         }
 
+        BlockState nextState;
         if (player.isShiftKeyDown()) {
             boolean next = !state.getValue(DIRECTIONAL);
-            level.setBlock(pos, state.setValue(DIRECTIONAL, next), Block.UPDATE_CLIENTS);
-            return InteractionResult.CONSUME;
+            nextState = state.setValue(DIRECTIONAL, next);
+        } else {
+            VortexMode next = switch (state.getValue(VORTEX_MODE)) {
+                case GENTLE -> VortexMode.NORMAL;
+                case NORMAL -> VortexMode.HARSH;
+                case HARSH -> VortexMode.GENTLE;
+            };
+            nextState = state.setValue(VORTEX_MODE, next);
         }
 
-        VortexMode next = switch (state.getValue(VORTEX_MODE)) {
-            case GENTLE -> VortexMode.NORMAL;
-            case NORMAL -> VortexMode.HARSH;
-            case HARSH -> VortexMode.GENTLE;
-        };
-        level.setBlock(pos, state.setValue(VORTEX_MODE, next), Block.UPDATE_CLIENTS);
+        level.setBlock(pos, nextState, Block.UPDATE_CLIENTS);
+
+        InteractionResult inspect = PressureFeedback.tryInspect(nextState, level, pos, player, hand, hit);
+        if (inspect != InteractionResult.PASS) {
+            return inspect;
+        }
+
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        PressureFeedback.animateWorking(state, level, pos, random);
     }
 
     @Override
