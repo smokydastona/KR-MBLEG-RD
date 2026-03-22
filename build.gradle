@@ -92,6 +92,13 @@ dependencies {
     // Waystones integration (Forge 1.20.1)
     implementation fg.deobf('curse.maven:waystones-245755:6856603')
     implementation fg.deobf('curse.maven:balm-531761:7420617')
+
+    // Optional dev runtime: load Create from local jar if present.
+    // This is intentionally guarded so CI/builds don't depend on bundling Create.
+    def createJar = file('examples/create-1.20.1-6.0.8.jar')
+    if (createJar.exists()) {
+        runtimeOnly fg.deobf(files(createJar))
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {

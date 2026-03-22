@@ -44,3 +44,10 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
+
+[[dependencies.kruemblegard]]
+modId="create"
+mandatory=false
+versionRange="[6.0.8,)"
+ordering="AFTER"
+side="BOTH"
