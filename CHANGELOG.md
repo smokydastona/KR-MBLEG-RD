@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1342 (2026-03-22)
+- Tune(pebble_wren): change perch-call replies to target the nearest eligible perched Wren regardless of height instead of broadcasting to every nearby responder.
+
 ## 1.0.1341 (2026-03-22)
 - Tune(pebble_wren): vary perched chirp pitch slightly by bird and let perch-call answers occasionally chain into one extra quiet reply, capped to prevent runaway chatter.
 

@@ -373,8 +373,23 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             other -> other != this && other.isAlive()
         );
 
+        PebbleWrenEntity nearestMate = null;
+        double nearestDistance = Double.MAX_VALUE;
+
         for (PebbleWrenEntity mate : mates) {
-            mate.receivePerchCall(chainDepth);
+            if (!mate.canAnswerPerchCall()) {
+                continue;
+            }
+
+            double distance = this.distanceToSqr(mate);
+            if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestMate = mate;
+            }
+        }
+
+        if (nearestMate != null) {
+            nearestMate.receivePerchCall(chainDepth);
         }
     }
 
