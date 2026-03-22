@@ -35,6 +35,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class HandBellowsBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    private static final int PUMP_COOLDOWN_TICKS = 8;
+    private static final int PUMP_PRESSURE = 10;
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
@@ -95,13 +98,13 @@ public class HandBellowsBlock extends HorizontalDirectionalBlock implements Enti
             return InteractionResult.CONSUME;
         }
 
-        PressureUtil.addPressure(level, outputConduit, 12);
+        PressureUtil.addPressure(level, outputConduit, PUMP_PRESSURE);
         be.markPumped(level);
 
         if (!state.getValue(ACTIVE)) {
             level.setBlock(pos, state.setValue(ACTIVE, true), Block.UPDATE_CLIENTS);
         }
-        level.scheduleTick(pos, this, 6);
+        level.scheduleTick(pos, this, PUMP_COOLDOWN_TICKS);
         level.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.8F, 0.7F);
         return InteractionResult.CONSUME;
     }

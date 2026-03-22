@@ -142,16 +142,8 @@ public class AtmosphericCompressorBlock extends HorizontalDirectionalBlock imple
             bestPressure = Math.max(bestPressure, PressureUtil.getConduitPressureOrState(level, pos.relative(dir)));
         }
 
-        int bestLevel = PressureUtil.pressureToLevel(bestPressure);
-
-        // Fall back to redstone strength as scaffolding.
-        int signal = level.getBestNeighborSignal(pos);
-        bestLevel = Math.max(bestLevel, (int) Math.round((signal / 15.0) * 5.0));
-
-        // Baseline: compressors should create some stability on their own.
-        bestLevel = Math.max(bestLevel, 1);
-
-        return Mth.clamp(bestLevel, 0, 5);
+        // Outside Wayfall, compressors need live conduit pressure to spin up.
+        return Mth.clamp(PressureUtil.pressureToLevel(bestPressure), 0, 5);
     }
 
     @Override

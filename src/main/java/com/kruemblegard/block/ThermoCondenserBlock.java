@@ -44,6 +44,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    private static final int ACTIVE_TICK_DELAY = 10;
+    private static final int IDLE_TICK_DELAY = 20;
+    private static final int BURN_CONSUMPTION_PER_CYCLE = 10;
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -58,7 +62,7 @@ public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
         if (!context.getLevel().isClientSide) {
-            context.getLevel().scheduleTick(context.getClickedPos(), this, 10);
+            context.getLevel().scheduleTick(context.getClickedPos(), this, ACTIVE_TICK_DELAY);
         }
         return state;
     }
@@ -95,14 +99,14 @@ public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements 
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
         if (!level.isClientSide) {
-            level.scheduleTick(pos, this, 10);
+            level.scheduleTick(pos, this, ACTIVE_TICK_DELAY);
         }
     }
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!(level.getBlockEntity(pos) instanceof ThermoCondenserBlockEntity be)) {
-            level.scheduleTick(pos, this, 20);
+            level.scheduleTick(pos, this, IDLE_TICK_DELAY);
             return;
         }
 
@@ -113,10 +117,10 @@ public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements 
         if (be.isLit()) {
             BlockPos outputConduit = PressureUtil.resolveInlineConduit(level, pos, state.getValue(FACING));
             if (outputConduit != null) {
-                int delta = 4 + (be.getHeatLevel() * 2);
+                int delta = 2 + be.getHeatLevel();
                 PressureUtil.addPressure(level, outputConduit, delta);
             }
-            be.consumeBurnTime(10);
+            be.consumeBurnTime(BURN_CONSUMPTION_PER_CYCLE);
         }
 
         boolean lit = be.isLit();
@@ -125,7 +129,7 @@ public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements 
             level.setBlock(pos, state, Block.UPDATE_CLIENTS);
         }
 
-        level.scheduleTick(pos, this, lit ? 10 : 20);
+        level.scheduleTick(pos, this, lit ? ACTIVE_TICK_DELAY : IDLE_TICK_DELAY);
     }
 
     private static void feedFuel(ServerLevel level, BlockPos pos, ThermoCondenserBlockEntity be) {
@@ -146,10 +150,14 @@ public class ThermoCondenserBlock extends HorizontalDirectionalBlock implements 
                 itemEntity.setItem(stack);
             }
 
-            be.startBurn(burn);
+            be.startBurn(scaleFuelBurnTime(burn));
             level.playSound(null, pos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.7F, 0.9F);
             return;
         }
+    }
+
+    private static int scaleFuelBurnTime(int vanillaBurnTime) {
+        return Math.max(40, vanillaBurnTime / 8);
     }
 
     @Override

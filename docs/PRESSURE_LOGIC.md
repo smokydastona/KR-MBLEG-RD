@@ -71,6 +71,9 @@ Progression note:
 - Bootstrapping the first conduit line
 - Spinning up the first turbine/loom loop in Wayfall
 
+Pacing note:
+- Each pump is intentionally a small manual burst, useful for starting lines and topping off a loop without replacing the fuel tier.
+
 ### B2. Thermo-Condenser
 **Role:** Mid-tier pressure generator that burns fuel into condensed pneumatic output
 
@@ -81,6 +84,9 @@ Progression note:
 **Uses:**
 - Sustained pressure generation before the compressor tier
 - Required crafting gate for the Atmospheric Compressor
+
+Pacing note:
+- Fuel is compressed into a shorter, more meaningful pressure runtime so one coal item supports a work session instead of acting like a near-infinite battery.
 
 ### C. Vent Piston (Soft‑Motion Actuator)
 **Role:** Smooth, organic movement
@@ -133,6 +139,7 @@ Progression note:
 
 Progression note:
 - This is the late-game generator tier and should be crafted from at least one Thermo-Condenser.
+- Outside Wayfall it now needs live adjacent conduit pressure to spin up its stable-air field, so the Thermo-Condenser remains part of the progression instead of becoming obsolete the moment the compressor is crafted.
 
 ### G. Pressure Loom (Flowwright Workstation)
 **Role:** Crafts bio‑ceramic and coral‑fiber components

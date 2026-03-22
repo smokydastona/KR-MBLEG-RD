@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HandBellowsBlockEntity extends CephalariMachineBlockEntity {
+    private static final int PUMP_COOLDOWN_TICKS = 8;
     private static final String TAG_LAST_PUMP_GAME_TIME = "LastPumpGameTime";
 
     private long lastPumpGameTime;
@@ -18,7 +19,7 @@ public class HandBellowsBlockEntity extends CephalariMachineBlockEntity {
     }
 
     public boolean canPump(Level level) {
-        return level.getGameTime() - lastPumpGameTime >= 6;
+        return level.getGameTime() - lastPumpGameTime >= PUMP_COOLDOWN_TICKS;
     }
 
     public void markPumped(Level level) {

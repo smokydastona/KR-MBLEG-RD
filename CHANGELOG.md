@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1331 (2026-03-22)
+- Balance(pressure_logic): rebalance `hand_bellows` to a smaller manual burst cadence so it stays a bootstrap tool instead of the dominant long-run generator.
+- Balance(pressure_logic): compress `thermo_condenser` fuel burn into shorter pneumatic runtimes so fuel items power meaningful work sessions instead of providing near-infinite pressure.
+- Balance(pressure_logic): require live adjacent conduit pressure for `atmospheric_compressor` startup outside Wayfall so the late-game tier still hands off cleanly from the Thermo-Condenser.
+
 ## 1.0.1330 (2026-03-22)
 - Feat(pressure_logic): add tiered pressure generation with `hand_bellows` as the manual starter source and `thermo_condenser` as the burn-fuel mid-tier generator.
 - Change(pressure_logic): turn `membrane_pump` into a directional transfer pump instead of a free pressure source, making the generator tiers matter.

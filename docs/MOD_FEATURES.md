@@ -145,14 +145,14 @@ Keep it up to date whenever you add/remove/rename content.
   - Internal code should prefer `PressureApi` helpers over casting block entities.
 - Blocks:
   - `pressure_conduit`: conduit block with a `pressure_level` (0..5) state for visuals, backed by continuous pressure storage (0..100) and simple network diffusion.
-  - `hand_bellows`: manual early-game pressure source. Empty-hand right-click pumps a burst of pressure into the conduit in front; crouch-right-click still inspects.
-  - `thermo_condenser`: mid-tier burn generator. Consumes dropped vanilla fuel items above the block and condenses the heat into forward pressure output.
+  - `hand_bellows`: manual early-game pressure source. Empty-hand right-click pumps a modest burst of pressure into the conduit in front; crouch-right-click still inspects.
+  - `thermo_condenser`: mid-tier burn generator. Consumes dropped vanilla fuel items above the block, compresses their furnace burn time into a shorter pneumatic runtime, and condenses that heat into forward pressure output.
   - `membrane_pump`: redstone-controlled directional transfer pump (`powered`) that moves pressure from the conduit behind it into the conduit in front while tracking `pulse_rate` (0..5); it no longer creates free pressure by itself.
   - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: rotation transformer. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`) that multiplies/divides rotation level across the gearbox; right-click cycles the ratio.
   - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable). Strong redstone (>= 12) switches into a rotate mode that attempts to rotate the block in front on extension steps.
-  - `atmospheric_compressor`: late-game pressure/stability generator. Provides stable-air bubbles outside Wayfall, tracks `stability_level` (0..5), pressurizes adjacent conduits across all sides, and is crafted from the `thermo_condenser` tier.
+  - `atmospheric_compressor`: late-game pressure/stability generator. Outside Wayfall it must spin up from adjacent conduit pressure before it creates a stable-air bubble, then it pressurizes adjacent conduits across all sides and can sustain the network once online.
   - `pressure_valve`: inline conduit gate. When powered, it connects pressure conduits through itself along its facing axis; when unpowered, it blocks pressure flow.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
