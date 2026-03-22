@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "kruemblegard:scarstone" },
+    { "item": "kruemblegard:scarstone" },
+    { "item": "kruemblegard:scarstone" },
+    { "item": "kruemblegard:scarstone" },
+    { "item": "kruemblegard:attuned_ingot" }
+  ],
+  "result": {
+    "item": "kruemblegard:scarsteel_ingot"
+  }
+}

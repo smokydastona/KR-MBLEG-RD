@@ -1,6 +1,7 @@
 package com.kruemblegard.registry;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.init.ModArmorMaterials;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatType;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModTiers;
@@ -681,6 +682,64 @@ public class ModItems {
     public static final RegistryObject<Item> CRUSHSTONE_HOE = ITEMS.register(
         "crushstone_hoe",
         () -> new HoeItem(Tiers.STONE, -3, 0.0F, new Item.Properties())
+    );
+
+    // --- Tier 3: Scarsteel progression ---
+
+    public static final RegistryObject<Item> SCARSTEEL_INGOT = ITEMS.register(
+        "scarsteel_ingot",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_PICKAXE = ITEMS.register(
+        "scarsteel_pickaxe",
+        () -> new PickaxeItem(ModTiers.SCARSTEEL, 1, -2.8F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_AXE = ITEMS.register(
+        "scarsteel_axe",
+        () -> new AxeItem(ModTiers.SCARSTEEL, 5.0F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_SHOVEL = ITEMS.register(
+        "scarsteel_shovel",
+        () -> new ShovelItem(ModTiers.SCARSTEEL, 1.5F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_HOE = ITEMS.register(
+        "scarsteel_hoe",
+        () -> new HoeItem(ModTiers.SCARSTEEL, -3, 0.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_SWORD = ITEMS.register(
+        "scarsteel_sword",
+        () -> new SwordItem(ModTiers.SCARSTEEL, 3, -2.4F, new Item.Properties())
+    );
+
+    // Placeholder until a dedicated hammer item class exists.
+    public static final RegistryObject<Item> SCARSTEEL_HAMMER = ITEMS.register(
+        "scarsteel_hammer",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_HELMET = ITEMS.register(
+        "scarsteel_helmet",
+        () -> new ArmorItem(ModArmorMaterials.SCARSTEEL, ArmorItem.Type.HELMET, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_CHESTPLATE = ITEMS.register(
+        "scarsteel_chestplate",
+        () -> new ArmorItem(ModArmorMaterials.SCARSTEEL, ArmorItem.Type.CHESTPLATE, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_LEGGINGS = ITEMS.register(
+        "scarsteel_leggings",
+        () -> new ArmorItem(ModArmorMaterials.SCARSTEEL, ArmorItem.Type.LEGGINGS, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SCARSTEEL_BOOTS = ITEMS.register(
+        "scarsteel_boots",
+        () -> new ArmorItem(ModArmorMaterials.SCARSTEEL, ArmorItem.Type.BOOTS, new Item.Properties())
     );
 
     public static final RegistryObject<Item> RUNIC_SWORD = ITEMS.register(

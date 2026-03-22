@@ -115,6 +115,7 @@ public final class Kruemblegard {
             event.accept(ModItems.RUNIC_SCRAP);
             event.accept(ModItems.RUNIC_INGOT);
             event.accept(ModItems.ATTUNED_INGOT);
+            event.accept(ModItems.SCARSTEEL_INGOT);
             event.accept(ModItems.RUNIC_CORE);
             event.accept(ModItems.REMNANT_SEEDS);
             event.accept(ModItems.PALEWEFT_SEEDS);
@@ -138,6 +139,11 @@ public final class Kruemblegard {
             event.accept(ModItems.CRUSHSTONE_AXE);
             event.accept(ModItems.CRUSHSTONE_SHOVEL);
             event.accept(ModItems.CRUSHSTONE_HOE);
+            event.accept(ModItems.SCARSTEEL_PICKAXE);
+            event.accept(ModItems.SCARSTEEL_AXE);
+            event.accept(ModItems.SCARSTEEL_SHOVEL);
+            event.accept(ModItems.SCARSTEEL_HOE);
+            event.accept(ModItems.SCARSTEEL_HAMMER);
             event.accept(ModItems.RUNIC_PICKAXE);
             event.accept(ModItems.RUNIC_AXE);
             event.accept(ModItems.RUNIC_SHOVEL);
@@ -145,6 +151,11 @@ public final class Kruemblegard {
         }
 
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.SCARSTEEL_SWORD);
+            event.accept(ModItems.SCARSTEEL_HELMET);
+            event.accept(ModItems.SCARSTEEL_CHESTPLATE);
+            event.accept(ModItems.SCARSTEEL_LEGGINGS);
+            event.accept(ModItems.SCARSTEEL_BOOTS);
             event.accept(ModItems.RUNIC_SWORD);
         }
 

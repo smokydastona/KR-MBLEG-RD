@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1313 (2026-03-21)
+- Feat(items/wayfall): add the full Tier 3 Scarsteel line with `scarsteel_ingot`, tool set, sword, hammer placeholder, and armor set.
+- Feat(items/wayfall): add Scarsteel recipes, item models, `en_us` names, creative-tab wiring, and vanilla item-tag integration for tools, sword, and trimmable armor.
+- Feat(items/wayfall): add `ModTiers.SCARSTEEL` as a diamond-equivalent custom tool tier repaired with `scarsteel_ingot`.
+
 ## 1.0.1311 (2026-03-22)
 - Feat(items/wayfall): add Crushstone starter tools (pickaxe/axe/shovel/hoe) with recipes, item models, and `en_us` names.
 - Compat(tags): include Crushstone tools in vanilla tool item tags (`pickaxes`, `axes`, `shovels`, `hoes`).

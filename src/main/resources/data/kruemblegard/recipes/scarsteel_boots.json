@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": { "item": "kruemblegard:scarsteel_ingot" }
+  },
+  "result": { "item": "kruemblegard:scarsteel_boots" }
+}

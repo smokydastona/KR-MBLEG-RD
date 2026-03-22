@@ -506,6 +506,23 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Crafting: vanilla-shaped recipes using `kruemblegard:crushstone` + sticks.
   - Repair: repairable with Crushstone (via vanilla `minecraft:stone_tool_materials` tag).
 
+- **Scarsteel progression set**
+  - Scarsteel Ingot (`scarsteel_ingot`)
+  - Scarsteel Sword (`scarsteel_sword`)
+  - Scarsteel Pickaxe (`scarsteel_pickaxe`)
+  - Scarsteel Axe (`scarsteel_axe`)
+  - Scarsteel Shovel (`scarsteel_shovel`)
+  - Scarsteel Hoe (`scarsteel_hoe`)
+  - Scarsteel Hammer (`scarsteel_hammer`)
+  - Scarsteel Helmet (`scarsteel_helmet`)
+  - Scarsteel Chestplate (`scarsteel_chestplate`)
+  - Scarsteel Leggings (`scarsteel_leggings`)
+  - Scarsteel Boots (`scarsteel_boots`)
+  - Tier: diamond-equivalent custom tool tier (`ModTiers.SCARSTEEL`) repaired with `scarsteel_ingot`.
+  - Crafting: Scarsteel Ingot is crafted from Scarstone + Attuned Ingot, then used for the full tool, weapon, hammer, and armor line.
+  - Armor: uses a dedicated Scarsteel armor material with diamond-equivalent stats and `scarsteel_ingot` repair behavior, while still reusing vanilla diamond armor textures for now.
+  - Current placeholder state: the hammer is a generic item without bespoke hammer logic yet, and item art currently uses placeholder vanilla textures.
+
 - **Runic Debris** (`runic_debris`)
   - Wayfall-only worldgen.
   - Drops itself when mined with a Diamond-tier pickaxe or better.
