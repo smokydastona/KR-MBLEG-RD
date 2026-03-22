@@ -4,13 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
-## 1.0.1315 (2026-03-21)
-- Fix(mobs/wayfall): Driftwhales now only target Glow Squid (remain non-hostile to players).
-
-## 1.0.1314 (2026-03-21)
+## 1.0.1317 (2026-03-21)
 - Tweak(driftwhale): Driftwhales now wander more actively and stay closer to their pod (reduced long-range spread).
 - Feat(mobs): Driftwhales will target and attack Glow Squid.
 - Feat(mobs/wayfall): Wayfall Glow Squid will actively flee nearby Driftwhales while air-swimming.
+- Fix(mobs/wayfall): Driftwhales only target Glow Squid (remain non-hostile to players).
 
 ## 1.0.1313 (2026-03-21)
 - Feat(items/wayfall): add the full Tier 3 Scarsteel line with `scarsteel_ingot`, tool set, sword, hammer placeholder, and armor set.
