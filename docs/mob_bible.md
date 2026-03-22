@@ -58,8 +58,8 @@ Generated: 2026-03-21 14:02:35
   - `cephalari`, `pebblit`, `traprock`, `unkeeper`, `wyrdwing`
 - No biome modifier refs (may not spawn naturally): 0
   - (none)
-- No sounds.json matches (may rely on vanilla sounds): 4
-  - `driftwhale`, `grave_cairn`, `mossback_tortoise`, `pebble_wren`
+- No sounds.json matches (may rely on vanilla sounds): 3
+  - `driftwhale`, `grave_cairn`, `mossback_tortoise`
 - Missing spawn eggs: 0
   - (none)
 - Animation warnings (non-fatal): 1
@@ -85,7 +85,7 @@ Generated: 2026-03-21 14:02:35
 | `kruemblegard` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `moogloom` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `mossback_tortoise` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
-| `pebble_wren` | 95 | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ |
+| `pebble_wren` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `pebblit` | 90 | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scaralon_beetle` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `scattered_enderman` | 100 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -285,8 +285,8 @@ Generated: 2026-03-21 14:02:35
   - Immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior)
 
 #### `pebble_wren`
-- Score: `95`
-- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
+- Score: `100`
+- Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `PebbleWrenEntity` | Renderer: `PebbleWrenRenderer` | Model: `PebbleWrenModel`
 - Behavior: tameable bird with a twitchy songbird-style perch-and-flight rhythm, a preference for higher visible perches, occasional perched chirps with the nearest perched flourish answer and slight call variation, brief one-extra-reply chatter bursts, loose synchronized perch hops in wild flocks, airborne wandering/flocking when displaced, and an ore-direction ping when befriended.
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebble_wren.geo.json`
@@ -295,9 +295,7 @@ Generated: 2026-03-21 14:02:35
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/pebble_wren.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_pebble_wren_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.pebble_wren` spawnEgg=`item.kruemblegard.pebble_wren_spawn_egg`
-- TODO: Confirm vanilla sounds or add custom sounds
-- Audit notes:
-  - No sounds.json entries matched this mob id (may rely on vanilla sounds)
+- Sound assets: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ambient.ogg`, `death.ogg`, `flourish.ogg`, `flutter.ogg`, `hurt.ogg`, `ore_ping.ogg`, `perch_call.ogg`, `perch_reply.ogg`
 
 #### `pebblit`
 - Score: `90`

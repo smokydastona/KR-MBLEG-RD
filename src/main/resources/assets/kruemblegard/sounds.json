@@ -166,6 +166,55 @@
     ]
   },
 
+  "entity.pebble_wren.ambient": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.ambient",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/ambient"}
+    ]
+  },
+  "entity.pebble_wren.perch_call": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.perch_call",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/perch_call"}
+    ]
+  },
+  "entity.pebble_wren.perch_reply": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.perch_reply",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/perch_reply"}
+    ]
+  },
+  "entity.pebble_wren.flourish": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.flourish",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/flourish"}
+    ]
+  },
+  "entity.pebble_wren.hurt": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.hurt",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/hurt"}
+    ]
+  },
+  "entity.pebble_wren.death": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.death",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/death"}
+    ]
+  },
+  "entity.pebble_wren.flutter": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.flutter",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/flutter"}
+    ]
+  },
+  "entity.pebble_wren.ore_ping": {
+    "subtitle": "subtitles.kruemblegard.pebble_wren.ore_ping",
+    "sounds": [
+      {"name": "kruemblegard:entity/pebble_wren/ore_ping"}
+    ]
+  },
+
   "entity.unkeeper.ambient": {
     "subtitle": "subtitles.kruemblegard.unkeeper.ambient",
     "sounds": [

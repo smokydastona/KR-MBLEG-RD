@@ -63,6 +63,15 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PEBBLIT_TAME = register("entity.pebblit.tame");
     public static final RegistryObject<SoundEvent> PEBBLIT_PERCH = register("entity.pebblit.perch");
 
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_AMBIENT = register("entity.pebble_wren.ambient");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_PERCH_CALL = register("entity.pebble_wren.perch_call");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_PERCH_REPLY = register("entity.pebble_wren.perch_reply");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_FLOURISH = register("entity.pebble_wren.flourish");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_HURT = register("entity.pebble_wren.hurt");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_DEATH = register("entity.pebble_wren.death");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_FLUTTER = register("entity.pebble_wren.flutter");
+    public static final RegistryObject<SoundEvent> PEBBLE_WREN_ORE_PING = register("entity.pebble_wren.ore_ping");
+
     public static final RegistryObject<SoundEvent> UNKEEPER_AMBIENT = register("entity.unkeeper.ambient");
     public static final RegistryObject<SoundEvent> UNKEEPER_HURT = register("entity.unkeeper.hurt");
     public static final RegistryObject<SoundEvent> UNKEEPER_DEATH = register("entity.unkeeper.death");

@@ -3,11 +3,20 @@ package com.kruemblegard.entity;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.registry.ModSounds;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -15,9 +24,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -35,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -47,10 +54,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.common.Tags;
-
-import com.kruemblegard.registry.ModEntities;
-
-import org.jetbrains.annotations.Nullable;
 
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -157,10 +160,19 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     }
 
     private void setFlying(boolean flying) {
+        boolean changed = this.isFlying() != flying;
         this.entityData.set(DATA_FLYING, flying);
         this.setNoGravity(flying);
         if (flying) {
             this.fallDistance = 0.0F;
+        }
+
+        if (changed) {
+            this.playSound(
+                ModSounds.PEBBLE_WREN_FLUTTER.get(),
+                flying ? 0.16F : 0.12F,
+                (flying ? 1.18F : 1.02F) + (this.random.nextFloat() * 0.12F)
+            );
         }
     }
 
@@ -342,6 +354,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         return basePitch + variantPitch + randomPitch;
     }
 
+    private void playPerchFlourishCue() {
+        this.playSound(ModSounds.PEBBLE_WREN_FLOURISH.get(), 0.2F, 0.98F + this.random.nextFloat() * 0.16F);
+    }
+
     private void receivePerchCall(int chainDepth) {
         if (!this.canAnswerPerchCall() || this.perchSocialCooldownTicks > (MIN_PERCH_SOCIAL_COOLDOWN / 2)) {
             return;
@@ -355,8 +371,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.level().broadcastEntityEvent(this, ENTITY_EVENT_PERCH_FLOURISH);
 
         if (this.random.nextBoolean()) {
-            this.playSound(SoundEvents.PARROT_AMBIENT, 0.24F, this.getPerchCallPitch(true));
+            this.playSound(ModSounds.PEBBLE_WREN_PERCH_REPLY.get(), 0.24F, this.getPerchCallPitch(true));
         }
+
+        this.playPerchFlourishCue();
 
         if (chainDepth < MAX_PERCH_CALL_CHAIN_DEPTH && this.random.nextInt(5) == 0) {
             this.broadcastPerchCall(chainDepth + 1);
@@ -403,12 +421,13 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             return;
         }
 
-        this.playSound(SoundEvents.PARROT_AMBIENT, 0.35F, this.getPerchCallPitch(false));
+        this.playSound(ModSounds.PEBBLE_WREN_PERCH_CALL.get(), 0.35F, this.getPerchCallPitch(false));
         this.broadcastPerchCall(0);
 
         if (this.random.nextBoolean()) {
             this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
             this.level().broadcastEntityEvent(this, ENTITY_EVENT_PERCH_FLOURISH);
+            this.playPerchFlourishCue();
         }
 
         this.perchSocialCooldownTicks = MIN_PERCH_SOCIAL_COOLDOWN
@@ -820,7 +839,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         BlockPos orePos = findNearbyOre(serverLevel, owner.blockPosition());
         if (orePos == null) {
             serverLevel.sendParticles(ParticleTypes.SMOKE, getX(), getY(0.5D), getZ(), 6, 0.25D, 0.15D, 0.25D, 0.01D);
-            this.playSound(SoundEvents.PARROT_AMBIENT, 0.6F, 0.6F);
+            this.playSound(ModSounds.PEBBLE_WREN_PERCH_REPLY.get(), 0.28F, 0.86F + this.random.nextFloat() * 0.08F);
             this.oreFindCooldownTicks = ORE_FIND_COOLDOWN_TICKS;
             return;
         }
@@ -852,7 +871,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         }
 
         serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, getX(), getY(0.6D), getZ(), 4, 0.18D, 0.18D, 0.18D, 0.02D);
-        this.playSound(SoundEvents.PARROT_AMBIENT, 0.7F, 1.35F);
+    this.playSound(ModSounds.PEBBLE_WREN_ORE_PING.get(), 0.55F, 1.18F + this.random.nextFloat() * 0.08F);
 
         // Kick off the fan-tail display animation client-side.
         this.displayAnimTicks = DISPLAY_ANIM_TICKS;
@@ -903,6 +922,24 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     @Override
     public boolean causeFallDamage(float distance, float multiplier, net.minecraft.world.damagesource.DamageSource source) {
         return false;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.PEBBLE_WREN_AMBIENT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.PEBBLE_WREN_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.PEBBLE_WREN_DEATH.get();
     }
 
     @Override

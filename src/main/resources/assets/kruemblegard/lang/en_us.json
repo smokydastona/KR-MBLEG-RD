@@ -60,6 +60,14 @@
 
     "entity.kruemblegard.pebble_wren": "Pebble Wren",
     "item.kruemblegard.pebble_wren_spawn_egg": "Pebble Wren Spawn Egg",
+    "subtitles.kruemblegard.pebble_wren.ambient": "Pebble Wren chirps",
+    "subtitles.kruemblegard.pebble_wren.perch_call": "Pebble Wren calls",
+    "subtitles.kruemblegard.pebble_wren.perch_reply": "Pebble Wren replies",
+    "subtitles.kruemblegard.pebble_wren.flourish": "Pebble Wren flourishes",
+    "subtitles.kruemblegard.pebble_wren.hurt": "Pebble Wren squeaks",
+    "subtitles.kruemblegard.pebble_wren.death": "Pebble Wren falls silent",
+    "subtitles.kruemblegard.pebble_wren.flutter": "Pebble Wren flutters",
+    "subtitles.kruemblegard.pebble_wren.ore_ping": "Pebble Wren trills",
 
     "entity.kruemblegard.mossback_tortoise": "Mossback Tortoise",
     "item.kruemblegard.mossback_tortoise_spawn_egg": "Mossback Tortoise Spawn Egg",
