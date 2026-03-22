@@ -227,7 +227,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Visual: upright “display bird” silhouette with crest + fan tail.
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
   - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping (plays a brief display animation).
-  - Movement: uses a perch-and-flight rhythm with short airborne bursts, ground strolling while relaxed, flying navigation + air-wander flocking when displaced, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
+  - Movement: uses a busier perch-and-flight rhythm with short, frequent airborne bursts, quicker owner/flock regrouping, ground strolling while relaxed, flying navigation + air-wander flocking when displaced, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
   - Drops Feathers and (occasionally) Wheat Seeds.

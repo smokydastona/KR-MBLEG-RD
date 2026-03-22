@@ -97,12 +97,12 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double FLOCK_SCAN_RADIUS = 14.0D;
     private static final double FLOCK_RETURN_DISTANCE = 12.0D;
     private static final double FLOCK_MAX_WANDER_RADIUS = 8.0D;
-    private static final int MIN_AIRBORNE_TICKS = 20;
-    private static final int MAX_AIRBORNE_TICKS = 20 * 4;
-    private static final int MIN_GROUNDED_TICKS = 20;
-    private static final int MAX_GROUNDED_TICKS = 20 * 5;
-    private static final double OWNER_TAKEOFF_DISTANCE = 7.0D;
-    private static final double FLOCK_TAKEOFF_DISTANCE = 8.0D;
+    private static final int MIN_AIRBORNE_TICKS = 14;
+    private static final int MAX_AIRBORNE_TICKS = 20 * 3;
+    private static final int MIN_GROUNDED_TICKS = 8;
+    private static final int MAX_GROUNDED_TICKS = 20 * 2;
+    private static final double OWNER_TAKEOFF_DISTANCE = 5.5D;
+    private static final double FLOCK_TAKEOFF_DISTANCE = 6.5D;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
@@ -243,7 +243,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
         }
 
-        return this.groundedTicks >= this.flightPhaseTargetTicks && this.random.nextInt(24) == 0;
+        return this.groundedTicks >= this.flightPhaseTargetTicks && this.random.nextInt(10) == 0;
     }
 
     private boolean shouldLand() {
@@ -270,7 +270,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
         }
 
-        return this.airborneTicks >= this.flightPhaseTargetTicks && (this.onGround() || this.random.nextInt(20) == 0);
+        return this.airborneTicks >= this.flightPhaseTargetTicks && (this.onGround() || this.random.nextInt(12) == 0);
     }
 
     private void beginFlightPhase() {
@@ -423,7 +423,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
             BlockPos candidate = BlockPos.containing(dx, dy, dz);
             if (!mob.level().getBlockState(candidate).getCollisionShape(mob.level(), candidate).isEmpty()) {
-                cooldownTicks = 10;
+                cooldownTicks = 12;
                 return;
             }
 
@@ -433,7 +433,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             }
 
             mob.getNavigation().moveTo(dx, dy, dz, 1.05D);
-            cooldownTicks = 20 + random.nextInt(20);
+            cooldownTicks = 8 + random.nextInt(12);
         }
     }
 
