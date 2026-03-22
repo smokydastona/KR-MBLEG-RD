@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1340 (2026-03-22)
+- Tune(pebble_wren): let nearby perched Wrens occasionally answer a chirp with their own tiny flourish instead of only reacting through synchronized takeoff timing.
+
 ## 1.0.1339 (2026-03-22)
 - Tune(pebble_wren): add occasional perched chirps and tiny flourish animations, and let nearby wild Wrens loosely synchronize short perch-hop takeoffs for more coordinated flock motion.
 

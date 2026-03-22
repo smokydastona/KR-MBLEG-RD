@@ -116,6 +116,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double FLOCK_TAKEOFF_DISTANCE = 6.0D;
     private static final int PERCH_SEARCH_RADIUS = 6;
     private static final double FLOCK_SYNC_RADIUS = 7.0D;
+    private static final double PERCH_CALL_RESPONSE_RADIUS = 6.0D;
     private static final int MIN_PERCH_SOCIAL_COOLDOWN = 20 * 4;
     private static final int MAX_PERCH_SOCIAL_COOLDOWN = 20 * 9;
 
@@ -326,6 +327,44 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         }
     }
 
+    private boolean canAnswerPerchCall() {
+        return !this.isFlying() && this.onGround() && !this.isOrderedToSit() && !this.isPassenger()
+            && !this.isInWaterOrBubble() && this.getTarget() == null && this.isNearPreferredPerch()
+            && this.getNavigation().isDone();
+    }
+
+    private void receivePerchCall() {
+        if (!this.canAnswerPerchCall() || this.perchSocialCooldownTicks > (MIN_PERCH_SOCIAL_COOLDOWN / 2)) {
+            return;
+        }
+
+        if (this.random.nextInt(3) != 0) {
+            return;
+        }
+
+        this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
+        this.level().broadcastEntityEvent(this, ENTITY_EVENT_PERCH_FLOURISH);
+
+        if (this.random.nextBoolean()) {
+            this.playSound(SoundEvents.PARROT_AMBIENT, 0.28F, 1.2F + this.random.nextFloat() * 0.2F);
+        }
+
+        this.perchSocialCooldownTicks = 20 + this.random.nextInt(20);
+    }
+
+    private void broadcastPerchCall() {
+        AABB scan = this.getBoundingBox().inflate(PERCH_CALL_RESPONSE_RADIUS);
+        List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive()
+        );
+
+        for (PebbleWrenEntity mate : mates) {
+            mate.receivePerchCall();
+        }
+    }
+
     private void tryPerchedSocialBehavior() {
         if (this.perchSocialCooldownTicks > 0 || this.isFlying() || !this.onGround() || this.isOrderedToSit()
             || this.isPassenger() || this.isInWaterOrBubble() || this.getTarget() != null || !this.isNearPreferredPerch()) {
@@ -337,6 +376,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         }
 
         this.playSound(SoundEvents.PARROT_AMBIENT, 0.35F, 1.15F + this.random.nextFloat() * 0.25F);
+        this.broadcastPerchCall();
 
         if (this.random.nextBoolean()) {
             this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
