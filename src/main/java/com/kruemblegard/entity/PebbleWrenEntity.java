@@ -78,6 +78,9 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.idle");
 
+    private static final RawAnimation PERCH_LOOP =
+        RawAnimation.begin().thenLoop("animation.pebble_wren.perch");
+
     private static final RawAnimation WALK_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.walk");
 
@@ -303,6 +306,28 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             && this.level().getBlockState(pos.above(2)).isAir();
     }
 
+    private int getPerchScore(BlockPos pos, Vec3 origin) {
+        BlockState state = this.level().getBlockState(pos);
+        int score = 0;
+
+        if (state.is(BlockTags.LOGS) || state.is(BlockTags.LOGS_THAT_BURN)) {
+            score += 6;
+        }
+
+        if (state.is(BlockTags.LEAVES)) {
+            score += 5;
+        }
+
+        if (state.is(BlockTags.FENCES) || state.is(BlockTags.WALLS)) {
+            score += 4;
+        }
+
+        int heightDelta = pos.getY() - BlockPos.containing(origin).getY();
+        score += Math.max(-2, Math.min(6, heightDelta * 2));
+        score -= (int) Math.round(pos.distSqr(BlockPos.containing(origin)) * 0.12D);
+        return score;
+    }
+
     private boolean isNearPreferredPerch() {
         BlockPos below = this.blockPosition().below();
         return this.isPreferredPerch(below) || this.isPreferredPerch(below.north()) || this.isPreferredPerch(below.south())
@@ -312,11 +337,13 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     @Nullable
     private Vec3 findNearbyPerchTarget(Vec3 origin, int radius) {
         RandomSource random = this.getRandom();
+        Vec3 bestTarget = null;
+        int bestScore = Integer.MIN_VALUE;
 
-        for (int attempt = 0; attempt < 18; attempt++) {
+        for (int attempt = 0; attempt < 20; attempt++) {
             int x = BlockPos.containing(origin).getX() + random.nextInt(radius * 2 + 1) - radius;
             int z = BlockPos.containing(origin).getZ() + random.nextInt(radius * 2 + 1) - radius;
-            int y = BlockPos.containing(origin).getY() + random.nextInt(5) - 2;
+            int y = BlockPos.containing(origin).getY() + random.nextInt(7) - 1;
 
             BlockPos perch = new BlockPos(x, y, z);
             if (!this.isPreferredPerch(perch)) {
@@ -340,10 +367,14 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
                 continue;
             }
 
-            return Vec3.atBottomCenterOf(landing).add(0.0D, 0.05D, 0.0D);
+            int score = this.getPerchScore(perch, origin);
+            if (score > bestScore) {
+                bestScore = score;
+                bestTarget = Vec3.atBottomCenterOf(landing).add(0.0D, 0.05D, 0.0D);
+            }
         }
 
-        return null;
+        return bestTarget;
     }
 
     private Vec3 getFlockFocusPoint() {
@@ -712,7 +743,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             } else if (this.isFlying()) {
                 state.setAnimation(FLY_LOOP);
             } else {
-                state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
+                state.setAnimation(state.isMoving() ? WALK_LOOP : (this.isNearPreferredPerch() ? PERCH_LOOP : IDLE_LOOP));
             }
             return PlayState.CONTINUE;
         }));
