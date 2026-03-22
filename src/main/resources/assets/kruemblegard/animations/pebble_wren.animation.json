@@ -55,6 +55,33 @@
 				}
 			}
 		},
+		"animation.pebble_wren.perch_flourish": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, "0.06 + math.sin(query.anim_time * 85) * 0.12", 0],
+					"rotation": ["-4 + math.sin(query.anim_time * 42) * 3", "math.sin(query.anim_time * 38) * 8", 0]
+				},
+				"chest": {
+					"position": [0, 0, "0.05 + math.sin(query.anim_time * 100) * 0.07"]
+				},
+				"head": {
+					"rotation": ["-10 + math.sin(query.anim_time * 95) * 10", "math.sin(query.anim_time * 60) * 18", "math.sin(query.anim_time * 55) * 2"]
+				},
+				"crest": {
+					"rotation": ["12 + math.sin(query.anim_time * 160) * 14", 0, 0]
+				},
+				"wing_L": {
+					"rotation": [0, 0, "8 + math.sin(query.anim_time * 140) * 8"]
+				},
+				"wing_R": {
+					"rotation": [0, 0, "-8 - math.sin(query.anim_time * 140) * 8"]
+				},
+				"tail_fan": {
+					"rotation": ["-34 + math.sin(query.anim_time * 110) * 14", "math.sin(query.anim_time * 45) * 5", 0]
+				}
+			}
+		},
 		"animation.pebble_wren.walk": {
 			"loop": true,
 			"bones": {

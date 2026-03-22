@@ -81,6 +81,9 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final RawAnimation PERCH_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.perch");
 
+    private static final RawAnimation PERCH_FLOURISH_LOOP =
+        RawAnimation.begin().thenLoop("animation.pebble_wren.perch_flourish");
+
     private static final RawAnimation WALK_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.walk");
 
@@ -98,7 +101,9 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final int ORE_FIND_Y_RANGE = 8;
 
     private static final byte ENTITY_EVENT_DISPLAY = 15;
+    private static final byte ENTITY_EVENT_PERCH_FLOURISH = 16;
     private static final int DISPLAY_ANIM_TICKS = 20 * 3;
+    private static final int PERCH_FLOURISH_TICKS = 10;
 
     private static final double FLOCK_SCAN_RADIUS = 14.0D;
     private static final double FLOCK_RETURN_DISTANCE = 12.0D;
@@ -110,12 +115,18 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double OWNER_TAKEOFF_DISTANCE = 5.0D;
     private static final double FLOCK_TAKEOFF_DISTANCE = 6.0D;
     private static final int PERCH_SEARCH_RADIUS = 6;
+    private static final double FLOCK_SYNC_RADIUS = 7.0D;
+    private static final int MIN_PERCH_SOCIAL_COOLDOWN = 20 * 4;
+    private static final int MAX_PERCH_SOCIAL_COOLDOWN = 20 * 9;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
+    private int perchFlourishAnimTicks = 0;
     private int airborneTicks = 0;
     private int groundedTicks = 0;
     private int flightPhaseTargetTicks = MIN_GROUNDED_TICKS;
+    private int perchSocialCooldownTicks = 20 * 4;
+    private int flockSyncTicks = 0;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -239,6 +250,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
             return true;
         }
 
+        if (this.flockSyncTicks > 0 && this.groundedTicks >= 2) {
+            return this.random.nextInt(3) == 0;
+        }
+
         if (this.isTame() && this.getOwner() != null) {
             if (this.distanceToSqr(this.getOwner()) > (OWNER_TAKEOFF_DISTANCE * OWNER_TAKEOFF_DISTANCE)) {
                 return true;
@@ -288,6 +303,48 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private void beginGroundPhase() {
         this.groundedTicks = 0;
         this.flightPhaseTargetTicks = MIN_GROUNDED_TICKS + this.random.nextInt((MAX_GROUNDED_TICKS - MIN_GROUNDED_TICKS) + 1);
+    }
+
+    private void receiveFlockSyncSignal() {
+        this.flockSyncTicks = 10 + this.random.nextInt(12);
+    }
+
+    private void broadcastFlockSyncSignal() {
+        if (this.isTame()) {
+            return;
+        }
+
+        AABB scan = this.getBoundingBox().inflate(FLOCK_SYNC_RADIUS);
+        List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive() && !other.isTame() && !other.isOrderedToSit()
+        );
+
+        for (PebbleWrenEntity mate : mates) {
+            mate.receiveFlockSyncSignal();
+        }
+    }
+
+    private void tryPerchedSocialBehavior() {
+        if (this.perchSocialCooldownTicks > 0 || this.isFlying() || !this.onGround() || this.isOrderedToSit()
+            || this.isPassenger() || this.isInWaterOrBubble() || this.getTarget() != null || !this.isNearPreferredPerch()) {
+            return;
+        }
+
+        if (this.getNavigation().isInProgress() || this.random.nextInt(120) != 0) {
+            return;
+        }
+
+        this.playSound(SoundEvents.PARROT_AMBIENT, 0.35F, 1.15F + this.random.nextFloat() * 0.25F);
+
+        if (this.random.nextBoolean()) {
+            this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
+            this.level().broadcastEntityEvent(this, ENTITY_EVENT_PERCH_FLOURISH);
+        }
+
+        this.perchSocialCooldownTicks = MIN_PERCH_SOCIAL_COOLDOWN
+            + this.random.nextInt((MAX_PERCH_SOCIAL_COOLDOWN - MIN_PERCH_SOCIAL_COOLDOWN) + 1);
     }
 
     private boolean isPreferredPerch(BlockPos pos) {
@@ -565,6 +622,14 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         super.tick();
 
         if (!this.level().isClientSide) {
+            if (this.perchSocialCooldownTicks > 0) {
+                --this.perchSocialCooldownTicks;
+            }
+
+            if (this.flockSyncTicks > 0) {
+                --this.flockSyncTicks;
+            }
+
             if (this.isFlying()) {
                 this.airborneTicks++;
                 this.groundedTicks = 0;
@@ -579,11 +644,16 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
                 this.airborneTicks = 0;
 
                 if (this.shouldTakeOff()) {
+                    boolean wasPerched = this.isNearPreferredPerch();
                     this.setFlying(true);
                     this.beginFlightPhase();
                     Vec3 delta = this.getDeltaMovement();
                     this.setDeltaMovement(delta.x, Math.max(0.18D, delta.y), delta.z);
                     this.hasImpulse = true;
+
+                    if (wasPerched) {
+                        this.broadcastFlockSyncSignal();
+                    }
                 }
             }
 
@@ -595,6 +665,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
                 } else if (delta.y < -0.08D) {
                     this.setDeltaMovement(delta.x, -0.08D, delta.z);
                 }
+            } else {
+                this.tryPerchedSocialBehavior();
             }
         }
 
@@ -605,12 +677,21 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         if (this.displayAnimTicks > 0) {
             --this.displayAnimTicks;
         }
+
+        if (this.perchFlourishAnimTicks > 0) {
+            --this.perchFlourishAnimTicks;
+        }
     }
 
     @Override
     public void handleEntityEvent(byte id) {
         if (id == ENTITY_EVENT_DISPLAY) {
             this.displayAnimTicks = DISPLAY_ANIM_TICKS;
+            return;
+        }
+
+        if (id == ENTITY_EVENT_PERCH_FLOURISH) {
+            this.perchFlourishAnimTicks = PERCH_FLOURISH_TICKS;
             return;
         }
 
@@ -740,6 +821,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
             if (this.displayAnimTicks > 0) {
                 state.setAnimation(DISPLAY_LOOP);
+            } else if (this.perchFlourishAnimTicks > 0) {
+                state.setAnimation(PERCH_FLOURISH_LOOP);
             } else if (this.isFlying()) {
                 state.setAnimation(FLY_LOOP);
             } else {
