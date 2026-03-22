@@ -4,16 +4,22 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1328 (2026-03-21)
+- Docs(changelog): align top entries with commit-count jar versioning and preserve newest-first ordering.
+
+## 1.0.1327 (2026-03-21)
+- Assets(pebble_wren): update `pebble_wren.geo.json`.
+
+## 1.0.1326 (2026-03-21)
+- Feat(pebble_wren): wild Pebble Wrens now maintain loose flock cohesion (while still respecting panic/tempt/owner-follow).
+- Feat(pebble_wren/assets): wire Pebble Wren texture variants (1..14) as a synced + persisted appearance.
+
 ## 1.0.1325 (2026-03-22)
 - Fix(assets/pressure_logic): remove generic stone-cube models; restore per-machine models so no Pressure-Logic blocks render as generic cubes.
 - Fix(assets/pressure_logic): wire machine operating state into blockstate variants so working/non-zero states render `*_active` models (powered/signal/rotation/extension/ratio).
 - Fix(assets/pressure_logic): give `spiral_shaft` unique textures and animate/render `spiral_shaft_active` when `rotation_speed` is non-zero.
 - Fix(pebble_wren/assets): update the Pebble Wren renderer texture path after the entity texture reorg (and update docs to match).
 - Revert(compat/create): remove unfinished Create scaffolding.
-
-## 1.0.1326 (2026-03-21)
-- Feat(pebble_wren): wild Pebble Wrens now maintain loose flock cohesion (while still respecting panic/tempt/owner-follow).
-- Feat(pebble_wren/assets): wire Pebble Wren texture variants (1..14) as a synced + persisted appearance.
 
 ## 1.0.1318 (2026-03-22)
 - Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
