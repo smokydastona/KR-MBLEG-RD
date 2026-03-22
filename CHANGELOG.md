@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1321 (2026-03-22)
+- Fix(assets/pressure_logic): remove generic stone-cube models; restore per-machine models so no Pressure-Logic blocks render as generic cubes.
+
 ## 1.0.1320 (2026-03-22)
 - Compat(create): declare optional Create dependency and auto-load local Create jar in dev when present.
-
-## 1.0.1319 (2026-03-22)
-- Fix(assets/pressure_logic): normalize Pressure-Logic machine block models to a shared generic cube model (uniform standing-stone texture).
 
 ## 1.0.1318 (2026-03-22)
 - Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
