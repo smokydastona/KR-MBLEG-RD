@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1311 (2026-03-22)
+- Feat(items/wayfall): add Crushstone starter tools (pickaxe/axe/shovel/hoe) with recipes, item models, and `en_us` names.
+- Compat(tags): include Crushstone tools in vanilla tool item tags (`pickaxes`, `axes`, `shovels`, `hoes`).
+
 ## 1.0.1309 (2026-03-21)
 - Feat(pressure_logic): add Pneumatic Catapult launch variants with an angle dial plus precision/scatter modes.
 - Feat(pressure_logic): add Membrane Press precision/bulk modes and Crystal Infuser multi/deep modes.

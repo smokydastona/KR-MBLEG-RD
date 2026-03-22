@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "C": { "item": "kruemblegard:crushstone" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": { "item": "kruemblegard:crushstone_pickaxe" }
+}

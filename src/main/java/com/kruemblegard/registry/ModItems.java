@@ -20,6 +20,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
@@ -225,6 +226,16 @@ public class ModItems {
     public static final RegistryObject<Item> RUNEBLOOM_ITEM = ITEMS.register(
         "runebloom",
         () -> new BlockItem(ModBlocks.RUNEBLOOM.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNE_SPROUTS_ITEM = ITEMS.register(
+        "rune_sprouts",
+        () -> new BlockItem(ModBlocks.RUNE_SPROUTS.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RUNEDRIFT_REED_ITEM = ITEMS.register(
+        "runedrift_reed",
+        () -> new BlockItem(ModBlocks.RUNEDRIFT_REED.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> SOULBERRY_SHRUB_ITEM = ITEMS.register(
@@ -649,6 +660,28 @@ public class ModItems {
 
     public static final RegistryObject<Item> CHITIN_BOOTS =
         ITEMS.register("chitin_boots", () -> new ArmorItem(ArmorMaterials.IRON, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    // --- Tier 1: Wayfall survival (starter set) ---
+
+    public static final RegistryObject<Item> CRUSHSTONE_PICKAXE = ITEMS.register(
+        "crushstone_pickaxe",
+        () -> new PickaxeItem(Tiers.STONE, 1, -2.8F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> CRUSHSTONE_AXE = ITEMS.register(
+        "crushstone_axe",
+        () -> new AxeItem(Tiers.STONE, 5.0F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> CRUSHSTONE_SHOVEL = ITEMS.register(
+        "crushstone_shovel",
+        () -> new ShovelItem(Tiers.STONE, 1.5F, -3.0F, new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> CRUSHSTONE_HOE = ITEMS.register(
+        "crushstone_hoe",
+        () -> new HoeItem(Tiers.STONE, -3, 0.0F, new Item.Properties())
+    );
 
     public static final RegistryObject<Item> RUNIC_SWORD = ITEMS.register(
         "runic_sword",

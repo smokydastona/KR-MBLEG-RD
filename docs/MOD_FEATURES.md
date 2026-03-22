@@ -497,6 +497,15 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Tier: Runic tools are Netherite-equivalent.
   - Crafting: Runic tools can be crafted directly using **Runic Ingots**, or upgraded from Diamond tools in a Smithing Table (Netherite-template style), keeping enchantments.
 
+- **Crushstone tool set**
+  - Crushstone Pickaxe (`crushstone_pickaxe`)
+  - Crushstone Axe (`crushstone_axe`)
+  - Crushstone Shovel (`crushstone_shovel`)
+  - Crushstone Hoe (`crushstone_hoe`)
+  - Tier: stone-equivalent starter tools.
+  - Crafting: vanilla-shaped recipes using `kruemblegard:crushstone` + sticks.
+  - Repair: repairable with Crushstone (via vanilla `minecraft:stone_tool_materials` tag).
+
 - **Runic Debris** (`runic_debris`)
   - Wayfall-only worldgen.
   - Drops itself when mined with a Diamond-tier pickaxe or better.

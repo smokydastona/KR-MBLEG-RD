@@ -104,6 +104,8 @@ public final class Kruemblegard {
             event.accept(ModItems.PYROKELP_ITEM);
             event.accept(ModItems.ECHOCAP_ITEM);
             event.accept(ModItems.RUNEBLOOM_ITEM);
+            event.accept(ModItems.RUNE_SPROUTS_ITEM);
+            event.accept(ModItems.RUNEDRIFT_REED_ITEM);
             event.accept(ModItems.SOULBERRY_SHRUB_ITEM);
             event.accept(ModItems.GHOULBERRY_SHRUB_ITEM);
         }
@@ -132,6 +134,10 @@ public final class Kruemblegard {
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(KruemblegardGuidebook.createDefaultFilledBook());
+            event.accept(ModItems.CRUSHSTONE_PICKAXE);
+            event.accept(ModItems.CRUSHSTONE_AXE);
+            event.accept(ModItems.CRUSHSTONE_SHOVEL);
+            event.accept(ModItems.CRUSHSTONE_HOE);
             event.accept(ModItems.RUNIC_PICKAXE);
             event.accept(ModItems.RUNIC_AXE);
             event.accept(ModItems.RUNIC_SHOVEL);
