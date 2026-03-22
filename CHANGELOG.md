@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1335 (2026-03-22)
+- Tune(pebble_wren): replace the always-airborne behavior with a more natural perch-and-flight rhythm, restoring relaxed ground strolling between short flight bursts.
+
 ## 1.0.1334 (2026-03-22)
 - Feat(pebble_wren): convert Pebble Wrens to real flying birds with flying navigation, airborne wandering/flocking, fall-damage immunity, and a dedicated flight animation loop.
 - Docs(pebble_wren): update feature docs to describe the Pebble Wren as an airborne Wayfall bird instead of a purely ground-walking critter.

@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.TamableAnimal;
@@ -96,14 +97,24 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final double FLOCK_SCAN_RADIUS = 14.0D;
     private static final double FLOCK_RETURN_DISTANCE = 12.0D;
     private static final double FLOCK_MAX_WANDER_RADIUS = 8.0D;
+    private static final int MIN_AIRBORNE_TICKS = 20;
+    private static final int MAX_AIRBORNE_TICKS = 20 * 4;
+    private static final int MIN_GROUNDED_TICKS = 20;
+    private static final int MAX_GROUNDED_TICKS = 20 * 5;
+    private static final double OWNER_TAKEOFF_DISTANCE = 7.0D;
+    private static final double FLOCK_TAKEOFF_DISTANCE = 8.0D;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
+    private int airborneTicks = 0;
+    private int groundedTicks = 0;
+    private int flightPhaseTargetTicks = MIN_GROUNDED_TICKS;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 12, false);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.beginGroundPhase();
     }
 
     @Override
@@ -180,6 +191,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         if (tag.contains(NBT_TEXTURE_VARIANT)) {
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
         }
+
+        this.beginGroundPhase();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -200,9 +213,74 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 6.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new PebbleWrenFlockCohesionGoal(this));
-        this.goalSelector.addGoal(8, new PebbleWrenAirWanderGoal(this));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new PebbleWrenAirWanderGoal(this));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+    }
+
+    private boolean shouldTakeOff() {
+        if (this.isOrderedToSit() || this.isPassenger() || this.isInWaterOrBubble()) {
+            return false;
+        }
+
+        if (!this.onGround()) {
+            return true;
+        }
+
+        if (this.getTarget() != null) {
+            return true;
+        }
+
+        if (this.isTame() && this.getOwner() != null) {
+            if (this.distanceToSqr(this.getOwner()) > (OWNER_TAKEOFF_DISTANCE * OWNER_TAKEOFF_DISTANCE)) {
+                return true;
+            }
+        } else {
+            Vec3 focus = this.getFlockFocusPoint();
+            if (this.position().distanceToSqr(focus) > (FLOCK_TAKEOFF_DISTANCE * FLOCK_TAKEOFF_DISTANCE)) {
+                return true;
+            }
+        }
+
+        return this.groundedTicks >= this.flightPhaseTargetTicks && this.random.nextInt(24) == 0;
+    }
+
+    private boolean shouldLand() {
+        if (this.isOrderedToSit() || this.isPassenger() || this.isInWaterOrBubble()) {
+            return true;
+        }
+
+        if (this.getTarget() != null) {
+            return false;
+        }
+
+        if (this.airborneTicks < MIN_AIRBORNE_TICKS) {
+            return false;
+        }
+
+        if (this.isTame() && this.getOwner() != null) {
+            if (this.distanceToSqr(this.getOwner()) > (OWNER_TAKEOFF_DISTANCE * OWNER_TAKEOFF_DISTANCE)) {
+                return false;
+            }
+        } else {
+            Vec3 focus = this.getFlockFocusPoint();
+            if (this.position().distanceToSqr(focus) > (FLOCK_TAKEOFF_DISTANCE * FLOCK_TAKEOFF_DISTANCE)) {
+                return false;
+            }
+        }
+
+        return this.airborneTicks >= this.flightPhaseTargetTicks && (this.onGround() || this.random.nextInt(20) == 0);
+    }
+
+    private void beginFlightPhase() {
+        this.airborneTicks = 0;
+        this.flightPhaseTargetTicks = MIN_AIRBORNE_TICKS + this.random.nextInt((MAX_AIRBORNE_TICKS - MIN_AIRBORNE_TICKS) + 1);
+    }
+
+    private void beginGroundPhase() {
+        this.groundedTicks = 0;
+        this.flightPhaseTargetTicks = MIN_GROUNDED_TICKS + this.random.nextInt((MAX_GROUNDED_TICKS - MIN_GROUNDED_TICKS) + 1);
     }
 
     private Vec3 getFlockFocusPoint() {
@@ -317,6 +395,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
                 return false;
             }
 
+            if (!mob.isFlying()) {
+                return false;
+            }
+
             if (mob.getTarget() != null || mob.getNavigation().isInProgress()) {
                 return false;
             }
@@ -382,9 +464,26 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         super.tick();
 
         if (!this.level().isClientSide) {
-            boolean shouldFly = !this.isOrderedToSit() && !this.isPassenger() && !this.isInWaterOrBubble();
-            if (this.isFlying() != shouldFly) {
-                this.setFlying(shouldFly);
+            if (this.isFlying()) {
+                this.airborneTicks++;
+                this.groundedTicks = 0;
+
+                if (this.shouldLand()) {
+                    this.setFlying(false);
+                    this.getNavigation().stop();
+                    this.beginGroundPhase();
+                }
+            } else {
+                this.groundedTicks++;
+                this.airborneTicks = 0;
+
+                if (this.shouldTakeOff()) {
+                    this.setFlying(true);
+                    this.beginFlightPhase();
+                    Vec3 delta = this.getDeltaMovement();
+                    this.setDeltaMovement(delta.x, Math.max(0.18D, delta.y), delta.z);
+                    this.hasImpulse = true;
+                }
             }
 
             if (this.isFlying()) {

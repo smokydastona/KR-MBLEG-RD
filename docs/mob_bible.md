@@ -288,7 +288,7 @@ Generated: 2026-03-21 14:02:35
 - Score: `95`
 - Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=⚠️ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `PebbleWrenEntity` | Renderer: `PebbleWrenRenderer` | Model: `PebbleWrenModel`
-- Behavior: tameable flying bird with airborne wandering/flocking and an ore-direction ping when befriended.
+- Behavior: tameable bird with a perch-and-flight rhythm, airborne wandering/flocking when displaced, and an ore-direction ping when befriended.
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebble_wren.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebble_wren.animation.json`
 - Textures (14): `src/main/resources/assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png` .. `pebble_wren_14.png`
