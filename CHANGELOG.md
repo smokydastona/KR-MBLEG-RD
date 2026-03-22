@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1332 (2026-03-22)
+- Balance(pressure_logic): reduce `pressure_turbine` upkeep so early rotation loops do not consume an entire Thermo-Condenser session before the attached machine can work.
+- Balance(pressure_logic): lower Pressure Loom `scarsteel_ingot` forging pressure cost so Scarsteel production lands inside the intended mid-tier fuel window.
+
 ## 1.0.1331 (2026-03-22)
 - Balance(pressure_logic): rebalance `hand_bellows` to a smaller manual burst cadence so it stays a bootstrap tool instead of the dominant long-run generator.
 - Balance(pressure_logic): compress `thermo_condenser` fuel burn into shorter pneumatic runtimes so fuel items power meaningful work sessions instead of providing near-infinite pressure.

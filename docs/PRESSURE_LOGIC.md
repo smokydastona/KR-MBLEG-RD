@@ -87,6 +87,7 @@ Pacing note:
 
 Pacing note:
 - Fuel is compressed into a shorter, more meaningful pressure runtime so one coal item supports a work session instead of acting like a near-infinite battery.
+- That work session is now tuned to realistically keep an early turbine-plus-loom loop alive long enough to produce progression parts instead of collapsing under rotation upkeep alone.
 
 ### C. Vent Piston (Soft‑Motion Actuator)
 **Role:** Smooth, organic movement
@@ -153,6 +154,9 @@ Progression note:
 - Forging Scarsteel once a pressure/rotation line is online
 - (Optional) Village profession block (only if/when Cephalari villages + professions exist)
 - Player automation
+
+Pacing note:
+- Scarsteel forging is intentionally more expensive than basic weaving, but now sits in range for a short Thermo-Condenser-powered production window instead of demanding late-game surplus pressure.
 
 ### H. Conveyor Membranes
 **Role:** Organic conveyor belts

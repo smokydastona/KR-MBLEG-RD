@@ -34,6 +34,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class PressureTurbineBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    private static final int TICK_DELAY = 10;
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty ROTATION_SPEED = IntegerProperty.create("rotation_speed", 0, 5);
 
@@ -53,7 +55,7 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock implements 
                 .setValue(ROTATION_SPEED, speed);
 
         if (!context.getLevel().isClientSide) {
-            context.getLevel().scheduleTick(context.getClickedPos(), this, 10);
+            context.getLevel().scheduleTick(context.getClickedPos(), this, TICK_DELAY);
         }
         return state;
     }
@@ -90,7 +92,7 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock implements 
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
         if (!level.isClientSide) {
-            level.scheduleTick(pos, this, 10);
+            level.scheduleTick(pos, this, TICK_DELAY);
         }
     }
 
@@ -98,7 +100,7 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock implements 
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, neighborBlock, neighborPos, isMoving);
         if (!level.isClientSide) {
-            level.scheduleTick(pos, this, 10);
+            level.scheduleTick(pos, this, TICK_DELAY);
         }
     }
 
@@ -124,11 +126,11 @@ public class PressureTurbineBlock extends HorizontalDirectionalBlock implements 
         // Consume some input pressure proportional to speed.
         if (target > 0 && PressureAtmosphere.isStable(level, pos)) {
             BlockPos inputPos = pos.relative(facing.getOpposite());
-            int consume = target * 3; // 0..15 per tick
+            int consume = 1 + target; // 1..6 every 10 ticks
             PressureUtil.addPressure(level, inputPos, -consume);
         }
 
-        level.scheduleTick(pos, this, 10);
+        level.scheduleTick(pos, this, TICK_DELAY);
     }
 
     private static int sampleInputPressure(Level level, BlockPos pos, Direction facing) {

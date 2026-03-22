@@ -148,7 +148,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `hand_bellows`: manual early-game pressure source. Empty-hand right-click pumps a modest burst of pressure into the conduit in front; crouch-right-click still inspects.
   - `thermo_condenser`: mid-tier burn generator. Consumes dropped vanilla fuel items above the block, compresses their furnace burn time into a shorter pneumatic runtime, and condenses that heat into forward pressure output.
   - `membrane_pump`: redstone-controlled directional transfer pump (`powered`) that moves pressure from the conduit behind it into the conduit in front while tracking `pulse_rate` (0..5); it no longer creates free pressure by itself.
-  - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes pressure while running (stable air required).
+  - `pressure_turbine`: derives `rotation_speed` (0..5) from adjacent conduit pressure and consumes a light upkeep stream while running (stable air required), so an early Thermo-Condenser can realistically hold a first rotation loop online.
   - `spiral_shaft`: axis shaft that carries rotation; shows `rotation_speed` (0..5) for visuals.
   - `spiral_gearbox`: rotation transformer. Has a `ratio` state (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`) that multiplies/divides rotation level across the gearbox; right-click cycles the ratio.
   - `vent_piston`: soft-motion actuator. Redstone signal sets desired `extension` (0..16), but it only extends in stable air when supplied by nearby conduit pressure (consumes pressure per extension step; retracts when pressure/air is unavailable). Strong redstone (>= 12) switches into a rotate mode that attempts to rotate the block in front on extension steps.
@@ -156,7 +156,7 @@ Keep it up to date whenever you add/remove/rename content.
   - `pressure_valve`: inline conduit gate. When powered, it connects pressure conduits through itself along its facing axis; when unpowered, it blocks pressure flow.
   - `buoyancy_lift_platform`: pressure-elevator effect block with a `lift_state` (idle/rising/falling); consumes conduit pressure below to lift entities while rising (stable air required).
   - `conveyor_membrane`: belt-like membrane block with a pulsing animated top texture; moves item entities along its `facing` when rotation is available and stable-air rules allow.
-  - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber`, fuses Attuned Stone + Volatile Resin into `bio_ceramic`, and forges `scarsteel_ingot` from 4 `scarstone` plus 1 `attuned_ingot` (outputs as item entities above the block).
+  - `pressure_loom`: Flowwright workstation that runs in stable air when powered and supplied with conduit pressure + rotation; weaves Paleweft into `coral_fiber`, fuses Attuned Stone + Volatile Resin into `bio_ceramic`, and forges `scarsteel_ingot` from 4 `scarstone` plus 1 `attuned_ingot` at a mid-tier pressure cost tuned for short Thermo-Condenser work sessions (outputs as item entities above the block).
   - `pressure_clutch`: redstone-controlled engage/disengage block (`powered` state) that gates rotation transfer through mechanical networks.
   - `pressure_regulator`: redstone-controlled pressure clamp/transfer block (`signal` 0..15).
   - `pressure_sequencer`: converts redstone rising edges into pressure pulses; cycles output direction via `step` (0..3).

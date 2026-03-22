@@ -284,7 +284,7 @@ public class PressureLoomBlock extends HorizontalDirectionalBlock implements Ent
 
         int pressure = PressureUtil.getConduitPressureOrState(level, conduitPos);
         int pressureLevel = PressureUtil.pressureToLevel(pressure);
-        int cost = Math.max(8, 18 + (pressureLevel <= 1 ? 4 : 0) - rotation);
+        int cost = Math.max(6, 12 + (pressureLevel <= 1 ? 3 : 0) - rotation);
         if (pressure < cost) {
             return;
         }
