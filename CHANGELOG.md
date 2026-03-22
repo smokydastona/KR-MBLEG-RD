@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1319 (2026-03-22)
+- Fix(assets/pressure_logic): normalize Pressure-Logic machine block models to a shared generic cube model (uniform standing-stone texture).
+
 ## 1.0.1318 (2026-03-22)
 - Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
 - Feat(pressure_logic): empty-hand right-click shows a compact Pressure-Logic status line in the action bar.
