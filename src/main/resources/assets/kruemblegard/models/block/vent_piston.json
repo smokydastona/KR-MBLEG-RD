@@ -1,11 +1,73 @@
 {
-  "parent": "minecraft:block/cube",
   "textures": {
     "up": "kruemblegard:block/vent_piston_top",
     "down": "kruemblegard:block/vent_piston_bottom",
     "north": "kruemblegard:block/vent_piston_front",
     "south": "kruemblegard:block/vent_piston_side",
     "east": "kruemblegard:block/vent_piston_side",
-    "west": "kruemblegard:block/vent_piston_side"
-  }
+    "west": "kruemblegard:block/vent_piston_side",
+    "particle": "kruemblegard:block/vent_piston_front"
+  },
+  "elements": [
+    {
+      "from": [1, 0, 1],
+      "to": [15, 8, 15],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [3, 8, 3],
+      "to": [13, 10, 13],
+      "faces": {
+        "north": {"texture": "#up"},
+        "south": {"texture": "#up"},
+        "east": {"texture": "#up"},
+        "west": {"texture": "#up"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [7, 10, 7],
+      "to": [9, 16, 9],
+      "faces": {
+        "north": {"texture": "#south"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#south"},
+        "west": {"texture": "#south"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [0, 2, 6],
+      "to": [1, 6, 10],
+      "faces": {
+        "north": {"texture": "#west"},
+        "south": {"texture": "#west"},
+        "east": {"texture": "#west"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [15, 2, 6],
+      "to": [16, 6, 10],
+      "faces": {
+        "north": {"texture": "#east"},
+        "south": {"texture": "#east"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#east"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    }
+  ]
 }

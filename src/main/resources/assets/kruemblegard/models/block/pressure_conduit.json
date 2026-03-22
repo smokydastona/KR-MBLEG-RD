@@ -1,11 +1,85 @@
 {
-  "parent": "minecraft:block/cube",
   "textures": {
     "up": "kruemblegard:block/pressure_conduit_top",
     "down": "kruemblegard:block/pressure_conduit_bottom",
     "north": "kruemblegard:block/pressure_conduit_front",
     "south": "kruemblegard:block/pressure_conduit_side",
     "east": "kruemblegard:block/pressure_conduit_side",
-    "west": "kruemblegard:block/pressure_conduit_side"
-  }
+    "west": "kruemblegard:block/pressure_conduit_side",
+    "particle": "kruemblegard:block/pressure_conduit_front"
+  },
+  "elements": [
+    {
+      "from": [3, 0, 3],
+      "to": [13, 2, 13],
+      "faces": {
+        "north": {"texture": "#south"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#down"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [5, 5, 5],
+      "to": [11, 11, 11],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [6, 6, 0],
+      "to": [10, 10, 5],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#north"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [6, 6, 11],
+      "to": [10, 10, 16],
+      "faces": {
+        "north": {"texture": "#south"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [11, 6, 6],
+      "to": [16, 10, 10],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#east"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [0, 6, 6],
+      "to": [5, 10, 10],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#west"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    }
+  ]
 }

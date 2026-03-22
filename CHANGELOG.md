@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1329 (2026-03-22)
+- Assets(pressure_logic): convert all Pressure-Logic machine block models to unique non-cube machine silhouettes (removes remaining full-cube geometry).
+
 ## 1.0.1328 (2026-03-21)
 - Docs(changelog): align top entries with commit-count jar versioning and preserve newest-first ordering.
 

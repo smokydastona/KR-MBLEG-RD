@@ -1,11 +1,61 @@
 {
-  "parent": "minecraft:block/cube",
   "textures": {
     "up": "kruemblegard:block/pressure_regulator_top",
     "down": "kruemblegard:block/pressure_regulator_bottom",
     "north": "kruemblegard:block/pressure_regulator_front",
     "south": "kruemblegard:block/pressure_regulator_side",
     "east": "kruemblegard:block/pressure_regulator_side",
-    "west": "kruemblegard:block/pressure_regulator_side"
-  }
+    "west": "kruemblegard:block/pressure_regulator_side",
+    "particle": "kruemblegard:block/pressure_regulator_front"
+  },
+  "elements": [
+    {
+      "from": [2, 0, 3],
+      "to": [14, 11, 14],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#east"},
+        "west": {"texture": "#west"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [4, 2, 0],
+      "to": [12, 9, 3],
+      "faces": {
+        "north": {"texture": "#north"},
+        "south": {"texture": "#north"},
+        "east": {"texture": "#north"},
+        "west": {"texture": "#north"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [6, 11, 6],
+      "to": [10, 13, 10],
+      "faces": {
+        "north": {"texture": "#up"},
+        "south": {"texture": "#up"},
+        "east": {"texture": "#up"},
+        "west": {"texture": "#up"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    },
+    {
+      "from": [7, 13, 7],
+      "to": [9, 16, 9],
+      "faces": {
+        "north": {"texture": "#south"},
+        "south": {"texture": "#south"},
+        "east": {"texture": "#south"},
+        "west": {"texture": "#south"},
+        "up": {"texture": "#up"},
+        "down": {"texture": "#down"}
+      }
+    }
+  ]
 }

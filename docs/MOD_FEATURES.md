@@ -120,6 +120,7 @@ Keep it up to date whenever you add/remove/rename content.
 - Status: early implementation (pressure network + basic integration + first-pass mechanical rotation backbone; not yet a full mechanical-power system).
 - Spec authority: `docs/PRESSURE_LOGIC.md` (requirements) + `docs/PRESSURE_LOGIC_TRACEABILITY.md` (requirement→implementation checklist).
 - Animation/Blockbench workflow: every Pressure‑Logic machine block has its own unique Block Entity (no shared generic machine implementation); each machine BE maintains per-block animation/runtime state.
+- Visual identity: every Pressure‑Logic machine uses a distinct non-cube block model silhouette (no generic stone cubes), and machine operating states render dedicated `*_active` models/textures where applicable.
 - Creative tab: Pressure-Logic blocks and items are in a dedicated creative mode tab (not duplicated into the other Krümblegård tabs).
 - Config (in `kruemblegard-common.toml`):
   - `enablePressureSystem`: master enable/disable for the pressure simulation.
