@@ -1,6 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.DriftwhaleEntity;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Wayfall flavor: Glow Squid are "air swimmers" and should not suffocate out of water.
@@ -89,6 +92,13 @@ public final class WayfallGlowSquidAirEvents {
         // This preserves the "swim" feel and avoids the slippery inertial drift of manual velocity steering.
         var data = squid.getPersistentData();
         int ticks = data.getInt(TAG_AIR_SWIM_TICKS);
+
+        DriftwhaleEntity threat = findNearestDriftwhale(squid, 14.0D);
+        if (threat != null) {
+            setAirSwimFleeTarget(squid, threat);
+            data.putInt(TAG_AIR_SWIM_TICKS, Mth.nextInt(squid.getRandom(), 26, 46));
+            ticks = data.getInt(TAG_AIR_SWIM_TICKS);
+        }
 
         boolean shouldPickNew = ticks <= 0 || squid.horizontalCollision || squid.verticalCollision;
         if (shouldPickNew) {
@@ -194,5 +204,69 @@ public final class WayfallGlowSquidAirEvents {
         data.putDouble(TAG_AIR_SWIM_TX, squid.getX() + Mth.nextDouble(r, -5.0, 5.0));
         data.putDouble(TAG_AIR_SWIM_TY, squid.getY() + Mth.nextDouble(r, -3.0, 3.0));
         data.putDouble(TAG_AIR_SWIM_TZ, squid.getZ() + Mth.nextDouble(r, -5.0, 5.0));
+    }
+
+    @Nullable
+    private static DriftwhaleEntity findNearestDriftwhale(GlowSquid squid, double radius) {
+        Level level = squid.level();
+        if (!(level instanceof net.minecraft.server.level.ServerLevel)) {
+            return null;
+        }
+
+        var box = squid.getBoundingBox().inflate(radius);
+        DriftwhaleEntity nearest = null;
+        double best = Double.MAX_VALUE;
+
+        for (DriftwhaleEntity whale : level.getEntitiesOfClass(DriftwhaleEntity.class, box, e -> e.isAlive())) {
+            double d = squid.distanceToSqr(whale);
+            if (d < best) {
+                best = d;
+                nearest = whale;
+            }
+        }
+
+        return nearest;
+    }
+
+    private static void setAirSwimFleeTarget(GlowSquid squid, DriftwhaleEntity threat) {
+        var data = squid.getPersistentData();
+        RandomSource r = squid.getRandom();
+        Level level = squid.level();
+
+        Vec3 away = squid.position().subtract(threat.position());
+        if (away.lengthSqr() < 1.0E-4) {
+            away = new Vec3(Mth.nextDouble(r, -1.0, 1.0), Mth.nextDouble(r, -0.4, 0.6), Mth.nextDouble(r, -1.0, 1.0));
+        }
+
+        Vec3 dir = away.normalize();
+        Vec3 base = squid.position().add(dir.scale(14.0D));
+
+        for (int i = 0; i < 10; i++) {
+            double tx = base.x + Mth.nextDouble(r, -4.0, 4.0);
+            double ty = base.y + Mth.nextDouble(r, -3.5, 3.5);
+            double tz = base.z + Mth.nextDouble(r, -4.0, 4.0);
+
+            BlockPos bp = BlockPos.containing(tx, ty, tz);
+            if (!level.isLoaded(bp)) {
+                continue;
+            }
+
+            if (!level.getBlockState(bp).isAir()) {
+                continue;
+            }
+
+            if (!level.noCollision(squid, squid.getBoundingBox().move(tx - squid.getX(), ty - squid.getY(), tz - squid.getZ()))) {
+                continue;
+            }
+
+            data.putDouble(TAG_AIR_SWIM_TX, tx);
+            data.putDouble(TAG_AIR_SWIM_TY, ty);
+            data.putDouble(TAG_AIR_SWIM_TZ, tz);
+            return;
+        }
+
+        data.putDouble(TAG_AIR_SWIM_TX, base.x);
+        data.putDouble(TAG_AIR_SWIM_TY, base.y);
+        data.putDouble(TAG_AIR_SWIM_TZ, base.z);
     }
 }

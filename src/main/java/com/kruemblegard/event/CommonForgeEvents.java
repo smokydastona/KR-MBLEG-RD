@@ -1,6 +1,7 @@
 package com.kruemblegard.event;
 
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.entity.DriftwhaleEntity;
 import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.init.ModBlocks;
@@ -15,6 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RemoveBlockGoal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -43,6 +45,7 @@ public final class CommonForgeEvents {
 
     private static final String NBT_AVOID_WYRDWING = "kruemblegard:avoid_wyrdwing";
     private static final String NBT_SMASH_SCARALON_EGGS = "kruemblegard:smash_scaralon_eggs";
+    private static final String NBT_AVOID_DRIFTWHALE = "kruemblegard:avoid_driftwhale";
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {
@@ -146,6 +149,24 @@ public final class CommonForgeEvents {
 
         pathfinder.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinder, WyrdwingEntity.class, 10.0F, 1.1D, 1.35D));
         mob.getPersistentData().putBoolean(NBT_AVOID_WYRDWING, true);
+    }
+
+    @SubscribeEvent
+    public static void onMakeGlowSquidsFearDriftwhales(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof GlowSquid squid)) {
+            return;
+        }
+
+        if (squid.getPersistentData().getBoolean(NBT_AVOID_DRIFTWHALE)) {
+            return;
+        }
+
+        squid.goalSelector.addGoal(1, new AvoidEntityGoal<>(squid, DriftwhaleEntity.class, 12.0F, 1.05D, 1.25D));
+        squid.getPersistentData().putBoolean(NBT_AVOID_DRIFTWHALE, true);
     }
 
     /**

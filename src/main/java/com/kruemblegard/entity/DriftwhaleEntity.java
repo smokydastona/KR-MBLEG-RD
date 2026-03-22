@@ -1,6 +1,7 @@
 package com.kruemblegard.entity;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
@@ -21,13 +23,17 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -49,6 +55,13 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  */
 public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
+    private static final String TAG_SPAWN_SCALE = "SpawnScale";
+    private static final String TAG_POD_ANCHOR = "PodAnchor";
+
+    private static final double POD_SCAN_RADIUS = 28.0D;
+    private static final double POD_MAX_WANDER_RADIUS = 16.0D;
+    private static final double POD_RETURN_DISTANCE = 24.0D;
+
     public static final float MIN_SPAWN_SCALE = 1.0F;
     public static final float MAX_SPAWN_SCALE = 2.5F;
 
@@ -65,6 +78,9 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         RawAnimation.begin().thenLoop("animation.driftwhale.move");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    @Nullable
+    private BlockPos podAnchor;
 
     public DriftwhaleEntity(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
@@ -108,9 +124,10 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 20.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.16D)
-            .add(Attributes.FLYING_SPEED, 0.20D)
-            .add(Attributes.FOLLOW_RANGE, 16.0D);
+            .add(Attributes.MOVEMENT_SPEED, 0.18D)
+            .add(Attributes.FLYING_SPEED, 0.26D)
+            .add(Attributes.FOLLOW_RANGE, 24.0D)
+            .add(Attributes.ATTACK_DAMAGE, 6.0D);
     }
 
     @Override
@@ -123,9 +140,14 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new DriftwhaleDriftGoal(this));
+        this.goalSelector.addGoal(1, new DriftwhalePodCohesionGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.15D, true));
+        this.goalSelector.addGoal(3, new DriftwhaleDriftGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, GlowSquid.class, true));
     }
 
     @Override
@@ -160,6 +182,10 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     ) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
 
+        if (this.podAnchor == null) {
+            this.podAnchor = this.blockPosition();
+        }
+
         // Natural Driftwhales vary in size (never smaller than the base size).
         // Synced to clients + saved to NBT so it persists across reloads.
         float minScale = this.isBaby() ? MIN_BABY_SCALE : MIN_SPAWN_SCALE;
@@ -179,15 +205,57 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putFloat("SpawnScale", getSpawnScale());
+        tag.putFloat(TAG_SPAWN_SCALE, getSpawnScale());
+        if (this.podAnchor != null) {
+            tag.putLong(TAG_POD_ANCHOR, this.podAnchor.asLong());
+        }
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("SpawnScale")) {
-            setSpawnScale(tag.getFloat("SpawnScale"));
+        if (tag.contains(TAG_SPAWN_SCALE)) {
+            setSpawnScale(tag.getFloat(TAG_SPAWN_SCALE));
         }
+
+        if (tag.contains(TAG_POD_ANCHOR)) {
+            this.podAnchor = BlockPos.of(tag.getLong(TAG_POD_ANCHOR));
+        } else if (this.podAnchor == null) {
+            this.podAnchor = this.blockPosition();
+        }
+    }
+
+    private Vec3 getPodFocusPoint() {
+        BlockPos anchor = this.podAnchor != null ? this.podAnchor : this.blockPosition();
+        Vec3 focus = Vec3.atCenterOf(anchor);
+
+        AABB scan = this.getBoundingBox().inflate(POD_SCAN_RADIUS);
+        List<DriftwhaleEntity> podmates = this.level().getEntitiesOfClass(
+            DriftwhaleEntity.class,
+            scan,
+            other -> other != this && other.isAlive()
+        );
+
+        if (podmates.isEmpty()) {
+            return focus;
+        }
+
+        // Bias toward staying near the group instead of wandering off.
+        double sumX = this.getX();
+        double sumY = this.getY();
+        double sumZ = this.getZ();
+        int count = 1;
+
+        int limit = Math.min(6, podmates.size());
+        for (int i = 0; i < limit; i++) {
+            DriftwhaleEntity mate = podmates.get(i);
+            sumX += mate.getX();
+            sumY += mate.getY();
+            sumZ += mate.getZ();
+            count++;
+        }
+
+        return new Vec3(sumX / count, sumY / count, sumZ / count);
     }
 
     private void liftIntoAir(ServerLevelAccessor level) {
@@ -274,21 +342,75 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         public void start() {
             RandomSource random = mob.getRandom();
 
-            Vec3 origin = mob.position();
-            double dx = origin.x + (random.nextDouble() * 24.0D - 12.0D);
-            double dz = origin.z + (random.nextDouble() * 24.0D - 12.0D);
+            Vec3 origin = mob.getPodFocusPoint();
+            double dx = origin.x + (random.nextDouble() * (POD_MAX_WANDER_RADIUS * 2.0D) - POD_MAX_WANDER_RADIUS);
+            double dz = origin.z + (random.nextDouble() * (POD_MAX_WANDER_RADIUS * 2.0D) - POD_MAX_WANDER_RADIUS);
 
             double dy = origin.y + (random.nextDouble() * 10.0D - 5.0D);
             dy = Mth.clamp(dy, mob.level().getMinBuildHeight() + 8.0D, mob.level().getMaxBuildHeight() - 8.0D);
 
             BlockPos candidate = BlockPos.containing(dx, dy, dz);
             if (!mob.level().getBlockState(candidate).getCollisionShape(mob.level(), candidate).isEmpty()) {
-                cooldownTicks = 20;
+                cooldownTicks = 10;
                 return;
             }
 
-            mob.getNavigation().moveTo(dx, dy, dz, 0.8D);
-            cooldownTicks = 30 + random.nextInt(40);
+            if (!mob.level().noCollision(mob, mob.getBoundingBox().move(dx - mob.getX(), dy - mob.getY(), dz - mob.getZ()))) {
+                cooldownTicks = 10;
+                return;
+            }
+
+            mob.getNavigation().moveTo(dx, dy, dz, 1.00D);
+            cooldownTicks = 12 + random.nextInt(24);
+        }
+    }
+
+    private static final class DriftwhalePodCohesionGoal extends Goal {
+        private final DriftwhaleEntity mob;
+        private int retargetTicks;
+
+        private DriftwhalePodCohesionGoal(DriftwhaleEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() != null) {
+                return false;
+            }
+
+            Vec3 focus = mob.getPodFocusPoint();
+            return mob.position().distanceToSqr(focus) > (POD_RETURN_DISTANCE * POD_RETURN_DISTANCE);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (mob.getTarget() != null) {
+                return false;
+            }
+
+            Vec3 focus = mob.getPodFocusPoint();
+            return mob.position().distanceToSqr(focus) > (POD_MAX_WANDER_RADIUS * POD_MAX_WANDER_RADIUS)
+                && mob.getNavigation().isInProgress();
+        }
+
+        @Override
+        public void start() {
+            this.retargetTicks = 0;
+            Vec3 focus = mob.getPodFocusPoint();
+            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.15D);
+        }
+
+        @Override
+        public void tick() {
+            if (retargetTicks-- > 0) {
+                return;
+            }
+
+            retargetTicks = 20;
+            Vec3 focus = mob.getPodFocusPoint();
+            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.15D);
         }
     }
 }

@@ -200,7 +200,9 @@ Keep it up to date whenever you add/remove/rename content.
     - Eye glow bones (`eye_glow_L`, `eye_glow_R`) are rendered full-bright via `UnkeeperEyesLayer`.
 
 - **Driftwhale** (`driftwhale`)
-  - Peaceful sky-swimmer (GeckoLib-rendered).
+  - Pod-roaming sky-swimmer (GeckoLib-rendered).
+  - Territorial predator: Driftwhales will hunt **Glow Squid** on sight.
+    - Glow Squid try to flee when Driftwhales get close.
   - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`), but only where there's enough vertical clearance.
     - Spawns in pods (group size 2–4).
     - Spawns in varying sizes (adults: 1.0×–2.5× scale; never smaller than base size).
