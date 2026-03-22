@@ -9,6 +9,7 @@
             "animation.pebble_wren.idle"
           ],
           "transitions": [
+            { "flying": "!query.is_on_ground" },
             { "walking": "query.is_moving" }
           ]
         },
@@ -17,7 +18,17 @@
             "animation.pebble_wren.walk"
           ],
           "transitions": [
+            { "flying": "!query.is_on_ground" },
             { "default": "!query.is_moving" }
+          ]
+        },
+        "flying": {
+          "animations": [
+            "animation.pebble_wren.fly"
+          ],
+          "transitions": [
+            { "walking": "query.is_on_ground && query.is_moving" },
+            { "default": "query.is_on_ground && !query.is_moving" }
           ]
         }
       }

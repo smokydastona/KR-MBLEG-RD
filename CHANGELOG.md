@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1334 (2026-03-22)
+- Feat(pebble_wren): convert Pebble Wrens to real flying birds with flying navigation, airborne wandering/flocking, fall-damage immunity, and a dedicated flight animation loop.
+- Docs(pebble_wren): update feature docs to describe the Pebble Wren as an airborne Wayfall bird instead of a purely ground-walking critter.
+
 ## 1.0.1333 (2026-03-22)
 - Balance(pressure_logic): lower Pressure Loom costs for `coral_fiber`, `bio_ceramic`, and `scarsteel_ingot` so the starter production loop has a coherent shared session budget.
 - Balance(pressure_logic): tune the early coal-backed loop toward roughly 2 Scarsteel crafts per stable session, with cheaper Coral Fiber and Bio-Ceramic outputs as the lower-tier alternatives.

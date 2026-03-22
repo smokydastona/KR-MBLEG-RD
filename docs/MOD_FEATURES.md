@@ -223,10 +223,11 @@ Keep it up to date whenever you add/remove/rename content.
     - Texture: `assets/kruemblegard/textures/entity/driftwhale.png`
 
 - **Pebble Wren** (`pebble_wren`)
-  - Small, breedable seed-eater (GeckoLib-rendered).
+  - Small, breedable seed-eater and flying Wayfall bird (GeckoLib-rendered).
   - Visual: upright “display bird” silhouette with crest + fan tail.
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
   - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping (plays a brief display animation).
+  - Movement: uses flying navigation, air-wander flocking, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
   - Drops Feathers and (occasionally) Wheat Seeds.

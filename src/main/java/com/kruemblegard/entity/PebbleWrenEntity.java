@@ -18,16 +18,19 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -63,11 +66,19 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         EntityDataSerializers.INT
     );
 
+    private static final EntityDataAccessor<Boolean> DATA_FLYING = SynchedEntityData.defineId(
+        PebbleWrenEntity.class,
+        EntityDataSerializers.BOOLEAN
+    );
+
     private static final RawAnimation IDLE_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.idle");
 
     private static final RawAnimation WALK_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.walk");
+
+    private static final RawAnimation FLY_LOOP =
+        RawAnimation.begin().thenLoop("animation.pebble_wren.fly");
 
     private static final RawAnimation DISPLAY_LOOP =
         RawAnimation.begin().thenLoop("animation.pebble_wren.display");
@@ -91,13 +102,35 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
+        this.moveControl = new FlyingMoveControl(this, 12, false);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        FlyingPathNavigation nav = new FlyingPathNavigation(this, level);
+        nav.setCanOpenDoors(false);
+        nav.setCanFloat(true);
+        return nav;
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_TEXTURE_VARIANT, 1);
+        this.entityData.define(DATA_FLYING, false);
+    }
+
+    public boolean isFlying() {
+        return this.entityData.get(DATA_FLYING);
+    }
+
+    private void setFlying(boolean flying) {
+        this.entityData.set(DATA_FLYING, flying);
+        this.setNoGravity(flying);
+        if (flying) {
+            this.fallDistance = 0.0F;
+        }
     }
 
     public int getTextureVariant() {
@@ -153,6 +186,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 6.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.30D)
+            .add(Attributes.FLYING_SPEED, 0.42D)
             .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
@@ -166,7 +200,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 6.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new PebbleWrenFlockCohesionGoal(this));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new PebbleWrenAirWanderGoal(this));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
     }
@@ -253,7 +287,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         public void start() {
             this.retargetTicks = 0;
             Vec3 focus = mob.getFlockFocusPoint();
-            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.10D);
+            mob.getNavigation().moveTo(focus.x, focus.y + 1.5D, focus.z, 1.10D);
         }
 
         @Override
@@ -264,7 +298,60 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
             retargetTicks = 20;
             Vec3 focus = mob.getFlockFocusPoint();
-            mob.getNavigation().moveTo(focus.x, focus.y, focus.z, 1.10D);
+            mob.getNavigation().moveTo(focus.x, focus.y + 1.5D, focus.z, 1.10D);
+        }
+    }
+
+    private static final class PebbleWrenAirWanderGoal extends Goal {
+        private final PebbleWrenEntity mob;
+        private int cooldownTicks;
+
+        private PebbleWrenAirWanderGoal(PebbleWrenEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.isOrderedToSit() || mob.isPassenger() || mob.isInWaterOrBubble()) {
+                return false;
+            }
+
+            if (mob.getTarget() != null || mob.getNavigation().isInProgress()) {
+                return false;
+            }
+
+            if (cooldownTicks > 0) {
+                cooldownTicks--;
+                return false;
+            }
+
+            return mob.getRandom().nextInt(4) == 0;
+        }
+
+        @Override
+        public void start() {
+            RandomSource random = mob.getRandom();
+            Vec3 origin = mob.isTame() && mob.getOwner() != null ? mob.getOwner().position() : mob.getFlockFocusPoint();
+
+            double dx = origin.x + (random.nextDouble() * 10.0D - 5.0D);
+            double dz = origin.z + (random.nextDouble() * 10.0D - 5.0D);
+            double dy = origin.y + 1.5D + (random.nextDouble() * 4.0D - 1.5D);
+            dy = Math.max(mob.level().getMinBuildHeight() + 2.0D, Math.min(mob.level().getMaxBuildHeight() - 2.0D, dy));
+
+            BlockPos candidate = BlockPos.containing(dx, dy, dz);
+            if (!mob.level().getBlockState(candidate).getCollisionShape(mob.level(), candidate).isEmpty()) {
+                cooldownTicks = 10;
+                return;
+            }
+
+            if (!mob.level().noCollision(mob, mob.getBoundingBox().move(dx - mob.getX(), dy - mob.getY(), dz - mob.getZ()))) {
+                cooldownTicks = 10;
+                return;
+            }
+
+            mob.getNavigation().moveTo(dx, dy, dz, 1.05D);
+            cooldownTicks = 20 + random.nextInt(20);
         }
     }
 
@@ -293,6 +380,23 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     @Override
     public void tick() {
         super.tick();
+
+        if (!this.level().isClientSide) {
+            boolean shouldFly = !this.isOrderedToSit() && !this.isPassenger() && !this.isInWaterOrBubble();
+            if (this.isFlying() != shouldFly) {
+                this.setFlying(shouldFly);
+            }
+
+            if (this.isFlying()) {
+                Vec3 delta = this.getDeltaMovement();
+                if (this.onGround() && delta.y <= 0.03D) {
+                    this.setDeltaMovement(delta.x, 0.18D, delta.z);
+                    this.hasImpulse = true;
+                } else if (delta.y < -0.08D) {
+                    this.setDeltaMovement(delta.x, -0.08D, delta.z);
+                }
+            }
+        }
 
         if (this.oreFindCooldownTicks > 0) {
             --this.oreFindCooldownTicks;
@@ -436,11 +540,22 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
             if (this.displayAnimTicks > 0) {
                 state.setAnimation(DISPLAY_LOOP);
+            } else if (this.isFlying()) {
+                state.setAnimation(FLY_LOOP);
             } else {
                 state.setAnimation(state.isMoving() ? WALK_LOOP : IDLE_LOOP);
             }
             return PlayState.CONTINUE;
         }));
+    }
+
+    @Override
+    public boolean causeFallDamage(float distance, float multiplier, net.minecraft.world.damagesource.DamageSource source) {
+        return false;
+    }
+
+    @Override
+    protected void checkFallDamage(double y, boolean onGround, net.minecraft.world.level.block.state.BlockState state, BlockPos pos) {
     }
 
     @Override
