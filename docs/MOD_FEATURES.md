@@ -328,7 +328,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Unmounted flight autopilot: if an unmounted Scaralon ends up in **flight mode**, it will **keep moving** in the air (with brief hovers to change direction), **face its travel direction**, and will **always land eventually** (hard limit: about **1.5×** the max flight stamina time). When forced to land, it keeps searching until it finds a **safe solid landing zone** (requires solid support + headroom and rejects **water/liquids/waterlogged blocks**), and will roam outward / widen its search radius instead of hovering forever over oceans.
   - Attracted to **Melon Slices**.
   - Breeding: **Melon Slices only** (holding a melon slice prevents mounting; right-click will feed/breed instead).
-  - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style, **1–4 eggs**). Eggs hatch into **larva**.
+  - Egg-laying: when bred, one parent will pick a nearby reachable spot and **lay Scaralon eggs** (turtle-style, **1–4 eggs**). Eggs hatch into **larva**, and extra Scaralon egg items can be stacked into that same nest block until it reaches a full 4-egg clutch.
   - Egg visuals: Scaralon eggs use a dedicated texture (`assets/kruemblegard/textures/block/scaralon_egg.png`) and the block model reflects the clutch size (1–4 eggs), turtle-style.
   - Egg predators: zombie-family mobs that smash turtle eggs will also smash Scaralon eggs; Scaralons will attack zombies to defend nests.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.

@@ -6,6 +6,7 @@ import com.kruemblegard.registry.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,6 +40,27 @@ public class ScaralonEggBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(EGGS, HATCH, VARIANT);
+    }
+
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        if (!context.isSecondaryUseActive()
+                && context.getItemInHand().is(this.asItem())
+                && state.getValue(EGGS) < 4) {
+            return true;
+        }
+
+        return super.canBeReplaced(state, context);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState clickedState = context.getLevel().getBlockState(context.getClickedPos());
+        if (clickedState.is(this)) {
+            return clickedState.setValue(EGGS, Math.min(4, clickedState.getValue(EGGS) + 1));
+        }
+
+        return super.getStateForPlacement(context);
     }
 
     @Override

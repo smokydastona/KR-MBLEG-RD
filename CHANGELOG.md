@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1352 (2026-03-23)
+- Fix(scaralon_egg): make player-placed Scaralon beetle eggs stack into 1-4 egg clutches on the same block like vanilla turtle egg nests.
+- Docs(scaralon_egg): update the README, feature reference, and Mob Bible to document turtle-style clutch stacking.
+
 ## 1.0.1351 (2026-03-23)
 - Tune(pebble_wren/ai): make the flock flush react to specific stimuli too, including nearby sprinting players and sudden damage, by reusing the group flush propagation system.
 - Docs(pebble_wren): update the README, feature reference, and Mob Bible to note the new stimulus-triggered flush behavior.
