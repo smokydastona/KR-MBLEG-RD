@@ -59,9 +59,9 @@ This manifest records the second-pass Pebble Wren sound pack that replaced the n
 ### `flutter`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 - Intended in-game event: `entity.pebble_wren.flutter`
-- Duration: `0.220000s`
-- Derived SHA-256: `564AC70B797FE8B70E8A3AA399E83728BF75E62A54F8AEDB460593A6046F1FD6`
-- Synthesis chain: four delayed filtered-noise bursts from `anoisesrc`, fades, high/low-pass filtering, limiter, mono OGG
+- Duration: `0.173991s`
+- Derived SHA-256: `4E4B53961BCFAC4F3B3DCDCC7E561BD97930F9604E99CF55E3CE73305B42C6FE`
+- Synthesis chain: three decaying wingbeats built from paired low whoosh and high feather-snap `anoisesrc` bursts, staggered with short delays, filtered, faded, and limited into mono OGG
 
 ### `ore_ping`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ore_ping.ogg`

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1345 (2026-03-22)
+- Tune(pebble_wren/audio): rebuild the flutter cue into a clearer three-beat wing-flap burst so takeoff and landing read as actual wing motion instead of filtered hiss.
+
 ## 1.0.1344 (2026-03-22)
 - Tune(pebble_wren/audio): replace the noisy first-pass Pebble Wren clips with a fully procedural synthesized chirp set for ambient, perch calls/replies, flourish, hurt/death, flutter, and ore pings.
 - Docs(audio): replace the Pebble Wren recording-provenance docs with a procedural audio manifest and updated credits for the new in-house assets.

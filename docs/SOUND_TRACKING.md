@@ -334,12 +334,12 @@ Identity notes:
 - Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.flutter` (Takeoff / landing)
-- Should sound like: quick feather flick / wingbeat burst without vocal content.
+- Should sound like: a tiny three-beat wing-flap burst with a soft air whoosh and light feather snap, without vocal content.
 - Current asset:
   - SoundEvent: `kruemblegard:entity.pebble_wren.flutter`
   - sounds.json: `kruemblegard:entity/pebble_wren/flutter`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
-- Credits: Procedurally synthesized in-house from layered filtered-noise bursts.
+- Credits: Procedurally synthesized in-house from layered filtered-noise wingbeat bursts.
 
 ### `entity.pebble_wren.ore_ping` (Ore-find cue)
 - Should sound like: bright tonal trill with a slight airy shimmer so the success cue reads differently from social chatter.
