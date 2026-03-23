@@ -130,7 +130,7 @@ These entries are sourced from the soundfx pack, with per-file license metadata 
   - Used for: Pebblit hurt (`entity.pebblit.hurt`)
 
 ## Pebble Wren sound set
-Pebble Wren uses a mixed source set. Most cues are generated in-house with `ffmpeg` filter graphs, while the flutter cue is derived from a public-domain wildlife recording. The per-file hash and provenance manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
+Pebble Wren uses a mixed source set. Most cues are generated in-house with `ffmpeg` filter graphs, while the flutter cue is derived from a trimmed example-library wing file. The per-file hash and provenance manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
 
 - (Procedural / ffmpeg) → Pebble Wren ambient (`entity.pebble_wren.ambient`)
 - (Procedural / ffmpeg) → Pebble Wren perch call (`entity.pebble_wren.perch_call`)
@@ -140,12 +140,11 @@ Pebble Wren uses a mixed source set. Most cues are generated in-house with `ffmp
 - (Procedural / ffmpeg) → Pebble Wren death (`entity.pebble_wren.death`)
 - (Procedural / ffmpeg) → Pebble Wren ore ping (`entity.pebble_wren.ore_ping`)
 
-- `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3` → Pebble Wren flutter (`entity.pebble_wren.flutter`)
-  - Source page: https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-  - Direct media: https://upload.wikimedia.org/wikipedia/commons/3/39/Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-  - Author: NPS & MSU Acoustic Atlas / Jennifer Jerrett
-  - License: Public domain (`PD-USGov` / `CC-PD-Mark` on Commons)
-  - Used as: trimmed, filtered, and sped-up wingbeat cue for `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
+- `beating-wings-small-001.ogg` → Pebble Wren flutter (`entity.pebble_wren.flutter`)
+  - Source path: `examples/_extracted/sound_libraies/psfx-main/psfx-main/library/creature/movement/flight/wings/beating-wings-small-001.ogg`
+  - Source pack: PSFX - Peri's Sound Effects example library
+  - Source notes: PSFX README describes the pack as a free library of homemade custom sound effects; see `examples/_extracted/sound_libraies/psfx-main/psfx-main/README.md` and `PSFX_License_v1.1.pdf` in the same folder for pack terms.
+  - Used as: trimmed, filtered, and pitched-up wing cue for `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 
 ## User-provided clips (source/link recorded outside repo)
 These entries were provided directly as files (not sourced from the bundled sound packs listed above). If you ship the mod publicly, ensure the upstream page/license is recorded and compatible.
