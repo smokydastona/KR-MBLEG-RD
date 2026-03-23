@@ -132,6 +132,9 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final int MAX_GROUP_FLUSH_TICKS = 18;
     private static final int GROUND_FORAGE_RADIUS = 5;
     private static final int PLAYFUL_HOP_INTERVAL_TICKS = 8;
+    private static final double STIMULUS_FLUSH_RADIUS = 10.0D;
+    private static final double SPRINTING_PLAYER_FLUSH_RADIUS = 6.5D;
+    private static final int STIMULUS_FLUSH_COOLDOWN_TICKS = 20 * 4;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
@@ -143,6 +146,7 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private int flockSyncTicks = 0;
     private int groundSocialTicks = 0;
     private int groupFlushTicks = 0;
+    private int flushStimulusCooldownTicks = 0;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -393,6 +397,35 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
         for (PebbleWrenEntity mate : mates) {
             mate.receiveGroupFlushSignal();
+        }
+    }
+
+    private void triggerStimulusFlush() {
+        if (this.isTame() || this.flushStimulusCooldownTicks > 0) {
+            return;
+        }
+
+        this.flushStimulusCooldownTicks = STIMULUS_FLUSH_COOLDOWN_TICKS;
+        this.broadcastGroupFlushSignal();
+    }
+
+    private void tryStimulusFlushFromNearbyPlayers() {
+        if (this.isTame() || this.isFlying() || this.groupFlushTicks > 0 || this.flushStimulusCooldownTicks > 0) {
+            return;
+        }
+
+        AABB scan = this.getBoundingBox().inflate(STIMULUS_FLUSH_RADIUS);
+        List<Player> players = this.level().getEntitiesOfClass(
+            Player.class,
+            scan,
+            player -> player.isAlive() && !player.isSpectator() && !player.isCreative() && player.isSprinting()
+        );
+
+        for (Player player : players) {
+            if (this.distanceToSqr(player) <= (SPRINTING_PLAYER_FLUSH_RADIUS * SPRINTING_PLAYER_FLUSH_RADIUS)) {
+                this.triggerStimulusFlush();
+                return;
+            }
         }
     }
 
@@ -1051,6 +1084,12 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
                 --this.groupFlushTicks;
             }
 
+            if (this.flushStimulusCooldownTicks > 0) {
+                --this.flushStimulusCooldownTicks;
+            }
+
+            this.tryStimulusFlushFromNearbyPlayers();
+
             if (this.isFlying()) {
                 this.airborneTicks++;
                 this.groundedTicks = 0;
@@ -1256,6 +1295,15 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     @Override
     public boolean causeFallDamage(float distance, float multiplier, net.minecraft.world.damagesource.DamageSource source) {
         return false;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean hurt = super.hurt(source, amount);
+        if (hurt && !this.level().isClientSide && this.isAlive()) {
+            this.triggerStimulusFlush();
+        }
+        return hurt;
     }
 
     @Nullable

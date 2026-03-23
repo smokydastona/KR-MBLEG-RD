@@ -288,7 +288,7 @@ Generated: 2026-03-21 14:02:35
 - Score: `100`
 - Status: geo=✅ tex=✅ anim=✅ ai=✅ loot=✅ sounds=✅ spawns=✅ egg=✅ integration=✅ perf=✅
 - Classes: Entity: `PebbleWrenEntity` | Renderer: `PebbleWrenRenderer` | Model: `PebbleWrenModel`
-- Behavior: tameable bird with a twitchy songbird-style perch-and-flight rhythm, a preference for higher visible perches, occasional perched chirps with the nearest perched flourish answer and slight call variation, brief one-extra-reply chatter bursts, loose synchronized perch hops in wild flocks, shared ground pecking/foraging and playful hop-chase group behavior among nearby wild wrens, occasional all-at-once flock flush takeoffs, airborne wandering/flocking when displaced, and an ore-direction ping when befriended.
+- Behavior: tameable bird with a twitchy songbird-style perch-and-flight rhythm, a preference for higher visible perches, occasional perched chirps with the nearest perched flourish answer and slight call variation, brief one-extra-reply chatter bursts, loose synchronized perch hops in wild flocks, shared ground pecking/foraging and playful hop-chase group behavior among nearby wild wrens, occasional all-at-once flock flush takeoffs, explicit flush reactions to nearby sprinting players or sudden damage, airborne wandering/flocking when displaced, and an ore-direction ping when befriended.
 - Geo: `src/main/resources/assets/kruemblegard/geo/pebble_wren.geo.json`
 - Animations: `src/main/resources/assets/kruemblegard/animations/pebble_wren.animation.json`
 - Textures (14): `src/main/resources/assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png` .. `pebble_wren_14.png`

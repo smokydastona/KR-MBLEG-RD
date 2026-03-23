@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1351 (2026-03-23)
+- Tune(pebble_wren/ai): make the flock flush react to specific stimuli too, including nearby sprinting players and sudden damage, by reusing the group flush propagation system.
+- Docs(pebble_wren): update the README, feature reference, and Mob Bible to note the new stimulus-triggered flush behavior.
+
 ## 1.0.1350 (2026-03-22)
 - Feat(pebble_wren/ai): add wild flock ground-social goals so nearby Wrens can enter shared pecking/foraging bouts and playful hop-chase behavior instead of only coordinating from perches.
 - Tune(pebble_wren/ai): add a random flock flush behavior that propagates to nearby wild Wrens so small groups sometimes launch together like real startled songbirds.
