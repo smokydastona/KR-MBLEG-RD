@@ -339,7 +339,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.flutter`
   - sounds.json: `kruemblegard:entity/pebble_wren/flutter`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
-- Credits: Procedurally synthesized in-house from layered filtered-noise wingbeat bursts.
+- Credits: Trimmed from the public-domain Wikimedia Commons file `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3`, then filtered and sped up for a small-bird takeoff/landing cue.
 
 ### `entity.pebble_wren.ore_ping` (Ore-find cue)
 - Should sound like: bright tonal trill with a slight airy shimmer so the success cue reads differently from social chatter.

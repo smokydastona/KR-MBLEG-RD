@@ -2,15 +2,31 @@
 
 Checked: 2026-03-22
 
-This manifest records the second-pass Pebble Wren sound pack that replaced the noisy field-recording-derived first pass with fully procedural synthesized assets.
+This manifest records the second-pass Pebble Wren sound pack. Most cues are procedural, but the flutter cue now comes from a real public-domain wingbeat recording after the synthetic replacement failed to read as actual flapping.
 
-## Generation Method
+## Source Strategy
 
 - Generated in-house with `ffmpeg` filter graphs.
 - Vocal cues are synthesized from layered sine-based chirps created with `aevalsrc`, shaped with high-pass / low-pass filtering and limiting.
-- The flutter cue is synthesized from layered `anoisesrc` bursts with filtering, fades, delays, and limiting.
-- No third-party recordings are used in the shipped Pebble Wren assets.
+- The flutter cue is trimmed from the public-domain Yellowstone Sandhill Crane recording and then filtered / sped up to fit a tiny bird.
 - All outputs are rendered as mono OGG/Vorbis files under `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/`.
+
+## External Source Media
+
+### Source A
+- Downloaded source file name: `yellowstone_sandhill_crane_source_pd.mp3`
+- Source page: https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
+- Direct media URL: https://upload.wikimedia.org/wikipedia/commons/3/39/Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
+- Source platform: Wikimedia Commons
+- License: Public domain (`PD-USGov` / `CC-PD-Mark` on Commons)
+- Author: NPS & MSU Acoustic Atlas / Jennifer Jerrett
+- Attribution required: no
+- Approved for shipping: yes
+- Source SHA-256: `E090AE6AA0E46932195BE998F44F96D63E95DB7C3C73FB6B241BDAC989F67CE6`
+- Source file size: `388504 bytes`
+- Rights statement text:
+	- `This work is in the public domain in the United States because it is a work prepared by an officer or employee of the United States Federal Government as part of that person's official duties.`
+	- `This file has been identified as being free of known restrictions under copyright law, including all related and neighboring rights.`
 
 ## Derived Outputs
 
@@ -59,9 +75,10 @@ This manifest records the second-pass Pebble Wren sound pack that replaced the n
 ### `flutter`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 - Intended in-game event: `entity.pebble_wren.flutter`
-- Duration: `0.173991s`
-- Derived SHA-256: `4E4B53961BCFAC4F3B3DCDCC7E561BD97930F9604E99CF55E3CE73305B42C6FE`
-- Synthesis chain: three decaying wingbeats built from paired low whoosh and high feather-snap `anoisesrc` bursts, staggered with short delays, filtered, faded, and limited into mono OGG
+- Duration: `0.337460s`
+- Derived SHA-256: `FDEEDBFA0D21ECAD2218E83E02847975EFADFC635002898D8360FD1EF42B9FA0`
+- Source media: Source A
+- Processing chain: trim `0.08-0.60s` from the Sandhill Crane source, high-pass `650 Hz`, low-pass `7000 Hz`, denoise, speed up with `atempo=1.55`, amplify, short fades, limiter, metadata stripped, mono OGG
 
 ### `ore_ping`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ore_ping.ogg`
@@ -72,6 +89,6 @@ This manifest records the second-pass Pebble Wren sound pack that replaced the n
 
 ## Notes
 
-- These files are procedural gameplay assets intended to replace both the old vanilla parrot placeholders and the noisy first-pass field-derived clips.
+- The Pebble Wren set is now a mixed-source pack: procedural chirps for vocal/social cues and one public-domain wildlife flap for the takeoff/landing cue.
 - The manifest is the canonical provenance record for the current shipped Pebble Wren set.
-- If higher-quality self-generated or clearly redistributable recordings are added later, append a new section rather than silently replacing this record.
+- If the flutter cue is replaced again, keep the old source entry and append a new one rather than silently overwriting provenance.

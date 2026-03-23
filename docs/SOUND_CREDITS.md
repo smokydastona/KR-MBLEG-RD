@@ -129,8 +129,8 @@ These entries are sourced from the soundfx pack, with per-file license metadata 
   - License: CC BY 3.0 — https://creativecommons.org/licenses/by/3.0/
   - Used for: Pebblit hurt (`entity.pebblit.hurt`)
 
-## Procedurally generated Pebble Wren set
-These entries are generated in-house with `ffmpeg` filter graphs, using layered sine-based chirps and filtered noise bursts rather than third-party recordings. The per-file hash and synthesis manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
+## Pebble Wren sound set
+Pebble Wren uses a mixed source set. Most cues are generated in-house with `ffmpeg` filter graphs, while the flutter cue is derived from a public-domain wildlife recording. The per-file hash and provenance manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
 
 - (Procedural / ffmpeg) → Pebble Wren ambient (`entity.pebble_wren.ambient`)
 - (Procedural / ffmpeg) → Pebble Wren perch call (`entity.pebble_wren.perch_call`)
@@ -138,8 +138,14 @@ These entries are generated in-house with `ffmpeg` filter graphs, using layered 
 - (Procedural / ffmpeg) → Pebble Wren flourish (`entity.pebble_wren.flourish`)
 - (Procedural / ffmpeg) → Pebble Wren hurt (`entity.pebble_wren.hurt`)
 - (Procedural / ffmpeg) → Pebble Wren death (`entity.pebble_wren.death`)
-- (Procedural / ffmpeg) → Pebble Wren flutter (`entity.pebble_wren.flutter`)
 - (Procedural / ffmpeg) → Pebble Wren ore ping (`entity.pebble_wren.ore_ping`)
+
+- `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3` → Pebble Wren flutter (`entity.pebble_wren.flutter`)
+  - Source page: https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
+  - Direct media: https://upload.wikimedia.org/wikipedia/commons/3/39/Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
+  - Author: NPS & MSU Acoustic Atlas / Jennifer Jerrett
+  - License: Public domain (`PD-USGov` / `CC-PD-Mark` on Commons)
+  - Used as: trimmed, filtered, and sped-up wingbeat cue for `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 
 ## User-provided clips (source/link recorded outside repo)
 These entries were provided directly as files (not sourced from the bundled sound packs listed above). If you ship the mod publicly, ensure the upstream page/license is recorded and compatible.
