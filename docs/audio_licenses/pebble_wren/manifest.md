@@ -2,107 +2,76 @@
 
 Checked: 2026-03-22
 
-This manifest records the first-pass Pebble Wren sound pack that replaced vanilla parrot placeholders.
+This manifest records the second-pass Pebble Wren sound pack that replaced the noisy field-recording-derived first pass with fully procedural synthesized assets.
 
-## Source Media
+## Generation Method
 
-### Source A
-- Downloaded source file name: `ruby-crowned_kinglet_source_pd.ogg`
-- Source page: https://commons.wikimedia.org/wiki/File:Ruby-crowned_Kinglet.ogg
-- Direct media URL: https://upload.wikimedia.org/wikipedia/commons/0/00/Ruby-crowned_Kinglet.ogg
-- Source platform: Wikimedia Commons
-- License: Public domain (`PD-self`)
-- Author: G. McGrane
-- Attribution required: no
-- Approved for shipping: yes
-- Source SHA-256: `605A58C0C7E9E7BADF4A8EE7D863DF365E28C36DF9F87A61E5D428735F06F5AE`
-- Rights statement text:
-  - `I, the copyright holder of this work, release this work into the public domain.`
-  - `This applies worldwide.`
-
-### Source B
-- Downloaded source file name: `yellowstone_sandhill_crane_source_pd.mp3`
-- Source page: https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-- Direct media URL: https://upload.wikimedia.org/wikipedia/commons/3/39/Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-- Source platform: Wikimedia Commons
-- License: Public domain (`PD-USGov` / `CC-PD-Mark` on Commons)
-- Author: NPS & MSU Acoustic Atlas / Jennifer Jerrett
-- Attribution required: no
-- Approved for shipping: yes
-- Source SHA-256: `E090AE6AA0E46932195BE998F44F96D63E95DB7C3C73FB6B241BDAC989F67CE6`
-- Rights statement text:
-  - `This work is in the public domain in the United States because it is a work prepared by an officer or employee of the United States Federal Government as part of that person's official duties.`
-  - `This file has been identified as being free of known restrictions under copyright law, including all related and neighboring rights.`
+- Generated in-house with `ffmpeg` filter graphs.
+- Vocal cues are synthesized from layered sine-based chirps created with `aevalsrc`, shaped with high-pass / low-pass filtering and limiting.
+- The flutter cue is synthesized from layered `anoisesrc` bursts with filtering, fades, delays, and limiting.
+- No third-party recordings are used in the shipped Pebble Wren assets.
+- All outputs are rendered as mono OGG/Vorbis files under `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/`.
 
 ## Derived Outputs
 
 ### `ambient`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ambient.ogg`
 - Intended in-game event: `entity.pebble_wren.ambient`
-- Duration: `0.259977s`
-- Derived SHA-256: `541254FE43DC51DAC4DDE624B97CE23F0E6FA9763612466FB2B5062B1E8377A6`
-- Source media: Source A
-- Processing chain: trim `0.10-0.36s`, high-pass `1800 Hz`, low-pass `9000 Hz`, `4 ms` fade in, `40 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Duration: `0.260000s`
+- Derived SHA-256: `2FD23A97052A3029149044183A61D364300EAC1F793AC85C634EC822EEE84DC7`
+- Synthesis chain: two bright rising/falling chirps from `aevalsrc`, high-pass `2200 Hz`, low-pass `10000 Hz`, limiter, mono OGG
 
 ### `perch_call`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/perch_call.ogg`
 - Intended in-game event: `entity.pebble_wren.perch_call`
 - Duration: `0.340000s`
-- Derived SHA-256: `622016D8C2B693CB8C6F6F9F873C7E7C988CF996A3B150C704BCF957A8E12BCF`
-- Source media: Source A
-- Processing chain: trim `1.02-1.36s`, high-pass `1900 Hz`, low-pass `9200 Hz`, `4 ms` fade in, `60 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Derived SHA-256: `FB533170D55AF24800399CB3A302A78A51FACB7B426723F29D93F4573DD22F6F`
+- Synthesis chain: three assertive layered chirps from `aevalsrc`, high-pass `2200 Hz`, low-pass `10200 Hz`, limiter, mono OGG
 
 ### `perch_reply`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/perch_reply.ogg`
 - Intended in-game event: `entity.pebble_wren.perch_reply`
 - Duration: `0.220000s`
-- Derived SHA-256: `1C6BF0541BA99B1DDA740721EB3733A004CC08460DDCB01C88D0EA1F8D839074`
-- Source media: Source A
-- Processing chain: trim `2.02-2.24s`, high-pass `2000 Hz`, low-pass `9000 Hz`, `3 ms` fade in, `50 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Derived SHA-256: `91EB4D6C18E07384A16811D59378C3C0AB771CEA2ABE8DF5B084E87E8A06F30B`
+- Synthesis chain: two softer descending chirps from `aevalsrc`, high-pass `2400 Hz`, low-pass `9800 Hz`, limiter, mono OGG
 
 ### `flourish`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/flourish.ogg`
 - Intended in-game event: `entity.pebble_wren.flourish`
 - Duration: `0.350000s`
-- Derived SHA-256: `FA94F28CC13D69F23BB32F4759B275C38B73377319343F8C8B03D682A28027A5`
-- Source media: Source A
-- Processing chain: trim `3.12-3.47s`, high-pass `2000 Hz`, low-pass `9500 Hz`, `3 ms` fade in, `90 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Derived SHA-256: `4E379F74F7CBF5D05EE9259FC9D3AF262070F743ECB60F85D5A2FAD1F142A326`
+- Synthesis chain: four quick decorative chirps from `aevalsrc`, high-pass `2300 Hz`, low-pass `10400 Hz`, limiter, mono OGG
 
 ### `hurt`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/hurt.ogg`
 - Intended in-game event: `entity.pebble_wren.hurt`
-- Duration: `0.120385s`
-- Derived SHA-256: `312D6697F5322085101717F486745A366DCD8E583D83D58CF4A8F27262ABE9A8`
-- Source media: Source A
-- Processing chain: trim `4.18-4.31s`, high-pass `2200 Hz`, low-pass `8500 Hz`, pitch up with `asetrate*1.08`, `2 ms` fade in, `40 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Duration: `0.120000s`
+- Derived SHA-256: `57D6C862BAF564251EE6C23C4C3EE595EF51C6C1CE328AE6DF365E388F9121EE`
+- Synthesis chain: single sharp high chirp from `aevalsrc`, high-pass `2600 Hz`, low-pass `9800 Hz`, limiter, mono OGG
 
 ### `death`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/death.ogg`
 - Intended in-game event: `entity.pebble_wren.death`
-- Duration: `0.340930s`
-- Derived SHA-256: `23C52A58DF45108301205EEA9E4D0964CD210BAC89F8D57C73F952EAEB8EFDB2`
-- Source media: Source A
-- Processing chain: trim `5.34-5.64s`, high-pass `1700 Hz`, low-pass `7200 Hz`, pitch down with `asetrate*0.88`, `3 ms` fade in, `90 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Duration: `0.340000s`
+- Derived SHA-256: `12B91A2CD7D82E27A1EADEFAAAC04940E7122D4B93FF53A47889161467143F49`
+- Synthesis chain: two subdued descending chirps from `aevalsrc`, high-pass `1800 Hz`, low-pass `7600 Hz`, limiter, mono OGG
 
 ### `flutter`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 - Intended in-game event: `entity.pebble_wren.flutter`
 - Duration: `0.220000s`
-- Derived SHA-256: `726DCBF972F241BD3C7BCBB0162B3D4DE06E9B950179DFC8B20F0EB6E62EE597`
-- Source media: Source B
-- Processing chain: trim `0.34-0.56s`, high-pass `700 Hz`, low-pass `7000 Hz`, `3 ms` fade in, `60 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Derived SHA-256: `564AC70B797FE8B70E8A3AA399E83728BF75E62A54F8AEDB460593A6046F1FD6`
+- Synthesis chain: four delayed filtered-noise bursts from `anoisesrc`, fades, high/low-pass filtering, limiter, mono OGG
 
 ### `ore_ping`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ore_ping.ogg`
 - Intended in-game event: `entity.pebble_wren.ore_ping`
-- Duration: `0.467982s`
-- Derived SHA-256: `B885361AA525B369A23E9864A7DE722000C7AEBFDE6A0B1CF8851A4153B707BA`
-- Source media: Source A
-- Processing chain: trim `7.12-7.57s`, high-pass `1800 Hz`, low-pass `9000 Hz`, light echo (`18 ms`, `0.16`), `4 ms` fade in, `100 ms` fade out, limiter to about `-3 dBFS`, mono OGG
+- Duration: `0.491995s`
+- Derived SHA-256: `2F0CD42B03B4E2C9CCCE8A9BC5294C2B3BFCD26CF01D46CD0379315125B14AC3`
+- Synthesis chain: layered chirp phrase from `aevalsrc`, high-pass `2100 Hz`, low-pass `10000 Hz`, short echo tail, limiter, mono OGG
 
 ## Notes
 
-- These files are first-pass gameplay assets intended to remove the remaining vanilla parrot placeholders from Pebble Wren behavior.
-- The raw source media is cached in this folder so the source hashes remain reproducible.
-- Final shipped OGGs were re-encoded with metadata stripped so source-side tags are not carried into the mod assets.
-- If higher-variety public-domain songbird sources are added later, extend this manifest instead of replacing entries without recording the change.
+- These files are procedural gameplay assets intended to replace both the old vanilla parrot placeholders and the noisy first-pass field-derived clips.
+- The manifest is the canonical provenance record for the current shipped Pebble Wren set.
+- If higher-quality self-generated or clearly redistributable recordings are added later, append a new section rather than silently replacing this record.

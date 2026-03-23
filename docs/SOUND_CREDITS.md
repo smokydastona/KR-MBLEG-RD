@@ -129,22 +129,17 @@ These entries are sourced from the soundfx pack, with per-file license metadata 
   - License: CC BY 3.0 — https://creativecommons.org/licenses/by/3.0/
   - Used for: Pebblit hurt (`entity.pebblit.hurt`)
 
-## Public-domain wildlife recordings (via Wikimedia Commons)
-These entries were downloaded from Wikimedia Commons file pages with explicit public-domain rights statements and are trimmed into short in-game cues. The per-file hash and derived-output manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
+## Procedurally generated Pebble Wren set
+These entries are generated in-house with `ffmpeg` filter graphs, using layered sine-based chirps and filtered noise bursts rather than third-party recordings. The per-file hash and synthesis manifest lives in `docs/audio_licenses/pebble_wren/manifest.md`.
 
-- `Ruby-crowned_Kinglet.ogg`
-  - Source page: https://commons.wikimedia.org/wiki/File:Ruby-crowned_Kinglet.ogg
-  - Direct media: https://upload.wikimedia.org/wikipedia/commons/0/00/Ruby-crowned_Kinglet.ogg
-  - Author: G. McGrane
-  - License: Public domain (`PD-self`)
-  - Used for: Pebble Wren ambient (`entity.pebble_wren.ambient`), perch call (`entity.pebble_wren.perch_call`), perch reply (`entity.pebble_wren.perch_reply`), flourish (`entity.pebble_wren.flourish`), hurt (`entity.pebble_wren.hurt`), death (`entity.pebble_wren.death`), and ore ping (`entity.pebble_wren.ore_ping`)
-
-- `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3`
-  - Source page: https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-  - Direct media: https://upload.wikimedia.org/wikipedia/commons/3/39/Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3
-  - Author: NPS & MSU Acoustic Atlas / Jennifer Jerrett
-  - License: Public domain (U.S. federal government work; `PD-USGov` / `CC-PD-Mark` on Commons)
-  - Used for: Pebble Wren flutter (`entity.pebble_wren.flutter`)
+- (Procedural / ffmpeg) → Pebble Wren ambient (`entity.pebble_wren.ambient`)
+- (Procedural / ffmpeg) → Pebble Wren perch call (`entity.pebble_wren.perch_call`)
+- (Procedural / ffmpeg) → Pebble Wren perch reply (`entity.pebble_wren.perch_reply`)
+- (Procedural / ffmpeg) → Pebble Wren flourish (`entity.pebble_wren.flourish`)
+- (Procedural / ffmpeg) → Pebble Wren hurt (`entity.pebble_wren.hurt`)
+- (Procedural / ffmpeg) → Pebble Wren death (`entity.pebble_wren.death`)
+- (Procedural / ffmpeg) → Pebble Wren flutter (`entity.pebble_wren.flutter`)
+- (Procedural / ffmpeg) → Pebble Wren ore ping (`entity.pebble_wren.ore_ping`)
 
 ## User-provided clips (source/link recorded outside repo)
 These entries were provided directly as files (not sourced from the bundled sound packs listed above). If you ship the mod publicly, ensure the upstream page/license is recorded and compatible.

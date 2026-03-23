@@ -228,7 +228,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
   - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping (plays a brief display animation).
   - Movement: uses a twitchier songbird-style perch-and-flight rhythm with short, frequent airborne bursts, quicker owner/flock regrouping, preferred higher landings on visible perches such as branches, leaves, fences, and walls, occasional perched chirps with the nearest perched answer/tiny flourish motion, slight pitch variation across perch calls, an occasional one-extra-reply conversational burst, loose hop synchronization in small wild flocks, ground strolling while relaxed, flying navigation + air-wander flocking when displaced, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
-  - Audio: now uses dedicated custom `entity.pebble_wren.*` sound events for ambient chirps, perch calls/replies, social flourishes, flutter takeoffs/landings, hurt/death, and ore-find pings; the first-pass clips are trimmed from public-domain Wikimedia Commons recordings and tracked in `docs/audio_licenses/pebble_wren/manifest.md`.
+  - Audio: now uses dedicated custom `entity.pebble_wren.*` sound events for ambient chirps, perch calls/replies, social flourishes, flutter takeoffs/landings, hurt/death, and ore-find pings; the current set is procedurally synthesized in-house with `ffmpeg` filter graphs and tracked in `docs/audio_licenses/pebble_wren/manifest.md`.
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
   - Drops Feathers and (occasionally) Wheat Seeds.

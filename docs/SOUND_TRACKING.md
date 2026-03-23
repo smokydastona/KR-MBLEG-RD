@@ -291,7 +291,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.ambient`
   - sounds.json: `kruemblegard:entity/pebble_wren/ambient`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/ambient.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`); see `docs/SOUND_CREDITS.md` and `docs/audio_licenses/pebble_wren/manifest.md`.
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs; see `docs/SOUND_CREDITS.md` and `docs/audio_licenses/pebble_wren/manifest.md`.
 
 ### `entity.pebble_wren.perch_call` (Initiating perch chirp)
 - Should sound like: clearer attention cue, still soft but more forward than the idle chirp.
@@ -299,7 +299,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.perch_call`
   - sounds.json: `kruemblegard:entity/pebble_wren/perch_call`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/perch_call.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`).
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.perch_reply` (Answer chirp)
 - Should sound like: softer conversational answer, shorter and less assertive than the perch call.
@@ -307,7 +307,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.perch_reply`
   - sounds.json: `kruemblegard:entity/pebble_wren/perch_reply`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/perch_reply.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`).
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.flourish` (Social flourish)
 - Should sound like: decorative chirrup that reads as a tiny social flourish, not a danger cue.
@@ -315,7 +315,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.flourish`
   - sounds.json: `kruemblegard:entity/pebble_wren/flourish`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/flourish.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`).
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.hurt` (Damage)
 - Should sound like: sharp stylized peep, short enough to avoid sounding like recorded animal distress.
@@ -323,7 +323,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.hurt`
   - sounds.json: `kruemblegard:entity/pebble_wren/hurt`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/hurt.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`), heavily trimmed and pitch-shaped.
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.death` (Death)
 - Should sound like: a soft falling chirp with a short tail, stylized rather than grim.
@@ -331,7 +331,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.death`
   - sounds.json: `kruemblegard:entity/pebble_wren/death`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/death.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`), trimmed and pitched down.
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.flutter` (Takeoff / landing)
 - Should sound like: quick feather flick / wingbeat burst without vocal content.
@@ -339,7 +339,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.flutter`
   - sounds.json: `kruemblegard:entity/pebble_wren/flutter`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3`), trimmed to the early wing-beat section.
+- Credits: Procedurally synthesized in-house from layered filtered-noise bursts.
 
 ### `entity.pebble_wren.ore_ping` (Ore-find cue)
 - Should sound like: bright tonal trill with a slight airy shimmer so the success cue reads differently from social chatter.
@@ -347,7 +347,7 @@ Identity notes:
   - SoundEvent: `kruemblegard:entity.pebble_wren.ore_ping`
   - sounds.json: `kruemblegard:entity/pebble_wren/ore_ping`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/ore_ping.ogg`
-- Credits: Public-domain Wikimedia Commons recording (`Ruby-crowned_Kinglet.ogg`), trimmed with a light echo tail.
+- Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs and a short echo tail.
 
 ---
 
