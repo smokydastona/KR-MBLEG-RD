@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1350 (2026-03-22)
+- Feat(pebble_wren/ai): add wild flock ground-social goals so nearby Wrens can enter shared pecking/foraging bouts and playful hop-chase behavior instead of only coordinating from perches.
+- Tune(pebble_wren/ai): add a random flock flush behavior that propagates to nearby wild Wrens so small groups sometimes launch together like real startled songbirds.
+- Docs(pebble_wren): update the README, feature reference, and Mob Bible to describe the new flock-ground and flush behaviors.
+
 ## 1.0.1349 (2026-03-22)
 - Fix(ai/scaralon_larva): only let larvae enter the tree-sap maturation fallback when no adult Scaralon is nearby, and make them detach again if an adult returns.
 - Fix(ai/scaralon_larva): tighten sap-target selection to reachable tree-side log faces so stranded larvae more reliably climb onto bark and sap-suck instead of choosing invalid trunk anchors.

@@ -48,6 +48,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
@@ -123,6 +124,14 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private static final int MIN_PERCH_SOCIAL_COOLDOWN = 20 * 4;
     private static final int MAX_PERCH_SOCIAL_COOLDOWN = 20 * 9;
     private static final int MAX_PERCH_CALL_CHAIN_DEPTH = 1;
+    private static final double GROUND_SOCIAL_RADIUS = 7.0D;
+    private static final double GROUP_FLUSH_RADIUS = 9.0D;
+    private static final int MIN_GROUND_SOCIAL_TICKS = 20;
+    private static final int MAX_GROUND_SOCIAL_TICKS = 20 * 4;
+    private static final int MIN_GROUP_FLUSH_TICKS = 8;
+    private static final int MAX_GROUP_FLUSH_TICKS = 18;
+    private static final int GROUND_FORAGE_RADIUS = 5;
+    private static final int PLAYFUL_HOP_INTERVAL_TICKS = 8;
 
     private int oreFindCooldownTicks = 0;
     private int displayAnimTicks = 0;
@@ -132,6 +141,8 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
     private int flightPhaseTargetTicks = MIN_GROUNDED_TICKS;
     private int perchSocialCooldownTicks = 20 * 4;
     private int flockSyncTicks = 0;
+    private int groundSocialTicks = 0;
+    private int groupFlushTicks = 0;
 
     public PebbleWrenEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
@@ -245,10 +256,13 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.15D, 6.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new PebbleWrenFlockCohesionGoal(this));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new PebbleWrenAirWanderGoal(this));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new PebbleWrenGroupFlushGoal(this));
+        this.goalSelector.addGoal(9, new PebbleWrenGroundForageGoal(this));
+        this.goalSelector.addGoal(10, new PebbleWrenGroundPlayGoal(this));
+        this.goalSelector.addGoal(11, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(12, new PebbleWrenAirWanderGoal(this));
+        this.goalSelector.addGoal(13, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(14, new RandomLookAroundGoal(this));
     }
 
     private boolean shouldTakeOff() {
@@ -261,6 +275,10 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         }
 
         if (this.getTarget() != null) {
+            return true;
+        }
+
+        if (this.groupFlushTicks > 0) {
             return true;
         }
 
@@ -321,6 +339,61 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
     private void receiveFlockSyncSignal() {
         this.flockSyncTicks = 10 + this.random.nextInt(12);
+    }
+
+    private void receiveGroundSocialSignal() {
+        this.groundSocialTicks = Math.max(
+            this.groundSocialTicks,
+            MIN_GROUND_SOCIAL_TICKS + this.random.nextInt((MAX_GROUND_SOCIAL_TICKS - MIN_GROUND_SOCIAL_TICKS) + 1)
+        );
+    }
+
+    private void broadcastGroundSocialSignal() {
+        if (this.isTame()) {
+            return;
+        }
+
+        this.receiveGroundSocialSignal();
+
+        AABB scan = this.getBoundingBox().inflate(GROUND_SOCIAL_RADIUS);
+        List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive() && !other.isTame() && !other.isOrderedToSit()
+        );
+
+        for (PebbleWrenEntity mate : mates) {
+            if (!mate.isFlying() && mate.onGround() && !mate.isPassenger() && !mate.isInWaterOrBubble()) {
+                mate.receiveGroundSocialSignal();
+            }
+        }
+    }
+
+    private void receiveGroupFlushSignal() {
+        this.groupFlushTicks = Math.max(
+            this.groupFlushTicks,
+            MIN_GROUP_FLUSH_TICKS + this.random.nextInt((MAX_GROUP_FLUSH_TICKS - MIN_GROUP_FLUSH_TICKS) + 1)
+        );
+        this.flockSyncTicks = Math.max(this.flockSyncTicks, 8 + this.random.nextInt(8));
+    }
+
+    private void broadcastGroupFlushSignal() {
+        if (this.isTame()) {
+            return;
+        }
+
+        this.receiveGroupFlushSignal();
+
+        AABB scan = this.getBoundingBox().inflate(GROUP_FLUSH_RADIUS);
+        List<PebbleWrenEntity> mates = this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive() && !other.isTame() && !other.isOrderedToSit()
+        );
+
+        for (PebbleWrenEntity mate : mates) {
+            mate.receiveGroupFlushSignal();
+        }
     }
 
     private void broadcastFlockSyncSignal() {
@@ -552,6 +625,62 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         return new Vec3(sumX / count, sumY / count, sumZ / count);
     }
 
+    private boolean canUseWildGroundSocialBehavior() {
+        return !this.isTame() && !this.isOrderedToSit() && !this.isPassenger() && !this.isInWaterOrBubble()
+            && !this.isFlying() && this.onGround() && this.getTarget() == null;
+    }
+
+    private List<PebbleWrenEntity> getNearbyWildGroundedFlockmates(double radius) {
+        AABB scan = this.getBoundingBox().inflate(radius);
+        return this.level().getEntitiesOfClass(
+            PebbleWrenEntity.class,
+            scan,
+            other -> other != this && other.isAlive() && !other.isTame() && !other.isOrderedToSit()
+                && !other.isFlying() && other.onGround() && !other.isPassenger() && !other.isInWaterOrBubble()
+        );
+    }
+
+    @Nullable
+    private Vec3 findNearbyGroundSocialTarget(Vec3 origin, int radius) {
+        RandomSource random = this.getRandom();
+
+        for (int attempt = 0; attempt < 16; attempt++) {
+            int x = BlockPos.containing(origin).getX() + random.nextInt(radius * 2 + 1) - radius;
+            int z = BlockPos.containing(origin).getZ() + random.nextInt(radius * 2 + 1) - radius;
+            int topY = this.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+            if (topY <= this.level().getMinBuildHeight() + 1) {
+                continue;
+            }
+
+            BlockPos ground = new BlockPos(x, topY - 1, z);
+            BlockPos stand = ground.above();
+            if (!this.level().getBlockState(ground).isFaceSturdy(this.level(), ground, Direction.UP)) {
+                continue;
+            }
+
+            if (!this.level().getFluidState(stand).isEmpty()) {
+                continue;
+            }
+
+            if (!this.level().getBlockState(stand).getCollisionShape(this.level(), stand).isEmpty()) {
+                continue;
+            }
+
+            if (!this.level().getBlockState(stand.above()).getCollisionShape(this.level(), stand.above()).isEmpty()) {
+                continue;
+            }
+
+            Vec3 target = Vec3.atBottomCenterOf(stand);
+            if (!this.level().noCollision(this, this.getBoundingBox().move(target.x - this.getX(), target.y - this.getY(), target.z - this.getZ()))) {
+                continue;
+            }
+
+            return target;
+        }
+
+        return null;
+    }
+
     private static final class PebbleWrenFlockCohesionGoal extends net.minecraft.world.entity.ai.goal.Goal {
         private final PebbleWrenEntity mob;
         private int retargetTicks;
@@ -682,6 +811,203 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
         }
     }
 
+    private static final class PebbleWrenGroundForageGoal extends Goal {
+        private final PebbleWrenEntity mob;
+        private @Nullable Vec3 target;
+        private int activeTicks;
+        private int peckTicks;
+
+        private PebbleWrenGroundForageGoal(PebbleWrenEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!mob.canUseWildGroundSocialBehavior() || mob.getNavigation().isInProgress()) {
+                return false;
+            }
+
+            List<PebbleWrenEntity> mates = mob.getNearbyWildGroundedFlockmates(GROUND_SOCIAL_RADIUS);
+            if (mates.isEmpty()) {
+                return false;
+            }
+
+            if (mob.groundSocialTicks <= 0 && mob.getRandom().nextInt(90) != 0) {
+                return false;
+            }
+
+            Vec3 focus = mob.getFlockFocusPoint();
+            target = mob.findNearbyGroundSocialTarget(focus, GROUND_FORAGE_RADIUS);
+            return target != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return target != null && activeTicks > 0 && mob.canUseWildGroundSocialBehavior();
+        }
+
+        @Override
+        public void start() {
+            activeTicks = 30 + mob.getRandom().nextInt(30);
+            peckTicks = 0;
+            mob.broadcastGroundSocialSignal();
+            mob.getNavigation().moveTo(target.x, target.y, target.z, 1.0D);
+        }
+
+        @Override
+        public void tick() {
+            activeTicks--;
+            if (target == null) {
+                return;
+            }
+
+            double distSqr = mob.distanceToSqr(target);
+            if (distSqr > 1.2D * 1.2D) {
+                mob.getNavigation().moveTo(target.x, target.y, target.z, 1.0D);
+                return;
+            }
+
+            mob.getNavigation().stop();
+            mob.getLookControl().setLookAt(target.x, target.y - 0.35D, target.z);
+
+            if (peckTicks > 0) {
+                peckTicks--;
+                return;
+            }
+
+            peckTicks = 6 + mob.getRandom().nextInt(8);
+            if (mob.getRandom().nextInt(4) == 0) {
+                mob.playSound(ModSounds.PEBBLE_WREN_AMBIENT.get(), 0.12F, 1.18F + mob.getRandom().nextFloat() * 0.14F);
+            }
+        }
+
+        @Override
+        public void stop() {
+            target = null;
+            activeTicks = 0;
+            peckTicks = 0;
+            mob.getNavigation().stop();
+        }
+    }
+
+    private static final class PebbleWrenGroundPlayGoal extends Goal {
+        private final PebbleWrenEntity mob;
+        private @Nullable PebbleWrenEntity playmate;
+        private int activeTicks;
+        private int hopCooldownTicks;
+
+        private PebbleWrenGroundPlayGoal(PebbleWrenEntity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!mob.canUseWildGroundSocialBehavior()) {
+                return false;
+            }
+
+            List<PebbleWrenEntity> mates = mob.getNearbyWildGroundedFlockmates(GROUND_SOCIAL_RADIUS);
+            if (mates.isEmpty()) {
+                return false;
+            }
+
+            if (mob.groundSocialTicks <= 0 && mob.getRandom().nextInt(130) != 0) {
+                return false;
+            }
+
+            playmate = mates.get(mob.getRandom().nextInt(mates.size()));
+            return playmate != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return activeTicks > 0 && playmate != null && playmate.isAlive() && mob.canUseWildGroundSocialBehavior()
+                && !playmate.isFlying() && playmate.onGround();
+        }
+
+        @Override
+        public void start() {
+            activeTicks = 24 + mob.getRandom().nextInt(26);
+            hopCooldownTicks = 0;
+            mob.broadcastGroundSocialSignal();
+        }
+
+        @Override
+        public void tick() {
+            activeTicks--;
+            if (playmate == null) {
+                return;
+            }
+
+            Vec3 matePos = playmate.position();
+            double angle = (mob.tickCount * 0.35D) + (mob.getId() * 0.7D);
+            double radius = 0.8D + (mob.getRandom().nextDouble() * 0.6D);
+            Vec3 target = matePos.add(Math.cos(angle) * radius, 0.0D, Math.sin(angle) * radius);
+
+            mob.getNavigation().moveTo(target.x, target.y, target.z, 1.12D);
+            mob.getLookControl().setLookAt(playmate, 30.0F, 30.0F);
+
+            if (hopCooldownTicks > 0) {
+                hopCooldownTicks--;
+                return;
+            }
+
+            hopCooldownTicks = PLAYFUL_HOP_INTERVAL_TICKS + mob.getRandom().nextInt(7);
+            if (mob.onGround()) {
+                Vec3 hop = target.subtract(mob.position());
+                if (hop.lengthSqr() > 0.0001D) {
+                    hop = hop.normalize().scale(0.08D + mob.getRandom().nextDouble() * 0.05D);
+                }
+                mob.setDeltaMovement(hop.x, 0.16D + mob.getRandom().nextDouble() * 0.04D, hop.z);
+                mob.hasImpulse = true;
+            }
+
+            if (mob.getRandom().nextInt(5) == 0) {
+                mob.playSound(ModSounds.PEBBLE_WREN_PERCH_REPLY.get(), 0.14F, 1.12F + mob.getRandom().nextFloat() * 0.18F);
+            }
+        }
+
+        @Override
+        public void stop() {
+            playmate = null;
+            activeTicks = 0;
+            hopCooldownTicks = 0;
+            mob.getNavigation().stop();
+        }
+    }
+
+    private static final class PebbleWrenGroupFlushGoal extends Goal {
+        private final PebbleWrenEntity mob;
+
+        private PebbleWrenGroupFlushGoal(PebbleWrenEntity mob) {
+            this.mob = mob;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!mob.canUseWildGroundSocialBehavior()) {
+                return false;
+            }
+
+            if (mob.groundedTicks < 5) {
+                return false;
+            }
+
+            if (mob.getNearbyWildGroundedFlockmates(GROUP_FLUSH_RADIUS).size() < 2) {
+                return false;
+            }
+
+            return mob.getRandom().nextInt(220) == 0;
+        }
+
+        @Override
+        public void start() {
+            mob.broadcastGroupFlushSignal();
+        }
+    }
+
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(Items.WHEAT_SEEDS);
@@ -715,6 +1041,14 @@ public class PebbleWrenEntity extends TamableAnimal implements GeoEntity {
 
             if (this.flockSyncTicks > 0) {
                 --this.flockSyncTicks;
+            }
+
+            if (this.groundSocialTicks > 0) {
+                --this.groundSocialTicks;
+            }
+
+            if (this.groupFlushTicks > 0) {
+                --this.groupFlushTicks;
             }
 
             if (this.isFlying()) {
