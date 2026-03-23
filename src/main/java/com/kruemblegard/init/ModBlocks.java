@@ -147,6 +147,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(1.8F, 6.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -156,6 +157,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.WOOD)
                     .requiresCorrectToolForDrops()
                     .strength(1.4F, 4.0F)
+                    .noOcclusion()
                     .sound(SoundType.WOOD))
     );
 
@@ -165,6 +167,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.COLOR_GRAY)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE)
                     .lightLevel(state -> state.getValue(ThermoCondenserBlock.LIT) ? 10 : 0))
     );
@@ -175,6 +178,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.2F, 6.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -184,6 +188,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -193,6 +198,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -202,6 +208,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.2F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -211,6 +218,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -220,6 +228,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 10.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -229,6 +238,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -238,6 +248,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -247,6 +258,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.2F, 6.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -256,6 +268,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -265,6 +278,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -274,6 +288,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -283,6 +298,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -292,6 +308,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.4F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -301,6 +318,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -310,6 +328,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.2F, 6.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -319,6 +338,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.8F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -328,6 +348,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.2F, 6.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -337,6 +358,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 10.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -346,6 +368,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -355,6 +378,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 
@@ -364,6 +388,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.QUARTZ)
                     .requiresCorrectToolForDrops()
                     .strength(2.6F, 8.0F)
+                    .noOcclusion()
                     .sound(SoundType.STONE))
     );
 

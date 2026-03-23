@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1353 (2026-03-23)
+- Fix(pressure_logic/render): mark the custom Pressure-Logic machines, conduits, and transport blocks as non-occluding so Minecraft stops culling neighboring faces like they were full cubes, fixing the xray-style visual glitches around those blocks.
+- Docs(pressure_logic): update the README and feature reference to note the non-occluding render fix for Pressure-Logic silhouettes.
+
 ## 1.0.1352 (2026-03-23)
 - Fix(scaralon_egg): make player-placed Scaralon beetle eggs stack into 1-4 egg clutches on the same block like vanilla turtle egg nests.
 - Docs(scaralon_egg): update the README, feature reference, and Mob Bible to document turtle-style clutch stacking.
