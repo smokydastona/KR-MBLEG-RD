@@ -8,7 +8,7 @@ This manifest records the second-pass Pebble Wren sound pack. Most cues are proc
 
 - Generated in-house with `ffmpeg` filter graphs.
 - Vocal cues are synthesized from layered sine-based chirps created with `aevalsrc`, shaped with high-pass / low-pass filtering and limiting.
-- The flutter cue is trimmed from the public-domain Yellowstone Sandhill Crane recording and then filtered / sped up to fit a tiny bird.
+- The flutter cue is trimmed from the public-domain Yellowstone Sandhill Crane recording and then filtered / pitched / sped up to fit a lighter tiny-bird flap.
 - All outputs are rendered as mono OGG/Vorbis files under `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/`.
 
 ## External Source Media
@@ -75,10 +75,10 @@ This manifest records the second-pass Pebble Wren sound pack. Most cues are proc
 ### `flutter`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
 - Intended in-game event: `entity.pebble_wren.flutter`
-- Duration: `0.337460s`
-- Derived SHA-256: `FDEEDBFA0D21ECAD2218E83E02847975EFADFC635002898D8360FD1EF42B9FA0`
+- Duration: `0.183152s`
+- Derived SHA-256: `EA561DB95901C73E69F6BB7BAA6262B5BBAE50074DFAB0231669AB1525F0ED3F`
 - Source media: Source A
-- Processing chain: trim `0.08-0.60s` from the Sandhill Crane source, high-pass `650 Hz`, low-pass `7000 Hz`, denoise, speed up with `atempo=1.55`, amplify, short fades, limiter, metadata stripped, mono OGG
+- Processing chain: trim `0.09-0.43s` from the Sandhill Crane source, high-pass `1200 Hz`, low-pass `8500 Hz`, denoise, pitch up slightly with `asetrate`, speed up with `atempo=1.7`, light gain, very short fades, limiter, metadata stripped, mono OGG
 
 ### `ore_ping`
 - Derived output file: `src/main/resources/assets/kruemblegard/sounds/entity/pebble_wren/ore_ping.ogg`

@@ -334,12 +334,12 @@ Identity notes:
 - Credits: Procedurally synthesized in-house with `ffmpeg` chirp filter graphs.
 
 ### `entity.pebble_wren.flutter` (Takeoff / landing)
-- Should sound like: a tiny three-beat wing-flap burst with a soft air whoosh and light feather snap, without vocal content.
+- Should sound like: a light, quick songbird flap burst with minimal low thump and a soft papery feather read, without vocal content.
 - Current asset:
   - SoundEvent: `kruemblegard:entity.pebble_wren.flutter`
   - sounds.json: `kruemblegard:entity/pebble_wren/flutter`
   - OGG: `assets/kruemblegard/sounds/entity/pebble_wren/flutter.ogg`
-- Credits: Trimmed from the public-domain Wikimedia Commons file `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3`, then filtered and sped up for a small-bird takeoff/landing cue.
+- Credits: Trimmed from the public-domain Wikimedia Commons file `Yellowstone_sound_library_-_Sandhill_Crane_-_001.mp3`, then high-passed, shortened, and sped up for a lighter small-bird takeoff/landing cue.
 
 ### `entity.pebble_wren.ore_ping` (Ore-find cue)
 - Should sound like: bright tonal trill with a slight airy shimmer so the success cue reads differently from social chatter.

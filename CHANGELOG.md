@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1347 (2026-03-22)
+- Tune(pebble_wren/audio): retune the real-source flutter again with a shorter, faster, higher-passed cut so the wingbeat reads lighter and more songbird-sized.
+
 ## 1.0.1346 (2026-03-22)
 - Tune(pebble_wren/audio): replace the failed synthetic flutter with a trimmed real wingbeat cut from the public-domain Yellowstone Sandhill Crane recording so takeoff and landing use actual flapping audio.
 - Docs(audio): update Pebble Wren credits/manifest/docs to reflect the mixed procedural-plus-public-domain sound set and cache the upstream flutter source.
