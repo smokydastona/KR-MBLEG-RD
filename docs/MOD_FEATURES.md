@@ -333,7 +333,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Egg predators: zombie-family mobs that smash turtle eggs will also smash Scaralon eggs; Scaralons will attack zombies to defend nests.
     - Larva grow into adults that inherit an adult texture variant from one of the parents (**50/50**), with a small chance of a random **mutation** variant.
   - Larva are **bucketable** (gives a `Scaralon Larva Bucket`).
-  - Larva movement: larva **cannot fly**. Instead, they can cling to the side of **tree trunks/branches** (logs, not leaves; must have nearby leaves) to **sap-suck**, which makes them mature in about **half the time**. They stay attached until finished unless knocked/damaged.
+  - Larva movement: larva **cannot fly**. When no adult Scaralon is nearby, they seek a **reachable** spot on the side of **tree trunks/branches** (logs, not leaves; must have nearby leaves), climb up the bark, and **sap-suck**, which makes them mature in about **half the time**. They detach if an adult returns, if they are knocked loose, or if the tree target stops being valid.
   - Larva can also **climb walls like spiders** when bumping into blocks, and visually rotate to align with the surface they’re climbing.
   - Harvest: right-click an adult with **Shears** to harvest `Rune-Etched Chitin Plates` (cooldown).
   - Drops `Bug Meat` (can be cooked into `Cooked Bug Meat` via furnace/smoker/campfire).

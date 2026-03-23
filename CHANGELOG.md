@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1349 (2026-03-22)
+- Fix(ai/scaralon_larva): only let larvae enter the tree-sap maturation fallback when no adult Scaralon is nearby, and make them detach again if an adult returns.
+- Fix(ai/scaralon_larva): tighten sap-target selection to reachable tree-side log faces so stranded larvae more reliably climb onto bark and sap-suck instead of choosing invalid trunk anchors.
+- Docs(scaralon): document the adult-free larva sap fallback in the README, feature reference, and Mob Bible.
+
 ## 1.0.1348 (2026-03-22)
 - Tune(pebble_wren/audio): replace the still-heavy crane-derived flutter with a lighter trimmed cut from the PSFX `beating-wings-small-001.ogg` example source and shape it into a small-bird flap.
 - Docs(audio): update Pebble Wren flutter provenance from the Yellowstone source to the PSFX example wing source.

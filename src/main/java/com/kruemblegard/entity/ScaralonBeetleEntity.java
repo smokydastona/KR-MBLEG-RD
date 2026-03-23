@@ -108,6 +108,8 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
     private static final String NBT_LARVA_SAP_ANCHOR = "LarvaSapAnchor";
     private static final String NBT_LARVA_SAP_FACE = "LarvaSapFace";
     private static final String NBT_LARVA_SAP_COOLDOWN = "LarvaSapCooldown";
+    private static final double LARVA_SAP_ADULT_CHECK_RADIUS = 16.0D;
+    private static final int LARVA_SAP_SUPPORT_DROP_CHECK = 5;
 
     private static final int TEXTURE_VARIANT_MIN = 1;
     private static final int TEXTURE_VARIANT_MAX = 9;
@@ -594,7 +596,9 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                     setLarvaClimbFace(null);
 
                     if (level() instanceof ServerLevel serverLevel) {
-                        if (!isValidLarvaSapAnchor(serverLevel, larvaSapAnchor, larvaSapFace)) {
+                        if (hasNearbyAdultScaralon(serverLevel)) {
+                            stopLarvaSapSucking();
+                        } else if (!isValidLarvaSapAnchor(serverLevel, larvaSapAnchor, larvaSapFace)) {
                             stopLarvaSapSucking();
                         } else {
                             if (tickCount - lastHurtGameTick <= 12) {
@@ -1755,6 +1759,45 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
         return false;
     }
 
+    private boolean hasNearbyAdultScaralon(ServerLevel level) {
+        return !level.getEntitiesOfClass(
+                ScaralonBeetleEntity.class,
+                getBoundingBox().inflate(LARVA_SAP_ADULT_CHECK_RADIUS),
+                other -> other != this && other.isAlive() && !other.isBaby())
+                .isEmpty();
+    }
+
+    private static boolean hasReachableSapApproach(ServerLevel level, ScaralonBeetleEntity beetle, BlockPos standAt) {
+        BlockPos.MutableBlockPos cursor = standAt.mutable();
+        for (int drop = 0; drop <= LARVA_SAP_SUPPORT_DROP_CHECK; drop++) {
+            if (!level.isLoaded(cursor)) {
+                return false;
+            }
+
+            BlockState state = level.getBlockState(cursor);
+            if (state.isAir() && level.getFluidState(cursor).isEmpty()) {
+                BlockPos below = cursor.below();
+                if (!level.isLoaded(below)) {
+                    return false;
+                }
+
+                BlockState belowState = level.getBlockState(below);
+                if (!belowState.isAir() && !belowState.getCollisionShape(level, below).isEmpty()) {
+                    double tx = cursor.getX() + 0.5D;
+                    double ty = cursor.getY();
+                    double tz = cursor.getZ() + 0.5D;
+                    return level.noCollision(
+                            beetle,
+                            beetle.getBoundingBox().move(tx - beetle.getX(), ty - beetle.getY(), tz - beetle.getZ()));
+                }
+            }
+
+            cursor.move(Direction.DOWN);
+        }
+
+        return false;
+    }
+
     private static final class LarvaSapSuckGoal extends Goal {
         private final ScaralonBeetleEntity beetle;
         private @Nullable BlockPos targetAnchor;
@@ -1774,6 +1817,10 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             }
 
             if (!beetle.isBaby() || beetle.isLarvaSapSucking()) {
+                return false;
+            }
+
+            if (beetle.hasNearbyAdultScaralon(serverLevel)) {
                 return false;
             }
 
@@ -1803,6 +1850,10 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
             }
 
             if (!beetle.isBaby()) {
+                return false;
+            }
+
+            if (beetle.hasNearbyAdultScaralon(serverLevel)) {
                 return false;
             }
 
@@ -1863,6 +1914,9 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
 
         @Override
         public void stop() {
+            if (beetle.isLarvaSapSucking()) {
+                beetle.stopLarvaSapSucking();
+            }
             targetAnchor = null;
             targetFace = null;
             targetStand = null;
@@ -1905,6 +1959,10 @@ public class ScaralonBeetleEntity extends AbstractChestedHorse implements GeoEnt
                     }
 
                     if (!level.getFluidState(standAt).isEmpty()) {
+                        continue;
+                    }
+
+                    if (!ScaralonBeetleEntity.hasReachableSapApproach(level, beetle, standAt)) {
                         continue;
                     }
 

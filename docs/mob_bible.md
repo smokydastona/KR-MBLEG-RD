@@ -321,6 +321,7 @@ Generated: 2026-03-21 14:02:35
 - Loot table: `src/main/resources/data/kruemblegard/loot_tables/entities/scaralon_beetle.json`
 - Biome modifiers: `src/main/resources/data/kruemblegard/forge/biome_modifier/add_wayfall_warm_scaralon_beetle_spawns.json`
 - Lang keys: entity=`entity.kruemblegard.scaralon_beetle` spawnEgg=`item.kruemblegard.scaralon_beetle_spawn_egg`
+- Behavior notes: larva cannot fly; if no adult Scaralon is nearby they now seek reachable trunk/log faces with nearby leaves, climb onto the bark, and sap-suck there to halve maturation time until an adult returns or they are interrupted.
 
 #### `scattered_enderman`
 - Score: `100`
