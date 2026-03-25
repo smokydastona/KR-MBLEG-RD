@@ -21,6 +21,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 
 ## Highlights
 - **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
+- **Ashspire flora**: the Wayfall Ashspire cactus line now uses only the canonical `ashspire_emberbloom_*` cap assets that are actually referenced at runtime, with the dead cap remaining a separate placeable item state.
 - **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a Pressure-Logic forging step via the Pressure Loom.
 - **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.

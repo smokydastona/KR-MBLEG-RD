@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1362 (2026-03-25)
+- Cleanup(ashspire/assets): remove the unused canonical `ashspire_emberbloom_side` and `ashspire_emberbloom_bottom` textures so the cap asset set matches the actual chorus-flower-style runtime references.
+- Docs(ashspire): update the README and feature reference to reflect the trimmed canonical Ashspire emberbloom asset set.
+
 ## 1.0.1353 (2026-03-23)
 - Cleanup(ashspire/assets): retire the leftover `emberbloom_ashspire_cactus` alias files and move the live emberbloom cap textures onto canonical `ashspire_emberbloom_*` asset names.
 - Feat(ashspire/items): add a separate Dead Ashspire Emberbloom item so age-5 caps drop and pick as a dead-state item that places back into the world as a dead bloom.

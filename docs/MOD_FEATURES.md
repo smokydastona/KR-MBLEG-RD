@@ -66,7 +66,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Ashspire Cactus generates in **Strata Collapse** and **Fracture Shoals** as small, tighter column clusters.
     - Height: typically 2–3 blocks (1–2 cactus + `Ashspire Emberbloom` cap), with a rare 4-block “spire” (3 cactus + cap).
     - Growth: `Ashspire Emberbloom` now favors upward growth and only occasionally creates a single side split, so mature plants stay mostly spire-like instead of over-branching.
-    - Rendering: the cactus body now uses the same multipart chorus-plant block model layout as vanilla, and the emberbloom cap assets now live fully under the canonical `ashspire_emberbloom_*` naming instead of the older mixed alias path.
+    - Rendering: the cactus body now uses the same multipart chorus-plant block model layout as vanilla, and the emberbloom cap assets now live fully under the canonical `ashspire_emberbloom_*` naming with only the live top and dead-cap textures kept because the chorus-flower-style model does not use separate side or bottom maps.
     - `Ashspire Emberbloom` is a chorus-flower-style cap block (emits light) and now swaps to a darker Ashspire-specific dead-cap texture instead of falling back to the vanilla chorus palette.
     - Dead-age caps now drop and pick as a separate `Dead Ashspire Emberbloom` item, which places the cap back in its age-5 dead state instead of converting it to the live bloom item.
   - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
