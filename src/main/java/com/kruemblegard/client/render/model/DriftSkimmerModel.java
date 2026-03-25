@@ -10,6 +10,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
+    private static final String DRIFTSKIMMER_TEXTURE_PATH = "textures/entity/cephalari/cephalari_adult_form_shell/cephalari_adult_form_shell_";
 
     @Override
     public ResourceLocation getModelResource(DriftSkimmerEntity animatable) {
@@ -23,10 +24,7 @@ public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
             variant = GOLEM_TEXTURE_VARIANT_MIN;
         }
 
-        return new ResourceLocation(
-            Kruemblegard.MOD_ID,
-            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + variant + ".png"
-        );
+        return new ResourceLocation(Kruemblegard.MOD_ID, DRIFTSKIMMER_TEXTURE_PATH + variant + ".png");
     }
 
     @Override
