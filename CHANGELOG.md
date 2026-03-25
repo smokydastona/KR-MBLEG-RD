@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1353 (2026-03-23)
+- Fix(ashspire/assets): swap the Ashspire cactus blockstate to the full vanilla chorus-plant multipart model layout so the body renders with the same face/no-side variants as chorus plants.
 - Fix(ashspire): remove the unused Giant Ashspire Colossus block, worldgen, loot, assets, and docs so only the normal Ashspire cactus flora remains.
 - Tune(ashspire): rebalance Ashspire Emberbloom growth to prefer upward extension, allow only occasional light side splits, and tighten cactus patch spread so Ashspires stop over-branching.
 - Tune(driftwhale/assets): replace the high-frequency Driftwhale idle and move loops with slower body-led sky-swimmer motion, calmer fin stabilization, and smoother tentacle phase offsets.
