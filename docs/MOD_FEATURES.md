@@ -355,7 +355,7 @@ Keep it up to date whenever you add/remove/rename content.
       - Forge behavior: accepts volatile resin plus runic materials and spins them into Tendril Strands, Resonance Shards, and Moisture Stones.
       - Forge bonuses: works faster in enclosed spaces and around attuned stone, runic debris, standing stones, or waypoint mold.
   - Workstation visuals: Nutrient-Keepers and Architects now ship with dedicated profession overlays for both normal and zombified Cephalari renderers.
-  - Trading: Nutrient-Keepers buy berry stock and sell brine-grown supplies; Architects buy runic scrap and sell resonance-fed materials, attuned stone, and their own workstation blocks.
+  - Trading: Nutrient-Keepers and Architects both use full five-tier trade pools with multiple offers per rank. Their trades now pull from Krümblegard crop stock, flora, runic materials, crafted workstation outputs, and their own job-site blocks in a vanilla-style progression.
   - Body texture variants: assigned at spawn/birth based on the biome.
     - Spawn: **10%** bonus variant, **5%** other-biome variant, otherwise current biome.
     - Breeding: baby texture is **25%** parent A / **25%** parent B / **50%** current biome, with a **10%** chance to be random.

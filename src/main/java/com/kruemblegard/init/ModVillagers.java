@@ -7,11 +7,13 @@ import com.kruemblegard.registry.ModItems;
 import java.util.Set;
 
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -23,6 +25,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class ModVillagers {
+        private static final float PRICE_MULTIPLIER = 0.05F;
+
     private ModVillagers() {
     }
 
@@ -82,21 +86,88 @@ public final class ModVillagers {
         @SubscribeEvent
         public static void onVillagerTrades(VillagerTradesEvent event) {
             if (event.getType() == NUTRIENT_KEEPER.get()) {
-                                event.getTrades().get(1).add((trader, random) -> new MerchantOffer(new ItemStack(ModItems.SOULBERRIES.get(), 12), new ItemStack(Items.EMERALD), 16, 2, 0.05F));
-                                event.getTrades().get(1).add((trader, random) -> new MerchantOffer(new ItemStack(ModItems.GHOULBERRIES.get(), 14), new ItemStack(Items.EMERALD), 16, 2, 0.05F));
-                                event.getTrades().get(2).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.BIO_RESIN.get(), 2), 12, 5, 0.05F));
-                                event.getTrades().get(2).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(ModItems.MOISTURE_STONE.get()), 8, 5, 0.05F));
-                                event.getTrades().get(3).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.REMNANT_SEEDS.get(), 3), 12, 10, 0.05F));
-                                event.getTrades().get(4).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 7), new ItemStack(ModBlocks.BRINE_GARDEN_BASIN.get()), 4, 15, 0.05F));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.SOULBERRIES.get(), 14, 16, 2));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.GHOULBERRIES.get(), 14, 16, 2));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.REMNANT_SEEDS.get(), 22, 16, 2));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.PALEWEFT_SEEDS.get(), 22, 16, 2));
+                                event.getTrades().get(1).add(sellForEmeralds(1, ModItems.VOLATILE_PULP.get(), 4, 12, 1));
+
+                                event.getTrades().get(2).add(sellForEmeralds(1, ModItems.PYROKELP_ITEM.get(), 6, 12, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(1, ModItems.WISPSTALK_ITEM.get(), 4, 12, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(1, ModItems.GRAVEVINE_ITEM.get(), 4, 12, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(1, ModItems.BIO_RESIN.get(), 2, 12, 5));
+
+                                event.getTrades().get(3).add(buyForOneEmerald(ModItems.RUNEDRIFT_REED_ITEM.get(), 10, 12, 10));
+                                event.getTrades().get(3).add(buyForOneEmerald(ModItems.RUNEBLOOM_ITEM.get(), 8, 12, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(2, ModItems.REMNANT_SEEDS.get(), 4, 12, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(2, ModItems.PALEWEFT_SEEDS.get(), 4, 12, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(3, ModItems.MOISTURE_STONE.get(), 1, 8, 10));
+
+                                event.getTrades().get(4).add(buyForOneEmerald(ModItems.VOLATILE_RESIN.get(), 5, 12, 15));
+                                event.getTrades().get(4).add(buyForOneEmerald(ModItems.RUNE_PETALS.get(), 8, 12, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(4, ModItems.SOULBERRY_SHRUB_ITEM.get(), 1, 8, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(4, ModItems.GHOULBERRY_SHRUB_ITEM.get(), 1, 8, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(3, ModItems.RUNE_PETALS.get(), 2, 10, 15));
+
+                                event.getTrades().get(5).add(sellForEmeralds(5, ModItems.MOISTURE_STONE.get(), 2, 6, 30));
+                                event.getTrades().get(5).add(sellForEmeralds(6, ModItems.BIO_RESIN.get(), 8, 6, 30));
+                                event.getTrades().get(5).add(sellForEmeralds(7, ModBlocks.BRINE_GARDEN_BASIN.get(), 1, 4, 30));
             }
 
             if (event.getType() == ARCHITECT.get()) {
-                                event.getTrades().get(1).add((trader, random) -> new MerchantOffer(new ItemStack(ModItems.RUNIC_SCRAP.get(), 8), new ItemStack(Items.EMERALD), 16, 2, 0.05F));
-                                event.getTrades().get(2).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.TENDRIL_STRANDS.get(), 2), 12, 5, 0.05F));
-                                event.getTrades().get(2).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(ModItems.RESONANCE_SHARD.get()), 10, 5, 0.05F));
-                                event.getTrades().get(3).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 3), new ItemStack(ModBlocks.ATTUNED_STONE.get(), 4), 10, 10, 0.05F));
-                                event.getTrades().get(4).add((trader, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 8), new ItemStack(ModBlocks.TENDRIL_FORGE.get()), 4, 15, 0.05F));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.RUNIC_SCRAP.get(), 8, 16, 2));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.RUNIC_DEBRIS_ITEM.get(), 6, 16, 2));
+                                event.getTrades().get(1).add(buyForOneEmerald(ModItems.ATTUNED_RUNE_SHARD.get(), 6, 12, 2));
+                                event.getTrades().get(1).add(sellForEmeralds(1, ModBlocks.ATTUNED_STONE.get(), 2, 12, 1));
+                                event.getTrades().get(1).add(sellForEmeralds(1, ModBlocks.SCARSTONE.get(), 4, 12, 1));
+
+                                event.getTrades().get(2).add(buyForOneEmerald(ModItems.VOLATILE_RESIN.get(), 5, 12, 5));
+                                event.getTrades().get(2).add(buyForOneEmerald(ModItems.RUNE_PETALS.get(), 10, 12, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(1, ModItems.TENDRIL_STRANDS.get(), 2, 12, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(2, ModBlocks.RUNED_STONEVEIL_RUBBLE.get(), 4, 10, 5));
+                                event.getTrades().get(2).add(sellForEmeralds(3, ModBlocks.STANDING_STONE.get(), 1, 8, 5));
+
+                                event.getTrades().get(3).add(buyForEmeralds(ModItems.ATTUNED_INGOT.get(), 1, 2, 8, 10));
+                                event.getTrades().get(3).add(buyForEmeralds(ModItems.RUNIC_INGOT.get(), 1, 2, 8, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(2, ModItems.RESONANCE_SHARD.get(), 1, 10, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(3, ModBlocks.WAYPOINT_MOLD.get(), 1, 8, 10));
+                                event.getTrades().get(3).add(sellForEmeralds(3, ModBlocks.ATTUNED_STONE.get(), 4, 10, 10));
+
+                                event.getTrades().get(4).add(buyForEmeralds(ModItems.RUNE_ETCHED_CHITIN_PLATE.get(), 1, 2, 8, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(4, ModItems.TENDRIL_STRANDS.get(), 8, 8, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(4, ModItems.RESONANCE_SHARD.get(), 2, 8, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(5, ModBlocks.WAYPOINT_MOLD.get(), 2, 6, 15));
+                                event.getTrades().get(4).add(sellForEmeralds(6, ModBlocks.STANDING_STONE.get(), 1, 6, 15));
+
+                                event.getTrades().get(5).add(sellForEmeralds(6, ModItems.RESONANCE_SHARD.get(), 3, 6, 30));
+                                event.getTrades().get(5).add(sellForEmeralds(7, ModBlocks.WAYPOINT_MOLD.get(), 4, 4, 30));
+                                event.getTrades().get(5).add(sellForEmeralds(8, ModBlocks.TENDRIL_FORGE.get(), 1, 4, 30));
+                                event.getTrades().get(5).add(sellForEmeralds(10, ModBlocks.STANDING_STONE.get(), 2, 4, 30));
             }
         }
     }
+
+        private static VillagerTrades.ItemListing buyForOneEmerald(ItemLike item, int count, int maxUses, int villagerXp) {
+                return buyForEmeralds(item, count, 1, maxUses, villagerXp);
+        }
+
+        private static VillagerTrades.ItemListing buyForEmeralds(ItemLike item, int count, int emeralds, int maxUses, int villagerXp) {
+                return (trader, random) -> new MerchantOffer(
+                                new ItemStack(item, count),
+                                new ItemStack(Items.EMERALD, emeralds),
+                                maxUses,
+                                villagerXp,
+                                PRICE_MULTIPLIER
+                );
+        }
+
+        private static VillagerTrades.ItemListing sellForEmeralds(int emeralds, ItemLike item, int count, int maxUses, int villagerXp) {
+                return (trader, random) -> new MerchantOffer(
+                                new ItemStack(Items.EMERALD, emeralds),
+                                new ItemStack(item, count),
+                                maxUses,
+                                villagerXp,
+                                PRICE_MULTIPLIER
+                );
+        }
 }

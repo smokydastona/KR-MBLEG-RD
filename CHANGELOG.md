@@ -9,6 +9,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(cephalari): add Nutrient-Keeper and Architect professions, POIs, and trade pools wired to the new workstations.
 - Change(cephalari): use attuned/runic resonance bonuses for the new workstations so the feature fits the extracted-machinery main-mod architecture.
 - Art(cephalari): add unique workstation block/item textures plus dedicated live and zombified profession overlay textures for Nutrient-Keepers and Architects.
+- Balance(cephalari): expand both workstation professions to full multi-option five-tier trade pools using broader Krümblegård flora, seed, runic, and resonance item sets.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
