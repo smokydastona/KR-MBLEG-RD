@@ -52,7 +52,7 @@
 
     "§3§l6.2 Village Layout\n\n§7• Central Spiral Hall\n§7• Ceramic Kilns\n§7• Flow Engine Chambers\n§7• Crystal Beds\n§7• Scent Archives\n§7• Mount Bays",
 
-    "§3§l7. Professions\n\n§7Cephalari work revolves around\nstabilizing Wayfall and maintaining\nmounts.\n\n§7• Ceramist\n§7• Flowwright\n§7• Crystal Gardener\n§7• Shellsmith\n§7• Archivist\n§7• Navigator",
+    "§3§l7. Professions\n\n§7Cephalari trade now centers on two\nattuned workstation callings:\n\n§7• Nutrient-Keeper — Brine Garden\n  Basin tender, dealing in berries,\n  seed stock, brine goods, and\n  living garden gifts\n§7• Architect — Tendril-Forge mason,\n  dealing in runic masonry, molds,\n  resonance stock, and shell-bound\n  masterworks",
 
     "§3§l8. Threats and Predators\n\n§7Wayfall is hostile. Villages endure:\n§7• Wraithlike distortive entities\n§7• Riftborn Cephalari (corrupted)\n§7• Gravity-adapted predators\n§7• Spatial instability events\n\n§8Mounts are essential for survival.",
 
@@ -64,6 +64,6 @@
 
     "§3§l10.2 Conversion Back\n\n§7When a zombified Cephalari is cured:\n§7• The Cephalari returns to normal\n§7• The zombie mount is removed\n§7• The stored Cephalari mount type is\n  restored\n\n§7Zoglins cannot convert and are\nreplaced like any other zombie mount.",
 
-    "§3§l11. Player Interaction\n\n§7Travelers who find Cephalari may:\n§7• Trade for Wayfall materials\n§7• Learn attunement practices\n§7• Acquire shell-based armor\n§7• Defend Tide-Kin from Riftborn raids\n§7• Navigate unstable terrain\n\n§8Safe havens in a hostile dimension."
+    "§3§l11. Player Interaction\n\n§7Travelers who earn Cephalari trust may:\n§7• Trade for Wayfall materials\n§7• Unlock profession-tier stock\n§7• Receive rare garden gifts or\n  forged masterworks at master rank\n§7• Learn attunement practices\n§7• Defend Tide-Kin from Riftborn raids\n\n§8Safe havens in a hostile dimension."
   ]
 }
