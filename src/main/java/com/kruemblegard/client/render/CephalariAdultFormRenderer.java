@@ -72,11 +72,12 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
 
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
+            applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
+
             if (!isInCephalariSubtree(bone)) {
                 renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             }
 
-            applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
             return;
