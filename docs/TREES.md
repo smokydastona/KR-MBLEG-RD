@@ -9,6 +9,7 @@ Scope/notes:
 - Mega variants can also generate naturally (rare) in the biomes where their normal trees generate.
 - Mega variants are tuned to be consistently **tall** and visually distinct per species (reduced cross-species “same mega tree” overlap).
 - For the full plant + tree catalog (including non-tree plants), see [FLORA_REFERENCE.md](FLORA_REFERENCE.md).
+- For tree visual palette, emissive, and atlas rules, see [Wood_Material_Bible.md](Wood_Material_Bible.md).
 
 ## Tree families (14)
 - `ashbloom`

@@ -5,6 +5,7 @@ This document is the **authoritative, detailed list** of Wayfall biomes.
 ## Update rules (keep this accurate)
 - If you add/remove/rename any Wayfall biome JSON under `data/kruemblegard/worldgen/biome/`, update this doc in the same change.
 - If you change a biome’s **spawns**, **particles**, **music**, or **features list**, update the matching entry here.
+- For technical validation of the underlying floating-island noise pattern, see [WAYFALL_AETHER_MAPPING.md](WAYFALL_AETHER_MAPPING.md).
 
 ## Global Wayfall biome invariants (current)
 - **Precipitation is rare**: most biomes set `has_precipitation: false` and `downfall: 0.0`.

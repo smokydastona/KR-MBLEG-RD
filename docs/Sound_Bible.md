@@ -1,11 +1,15 @@
 ﻿# Krümblegård Sound Bible
 
-This document is the **single source of truth** for how **sounds** are authored, registered, named, and used in Krümblegård.
+This document is the **authoritative rules + registry inventory reference** for Krümblegård sounds.
 
 Scope:
 - SoundEvent naming + registration (`ModSounds`)
 - `assets/kruemblegard/sounds.json` entries (subtitles, streaming)
 - **Exact length requirements** (durations in seconds + ticks)
+
+Use this file for naming rules, registration coverage, and generated inventory.
+- For per-sound design intent and replacement history, see [SOUND_TRACKING.md](SOUND_TRACKING.md).
+- For attribution and licensing, see [SOUND_CREDITS.md](SOUND_CREDITS.md).
 
 ---
 

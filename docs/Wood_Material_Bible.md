@@ -5,6 +5,10 @@ This document combines:
 - **Wayfall Flora Material Bible --- PRODUCTION EDITION**
 - **Wayfall Flora Material Bible (Compiled Complete Reference)** (verbatim stub text preserved)
 
+Use this file for **visual/material rules only**.
+- For per-tree gameplay, worldgen, and texture file references, see [TREES.md](TREES.md).
+- For the broader plant catalog, see [FLORA_REFERENCE.md](FLORA_REFERENCE.md).
+
 ---
 
 ## Table of Contents

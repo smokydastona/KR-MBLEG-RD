@@ -1,6 +1,6 @@
 # Krümblegård — Sound Tracking (Design Intent + Current Assets)
 
-This document is a **practical change log / tracker** for mob sounds.
+This document is the **manual design-intent and replacement tracker** for mob sounds.
 
 For each mob sound, it records:
 1) **What it should sound like** (design intent) based on that mob’s identity and the Wayfall tone.
@@ -10,6 +10,9 @@ For each mob sound, it records:
 Related docs:
 - Credits: `docs/SOUND_CREDITS.md`
 - Rules + generated inventory: `docs/Sound_Bible.md`
+
+Use this file when deciding what a sound should feel like or when swapping an existing asset.
+Do not use it as the registry inventory; that lives in `docs/Sound_Bible.md`.
 
 ---
 

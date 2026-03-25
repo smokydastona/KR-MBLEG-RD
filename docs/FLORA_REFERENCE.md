@@ -25,147 +25,27 @@ Krümblegård has Wayfall tree **block sets implemented** (logs/planks/leaves/sa
 Current limitations:
 - Wayfall saplings grow into their matching worldgen configured features (variant selectors) via random ticks or bonemeal.
 - Wayfall trees and plants are placed via configured/placed features and injected into biomes via Forge biome modifiers.
-- The "Mechanic" notes below are design targets (special behaviors may still be WIP).
+- The short notes here are an index only; detailed mechanics, silhouettes, and texture references live in [TREES.md](TREES.md).
 
-### Wayfall trees (block sets implemented; mechanics WIP)
-These trees exist as blocks/items with placeholder textures. Generation + special mechanics can be implemented later.
+Reference split:
+- Full per-tree gameplay/worldgen reference: [TREES.md](TREES.md)
+- Wood visual palette + atlas rules: [Wood_Material_Bible.md](Wood_Material_Bible.md)
 
-Full per-tree reference: [TREES.md](TREES.md)
-
-#### Ashbloom
-- Appearance: Ash-toned wood family intended as a staple Wayfall starter palette.
-- Use: Standard wood building set.
-- Mechanic: No special mechanics yet.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/ashbloom_log.png`
-  - `assets/kruemblegard/textures/block/ashbloom_planks.png`
-  - `assets/kruemblegard/textures/block/ashbloom_leaves.png`
-  - `assets/kruemblegard/textures/block/ashbloom_sapling.png`
-
-#### Glimmerpine
-- Appearance: Pine-like wood family intended as a staple Wayfall palette.
-- Use: Standard wood building set.
-- Mechanic: No special mechanics yet.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/glimmerpine_log.png`
-  - `assets/kruemblegard/textures/block/glimmerpine_planks.png`
-  - `assets/kruemblegard/textures/block/glimmerpine_leaves.png`
-  - `assets/kruemblegard/textures/block/glimmerpine_sapling.png`
-
-#### Driftwood
-- Appearance: Weathered, pale wood intended as a staple Wayfall palette.
-- Use: Standard wood building set.
-- Mechanic: No special mechanics yet.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/driftwood_log.png`
-  - `assets/kruemblegard/textures/block/driftwood_planks.png`
-  - `assets/kruemblegard/textures/block/driftwood_leaves.png`
-  - `assets/kruemblegard/textures/block/driftwood_sapling.png`
-
-#### Wayroot Tree
-- Appearance: Stone-barked tree with exposed, floating roots that don’t touch the ground.
-- Use: Logs used for waystone upgrades and teleport stabilizers.
-- Mechanic: Roots slowly drift; breaking them can destabilize nearby blocks.
-- Worldgen: Wayroot uses `kruemblegard:ashmoss` as its dirt provider and generates as a baobab-style silhouette using multipart canopy/branch placement.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/wayroot_log.png`
-  - `assets/kruemblegard/textures/block/wayroot_planks.png`
-  - `assets/kruemblegard/textures/block/wayroot_leaves.png`
-  - `assets/kruemblegard/textures/block/wayroot_sapling.png`
-
-#### Fallbark
-- Appearance: Tall, brittle trees that constantly shed slabs of bark downward.
-- Use: Bark used for impact-resistant blocks.
-- Mechanic: Standing under them is dangerous during “Wayfall tremors.”
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/fallbark_log.png`
-  - `assets/kruemblegard/textures/block/fallbark_planks.png`
-  - `assets/kruemblegard/textures/block/fallbark_leaves.png`
-  - `assets/kruemblegard/textures/block/fallbark_sapling.png`
-
-#### Echowood
-- Appearance: Smooth gray wood with faint ripple patterns.
-- Use: Craft sound-reactive blocks or redstone-like devices.
-- Mechanic: Emits ambient noises tied to nearby player activity.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/echowood_log.png`
-  - `assets/kruemblegard/textures/block/echowood_planks.png`
-  - `assets/kruemblegard/textures/block/echowood_leaves.png`
-  - `assets/kruemblegard/textures/block/echowood_sapling.png`
-
-#### Cairn Tree
-- Appearance: Tree grown through stacked stones, leaves shaped like memorial flags.
-- Use: Drops Memorial Sap for soul-based crafting.
-- Mechanic: Grows only near death markers or cairns.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/cairn_tree_log.png`
-  - `assets/kruemblegard/textures/block/cairn_tree_planks.png`
-  - `assets/kruemblegard/textures/block/cairn_tree_leaves.png`
-  - `assets/kruemblegard/textures/block/cairn_tree_sapling.png`
-
-#### Wayglass Tree
-- Appearance: Crystalline trunk, translucent branches.
-- Use: Glass-like wood for light-conducting blocks.
-- Mechanic: Refracts light and enchantment particles.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/wayglass_log.png`
-  - `assets/kruemblegard/textures/block/wayglass_planks.png`
-  - `assets/kruemblegard/textures/block/wayglass_leaves.png`
-  - `assets/kruemblegard/textures/block/wayglass_sapling.png`
-
-#### Splinterspore
-- Appearance: Tall, needle-like crystal bark.
-- Use: Craft piercing projectiles.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/splinterspore_log.png`
-  - `assets/kruemblegard/textures/block/splinterspore_planks.png`
-  - `assets/kruemblegard/textures/block/splinterspore_leaves.png`
-  - `assets/kruemblegard/textures/block/splinterspore_sapling.png`
-
-#### Hollowway Tree
-- Appearance: Trunk split down the center, empty inside.
-- Use: Craft storage blocks with void-linked inventory.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/hollowway_tree_log.png`
-  - `assets/kruemblegard/textures/block/hollowway_tree_planks.png`
-  - `assets/kruemblegard/textures/block/hollowway_tree_leaves.png`
-  - `assets/kruemblegard/textures/block/hollowway_tree_sapling.png`
-
-#### Driftwillow
-- Appearance: Hanging branches that never quite touch the ground.
-- Use: Slow-fall talismans.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/driftwillow_log.png`
-  - `assets/kruemblegard/textures/block/driftwillow_planks.png`
-  - `assets/kruemblegard/textures/block/driftwillow_leaves.png`
-  - `assets/kruemblegard/textures/block/driftwillow_sapling.png`
-
-#### Monument Oak
-- Appearance: Massive stone-wood hybrid, bark etched with history.
-- Use: Lore crafting, advancement triggers.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/monument_oak_log.png`
-  - `assets/kruemblegard/textures/block/monument_oak_planks.png`
-  - `assets/kruemblegard/textures/block/monument_oak_leaves.png`
-  - `assets/kruemblegard/textures/block/monument_oak_sapling.png`
-
-#### Waytorch Tree
-- Appearance: Glowing nodes along trunk like lanterns.
-- Use: Renewable light sources.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/waytorch_tree_log.png`
-  - `assets/kruemblegard/textures/block/waytorch_tree_planks.png`
-  - `assets/kruemblegard/textures/block/waytorch_tree_leaves.png`
-  - `assets/kruemblegard/textures/block/waytorch_tree_sapling.png`
-
-#### Faultwood
-- Appearance: Jagged, cracked trunk constantly shedding chips.
-- Use: Reinforced building blocks.
-- Placeholder textures:
-  - `assets/kruemblegard/textures/block/faultwood_log.png`
-  - `assets/kruemblegard/textures/block/faultwood_planks.png`
-  - `assets/kruemblegard/textures/block/faultwood_leaves.png`
-  - `assets/kruemblegard/textures/block/faultwood_sapling.png`
+### Wayfall tree index
+- `ashbloom`: staple ash-toned starter wood family.
+- `glimmerpine`: pine-like Wayfall staple wood family.
+- `driftwood`: weathered pale wood family.
+- `wayroot`: stone-barked floating-root tree tied to attuned stonework.
+- `fallbark`: brittle tall tree family built around bark-shedding flavor.
+- `echowood`: ripple-patterned wood family with sound-reactive design intent.
+- `cairn_tree`: memorial stone-grown wood family.
+- `wayglass`: crystalline light-conducting wood family.
+- `splinterspore`: crystal-barked spore-canopy wood family.
+- `hollowway_tree`: hollow-trunk void-linked storage-themed wood family.
+- `driftwillow`: hanging-branch slow-fall-themed wood family.
+- `monument_oak`: massive etched stone-wood hybrid family.
+- `waytorch_tree`: glowing lantern-node wood family.
+- `faultwood`: cracked reinforced wood family.
 
 ## Plants
 
