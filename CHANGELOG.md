@@ -14,6 +14,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari): add the Brine Garden Basin and Tendril-Forge POIs to vanilla job-site/village tags so villagers can naturally seek and claim the new professions.
 - Fix(cephalari): normalize Spiral Strider and DriftSkimmer embedded Cephalari UVs so all adult-form rider textures and profession overlays render the same way as Treadwinder and Echo Harness.
 - Fix(cephalari): correct the remaining Spiral Strider and DriftSkimmer mouth east-face UVs so their adult-form shell textures sample the same atlas region as the working forms.
+- Fix(render/adult_forms): render the embedded Cephalari subtree and outer adult-form shell in a deterministic order so Spiral Strider and DriftSkimmer stop visually collapsing to the inner Cephalari layer while preserving the authored UVs and current textures.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

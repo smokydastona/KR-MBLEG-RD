@@ -31,7 +31,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 - **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
 - **Cephalari Golem**: attuned village guardian that slowly loses stability away from runic structures and recharges near attuned stonework.
 - **Cephalari workstations**: the Brine Garden Basin and Tendril-Forge are functional job-site blocks for custom Cephalari professions. Nutrient-Keepers propagate berries, seeds, and brine cultures, while Architects spin resonance-fed tendril stock from runic inputs. Both stations use local attuned/runic resonance bonuses instead of the retired machinery subsystem, both professions render dedicated live/zombified overlay attire, their POIs are wired into vanilla job-site acquisition tags so villagers and Cephalari can claim them naturally, and their trade pools now culminate in themed master-rank gift/masterwork offers with tighter late-tier restock caps.
-- **Cephalari adult forms**: Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness now all share the same embedded Cephalari body/profession texture mapping path, so their rider body textures and profession overlays render consistently across all four forms.
+- **Cephalari adult forms**: Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness all use the shared embedded Cephalari body/profession texture path, and the adult-form renderer now enforces a deterministic shell-versus-rider draw order so Spiral Strider and DriftSkimmer render the full layered body correctly without changing the authored UVs.
 
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 
