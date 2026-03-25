@@ -59,11 +59,6 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
-    public static final RegistryObject<Item> ASHSPIRE_SHARDS = ITEMS.register(
-        "ashspire_shards",
-        () -> new Item(new Item.Properties())
-    );
-
     public static final RegistryObject<Item> ASHSPIRE_FRUIT = ITEMS.register(
         "ashspire_fruit",
         () -> new ChorusFruitItem(new Item.Properties().food(Foods.CHORUS_FRUIT))

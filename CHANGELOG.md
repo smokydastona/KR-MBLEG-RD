@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1353 (2026-03-23)
+- Fix(ashspire): remove the unused Giant Ashspire Colossus block, worldgen, loot, assets, and docs so only the normal Ashspire cactus flora remains.
+- Tune(ashspire): rebalance Ashspire Emberbloom growth to prefer upward extension, allow only occasional light side splits, and tighten cactus patch spread so Ashspires stop over-branching.
 - Tune(driftwhale/assets): replace the high-frequency Driftwhale idle and move loops with slower body-led sky-swimmer motion, calmer fin stabilization, and smoother tentacle phase offsets.
 - Feat(driftwhale/assets): add a lightweight breathing animation layer and wire it through the GeckoLib controller stack so Driftwhales keep subtle ambient life while both idling and cruising.
 - Feat(driftwhale/ai): add a real startle reaction when Driftwhales are hurt and an occasional server-driven thermal-lift idle action while they cruise calmly through the air.

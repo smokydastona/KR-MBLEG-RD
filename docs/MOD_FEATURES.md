@@ -62,12 +62,11 @@ Keep it up to date whenever you add/remove/rename content.
   - Ashbloom now generates naturally as **small plants** on Ashmoss (with a rare flowering variant).
   - Ashbloom saplings are **bonemeal-only** (no random tick growth into trees).
 
-- **Ashspire Cactus + Giant Ashspire Colossus (Wayfall flora)**
-  - Ashspire Cactus generates in **Strata Collapse** and **Fracture Shoals** as small clusters.
+- **Ashspire Cactus (Wayfall flora)**
+  - Ashspire Cactus generates in **Strata Collapse** and **Fracture Shoals** as small, tighter column clusters.
     - Height: typically 2–3 blocks (1–2 cactus + `Ashspire Emberbloom` cap), with a rare 4-block “spire” (3 cactus + cap).
+    - Growth: `Ashspire Emberbloom` now favors upward growth and only occasionally creates a single side split, so mature plants stay mostly spire-like instead of over-branching.
     - `Ashspire Emberbloom` is a chorus-flower-style cap block (emits light) and can drop `Night Flower`.
-  - Giant Ashspire Colossus generates as a **very rare** solitary landmark in **Strata Collapse**.
-    - Height: typically 5–8 blocks (colossus column + cap), with a very rare 10–12 block “colossal” variant.
   - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
 
 - **Ambient rock schematics (Wayfall)**

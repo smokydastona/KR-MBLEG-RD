@@ -25,17 +25,15 @@ public class AshspireCactusBlock extends ChorusPlantBlock {
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState belowState = level.getBlockState(pos.below());
         if (belowState.is(this)
-                || belowState.is(ModBlocks.ASHSPIRE_COLOSSUS.get())
                 || belowState.is(ModTags.Blocks.ASHSPIRE_CACTUS_GROWABLE_ON)) {
             return true;
         }
 
-        // Allow chorus-like sideways branches to persist when hanging over air,
-        // as long as they're attached to another Ashspire cactus horizontally.
+        // Keep the silhouette mostly columnar, but allow rare hanging side growths to persist.
         if (belowState.isAir()) {
             for (Direction dir : Direction.Plane.HORIZONTAL) {
                 BlockState neighbor = level.getBlockState(pos.relative(dir));
-                if (neighbor.is(this) || neighbor.is(ModBlocks.ASHSPIRE_COLOSSUS.get())) {
+                if (neighbor.is(this)) {
                     return true;
                 }
             }

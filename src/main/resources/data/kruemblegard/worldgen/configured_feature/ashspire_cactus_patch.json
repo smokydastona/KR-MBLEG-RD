@@ -1,8 +1,8 @@
 {
   "type": "minecraft:random_patch",
   "config": {
-    "tries": 3,
-    "xz_spread": 3,
+    "tries": 2,
+    "xz_spread": 2,
     "y_spread": 2,
     "feature": {
       "feature": "kruemblegard:ashspire_cactus_column_selector",

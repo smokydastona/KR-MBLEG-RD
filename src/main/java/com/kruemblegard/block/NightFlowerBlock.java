@@ -22,7 +22,6 @@ public class NightFlowerBlock extends SporeBlossomBlock {
         }
 
         return above.is(ModBlocks.ASHSPIRE_CACTUS.get())
-                || above.is(ModBlocks.ASHSPIRE_COLOSSUS.get())
                 || above.is(ModBlocks.ASHSPIRE_EMBERBLOOM.get());
     }
 }

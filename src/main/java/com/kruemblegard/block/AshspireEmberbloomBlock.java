@@ -25,7 +25,7 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState below = level.getBlockState(pos.below());
-        if (!(below.is(ModBlocks.ASHSPIRE_CACTUS.get()) || below.is(ModBlocks.ASHSPIRE_COLOSSUS.get()))) {
+        if (!below.is(ModBlocks.ASHSPIRE_CACTUS.get())) {
             return false;
         }
 
@@ -35,7 +35,7 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
         }
 
         // Extra safety: don't allow sideways face attachment.
-        return below.isFaceSturdy(level, pos.below(), Direction.UP) || below.is(ModBlocks.ASHSPIRE_CACTUS.get()) || below.is(ModBlocks.ASHSPIRE_COLOSSUS.get());
+        return below.isFaceSturdy(level, pos.below(), Direction.UP) || below.is(ModBlocks.ASHSPIRE_CACTUS.get());
     }
 
     @Override
@@ -54,12 +54,12 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
             return;
         }
 
-        // Prefer sideways branching heavily; occasionally grow upward.
+        // Bias toward vertical growth so Ashspires stay mostly columnar.
         boolean grew = false;
-        if (random.nextInt(6) == 0) {
+        if (random.nextInt(5) != 0) {
             grew = tryGrowUp(level, pos, age);
         }
-        if (!grew) {
+        if (!grew && random.nextInt(4) == 0) {
             grew = tryBranchSideways(level, pos, random, age);
         }
 
@@ -82,12 +82,8 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        // Multiple attempts so bonemeal reliably produces extra side branches.
-        for (int i = 0; i < 3; i++) {
-            BlockState current = level.getBlockState(pos);
-            if (!(current.getBlock() instanceof AshspireEmberbloomBlock)) {
-                break;
-            }
+        BlockState current = level.getBlockState(pos);
+        if (current.getBlock() instanceof AshspireEmberbloomBlock) {
             randomTick(current, level, pos, random);
         }
     }
@@ -109,26 +105,25 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
         // immediately have a horizontal attachment point.
         level.setBlock(pos, this.ashspirePlant.defaultBlockState(), 2);
 
-        int attempts = 2 + random.nextInt(4); // 2..5 (more sideways than vanilla)
         boolean placedAny = false;
         Direction[] dirs = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
+        Direction dir = dirs[random.nextInt(dirs.length)];
 
-        for (int i = 0; i < attempts; i++) {
-            Direction dir = dirs[random.nextInt(dirs.length)];
-            BlockPos base = pos.relative(dir);
-            BlockPos tip = base.above();
+        BlockPos base = pos.relative(dir);
+        BlockPos tip = base.above();
 
-            if (!level.getFluidState(base).isEmpty() || !level.getFluidState(tip).isEmpty()) {
-                continue;
-            }
-            if (!level.getBlockState(base).isAir() || !level.getBlockState(tip).isAir()) {
-                continue;
-            }
-
-            level.setBlock(base, this.ashspirePlant.defaultBlockState(), 2);
-            level.setBlock(tip, defaultBlockState().setValue(AGE, Math.min(5, age + 1)), 2);
-            placedAny = true;
+        if (!level.getFluidState(base).isEmpty() || !level.getFluidState(tip).isEmpty()) {
+            level.setBlock(pos, defaultBlockState().setValue(AGE, age), 2);
+            return false;
         }
+        if (!level.getBlockState(base).isAir() || !level.getBlockState(tip).isAir()) {
+            level.setBlock(pos, defaultBlockState().setValue(AGE, age), 2);
+            return false;
+        }
+
+        level.setBlock(base, this.ashspirePlant.defaultBlockState(), 2);
+        level.setBlock(tip, defaultBlockState().setValue(AGE, Math.min(5, age + 1)), 2);
+        placedAny = true;
 
         if (!placedAny) {
             // Revert back to a flower tip if we failed to place any branches.

@@ -4,7 +4,6 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.block.AncientWaystoneBlock;
 import com.kruemblegard.block.AshspireCactusBlock;
 import com.kruemblegard.block.AshspireEmberbloomBlock;
-import com.kruemblegard.block.AshspireColossusBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
 import com.kruemblegard.block.BonemealableWayfallFungusBlock;
@@ -1025,13 +1024,6 @@ public final class ModBlocks {
             "ashspire_emberbloom",
             () -> new AshspireEmberbloomBlock((net.minecraft.world.level.block.ChorusPlantBlock) ASHSPIRE_CACTUS.get(),
                     BlockBehaviour.Properties.copy(Blocks.CHORUS_FLOWER).lightLevel(state -> 3))
-    );
-
-    public static final RegistryObject<Block> ASHSPIRE_COLOSSUS = BLOCKS.register(
-            "ashspire_colossus",
-            () -> new AshspireColossusBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.CACTUS)
-                    .strength(1.0f)
-                    .lightLevel(state -> 5))
     );
 
     public static final RegistryObject<Block> NIGHT_FLOWER = BLOCKS.register(
