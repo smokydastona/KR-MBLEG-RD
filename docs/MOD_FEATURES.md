@@ -347,6 +347,15 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Cephalari** (`cephalari`)
   - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
+  - Custom professions:
+    - **Nutrient-Keeper** uses the **Brine Garden Basin** (`brine_garden_basin`) job site.
+      - Basin behavior: accepts volatile resin, rune petals, berry harvests, and seed stock; slowly propagates them into Bio-Resin, Moisture Stones, or extra crop stock.
+      - Basin bonuses: works faster in wet biomes, around water/kelp, and near attuned stone or rubble tilth.
+    - **Architect** uses the **Tendril-Forge** (`tendril_forge`) job site.
+      - Forge behavior: accepts volatile resin plus runic materials and spins them into Tendril Strands, Resonance Shards, and Moisture Stones.
+      - Forge bonuses: works faster in enclosed spaces and around attuned stone, runic debris, standing stones, or waypoint mold.
+  - Workstation visuals: Nutrient-Keepers and Architects now ship with dedicated profession overlays for both normal and zombified Cephalari renderers.
+  - Trading: Nutrient-Keepers buy berry stock and sell brine-grown supplies; Architects buy runic scrap and sell resonance-fed materials, attuned stone, and their own workstation blocks.
   - Body texture variants: assigned at spawn/birth based on the biome.
     - Spawn: **10%** bonus variant, **5%** other-biome variant, otherwise current biome.
     - Breeding: baby texture is **25%** parent A / **25%** parent B / **50%** current biome, with a **10%** chance to be random.

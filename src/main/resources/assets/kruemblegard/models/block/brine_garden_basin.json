@@ -1,0 +1,42 @@
+{
+  "textures": {
+    "body": "kruemblegard:block/brine_garden_basin_body",
+    "rim": "kruemblegard:block/brine_garden_basin_rim",
+    "top": "kruemblegard:block/brine_garden_basin_top",
+    "liquid": "kruemblegard:block/brine_garden_basin_liquid",
+    "particle": "kruemblegard:block/brine_garden_basin_body"
+  },
+  "elements": [
+    {
+      "from": [1, 0, 1],
+      "to": [15, 12, 15],
+      "faces": {
+        "down": { "texture": "#body" },
+        "up": { "texture": "#top" },
+        "north": { "texture": "#body" },
+        "south": { "texture": "#body" },
+        "west": { "texture": "#body" },
+        "east": { "texture": "#body" }
+      }
+    },
+    {
+      "from": [2, 12, 2],
+      "to": [14, 14, 14],
+      "faces": {
+        "down": { "texture": "#rim" },
+        "up": { "texture": "#rim" },
+        "north": { "texture": "#rim" },
+        "south": { "texture": "#rim" },
+        "west": { "texture": "#rim" },
+        "east": { "texture": "#rim" }
+      }
+    },
+    {
+      "from": [3, 10, 3],
+      "to": [13, 12, 13],
+      "faces": {
+        "up": { "texture": "#liquid" }
+      }
+    }
+  ]
+}

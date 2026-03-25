@@ -7,6 +7,7 @@ import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
+import com.kruemblegard.init.ModVillagers;
 import com.kruemblegard.book.KruemblegardGuidebook;
 import com.kruemblegard.network.ModNetworking;
 import com.kruemblegard.registry.ModEntities;
@@ -62,6 +63,7 @@ public final class Kruemblegard {
         ModBlocks.register(modBus);
         ModBlockEntities.register(modBus);
         ModCreativeTabs.register(modBus);
+        ModVillagers.register(modBus);
 
         ModEntities.ENTITIES.register(modBus);
         ModProjectileEntities.PROJECTILES.register(modBus);
@@ -91,6 +93,8 @@ public final class Kruemblegard {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModItems.ANCIENT_WAYSTONE_ITEM);
+            event.accept(ModBlocks.BRINE_GARDEN_BASIN.get());
+            event.accept(ModBlocks.TENDRIL_FORGE.get());
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -120,6 +124,10 @@ public final class Kruemblegard {
             event.accept(ModItems.REMNANT_SEEDS);
             event.accept(ModItems.PALEWEFT_SEEDS);
             event.accept(ModItems.RUNE_PETALS);
+            event.accept(ModItems.BIO_RESIN);
+            event.accept(ModItems.MOISTURE_STONE);
+            event.accept(ModItems.TENDRIL_STRANDS);
+            event.accept(ModItems.RESONANCE_SHARD);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {

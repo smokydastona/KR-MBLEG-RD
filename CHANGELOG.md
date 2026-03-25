@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## Unreleased
+- Feat(cephalari): add the Brine Garden Basin and Tendril-Forge as functional Cephalari job-site blocks with ticking workstation logic, recipes, loot tables, and block models.
+- Feat(cephalari): add Nutrient-Keeper and Architect professions, POIs, and trade pools wired to the new workstations.
+- Change(cephalari): use attuned/runic resonance bonuses for the new workstations so the feature fits the extracted-machinery main-mod architecture.
+- Art(cephalari): add unique workstation block/item textures plus dedicated live and zombified profession overlay textures for Nutrient-Keepers and Architects.
+
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
 - Fix(progression): restore `scarsteel_ingot` production to the main mod with a direct attuned forging recipe so Scarsteel gear remains craftable after the extraction.

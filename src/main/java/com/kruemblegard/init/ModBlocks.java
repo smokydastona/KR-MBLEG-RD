@@ -7,6 +7,7 @@ import com.kruemblegard.block.AshspireEmberbloomBlock;
 import com.kruemblegard.block.BerryBushBlock;
 import com.kruemblegard.block.EchocapBlock;
 import com.kruemblegard.block.BonemealableWayfallFungusBlock;
+import com.kruemblegard.block.BrineGardenBasinBlock;
 import com.kruemblegard.block.GravevineBlock;
 import com.kruemblegard.block.FranchFenceBlock;
 import com.kruemblegard.block.FranchFenceGateBlock;
@@ -42,6 +43,7 @@ import com.kruemblegard.block.AshveilBlock;
 import com.kruemblegard.block.RunebloomBlock;
 import com.kruemblegard.block.SoulberryShrubBlock;
 import com.kruemblegard.block.StrippableRotatedPillarBlock;
+import com.kruemblegard.block.TendrilForgeBlock;
 import com.kruemblegard.block.UndersideParticleHugeMushroomBlock;
 import com.kruemblegard.block.BonemealOnlyWayfallSaplingBlock;
 import com.kruemblegard.block.WayfallFeatureSaplingBlock;
@@ -135,6 +137,26 @@ public final class ModBlocks {
                     .mapColor(MapColor.STONE)
                     .strength(3.0F, 30.0F)
                     .sound(SoundType.STONE))
+    );
+
+    public static final RegistryObject<Block> BRINE_GARDEN_BASIN = BLOCKS.register(
+            "brine_garden_basin",
+            () -> new BrineGardenBasinBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_CYAN)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.8F, 18.0F)
+                    .sound(SoundType.STONE)
+                    .noOcclusion())
+    );
+
+    public static final RegistryObject<Block> TENDRIL_FORGE = BLOCKS.register(
+            "tendril_forge",
+            () -> new TendrilForgeBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.2F, 24.0F)
+                    .sound(SoundType.DEEPSLATE)
+                    .noOcclusion())
     );
 
     // --- Wayfall geology (palette foundation) ---

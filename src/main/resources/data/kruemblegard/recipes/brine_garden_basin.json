@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ASA",
+    "VRV",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "kruemblegard:attuned_stone"
+    },
+    "S": {
+      "item": "kruemblegard:stoneveil_rubble"
+    },
+    "V": {
+      "item": "kruemblegard:volatile_resin"
+    },
+    "R": {
+      "item": "kruemblegard:rune_petals"
+    }
+  },
+  "result": {
+    "item": "kruemblegard:brine_garden_basin"
+  }
+}

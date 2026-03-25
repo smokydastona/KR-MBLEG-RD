@@ -533,6 +533,26 @@ public class ModItems {
         () -> new RunePetalItem(new Item.Properties())
     );
 
+    public static final RegistryObject<Item> BIO_RESIN = ITEMS.register(
+        "bio_resin",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> MOISTURE_STONE = ITEMS.register(
+        "moisture_stone",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> TENDRIL_STRANDS = ITEMS.register(
+        "tendril_strands",
+        () -> new Item(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RESONANCE_SHARD = ITEMS.register(
+        "resonance_shard",
+        () -> new Item(new Item.Properties())
+    );
+
     public static final RegistryObject<Item> SOULBERRIES = ITEMS.register(
         "soulberries",
         () -> new ItemNameBlockItem(

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SRS",
+    "ADA",
+    "SWS"
+  ],
+  "key": {
+    "S": {
+      "item": "kruemblegard:scarstone"
+    },
+    "R": {
+      "item": "kruemblegard:runic_scrap"
+    },
+    "A": {
+      "item": "kruemblegard:attuned_stone"
+    },
+    "D": {
+      "item": "kruemblegard:runic_debris"
+    },
+    "W": {
+      "item": "kruemblegard:waypoint_mold"
+    }
+  },
+  "result": {
+    "item": "kruemblegard:tendril_forge"
+  }
+}

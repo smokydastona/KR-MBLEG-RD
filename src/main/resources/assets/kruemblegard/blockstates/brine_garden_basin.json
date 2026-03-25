@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,lit=false": { "model": "kruemblegard:block/brine_garden_basin" },
+    "facing=east,lit=false": { "model": "kruemblegard:block/brine_garden_basin", "y": 90 },
+    "facing=south,lit=false": { "model": "kruemblegard:block/brine_garden_basin", "y": 180 },
+    "facing=west,lit=false": { "model": "kruemblegard:block/brine_garden_basin", "y": 270 },
+    "facing=north,lit=true": { "model": "kruemblegard:block/brine_garden_basin" },
+    "facing=east,lit=true": { "model": "kruemblegard:block/brine_garden_basin", "y": 90 },
+    "facing=south,lit=true": { "model": "kruemblegard:block/brine_garden_basin", "y": 180 },
+    "facing=west,lit=true": { "model": "kruemblegard:block/brine_garden_basin", "y": 270 }
+  }
+}
