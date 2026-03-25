@@ -400,8 +400,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Vanilla parity: uses vanilla Iron Golem attributes/combat and retains vanilla behaviors like offering flowers to villagers.
   - Runebloom offering: when offering a flower, it visually offers a **Runebloom** to nearby child villagers (vanilla or Cephalari).
   - Spawn egg: `Cephalari Golem Spawn Egg`.
-  - Pressure-powered: has an internal pressure meter (0..100) that slowly leaks down over time.
-  - Shutdown: at 0 pressure, the golem becomes inert (no AI / no movement) until recharged.
+  - Stability-driven: has an internal stability meter (0..100) that slowly leaks down over time.
+  - Shutdown: at 0 stability, the golem becomes inert (no AI / no movement) until recharged.
   - Recharge: recharges when near attuned or runic stabilizers such as `attuned_stone`, its stair/slab/wall variants, and `runic_debris`.
   - Loot: drops Runebloom with the same count/chances as vanilla iron golems drop poppies.
   - Rendered via GeckoLib:

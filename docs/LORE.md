@@ -33,7 +33,7 @@ The Cephalari are a sapient nautiloid-descended species from an unknown dimensio
 Only instinctive fragments remain:
 - Spiral motifs in their art and engineering
 - A biological expectation of buoyancy
-- Pressure-based logic instincts
+- Flow-based logic instincts
 - A cultural ache for a home they cannot name
 
 They are a people defined by amnesia, adaptation, and survival.
@@ -44,7 +44,7 @@ Cephalari bodies were never meant for land. Their original biology relied on dri
 ### 2.1 Morphology
 - A spiral shell reinforced with Wayfall crystalline dust
 - 20–40 tentacles capable of both fine manipulation and rigid bracing
-- Internal pressure sacs that maintain body shape in shifting gravity
+- Internal buoyancy sacs that maintain body shape in shifting gravity
 - Chromatophores that glow brightly in air
 - A blink-reflex that lets them dodge short distances
 
@@ -52,7 +52,7 @@ Cephalari bodies were never meant for land. Their original biology relied on dri
 - No longer require water
 - Thrive only in Wayfall’s atmosphere
 - Can survive in Overworld air, but their physiology struggles in harsher non-Wayfall atmospheres (e.g., Nether/End-like conditions)
-- Immune to fall damage due to pressure sacs and blink reflex
+- Immune to fall damage due to buoyancy sacs and blink reflex
 
 ### 2.3 Lifespan
 - 180–260 years
@@ -78,7 +78,7 @@ A multi-legged walker built from shell fragments and salvaged pistons.
 - Symbolism: continuity and the spiral memory of their lost home
 
 ### 4.2 The Drift Skimmer
-A hovering manta-shaped craft that glides using lightweight membrane wings and pressure-vent propulsion.
+A hovering manta-shaped craft that glides using lightweight membrane wings and vented rune propulsion.
 - Role: speed, long-distance traversal
 - Movement: smooth gliding, short vertical bursts
 - Silhouette: flat ray-like chassis with glowing vents

@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1364 (2026-03-25)
-- Refactor(modularity): extract the Cephalari Pressure-Logic subsystem into the gitignored `pressure-logic-addon/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
+- Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
 - Fix(progression): restore `scarsteel_ingot` production to the main mod with a direct attuned forging recipe so Scarsteel gear remains craftable after the extraction.
-- Change(cephalari_golem): retune Cephalari Golems to recharge near attuned stonework and runic debris instead of removed pressure infrastructure.
+- Change(cephalari_golem): retune Cephalari Golems to recharge near attuned stonework and runic debris instead of the retired machinery network.
 - Docs(modularity): update the README and feature reference to match the decluttered main-mod scope.
 
 ## 1.0.1363 (2026-03-25)
@@ -31,8 +31,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(driftwhale/ai): trigger a dedicated Driftwhale death animation so kills end in a deliberate collapse instead of snapping straight out of the motion stack.
 - Fix(render/adult_forms): realign the DriftSkimmer and Spiral Strider outer-shell geo UVs to the shared Cephalari golem atlas so they render with the same layered adult-form body treatment as Treadwinder and Echo Harness.
 - Docs(driftwhale): update the README and feature reference to describe the calmer sky-whale animation pass.
-- Fix(pressure_logic/render): mark the custom Pressure-Logic machines, conduits, and transport blocks as non-occluding so Minecraft stops culling neighboring faces like they were full cubes, fixing the xray-style visual glitches around those blocks.
-- Docs(pressure_logic): update the README and feature reference to note the non-occluding render fix for Pressure-Logic silhouettes.
 
 ## 1.0.1352 (2026-03-23)
 - Fix(scaralon_egg): make player-placed Scaralon beetle eggs stack into 1-4 egg clutches on the same block like vanilla turtle egg nests.
@@ -102,28 +100,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(pebble_wren): convert Pebble Wrens to real flying birds with flying navigation, airborne wandering/flocking, fall-damage immunity, and a dedicated flight animation loop.
 - Docs(pebble_wren): update feature docs to describe the Pebble Wren as an airborne Wayfall bird instead of a purely ground-walking critter.
 
-## 1.0.1333 (2026-03-22)
-- Balance(pressure_logic): lower Pressure Loom costs for `coral_fiber`, `bio_ceramic`, and `scarsteel_ingot` so the starter production loop has a coherent shared session budget.
-- Balance(pressure_logic): tune the early coal-backed loop toward roughly 2 Scarsteel crafts per stable session, with cheaper Coral Fiber and Bio-Ceramic outputs as the lower-tier alternatives.
-
-## 1.0.1332 (2026-03-22)
-- Balance(pressure_logic): reduce `pressure_turbine` upkeep so early rotation loops do not consume an entire Thermo-Condenser session before the attached machine can work.
-- Balance(pressure_logic): lower Pressure Loom `scarsteel_ingot` forging pressure cost so Scarsteel production lands inside the intended mid-tier fuel window.
-
-## 1.0.1331 (2026-03-22)
-- Balance(pressure_logic): rebalance `hand_bellows` to a smaller manual burst cadence so it stays a bootstrap tool instead of the dominant long-run generator.
-- Balance(pressure_logic): compress `thermo_condenser` fuel burn into shorter pneumatic runtimes so fuel items power meaningful work sessions instead of providing near-infinite pressure.
-- Balance(pressure_logic): require live adjacent conduit pressure for `atmospheric_compressor` startup outside Wayfall so the late-game tier still hands off cleanly from the Thermo-Condenser.
-
-## 1.0.1330 (2026-03-22)
-- Feat(pressure_logic): add tiered pressure generation with `hand_bellows` as the manual starter source and `thermo_condenser` as the burn-fuel mid-tier generator.
-- Change(pressure_logic): turn `membrane_pump` into a directional transfer pump instead of a free pressure source, making the generator tiers matter.
-- Change(items/pressure_logic): move `scarsteel_ingot` behind Pressure-Logic machinery by forging it through the `pressure_loom`.
-- Change(recipes/pressure_logic): gate `thermo_condenser` behind Scarsteel and require `thermo_condenser` in the `atmospheric_compressor` recipe.
-
-## 1.0.1329 (2026-03-22)
-- Assets(pressure_logic): convert all Pressure-Logic machine block models to unique non-cube machine silhouettes (removes remaining full-cube geometry).
-
 ## 1.0.1328 (2026-03-21)
 - Docs(changelog): align top entries with commit-count jar versioning and preserve newest-first ordering.
 
@@ -135,16 +111,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(pebble_wren/assets): wire Pebble Wren texture variants (1..14) as a synced + persisted appearance.
 
 ## 1.0.1325 (2026-03-22)
-- Fix(assets/pressure_logic): remove generic stone-cube models; restore per-machine models so no Pressure-Logic blocks render as generic cubes.
-- Fix(assets/pressure_logic): wire machine operating state into blockstate variants so working/non-zero states render `*_active` models (powered/signal/rotation/extension/ratio).
-- Fix(assets/pressure_logic): give `spiral_shaft` unique textures and animate/render `spiral_shaft_active` when `rotation_speed` is non-zero.
 - Fix(pebble_wren/assets): update the Pebble Wren renderer texture path after the entity texture reorg (and update docs to match).
 - Revert(compat/create): remove unfinished Create scaffolding.
-
-## 1.0.1318 (2026-03-22)
-- Fix(assets/pressure_logic): fix cube-parent block model texture keys (`top`/`bottom` -> `up`/`down`) to prevent missing-texture faces.
-- Feat(pressure_logic): empty-hand right-click shows a compact Pressure-Logic status line in the action bar.
-- Feat(pressure_logic): add subtle “working” cloud particles for powered/pressurized Pressure-Logic blocks (stable-air gated).
 
 ## 1.0.1317 (2026-03-21)
 - Tweak(driftwhale): Driftwhales now wander more actively and stay closer to their pod (reduced long-range spread).
@@ -161,13 +129,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(items/wayfall): add Crushstone starter tools (pickaxe/axe/shovel/hoe) with recipes, item models, and `en_us` names.
 - Compat(tags): include Crushstone tools in vanilla tool item tags (`pickaxes`, `axes`, `shovels`, `hoes`).
 
-## 1.0.1309 (2026-03-21)
-- Feat(pressure_logic): add Pneumatic Catapult launch variants with an angle dial plus precision/scatter modes.
-- Feat(pressure_logic): add Membrane Press precision/bulk modes and Crystal Infuser multi/deep modes.
-- Feat(pressure_logic): require Vortex Funnel swirl power to come from an active adjacent Atmospheric Compressor on the conduit network.
-- Fix(assets/pressure_logic): convert catapult/press/infuser blockstates to multipart so the new blockstate properties resolve correctly.
-- Docs(pressure_logic): mark the mandatory variant/coupling checklist items complete and remove runtime placeholder/stub wording from Pressure-Logic docs/comments.
-
 ## 1.0.1306 (2026-03-21)
 - Assets(unkeeper): sync `unkeeper.animation.json` with the updated `unkeeper.geo.json` bone names and keep the controller references current.
 - Assets(unkeeper): resize `unkeeper.png` to 128×128.
@@ -176,28 +137,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(mobs): Mossback Tortoise is now immune to thorny/berry-bush collision damage (matches Scaralon Beetle behavior).
 
 ## 1.0.1304 (2026-03-21)
-- Feat(pressure_logic): add unique per-machine BlockEntities across the full Pressure-Logic machinery set (animation-ready; no shared generic machine implementation).
-- Refactor(pressure_logic): introduce `CephalariMachineBlockEntity` base for shared persistent activity sampling + animation accumulator.
 - Fix(build/forge): replace uses of Mojang's protected `BaseEntityBlock.createTickerHelper` with a public helper.
-
-## 1.0.1303 (2026-03-21)
-- Docs(pressure_logic): reclassify progression/village/questline sections as optional guidance (not mandatory runtime worldgen/NPC/quest systems).
-- Docs(pressure_logic): align traceability checklist to reflect the optional classification.
-
-## 1.0.1302 (2026-03-21)
-- Change(pressure_logic): treat spec "optional variants" as mandatory for mechanical behaviors.
-- Feat(pressure_logic): Air-Lift Tube now requires adjacent conduit pressure and consumes more at higher flow.
-- Feat(pressure_logic): Pressure Rail shift-right-click flips direction.
-- Feat(pressure_logic): Vent Piston strong-redstone rotate mode rotates the block in front on extension steps.
-
-## 1.0.1301 (2026-03-21)
-- Docs(pressure_logic): add a spec traceability checklist mapping `docs/PRESSURE_LOGIC.md` requirements to code/assets/tooling.
-
-## 1.0.1300 (2026-03-21)
-- Change(creative): keep Pressure-Logic blocks/items exclusively in the Pressure-Logic creative tab (no duplication into the other Krümblegård tabs).
-
-## 1.0.1299 (2026-03-21)
-- Feat(creative): add a dedicated Pressure-Logic creative tab containing Pressure-Logic blocks + materials.
 
 ## 1.0.1298 (2026-03-21)
 - Change(spawn_eggs/cephalari): remove spawn eggs for adult Cephalari forms (Driftskimmer, Echo Harness, Spiral Strider, Treadwinder).
@@ -512,14 +452,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feature(cephalari): add biome-based body texture variants (spawn-time selection; bred babies inherit from parents/current biome with a small random chance).
 - Feature(cephalari_zombie): add a drowned-style outer overlay layer for the drowned zombified variant.
 
-## 1.0.1169 (2026-03-07)
-
 ## 1.0.1170 (2026-03-07)
 - Scaralon Beetle: Fix carpet decor rendering so the beetle stays visible and the carpet renders as an overlay instead of replacing the whole texture.
 
 - Debug(startup): reduce hang-watchdog threshold and add explicit armed/disarmed logs to capture world-load stalls faster.
 - Debug(startup): add a startup hang watchdog that emits thread dumps if the integrated server appears stalled during world load.
-- Debug(pressurelogic): log slow pressure-network chunk load/unload hooks (only when they exceed a high threshold).
 
 ## 1.0.1166 (2026-03-07)
 - Fix(worldgen): only run `WorldgenValidator` at server start when `strictValidation=true` (avoids potential integrated-server stalls during world creation/load).
@@ -530,7 +467,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.1164 (2026-03-08)
 - Feature(cephalari_golem): convert Cephalari Golem rendering to GeckoLib with new golem geo/animations/controllers and a placeholder texture.
-- Feature(cephalari_golem): add an internal pressure meter with shutdown-at-zero behavior and simple recharge when near Pressure-Logic blocks.
 - Fix(build): use `Entity#setMaxUpStep` (avoid private field access) and clean up new golem `ResourceLocation` usage.
 
 ## 1.0.1163 (2026-03-08)
@@ -540,30 +476,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.1162 (2026-03-07)
 - Fix(cephalari): remove the Cephalari targeting suppression so raids/zombie sieges/hostile mobs treat Cephalari like vanilla villagers.
 - Feature(cephalari): add small temperament variation (`calm`/`curious`/`skittish`) that slightly changes idle animation tempo and movement speed.
-
-## 1.0.1161 (2026-03-07)
-- Feature(pressurelogic): add an optional server-side Pressure Network Manager that coalesces rebuild/validation work to avoid rebuild storms on large conduit networks (`pressureNetworkManagerEnabled`).
-- Feature(pressurelogic): add an optional network-level ticking mode that bounds simulation work by a per-tick node budget (`pressureNetworkTickingEnabled`, `pressureNetworkMaxNodesPerTick`).
-- Dev(pressurelogic): add manager tuning knobs: `pressureNetworkRebuildIntervalTicks` and `pressureNetworkMaxRebuildsPerPass`.
-
-## 1.0.1160 (2026-03-07)
-- Fix(pressurelogic): avoid interacting with unloaded neighbor positions when resolving conduit connections (prevents chunk-boundary ghost links / accidental chunk loads).
-- Feature(pressurelogic): add large-network stabilization knobs: `pressureConduitMaxStepPerUpdate` (default 4) and `pressureConduitLeakPerUpdate` (default 0).
-
-## 1.0.1159 (2026-03-07)
-- Feature(pressurelogic): add optional per-side conduit port modes (INPUT/OUTPUT/BOTH/DISABLED) gated by `pressureSidedPortModesEnabled`.
-- Feature(pressurelogic): add optional conduit inspection readout (network stats) gated by `pressureDebugInspect`.
-- Feature(pressurelogic): add `pressureConduitMaxPressure` to cap conduit storage/advertised max pressure (default 100).
-- Dev(pressurelogic): add `PressureNetworkManager` snapshot utility for debugging/future network refactors.
-
-## 1.0.1157 (2026-03-07)
-- Docs(pressurelogic): document conduit-only interop as the supported pressure capability surface.
-- Dev(pressurelogic): add `PressureApi` helpers to centralize capability lookups and avoid BE casts.
-
-## 1.0.1156 (2026-03-07)
-- Feature(pressurelogic): expose a Forge capability for pressure (`PressureCapabilities.PRESSURE_HANDLER`) on `pressure_conduit`.
-- Feature(pressurelogic): add config guards/perf knobs: `enablePressureSystem`, `pressureTickIntervalTicks`, `pressureDebugLogging`.
-- Fix(pressurelogic): rate-limit conduit tick failure logging to avoid spam in large networks.
 
 ## 1.0.1155 (2026-03-08)
 - Feature(cephalari): expand GeckoLib animation coverage with villager-style states across updated bone sets.
@@ -584,132 +496,19 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Assets(cephalari): add placeholder adult zombie geo variants `cephalari_zombie_1` .. `_5`.
 - Fix(cephalari): align mount texture variant range to `_1`..`_6`.
 
-## 1.0.1149 (2026-03-07)
-- Docs(pressurelogic): mark `pressure_valve` and `spiral_gearbox` as implemented (no longer scaffolding).
-
-## 1.0.1148 (2026-03-07)
-- Feature(pressurelogic): make `vent_piston` a real pneumatic actuator (stable air + conduit pressure required; redstone sets the target extension).
-
-## 1.0.1147 (2026-03-07)
-- Assets(items): add unique textures for `coral_fiber` and `bio_ceramic`.
-
-## 1.0.1146 (2026-03-07)
-- Feature(pressurelogic): implement `pressure_loom` as a stable-air + conduit-pressure + rotation powered Flowwright workstation.
-	- Weaves Paleweft into `coral_fiber`.
-	- Fuses Attuned Stone + Volatile Resin into `bio_ceramic`.
-
-## 1.0.1139 (2026-03-06)
-- Feature(pressurelogic): implement high-level blockstate properties for core blocks:
-	- `pressure_turbine`: `rotation_speed` (0..5)
-	- `membrane_pump`: `pulse_rate` (0..5)
-	- `vent_piston`: `extension` (0..16)
-	- `spiral_gearbox`: `ratio` (`1_1`, `1_2`, `2_1`, `1_4`, `4_1`)
-	- `atmospheric_compressor`: `stability_level` (0..5)
-- Assets(pressurelogic): extend deterministic generator to emit the new blockstate variants; regenerate blockstates.
-
-## 1.0.1140 (2026-03-06)
-- Feature(pressurelogic): add continuous conduit pressure storage (0..100) via `PressureConduitBlockEntity` and diffuse pressure through connected conduit networks (valves gate flow when powered).
-- Feature(pressurelogic): implement stable-air gating helper (`PressureAtmosphere`) and make `atmospheric_compressor` provide stable-air bubbles outside Wayfall.
-- Feature(pressurelogic): integrate continuous pressure with redstone/control blocks:
-	- `pressure_sensor`: outputs redstone proportional to adjacent conduit pressure.
-	- `pressure_regulator`: transfers/clamps conduit pressure based on redstone `signal`.
-	- `pressure_sequencer`: converts redstone rising edges into pressure pulses.
-- Feature(pressurelogic): integrate continuous pressure with core machines:
-	- `membrane_pump`: generates pressure into adjacent conduits when powered in stable air.
-	- `pressure_turbine`: derives `rotation_speed` from input conduit pressure and consumes pressure as it runs.
-
 ## 1.0.1141 (2026-03-07)
 - Assets(scaralon_beetle): add/update trader beetle geometry + texture.
-
-## 1.0.1142 (2026-03-07)
-- Feature(pressurelogic): add `spiral_shaft` as a rotation-carrying block (axis + `rotation_speed` 0..5 for visuals).
-- Feature(pressurelogic): add minimal mechanical rotation traversal (`RotationUtil`) so turbines can drive shaft/gearbox networks.
-- Feature(pressurelogic): upgrade transport scaffolding:
-	- `conveyor_membrane`: now has `facing` and moves item entities when powered by adjacent rotation in stable air.
-	- `buoyancy_lift_platform`: now lifts entities while rising by consuming conduit pressure below it (stable air required).
-
-## 1.0.1143 (2026-03-07)
-- Feature(pressurelogic): upgrade transport blocks:
-	- `pressure_rail`: now uses stable-air gating and conduit pressure to push entities; adds a simple 4-phase pulse animation state.
-	- `pneumatic_catapult`: now charges from conduit pressure while powered and fires on redstone rising edge (stable air required).
-	- `air_lift_tube`: now requires stable air to operate; redstone controls UP/DOWN run state and BIDIRECTIONAL direction toggle.
-
-## 1.0.1144 (2026-03-07)
-- Feature(pressurelogic): upgrade processing/crafting blocks:
-	- `pressure_kiln`: now requires stable air + conduit pressure + rotation and consumes conduit pressure per smelt (no fuel). Overpressure mode is faster but can vent violently at high pressure.
-	- `membrane_press`: now requires stable air + conduit pressure and consumes conduit pressure while processing.
-	- `crystal_infuser`: now requires stable air + conduit pressure and consumes conduit pressure while infusing.
-	- `pneumatic_separator`: now requires stable air + conduit pressure and consumes conduit pressure while routing; separator mode is now derived from redstone strength.
-
-## 1.0.1145 (2026-03-07)
-- Feature(pressurelogic): make `pressure_clutch` gate rotation propagation through mechanical networks (`RotationUtil`).
-- Feature(pressurelogic): make `vortex_funnel` require stable air + adjacent conduit pressure; suction strength/range scale with available pressure and it consumes conduit pressure while running.
-
-## 1.0.1138 (2026-03-06)
-- Feature(pressurelogic): add `vortex_funnel`, `pressure_rail`, `pneumatic_catapult`, `air_lift_tube`, `pressure_kiln`, `membrane_press`, `crystal_infuser`, `pneumatic_separator` blocks (Cephalari engineering scaffolding).
-- Feature(pressurelogic): implement `pressure_level` (0..5) blockstate for `pressure_conduit` (scaffolding).
-- Feature(pressurelogic): add crafting recipes + BlockItems for all Pressure-Logic blocks.
-- Assets(pressurelogic): extend deterministic generator to emit assets/blockstates for new blocks and new blockstate variants; regenerate outputs.
-- Data(tags): add new Pressure-Logic blocks to `mineable/pickaxe` and `needs_stone_tool`.
-
-## 1.0.1137 (2026-03-06)
-- Docs(pressurelogic): add unified system-level overview of the complete Cephalari pneumatic engineering suite.
-
-## 1.0.1136 (2026-03-06)
-- Docs(pressurelogic): expand pneumatic motion/transport + processing/crafting integration spec.
-
-## 1.0.1135 (2026-03-06)
-- Feature(pressurelogic): add redstone-controlled `powered` state to `membrane_pump` (Cephalari engineering scaffolding).
-- Assets(pressurelogic): regenerate blockstate for `membrane_pump` to include `powered` variants.
-
-## 1.0.1134 (2026-03-06)
-- Feature(pressurelogic): add `pressure_sensor` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_sensor`.
 
 ## 1.0.1133 (2026-03-06)
 - Docs: fix changelog date.
 
-## 1.0.1132 (2026-03-06)
-- Feature(pressurelogic): add `pressure_sequencer` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_sequencer`.
-
-## 1.0.1131 (2026-03-06)
-- Feature(pressurelogic): add `pressure_regulator` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_regulator`.
-
-## 1.0.1130 (2026-03-06)
-- Feature(pressurelogic): add `pressure_clutch` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_clutch`.
-
-## 1.0.1129 (2026-03-06)
-- Feature(pressurelogic): add `pressure_loom` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_loom`.
-- Assets(pressurelogic): add an animated front texture for `pressure_loom`.
-
 ## 1.0.1128 (2026-03-06)
-- Feature(pressurelogic): add `conveyor_membrane` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `conveyor_membrane`.
-- Assets(pressurelogic): add an animated top texture for `conveyor_membrane`.
 - Tools(assets): extend Cephalari engineering generator to support animating non-front faces.
 
 ## 1.0.1127 (2026-03-06)
-- Feature(pressurelogic): add `buoyancy_lift_platform` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `buoyancy_lift_platform`.
 - Tools(assets): extend Cephalari engineering generator to emit enum-like blockstate variants (used for `lift_state`).
 
-## 1.0.1126 (2026-03-06)
-- Feature(pressurelogic): add `pressure_valve` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `pressure_valve`.
-
-## 1.0.1125 (2026-03-06)
-- Feature(pressurelogic): add `atmospheric_compressor` block (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot table for `atmospheric_compressor`.
-- Assets(pressurelogic): add an animated front texture for `atmospheric_compressor`.
-
 ## 1.0.1124 (2026-03-06)
-- Feature(pressurelogic): add `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston` blocks (Cephalari engineering scaffolding).
-- Assets(pressurelogic): generate palette-locked 32x32 textures + models + loot tables for `pressure_conduit`, `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
-- Assets(pressurelogic): add animated front textures for `membrane_pump`, `pressure_turbine`, `spiral_gearbox`, and `vent_piston`.
 - Tools(assets): add deterministic Cephalari engineering asset generator (`tools/generate_cephalari_engineering_assets.py`).
 
 ## 1.0.1123 (2026-03-06)
@@ -819,8 +618,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.1044 (2026-03-04)
 - Tuning(assets/waylily): update the Waylily middle stalk model to blend more naturally between the base and bud/flower.
-
-## 1.0.1045 (2026-03-04)
 
 ## 1.0.1057 (2026-03-04)
 - Assets(moogloom): add simple head horns (geo).
@@ -2134,8 +1931,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 ## 1.0.552 (2026-01-22)
 - Fix(worldgen/lakes): guard deep lake block placement with `ensureCanWrite` to prevent “setBlock in a far chunk” warnings during generation.
 
-## 1.0.553 (2026-01-22)
-
 ## 1.0.583 (2026-01-22)
 - Stability/Performance: fixed Wayfall origin island re-placement loop by loading template chunks before validating placement and by checking within template bounds.
 
@@ -2492,8 +2287,6 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 
 ## 1.0.462 (2026-01-17)
 - Tuning(worldgen): increase Paleweft grass patch density ~3x across Wayfall biomes.
-
-## 1.0.463 (2026-01-18)
 
 ## 1.0.467 (2026-01-18)
 - Tweak(worldgen): Increase the secondary small Paleweft grass pass by ~4x (short grass only).
@@ -3396,4 +3189,3 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Workflow: clarify that “push” includes stage+commit+push when the working tree is dirty.
 - Further tweak Kruemblegård boss geo UV mappings/armor pieces.
 - Update Kruemblegård boss GeckoLib animation definitions.
-

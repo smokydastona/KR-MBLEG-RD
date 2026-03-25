@@ -22,13 +22,13 @@
 
     "§3§l1. Forgotten Origins\n\n§7The Cephalari came from an\nunknown dimension. Their arrival\nin Wayfall was catastrophic: a\nrupture that shattered reality and\ndestroyed their memory-shell\narchives.",
 
-    "§3§l1. Forgotten Origins\n\n§7Only instinctive fragments remain:\n§7• Spiral motifs in art & engineering\n§7• A biological expectation of buoyancy\n§7• Pressure-based logic instincts\n§7• A cultural ache for a home\n  they cannot name",
+    "§3§l1. Forgotten Origins\n\n§7Only instinctive fragments remain:\n§7• Spiral motifs in art & engineering\n§7• A biological expectation of buoyancy\n§7• Flow-based logic instincts\n§7• A cultural ache for a home\n  they cannot name",
 
     "§3§l2. Physiology in Wayfall\n\n§7Cephalari bodies were never meant\nfor land. Their original biology\nrelied on drifting and buoyancy,\nnot walking.",
 
-    "§3§l2.1 Morphology\n\n§7• Spiral shell reinforced with\n  Wayfall crystalline dust\n§7• 20–40 tentacles: fine work + bracing\n§7• Internal pressure sacs\n§7• Chromatophores glow in air\n§7• Blink-reflex short dodges",
+    "§3§l2.1 Morphology\n\n§7• Spiral shell reinforced with\n  Wayfall crystalline dust\n§7• 20–40 tentacles: fine work + bracing\n§7• Internal buoyancy sacs\n§7• Chromatophores glow in air\n§7• Blink-reflex short dodges",
 
-    "§3§l2.2 Environmental Needs\n\n§7• No longer require water\n§7• Thrive only in Wayfall’s air\n§7• Suffocate slowly in overworld-type air\n§7• Immune to fall damage (pressure sacs\n  and blink reflex)",
+    "§3§l2.2 Environmental Needs\n\n§7• No longer require water\n§7• Thrive only in Wayfall’s air\n§7• Suffocate slowly in overworld-type air\n§7• Immune to fall damage (buoyancy sacs\n  and blink reflex)",
 
     "§3§l2.3 Lifespan\n\n§7• 180–260 years\n§7• Memory degradation is common\n  due to dimensional trauma",
 
@@ -38,7 +38,7 @@
 
     "§3§l4.1 Spiral Strider\n\n§7A multi-legged walker built from\nshell fragments and salvaged pistons.\n\n§7Role: height, stability, terrain mastery\n§7Movement: slow, extremely stable\n§7Symbolism: continuity, spiral memory",
 
-    "§3§l4.2 Drift Skimmer\n\n§7A hovering manta-shaped craft that\nglides using membrane wings and\npressure-vent propulsion.\n\n§7Role: speed, long traversal\n§7Movement: smooth gliding + bursts\n§7Symbolism: echoes aquatic ancestry",
+    "§3§l4.2 Drift Skimmer\n\n§7A hovering manta-shaped craft that\nglides using membrane wings and\nvented rune propulsion.\n\n§7Role: speed, long traversal\n§7Movement: smooth gliding + bursts\n§7Symbolism: echoes aquatic ancestry",
 
     "§3§l4.3 Treadwinder Chassis\n\n§7A compact armored rig on spiral-linked\ntank treads.\n\n§7Role: everyday mobility, rugged terrain\n§7Movement: smooth rolling + pivot\n§7Symbolism: resilience and ingenuity\n\n§8The iconic default mount.",
 

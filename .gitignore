@@ -8,7 +8,7 @@ build/
 **/*.iws
 run/
 logs/
-/pressure-logic-addon/
+/addon-snapshot/
 
 # Local vendor content (not committed)
 .soundmonster_tmp/
