@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cactus",
-  "textures": {
-    "side": "kruemblegard:block/emberbloom_ashspire_cactus_side",
-    "top": "kruemblegard:block/emberbloom_ashspire_cactus_top",
-    "bottom": "kruemblegard:block/emberbloom_ashspire_cactus_bottom"
-  }
-}

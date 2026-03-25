@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_chorus_flower",
   "textures": {
-    "texture": "kruemblegard:block/emberbloom_ashspire_cactus_dead"
+    "texture": "kruemblegard:block/ashspire_emberbloom_dead"
   }
 }
