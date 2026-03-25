@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## 1.0.1353 (2026-03-23)
+- Tune(driftwhale/assets): replace the high-frequency Driftwhale idle and move loops with slower body-led sky-swimmer motion, calmer fin stabilization, and smoother tentacle phase offsets.
+- Feat(driftwhale/assets): add a lightweight breathing animation layer and wire it through the GeckoLib controller stack so Driftwhales keep subtle ambient life while both idling and cruising.
+- Feat(driftwhale/ai): add a real startle reaction when Driftwhales are hurt and an occasional server-driven thermal-lift idle action while they cruise calmly through the air.
+- Feat(driftwhale/ai): trigger a dedicated Driftwhale death animation so kills end in a deliberate collapse instead of snapping straight out of the motion stack.
+- Docs(driftwhale): update the README and feature reference to describe the calmer sky-whale animation pass.
 - Fix(pressure_logic/render): mark the custom Pressure-Logic machines, conduits, and transport blocks as non-occluding so Minecraft stops culling neighboring faces like they were full cubes, fixing the xray-style visual glitches around those blocks.
 - Docs(pressure_logic): update the README and feature reference to note the non-occluding render fix for Pressure-Logic silhouettes.
 

@@ -6,7 +6,8 @@
       "states": {
         "default": {
           "animations": [
-            "animation.driftwhale.idle"
+            "animation.driftwhale.idle",
+            "animation.driftwhale.breathe"
           ],
           "transitions": [
             { "moving": "query.is_moving" }
@@ -14,7 +15,8 @@
         },
         "moving": {
           "animations": [
-            "animation.driftwhale.move"
+            "animation.driftwhale.move",
+            "animation.driftwhale.breathe"
           ],
           "transitions": [
             { "default": "!query.is_moving" }

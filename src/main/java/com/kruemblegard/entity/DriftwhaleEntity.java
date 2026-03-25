@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.GlowSquid;
@@ -76,7 +77,29 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     private static final RawAnimation MOVE_LOOP =
         RawAnimation.begin().thenLoop("animation.driftwhale.move");
 
+    private static final RawAnimation BREATHE_LOOP =
+        RawAnimation.begin().thenLoop("animation.driftwhale.breathe");
+
+    private static final RawAnimation THERMAL_LIFT_ONCE =
+        RawAnimation.begin().thenPlay("animation.driftwhale.thermal_lift");
+
+    private static final RawAnimation STARTLE_ONCE =
+        RawAnimation.begin().thenPlay("animation.driftwhale.startle");
+
+    private static final RawAnimation DEATH_ONCE =
+        RawAnimation.begin().thenPlay("animation.driftwhale.death");
+
+    private static final int STARTLE_ANIM_COOLDOWN_TICKS = 10;
+    private static final int THERMAL_LIFT_MIN_COOLDOWN_TICKS = 20 * 16;
+    private static final int THERMAL_LIFT_MAX_COOLDOWN_TICKS = 20 * 34;
+    private static final int THERMAL_LIFT_RECENT_HURT_SUPPRESSION_TICKS = 20 * 5;
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    private int startleAnimCooldownTicks = 0;
+    private int thermalLiftCooldownTicks = THERMAL_LIFT_MIN_COOLDOWN_TICKS;
+    private int recentHurtSuppressionTicks = 0;
+    private boolean playedDeathAnim = false;
 
     @Nullable
     private BlockPos podAnchor;
@@ -153,6 +176,18 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
         super.aiStep();
 
         if (!this.level().isClientSide) {
+            if (this.startleAnimCooldownTicks > 0) {
+                this.startleAnimCooldownTicks--;
+            }
+
+            if (this.recentHurtSuppressionTicks > 0) {
+                this.recentHurtSuppressionTicks--;
+            }
+
+            if (this.thermalLiftCooldownTicks > 0) {
+                this.thermalLiftCooldownTicks--;
+            }
+
             Vec3 delta = this.getDeltaMovement();
 
             // If a Driftwhale ever ends up grounded (spawned/teleported onto solid blocks),
@@ -166,7 +201,34 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
             if (delta.y < -0.06D) {
                 this.setDeltaMovement(delta.x, -0.06D, delta.z);
             }
+
+            if (shouldTriggerThermalLift(delta)) {
+                triggerAnim("actionController", "thermal_lift");
+                resetThermalLiftCooldown();
+            }
         }
+    }
+
+    private boolean shouldTriggerThermalLift(Vec3 delta) {
+        if (!this.isAlive() || this.isBaby()) {
+            return false;
+        }
+
+        if (this.getTarget() != null || this.recentHurtSuppressionTicks > 0 || this.startleAnimCooldownTicks > 0) {
+            return false;
+        }
+
+        if (this.thermalLiftCooldownTicks > 0 || this.onGround()) {
+            return false;
+        }
+
+        double horizontalSpeedSq = delta.horizontalDistanceSqr();
+        return horizontalSpeedSq <= 0.085D && Math.abs(delta.y) <= 0.08D;
+    }
+
+    private void resetThermalLiftCooldown() {
+        this.thermalLiftCooldownTicks = THERMAL_LIFT_MIN_COOLDOWN_TICKS
+            + this.getRandom().nextInt(THERMAL_LIFT_MAX_COOLDOWN_TICKS - THERMAL_LIFT_MIN_COOLDOWN_TICKS + 1);
     }
 
     @Nullable
@@ -301,11 +363,45 @@ public class DriftwhaleEntity extends PathfinderMob implements GeoEntity {
     }
 
     @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean didHurt = super.hurt(source, amount);
+        if (didHurt && !this.level().isClientSide && this.isAlive()) {
+            this.recentHurtSuppressionTicks = THERMAL_LIFT_RECENT_HURT_SUPPRESSION_TICKS;
+            this.thermalLiftCooldownTicks = Math.max(this.thermalLiftCooldownTicks, THERMAL_LIFT_MIN_COOLDOWN_TICKS / 2);
+
+            if (this.startleAnimCooldownTicks <= 0) {
+                this.startleAnimCooldownTicks = STARTLE_ANIM_COOLDOWN_TICKS;
+                triggerAnim("actionController", "startle");
+            }
+        }
+        return didHurt;
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        if (!this.level().isClientSide && !this.playedDeathAnim) {
+            this.playedDeathAnim = true;
+            triggerAnim("actionController", "death");
+        }
+        super.die(source);
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
+        controllers.add(new AnimationController<>(this, "baseController", 4, state -> {
             state.setAnimation(state.isMoving() ? MOVE_LOOP : IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "breatheController", 0, state -> {
+            state.setAnimation(BREATHE_LOOP);
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
+            .triggerableAnim("thermal_lift", THERMAL_LIFT_ONCE)
+            .triggerableAnim("startle", STARTLE_ONCE)
+            .triggerableAnim("death", DEATH_ONCE));
     }
 
     @Override

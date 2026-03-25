@@ -216,6 +216,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Babies: 0.8×–1.0× scale.
   - Spawn behavior: chooses a safe grounded spawn position, then lifts into open air immediately.
   - Visual: tapered body + tail fluke with small drifting stone fragments.
+  - Animation feel: uses slower body-led idle and glide loops with staggered tentacle follow-through, gentler fin stabilization, calmer drift-stone motion, a lightweight breathing layer that runs on top of both idle and movement, a real hurt-startle reaction, an explicit death collapse, and occasional thermal-lift surges while peacefully air-swimming.
   - Drops Phantom Membrane.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/driftwhale.geo.json`
