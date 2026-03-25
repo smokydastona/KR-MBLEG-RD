@@ -371,6 +371,7 @@ Keep it up to date whenever you add/remove/rename content.
     - **DriftSkimmer** (`driftskimmer`)
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
+    - Rendering: all four adult-form geos use the same embedded Cephalari shell/profession UV mapping so the rider body texture and profession layers render consistently regardless of adult-form type.
     - These adult-form entities are **not rideable by players** (the Scaralon Beetle is the only player-rideable mob).
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
   - Zombification: converts into an undead Cephalari variant when killed by an undead; curing converts back into Cephalari.
