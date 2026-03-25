@@ -11,6 +11,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Art(cephalari): add unique workstation block/item textures plus dedicated live and zombified profession overlay textures for Nutrient-Keepers and Architects.
 - Balance(cephalari): tighten workstation profession pricing/stack sizes after a gameplay pass and add master-only two-cost gift/masterwork offers using broader Krümblegård flora, seed, runic, and resonance item sets.
 - Balance(cephalari): reduce later-tier workstation trade restock volume so Nutrient-Keeper and Architect master offers stay rarer and less flood-prone.
+- Fix(cephalari): add the Brine Garden Basin and Tendril-Forge POIs to vanilla job-site/village tags so villagers can naturally seek and claim the new professions.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

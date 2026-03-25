@@ -354,6 +354,7 @@ Keep it up to date whenever you add/remove/rename content.
     - **Architect** uses the **Tendril-Forge** (`tendril_forge`) job site.
       - Forge behavior: accepts volatile resin plus runic materials and spins them into Tendril Strands, Resonance Shards, and Moisture Stones.
       - Forge bonuses: works faster in enclosed spaces and around attuned stone, runic debris, standing stones, or waypoint mold.
+  - Job-site acquisition: the Brine Garden Basin and Tendril-Forge POIs are included in vanilla `acquirable_job_site` and `village` POI tags, so unemployed villagers and Cephalari can seek them out and adopt the matching professions through the normal brain flow.
   - Workstation visuals: Nutrient-Keepers and Architects now ship with dedicated profession overlays for both normal and zombified Cephalari renderers.
   - Trading: Nutrient-Keepers and Architects both use full five-tier trade pools with multiple offers per rank. Their trades now pull from Krümblegard crop stock, flora, runic materials, crafted workstation outputs, and their own job-site blocks in a tighter vanilla-style progression, with lower late-tier restock caps and master-only gift/masterwork offers that require both emeralds and a themed catalyst item.
   - Body texture variants: assigned at spawn/birth based on the biome.
