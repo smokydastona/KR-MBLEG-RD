@@ -26,14 +26,13 @@ import software.bernie.geckolib.util.RenderUtils;
  */
 public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> extends GeoEntityRenderer<T> {
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
-    private static final String ROOT_BONE = "root";
 
     public CephalariAdultFormRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
         super(renderManager, model);
         this.shadowRadius = 0.7F;
 
-        addRenderLayer(new CephalariAdultFormBodyOverlayLayer<>(this));
         addRenderLayer(new CephalariAdultFormProfessionOverlayLayer<>(this));
+        addRenderLayer(new CephalariAdultFormBodyOverlayLayer<>(this));
     }
 
     @Override
@@ -53,7 +52,7 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         float blue,
         float alpha
     ) {
-        if (!isReRender && animatable != null && bone != null && isInCephalariSubtree(bone)) {
+        if (!isReRender && animatable != null && bone != null) {
             poseStack.pushPose();
             RenderUtils.translateMatrixToBone(poseStack, bone);
             RenderUtils.translateToPivotPoint(poseStack, bone);
@@ -61,68 +60,15 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
             RenderUtils.scaleMatrixForBone(poseStack, bone);
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
+            // Render overlays first (profession + body overlay).
             applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
+
+            // Render base texture last, but never paint the embedded Cephalari subtree.
+            if (!isInCephalariSubtree(bone)) {
+                renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            }
+
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-            return;
-        }
-
-        if (!isReRender && animatable != null && bone != null && isAdultFormRootBone(bone)) {
-            poseStack.pushPose();
-            RenderUtils.translateMatrixToBone(poseStack, bone);
-            RenderUtils.translateToPivotPoint(poseStack, bone);
-            RenderUtils.rotateMatrixAroundBone(poseStack, bone);
-            RenderUtils.scaleMatrixForBone(poseStack, bone);
-            RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
-
-            java.util.List<GeoBone> cephalariChildren = new java.util.ArrayList<>();
-            for (GeoBone child : bone.getChildBones()) {
-                if (child == null) {
-                    continue;
-                }
-
-                if (CEPHALARI_ROOT_BONE.equals(child.getName())) {
-                    cephalariChildren.add(child);
-                    continue;
-                }
-
-                renderRecursively(
-                    poseStack,
-                    animatable,
-                    child,
-                    renderType,
-                    bufferSource,
-                    buffer,
-                    isReRender,
-                    partialTick,
-                    packedLight,
-                    packedOverlay,
-                    red,
-                    green,
-                    blue,
-                    alpha
-                );
-            }
-
-            for (GeoBone child : cephalariChildren) {
-                renderRecursively(
-                    poseStack,
-                    animatable,
-                    child,
-                    renderType,
-                    bufferSource,
-                    buffer,
-                    isReRender,
-                    partialTick,
-                    packedLight,
-                    packedOverlay,
-                    red,
-                    green,
-                    blue,
-                    alpha
-                );
-            }
-
             poseStack.popPose();
             return;
         }
@@ -164,14 +110,6 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         }
 
         return false;
-    }
-
-    private static boolean isAdultFormRootBone(GeoBone bone) {
-        if (bone == null) {
-            return false;
-        }
-
-        return ROOT_BONE.equals(bone.getName()) && bone.getParent() == null;
     }
 
     @Override
