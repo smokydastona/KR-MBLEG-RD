@@ -68,6 +68,7 @@ Keep it up to date whenever you add/remove/rename content.
     - Growth: `Ashspire Emberbloom` now favors upward growth and only occasionally creates a single side split, so mature plants stay mostly spire-like instead of over-branching.
     - Rendering: the cactus body now uses the same multipart chorus-plant block model layout as vanilla, only retextured to the Ashspire palette.
     - `Ashspire Emberbloom` is a chorus-flower-style cap block (emits light) and now swaps to a darker Ashspire-specific dead-cap texture instead of falling back to the vanilla chorus palette.
+    - Dead-age caps now drop and pick as a separate `Dead Ashspire Emberbloom` item, which places the cap back in its age-5 dead state instead of converting it to the live bloom item.
   - Survival substrate is tag-driven: `#kruemblegard:ashspire_cactus_growable_on`.
 
 - **Ambient rock schematics (Wayfall)**

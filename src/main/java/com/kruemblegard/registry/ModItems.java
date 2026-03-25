@@ -5,6 +5,7 @@ import com.kruemblegard.init.ModArmorMaterials;
 import com.kruemblegard.entity.vehicle.KruemblegardBoatType;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.init.ModTiers;
+import com.kruemblegard.item.DeadAshspireEmberbloomItem;
 import com.kruemblegard.item.KruemblegardBoatItem;
 import com.kruemblegard.item.RunePetalItem;
 import com.kruemblegard.item.ScaralonLarvaBucketItem;
@@ -62,6 +63,11 @@ public class ModItems {
     public static final RegistryObject<Item> ASHSPIRE_FRUIT = ITEMS.register(
         "ashspire_fruit",
         () -> new ChorusFruitItem(new Item.Properties().food(Foods.CHORUS_FRUIT))
+    );
+
+    public static final RegistryObject<Item> DEAD_ASHSPIRE_EMBERBLOOM = ITEMS.register(
+        "dead_ashspire_emberbloom",
+        () -> new DeadAshspireEmberbloomItem(ModBlocks.ASHSPIRE_EMBERBLOOM.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> VOLATILE_RESIN = ITEMS.register(

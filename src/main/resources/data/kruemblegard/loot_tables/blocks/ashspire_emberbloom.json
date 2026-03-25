@@ -4,9 +4,35 @@
     {
       "rolls": 1,
       "entries": [
+        { "type": "minecraft:item", "name": "kruemblegard:dead_ashspire_emberbloom" }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "kruemblegard:ashspire_emberbloom",
+          "properties": {
+            "age": "5"
+          }
+        },
+        { "condition": "minecraft:survives_explosion" }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         { "type": "minecraft:item", "name": "kruemblegard:ashspire_emberbloom" }
       ],
       "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:block_state_property",
+            "block": "kruemblegard:ashspire_emberbloom",
+            "properties": {
+              "age": "5"
+            }
+          }
+        },
         { "condition": "minecraft:survives_explosion" }
       ]
     },

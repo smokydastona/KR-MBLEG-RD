@@ -1,13 +1,16 @@
 package com.kruemblegard.block;
 
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.ChorusFlowerBlock;
 import net.minecraft.world.level.block.ChorusPlantBlock;
@@ -78,6 +81,13 @@ public class AshspireEmberbloomBlock extends ChorusFlowerBlock implements Boneme
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return true;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        return state.getValue(AGE) >= 5
+                ? new ItemStack(ModItems.DEAD_ASHSPIRE_EMBERBLOOM.get())
+                : super.getCloneItemStack(level, pos, state);
     }
 
     @Override
