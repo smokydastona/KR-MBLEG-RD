@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/pressure_turbine",
-  "textures": {
-    "north": "kruemblegard:block/pressure_turbine_front_active"
-  }
-}

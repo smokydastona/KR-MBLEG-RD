@@ -26,9 +26,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 /**
  * A Cephalari-flavored village golem.
  *
- * Base AI is still vanilla {@link IronGolem}, but with a simple internal pressure meter:
- * - Higher pressure keeps it responsive.
- * - At zero pressure it shuts down into a dormant statue (NoAI) until recharged.
+ * Base AI is still vanilla {@link IronGolem}, but with a simple internal stability meter:
+ * - Higher stability keeps it responsive.
+ * - At zero stability it shuts down into a dormant statue (NoAI) until recharged.
  */
 public class CephalariGolemEntity extends IronGolem implements GeoEntity {
 
@@ -158,10 +158,10 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
             addPressure(-1);
         }
 
-        // Recharge when near Cephalari pressure infrastructure.
+        // Recharge when near Cephalari attunement infrastructure.
         // (Kept intentionally simple: proximity-based, 1..3 units/sec)
         if (tickCount % 20 == 0 && getPressure() < PRESSURE_MAX) {
-            int nearbySources = countNearbyPressureSources(2);
+            int nearbySources = countNearbyAttunementSources(2);
             if (nearbySources > 0) {
                 addPressure(Mth.clamp(nearbySources, 1, 3));
             }
@@ -180,7 +180,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         }
     }
 
-    private int countNearbyPressureSources(int radius) {
+    private int countNearbyAttunementSources(int radius) {
         BlockPos origin = blockPosition();
 
         int count = 0;
@@ -190,10 +190,11 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
             if (!level().isLoaded(pos)) continue;
 
             var state = level().getBlockState(pos);
-            if (state.is(ModBlocks.PRESSURE_CONDUIT.get())
-                || state.is(ModBlocks.MEMBRANE_PUMP.get())
-                || state.is(ModBlocks.PRESSURE_RAIL.get())
-                || state.is(ModBlocks.AIR_LIFT_TUBE.get())) {
+            if (state.is(ModBlocks.ATTUNED_STONE.get())
+                || state.is(ModBlocks.ATTUNED_STONE_STAIRS.get())
+                || state.is(ModBlocks.ATTUNED_STONE_SLAB.get())
+                || state.is(ModBlocks.ATTUNED_STONE_WALL.get())
+                || state.is(ModBlocks.RUNIC_DEBRIS.get())) {
                 count++;
                 if (count >= 3) return 3;
             }

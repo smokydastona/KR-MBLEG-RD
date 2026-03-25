@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1364 (2026-03-25)
+- Refactor(modularity): extract the Cephalari Pressure-Logic subsystem into the gitignored `pressure-logic-addon/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
+- Fix(progression): restore `scarsteel_ingot` production to the main mod with a direct attuned forging recipe so Scarsteel gear remains craftable after the extraction.
+- Change(cephalari_golem): retune Cephalari Golems to recharge near attuned stonework and runic debris instead of removed pressure infrastructure.
+- Docs(modularity): update the README and feature reference to match the decluttered main-mod scope.
+
 ## 1.0.1363 (2026-03-25)
 - Cleanup(ashspire/assets): remove the leftover unused Ashspire cactus model variants (`ashspire_cactus`, `ashspire_cactus_plant`, `ashspire_cactus_plant_side_alt`) and the dead top/bottom cactus textures so the multipart chorus-style body only ships the files it actually references.
 - Docs(ashspire): update the README and feature reference to reflect the trimmed live Ashspire cactus asset set.

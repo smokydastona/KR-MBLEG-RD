@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/spiral_gearbox",
-  "textures": {
-    "north": "kruemblegard:block/spiral_gearbox_front_active"
-  }
-}

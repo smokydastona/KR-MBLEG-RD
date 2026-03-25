@@ -19,21 +19,6 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue WAYFALL_PRELOAD_ON_SERVER_START;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_SYSTEM_ENABLED;
-    public static final ForgeConfigSpec.IntValue PRESSURE_TICK_INTERVAL_TICKS;
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_LOGGING;
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_SIDED_PORTS_ENABLED;
-    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_MAX_PRESSURE;
-    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_MAX_STEP_PER_UPDATE;
-    public static final ForgeConfigSpec.IntValue PRESSURE_CONDUIT_LEAK_PER_UPDATE;
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_DEBUG_INSPECT;
-
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_NETWORK_MANAGER_ENABLED;
-    public static final ForgeConfigSpec.BooleanValue PRESSURE_NETWORK_TICKING_ENABLED;
-    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_REBUILD_INTERVAL_TICKS;
-    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_MAX_REBUILDS_PER_PASS;
-    public static final ForgeConfigSpec.IntValue PRESSURE_NETWORK_MAX_NODES_PER_TICK;
-
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -83,106 +68,6 @@ public final class ModConfig {
         WAYSTONE_WAYFALL_TELEPORT_CHANCE = builder
             .comment("Chance (0..1) per Waystone use to teleport a player who has never visited the Wayfall.")
             .defineInRange("waystoneWayfallTeleportChance", 0.02D, 0.0D, 1.0D);
-
-        builder.push("Pressure");
-
-        PRESSURE_SYSTEM_ENABLED = builder
-            .comment(
-                "Enable the Cephalari Engineering (Pressure-Logic) system.",
-                "When disabled, pressure conduits stop simulating and machines that depend on pressure will not function."
-            )
-            .define("enablePressureSystem", true);
-
-        PRESSURE_TICK_INTERVAL_TICKS = builder
-            .comment(
-                "Simulation interval for pressure conduits in ticks.",
-                "Higher values reduce CPU usage but make pressure changes propagate more slowly.",
-                "Default: 5 ticks (~4 updates/sec)."
-            )
-            .defineInRange("pressureTickIntervalTicks", 5, 1, 20);
-
-        PRESSURE_DEBUG_LOGGING = builder
-            .comment("Enable extra pressure debug logging (rate-limited).")
-            .define("pressureDebugLogging", false);
-
-        PRESSURE_SIDED_PORTS_ENABLED = builder
-            .comment(
-                "Enable per-side conduit port modes (INPUT/OUTPUT/BOTH/DISABLED).",
-                "When enabled, crouch-right-click a pressure conduit face to cycle the mode.",
-                "This currently gates capability exposure and whether external callers can write pressure on that side."
-            )
-            .define("pressureSidedPortModesEnabled", false);
-
-        PRESSURE_CONDUIT_MAX_PRESSURE = builder
-            .comment(
-                "Max pressure (0..100) that a conduit will store/advertise.",
-                "Default: 100 (no change)."
-            )
-            .defineInRange("pressureConduitMaxPressure", 100, 1, 100);
-
-        PRESSURE_CONDUIT_MAX_STEP_PER_UPDATE = builder
-            .comment(
-                "Max pressure change per conduit simulation update.",
-                "Lower values are smoother/more stable; higher values propagate changes faster.",
-                "Default: 4 (no change)."
-            )
-            .defineInRange("pressureConduitMaxStepPerUpdate", 4, 1, 20);
-
-        PRESSURE_CONDUIT_LEAK_PER_UPDATE = builder
-            .comment(
-                "Optional pressure loss applied each conduit simulation update (stabilization/friction).",
-                "Default: 0 (no loss)."
-            )
-            .defineInRange("pressureConduitLeakPerUpdate", 0, 0, 10);
-
-        PRESSURE_DEBUG_INSPECT = builder
-            .comment(
-                "Enable conduit inspection output on right-click (server-side chat message).",
-                "Crouch-right-click is reserved for cycling port modes when enabled."
-            )
-            .define("pressureDebugInspect", false);
-
-        PRESSURE_NETWORK_MANAGER_ENABLED = builder
-            .comment(
-                "Enable the Pressure Network Manager.",
-                "When enabled, conduit placement/removal/neighbor changes are coalesced and validated in batches.",
-                "This helps prevent rebuild storms on large conduit networks.",
-                "Default: false (legacy behavior)."
-            )
-            .define("pressureNetworkManagerEnabled", false);
-
-        PRESSURE_NETWORK_TICKING_ENABLED = builder
-            .comment(
-                "Tick pressure networks through the network manager instead of ticking each conduit BlockEntity.",
-                "Requires pressureNetworkManagerEnabled=true.",
-                "Default: false (legacy per-conduit ticking)."
-            )
-            .define("pressureNetworkTickingEnabled", false);
-
-        PRESSURE_NETWORK_REBUILD_INTERVAL_TICKS = builder
-            .comment(
-                "How often the network manager processes queued validation/rebuild work (ticks).",
-                "Lower values react faster but cost more CPU on churn.",
-                "Default: 10 ticks."
-            )
-            .defineInRange("pressureNetworkRebuildIntervalTicks", 10, 1, 200);
-
-        PRESSURE_NETWORK_MAX_REBUILDS_PER_PASS = builder
-            .comment(
-                "Maximum number of dirty start positions to process per rebuild pass.",
-                "Caps rebuild work when many chunks are loading/unloading.",
-                "Default: 32."
-            )
-            .defineInRange("pressureNetworkMaxRebuildsPerPass", 32, 1, 10_000);
-
-        PRESSURE_NETWORK_MAX_NODES_PER_TICK = builder
-            .comment(
-                "Maximum number of conduit nodes to simulate per tick across all networks when network ticking is enabled.",
-                "Default: 2048."
-            )
-            .defineInRange("pressureNetworkMaxNodesPerTick", 2048, 1, 1_000_000);
-
-        builder.pop();
 
         builder.push("Wayfall");
 

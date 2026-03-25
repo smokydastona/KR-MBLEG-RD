@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/pressure_sequencer",
-  "textures": {
-    "north": "kruemblegard:block/pressure_sequencer_front_active"
-  }
-}

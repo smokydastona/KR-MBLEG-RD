@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/atmospheric_compressor",
-  "textures": {
-    "north": "kruemblegard:block/atmospheric_compressor_front_active"
-  }
-}

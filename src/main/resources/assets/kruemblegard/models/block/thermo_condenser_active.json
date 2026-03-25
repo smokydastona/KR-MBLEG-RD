@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/thermo_condenser",
-  "textures": {
-    "north": "kruemblegard:block/atmospheric_compressor_front"
-  }
-}

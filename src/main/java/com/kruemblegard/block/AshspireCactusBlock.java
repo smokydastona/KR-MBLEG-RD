@@ -2,8 +2,6 @@ package com.kruemblegard.block;
 
 import com.kruemblegard.registry.ModTags;
 
-import com.kruemblegard.init.ModBlocks;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

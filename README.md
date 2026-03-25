@@ -22,15 +22,14 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 ## Highlights
 - **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
 - **Ashspire flora**: the Wayfall Ashspire cactus line now uses only the canonical live asset set that is actually referenced at runtime, with the cactus routed through chorus-style side/no-side variants, the emberbloom cap kept on canonical `ashspire_emberbloom_*` assets, and the dead cap remaining a separate placeable item state.
-- **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a Pressure-Logic forging step via the Pressure Loom.
+- **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a direct attuned forging recipe for `scarsteel_ingot`.
 - **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
 - **Driftwhale**: pod-roaming sky-swimmer with slower, body-led GeckoLib motion, an always-on breathing layer, a real hurt-startle reaction, an explicit death animation trigger, and occasional thermal-lift surges so it reads as a weighty airborne creature instead of a fast-flapping fish.
 - **Pebble Wren**: small tameable Wayfall bird with a twitchier songbird rhythm; it now prefers higher visible perches like branches and posts, answers perch chirps through the nearest perched Wren with tiny flourishes and slightly varied calls, can sometimes trade one extra quiet reply, coordinates short perch hops a bit more in small flocks, gathers into little ground-pecking and playful hop groups when wild, will sometimes flush into the air together as a flock, now also flushes on specific stimuli like a nearby sprinting player or sudden damage, gives its ore-direction ping when befriended, and now uses a dedicated custom sound set with in-house procedural chirps plus a lighter trimmed wing-flutter cue from the PSFX example library instead of vanilla parrot placeholders.
 - **Scaralon Beetle**: rune-etched flying mount whose eggs now cluster into 1-4 egg turtle-style clutches, and whose orphaned larvae look for reachable tree trunks, climb onto the bark, and sap-suck to cut their maturation time in half whenever no adult Scaralon is nearby.
 - **Pebblit**: neutral stone-bug that retaliates; can be tamed with an Echokern; can sit or perch on your shoulder.
-- **Cephalari Golem**: pressure-powered village guardian that shuts down when depressurized.
-- **Cephalari Engineering (Pressure-Logic)**: early implementation (functional pressure network + first-pass mechanical rotation backbone) with tiered pressure generation progression: manual `Hand Bellows`, fuel-burning `Thermo-Condenser`, then late-game `Atmospheric Compressor`; an early coal-backed starter loop is now tuned to yield roughly 2 `scarsteel_ingot` crafts or a larger batch of basic loom parts, the compressor has to spin up from live conduit pressure outside Wayfall, Scarsteel is forged through Pressure-Logic machinery instead of direct hand crafting, and the custom machine silhouettes now render as non-occluding blocks so they no longer produce neighbor-face xray artifacts.
+- **Cephalari Golem**: attuned village guardian that slowly loses stability away from runic structures and recharges near attuned stonework.
 
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 
@@ -45,7 +44,6 @@ Configs generate under the instance `config/` folder.
     - Boss stats/cooldowns and phase thresholds
     - Waystone-related settings (including False Waystones)
     - Wayfall initialization safety/performance toggles
-    - Pressure-Logic toggles/performance settings (enable/disable + tick interval)
 - `kruemblegard-client.toml`
     - Client-only cosmetic/performance settings
 - `kruemblegard-worldgen.json5`
@@ -56,24 +54,6 @@ Configs generate under the instance `config/` folder.
 - Spawn Pebblit: `/summon kruemblegard:pebblit`
 - Spawn Trader Beetle: `/summon kruemblegard:trader_beetle`
 - Teleport to Wayfall: `/execute in kruemblegard:wayfall run tp @s 0 160 0`
-
-## Pressure interoperability (Forge capability)
-Mods should interact with Krümblegård pressure via the `pressure_conduit` block.
-
-- Capability: `PressureCapabilities.PRESSURE_HANDLER` (`IPressureHandler`)
-- Notes: machines participate by reading/writing adjacent conduit pressure; machine blocks do not expose pressure capabilities yet.
-- Optional conduit-side controls (config-gated):
-    - `pressureSidedPortModesEnabled`: crouch-right-click a conduit face to cycle `INPUT`/`OUTPUT`/`BOTH`/`DISABLED`.
-    - `pressureConduitMaxPressure`: max pressure a conduit stores/advertises (default 100).
-    - `pressureConduitMaxStepPerUpdate`: diffusion max step per simulation update (default 4).
-    - `pressureConduitLeakPerUpdate`: optional stabilization/friction per simulation update (default 0).
-    - `pressureDebugInspect`: right-click a conduit to print basic network stats in chat.
-    - Network manager options (config-gated; all default `false` unless noted):
-        - `pressureNetworkManagerEnabled`: coalesces rebuild/validation work to avoid rebuild storms on large networks.
-        - `pressureNetworkTickingEnabled`: ticks pressure through the network manager instead of per-conduit ticking (requires `pressureNetworkManagerEnabled`).
-        - `pressureNetworkRebuildIntervalTicks`: how often rebuild/validation work is processed (default 10).
-        - `pressureNetworkMaxRebuildsPerPass`: max dirty starts processed per rebuild pass (default 32).
-        - `pressureNetworkMaxNodesPerTick`: max conduit nodes simulated per tick across all networks when network ticking is enabled (default 2048).
 
 ## For pack makers / artists
 

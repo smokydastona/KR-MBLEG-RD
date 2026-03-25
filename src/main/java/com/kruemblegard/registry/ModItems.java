@@ -75,18 +75,6 @@ public class ModItems {
         () -> new Item(new Item.Properties())
     );
 
-    // --- Cephalari engineering (Pressure-Logic) materials ---
-
-    public static final RegistryObject<Item> CORAL_FIBER = ITEMS.register(
-        "coral_fiber",
-        () -> new Item(new Item.Properties())
-    );
-
-    public static final RegistryObject<Item> BIO_CERAMIC = ITEMS.register(
-        "bio_ceramic",
-        () -> new Item(new Item.Properties())
-    );
-
     public static final RegistryObject<Item> ANCIENT_WAYSTONE_ITEM = ITEMS.register(
         "ancient_waystone",
         () -> new BlockItem(ModBlocks.ANCIENT_WAYSTONE.get(), new Item.Properties())
@@ -96,36 +84,6 @@ public class ModItems {
         "attuned_stone",
         () -> new BlockItem(ModBlocks.ATTUNED_STONE.get(), new Item.Properties())
     );
-
-    // --- Cephalari engineering (Pressure-Logic) block items ---
-
-    public static final RegistryObject<Item> PRESSURE_CONDUIT_ITEM = registerBlockItem("pressure_conduit", ModBlocks.PRESSURE_CONDUIT);
-    public static final RegistryObject<Item> HAND_BELLOWS_ITEM = registerBlockItem("hand_bellows", ModBlocks.HAND_BELLOWS);
-    public static final RegistryObject<Item> THERMO_CONDENSER_ITEM = registerBlockItem("thermo_condenser", ModBlocks.THERMO_CONDENSER);
-    public static final RegistryObject<Item> MEMBRANE_PUMP_ITEM = registerBlockItem("membrane_pump", ModBlocks.MEMBRANE_PUMP);
-    public static final RegistryObject<Item> PRESSURE_TURBINE_ITEM = registerBlockItem("pressure_turbine", ModBlocks.PRESSURE_TURBINE);
-    public static final RegistryObject<Item> SPIRAL_GEARBOX_ITEM = registerBlockItem("spiral_gearbox", ModBlocks.SPIRAL_GEARBOX);
-    public static final RegistryObject<Item> SPIRAL_SHAFT_ITEM = registerBlockItem("spiral_shaft", ModBlocks.SPIRAL_SHAFT);
-    public static final RegistryObject<Item> VENT_PISTON_ITEM = registerBlockItem("vent_piston", ModBlocks.VENT_PISTON);
-    public static final RegistryObject<Item> ATMOSPHERIC_COMPRESSOR_ITEM = registerBlockItem("atmospheric_compressor", ModBlocks.ATMOSPHERIC_COMPRESSOR);
-    public static final RegistryObject<Item> PRESSURE_VALVE_ITEM = registerBlockItem("pressure_valve", ModBlocks.PRESSURE_VALVE);
-    public static final RegistryObject<Item> BUOYANCY_LIFT_PLATFORM_ITEM = registerBlockItem("buoyancy_lift_platform", ModBlocks.BUOYANCY_LIFT_PLATFORM);
-    public static final RegistryObject<Item> CONVEYOR_MEMBRANE_ITEM = registerBlockItem("conveyor_membrane", ModBlocks.CONVEYOR_MEMBRANE);
-
-    public static final RegistryObject<Item> PRESSURE_LOOM_ITEM = registerBlockItem("pressure_loom", ModBlocks.PRESSURE_LOOM);
-    public static final RegistryObject<Item> PRESSURE_CLUTCH_ITEM = registerBlockItem("pressure_clutch", ModBlocks.PRESSURE_CLUTCH);
-    public static final RegistryObject<Item> PRESSURE_REGULATOR_ITEM = registerBlockItem("pressure_regulator", ModBlocks.PRESSURE_REGULATOR);
-    public static final RegistryObject<Item> PRESSURE_SEQUENCER_ITEM = registerBlockItem("pressure_sequencer", ModBlocks.PRESSURE_SEQUENCER);
-    public static final RegistryObject<Item> PRESSURE_SENSOR_ITEM = registerBlockItem("pressure_sensor", ModBlocks.PRESSURE_SENSOR);
-
-    public static final RegistryObject<Item> VORTEX_FUNNEL_ITEM = registerBlockItem("vortex_funnel", ModBlocks.VORTEX_FUNNEL);
-    public static final RegistryObject<Item> PRESSURE_RAIL_ITEM = registerBlockItem("pressure_rail", ModBlocks.PRESSURE_RAIL);
-    public static final RegistryObject<Item> PNEUMATIC_CATAPULT_ITEM = registerBlockItem("pneumatic_catapult", ModBlocks.PNEUMATIC_CATAPULT);
-    public static final RegistryObject<Item> AIR_LIFT_TUBE_ITEM = registerBlockItem("air_lift_tube", ModBlocks.AIR_LIFT_TUBE);
-    public static final RegistryObject<Item> PRESSURE_KILN_ITEM = registerBlockItem("pressure_kiln", ModBlocks.PRESSURE_KILN);
-    public static final RegistryObject<Item> MEMBRANE_PRESS_ITEM = registerBlockItem("membrane_press", ModBlocks.MEMBRANE_PRESS);
-    public static final RegistryObject<Item> CRYSTAL_INFUSER_ITEM = registerBlockItem("crystal_infuser", ModBlocks.CRYSTAL_INFUSER);
-    public static final RegistryObject<Item> PNEUMATIC_SEPARATOR_ITEM = registerBlockItem("pneumatic_separator", ModBlocks.PNEUMATIC_SEPARATOR);
 
     public static final RegistryObject<Item> ATTUNED_STONE_STAIRS_ITEM = registerBlockItem("attuned_stone_stairs", ModBlocks.ATTUNED_STONE_STAIRS);
     public static final RegistryObject<Item> ATTUNED_STONE_SLAB_ITEM = registerBlockItem("attuned_stone_slab", ModBlocks.ATTUNED_STONE_SLAB);

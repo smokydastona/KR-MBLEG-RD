@@ -1,7 +1,0 @@
-{
-  "parent": "kruemblegard:block/spiral_shaft",
-  "textures": {
-    "end": "kruemblegard:block/spiral_shaft_end_active",
-    "side": "kruemblegard:block/spiral_shaft_side_active"
-  }
-}

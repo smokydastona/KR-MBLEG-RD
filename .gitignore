@@ -8,6 +8,7 @@ build/
 **/*.iws
 run/
 logs/
+/pressure-logic-addon/
 
 # Local vendor content (not committed)
 .soundmonster_tmp/
@@ -18,9 +19,6 @@ logs/
 docs/**
 !docs/MOD_FEATURES.md
 !docs/LORE.md
-!docs/PRESSURE_LOGIC.md
-!docs/PRESSURE_LOGIC_TRACEABILITY.md
-!docs/CEPHALARI_ENGINEERING_ASSET_SPEC.md
 !docs/FLORA_REFERENCE.md
 !docs/WAYFALL_BIOMES.md
 !docs/WAYFALL_AETHER_MAPPING.md
@@ -46,7 +44,6 @@ examples/
 tools/**
 !tools/*.ps1
 !tools/*.md
-!tools/generate_cephalari_engineering_assets.py
 !tools/generate_mob_bible.py
 !tools/compare_profession_geo_to_spiral_strider.py
 !tools/_reports/

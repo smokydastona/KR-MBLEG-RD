@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/crystal_infuser",
-  "textures": {
-    "north": "kruemblegard:block/crystal_infuser_front_active"
-  }
-}

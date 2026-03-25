@@ -1,6 +1,0 @@
-{
-  "parent": "kruemblegard:block/vent_piston",
-  "textures": {
-    "north": "kruemblegard:block/vent_piston_front_active"
-  }
-}

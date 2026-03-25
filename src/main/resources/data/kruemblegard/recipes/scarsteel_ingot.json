@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    " A ",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "kruemblegard:scarstone"
+    },
+    "A": {
+      "item": "kruemblegard:attuned_ingot"
+    }
+  },
+  "result": {
+    "item": "kruemblegard:scarsteel_ingot",
+    "count": 1
+  }
+}

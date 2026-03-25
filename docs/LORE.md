@@ -145,7 +145,7 @@ Note: village worldgen is lore-only right now.
 ## 7. Professions
 Cephalari professions revolve around stabilizing Wayfall and maintaining their mounts.
 - Ceramist — crafts bio-ceramic blocks
-- Flowwright — builds pressure-logic machinery
+- Flowwright — maintains attuned forges, stabilizers, and village utility works
 - Crystal Gardener — cultivates Wayfall flora
 - Shellsmith — creates shell armor and spiral shields
 - Archivist — preserves scent-encoded memories
@@ -188,7 +188,7 @@ This prevents impossible conversions and keeps the mount system consistent.
 ## 11. Player Interaction
 Players can:
 - Trade for Wayfall-exclusive materials
-- Learn pressure-logic machinery
+- Learn attunement craft and Wayfall survival practices
 - Acquire shell-based armor
 - Protect villages from Riftborn raids
 - Use Cephalari maps to navigate unstable terrain
