@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
+## 1.0.1363 (2026-03-25)
+- Cleanup(ashspire/assets): remove the leftover unused Ashspire cactus model variants (`ashspire_cactus`, `ashspire_cactus_plant`, `ashspire_cactus_plant_side_alt`) and the dead top/bottom cactus textures so the multipart chorus-style body only ships the files it actually references.
+- Docs(ashspire): update the README and feature reference to reflect the trimmed live Ashspire cactus asset set.
+
 ## 1.0.1362 (2026-03-25)
 - Cleanup(ashspire/assets): remove the unused canonical `ashspire_emberbloom_side` and `ashspire_emberbloom_bottom` textures so the cap asset set matches the actual chorus-flower-style runtime references.
 - Docs(ashspire): update the README and feature reference to reflect the trimmed canonical Ashspire emberbloom asset set.
