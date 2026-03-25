@@ -9,13 +9,11 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Feat(cephalari): add Nutrient-Keeper and Architect professions, POIs, and trade pools wired to the new workstations.
 - Change(cephalari): use attuned/runic resonance bonuses for the new workstations so the feature fits the extracted-machinery main-mod architecture.
 - Art(cephalari): add unique workstation block/item textures plus dedicated live and zombified profession overlay textures for Nutrient-Keepers and Architects.
-- Art(cephalari): add dedicated full-coverage Spiral Strider and DriftSkimmer shell atlases derived from the Cephalari golem variants so those adult forms no longer sample transparent atlas gaps.
 - Balance(cephalari): tighten workstation profession pricing/stack sizes after a gameplay pass and add master-only two-cost gift/masterwork offers using broader Krümblegård flora, seed, runic, and resonance item sets.
 - Balance(cephalari): reduce later-tier workstation trade restock volume so Nutrient-Keeper and Architect master offers stay rarer and less flood-prone.
 - Fix(cephalari): add the Brine Garden Basin and Tendril-Forge POIs to vanilla job-site/village tags so villagers can naturally seek and claim the new professions.
 - Fix(cephalari): normalize Spiral Strider and DriftSkimmer embedded Cephalari UVs so all adult-form rider textures and profession overlays render the same way as Treadwinder and Echo Harness.
 - Fix(cephalari): correct the remaining Spiral Strider and DriftSkimmer mouth east-face UVs so their adult-form shell textures sample the same atlas region as the working forms.
-- Fix(render/adult_forms): route Spiral Strider and DriftSkimmer base shells onto dedicated full-coverage atlases so their outer body layers render alongside the embedded Cephalari overlays instead of disappearing into transparent golem-atlas regions.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

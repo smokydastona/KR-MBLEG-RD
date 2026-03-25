@@ -371,7 +371,7 @@ Keep it up to date whenever you add/remove/rename content.
     - **DriftSkimmer** (`driftskimmer`)
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
-    - Rendering: all four adult-form geos use the same embedded Cephalari shell/profession UV mapping so the rider body texture and profession layers render consistently regardless of adult-form type, while Spiral Strider and DriftSkimmer additionally use dedicated full-coverage outer-shell atlases so their base body layers no longer fall through transparent golem-atlas regions.
+    - Rendering: all four adult-form geos use the same embedded Cephalari shell/profession UV mapping so the rider body texture and profession layers render consistently regardless of adult-form type.
     - These adult-form entities are **not rideable by players** (the Scaralon Beetle is the only player-rideable mob).
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
   - Zombification: converts into an undead Cephalari variant when killed by an undead; curing converts back into Cephalari.
@@ -392,7 +392,7 @@ Keep it up to date whenever you add/remove/rename content.
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
   - Visual (adult-form appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture plus profession + badge overlays on their dedicated bones.
     - Visual (adult-form entities): the stand-alone adult-form entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the adult-form entity's own stored body texture + profession/level data (no passenger linkage required).
-    - Visual (adult-form shells): Treadwinder and Echo Harness still use the shared Cephalari golem shell atlases directly, while DriftSkimmer and Spiral Strider now use dedicated full-coverage shell atlases derived from those variants so their larger outer-shell UV footprints stay opaque across the whole model.
+    - Visual (adult-form shells): DriftSkimmer and Spiral Strider use the same golem-atlas UV layout as Treadwinder and Echo Harness, so all 4 adult-form shells now line up with the shared layered body render path.
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
   - Visual (zombified): rendered as Scaralon-style deterministic cutout/no-cull layered passes: zombified **inner layer** first, then the selected zombified **outer layer** overlay, then profession + badge overlays. The dedicated profession overlay bones are only painted by the profession layer (inner/outer passes do not paint those bones).
   - Rendered via GeckoLib (placeholder assets):
