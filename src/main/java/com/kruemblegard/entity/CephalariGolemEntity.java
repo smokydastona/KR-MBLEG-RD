@@ -117,7 +117,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         }
 
         ensureTextureVariantAssigned();
-        this.entityData.set(DATA_ANGRY_ANIMATION, this.getTarget() != null || this.swinging);
+        this.entityData.set(DATA_ANGRY_ANIMATION, this.getTarget() != null);
     }
 
     @Override

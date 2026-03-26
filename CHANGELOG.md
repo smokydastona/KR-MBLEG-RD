@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(cephalari_golem): drop the synced angry locomotion state as soon as the Cephalari Golem loses its target so it snaps straight back to passive instead of lingering in the hostile pose after combat.
 - Fix(cephalari_golem): finalize the village-replacement Cephalari Golem spawn like a normal Iron Golem spawn so replacement golems keep their vanilla roaming behavior and the usual Iron Golem mob-interaction setup instead of idling in place after combat.
 - Fix(cephalari_golem): sync the angry animation state from the server-side combat state to clients so the angry idle and move clips appear reliably while the golem is pursuing or swinging at a target.
 - Feat(cephalari_golem): split the GeckoLib locomotion controller into passive and angry idle/move animation states so Cephalari Golems visibly tense up whenever they acquire a combat target.

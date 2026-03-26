@@ -416,7 +416,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
   - Vanilla parity: uses vanilla Iron Golem attributes, combat, roaming, and village-defense behavior.
-  - Animation states: switches between separate passive and angry idle/move loops based on synced server combat state, so the hostile pose remains visible on clients while it is pursuing or swinging.
+  - Animation states: switches between separate passive and angry idle/move loops based on synced server target state, so the hostile pose appears during pursuit and drops back to passive immediately when the golem no longer has a target.
   - Mob interaction parity: because the entity inherits from `IronGolem`, vanilla and modded mobs that use the normal Iron Golem class-based targeting or avoidance checks treat Cephalari Golems the same way; the village replacement path now also runs full spawn finalization so the replacement keeps normal roaming state.
   - Runebloom offering: when offering a flower, it visually offers a **Runebloom** to nearby child villagers (vanilla or Cephalari).
   - Spawn egg: `Cephalari Golem Spawn Egg`.
