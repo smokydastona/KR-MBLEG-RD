@@ -27,6 +27,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(ui/trading): add a client-tick merchant-screen replacement fallback so the trimmed Cephalari trade menu still applies even if the screen-opening event misses the initial vanilla merchant screen.
 - Fix(animation/adult_forms): load the matching adult-form animation file while a bed-sleeping Cephalari is rendered through an adult-form appearance so the custom Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness sleep clips can actually resolve.
 - Fix(ui/trading): override the Cephalari merchant display name so vanilla trading menus receive the correct `entity.kruemblegard.cephalari.<profession>` translation key instead of a malformed raw key string.
+- Fix(animation/adult_forms): embed the four adult-form sleep clips into `cephalari.animation.json` so live bed-sleeping Cephalari can resolve their individual Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness sleep loops from the same stable animation file used by the adult-form appearance renderer.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

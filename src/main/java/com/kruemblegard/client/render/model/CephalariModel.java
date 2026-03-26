@@ -11,10 +11,6 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
     private static final ResourceLocation CEPHALARI_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/cephalari.animation.json");
-    private static final ResourceLocation SPIRAL_STRIDER_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/spiral_strider.animation.json");
-    private static final ResourceLocation DRIFTSKIMMER_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/driftskimmer.animation.json");
-    private static final ResourceLocation TREADWINDER_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/treadwinder.animation.json");
-    private static final ResourceLocation ECHO_HARNESS_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/echo_harness.animation.json");
 
     @Override
     public ResourceLocation getModelResource(CephalariEntity animatable) {
@@ -52,16 +48,6 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(CephalariEntity animatable) {
-        if (animatable.isSleeping() && !animatable.isBaby() && animatable.hasAdultFormAppearance()) {
-            return switch (animatable.getAdultFormVariant()) {
-                case 0 -> SPIRAL_STRIDER_ANIMATIONS;
-                case 1 -> DRIFTSKIMMER_ANIMATIONS;
-                case 2 -> TREADWINDER_ANIMATIONS;
-                case 3 -> ECHO_HARNESS_ANIMATIONS;
-                default -> CEPHALARI_ANIMATIONS;
-            };
-        }
-
         return CEPHALARI_ANIMATIONS;
     }
 }
