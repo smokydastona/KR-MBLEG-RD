@@ -120,6 +120,7 @@ Keep it up to date whenever you add/remove/rename content.
 ## Mobs
 - **Mirrored mob variants**
   - Geo-rendered custom mobs now derive a deterministic left-handed mirrored render variant from their UUID so some spawns permanently play the authored animation set as a mirrored east-west-handed version without needing separate animation resources.
+  - Fault Crawlers explicitly override the vanilla left-handed roll and set that mirrored variant at a true 50/50 split during spawn finalization.
   - Bed-specific mirroring remains separate from that spawn trait and only participates on east-west bed facings, so sleeping poses can still flip independently when a bed-side correction is needed.
 
 - **Traprock** (`traprock`)
@@ -251,6 +252,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Fault Crawler** (`fault_crawler`)
   - Spider-like creature formed from unstable stone plates.
   - Neutral until provoked.
+  - Handedness: rolls the mirrored left-handed variant at a 50/50 split on spawn.
   - Natural spawns: **Wayfall temperate + warm (non-hot) biomes**.
     - Included: `#kruemblegard:wayfall_temperate` + warm biomes excluding `kruemblegard:basin_of_scars` and `kruemblegard:fracture_shoals`.
     - Not included: `#kruemblegard:wayfall_cold`.

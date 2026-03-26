@@ -88,6 +88,8 @@ public class FaultCrawlerEntity extends Monster implements GeoEntity {
                                        @Nullable net.minecraft.nbt.CompoundTag tag) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
 
+        setLeftHanded(this.random.nextBoolean());
+
         // Often found partially buried.
         if (spawnType != MobSpawnType.STRUCTURE && this.random.nextFloat() < 0.60F) {
             setBuried(true);
