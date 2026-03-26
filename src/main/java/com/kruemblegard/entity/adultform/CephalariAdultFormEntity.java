@@ -1,9 +1,5 @@
 package com.kruemblegard.entity.adultform;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.CephalariEntity;
 
@@ -39,11 +35,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-
-
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -53,11 +44,8 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public abstract class CephalariAdultFormEntity extends PathfinderMob implements GeoEntity {
-
-    private static final String SEAT_BONE_NAME = "seat";
-
     private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
-    private static final String NBT_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariMountTextureVariant";
+    private static final String NBT_TEXTURE_VARIANT_OLD_SAVE_KEY = "KruemblegardCephalariMountTextureVariant";
     private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
     private static final String NBT_PROFESSION = "KruemblegardCephalariProfession";
     private static final String NBT_VILLAGER_LEVEL = "KruemblegardCephalariLevel";
@@ -75,20 +63,11 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    private final String geoResourcePath;
-    private final Vec3 defaultSeatOffsetBlocks;
-
-    private volatile @Nullable Vec3 cachedSeatOffsetBlocks;
-
     protected CephalariAdultFormEntity(
         EntityType<? extends PathfinderMob> type,
-        Level level,
-        String geoResourcePath,
-        Vec3 defaultSeatOffsetBlocks
+        Level level
     ) {
         super(type, level);
-        this.geoResourcePath = geoResourcePath;
-        this.defaultSeatOffsetBlocks = defaultSeatOffsetBlocks;
     }
 
     @Override
@@ -214,9 +193,9 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         super.readAdditionalSaveData(tag);
         if (tag.contains(NBT_TEXTURE_VARIANT)) {
             setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT));
-        } else if (tag.contains(NBT_TEXTURE_VARIANT_LEGACY)) {
+        } else if (tag.contains(NBT_TEXTURE_VARIANT_OLD_SAVE_KEY)) {
             // Backward compat for older saves.
-            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT_LEGACY));
+            setTextureVariant(tag.getInt(NBT_TEXTURE_VARIANT_OLD_SAVE_KEY));
         }
 
         if (tag.contains(NBT_BODY_TEXTURE)) {
@@ -360,99 +339,8 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     }
 
     @Override
-    protected void positionRider(Entity passenger, MoveFunction moveFunction) {
-        if (!(passenger instanceof LivingEntity living)) {
-            super.positionRider(passenger, moveFunction);
-            return;
-        }
-
-        Vec3 seat = getSeatOffsetBlocks();
-
-        float yaw = this.yBodyRot;
-        float yawRad = yaw * ((float) Math.PI / 180.0F);
-        double sin = Math.sin(yawRad);
-        double cos = Math.cos(yawRad);
-
-        double dx = seat.x * cos - seat.z * sin;
-        double dz = seat.x * sin + seat.z * cos;
-
-        double x = getX() + dx;
-        double y = getY() + seat.y + living.getMyRidingOffset();
-        double z = getZ() + dz;
-
-        moveFunction.accept(passenger, x, y, z);
-    }
-
-    @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
         return false;
-    }
-
-    private Vec3 getSeatOffsetBlocks() {
-        Vec3 cached = cachedSeatOffsetBlocks;
-        if (cached != null) {
-            return cached;
-        }
-
-        Vec3 computed = loadSeatOffsetFromGeo();
-        cachedSeatOffsetBlocks = computed;
-        return computed;
-    }
-
-    private Vec3 loadSeatOffsetFromGeo() {
-        try (InputStream is = CephalariAdultFormEntity.class.getClassLoader().getResourceAsStream(geoResourcePath)) {
-            if (is == null) {
-                return defaultSeatOffsetBlocks;
-            }
-
-            JsonElement rootEl = JsonParser.parseReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            if (!rootEl.isJsonObject()) {
-                return defaultSeatOffsetBlocks;
-            }
-
-            JsonObject root = rootEl.getAsJsonObject();
-            JsonArray geos = root.getAsJsonArray("minecraft:geometry");
-            if (geos == null || geos.isEmpty()) {
-                return defaultSeatOffsetBlocks;
-            }
-
-            JsonObject geo0 = geos.get(0).getAsJsonObject();
-            JsonArray bones = geo0.getAsJsonArray("bones");
-            if (bones == null || bones.isEmpty()) {
-                return defaultSeatOffsetBlocks;
-            }
-
-            for (JsonElement boneEl : bones) {
-                if (!boneEl.isJsonObject()) {
-                    continue;
-                }
-
-                JsonObject bone = boneEl.getAsJsonObject();
-                String name = bone.has("name") ? bone.get("name").getAsString() : "";
-                if (!SEAT_BONE_NAME.equals(name)) {
-                    continue;
-                }
-
-                JsonArray pivot = bone.getAsJsonArray("pivot");
-                if (pivot == null || pivot.size() < 3) {
-                    return defaultSeatOffsetBlocks;
-                }
-
-                double px = pivot.get(0).getAsDouble() / 16.0D;
-                double py = pivot.get(1).getAsDouble() / 16.0D;
-                double pz = -pivot.get(2).getAsDouble() / 16.0D;
-
-                px = Mth.clamp(px, -3.5D, 3.5D);
-                py = Mth.clamp(py, 0.0D, 5.0D);
-                pz = Mth.clamp(pz, -3.5D, 3.5D);
-
-                return new Vec3(px, py, pz);
-            }
-        } catch (Exception ignored) {
-            // Fall back silently; seat alignment isn't worth crashing the game.
-        }
-
-        return defaultSeatOffsetBlocks;
     }
 
     @Override

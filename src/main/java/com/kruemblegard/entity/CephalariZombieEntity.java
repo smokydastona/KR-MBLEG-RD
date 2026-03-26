@@ -78,7 +78,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     private static final String NBT_ADULT_ZOMBIE_VARIANT = "KruemblegardCephalariZombieAdultVariant";
     private static final String NBT_BODY_TEXTURE_TYPE = "KruemblegardCephalariZombieBodyTextureType";
     private static final String NBT_ADULT_FORM_TEXTURE_VARIANT = "KruemblegardCephalariZombieAdultFormTextureVariant";
-    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariZombieAdultMountTextureVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_OLD_SAVE_KEY = "KruemblegardCephalariZombieAdultMountTextureVariant";
 
     private static final int NO_ZOMBIE_VARIANT = -1;
     private static final int ZOMBIE_VARIANTS = 5;
@@ -374,7 +374,7 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             }
         }
 
-        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY;
+        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_OLD_SAVE_KEY;
         if (tag.contains(textureVariantKey)) {
             setAdultFormTextureVariant(tag.getInt(textureVariantKey));
         }

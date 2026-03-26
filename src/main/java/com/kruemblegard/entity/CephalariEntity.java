@@ -2,7 +2,6 @@ package com.kruemblegard.entity;
 
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEntities;
-import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 import com.kruemblegard.entity.adultform.CephalariAdultForms;
 import com.kruemblegard.registry.ModParticles;
 import com.kruemblegard.registry.ModSounds;
@@ -70,8 +69,8 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final RawAnimation IDLE_CURIOUS_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_curious");
     private static final RawAnimation IDLE_SKITTISH_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_skittish");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
-    private static final RawAnimation ADULT_FORM_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
-    private static final RawAnimation ADULT_FORM_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
+    private static final RawAnimation ADULT_FORM_BODY_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
+    private static final RawAnimation ADULT_FORM_BODY_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
     private static final RawAnimation SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.sleep");
@@ -89,9 +88,9 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final float NON_WAYFALL_SUFFOCATION_DAMAGE = 1.0F;
 
     private static final String NBT_ADULT_FORM_VARIANT = "KruemblegardCephalariAdultFormVariant";
-    private static final String NBT_ADULT_FORM_VARIANT_LEGACY = "KruemblegardCephalariAdultMountVariant";
+    private static final String NBT_ADULT_FORM_VARIANT_OLD_SAVE_KEY = "KruemblegardCephalariAdultMountVariant";
     private static final String NBT_ADULT_FORM_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
-    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY = "KruemblegardCephalariAdultMountTextureVariant";
+    private static final String NBT_ADULT_FORM_TEXTURE_VARIANT_OLD_SAVE_KEY = "KruemblegardCephalariAdultMountTextureVariant";
     private static final String NBT_TEMPERAMENT = "KruemblegardCephalariTemperament";
     private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
 
@@ -198,9 +197,6 @@ public class CephalariEntity extends Villager implements GeoEntity {
                 cephalariZombie.setAdultFormTextureVariant(this.getAdultFormTextureVariant());
 
                 String adultFormId = CephalariAdultForms.getAdultFormId(this);
-                if (adultFormId == null && this.getVehicle() != null) {
-                    adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(this.getVehicle());
-                }
                 if (adultFormId != null) {
                     CephalariAdultForms.setAdultFormId(cephalariZombie, adultFormId);
                 }
@@ -466,7 +462,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
     public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
-        String variantKey = tag.contains(NBT_ADULT_FORM_VARIANT) ? NBT_ADULT_FORM_VARIANT : NBT_ADULT_FORM_VARIANT_LEGACY;
+        String variantKey = tag.contains(NBT_ADULT_FORM_VARIANT) ? NBT_ADULT_FORM_VARIANT : NBT_ADULT_FORM_VARIANT_OLD_SAVE_KEY;
         if (tag.contains(variantKey)) {
             int variant = tag.getInt(variantKey);
             this.entityData.set(DATA_ADULT_FORM_VARIANT, variant);
@@ -476,7 +472,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
             }
         }
 
-        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_LEGACY;
+        String textureVariantKey = tag.contains(NBT_ADULT_FORM_TEXTURE_VARIANT) ? NBT_ADULT_FORM_TEXTURE_VARIANT : NBT_ADULT_FORM_TEXTURE_VARIANT_OLD_SAVE_KEY;
         if (tag.contains(textureVariantKey)) {
             int textureVariant = tag.getInt(textureVariantKey);
             int clamped = Math.max(1, Math.min(ADULT_FORM_TEXTURE_VARIANTS, textureVariant));
@@ -529,17 +525,6 @@ public class CephalariEntity extends Villager implements GeoEntity {
         ensureTemperamentAssigned();
 
         tickPersonalityIdleEvents();
-
-        // Legacy cleanup: if an old-world Cephalari is still riding an adult-form entity, merge it back into a single-mob state.
-        if (this.getVehicle() instanceof CephalariAdultFormEntity adultForm) {
-            String adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(adultForm);
-            if (adultFormId != null) {
-                CephalariAdultForms.setAdultFormId(this, adultFormId);
-                this.entityData.set(DATA_ADULT_FORM_VARIANT, CephalariAdultForms.getAdultFormVariantIndex(adultFormId));
-            }
-            this.stopRiding();
-            adultForm.discard();
-        }
 
         if (!this.isBaby()) {
             ensureAdultFormAppearance();
@@ -666,7 +651,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
             state.getController().setAnimationSpeed(animSpeed);
 
             if (this.hasAdultFormAppearance()) {
-                return state.setAndContinue(ADULT_FORM_WALK_LOOP);
+                return state.setAndContinue(ADULT_FORM_BODY_WALK_LOOP);
             }
             return state.setAndContinue(WALK_LOOP);
         }));
@@ -695,7 +680,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
             state.getController().setAnimationSpeed(animSpeed);
 
             if (this.hasAdultFormAppearance()) {
-                return state.setAndContinue(ADULT_FORM_IDLE_LOOP);
+                return state.setAndContinue(ADULT_FORM_BODY_IDLE_LOOP);
             }
 
             RawAnimation idle = switch (getTemperament()) {
@@ -815,9 +800,6 @@ public class CephalariEntity extends Villager implements GeoEntity {
         zombifyAdultFormEffectsSpawned = false;
 
         String adultFormId = CephalariAdultForms.getAdultFormId(this);
-        if (adultFormId == null && this.getVehicle() != null) {
-            adultFormId = CephalariAdultForms.getAdultFormIdFromVehicle(this.getVehicle());
-        }
         zombifyStoredAdultFormId = adultFormId;
 
         // During conversion, pick a zombie adult-form geo variant for the adult model (1..5).

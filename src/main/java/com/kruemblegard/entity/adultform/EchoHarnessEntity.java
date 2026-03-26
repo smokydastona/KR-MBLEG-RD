@@ -3,7 +3,6 @@ package com.kruemblegard.entity.adultform;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
 import software.bernie.geckolib.core.animation.RawAnimation;
 
@@ -14,10 +13,7 @@ public class EchoHarnessEntity extends CephalariAdultFormEntity {
     private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.echo_harness.zombie_manifest");
 
     public EchoHarnessEntity(EntityType<? extends EchoHarnessEntity> type, Level level) {
-        super(type, level,
-            "assets/kruemblegard/geo/echo_harness.geo.json",
-            new Vec3(0.0D, 0.95D, 0.0D)
-        );
+        super(type, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
