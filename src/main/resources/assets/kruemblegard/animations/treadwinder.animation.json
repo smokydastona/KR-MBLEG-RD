@@ -28,8 +28,8 @@
 					"position": [25, -1.4, 0]
 				},
 				"cephalari": {
-					"rotation": [18, 0, 0],
-					"position": [0, -1.5, 1.5]
+					"rotation": [60.5, 0, 0],
+					"position": [0, 6.5, -4.5]
 				},
 				"head": {
 					"rotation": [10, 0, 0]

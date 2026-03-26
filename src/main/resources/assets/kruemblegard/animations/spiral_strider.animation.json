@@ -72,12 +72,12 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"position": [0, -2.5, 0],
-					"rotation": [8, 0, 0]
+					"rotation": [98, 0, 0],
+					"position": [26, -2.5, -11]
 				},
 				"cephalari": {
-					"position": [0, -2, 2],
-					"rotation": [18, 0, 0]
+					"rotation": [68, 0, 0],
+					"position": [0, 0, -5]
 				},
 				"leg_front_left": {
 					"rotation": [20, 22.5, 0]

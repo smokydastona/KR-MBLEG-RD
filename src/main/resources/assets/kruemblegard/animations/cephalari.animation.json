@@ -609,12 +609,12 @@
       "loop": true,
       "bones": {
         "body": {
-          "position": [0, -2.5, 0],
-          "rotation": [8, 0, 0]
+          "rotation": [98, 0, 0],
+          "position": [26, -2.5, -11]
         },
         "cephalari": {
-          "position": [0, -2, 2],
-          "rotation": [18, 0, 0]
+          "rotation": [68, 0, 0],
+          "position": [0, 0, -5]
         },
         "head": {
           "rotation": [10, 0, 0]
@@ -656,12 +656,12 @@
       "loop": true,
       "bones": {
         "body": {
-          "rotation": [84, 0, 0],
-          "position": [32, -1.8, 0]
+          "rotation": [90, -6, -90],
+          "position": [19, 8.2, 4]
         },
         "cephalari": {
-          "rotation": [16, 0, 0],
-          "position": [0, -1.5, 2]
+          "rotation": [68.5, 0, 0],
+          "position": [0, 7.5, -5]
         },
         "head": {
           "rotation": [10, 0, 0]
@@ -701,8 +701,8 @@
           "position": [25, -1.4, 0]
         },
         "cephalari": {
-          "rotation": [18, 0, 0],
-          "position": [0, -1.5, 1.5]
+          "rotation": [60.5, 0, 0],
+          "position": [0, 6.5, -4.5]
         },
         "head": {
           "rotation": [10, 0, 0]
@@ -733,11 +733,11 @@
       "bones": {
         "torso": {
           "rotation": [112, 0, 0],
-          "position": [18, -2.2, 0]
+          "position": [18, -2.2, -9]
         },
         "cephalari": {
-          "rotation": [16, 0, 0],
-          "position": [0, -1.8, 1.8]
+          "rotation": [73.5, 0, 0],
+          "position": [0, 1.2, -4.2]
         },
         "head": {
           "rotation": [10, 0, 0]

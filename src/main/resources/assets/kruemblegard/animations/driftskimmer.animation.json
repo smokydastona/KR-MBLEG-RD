@@ -35,8 +35,8 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"rotation": [84, 0, 0],
-					"position": [32, -1.8, 0]
+					"rotation": [90, -6, -90],
+					"position": [19, 8.2, 4]
 				},
 				"wing_left": {
 					"rotation": [0, 0, -38]
@@ -45,8 +45,8 @@
 					"rotation": [0, 0, 38]
 				},
 				"cephalari": {
-					"rotation": [16, 0, 0],
-					"position": [0, -1.5, 2]
+					"rotation": [68.5, 0, 0],
+					"position": [0, 7.5, -5]
 				}
 			}
 		},

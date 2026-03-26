@@ -31,6 +31,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(animation/adult_forms): pick the live adult-form bed sleep loop from the synced adult-form variant instead of the persistent adult-form id, and preserve the base Cephalari in-bed root posture inside each custom adult sleep clip so bed centering remains stable while the outer-form shell still gets a unique sleep pose.
 - Fix(animation/adult_forms): remove the extra 90-degree root turn from the live adult-form bed sleep clips so the outer-form shell follows the vanilla bed-facing sleep orientation instead of ending up sideways across the bed.
 - Fix(animation/adult_forms): sync the live embedded adult-form sleep clips in `cephalari.animation.json` with the updated per-form sleep poses from the individual Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness animation files so bed-sleeping Cephalari actually use the revised authored poses.
+- Fix(animation/adult_forms): resync the live embedded Spiral Strider sleep clip after the authored `spiral_strider.animation.json` sleep pose changed again, so the live adult-appearance path matches the latest standalone Spiral Strider bed pose.
+- Fix(animation/adult_forms): resync the live embedded DriftSkimmer, Treadwinder, and Echo Harness sleep clips after their authored animation files changed, so all live adult-appearance bed poses match the latest standalone sleep poses.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
