@@ -608,6 +608,14 @@
     "animation.spiral_strider.sleep": {
       "loop": true,
       "bones": {
+        "body": {
+          "position": [0, -2.5, 0],
+          "rotation": [8, 0, 0]
+        },
+        "cephalari": {
+          "position": [0, -2, 2],
+          "rotation": [18, 0, 0]
+        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -628,12 +636,6 @@
         },
         "arm_right2": {
           "rotation": [0, 0, 40]
-        },
-        "body": {
-          "rotation": [8, 0, 0]
-        },
-        "cephalari": {
-          "rotation": [18, 0, 0]
         },
         "leg_front_left": {
           "rotation": [20, 22.5, 0]
@@ -653,6 +655,14 @@
     "animation.driftskimmer.sleep": {
       "loop": true,
       "bones": {
+        "body": {
+          "rotation": [84, 0, 0],
+          "position": [32, -1.8, 0]
+        },
+        "cephalari": {
+          "rotation": [16, 0, 0],
+          "position": [0, -1.5, 2]
+        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -674,17 +684,11 @@
         "arm_right2": {
           "rotation": [0, 0, 40]
         },
-        "body": {
-          "rotation": [6, 0, 0]
-        },
         "wing_left": {
           "rotation": [0, 0, -38]
         },
         "wing_right": {
           "rotation": [0, 0, 38]
-        },
-        "cephalari": {
-          "rotation": [16, 0, 0]
         }
       }
     },
@@ -692,6 +696,14 @@
     "animation.treadwinder.sleep": {
       "loop": true,
       "bones": {
+        "chassis": {
+          "rotation": [86, 0, 0],
+          "position": [25, -1.4, 0]
+        },
+        "cephalari": {
+          "rotation": [18, 0, 0],
+          "position": [0, -1.5, 1.5]
+        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -712,15 +724,6 @@
         },
         "arm_right2": {
           "rotation": [0, 0, 40]
-        },
-        "chassis": {
-          "rotation": [4, 0, 0]
-        },
-        "cephalari": {
-          "rotation": [18, 0, 0]
-        },
-        "head": {
-          "rotation": [10, 0, 0]
         }
       }
     },
@@ -728,6 +731,14 @@
     "animation.echo_harness.sleep": {
       "loop": true,
       "bones": {
+        "torso": {
+          "rotation": [112, 0, 0],
+          "position": [18, -2.2, 0]
+        },
+        "cephalari": {
+          "rotation": [16, 0, 0],
+          "position": [0, -1.8, 1.8]
+        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -742,9 +753,6 @@
         },
         "arm_right2": {
           "rotation": [0, 0, 40]
-        },
-        "torso": {
-          "rotation": [12, 0, 0]
         },
         "arm_left": {
           "rotation": [28, 0, 0]
@@ -757,9 +765,6 @@
         },
         "leg_right": {
           "rotation": [-22, 0, 0]
-        },
-        "cephalari": {
-          "rotation": [16, 0, 0]
         }
       }
     }
