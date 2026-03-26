@@ -106,7 +106,7 @@ public class RunegrowthGrazingGoal extends Goal {
         }
 
         if (isRunegrowth(state)) {
-            level.setBlock(pos, ModBlocks.RUBBLE_TILTH.get().defaultBlockState(), 2);
+            level.setBlock(pos, ModBlocks.FAULT_DUST.get().defaultBlockState(), 2);
             return true;
         }
 

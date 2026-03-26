@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(grazing): make runegrowth grazing fall back to `fault_dust` instead of `rubble_tilth`, matching the canonical runegrowth surface behavior rather than the Wayfall farmland block.
 - Feat(grazing): let Mossback Tortoises regrow their shearable shell moss by grazing grass blocks or any runegrowth variant, and let vanilla sheep regrow wool from the same four runegrowth blocks.
 - Fix(spawns): add a Wayfall-specific vanilla bat spawn predicate so the new bat biome injection can actually fire around island overhangs and enclosed air pockets instead of depending on vanilla cave darkness and low-altitude rules.
 - Tune(spawns): lower the Wayfall bat biome injection to the same 1-3 group size and weight 4 used by ambient Pebble Wrens so the shared ambient cap stays balanced in Wayfall.
