@@ -71,6 +71,10 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
     private static final RawAnimation ADULT_FORM_BODY_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
     private static final RawAnimation ADULT_FORM_BODY_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.sleep");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.sleep");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.sleep");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.sleep");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
     private static final RawAnimation SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.sleep");
@@ -612,7 +616,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
             if (this.isSleeping()) {
                 state.getController().setAnimationSpeed(1.0D);
-                return state.setAndContinue(SLEEP_LOOP);
+                return state.setAndContinue(getSleepLoop());
             }
 
             if (this.isTrading()) {
@@ -696,6 +700,25 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
         controllers.add(new AnimationController<>(this, "hurtController", 0, state -> PlayState.STOP)
             .triggerableAnim("hurt", HURT_ONCE));
+    }
+
+    private RawAnimation getSleepLoop() {
+        if (!this.hasAdultFormAppearance()) {
+            return SLEEP_LOOP;
+        }
+
+        String adultFormId = CephalariAdultForms.getAdultFormId(this);
+        if (adultFormId == null) {
+            return SLEEP_LOOP;
+        }
+
+        return switch (adultFormId) {
+            case "spiral_strider" -> ADULT_FORM_SPIRAL_STRIDER_SLEEP_LOOP;
+            case "driftskimmer" -> ADULT_FORM_DRIFTSKIMMER_SLEEP_LOOP;
+            case "treadwinder" -> ADULT_FORM_TREADWINDER_SLEEP_LOOP;
+            case "echo_harness" -> ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP;
+            default -> SLEEP_LOOP;
+        };
     }
 
     private boolean isCelebratingNow() {

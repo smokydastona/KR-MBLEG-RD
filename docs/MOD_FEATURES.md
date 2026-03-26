@@ -348,15 +348,15 @@ Keep it up to date whenever you add/remove/rename content.
 - **Cephalari** (`cephalari`)
   - Villager-class species: inherits vanilla villager behavior (AI/POIs/professions/trading/job blocks, including modded).
   - Custom professions:
-    - **Nutrient-Keeper** uses the **Brine Garden Basin** (`brine_garden_basin`) job site.
+    - **Keeper** uses the **Brine Garden Basin** (`brine_garden_basin`) job site.
       - Basin behavior: accepts volatile resin, rune petals, berry harvests, and seed stock; slowly propagates them into Bio-Resin, Moisture Stones, or extra crop stock.
       - Basin bonuses: works faster in wet biomes, around water/kelp, and near attuned stone or rubble tilth.
     - **Architect** uses the **Tendril-Forge** (`tendril_forge`) job site.
       - Forge behavior: accepts volatile resin plus runic materials and spins them into Tendril Strands, Resonance Shards, and Moisture Stones.
       - Forge bonuses: works faster in enclosed spaces and around attuned stone, runic debris, standing stones, or waypoint mold.
   - Job-site acquisition: the Brine Garden Basin and Tendril-Forge POIs are included in vanilla `acquirable_job_site` and `village` POI tags, so unemployed villagers and Cephalari can seek them out and adopt the matching professions through the normal brain flow.
-  - Workstation visuals: Nutrient-Keepers and Architects now ship with dedicated profession overlays for both normal and zombified Cephalari renderers.
-  - Trading: Nutrient-Keepers and Architects both use full five-tier trade pools with multiple offers per rank. Their trades now pull from Krümblegard crop stock, flora, runic materials, crafted workstation outputs, and their own job-site blocks in a tighter vanilla-style progression, with lower late-tier restock caps and master-only gift/masterwork offers that require both emeralds and a themed catalyst item.
+  - Workstation visuals: Keepers and Architects now ship with dedicated profession overlays for both normal and zombified Cephalari renderers.
+  - Trading: Keepers and Architects both use full five-tier trade pools with multiple offers per rank. Their trades now pull from Krümblegard crop stock, flora, runic materials, crafted workstation outputs, and their own job-site blocks in a tighter vanilla-style progression, with lower late-tier restock caps and master-only gift/masterwork offers that require both emeralds and a themed catalyst item.
   - Body texture variants: assigned at spawn/birth based on the biome.
     - Spawn: **10%** bonus variant, **5%** other-biome variant, otherwise current biome.
     - Breeding: baby texture is **25%** parent A / **25%** parent B / **50%** current biome, with a **10%** chance to be random.
@@ -393,7 +393,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Visual (adult-form appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture plus profession + badge overlays on their dedicated bones.
     - Visual (adult-form entities): the stand-alone adult-form entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the adult-form entity's own stored body texture + profession/level data (no passenger linkage required).
     - Visual (adult-form outer-form bones): all 4 adult-form outer-form bones use the shared golem-atlas path, and both the live Cephalari adult-form appearance renderer and the stand-alone adult-form renderer draw the outer shell, embedded `cephalari` subtree, and profession overlays through explicit per-bone layer passes instead of mixing in GeckoLib's default base cube pass.
-    - Animation (adult forms): Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness now each have a dedicated sleep loop that plays after the adult-form entity has remained settled and stationary through the night for a short rest window.
+    - Animation (adult forms): Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness now each have a dedicated sleep loop that plays both for stand-alone adult-form entities after they settle through the night and for bed-sleeping Cephalari villagers when those villagers are rendered through an adult-form appearance.
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
   - Visual (zombified): rendered as Scaralon-style deterministic cutout/no-cull layered passes: zombified **inner layer** first, then the selected zombified **outer layer** overlay, then profession + badge overlays. The dedicated profession overlay bones are only painted by the profession layer (inner/outer passes do not paint those bones).
   - Rendered via GeckoLib (placeholder assets):
