@@ -709,16 +709,11 @@ public class CephalariEntity extends Villager implements GeoEntity {
             return SLEEP_LOOP;
         }
 
-        String adultFormId = CephalariAdultForms.getAdultFormId(this);
-        if (adultFormId == null) {
-            return SLEEP_LOOP;
-        }
-
-        return switch (adultFormId) {
-            case "spiral_strider" -> ADULT_FORM_SPIRAL_STRIDER_SLEEP_LOOP;
-            case "driftskimmer" -> ADULT_FORM_DRIFTSKIMMER_SLEEP_LOOP;
-            case "treadwinder" -> ADULT_FORM_TREADWINDER_SLEEP_LOOP;
-            case "echo_harness" -> ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP;
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_SLEEP_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_SLEEP_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_SLEEP_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP;
             default -> SLEEP_LOOP;
         };
     }
