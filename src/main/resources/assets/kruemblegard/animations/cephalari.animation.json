@@ -608,9 +608,6 @@
     "animation.spiral_strider.sleep": {
       "loop": true,
       "bones": {
-        "root": {
-          "rotation": [0, 0, 90]
-        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -656,9 +653,6 @@
     "animation.driftskimmer.sleep": {
       "loop": true,
       "bones": {
-        "root": {
-          "rotation": [0, 0, 90]
-        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -698,9 +692,6 @@
     "animation.treadwinder.sleep": {
       "loop": true,
       "bones": {
-        "root": {
-          "rotation": [0, 0, 90]
-        },
         "head": {
           "rotation": [10, 0, 0]
         },
@@ -737,9 +728,6 @@
     "animation.echo_harness.sleep": {
       "loop": true,
       "bones": {
-        "root": {
-          "rotation": [0, 0, 90]
-        },
         "head": {
           "rotation": [10, 0, 0]
         },
