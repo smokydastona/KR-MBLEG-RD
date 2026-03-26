@@ -17,9 +17,14 @@ final class AdultSleepPoseMirroring {
         }
 
         for (CoreGeoBone bone : model.getAnimationProcessor().getRegisteredBones()) {
-            bone.setPosX(-bone.getPosX());
-            bone.setRotY(-bone.getRotY());
-            bone.setRotZ(-bone.getRotZ());
+            if (bone.hasPositionChanged()) {
+                bone.setPosX(-bone.getPosX());
+            }
+
+            if (bone.hasRotationChanged()) {
+                bone.setRotY(-bone.getRotY());
+                bone.setRotZ(-bone.getRotZ());
+            }
         }
     }
 
