@@ -1,6 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#kruemblegard:strata_collapse",
+  "biomes": "#kruemblegard:wayfall",
   "spawners": [
     {
       "type": "kruemblegard:grave_cairn",

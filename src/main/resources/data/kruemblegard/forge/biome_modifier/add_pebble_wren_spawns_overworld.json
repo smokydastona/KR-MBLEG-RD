@@ -1,6 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#kruemblegard:wayfall",
+  "biomes": "#minecraft:is_overworld",
   "spawners": [
     {
       "type": "kruemblegard:pebble_wren",

@@ -139,6 +139,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Shift + right-click with empty hand: perches on the owner's shoulder **until it dies**, granting the owner **knockback resistance** while perched.
     - While perched, the owner also receives a visible status effect icon: **Pebblit Shoulder (Knockback Resistance)**.
   - Pebblit attacks apply **knockback**.
+  - Natural spawns: Basin of Scars, Crumbled Crossing, Fracture Shoals, Shatterplate Flats, Strata Collapse, and Underway Falls (the six warm Wayfall biomes via `#kruemblegard:wayfall_warm`).
   - Rendered via GeckoLib:
     - Geo: `assets/kruemblegard/geo/pebblit.geo.json`
     - Animations: `assets/kruemblegard/animations/pebblit.animation.json`
@@ -180,7 +181,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Movement: uses a twitchier songbird-style perch-and-flight rhythm with short, frequent airborne bursts, quicker owner/flock regrouping, preferred higher landings on visible perches such as branches, leaves, fences, and walls, occasional perched chirps with the nearest perched answer/tiny flourish motion, slight pitch variation across perch calls, an occasional one-extra-reply conversational burst, loose hop synchronization in small wild flocks, shared ground pecking/foraging and playful hop-chase bouts among nearby wild wrens, occasional whole-flock flush takeoffs, explicit stimulus flushes when a nearby player rushes the flock or a wren is suddenly hurt, ground strolling while relaxed, flying navigation + air-wander flocking when displaced, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
   - Audio: now uses dedicated custom `entity.pebble_wren.*` sound events for ambient chirps, perch calls/replies, social flourishes, flutter takeoffs/landings, hurt/death, and ore-find pings; most of the set is procedurally synthesized in-house with `ffmpeg` filter graphs, while the flutter cue is a lighter trimmed cut from the PSFX example file `beating-wings-small-001.ogg`, all tracked in `docs/audio_licenses/pebble_wren/manifest.md`.
   - Tempt/breed item: Wheat Seeds.
-  - Natural spawns: Wayfall forest biomes (`#kruemblegard:wayfall_forests`).
+  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`) plus all Overworld biomes (`#minecraft:is_overworld`).
   - Drops Feathers and (occasionally) Wheat Seeds.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/pebble_wren.geo.json`
@@ -210,7 +211,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Summoning: summons Pebblits in waves at 75% / 50% / 25% health.
   - Final stand: below ~20% health, gains speed/knockback resistance and more aggressively buffs nearby Pebblits.
   - Death: collapses into rubble and releases a final Pebblit swarm.
-  - Natural spawns: Strata Collapse (`#kruemblegard:strata_collapse`) at high altitude (Wayfall-only; Y >= 96).
+  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`) at high altitude (Wayfall-only; Y >= 96).
   - Drops Cobblestone/Bones (and occasional Iron Nuggets).
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/grave_cairn.geo.json`

@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Change(spawns): widen Pebble Wren natural spawns to all Wayfall biomes plus the Overworld, move Pebblits onto the six warm Wayfall biomes, and allow Grave Cairns to spawn across all Wayfall biomes while keeping their high-altitude spawn rule.
 - Fix(audio/wayfall): map the registered `music.wayfall` sound event to the shipped `horror-background-atmosphere-09_universfield.ogg` track so Wayfall biomes stop warning about a missing music event and play their intended ambient loop again.
 - Fix(assets/ashspire): restore the missing `block/ashspire_cactus` model alias so the Ashspire Cactus inventory model resolves cleanly again.
 - Fix(audio/cephalari): point Cephalari cure/zombify sound events at vanilla zombie-villager conversion sounds instead of missing custom `.ogg` files.

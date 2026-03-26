@@ -1,6 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#kruemblegard:wayfall_forests",
+  "biomes": "#kruemblegard:wayfall_warm",
   "spawners": [
     {
       "type": "kruemblegard:pebblit",
