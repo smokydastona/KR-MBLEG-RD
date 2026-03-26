@@ -9,11 +9,13 @@ import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -773,6 +775,23 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
     public boolean isForwardingLinkedDamage() {
         return forwardingLinkedDamage;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        if (this.hasCustomName()) {
+            return super.getDisplayName();
+        }
+
+        VillagerProfession profession = this.getVillagerData().getProfession();
+        if (profession != null && profession != VillagerProfession.NONE) {
+            ResourceLocation professionId = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
+            if (professionId != null) {
+                return Component.translatable("entity." + Kruemblegard.MOD_ID + ".cephalari." + professionId.getPath());
+            }
+        }
+
+        return Component.translatable("entity." + Kruemblegard.MOD_ID + ".cephalari");
     }
 
     public void hurtLinkedFromAdultForm(DamageSource source, float amount) {
