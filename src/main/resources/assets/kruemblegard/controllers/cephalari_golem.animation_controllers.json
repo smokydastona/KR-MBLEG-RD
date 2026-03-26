@@ -5,12 +5,13 @@
       "states": {
         "default": {
           "animations": [
-            "animation.cephalari_golem.idle"
+            "animation.cephalari_golem.idle_passive"
           ],
           "transitions": [
             { "offering_flower": "query.is_offering_flower" },
             { "walking": "query.is_moving" },
-            { "shutdown": "query.cephalari_is_shutdown" }
+            { "angry_walking": "query.is_moving && query.has_target" },
+            { "angry_idle": "query.has_target" }
           ]
         },
         "offering_flower": {
@@ -18,25 +19,42 @@
             "animation.cephalari_golem.offer_flower"
           ],
           "transitions": [
-            { "shutdown": "query.cephalari_is_shutdown" },
+            { "angry_walking": "query.is_moving && query.has_target" },
+            { "angry_idle": "query.has_target" },
             { "walking": "query.is_moving" },
             { "default": "!query.is_moving && !query.is_offering_flower" }
           ]
         },
         "walking": {
           "animations": [
-            "animation.cephalari_golem.walk"
+            "animation.cephalari_golem.move_passive"
           ],
           "transitions": [
             { "offering_flower": "query.is_offering_flower" },
-            { "default": "!query.is_moving" },
-            { "shutdown": "query.cephalari_is_shutdown" }
+            { "angry_walking": "query.has_target" },
+            { "default": "!query.is_moving" }
           ]
         },
-        "shutdown": {
-          "animations": [],
+        "angry_idle": {
+          "animations": [
+            "animation.cephalari_golem.idle_angry"
+          ],
           "transitions": [
-            { "default": "!query.cephalari_is_shutdown" }
+            { "angry_walking": "query.is_moving && query.has_target" },
+            { "offering_flower": "query.is_offering_flower && !query.has_target" },
+            { "walking": "query.is_moving && !query.has_target" },
+            { "default": "!query.has_target && !query.is_moving && !query.is_offering_flower" }
+          ]
+        },
+        "angry_walking": {
+          "animations": [
+            "animation.cephalari_golem.move_angry"
+          ],
+          "transitions": [
+            { "angry_idle": "!query.is_moving && query.has_target" },
+            { "offering_flower": "!query.has_target && query.is_offering_flower" },
+            { "walking": "query.is_moving && !query.has_target" },
+            { "default": "!query.has_target && !query.is_moving && !query.is_offering_flower" }
           ]
         }
       }
@@ -46,8 +64,7 @@
         "default": {
           "animations": [],
           "transitions": [
-            { "attacking": "query.is_attacking" },
-            { "shutdown": "query.cephalari_is_shutdown" }
+            { "attacking": "query.is_attacking" }
           ]
         },
         "attacking": {
@@ -55,13 +72,7 @@
             "animation.cephalari_golem.attack"
           ],
           "transitions": [
-            { "default": "query.animation_finished" },
-            { "shutdown": "query.cephalari_is_shutdown" }
-          ]
-        },
-        "shutdown": {
-          "animations": [
-            "animation.cephalari_golem.shutdown"
+            { "default": "query.animation_finished" }
           ],
           "transitions": []
         }

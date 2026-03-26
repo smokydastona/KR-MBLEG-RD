@@ -416,6 +416,7 @@ Keep it up to date whenever you add/remove/rename content.
 - **Cephalari Golem** (`cephalari_golem`)
   - Iron Golem-class village defender used by Cephalari villages.
   - Vanilla parity: uses vanilla Iron Golem attributes, combat, roaming, and village-defense behavior.
+  - Animation states: switches between separate passive and angry idle/move loops based on whether it currently has an attack target.
   - Runebloom offering: when offering a flower, it visually offers a **Runebloom** to nearby child villagers (vanilla or Cephalari).
   - Spawn egg: `Cephalari Golem Spawn Egg`.
   - Loot: drops Runebloom with the same count/chances as vanilla iron golems drop poppies.

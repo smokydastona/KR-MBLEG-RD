@@ -28,8 +28,10 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     private static final int TEXTURE_VARIANT_MAX = 6;
     private static final String NBT_TEXTURE_VARIANT = "CephalariGolemTextureVariant";
 
-    private static final RawAnimation IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle");
-    private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.walk");
+    private static final RawAnimation PASSIVE_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle_passive");
+    private static final RawAnimation ANGRY_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle_angry");
+    private static final RawAnimation PASSIVE_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.move_passive");
+    private static final RawAnimation ANGRY_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.move_angry");
     private static final RawAnimation OFFER_FLOWER_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.offer_flower");
 
     private static final RawAnimation ATTACK_ONCE = RawAnimation.begin().thenPlay("animation.cephalari_golem.attack");
@@ -129,20 +131,36 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         return this.getOfferFlowerTick() > 0 && hasNearbyChildVillager(6.0D);
     }
 
+    public boolean isAngryAnimationState() {
+        return this.getTarget() != null;
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "moveController", 2, state -> {
+            boolean angry = isAngryAnimationState();
+
+            if (angry) {
+                if (state.isMoving()) {
+                    state.setAndContinue(ANGRY_MOVE_LOOP);
+                    return PlayState.CONTINUE;
+                }
+
+                state.setAndContinue(ANGRY_IDLE_LOOP);
+                return PlayState.CONTINUE;
+            }
+
             if (isOfferingRunebloom()) {
                 state.setAndContinue(OFFER_FLOWER_LOOP);
                 return PlayState.CONTINUE;
             }
 
             if (state.isMoving()) {
-                state.setAndContinue(WALK_LOOP);
+                state.setAndContinue(PASSIVE_MOVE_LOOP);
                 return PlayState.CONTINUE;
             }
 
-            state.setAndContinue(IDLE_LOOP);
+            state.setAndContinue(PASSIVE_IDLE_LOOP);
             return PlayState.CONTINUE;
         }));
 
