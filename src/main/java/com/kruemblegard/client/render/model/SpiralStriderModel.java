@@ -5,6 +5,7 @@ import com.kruemblegard.entity.adultform.SpiralStriderEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class SpiralStriderModel extends GeoModel<SpiralStriderEntity> {
@@ -32,5 +33,11 @@ public class SpiralStriderModel extends GeoModel<SpiralStriderEntity> {
     @Override
     public ResourceLocation getAnimationResource(SpiralStriderEntity animatable) {
         return new ResourceLocation(Kruemblegard.MODID, "animations/spiral_strider.animation.json");
+    }
+
+    @Override
+    public void setCustomAnimations(SpiralStriderEntity animatable, long instanceId, AnimationState<SpiralStriderEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

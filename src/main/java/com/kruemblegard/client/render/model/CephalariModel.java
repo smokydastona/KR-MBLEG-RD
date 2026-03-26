@@ -5,6 +5,7 @@ import com.kruemblegard.entity.CephalariEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class CephalariModel extends GeoModel<CephalariEntity> {
@@ -49,5 +50,14 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
     @Override
     public ResourceLocation getAnimationResource(CephalariEntity animatable) {
         return CEPHALARI_ANIMATIONS;
+    }
+
+    @Override
+    public void setCustomAnimations(CephalariEntity animatable, long instanceId, AnimationState<CephalariEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+
+        if (animatable.hasAdultFormAppearance()) {
+            AdultSleepPoseMirroring.apply(this, animatable);
+        }
     }
 }

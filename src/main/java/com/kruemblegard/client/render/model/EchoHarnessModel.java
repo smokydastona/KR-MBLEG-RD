@@ -5,6 +5,7 @@ import com.kruemblegard.entity.adultform.EchoHarnessEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class EchoHarnessModel extends GeoModel<EchoHarnessEntity> {
@@ -32,5 +33,11 @@ public class EchoHarnessModel extends GeoModel<EchoHarnessEntity> {
     @Override
     public ResourceLocation getAnimationResource(EchoHarnessEntity animatable) {
         return new ResourceLocation(Kruemblegard.MODID, "animations/echo_harness.animation.json");
+    }
+
+    @Override
+    public void setCustomAnimations(EchoHarnessEntity animatable, long instanceId, AnimationState<EchoHarnessEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

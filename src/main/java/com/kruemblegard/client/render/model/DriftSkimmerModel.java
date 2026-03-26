@@ -5,6 +5,7 @@ import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
@@ -32,5 +33,11 @@ public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
     @Override
     public ResourceLocation getAnimationResource(DriftSkimmerEntity animatable) {
         return new ResourceLocation(Kruemblegard.MODID, "animations/driftskimmer.animation.json");
+    }
+
+    @Override
+    public void setCustomAnimations(DriftSkimmerEntity animatable, long instanceId, AnimationState<DriftSkimmerEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

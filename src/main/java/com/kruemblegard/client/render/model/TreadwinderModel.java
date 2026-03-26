@@ -5,6 +5,7 @@ import com.kruemblegard.entity.adultform.TreadwinderEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class TreadwinderModel extends GeoModel<TreadwinderEntity> {
@@ -32,5 +33,11 @@ public class TreadwinderModel extends GeoModel<TreadwinderEntity> {
     @Override
     public ResourceLocation getAnimationResource(TreadwinderEntity animatable) {
         return new ResourceLocation(Kruemblegard.MODID, "animations/treadwinder.animation.json");
+    }
+
+    @Override
+    public void setCustomAnimations(TreadwinderEntity animatable, long instanceId, AnimationState<TreadwinderEntity> animationState) {
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }
