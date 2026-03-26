@@ -19,7 +19,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Cleanup(cephalari/adult_forms): delete the leftover ride/link helper path and adult-form seat scaffolding, and rename old-save compatibility constants so the code no longer describes Cephalari adult forms as mounts while still reading pre-adult-form save keys.
 - Fix(render/adult_forms): draw the embedded `cephalari` body/profession overlays for Spiral Strider and DriftSkimmer through a depth-safe translucent pass so those inner overlays stop hiding the outer-form shell bones while Treadwinder and Echo Harness keep the normal cutout pass.
 - Fix(render/adult_forms): stop mixing GeckoLib's base cube pass with the adult-form overlay passes; render stand-alone and live adult-form appearances through explicit per-bone layers only so the embedded `cephalari` subtree, profession badges, and outer shell each draw on their own bone subset in a deterministic order.
-- Fix(ui/trading): route merchant menus through a small custom merchant screen that trims overlong Cephalari trade headers so the Nutrient-Keeper and Architect trade titles no longer overlap across the top of the vanilla trading menu.
+- Fix(ui/trading): swap vanilla merchant screens for a small trimmed-header variant at open time so Cephalari trade titles no longer overlap across the top of the trading menu without duplicating vanilla's merchant screen registration.
 - Add(animation/adult_forms): give Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness dedicated sleep loops, and let stand-alone adult-form entities switch into that sleep state automatically after they have remained settled and stationary during the night for a short rest window.
 
 ## 1.0.1364 (2026-03-25)

@@ -1,7 +1,6 @@
 package com.kruemblegard.client;
 
 import com.kruemblegard.Kruemblegard;
-import com.kruemblegard.client.gui.CephalariMerchantScreen;
 import com.kruemblegard.client.particle.ArcaneSparkParticle;
 import com.kruemblegard.client.particle.CephalariVfxParticle;
 import com.kruemblegard.client.render.CephalariGolemRenderer;
@@ -34,23 +33,15 @@ import com.kruemblegard.registry.ModParticles;
 
 import net.minecraft.world.level.GrassColor;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.inventory.MenuType;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class KruemblegardClient {
-
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(MenuType.MERCHANT, CephalariMerchantScreen::new));
-    }
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
