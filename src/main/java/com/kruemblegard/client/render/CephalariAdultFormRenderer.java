@@ -3,6 +3,8 @@ package com.kruemblegard.client.render;
 import com.kruemblegard.client.render.layer.CephalariAdultFormBodyOverlayLayer;
 import com.kruemblegard.client.render.layer.CephalariAdultFormProfessionOverlayLayer;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
+import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
+import com.kruemblegard.entity.adultform.SpiralStriderEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,6 +31,9 @@ import software.bernie.geckolib.util.RenderUtils;
 public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> extends GeoEntityRenderer<T> {
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
     private static final String ROOT_BONE = "root";
+    // Temporary probe: if the broken forms suddenly show their outer shell without the embedded rider,
+    // the missing shell is being occluded at runtime rather than skipped by GeckoLib bone traversal.
+    private static final boolean DEBUG_HIDE_EMBEDDED_CEPHALARI_FOR_BROKEN_FORMS = true;
 
     public CephalariAdultFormRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
         super(renderManager, model);
@@ -56,6 +61,10 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         float alpha
     ) {
         if (!isReRender && animatable != null && bone != null) {
+            if (shouldHideEmbeddedCephalariForDebug(animatable, bone)) {
+                return;
+            }
+
             if (isAdultFormRootBone(bone)) {
                 poseStack.pushPose();
                 RenderUtils.translateMatrixToBone(poseStack, bone);
@@ -204,6 +213,18 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         }
 
         return ROOT_BONE.equals(bone.getName()) && bone.getParent() == null;
+    }
+
+    private static boolean shouldHideEmbeddedCephalariForDebug(CephalariAdultFormEntity animatable, GeoBone bone) {
+        if (!DEBUG_HIDE_EMBEDDED_CEPHALARI_FOR_BROKEN_FORMS || animatable == null || bone == null) {
+            return false;
+        }
+
+        if (!(animatable instanceof SpiralStriderEntity) && !(animatable instanceof DriftSkimmerEntity)) {
+            return false;
+        }
+
+        return isInCephalariSubtree(bone);
     }
 
     @Override
