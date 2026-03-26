@@ -10,6 +10,7 @@ public class EchoHarnessEntity extends CephalariAdultFormEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.echo_harness.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.echo_harness.move");
+    private static final RawAnimation SLEEP = RawAnimation.begin().thenLoop("animation.echo_harness.sleep");
     private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.echo_harness.zombie_manifest");
 
     public EchoHarnessEntity(EntityType<? extends EchoHarnessEntity> type, Level level) {
@@ -28,6 +29,11 @@ public class EchoHarnessEntity extends CephalariAdultFormEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getSleepAnimation() {
+        return SLEEP;
     }
 
     @Override

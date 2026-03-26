@@ -10,6 +10,7 @@ public class TreadwinderEntity extends CephalariAdultFormEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.treadwinder.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.treadwinder.move");
+    private static final RawAnimation SLEEP = RawAnimation.begin().thenLoop("animation.treadwinder.sleep");
     private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.treadwinder.zombie_manifest");
 
     public TreadwinderEntity(EntityType<? extends TreadwinderEntity> type, Level level) {
@@ -28,6 +29,11 @@ public class TreadwinderEntity extends CephalariAdultFormEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getSleepAnimation() {
+        return SLEEP;
     }
 
     @Override

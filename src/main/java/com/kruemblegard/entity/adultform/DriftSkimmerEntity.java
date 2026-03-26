@@ -10,6 +10,7 @@ public class DriftSkimmerEntity extends CephalariAdultFormEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.driftskimmer.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.driftskimmer.move");
+    private static final RawAnimation SLEEP = RawAnimation.begin().thenLoop("animation.driftskimmer.sleep");
     private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.driftskimmer.zombie_manifest");
 
     public DriftSkimmerEntity(EntityType<? extends DriftSkimmerEntity> type, Level level) {
@@ -28,6 +29,11 @@ public class DriftSkimmerEntity extends CephalariAdultFormEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getSleepAnimation() {
+        return SLEEP;
     }
 
     @Override

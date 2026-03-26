@@ -68,6 +68,31 @@
 				}
 			}
 		},
+		"animation.spiral_strider.sleep": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, -2.5, 0],
+					"rotation": [8, 0, 0]
+				},
+				"cephalari": {
+					"position": [0, -2, 2],
+					"rotation": [18, 0, 0]
+				},
+				"leg_front_left": {
+					"rotation": [20, 22.5, 0]
+				},
+				"leg_front_right": {
+					"rotation": [20, -22.5, 0]
+				},
+				"leg_back_left": {
+					"rotation": [18, 30, 0]
+				},
+				"leg_back_right": {
+					"rotation": [18, -30, 0]
+				}
+			}
+		},
 		"animation.spiral_strider.zombie_manifest": {
 			"loop": false,
 			"animation_length": 1.4,

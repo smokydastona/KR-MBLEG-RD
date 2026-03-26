@@ -44,6 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public abstract class CephalariAdultFormEntity extends PathfinderMob implements GeoEntity {
+    private static final int SLEEP_IDLE_DELAY_TICKS = 100;
     private static final String NBT_TEXTURE_VARIANT = "KruemblegardCephalariAdultFormTextureVariant";
     private static final String NBT_TEXTURE_VARIANT_OLD_SAVE_KEY = "KruemblegardCephalariMountTextureVariant";
     private static final String NBT_BODY_TEXTURE = "KruemblegardCephalariBodyTexture";
@@ -62,6 +63,7 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     );
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private int restTicks = 0;
 
     protected CephalariAdultFormEntity(
         EntityType<? extends PathfinderMob> type,
@@ -230,6 +232,8 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
 
     protected abstract RawAnimation getMoveAnimation();
 
+    protected abstract RawAnimation getSleepAnimation();
+
     protected abstract RawAnimation getManifestAnimation();
 
     @Override
@@ -253,6 +257,8 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     @Override
     public void aiStep() {
         super.aiStep();
+
+        updateRestTicks();
 
         if (level().isClientSide) {
             return;
@@ -298,7 +304,11 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "baseController", 0, state -> {
-            state.setAnimation(state.isMoving() ? getMoveAnimation() : getIdleAnimation());
+            if (shouldUseSleepAnimation(state.isMoving())) {
+                state.setAnimation(getSleepAnimation());
+            } else {
+                state.setAnimation(state.isMoving() ? getMoveAnimation() : getIdleAnimation());
+            }
             return PlayState.CONTINUE;
         }));
 
@@ -310,6 +320,34 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
         if (!level().isClientSide) {
             triggerAnim("actionController", "manifest");
         }
+    }
+
+    private void updateRestTicks() {
+        if (isPassenger() || isInWaterOrBubble() || !onGround()) {
+            this.restTicks = 0;
+            return;
+        }
+
+        Vec3 delta = getDeltaMovement();
+        boolean stationary = delta.horizontalDistanceSqr() < 1.0E-4D && Math.abs(delta.y) < 1.0E-4D;
+        if (stationary) {
+            this.restTicks++;
+            return;
+        }
+
+        this.restTicks = 0;
+    }
+
+    private boolean shouldUseSleepAnimation(boolean isMoving) {
+        if (isMoving || this.restTicks < SLEEP_IDLE_DELAY_TICKS) {
+            return false;
+        }
+
+        if (this.level() == null || !this.level().isNight()) {
+            return false;
+        }
+
+        return !isInWaterOrBubble() && onGround() && !isPassenger();
     }
 
     @Override

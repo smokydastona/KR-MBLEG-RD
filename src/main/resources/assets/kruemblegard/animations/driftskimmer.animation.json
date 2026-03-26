@@ -21,6 +21,21 @@
         "wing_right": { "rotation": [0, 0, "-math.sin(query.anim_time * 2) * 10"] }
       }
     },
+    "animation.driftskimmer.sleep": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "position": [0, -1.8, 0],
+          "rotation": [6, 0, 0]
+        },
+        "wing_left": { "rotation": [0, 0, -38] },
+        "wing_right": { "rotation": [0, 0, 38] },
+        "cephalari": {
+          "position": [0, -1.5, 2],
+          "rotation": [16, 0, 0]
+        }
+      }
+    },
     "animation.driftskimmer.zombie_manifest": {
       "loop": false,
       "animation_length": 1.4,

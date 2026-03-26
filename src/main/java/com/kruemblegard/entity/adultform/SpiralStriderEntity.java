@@ -10,6 +10,7 @@ public class SpiralStriderEntity extends CephalariAdultFormEntity {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.spiral_strider.idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("animation.spiral_strider.move");
+    private static final RawAnimation SLEEP = RawAnimation.begin().thenLoop("animation.spiral_strider.sleep");
     private static final RawAnimation MANIFEST = RawAnimation.begin().thenPlay("animation.spiral_strider.zombie_manifest");
 
     public SpiralStriderEntity(EntityType<? extends SpiralStriderEntity> type, Level level) {
@@ -28,6 +29,11 @@ public class SpiralStriderEntity extends CephalariAdultFormEntity {
     @Override
     protected RawAnimation getMoveAnimation() {
         return MOVE;
+    }
+
+    @Override
+    protected RawAnimation getSleepAnimation() {
+        return SLEEP;
     }
 
     @Override

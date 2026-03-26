@@ -20,6 +20,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(render/adult_forms): draw the embedded `cephalari` body/profession overlays for Spiral Strider and DriftSkimmer through a depth-safe translucent pass so those inner overlays stop hiding the outer-form shell bones while Treadwinder and Echo Harness keep the normal cutout pass.
 - Fix(render/adult_forms): stop mixing GeckoLib's base cube pass with the adult-form overlay passes; render stand-alone and live adult-form appearances through explicit per-bone layers only so the embedded `cephalari` subtree, profession badges, and outer shell each draw on their own bone subset in a deterministic order.
 - Fix(ui/trading): route merchant menus through a small custom merchant screen that trims overlong Cephalari trade headers so the Nutrient-Keeper and Architect trade titles no longer overlap across the top of the vanilla trading menu.
+- Add(animation/adult_forms): give Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness dedicated sleep loops, and let stand-alone adult-form entities switch into that sleep state automatically after they have remained settled and stationary during the night for a short rest window.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

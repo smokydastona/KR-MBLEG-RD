@@ -25,6 +25,23 @@
         "arm_right": { "rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0] }
       }
     },
+    "animation.echo_harness.sleep": {
+      "loop": true,
+      "bones": {
+        "torso": {
+          "position": [0, -2.2, 0],
+          "rotation": [12, 0, 0]
+        },
+        "arm_left": { "rotation": [28, 0, 0] },
+        "arm_right": { "rotation": [28, 0, 0] },
+        "leg_left": { "rotation": [-22, 0, 0] },
+        "leg_right": { "rotation": [-22, 0, 0] },
+        "cephalari": {
+          "position": [0, -1.8, 1.8],
+          "rotation": [16, 0, 0]
+        }
+      }
+    },
     "animation.echo_harness.zombie_manifest": {
       "loop": false,
       "animation_length": 1.4,
