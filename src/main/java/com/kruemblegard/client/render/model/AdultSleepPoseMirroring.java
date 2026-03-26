@@ -3,7 +3,7 @@ package com.kruemblegard.client.render.model;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 
-import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
@@ -12,12 +12,7 @@ final class AdultSleepPoseMirroring {
     }
 
     static <T extends LivingEntity & GeoAnimatable> void apply(GeoModel<T> model, T animatable) {
-        if (!animatable.isSleeping()) {
-            return;
-        }
-
-        Direction bedOrientation = animatable.getBedOrientation();
-        if (bedOrientation == null || !shouldMirrorFor(bedOrientation)) {
+        if (!shouldMirror(animatable)) {
             return;
         }
 
@@ -28,7 +23,24 @@ final class AdultSleepPoseMirroring {
         }
     }
 
+    private static boolean shouldMirror(LivingEntity animatable) {
+        return shouldUseLeftHandedMirror(animatable) ^ shouldUseBedMirror(animatable);
+    }
+
+    private static boolean shouldUseLeftHandedMirror(LivingEntity animatable) {
+        return (animatable.getUUID().getLeastSignificantBits() & 1L) == 0L;
+    }
+
+    private static boolean shouldUseBedMirror(LivingEntity animatable) {
+        if (!animatable.isSleeping()) {
+            return false;
+        }
+
+        Direction bedOrientation = animatable.getBedOrientation();
+        return bedOrientation != null && shouldMirrorFor(bedOrientation);
+    }
+
     private static boolean shouldMirrorFor(Direction bedOrientation) {
-        return bedOrientation == Direction.SOUTH || bedOrientation == Direction.EAST;
+        return bedOrientation == Direction.EAST || bedOrientation == Direction.WEST;
     }
 }

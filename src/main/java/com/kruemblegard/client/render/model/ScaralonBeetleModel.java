@@ -10,9 +10,8 @@ import net.minecraft.util.Mth;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class ScaralonBeetleModel extends GeoModel<ScaralonBeetleEntity> {
+public class ScaralonBeetleModel extends MirroredMobGeoModel<ScaralonBeetleEntity> {
     private static final String SADDLE_BONE = "saddle";
     private static final String CHEST_BONE = "chest";
     private static final String CARPET_BONE = "carpet";

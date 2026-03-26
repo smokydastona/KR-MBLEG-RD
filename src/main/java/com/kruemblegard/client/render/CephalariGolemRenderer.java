@@ -7,11 +7,10 @@ import com.kruemblegard.client.render.layer.CephalariGolemRunebloomLayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class CephalariGolemRenderer extends GeoEntityRenderer<CephalariGolemEntity> {
-    private static final class CephalariGolemModel extends GeoModel<CephalariGolemEntity> {
+    private static final class CephalariGolemModel extends com.kruemblegard.client.render.model.MirroredMobGeoModel<CephalariGolemEntity> {
         private static ResourceLocation rl(String path) {
             ResourceLocation id = ResourceLocation.tryParse(Kruemblegard.MOD_ID + ":" + path);
             if (id == null) {

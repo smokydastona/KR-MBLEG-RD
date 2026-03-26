@@ -6,9 +6,8 @@ import com.kruemblegard.entity.CephalariEntity;
 import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class CephalariModel extends GeoModel<CephalariEntity> {
+public class CephalariModel extends MirroredMobGeoModel<CephalariEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
     private static final ResourceLocation CEPHALARI_ANIMATIONS = new ResourceLocation(Kruemblegard.MOD_ID, "animations/cephalari.animation.json");
@@ -55,9 +54,5 @@ public class CephalariModel extends GeoModel<CephalariEntity> {
     @Override
     public void setCustomAnimations(CephalariEntity animatable, long instanceId, AnimationState<CephalariEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-
-        if (animatable.hasAdultFormAppearance()) {
-            AdultSleepPoseMirroring.apply(this, animatable);
-        }
     }
 }

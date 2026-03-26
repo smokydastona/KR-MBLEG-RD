@@ -6,9 +6,8 @@ import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
 import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
+public class DriftSkimmerModel extends MirroredMobGeoModel<DriftSkimmerEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
 
@@ -38,6 +37,5 @@ public class DriftSkimmerModel extends GeoModel<DriftSkimmerEntity> {
     @Override
     public void setCustomAnimations(DriftSkimmerEntity animatable, long instanceId, AnimationState<DriftSkimmerEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

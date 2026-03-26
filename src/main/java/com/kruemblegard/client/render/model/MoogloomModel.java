@@ -5,9 +5,8 @@ import com.kruemblegard.entity.MoogloomEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class MoogloomModel extends GeoModel<MoogloomEntity> {
+public class MoogloomModel extends MirroredMobGeoModel<MoogloomEntity> {
 
     @Override
     public ResourceLocation getModelResource(MoogloomEntity animatable) {

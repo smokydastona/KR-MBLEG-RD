@@ -9,12 +9,11 @@ import net.minecraft.util.Mth;
 
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
 /**
  * Uses the same Geo/animations as Scaralon beetles, but swaps to trader-beetle textures.
  */
-public class TraderBeetleModel extends GeoModel<TraderBeetleEntity> {
+public class TraderBeetleModel extends MirroredMobGeoModel<TraderBeetleEntity> {
     private static final String SADDLE_BONE = "saddle";
     private static final String CHEST_BONE = "chest";
     private static final String CARPET_BONE = "carpet";

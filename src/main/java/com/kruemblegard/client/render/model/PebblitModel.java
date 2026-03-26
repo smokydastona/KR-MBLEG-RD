@@ -5,9 +5,8 @@ import com.kruemblegard.entity.PebblitEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class PebblitModel extends GeoModel<PebblitEntity> {
+public class PebblitModel extends MirroredMobGeoModel<PebblitEntity> {
 
     @Override
     public ResourceLocation getModelResource(PebblitEntity animatable) {

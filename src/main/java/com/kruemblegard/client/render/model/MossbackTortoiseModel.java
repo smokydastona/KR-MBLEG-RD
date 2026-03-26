@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class MossbackTortoiseModel extends GeoModel<MossbackTortoiseEntity> {
+public class MossbackTortoiseModel extends MirroredMobGeoModel<MossbackTortoiseEntity> {
 
     private static final String MOSS_PATCH_1 = "moss_patch_1";
     private static final String MOSS_PATCH_2 = "moss_patch_2";

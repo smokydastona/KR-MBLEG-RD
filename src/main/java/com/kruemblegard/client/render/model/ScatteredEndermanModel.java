@@ -6,9 +6,8 @@ import com.kruemblegard.entity.ScatteredEndermanEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class ScatteredEndermanModel extends GeoModel<ScatteredEndermanEntity> {
+public class ScatteredEndermanModel extends MirroredMobGeoModel<ScatteredEndermanEntity> {
 
     @Override
     public ResourceLocation getModelResource(ScatteredEndermanEntity animatable) {

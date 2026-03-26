@@ -6,9 +6,8 @@ import com.kruemblegard.entity.adultform.TreadwinderEntity;
 import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class TreadwinderModel extends GeoModel<TreadwinderEntity> {
+public class TreadwinderModel extends MirroredMobGeoModel<TreadwinderEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
 
@@ -38,6 +37,5 @@ public class TreadwinderModel extends GeoModel<TreadwinderEntity> {
     @Override
     public void setCustomAnimations(TreadwinderEntity animatable, long instanceId, AnimationState<TreadwinderEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

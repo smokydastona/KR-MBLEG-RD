@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class TraprockModel extends GeoModel<TraprockEntity> {
+public class TraprockModel extends MirroredMobGeoModel<TraprockEntity> {
 
     @Override
     public ResourceLocation getModelResource(TraprockEntity animatable) {

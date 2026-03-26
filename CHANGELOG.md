@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
-- Fix(animation/adult_forms): mirror the bed-sleep pose for adult-form Cephalari on the opposite horizontal bed facings so the disconnected Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness sleep rigs can reuse one authored pose without clipping into the bed on one side.
+- Fix(animation/adult_forms): mirror the bed-sleep pose for adult-form Cephalari only on east-west bed facings so the disconnected Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness sleep rigs can reuse one authored pose without clipping into the bed on one side.
+- Fix(render/mirroring): make the deterministic left-handed mob variant and the in-bed pose mirror both use the same east-west-only flip rule, with the bed-specific mirror applied as a separate XOR layer on top of the spawn-time handedness variant.
 - Feat(cephalari): add the Brine Garden Basin and Tendril-Forge as functional Cephalari job-site blocks with ticking workstation logic, recipes, loot tables, and block models.
 - Feat(cephalari): add Nutrient-Keeper and Architect professions, POIs, and trade pools wired to the new workstations.
 - Change(cephalari): use attuned/runic resonance bonuses for the new workstations so the feature fits the extracted-machinery main-mod architecture.

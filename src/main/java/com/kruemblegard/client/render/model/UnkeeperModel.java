@@ -5,9 +5,8 @@ import com.kruemblegard.entity.UnkeeperEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class UnkeeperModel extends GeoModel<UnkeeperEntity> {
+public class UnkeeperModel extends MirroredMobGeoModel<UnkeeperEntity> {
 
     @Override
     public ResourceLocation getModelResource(UnkeeperEntity animatable) {

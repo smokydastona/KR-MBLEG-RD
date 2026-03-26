@@ -6,9 +6,8 @@ import com.kruemblegard.entity.CephalariZombieEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class CephalariZombieModel<T extends CephalariZombieEntity> extends GeoModel<T> {
+public class CephalariZombieModel<T extends CephalariZombieEntity> extends MirroredMobGeoModel<T> {
     @Override
     public ResourceLocation getModelResource(T animatable) {
         ResourceLocation base = new ResourceLocation(Kruemblegard.MOD_ID, "geo/cephalari_zombie.geo.json");

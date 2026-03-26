@@ -5,11 +5,10 @@ import com.kruemblegard.entity.KruemblegardBossEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
 import java.util.Locale;
 
-public class KruemblegardBossModel extends GeoModel<KruemblegardBossEntity> {
+public class KruemblegardBossModel extends MirroredMobGeoModel<KruemblegardBossEntity> {
 
     @Override
     public ResourceLocation getModelResource(KruemblegardBossEntity animatable) {

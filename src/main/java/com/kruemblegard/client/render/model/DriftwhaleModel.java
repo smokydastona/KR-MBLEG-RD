@@ -5,9 +5,8 @@ import com.kruemblegard.entity.DriftwhaleEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class DriftwhaleModel extends GeoModel<DriftwhaleEntity> {
+public class DriftwhaleModel extends MirroredMobGeoModel<DriftwhaleEntity> {
 
     @Override
     public ResourceLocation getModelResource(DriftwhaleEntity animatable) {

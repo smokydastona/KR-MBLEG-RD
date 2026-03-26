@@ -5,9 +5,8 @@ import com.kruemblegard.entity.PebbleWrenEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class PebbleWrenModel extends GeoModel<PebbleWrenEntity> {
+public class PebbleWrenModel extends MirroredMobGeoModel<PebbleWrenEntity> {
 
     @Override
     public ResourceLocation getModelResource(PebbleWrenEntity animatable) {

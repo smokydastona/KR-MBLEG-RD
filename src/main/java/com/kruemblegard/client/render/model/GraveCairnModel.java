@@ -5,9 +5,8 @@ import com.kruemblegard.entity.GraveCairnEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class GraveCairnModel extends GeoModel<GraveCairnEntity> {
+public class GraveCairnModel extends MirroredMobGeoModel<GraveCairnEntity> {
 
     @Override
     public ResourceLocation getModelResource(GraveCairnEntity animatable) {

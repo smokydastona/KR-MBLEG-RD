@@ -118,6 +118,10 @@ Keep it up to date whenever you add/remove/rename content.
 - After a player has encountered Traprock once, most newly found Traprock will spawn already awake (with a small chance to remain dormant again).
 
 ## Mobs
+- **Mirrored mob variants**
+  - Geo-rendered custom mobs now derive a deterministic left-handed mirrored render variant from their UUID so some spawns permanently play the authored animation set as a mirrored east-west-handed version without needing separate animation resources.
+  - Bed-specific mirroring remains separate from that spawn trait and only participates on east-west bed facings, so sleeping poses can still flip independently when a bed-side correction is needed.
+
 - **Traprock** (`traprock`)
   - Implemented as a Blaze-derived GeckoLib mob.
   - Uses melee attacks and a ranged attack that throws a stone projectile.
@@ -393,7 +397,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Visual (adult-form appearance): the base render uses a Cephalari golem texture on non-`cephalari` bones (body), and overlay passes re-texture only the embedded `cephalari` subtree using the Cephalari body texture plus profession + badge overlays on their dedicated bones.
     - Visual (adult-form entities): the stand-alone adult-form entities (`spiral_strider`, `driftskimmer`, `treadwinder`, `echo_harness`) render their embedded `cephalari` subtree using the adult-form entity's own stored body texture + profession/level data (no passenger linkage required).
     - Visual (adult-form outer-form bones): all 4 adult-form outer-form bones use the shared golem-atlas path, and both the live Cephalari adult-form appearance renderer and the stand-alone adult-form renderer draw the outer shell, embedded `cephalari` subtree, and profession overlays through explicit per-bone layer passes instead of mixing in GeckoLib's default base cube pass.
-    - Animation (adult forms): Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness now each have a dedicated sleep loop that plays both for stand-alone adult-form entities after they settle through the night and for bed-sleeping Cephalari villagers when those villagers are rendered through an adult-form appearance, with the in-bed pose mirrored automatically on the opposite horizontal bed facings so one authored disconnected rig can sleep cleanly on both sides of the bed.
+    - Animation (adult forms): Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness now each have a dedicated sleep loop that plays both for stand-alone adult-form entities after they settle through the night and for bed-sleeping Cephalari villagers when those villagers are rendered through an adult-form appearance, with the in-bed pose mirror restricted to east-west bed facings and composed separately with the deterministic left-handed mob variant so one authored disconnected rig can sleep cleanly on both sides of the bed.
   - Visual (profession overlays): when a Cephalari has a profession, it renders profession overlays on the dedicated `profession` and `profession_hat` geo bones and the level badge overlay on the dedicated `profession_level` bone. For both profession and level badge textures it prefers a mod-provided texture under the profession's namespace, falling back to vanilla villager (or zombie-villager) textures.
   - Visual (zombified): rendered as Scaralon-style deterministic cutout/no-cull layered passes: zombified **inner layer** first, then the selected zombified **outer layer** overlay, then profession + badge overlays. The dedicated profession overlay bones are only painted by the profession layer (inner/outer passes do not paint those bones).
   - Rendered via GeckoLib (placeholder assets):

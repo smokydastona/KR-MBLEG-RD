@@ -6,9 +6,8 @@ import com.kruemblegard.entity.adultform.EchoHarnessEntity;
 import net.minecraft.resources.ResourceLocation;
 
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
 
-public class EchoHarnessModel extends GeoModel<EchoHarnessEntity> {
+public class EchoHarnessModel extends MirroredMobGeoModel<EchoHarnessEntity> {
     private static final int GOLEM_TEXTURE_VARIANT_MIN = 1;
     private static final int GOLEM_TEXTURE_VARIANT_MAX = 6;
 
@@ -38,6 +37,5 @@ public class EchoHarnessModel extends GeoModel<EchoHarnessEntity> {
     @Override
     public void setCustomAnimations(EchoHarnessEntity animatable, long instanceId, AnimationState<EchoHarnessEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-        AdultSleepPoseMirroring.apply(this, animatable);
     }
 }

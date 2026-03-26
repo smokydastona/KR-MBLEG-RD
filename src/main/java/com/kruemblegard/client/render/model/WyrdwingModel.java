@@ -5,9 +5,8 @@ import com.kruemblegard.entity.WyrdwingEntity;
 
 import net.minecraft.resources.ResourceLocation;
 
-import software.bernie.geckolib.model.GeoModel;
 
-public class WyrdwingModel extends GeoModel<WyrdwingEntity> {
+public class WyrdwingModel extends MirroredMobGeoModel<WyrdwingEntity> {
     @Override
     public ResourceLocation getModelResource(WyrdwingEntity animatable) {
         return new ResourceLocation(Kruemblegard.MOD_ID, "geo/wyrdwing.geo.json");
