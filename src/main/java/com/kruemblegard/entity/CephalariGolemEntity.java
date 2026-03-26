@@ -1,6 +1,9 @@
 package com.kruemblegard.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -27,6 +30,8 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     private static final int TEXTURE_VARIANT_MIN = 1;
     private static final int TEXTURE_VARIANT_MAX = 6;
     private static final String NBT_TEXTURE_VARIANT = "CephalariGolemTextureVariant";
+    private static final EntityDataAccessor<Boolean> DATA_ANGRY_ANIMATION =
+        SynchedEntityData.defineId(CephalariGolemEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final RawAnimation PASSIVE_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle_passive");
     private static final RawAnimation ANGRY_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari_golem.idle_angry");
@@ -47,6 +52,12 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     public static AttributeSupplier.Builder createAttributes() {
         // Match vanilla Iron Golem baseline (AI/behavior parity).
         return IronGolem.createAttributes();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_ANGRY_ANIMATION, false);
     }
 
     public int getTextureVariant() {
@@ -106,6 +117,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
         }
 
         ensureTextureVariantAssigned();
+        this.entityData.set(DATA_ANGRY_ANIMATION, this.getTarget() != null || this.swinging);
     }
 
     @Override
@@ -132,7 +144,7 @@ public class CephalariGolemEntity extends IronGolem implements GeoEntity {
     }
 
     public boolean isAngryAnimationState() {
-        return this.getTarget() != null;
+        return this.entityData.get(DATA_ANGRY_ANIMATION);
     }
 
     @Override

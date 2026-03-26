@@ -113,9 +113,17 @@ public final class CephalariGolemEvents {
             }
 
             cephalariGolem.moveTo(golem.getX(), golem.getY(), golem.getZ(), golem.getYRot(), golem.getXRot());
+            cephalariGolem.finalizeSpawn(
+                level,
+                level.getCurrentDifficultyAt(cephalariGolem.blockPosition()),
+                MobSpawnType.MOB_SUMMONED,
+                null,
+                null
+            );
             cephalariGolem.setHealth(golem.getHealth());
             cephalariGolem.setCustomName(golem.getCustomName());
             cephalariGolem.setCustomNameVisible(golem.isCustomNameVisible());
+            cephalariGolem.setDeltaMovement(golem.getDeltaMovement());
             cephalariGolem.setPersistenceRequired();
             cephalariGolem.setPlayerCreated(false);
 
