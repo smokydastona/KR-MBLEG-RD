@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(assets/ashspire): restore the missing `block/ashspire_cactus` model alias so the Ashspire Cactus inventory model resolves cleanly again.
+- Fix(audio/cephalari): point Cephalari cure/zombify sound events at vanilla zombie-villager conversion sounds instead of missing custom `.ogg` files.
 - Fix(cephalari_zombie): add Forge-side `attack_damage` support to the passive baby-jockey mount pool so hostile pigs, sheep, rabbits, and chickens can safely use the inherited melee attack goal without crashing.
 - Fix(cephalari_zombie): make baby Cephalari zombie jockey mounts inherit the same hostile target classes as vanilla zombies and mirror the rider's current target so the leftover mount keeps attacking after the rider dies.
 - Fix(cephalari_golem): drop the synced angry locomotion state as soon as the Cephalari Golem loses its target so it snaps straight back to passive instead of lingering in the hostile pose after combat.

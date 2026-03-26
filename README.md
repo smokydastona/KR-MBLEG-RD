@@ -22,6 +22,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 ## Highlights
 - **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
 - **Ashspire flora**: the Wayfall Ashspire cactus line now uses only the canonical live asset set that is actually referenced at runtime, with the cactus routed through chorus-style side/no-side variants, the emberbloom cap kept on canonical `ashspire_emberbloom_*` assets, and the dead cap remaining a separate placeable item state.
+- **Cephalari cure/zombify audio**: the Cephalari conversion events now reuse vanilla zombie-villager cure/conversion sounds instead of pointing at missing custom sound files, keeping the log clean until bespoke audio is added again.
 - **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a direct attuned forging recipe for `scarsteel_ingot`.
 - **Krümblegård (Boss)**: 4-phase guardian fight with phase-based attacks and synced boss music.
 - **Traprock**: looks like stone until disturbed (or linger too close), then awakens and attacks; after your first encounter, most newly found Traprocks won’t hide again.
