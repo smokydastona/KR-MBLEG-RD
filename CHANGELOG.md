@@ -21,6 +21,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(render/adult_forms): stop mixing GeckoLib's base cube pass with the adult-form overlay passes; render stand-alone and live adult-form appearances through explicit per-bone layers only so the embedded `cephalari` subtree, profession badges, and outer shell each draw on their own bone subset in a deterministic order.
 - Fix(ui/trading): swap vanilla merchant screens for a small trimmed-header variant at open time so Cephalari trade titles no longer overlap across the top of the trading menu without duplicating vanilla's merchant screen registration.
 - Add(animation/adult_forms): give Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness dedicated sleep loops, and let stand-alone adult-form entities switch into that sleep state automatically after they have remained settled and stationary during the night for a short rest window.
+- Fix(ui/trading): trim the live merchant title component directly so Cephalari trade menus no longer fall back to a literal `merchant.title` label on Forge 1.20.1.
+- Fix(animation/adult_forms): let adult-form entities enter their sleep loop whenever they are actually sleeping in a bed, instead of relying only on the stationary-at-night fallback.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

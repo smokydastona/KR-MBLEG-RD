@@ -339,6 +339,10 @@ public abstract class CephalariAdultFormEntity extends PathfinderMob implements 
     }
 
     private boolean shouldUseSleepAnimation(boolean isMoving) {
+        if (this.isSleeping()) {
+            return true;
+        }
+
         if (isMoving || this.restTicks < SLEEP_IDLE_DELAY_TICKS) {
             return false;
         }

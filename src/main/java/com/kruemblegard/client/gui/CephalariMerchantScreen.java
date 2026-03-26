@@ -20,21 +20,11 @@ public class CephalariMerchantScreen extends MerchantScreen {
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        Component header = buildHeader();
-        String headerText = fitHeader(header, this.imageWidth - HEADER_PADDING);
+        String headerText = fitHeader(this.title, this.imageWidth - HEADER_PADDING);
         int headerX = Math.max(6, (this.imageWidth - this.font.width(headerText)) / 2);
 
         guiGraphics.drawString(this.font, headerText, headerX, this.titleLabelY, 4210752, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
-    }
-
-    private Component buildHeader() {
-        int traderLevel = this.menu.getTraderLevel();
-        if (traderLevel > 0 && traderLevel <= 5 && this.menu.showProgressBar()) {
-            return Component.translatable("merchant.title", this.title, Component.translatable("merchant.level." + traderLevel));
-        }
-
-        return this.title;
     }
 
     private String fitHeader(Component header, int maxWidth) {
