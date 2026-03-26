@@ -67,6 +67,12 @@
     ]
   },
 
+  "music.wayfall": {
+    "sounds": [
+      {"name": "kruemblegard:horror-background-atmosphere-09_universfield", "stream": true}
+    ]
+  },
+
   "entity.kruemblegard.hurt": {
     "subtitle": "subtitles.kruemblegard.kruemblegard.hurt",
     "sounds": [

@@ -21,6 +21,7 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 
 ## Highlights
 - **Wayfall**: floating-islands void dimension with custom biomes, flora, and rethemed structures.
+- **Wayfall ambient music**: the registered `kruemblegard:music.wayfall` biome music event now maps back to `assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg`, so Wayfall biomes stop logging a missing music warning and play their intended ambient track again.
 - **Ashspire flora**: the Wayfall Ashspire cactus line now uses only the canonical live asset set that is actually referenced at runtime, with the cactus routed through chorus-style side/no-side variants, the emberbloom cap kept on canonical `ashspire_emberbloom_*` assets, and the dead cap remaining a separate placeable item state.
 - **Cephalari cure/zombify audio**: the Cephalari conversion events now reuse vanilla zombie-villager cure/conversion sounds instead of pointing at missing custom sound files, keeping the log clean until bespoke audio is added again.
 - **Scarsteel progression**: Tier 3 Scarstone metallurgy line with a custom diamond-equivalent tool tier, full equipment set, and a direct attuned forging recipe for `scarsteel_ingot`.
@@ -88,6 +89,7 @@ Animation keys currently used by code:
 ### Boss UI / audio
 - Boss bar atlas: `src/main/resources/assets/kruemblegard/textures/gui/kruemblegard_bossbar.png`
 - Music key: `music.kruemblegard` (see `src/main/resources/assets/kruemblegard/sounds.json`)
+- Wayfall biome music key: `music.wayfall` → `assets/kruemblegard/sounds/horror-background-atmosphere-09_universfield.ogg`
 
 ## For developers (repo)
 - Mod id: `kruemblegard` | Base package: `com.kruemblegard`

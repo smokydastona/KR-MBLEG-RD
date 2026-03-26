@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(audio/wayfall): map the registered `music.wayfall` sound event to the shipped `horror-background-atmosphere-09_universfield.ogg` track so Wayfall biomes stop warning about a missing music event and play their intended ambient loop again.
 - Fix(assets/ashspire): restore the missing `block/ashspire_cactus` model alias so the Ashspire Cactus inventory model resolves cleanly again.
 - Fix(audio/cephalari): point Cephalari cure/zombify sound events at vanilla zombie-villager conversion sounds instead of missing custom `.ogg` files.
 - Fix(cephalari_zombie): add Forge-side `attack_damage` support to the passive baby-jockey mount pool so hostile pigs, sheep, rabbits, and chickens can safely use the inherited melee attack goal without crashing.
