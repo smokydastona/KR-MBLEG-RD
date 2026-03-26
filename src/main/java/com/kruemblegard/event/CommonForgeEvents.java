@@ -4,6 +4,7 @@ import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.DriftwhaleEntity;
 import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
+import com.kruemblegard.entity.goal.RunegrowthGrazingGoal;
 import com.kruemblegard.init.ModBlocks;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RemoveBlockGoal;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
@@ -46,6 +48,7 @@ public final class CommonForgeEvents {
     private static final String NBT_AVOID_WYRDWING = "kruemblegard:avoid_wyrdwing";
     private static final String NBT_SMASH_SCARALON_EGGS = "kruemblegard:smash_scaralon_eggs";
     private static final String NBT_AVOID_DRIFTWHALE = "kruemblegard:avoid_driftwhale";
+    private static final String NBT_SHEEP_RUNEGROWTH_GRAZING = "kruemblegard:sheep_runegrowth_grazing";
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {
@@ -167,6 +170,24 @@ public final class CommonForgeEvents {
 
         squid.goalSelector.addGoal(1, new AvoidEntityGoal<>(squid, DriftwhaleEntity.class, 12.0F, 1.05D, 1.25D));
         squid.getPersistentData().putBoolean(NBT_AVOID_DRIFTWHALE, true);
+    }
+
+    @SubscribeEvent
+    public static void onGiveSheepRunegrowthGrazing(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Sheep sheep)) {
+            return;
+        }
+
+        if (sheep.getPersistentData().getBoolean(NBT_SHEEP_RUNEGROWTH_GRAZING)) {
+            return;
+        }
+
+        sheep.goalSelector.addGoal(5, new RunegrowthGrazingGoal(sheep, mob -> true, false, 100));
+        sheep.getPersistentData().putBoolean(NBT_SHEEP_RUNEGROWTH_GRAZING, true);
     }
 
     /**

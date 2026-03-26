@@ -2,6 +2,7 @@ package com.kruemblegard.entity;
 
 import javax.annotation.Nullable;
 
+import com.kruemblegard.entity.goal.RunegrowthGrazingGoal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
@@ -115,9 +116,10 @@ public class MossbackTortoiseEntity extends Animal implements GeoEntity {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(Items.SEAGRASS), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.9D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.7D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new RunegrowthGrazingGoal(this, mob -> ((MossbackTortoiseEntity) mob).isSheared(), true, 80));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -149,6 +151,14 @@ public class MossbackTortoiseEntity extends Animal implements GeoEntity {
 
     public void setMossVariant(int variant) {
         this.entityData.set(DATA_MOSS_VARIANT, Mth.clamp(variant, 0, MOSS_VARIANT_COUNT - 1));
+    }
+
+    @Override
+    public void ate() {
+        super.ate();
+        if (this.isSheared()) {
+            this.setSheared(false);
+        }
     }
 
     private boolean readyForShearing() {

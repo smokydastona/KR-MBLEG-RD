@@ -199,6 +199,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Slow, armored, breedable grazer (GeckoLib-rendered).
   - Moss variants: spawns with one of several moss patch patterns.
   - Shearing: use Shears to remove moss patches and get Moss Carpet.
+  - Regrowth: a sheared tortoise regrows its moss by grazing on Grass Blocks or any of the four runegrowth variants (`runegrowth`, `frostbound_runegrowth`, `verdant_runegrowth`, `emberwarmed_runegrowth`).
+  - Sheep parity: vanilla sheep can also regrow wool by grazing those four runegrowth variants.
   - Bush immunity: immune to thorny/berry-bush collision damage (sweet berry bush / cactus-style brambles).
   - Tempt/breed item: Seagrass.
   - Natural spawns: Underway Falls (`#kruemblegard:underway_falls`).
