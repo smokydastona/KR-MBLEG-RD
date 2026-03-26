@@ -1,6 +1,8 @@
 package com.kruemblegard.client.render.layer;
 
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
+import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
+import com.kruemblegard.entity.adultform.SpiralStriderEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -71,7 +73,9 @@ public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFo
         }
 
         ResourceLocation overlayTexture = animatable.getBodyTextureResource();
-        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
+        RenderType overlayType = useDepthSafeOverlay(animatable)
+            ? RenderType.entityTranslucent(overlayTexture)
+            : RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
@@ -97,5 +101,9 @@ public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFo
         }
 
         return false;
+    }
+
+    private static boolean useDepthSafeOverlay(CephalariAdultFormEntity animatable) {
+        return animatable instanceof SpiralStriderEntity || animatable instanceof DriftSkimmerEntity;
     }
 }

@@ -114,7 +114,9 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
                 return;
             }
 
-            RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
+            RenderType professionType = useDepthSafeOverlay(animatable)
+                ? RenderType.entityTranslucent(professionTexture)
+                : RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
 
             // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
@@ -133,7 +135,9 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
             return;
         }
 
-        RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
+        RenderType levelType = useDepthSafeOverlay(animatable)
+            ? RenderType.entityTranslucent(levelTexture)
+            : RenderType.entityCutoutNoCull(levelTexture);
         VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
@@ -184,5 +188,10 @@ public final class CephalariProfessionLayer extends GeoRenderLayer<CephalariEnti
 
     private static boolean resourceExists(ResourceLocation location) {
         return Minecraft.getInstance().getResourceManager().getResource(location).isPresent();
+    }
+
+    private static boolean useDepthSafeOverlay(CephalariEntity animatable) {
+        int adultFormVariant = animatable.getAdultFormVariant();
+        return adultFormVariant == 0 || adultFormVariant == 1;
     }
 }
