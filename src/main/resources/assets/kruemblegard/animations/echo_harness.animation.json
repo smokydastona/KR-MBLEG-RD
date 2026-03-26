@@ -1,64 +1,82 @@
 {
-  "format_version": "1.20.0",
-  "animations": {
-    "animation.echo_harness.idle": {
-      "loop": true,
-      "bones": {
-        "torso": { "rotation": [0, "math.sin(query.anim_time * 1.5) * 2", 0] }
-      }
-    },
-    "animation.echo_harness.walk": {
-      "loop": true,
-      "bones": {
-        "leg_left": { "rotation": ["math.sin(query.walk_cycle * 60) * 25", 0, 0] },
-        "leg_right": { "rotation": ["math.sin(query.walk_cycle * 60 + 180) * 25", 0, 0] },
-        "arm_left": { "rotation": ["math.sin(query.walk_cycle * 60 + 180) * 15", 0, 0] },
-        "arm_right": { "rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0] }
-      }
-    },
-    "animation.echo_harness.move": {
-      "loop": true,
-      "bones": {
-        "leg_left": { "rotation": ["math.sin(query.walk_cycle * 60) * 25", 0, 0] },
-        "leg_right": { "rotation": ["math.sin(query.walk_cycle * 60 + 180) * 25", 0, 0] },
-        "arm_left": { "rotation": ["math.sin(query.walk_cycle * 60 + 180) * 15", 0, 0] },
-        "arm_right": { "rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0] }
-      }
-    },
-    "animation.echo_harness.sleep": {
-      "loop": true,
-      "bones": {
-        "torso": {
-          "position": [0, -2.2, 0],
-          "rotation": [12, 0, 0]
-        },
-        "arm_left": { "rotation": [28, 0, 0] },
-        "arm_right": { "rotation": [28, 0, 0] },
-        "leg_left": { "rotation": [-22, 0, 0] },
-        "leg_right": { "rotation": [-22, 0, 0] },
-        "cephalari": {
-          "position": [0, -1.8, 1.8],
-          "rotation": [16, 0, 0]
-        }
-      }
-    },
-    "animation.echo_harness.zombie_manifest": {
-      "loop": false,
-      "animation_length": 1.4,
-      "bones": {
-        "*": {
-          "scale": [
-            "math.lerp(0.05, 1, query.anim_time / 1.4)",
-            "math.lerp(0.05, 1, query.anim_time / 1.4)",
-            "math.lerp(0.05, 1, query.anim_time / 1.4)"
-          ],
-          "rotation": [
-            "math.sin(query.anim_time * 300) * 12",
-            "math.sin(query.anim_time * 260) * 12",
-            "math.sin(query.anim_time * 280) * 12"
-          ]
-        }
-      }
-    }
-  }
+	"format_version": "1.20.0",
+	"animations": {
+		"animation.echo_harness.idle": {
+			"loop": true,
+			"bones": {
+				"torso": {
+					"rotation": [0, "math.sin(query.anim_time * 1.5) * 2", 0]
+				}
+			}
+		},
+		"animation.echo_harness.walk": {
+			"loop": true,
+			"bones": {
+				"leg_left": {
+					"rotation": ["math.sin(query.walk_cycle * 60) * 25", 0, 0]
+				},
+				"leg_right": {
+					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 25", 0, 0]
+				},
+				"arm_left": {
+					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 15", 0, 0]
+				},
+				"arm_right": {
+					"rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0]
+				}
+			}
+		},
+		"animation.echo_harness.move": {
+			"loop": true,
+			"bones": {
+				"leg_left": {
+					"rotation": ["math.sin(query.walk_cycle * 60) * 25", 0, 0]
+				},
+				"leg_right": {
+					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 25", 0, 0]
+				},
+				"arm_left": {
+					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 15", 0, 0]
+				},
+				"arm_right": {
+					"rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0]
+				}
+			}
+		},
+		"animation.echo_harness.zombie_manifest": {
+			"loop": false,
+			"animation_length": 1.4,
+			"bones": {
+				"*": {
+					"scale": ["math.lerp(0.05, 1, query.anim_time / 1.4)", "math.lerp(0.05, 1, query.anim_time / 1.4)", "math.lerp(0.05, 1, query.anim_time / 1.4)"],
+					"rotation": ["math.sin(query.anim_time * 300) * 12", "math.sin(query.anim_time * 260) * 12", "math.sin(query.anim_time * 280) * 12"]
+				}
+			}
+		},
+		"animation.echo_harness.sleep": {
+			"loop": true,
+			"bones": {
+				"torso": {
+					"rotation": [112, 0, 0],
+					"position": [18, -2.2, 0]
+				},
+				"arm_left": {
+					"rotation": [28, 0, 0]
+				},
+				"arm_right": {
+					"rotation": [28, 0, 0]
+				},
+				"leg_left": {
+					"rotation": [-22, 0, 0]
+				},
+				"leg_right": {
+					"rotation": [-22, 0, 0]
+				},
+				"cephalari": {
+					"rotation": [16, 0, 0],
+					"position": [0, -1.8, 1.8]
+				}
+			}
+		}
+	}
 }
