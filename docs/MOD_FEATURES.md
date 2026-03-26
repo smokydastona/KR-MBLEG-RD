@@ -174,20 +174,24 @@ Keep it up to date whenever you add/remove/rename content.
     - Texture: `assets/kruemblegard/textures/entity/driftwhale.png`
 
 - **Pebble Wren** (`pebble_wren`)
-  - Small, breedable seed-eater and flying Wayfall bird (GeckoLib-rendered).
+  - Small, breedable ambient seed-eater and flying Wayfall bird (GeckoLib-rendered).
   - Visual: upright “display bird” silhouette with crest + fan tail.
   - Befriend: feed Wheat Seeds to befriend it (tamed wrens follow their owner).
   - Ore-find: while befriended, crouch-feed Wheat Seeds to trigger an ore direction ping (plays a brief display animation).
   - Movement: uses a twitchier songbird-style perch-and-flight rhythm with short, frequent airborne bursts, quicker owner/flock regrouping, preferred higher landings on visible perches such as branches, leaves, fences, and walls, occasional perched chirps with the nearest perched answer/tiny flourish motion, slight pitch variation across perch calls, an occasional one-extra-reply conversational burst, loose hop synchronization in small wild flocks, shared ground pecking/foraging and playful hop-chase bouts among nearby wild wrens, occasional whole-flock flush takeoffs, explicit stimulus flushes when a nearby player rushes the flock or a wren is suddenly hurt, ground strolling while relaxed, flying navigation + air-wander flocking when displaced, and a dedicated flap loop while airborne; ordered-to-sit wrens still land instead of hovering.
   - Audio: now uses dedicated custom `entity.pebble_wren.*` sound events for ambient chirps, perch calls/replies, social flourishes, flutter takeoffs/landings, hurt/death, and ore-find pings; most of the set is procedurally synthesized in-house with `ffmpeg` filter graphs, while the flutter cue is a lighter trimmed cut from the PSFX example file `beating-wings-small-001.ogg`, all tracked in `docs/audio_licenses/pebble_wren/manifest.md`.
   - Tempt/breed item: Wheat Seeds.
-  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`) plus all Overworld biomes (`#minecraft:is_overworld`).
+  - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`) plus all Overworld biomes (`#minecraft:is_overworld`), and now counted against the ambient mob cap like vanilla bats.
   - Drops Feathers and (occasionally) Wheat Seeds.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/pebble_wren.geo.json`
     - Animations: `assets/kruemblegard/animations/pebble_wren.animation.json`
     - Animation controller reference (Bedrock-style): `assets/kruemblegard/controllers/pebble_wren.animation_controllers.json`
     - Textures: `assets/kruemblegard/textures/entity/pebble_wren/pebble_wren_1.png` .. `pebble_wren_14.png`
+
+- **Bat coverage in Wayfall** (`minecraft:bat`)
+  - Vanilla bats now receive an extra biome-spawn injection across all Wayfall biomes (`#kruemblegard:wayfall`) so they can appear anywhere Pebble Wrens do inside Wayfall.
+  - Overworld bat spawning is unchanged and still comes from vanilla biome data rather than an extra Krümblegård modifier.
 
 - **Mossback Tortoise** (`mossback_tortoise`)
   - Slow, armored, breedable grazer (GeckoLib-rendered).

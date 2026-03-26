@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#kruemblegard:wayfall",
+  "spawners": [
+    {
+      "type": "minecraft:bat",
+      "weight": 8,
+      "minCount": 2,
+      "maxCount": 5
+    }
+  ]
+}

@@ -222,7 +222,7 @@ public class ModEntities {
         ENTITIES.register(
             "pebble_wren",
             () -> EntityType.Builder.<PebbleWrenEntity>of(
-                    PebbleWrenEntity::new, MobCategory.CREATURE)
+                        PebbleWrenEntity::new, MobCategory.AMBIENT)
                 .sized(0.45f, 0.55f)
                 .build(new ResourceLocation(Kruemblegard.MOD_ID, "pebble_wren").toString())
         );
