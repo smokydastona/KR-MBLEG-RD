@@ -719,6 +719,12 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - `#kruemblegard:wayfall_ash_heavy` → surface defaults to **Ashfall Loam** with shallow **Crushstone** beneath.
   - `#kruemblegard:wayfall_void` → surface defaults to **Voidfelt** (rare; Shatterplate Flats only) with shallow **Crushstone** beneath.
   - Otherwise, the surface defaults to **Runegrowth** (the correct Runegrowth variant is chosen per-biome; **Fault Dust** is used as a soil layer in some biomes).
+- Current Wayfall runegrowth surface assignment:
+  - **Frostbound Runegrowth**: Hollow Transit Plains, Glyphscar Reach.
+  - **Verdant Runegrowth**: Midweft Wilds, Shatterplate Flats, Crumbled Crossing, Underway Falls.
+  - **Emberwarmed Runegrowth**: Basin of Scars, Fracture Shoals, Strata Collapse.
+  - **Resonant Runegrowth**: Driftway Chasm, Faulted Expanse, Riven Causeways.
+  - Hot-biome shallow cuts: Basin of Scars, Fracture Shoals, and Strata Collapse now keep **Emberwarmed Runegrowth** through the first shallow subsurface layer before falling back to **Fault Dust**.
 - Wayfall flora/saplings use the `kruemblegard:wayfall_ground` block tag for valid substrate (so the terrain palette can evolve without hard-coded `END_STONE`).
 
 ## Gameplay rules
