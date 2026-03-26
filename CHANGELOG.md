@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Cleanup(animation/adult_forms): remove the leftover `animation.spiral_strider.walk` and `animation.echo_harness.walk` clips so all four live adult-form Cephalari animation files use `move` as the single locomotion loop name.
 - Fix(animation/adult_forms): route live adult-form Cephalari through the matching Spiral Strider, DriftSkimmer, Treadwinder, or Echo Harness animation file for idle, move, trade, work, celebrate, hurt, riding, zombify, and death instead of falling back to the shared base Cephalari clips outside of sleep.
 - Fix(localization): add the missing `profession.kruemblegard.nutrient_keeper` and `profession.kruemblegard.architect` `en_us` entries so the two custom trader professions resolve cleanly anywhere the vanilla/Forge profession key path is used.
 - Fix(render/mirroring): stop the mirrored render pass from flipping untouched child bones, which smooths out the Spiral Strider sleep pose and avoids choppy nested-leg/claw motion while the east-west bed mirror and left-handed variant remain active.

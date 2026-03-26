@@ -9,23 +9,6 @@
 				}
 			}
 		},
-		"animation.echo_harness.walk": {
-			"loop": true,
-			"bones": {
-				"leg_left": {
-					"rotation": ["math.sin(query.walk_cycle * 60) * 25", 0, 0]
-				},
-				"leg_right": {
-					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 25", 0, 0]
-				},
-				"arm_left": {
-					"rotation": ["math.sin(query.walk_cycle * 60 + 180) * 15", 0, 0]
-				},
-				"arm_right": {
-					"rotation": ["math.sin(query.walk_cycle * 60) * 15", 0, 0]
-				}
-			}
-		},
 		"animation.echo_harness.move": {
 			"loop": true,
 			"bones": {
