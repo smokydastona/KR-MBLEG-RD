@@ -76,9 +76,7 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
         }
 
         ResourceLocation overlayTexture = animatable.getBodyTextureResource();
-        RenderType overlayType = useDepthSafeOverlay(animatable)
-            ? RenderType.entityTranslucent(overlayTexture)
-            : RenderType.entityCutoutNoCull(overlayTexture);
+        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
         VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
 
         // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
@@ -104,10 +102,5 @@ public final class CephalariBodyOverlayLayer extends GeoRenderLayer<CephalariEnt
         }
 
         return false;
-    }
-
-    private static boolean useDepthSafeOverlay(CephalariEntity animatable) {
-        int adultFormVariant = animatable.getAdultFormVariant();
-        return adultFormVariant == 0 || adultFormVariant == 1;
     }
 }

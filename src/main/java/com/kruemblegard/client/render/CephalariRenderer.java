@@ -1,6 +1,7 @@
 package com.kruemblegard.client.render;
 
 import com.kruemblegard.client.render.layer.CephalariBodyOverlayLayer;
+import com.kruemblegard.client.render.layer.CephalariOuterShellLayer;
 import com.kruemblegard.client.render.layer.CephalariProfessionLayer;
 import com.kruemblegard.client.render.model.CephalariModel;
 import com.kruemblegard.entity.CephalariEntity;
@@ -18,14 +19,13 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.util.RenderUtils;
 
 public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
-    private static final String CEPHALARI_ROOT_BONE = "cephalari";
-
     public CephalariRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CephalariModel());
         this.shadowRadius = 0.5F;
 
-        addRenderLayer(new CephalariProfessionLayer(this));
         addRenderLayer(new CephalariBodyOverlayLayer(this));
+        addRenderLayer(new CephalariProfessionLayer(this));
+        addRenderLayer(new CephalariOuterShellLayer(this));
     }
 
     @Override
@@ -45,11 +45,6 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
         float blue,
         float alpha
     ) {
-        // Adult Cephalari adult-form appearances use an adult-form geo that embeds a Cephalari subtree.
-        // We want explicit, deterministic pass ordering like the Scaralon carpet fix:
-        // 1) profession + badge overlays (on their dedicated bones)
-        // 2) Cephalari biome/bonus body overlay (only on embedded Cephalari bones)
-        // 3) golem/base texture (only on non-Cephalari bones)
         if (!isReRender
             && animatable != null
             && !animatable.isBaby()
@@ -64,13 +59,7 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
 
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
-            // Render layers first (registered in the requested order).
             applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
-
-            // Then render the golem/base texture last, but never paint the embedded Cephalari subtree.
-            if (!isInCephalariSubtree(bone)) {
-                renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            }
 
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
@@ -94,27 +83,6 @@ public class CephalariRenderer extends GeoEntityRenderer<CephalariEntity> {
             blue,
             alpha
         );
-    }
-
-    private static boolean isInCephalariSubtree(GeoBone bone) {
-        if (bone == null) {
-            return false;
-        }
-
-        if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
-            return true;
-        }
-
-        GeoBone current = bone;
-        while (current != null) {
-            GeoBone parent = current.getParent();
-            if (parent != null && CEPHALARI_ROOT_BONE.equals(parent.getName())) {
-                return true;
-            }
-            current = parent;
-        }
-
-        return false;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.kruemblegard.client.render;
 
 import com.kruemblegard.client.render.layer.CephalariAdultFormBodyOverlayLayer;
+import com.kruemblegard.client.render.layer.CephalariAdultFormOuterShellLayer;
 import com.kruemblegard.client.render.layer.CephalariAdultFormProfessionOverlayLayer;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
 
@@ -11,8 +12,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-
-import org.joml.Matrix4f;
 
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
@@ -27,15 +26,13 @@ import software.bernie.geckolib.util.RenderUtils;
  * entity's own body texture and profession/badge layers.
  */
 public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> extends GeoEntityRenderer<T> {
-    private static final String CEPHALARI_ROOT_BONE = "cephalari";
-    private static final String ROOT_BONE = "root";
-
     public CephalariAdultFormRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
         super(renderManager, model);
         this.shadowRadius = 0.7F;
 
-        addRenderLayer(new CephalariAdultFormProfessionOverlayLayer<>(this));
         addRenderLayer(new CephalariAdultFormBodyOverlayLayer<>(this));
+        addRenderLayer(new CephalariAdultFormProfessionOverlayLayer<>(this));
+        addRenderLayer(new CephalariAdultFormOuterShellLayer<>(this));
     }
 
     @Override
@@ -56,104 +53,15 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
         float alpha
     ) {
         if (!isReRender && animatable != null && bone != null) {
-            if (isAdultFormRootBone(bone)) {
-                poseStack.pushPose();
-                RenderUtils.translateMatrixToBone(poseStack, bone);
-                RenderUtils.translateToPivotPoint(poseStack, bone);
-                RenderUtils.rotateMatrixAroundBone(poseStack, bone);
-                RenderUtils.scaleMatrixForBone(poseStack, bone);
-
-                if (bone.isTrackingMatrices()) {
-                    Matrix4f poseState = new Matrix4f(poseStack.last().pose());
-                    Matrix4f localMatrix = RenderUtils.invertAndMultiplyMatrices(poseState, this.entityRenderTranslations);
-
-                    bone.setModelSpaceMatrix(RenderUtils.invertAndMultiplyMatrices(poseState, this.modelRenderTranslations));
-                    bone.setLocalSpaceMatrix(RenderUtils.translateMatrix(localMatrix, getRenderOffset(this.animatable, 1).toVector3f()));
-                    bone.setWorldSpaceMatrix(RenderUtils.translateMatrix(new Matrix4f(localMatrix), this.animatable.position().toVector3f()));
-                }
-
-                RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
-                applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
-
-                if (!isInCephalariSubtree(bone)) {
-                    renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-                }
-
-                java.util.List<GeoBone> deferredChildren = new java.util.ArrayList<>();
-                for (GeoBone child : bone.getChildBones()) {
-                    if (child == null) {
-                        continue;
-                    }
-
-                    if (CEPHALARI_ROOT_BONE.equals(child.getName())) {
-                        renderRecursively(
-                            poseStack,
-                            animatable,
-                            child,
-                            renderType,
-                            bufferSource,
-                            buffer,
-                            isReRender,
-                            partialTick,
-                            packedLight,
-                            packedOverlay,
-                            red,
-                            green,
-                            blue,
-                            alpha
-                        );
-                        continue;
-                    }
-
-                    deferredChildren.add(child);
-                }
-
-                for (GeoBone child : deferredChildren) {
-                    renderRecursively(
-                        poseStack,
-                        animatable,
-                        child,
-                        renderType,
-                        bufferSource,
-                        buffer,
-                        isReRender,
-                        partialTick,
-                        packedLight,
-                        packedOverlay,
-                        red,
-                        green,
-                        blue,
-                        alpha
-                    );
-                }
-
-                poseStack.popPose();
-                return;
-            }
-
             poseStack.pushPose();
             RenderUtils.translateMatrixToBone(poseStack, bone);
             RenderUtils.translateToPivotPoint(poseStack, bone);
             RenderUtils.rotateMatrixAroundBone(poseStack, bone);
             RenderUtils.scaleMatrixForBone(poseStack, bone);
 
-            if (bone.isTrackingMatrices()) {
-                Matrix4f poseState = new Matrix4f(poseStack.last().pose());
-                Matrix4f localMatrix = RenderUtils.invertAndMultiplyMatrices(poseState, this.entityRenderTranslations);
-
-                bone.setModelSpaceMatrix(RenderUtils.invertAndMultiplyMatrices(poseState, this.modelRenderTranslations));
-                bone.setLocalSpaceMatrix(RenderUtils.translateMatrix(localMatrix, getRenderOffset(this.animatable, 1).toVector3f()));
-                bone.setWorldSpaceMatrix(RenderUtils.translateMatrix(new Matrix4f(localMatrix), this.animatable.position().toVector3f()));
-            }
-
             RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
 
             applyRenderLayersForBone(poseStack, animatable, bone, renderType, bufferSource, buffer, partialTick, packedLight, packedOverlay);
-
-            if (!isInCephalariSubtree(bone)) {
-                renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            }
-
             renderChildBones(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
             return;
@@ -175,35 +83,6 @@ public class CephalariAdultFormRenderer<T extends CephalariAdultFormEntity> exte
             blue,
             alpha
         );
-    }
-
-    private static boolean isInCephalariSubtree(GeoBone bone) {
-        if (bone == null) {
-            return false;
-        }
-
-        if (CEPHALARI_ROOT_BONE.equals(bone.getName())) {
-            return true;
-        }
-
-        GeoBone current = bone;
-        while (current != null) {
-            GeoBone parent = current.getParent();
-            if (parent != null && CEPHALARI_ROOT_BONE.equals(parent.getName())) {
-                return true;
-            }
-            current = parent;
-        }
-
-        return false;
-    }
-
-    private static boolean isAdultFormRootBone(GeoBone bone) {
-        if (bone == null) {
-            return false;
-        }
-
-        return ROOT_BONE.equals(bone.getName()) && bone.getParent() == null;
     }
 
     @Override

@@ -3,8 +3,6 @@ package com.kruemblegard.client.render.layer;
 import javax.annotation.Nullable;
 
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
-import com.kruemblegard.entity.adultform.DriftSkimmerEntity;
-import com.kruemblegard.entity.adultform.SpiralStriderEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -106,9 +104,7 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
                 return;
             }
 
-            RenderType professionType = useDepthSafeOverlay(animatable)
-                ? RenderType.entityTranslucent(professionTexture)
-                : RenderType.entityCutoutNoCull(professionTexture);
+            RenderType professionType = RenderType.entityCutoutNoCull(professionTexture);
             VertexConsumer professionBuffer = bufferSource.getBuffer(professionType);
 
             getRenderer().renderCubesOfBone(poseStack, bone, professionBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -120,9 +116,7 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
             return;
         }
 
-        RenderType levelType = useDepthSafeOverlay(animatable)
-            ? RenderType.entityTranslucent(levelTexture)
-            : RenderType.entityCutoutNoCull(levelTexture);
+        RenderType levelType = RenderType.entityCutoutNoCull(levelTexture);
         VertexConsumer levelBuffer = bufferSource.getBuffer(levelType);
 
         getRenderer().renderCubesOfBone(poseStack, bone, levelBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -169,9 +163,5 @@ public final class CephalariAdultFormProfessionOverlayLayer<T extends CephalariA
 
     private static boolean resourceExists(ResourceLocation location) {
         return Minecraft.getInstance().getResourceManager().getResource(location).isPresent();
-    }
-
-    private static boolean useDepthSafeOverlay(CephalariAdultFormEntity animatable) {
-        return animatable instanceof SpiralStriderEntity || animatable instanceof DriftSkimmerEntity;
     }
 }

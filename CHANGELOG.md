@@ -18,6 +18,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Revert(render/adult_forms): back out the live adult-form Cephalari renderer root-order experiment after it regressed all four adult-form appearances; keep the stand-alone adult-form renderer out of temporary probe mode while the mounted Cephalari path is reworked separately.
 - Cleanup(cephalari/adult_forms): delete the leftover ride/link helper path and adult-form seat scaffolding, and rename old-save compatibility constants so the code no longer describes Cephalari adult forms as mounts while still reading pre-adult-form save keys.
 - Fix(render/adult_forms): draw the embedded `cephalari` body/profession overlays for Spiral Strider and DriftSkimmer through a depth-safe translucent pass so those inner overlays stop hiding the outer-form shell bones while Treadwinder and Echo Harness keep the normal cutout pass.
+- Fix(render/adult_forms): stop mixing GeckoLib's base cube pass with the adult-form overlay passes; render stand-alone and live adult-form appearances through explicit per-bone layers only so the embedded `cephalari` subtree, profession badges, and outer shell each draw on their own bone subset in a deterministic order.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.

@@ -1,6 +1,8 @@
 package com.kruemblegard.client.render.layer;
 
+import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.entity.adultform.CephalariAdultFormEntity;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -14,17 +16,12 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * Renders the adult-form entity's body texture on the embedded {@code cephalari} subtree inside adult-form geos.
+ * Renders the adult-form outer shell on every non-embedded-cephalari bone.
  */
-public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFormEntity> extends GeoRenderLayer<T> {
-
+public final class CephalariAdultFormOuterShellLayer<T extends CephalariAdultFormEntity> extends GeoRenderLayer<T> {
     private static final String CEPHALARI_ROOT_BONE = "cephalari";
 
-    private static final String PROFESSION_BONE = "profession";
-    private static final String PROFESSION_HAT_BONE = "profession_hat";
-    private static final String PROFESSION_LEVEL_BONE = "profession_level";
-
-    public CephalariAdultFormBodyOverlayLayer(GeoRenderer<T> renderer) {
+    public CephalariAdultFormOuterShellLayer(GeoRenderer<T> renderer) {
         super(renderer);
     }
 
@@ -55,26 +52,17 @@ public final class CephalariAdultFormBodyOverlayLayer<T extends CephalariAdultFo
         int packedLight,
         int packedOverlay
     ) {
-        if (bone == null || animatable == null) {
+        if (bone == null || animatable == null || isInCephalariSubtree(bone)) {
             return;
         }
 
-        if (!isInCephalariSubtree(bone)) {
-            return;
-        }
+        ResourceLocation outerTexture = new ResourceLocation(
+            Kruemblegard.MOD_ID,
+            "textures/entity/cephalari/cephalari_golem/cephalari_golem_" + animatable.getTextureVariant() + ".png"
+        );
+        VertexConsumer outerBuffer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(outerTexture));
 
-        // Skip the dedicated profession overlay bones.
-        String name = bone.getName();
-        if (PROFESSION_BONE.equals(name) || PROFESSION_HAT_BONE.equals(name) || PROFESSION_LEVEL_BONE.equals(name)) {
-            return;
-        }
-
-        ResourceLocation overlayTexture = animatable.getBodyTextureResource();
-        RenderType overlayType = RenderType.entityCutoutNoCull(overlayTexture);
-        VertexConsumer overlayBuffer = bufferSource.getBuffer(overlayType);
-
-        // GeoRenderLayer base methods are no-ops in GeckoLib 4.8.
-        getRenderer().renderCubesOfBone(poseStack, bone, overlayBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        getRenderer().renderCubesOfBone(poseStack, bone, outerBuffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private static boolean isInCephalariSubtree(GeoBone bone) {
