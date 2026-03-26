@@ -24,6 +24,8 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(ui/trading): trim the live merchant title component directly so Cephalari trade menus no longer fall back to a literal `merchant.title` label on Forge 1.20.1.
 - Fix(ui/trading): shorten the Nutrient-Keeper display label to `Keeper` in `en_us` so the custom Cephalari trade title fits the vanilla merchant header more reliably.
 - Fix(animation/adult_forms): route bed-sleeping Cephalari adult-form appearances through the matching Spiral Strider, DriftSkimmer, Treadwinder, or Echo Harness sleep loop instead of the base Cephalari sleep animation.
+- Fix(ui/trading): add a client-tick merchant-screen replacement fallback so the trimmed Cephalari trade menu still applies even if the screen-opening event misses the initial vanilla merchant screen.
+- Fix(animation/adult_forms): load the matching adult-form animation file while a bed-sleeping Cephalari is rendered through an adult-form appearance so the custom Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness sleep clips can actually resolve.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
