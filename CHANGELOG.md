@@ -15,7 +15,7 @@ Changelog entries are grouped by the exact mod version embedded in the built jar
 - Fix(cephalari): normalize Spiral Strider and DriftSkimmer embedded Cephalari UVs so all adult-form rider textures and profession overlays render the same way as Treadwinder and Echo Harness.
 - Fix(cephalari): correct the remaining Spiral Strider and DriftSkimmer mouth east-face UVs so their adult-form shell textures sample the same atlas region as the working forms.
 - Fix(render/adult_forms): render the embedded `cephalari` root before the other root-level outer-form bones in the stand-alone adult-form renderer while preserving GeckoLib's recursive bone handling and still skipping base cubes on the embedded `cephalari` subtree, so Spiral Strider and DriftSkimmer can render their outer-form bones and embedded `cephalari` bones together without changing the authored UVs or current textures.
-- Debug(render/adult_forms): temporarily suppress the embedded `cephalari` subtree only on Spiral Strider and DriftSkimmer so the next test build can prove whether their missing outer-form bones are being occluded at runtime or skipped entirely.
+- Fix(render/adult_forms): apply the root-level `cephalari`-first recursion/matrix-tracking pass to live adult-form Cephalari rendering as well as the stand-alone adult-form renderer, and remove the temporary Spiral Strider/DriftSkimmer debug suppression so both spawn paths can render the embedded `cephalari` layer and the outer-form shell together again.
 
 ## 1.0.1364 (2026-03-25)
 - Refactor(modularity): extract the retired Cephalari machinery subsystem into the gitignored `addon-snapshot/` workspace folder and remove its runtime registrations, assets, recipes, docs, and config surface from the main Krümblegård mod.
