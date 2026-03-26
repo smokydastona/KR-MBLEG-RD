@@ -31,6 +31,7 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
@@ -144,6 +145,16 @@ public final class CommonModEvents {
             null,
             null,
             CommonModEvents::canSpawnWayfallAxolotl,
+            SpawnPlacementRegisterEvent.Operation.OR
+        );
+
+        // Wayfall: bats need a custom predicate because vanilla bat spawning assumes darker,
+        // lower-altitude spaces than most floating-island terrain provides.
+        event.register(
+            EntityType.BAT,
+            null,
+            null,
+            CommonModEvents::canSpawnWayfallBat,
             SpawnPlacementRegisterEvent.Operation.OR
         );
 
@@ -572,5 +583,37 @@ public final class CommonModEvents {
         }
 
         return true;
+    }
+
+    private static boolean canSpawnWayfallBat(
+            net.minecraft.world.entity.EntityType<? extends Bat> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnType,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        if (!level.getLevel().dimension().equals(ModWorldgenKeys.Levels.WAYFALL)) {
+            return false;
+        }
+
+        // Keep bats in actual air pockets / overhangs instead of open void sky.
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+
+        boolean hasCeilingNearby = false;
+        for (int i = 1; i <= 4; i++) {
+            BlockPos ceilingPos = pos.above(i);
+            if (level.getBlockState(ceilingPos).isFaceSturdy(level, ceilingPos, Direction.DOWN)) {
+                hasCeilingNearby = true;
+                break;
+            }
+        }
+
+        return hasCeilingNearby;
     }
 }
