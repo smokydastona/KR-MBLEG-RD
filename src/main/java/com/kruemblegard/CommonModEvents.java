@@ -26,9 +26,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -41,6 +46,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.Fluids;
 
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -76,6 +82,20 @@ public final class CommonModEvents {
         event.put(ModEntities.PEBBLE_WREN.get(), PebbleWrenEntity.createAttributes().build());
         event.put(ModEntities.MOSSBACK_TORTOISE.get(), MossbackTortoiseEntity.createAttributes().build());
         event.put(ModEntities.GRAVE_CAIRN.get(), GraveCairnEntity.createAttributes().build());
+    }
+
+    @SubscribeEvent
+    public static void onEntityAttributeModification(EntityAttributeModificationEvent event) {
+        addJockeyMountAttackDamage(event, EntityType.CHICKEN, 2.0D);
+        addJockeyMountAttackDamage(event, EntityType.PIG, 3.0D);
+        addJockeyMountAttackDamage(event, EntityType.SHEEP, 3.0D);
+        addJockeyMountAttackDamage(event, EntityType.RABBIT, 2.0D);
+    }
+
+    private static void addJockeyMountAttackDamage(EntityAttributeModificationEvent event, EntityType<? extends Mob> entityType, double value) {
+        if (!event.has(entityType, Attributes.ATTACK_DAMAGE)) {
+            event.add(entityType, Attributes.ATTACK_DAMAGE, value);
+        }
     }
 
     @SubscribeEvent

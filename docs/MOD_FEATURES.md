@@ -392,7 +392,7 @@ Keep it up to date whenever you add/remove/rename content.
         - Zombified Cephalari spawn in the remaining Wayfall biomes (tag: `#kruemblegard:wayfall_cephalari_zombie`).
         - Drowned Cephalari spawn in water across all Wayfall biomes.
     - Water conversions (vanilla-like): Husked -> Zombified when submerged long enough; Zombified -> Drowned when submerged long enough.
-    - Baby zombies: baby undead Cephalari always spawn as a jockey (guaranteed random mount). Those mounts are forced permanently hostile with the same base target classes as a zombie, and while the rider is alive the mount copies the rider's current target so it will keep attacking that victim even if the Cephalari zombie dies first.
+    - Baby zombies: baby undead Cephalari always spawn as a jockey (guaranteed random mount). Those mounts are forced permanently hostile with the same base target classes as a zombie, while the rider is alive the mount copies the rider's current target so it will keep attacking that victim even if the Cephalari zombie dies first, and the passive animal mount pool is given Forge-side `attack_damage` support so hostile pigs, sheep, rabbits, and chickens can safely use melee attack AI.
     - Drowned visual: drowned Cephalari render a vanilla Drowned-style outer overlay layer.
     - Loot: undead variants use the same loot behavior as their vanilla counterparts (Zombie/Husk/Drowned).
     - VFX: cure/zombify use dedicated particle sprites in `assets/kruemblegard/textures/particle/` (shell dust/fragments/spirals + zombify cracks).
