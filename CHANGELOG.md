@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(cephalari_zombie): make baby Cephalari zombie jockey mounts inherit the same hostile target classes as vanilla zombies and mirror the rider's current target so the leftover mount keeps attacking after the rider dies.
 - Fix(cephalari_golem): drop the synced angry locomotion state as soon as the Cephalari Golem loses its target so it snaps straight back to passive instead of lingering in the hostile pose after combat.
 - Fix(cephalari_golem): finalize the village-replacement Cephalari Golem spawn like a normal Iron Golem spawn so replacement golems keep their vanilla roaming behavior and the usual Iron Golem mob-interaction setup instead of idling in place after combat.
 - Fix(cephalari_golem): sync the angry animation state from the server-side combat state to clients so the angry idle and move clips appear reliably while the golem is pursuing or swinging at a target.

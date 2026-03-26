@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -22,12 +23,15 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -323,8 +327,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
     }
 
     private static void makeMountPermanentlyHostile(Mob mount) {
-        // Force the mount to behave like a hostile mob, even if it's normally passive/neutral.
-        // We do this by injecting a simple melee + player-targeting goal set.
+        // Force the mount to behave like a zombie-hostile mob, even if it's normally passive/neutral.
+        // This lets the leftover mount keep fighting with the same enemy priorities a zombie would use.
         if (!(mount instanceof PathfinderMob pathfinder)) {
             return;
         }
@@ -334,6 +338,32 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
         pathfinder.goalSelector.addGoal(1, new MeleeAttackGoal(pathfinder, 1.2D, true));
         pathfinder.targetSelector.addGoal(1, new HurtByTargetGoal(pathfinder));
         pathfinder.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(pathfinder, Player.class, true));
+        pathfinder.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(pathfinder, AbstractVillager.class, false));
+        pathfinder.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(pathfinder, IronGolem.class, true));
+        pathfinder.targetSelector.addGoal(
+            5,
+            new NearestAttackableTargetGoal<>(pathfinder, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR)
+        );
+    }
+
+    private void syncBabyMountTarget() {
+        if (!this.isBaby()) {
+            return;
+        }
+
+        if (!(this.getVehicle() instanceof Mob mount)) {
+            return;
+        }
+
+        LivingEntity riderTarget = this.getTarget();
+        if (riderTarget == null || !riderTarget.isAlive() || riderTarget == mount) {
+            return;
+        }
+
+        mount.setTarget(riderTarget);
+        if (mount instanceof PathfinderMob pathfinder) {
+            pathfinder.setAggressive(true);
+        }
     }
 
     @Override
@@ -451,6 +481,8 @@ public class CephalariZombieEntity extends ZombieVillager implements GeoEntity {
             this.stopRiding();
             mob.discard();
         }
+
+        syncBabyMountTarget();
 
         if (!this.isBaby()) {
             ensureAdultVariantsAssigned();
