@@ -191,6 +191,7 @@ Keep it up to date whenever you add/remove/rename content.
 
 - **Bat coverage in Wayfall** (`minecraft:bat`)
   - Vanilla bats now receive an extra biome-spawn injection across all Wayfall biomes (`#kruemblegard:wayfall`) so they can appear anywhere Pebble Wrens do inside Wayfall.
+  - Wayfall bat injection now uses the same lighter ambient pressure band as Pebble Wrens: weight 4 and group size 1-3.
   - Overworld bat spawning is unchanged and still comes from vanilla biome data rather than an extra Krümblegård modifier.
 
 - **Mossback Tortoise** (`mossback_tortoise`)
