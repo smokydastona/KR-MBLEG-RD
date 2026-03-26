@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Tune(spawns): lower Pebble Wren ambient spawn pressure to smaller 1-3 bird flocks at half the previous weight so the new ambient classification does not overcrowd bats.
 - Change(spawns): reclassify Pebble Wrens as ambient mobs and add Wayfall bat biome injection so bats share the same Wayfall coverage while Overworld bat spawning stays vanilla-driven.
 - Change(spawns): widen Pebble Wren natural spawns to all Wayfall biomes plus the Overworld, move Pebblits onto the six warm Wayfall biomes, and allow Grave Cairns to spawn across all Wayfall biomes while keeping their high-altitude spawn rule.
 - Fix(audio/wayfall): map the registered `music.wayfall` sound event to the shipped `horror-background-atmosphere-09_universfield.ogg` track so Wayfall biomes stop warning about a missing music event and play their intended ambient loop again.
