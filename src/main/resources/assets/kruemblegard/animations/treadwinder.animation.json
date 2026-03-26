@@ -36,6 +36,130 @@
 				}
 			}
 		},
+		"animation.treadwinder.riding_pose": {
+			"loop": true,
+			"bones": {
+				"chassis": {
+					"rotation": [8, 0, 0],
+					"position": [1, 0, 0]
+				},
+				"cephalari": {
+					"rotation": [5, 0, 0]
+				}
+			}
+		},
+		"animation.treadwinder.trade": {
+			"loop": true,
+			"bones": {
+				"chassis": {
+					"rotation": ["math.sin(query.anim_time * 1.6) * 2", "math.sin(query.anim_time * 1.6) * 3", 0]
+				},
+				"tread_left": {
+					"rotation": [0, 0, "math.sin(query.anim_time * 3.0) * 10"]
+				},
+				"tread_right": {
+					"rotation": [0, 0, "-math.sin(query.anim_time * 3.0) * 10"]
+				},
+				"cephalari": {
+					"rotation": [0, "math.sin(query.anim_time * 2.0) * 4", 0]
+				}
+			}
+		},
+		"animation.treadwinder.work": {
+			"loop": true,
+			"bones": {
+				"chassis": {
+					"rotation": ["math.sin(query.anim_time * 2.8) * 4", 0, 0],
+					"position": [0, 0, "math.sin(query.anim_time * 2.8) * 0.5"]
+				},
+				"tread_left": {
+					"rotation": [0, 0, "query.anim_time * 220"]
+				},
+				"tread_right": {
+					"rotation": [0, 0, "-query.anim_time * 220"]
+				}
+			}
+		},
+		"animation.treadwinder.celebrate": {
+			"loop": true,
+			"bones": {
+				"chassis": {
+					"rotation": ["math.sin(query.anim_time * 5.0) * 7", "math.sin(query.anim_time * 2.5) * 8", 0],
+					"position": [0, "math.abs(math.sin(query.anim_time * 5.0)) * 1.1", 0]
+				},
+				"tread_left": {
+					"rotation": [0, 0, "query.anim_time * 300"]
+				},
+				"tread_right": {
+					"rotation": [0, 0, "-query.anim_time * 300"]
+				}
+			}
+		},
+		"animation.treadwinder.hurt": {
+			"loop": false,
+			"animation_length": 0.35,
+			"bones": {
+				"chassis": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [14, 0, 0],
+						"0.35": [0, 0, 0]
+					}
+				},
+				"cephalari": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [10, 0, 0],
+						"0.35": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.treadwinder.zombify_cinematic": {
+			"loop": false,
+			"animation_length": 2.2,
+			"bones": {
+				"chassis": {
+					"rotation": ["math.lerp(0, 28, query.anim_time / 2.2)", "math.sin(query.anim_time * 22) * 3", 0],
+					"position": [0, 0, "math.lerp(0, -3, query.anim_time / 2.2)"]
+				},
+				"tread_left": {
+					"rotation": [0, 0, "query.anim_time * 200"]
+				},
+				"tread_right": {
+					"rotation": [0, 0, "-query.anim_time * 200"]
+				},
+				"cephalari": {
+					"rotation": ["math.lerp(0, 38, query.anim_time / 2.2)", 0, 0]
+				}
+			}
+		},
+		"animation.treadwinder.death": {
+			"loop": false,
+			"animation_length": 0.7,
+			"bones": {
+				"chassis": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.7": [100, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.7": [25, -1.8, 0]
+					}
+				},
+				"cephalari": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.7": [70, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.7": [0, 7, -4.8]
+					}
+				}
+			}
+		},
 		"animation.treadwinder.zombie_manifest": {
 			"loop": false,
 			"animation_length": 1.4,

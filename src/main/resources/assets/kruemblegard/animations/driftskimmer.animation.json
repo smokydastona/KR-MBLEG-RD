@@ -50,6 +50,150 @@
 				}
 			}
 		},
+		"animation.driftskimmer.riding_pose": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [8, 0, -86],
+					"position": [1, 2, 2]
+				},
+				"wing_left": {
+					"rotation": [0, 0, -18]
+				},
+				"wing_right": {
+					"rotation": [0, 0, 18]
+				}
+			}
+		},
+		"animation.driftskimmer.trade": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 1.8) * 3", 0, -90],
+					"position": [0, "math.sin(query.anim_time * 1.8) * 0.7", 0]
+				},
+				"wing_left": {
+					"rotation": [0, 0, "-20 + math.sin(query.anim_time * 3.2) * 8"]
+				},
+				"wing_right": {
+					"rotation": [0, 0, "20 - math.sin(query.anim_time * 3.2) * 8"]
+				}
+			}
+		},
+		"animation.driftskimmer.work": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 2.6) * 5", 0, -90],
+					"position": [0, 0, "math.sin(query.anim_time * 2.6) * 0.9"]
+				},
+				"wing_left": {
+					"rotation": [0, 0, "-26 + math.sin(query.anim_time * 4.0) * 12"]
+				},
+				"wing_right": {
+					"rotation": [0, 0, "26 - math.sin(query.anim_time * 4.0) * 12"]
+				}
+			}
+		},
+		"animation.driftskimmer.celebrate": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": ["math.sin(query.anim_time * 5.6) * 8", "math.sin(query.anim_time * 2.8) * 8", -90],
+					"position": [0, "math.abs(math.sin(query.anim_time * 5.6)) * 1.6", 0]
+				},
+				"wing_left": {
+					"rotation": [0, 0, "-30 + math.sin(query.anim_time * 6.0) * 18"]
+				},
+				"wing_right": {
+					"rotation": [0, 0, "30 - math.sin(query.anim_time * 6.0) * 18"]
+				}
+			}
+		},
+		"animation.driftskimmer.hurt": {
+			"loop": false,
+			"animation_length": 0.35,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, -90],
+						"0.12": [18, 0, -90],
+						"0.35": [0, 0, -90]
+					}
+				},
+				"wing_left": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [0, 0, -28],
+						"0.35": [0, 0, 0]
+					}
+				},
+				"wing_right": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [0, 0, 28],
+						"0.35": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.driftskimmer.zombify_cinematic": {
+			"loop": false,
+			"animation_length": 2.2,
+			"bones": {
+				"body": {
+					"rotation": ["math.lerp(0, 30, query.anim_time / 2.2)", 0, -90],
+					"position": [0, "math.sin(query.anim_time * 10) * 0.6", "math.lerp(0, -2, query.anim_time / 2.2)"]
+				},
+				"wing_left": {
+					"rotation": [0, 0, "math.lerp(0, -34, query.anim_time / 2.2)"]
+				},
+				"wing_right": {
+					"rotation": [0, 0, "math.lerp(0, 34, query.anim_time / 2.2)"]
+				},
+				"cephalari": {
+					"rotation": ["math.lerp(0, 40, query.anim_time / 2.2)", 0, 0]
+				}
+			}
+		},
+		"animation.driftskimmer.death": {
+			"loop": false,
+			"animation_length": 0.7,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, -90],
+						"0.7": [95, -8, -90]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.7": [19, 8.5, 4]
+					}
+				},
+				"wing_left": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.7": [0, 0, -48]
+					}
+				},
+				"wing_right": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.7": [0, 0, 48]
+					}
+				},
+				"cephalari": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.7": [74, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.7": [0, 7.6, -5]
+					}
+				}
+			}
+		},
 		"animation.driftskimmer.zombie_manifest": {
 			"loop": false,
 			"animation_length": 1.4,

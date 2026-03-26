@@ -376,6 +376,8 @@ Keep it up to date whenever you add/remove/rename content.
     - **Treadwinder** (`treadwinder`)
     - **Echo Harness** (`echo_harness`)
     - Rendering: all four adult-form geos use the same embedded Cephalari shell/profession UV mapping so the rider body texture and profession layers render consistently regardless of adult-form type.
+    - Animation routing: live adult-form Cephalari now use the matching form-specific animation resource for idle, move, trade, work, celebrate, hurt, riding, zombify, death, and sleep rather than mixing those states back through the base `cephalari.animation.json` file.
+    - Bed pose mirroring: the adult-form sleep correction still only mirrors east-west bed facings, and that bed-specific correction layers separately on top of the deterministic left-handed spawn variant.
     - These adult-form entities are **not rideable by players** (the Scaralon Beetle is the only player-rideable mob).
   - Trading: if a Cephalari has a profession, right-clicking the Cephalari opens the Cephalari trading UI.
   - Zombification: converts into an undead Cephalari variant when killed by an undead; curing converts back into Cephalari.

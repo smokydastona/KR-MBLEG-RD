@@ -71,21 +71,55 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private static final RawAnimation IDLE_CURIOUS_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_curious");
     private static final RawAnimation IDLE_SKITTISH_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.idle_skittish");
     private static final RawAnimation WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.walk");
-    private static final RawAnimation ADULT_FORM_BODY_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_idle");
-    private static final RawAnimation ADULT_FORM_BODY_WALK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.mount_walk");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.idle");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.idle");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.idle");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_IDLE_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.idle");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.move");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.move");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.move");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_MOVE_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.move");
     private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.sleep");
     private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.sleep");
     private static final RawAnimation ADULT_FORM_TREADWINDER_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.sleep");
     private static final RawAnimation ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.sleep");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_RIDING_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.riding_pose");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_RIDING_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.riding_pose");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_RIDING_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.riding_pose");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_RIDING_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.riding_pose");
     private static final RawAnimation RIDING_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.riding_pose");
 
     private static final RawAnimation SLEEP_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.sleep");
     private static final RawAnimation TRADE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.trade");
     private static final RawAnimation WORK_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.work");
     private static final RawAnimation CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.cephalari.celebrate");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_TRADE_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.trade");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_TRADE_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.trade");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_TRADE_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.trade");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_TRADE_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.trade");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_WORK_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.work");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_WORK_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.work");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_WORK_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.work");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_WORK_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.work");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.spiral_strider.celebrate");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.driftskimmer.celebrate");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.treadwinder.celebrate");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_CELEBRATE_LOOP = RawAnimation.begin().thenLoop("animation.echo_harness.celebrate");
 
     private static final RawAnimation ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.zombify_cinematic");
     private static final RawAnimation HURT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.hurt");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.spiral_strider.zombify_cinematic");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.driftskimmer.zombify_cinematic");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.treadwinder.zombify_cinematic");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_ZOMBIFY_ONCE = RawAnimation.begin().thenPlay("animation.echo_harness.zombify_cinematic");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_HURT_ONCE = RawAnimation.begin().thenPlay("animation.spiral_strider.hurt");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_HURT_ONCE = RawAnimation.begin().thenPlay("animation.driftskimmer.hurt");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_HURT_ONCE = RawAnimation.begin().thenPlay("animation.treadwinder.hurt");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_HURT_ONCE = RawAnimation.begin().thenPlay("animation.echo_harness.hurt");
+    private static final RawAnimation ADULT_FORM_SPIRAL_STRIDER_DEATH_ONCE = RawAnimation.begin().thenPlay("animation.spiral_strider.death");
+    private static final RawAnimation ADULT_FORM_DRIFTSKIMMER_DEATH_ONCE = RawAnimation.begin().thenPlay("animation.driftskimmer.death");
+    private static final RawAnimation ADULT_FORM_TREADWINDER_DEATH_ONCE = RawAnimation.begin().thenPlay("animation.treadwinder.death");
+    private static final RawAnimation ADULT_FORM_ECHO_HARNESS_DEATH_ONCE = RawAnimation.begin().thenPlay("animation.echo_harness.death");
 
     private static final RawAnimation CURIOUS_HEAD_TILT_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.curious_head_tilt");
     private static final RawAnimation SKITTISH_TWITCH_ONCE = RawAnimation.begin().thenPlay("animation.cephalari.skittish_twitch");
@@ -169,6 +203,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
     private boolean forwardingLinkedDamage = false;
 
     private int hurtAnimCooldownTicks = 0;
+    private boolean playedDeathAnim = false;
 
     private int appliedTemperament = TEMPERAMENT_UNASSIGNED;
 
@@ -613,7 +648,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
             if (this.isPassenger()) {
                 state.getController().setAnimationSpeed(1.0D);
-                return state.setAndContinue(RIDING_LOOP);
+                return state.setAndContinue(getRidingLoop());
             }
 
             if (this.isSleeping()) {
@@ -623,17 +658,17 @@ public class CephalariEntity extends Villager implements GeoEntity {
 
             if (this.isTrading()) {
                 state.getController().setAnimationSpeed(1.0D);
-                return state.setAndContinue(TRADE_LOOP);
+                return state.setAndContinue(getTradeLoop());
             }
 
             if (isCelebratingNow()) {
                 state.getController().setAnimationSpeed(1.0D);
-                return state.setAndContinue(CELEBRATE_LOOP);
+                return state.setAndContinue(getCelebrateLoop());
             }
 
             if (isWorkingNow()) {
                 state.getController().setAnimationSpeed(1.0D);
-                return state.setAndContinue(WORK_LOOP);
+                return state.setAndContinue(getWorkLoop());
             }
 
             return PlayState.STOP;
@@ -657,7 +692,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
             state.getController().setAnimationSpeed(animSpeed);
 
             if (this.hasAdultFormAppearance()) {
-                return state.setAndContinue(ADULT_FORM_BODY_WALK_LOOP);
+                return state.setAndContinue(getAdultFormMoveLoop());
             }
             return state.setAndContinue(WALK_LOOP);
         }));
@@ -686,7 +721,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
             state.getController().setAnimationSpeed(animSpeed);
 
             if (this.hasAdultFormAppearance()) {
-                return state.setAndContinue(ADULT_FORM_BODY_IDLE_LOOP);
+                return state.setAndContinue(getAdultFormIdleLoop());
             }
 
             RawAnimation idle = switch (getTemperament()) {
@@ -698,10 +733,42 @@ public class CephalariEntity extends Villager implements GeoEntity {
         }));
 
         controllers.add(new AnimationController<>(this, "actionController", 0, state -> PlayState.STOP)
-            .triggerableAnim("zombify", ZOMBIFY_ONCE));
+            .triggerableAnim("zombify", ZOMBIFY_ONCE)
+            .triggerableAnim("zombify_spiral_strider", ADULT_FORM_SPIRAL_STRIDER_ZOMBIFY_ONCE)
+            .triggerableAnim("zombify_driftskimmer", ADULT_FORM_DRIFTSKIMMER_ZOMBIFY_ONCE)
+            .triggerableAnim("zombify_treadwinder", ADULT_FORM_TREADWINDER_ZOMBIFY_ONCE)
+            .triggerableAnim("zombify_echo_harness", ADULT_FORM_ECHO_HARNESS_ZOMBIFY_ONCE)
+            .triggerableAnim("death_spiral_strider", ADULT_FORM_SPIRAL_STRIDER_DEATH_ONCE)
+            .triggerableAnim("death_driftskimmer", ADULT_FORM_DRIFTSKIMMER_DEATH_ONCE)
+            .triggerableAnim("death_treadwinder", ADULT_FORM_TREADWINDER_DEATH_ONCE)
+            .triggerableAnim("death_echo_harness", ADULT_FORM_ECHO_HARNESS_DEATH_ONCE));
 
         controllers.add(new AnimationController<>(this, "hurtController", 0, state -> PlayState.STOP)
-            .triggerableAnim("hurt", HURT_ONCE));
+            .triggerableAnim("hurt", HURT_ONCE)
+            .triggerableAnim("hurt_spiral_strider", ADULT_FORM_SPIRAL_STRIDER_HURT_ONCE)
+            .triggerableAnim("hurt_driftskimmer", ADULT_FORM_DRIFTSKIMMER_HURT_ONCE)
+            .triggerableAnim("hurt_treadwinder", ADULT_FORM_TREADWINDER_HURT_ONCE)
+            .triggerableAnim("hurt_echo_harness", ADULT_FORM_ECHO_HARNESS_HURT_ONCE));
+    }
+
+    private RawAnimation getAdultFormIdleLoop() {
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_IDLE_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_IDLE_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_IDLE_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_IDLE_LOOP;
+            default -> IDLE_CALM_LOOP;
+        };
+    }
+
+    private RawAnimation getAdultFormMoveLoop() {
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_MOVE_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_MOVE_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_MOVE_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_MOVE_LOOP;
+            default -> WALK_LOOP;
+        };
     }
 
     private RawAnimation getSleepLoop() {
@@ -715,6 +782,62 @@ public class CephalariEntity extends Villager implements GeoEntity {
             case 2 -> ADULT_FORM_TREADWINDER_SLEEP_LOOP;
             case 3 -> ADULT_FORM_ECHO_HARNESS_SLEEP_LOOP;
             default -> SLEEP_LOOP;
+        };
+    }
+
+    private RawAnimation getRidingLoop() {
+        if (!this.hasAdultFormAppearance()) {
+            return RIDING_LOOP;
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_RIDING_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_RIDING_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_RIDING_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_RIDING_LOOP;
+            default -> RIDING_LOOP;
+        };
+    }
+
+    private RawAnimation getTradeLoop() {
+        if (!this.hasAdultFormAppearance()) {
+            return TRADE_LOOP;
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_TRADE_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_TRADE_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_TRADE_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_TRADE_LOOP;
+            default -> TRADE_LOOP;
+        };
+    }
+
+    private RawAnimation getWorkLoop() {
+        if (!this.hasAdultFormAppearance()) {
+            return WORK_LOOP;
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_WORK_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_WORK_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_WORK_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_WORK_LOOP;
+            default -> WORK_LOOP;
+        };
+    }
+
+    private RawAnimation getCelebrateLoop() {
+        if (!this.hasAdultFormAppearance()) {
+            return CELEBRATE_LOOP;
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> ADULT_FORM_SPIRAL_STRIDER_CELEBRATE_LOOP;
+            case 1 -> ADULT_FORM_DRIFTSKIMMER_CELEBRATE_LOOP;
+            case 2 -> ADULT_FORM_TREADWINDER_CELEBRATE_LOOP;
+            case 3 -> ADULT_FORM_ECHO_HARNESS_CELEBRATE_LOOP;
+            default -> CELEBRATE_LOOP;
         };
     }
 
@@ -758,7 +881,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         boolean result = super.hurt(source, amount);
         if (!level().isClientSide && result && !zombifyInProgress && hurtAnimCooldownTicks <= 0) {
             hurtAnimCooldownTicks = 10;
-            triggerAnim("hurtController", "hurt");
+            triggerAnim("hurtController", getHurtTriggerName());
         }
         return result;
     }
@@ -855,7 +978,7 @@ public class CephalariEntity extends Villager implements GeoEntity {
         getNavigation().stop();
         setDeltaMovement(0.0D, 0.0D, 0.0D);
 
-        triggerAnim("actionController", "zombify");
+        triggerAnim("actionController", getZombifyTriggerName());
         playSound(ModSounds.CEPHALARI_ZOMBIFY.get(), 0.95F, 0.95F + random.nextFloat() * 0.1F);
 
         spawnBurst(serverLevel, ModParticles.CEPHALARI_ZOMBIFY.get(), 18, 0.35D, 0.35D, 0.35D, 0.06D);
@@ -988,12 +1111,51 @@ public class CephalariEntity extends Villager implements GeoEntity {
         return BONUS_BODY_TEXTURES.get(pick - biomeCount);
     }
 
-    /**
-     * Keep vanilla villager zombification behavior, but convert into the Cephalari zombie variant.
-     */
     @Override
     public void die(DamageSource source) {
-        // Zombification is handled in hurt() so we can play the cinematic.
+        if (!level().isClientSide && this.hasAdultFormAppearance() && !zombifyInProgress && !playedDeathAnim) {
+            playedDeathAnim = true;
+            triggerAnim("actionController", getDeathTriggerName());
+        }
+
         super.die(source);
+    }
+
+    private String getHurtTriggerName() {
+        if (!this.hasAdultFormAppearance()) {
+            return "hurt";
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> "hurt_spiral_strider";
+            case 1 -> "hurt_driftskimmer";
+            case 2 -> "hurt_treadwinder";
+            case 3 -> "hurt_echo_harness";
+            default -> "hurt";
+        };
+    }
+
+    private String getDeathTriggerName() {
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> "death_spiral_strider";
+            case 1 -> "death_driftskimmer";
+            case 2 -> "death_treadwinder";
+            case 3 -> "death_echo_harness";
+            default -> "death_spiral_strider";
+        };
+    }
+
+    private String getZombifyTriggerName() {
+        if (!this.hasAdultFormAppearance()) {
+            return "zombify";
+        }
+
+        return switch (this.getAdultFormVariant()) {
+            case 0 -> "zombify_spiral_strider";
+            case 1 -> "zombify_driftskimmer";
+            case 2 -> "zombify_treadwinder";
+            case 3 -> "zombify_echo_harness";
+            default -> "zombify";
+        };
     }
 }
