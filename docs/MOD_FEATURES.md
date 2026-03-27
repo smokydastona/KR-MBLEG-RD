@@ -65,7 +65,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Origin spacing guard: the custom structure generator rejects placements whose origin would land within 2048 horizontal blocks of world origin `(0, 0)`, forcing early exploration before the ruin can appear.
   - Vanilla spacing guard: the structure set also excludes placements within 32 chunks of the vanilla `minecraft:strongholds` structure set so ruins do not crowd stronghold terrain.
   - Explorer maps: master cartographers can sell a locator map to the nearest Ancient Way Ruins structure.
-  - Aging pass: placement applies a structure-specific ruin processor pass that strips red-wool marker blocks to air, chips blocks away, mosses/cracks masonry, and converts `sculk_vein` markers into an ancient-city-style mix of air, `sculk_sensor`, and Warden-capable `sculk_shrieker` blocks.
+  - Aging pass: placement applies a structure-specific ruin processor pass that strips red-wool marker blocks to air, chips blocks away, mosses/cracks masonry, and converts `sculk_vein` markers into a lighter ancient-city-style mix of air, `sculk_sensor`, and comparatively sparse Warden-capable `sculk_shrieker` blocks.
   - Monster control: natural monster spawns inside the structure bounding box are constrained to the three Cephalari zombie variants, while Wardens summoned by shriekers remain allowed.
 
 - **Ashmoss → Ashbloom (azalea-style)**
