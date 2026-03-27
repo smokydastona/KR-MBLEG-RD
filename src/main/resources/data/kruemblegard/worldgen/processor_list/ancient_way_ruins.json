@@ -846,7 +846,7 @@
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:sculk_vein",
-          "probability": 0.60
+          "probability": 0.78
         },
         "location_predicate": {
           "predicate_type": "minecraft:always_true"
@@ -859,7 +859,7 @@
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:sculk_vein",
-          "probability": 0.7778
+          "probability": 0.85
         },
         "location_predicate": {
           "predicate_type": "minecraft:always_true"
