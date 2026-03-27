@@ -137,7 +137,7 @@ Keep it up to date whenever you add/remove/rename content.
   - In-game hinting: the Crumbling Codex includes a dedicated Telekinesis page that points players toward enchanting-table use, anvil transfers, late villager stock, and End City/Ancient City loot.
   - Tooltip hinting: Telekinesis books and enchanted gear add native hover-text lines that summarize the inventory-routing effect even without JEI integration.
   - Effect scope: only the enchanted tool or weapon applies the effect; Telekinesis is not a player-wide passive.
-  - Runtime behavior: successful mining, melee kills, and tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption.
+  - Runtime behavior: successful mining, melee kills, and tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption. Tagged projectile kills also relocate their XP orbs to the shooter, while melee XP continues to drop normally at the kill site.
 
 ## Mobs
 - **Mirrored mob variants**

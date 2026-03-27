@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -24,6 +25,7 @@ import net.minecraft.world.phys.AABB;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -119,6 +121,28 @@ public final class TelekinesisEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onLivingExperienceDrop(LivingExperienceDropEvent event) {
+        if (!(event.getEntity().level() instanceof ServerLevel level)) {
+            return;
+        }
+
+        if (event.getDroppedExperience() <= 0) {
+            return;
+        }
+
+        Entity directEntity = event.getEntity().getLastDamageSource() == null
+                ? null
+                : event.getEntity().getLastDamageSource().getDirectEntity();
+        ServerPlayer player = getTelekinesisProjectilePlayer(directEntity);
+        if (player == null) {
+            return;
+        }
+
+        ExperienceOrb.award(level, player.position(), event.getDroppedExperience());
+        event.setDroppedExperience(0);
+    }
+
     private static void relocateNearbyNewDrops(ServerLevel level, ServerPlayer player, AABB aabb) {
         for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, aabb)) {
             if (itemEntity.getAge() > 10) {
@@ -161,14 +185,25 @@ public final class TelekinesisEvents {
 
     private static Player getTelekinesisPlayer(Entity attacker, Entity directEntity) {
         if (!(attacker instanceof Player player)) {
-            if (directEntity instanceof Projectile projectile
-                    && projectile.getPersistentData().getBoolean(NBT_PROJECTILE_TELEKINESIS)
-                    && projectile.getOwner() instanceof Player projectileOwner) {
-                return projectileOwner;
-            }
-            return null;
+            return getTelekinesisProjectilePlayer(directEntity);
         }
         return hasTelekinesis(player.getMainHandItem()) ? player : null;
+    }
+
+    private static ServerPlayer getTelekinesisProjectilePlayer(Entity directEntity) {
+        if (!(directEntity instanceof Projectile projectile)) {
+            return null;
+        }
+
+        if (!projectile.getPersistentData().getBoolean(NBT_PROJECTILE_TELEKINESIS)) {
+            return null;
+        }
+
+        if (!(projectile.getOwner() instanceof ServerPlayer projectileOwner) || projectileOwner.isSpectator()) {
+            return null;
+        }
+
+        return projectileOwner;
     }
 
     private static boolean hasTelekinesis(ItemStack stack) {
