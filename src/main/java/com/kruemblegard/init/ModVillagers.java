@@ -2,6 +2,7 @@ package com.kruemblegard.init;
 
 import com.google.common.collect.ImmutableSet;
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.registry.ModEnchantments;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
 
@@ -14,9 +15,12 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.ItemLike;
@@ -93,6 +97,18 @@ public final class ModVillagers {
 
         @SubscribeEvent
         public static void onVillagerTrades(VillagerTradesEvent event) {
+                        if (event.getType() == VillagerProfession.LIBRARIAN) {
+                                addLibrarianTrades(event);
+                        }
+
+                        if (event.getType() == VillagerProfession.TOOLSMITH) {
+                                addToolsmithTrades(event);
+                        }
+
+                        if (event.getType() == VillagerProfession.WEAPONSMITH) {
+                                addWeaponsmithTrades(event);
+                        }
+
                         if (event.getType() == VillagerProfession.CARTOGRAPHER) {
                                 addCartographerTrades(event);
                         }
@@ -107,8 +123,28 @@ public final class ModVillagers {
         }
     }
 
+                                private static void addLibrarianTrades(VillagerTradesEvent event) {
+                                                                                                event.getTrades().get(5).add(telekinesisBookTrade(28, 3, 30));
+                                }
+
                 private static void addCartographerTrades(VillagerTradesEvent event) {
                                                 event.getTrades().get(5).add(ancientWayRuinsMapTrade(14, 30));
+                }
+
+                private static void addToolsmithTrades(VillagerTradesEvent event) {
+                                                event.getTrades().get(5).add(telekineticGearTrade(16, 24, 3, 30, 0.45F,
+                                                                                Items.DIAMOND_PICKAXE,
+                                                                                Items.DIAMOND_AXE,
+                                                                                Items.DIAMOND_SHOVEL,
+                                                                                Items.DIAMOND_HOE
+                                                ));
+                }
+
+                private static void addWeaponsmithTrades(VillagerTradesEvent event) {
+                                                event.getTrades().get(5).add(telekineticGearTrade(18, 26, 3, 30, 0.45F,
+                                                                                Items.DIAMOND_SWORD,
+                                                                                Items.DIAMOND_AXE
+                                                ));
                 }
 
         private static void addNutrientKeeperTrades(VillagerTradesEvent event) {
@@ -207,6 +243,41 @@ public final class ModVillagers {
                                 villagerXp,
                                 PRICE_MULTIPLIER
                 );
+        }
+
+        private static VillagerTrades.ItemListing telekinesisBookTrade(int emeralds, int maxUses, int villagerXp) {
+                return (trader, random) -> new MerchantOffer(
+                                new ItemStack(Items.EMERALD, emeralds),
+                                new ItemStack(Items.BOOK),
+                                EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.TELEKINESIS.get(), 1)),
+                                maxUses,
+                                villagerXp,
+                                PRICE_MULTIPLIER
+                );
+        }
+
+        private static VillagerTrades.ItemListing telekineticGearTrade(int plainEmeralds, int enchantedEmeralds, int maxUses, int villagerXp, float enchantedChance, Item... items) {
+                return (trader, random) -> {
+                                if (items.length == 0) {
+                                                return null;
+                                }
+
+                                Item item = items[random.nextInt(items.length)];
+                                ItemStack stack = new ItemStack(item);
+                                int emeraldCost = plainEmeralds;
+                                if (random.nextFloat() < enchantedChance) {
+                                                stack.enchant(ModEnchantments.TELEKINESIS.get(), 1);
+                                                emeraldCost = enchantedEmeralds;
+                                }
+
+                                return new MerchantOffer(
+                                                new ItemStack(Items.EMERALD, emeraldCost),
+                                                stack,
+                                                maxUses,
+                                                villagerXp,
+                                                PRICE_MULTIPLIER
+                                );
+                };
         }
 
         private static VillagerTrades.ItemListing ancientWayRuinsMapTrade(int emeralds, int villagerXp) {

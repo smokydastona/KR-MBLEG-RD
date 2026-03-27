@@ -1,4 +1,9 @@
 {
   "replace": false,
-  "entries": []
+  "entries": [
+    "kruemblegard:end_city_telekinesis_book",
+    "kruemblegard:end_city_telekinesis_gear",
+    "kruemblegard:ancient_city_telekinesis_book",
+    "kruemblegard:ancient_city_telekinesis_gear"
+  ]
 }

@@ -127,6 +127,15 @@ Keep it up to date whenever you add/remove/rename content.
 - It awakens if a player interacts with it or lingers too close.
 - After a player has encountered Traprock once, most newly found Traprock will spawn already awake (with a small chance to remain dormant again).
 
+## Enchantments
+- **Telekinesis** (`telekinesis`)
+  - Acquisition: available from the enchanting table and anvil like a normal non-treasure enchantment.
+  - Valid targets: tools and weapons only, specifically digger tools, shears, swords, bows, crossbows, and tridents.
+  - Loot sources: can appear in End City and Ancient City chests both as an enchanted book and as pre-enchanted gear.
+  - Trades: master librarians can sell the Telekinesis book; master toolsmiths and weaponsmiths can roll Telekinesis tools or weapons in their final-tier offers.
+  - Effect scope: only the enchanted tool or weapon applies the effect; Telekinesis is not a player-wide passive.
+  - Runtime behavior: successful mining, melee kills, and tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption.
+
 ## Mobs
 - **Mirrored mob variants**
   - Geo-rendered custom mobs now derive a deterministic left-handed mirrored render variant from their UUID so some spawns permanently play the authored animation set as a mirrored east-west-handed version without needing separate animation resources.

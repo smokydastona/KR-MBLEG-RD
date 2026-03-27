@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Tune(enchantment/loot): make Telekinesis a normal enchanting-table/anvil enchantment for tools and weapons only, add End City and Ancient City chest rolls for both enchanted books and pre-enchanted gear, add master librarian book sales, and let master toolsmiths/weaponsmiths roll Telekinesis equipment offers.
 - Feat(enchantment/loot): add a Telekinesis enchantment for breakable mainhand tools and weapons that redirects fresh block drops and absorbs both direct and projectile kill drops into the attacking player's inventory, leaves only overflow at the player, and plays the vanilla pickup sound when drops are absorbed.
 - Feat(structure/overworld): add Ancient Way Ruins as a globally limited overworld structure sourced from `wayfall_temple.schem`, anchored to the schematic's red wool origin marker, cleaned of marker wool during processing, hard-blocked from generating within 2048 blocks of world origin, kept away from vanilla strongholds, sold by cartographer explorer maps, weathered during placement, and restricted to Cephalari zombie-family monster spawns plus Warden-capable shriekers.
 - Tune(pebble_wren/loot): make Pebble Wrens always drop feathers plus one context-weighted plant seed, favoring Paleweft/Remnant in Wayfall, vanilla crop seeds in the Overworld, and falling back to a balanced mixed seed pool elsewhere.

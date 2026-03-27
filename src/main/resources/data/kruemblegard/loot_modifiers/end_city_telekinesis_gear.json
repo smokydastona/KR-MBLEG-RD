@@ -1,0 +1,18 @@
+{
+  "type": "kruemblegard:add_telekinesis_loot",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/end_city_treasure"
+    }
+  ],
+  "chance": 0.12,
+  "items": [
+    "minecraft:diamond_pickaxe",
+    "minecraft:diamond_axe",
+    "minecraft:diamond_sword",
+    "minecraft:bow",
+    "minecraft:crossbow",
+    "minecraft:trident"
+  ]
+}
