@@ -3,9 +3,9 @@ package com.kruemblegard.event;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModEnchantments;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.resources.ResourceKey;
@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -35,7 +36,8 @@ public final class TelekinesisEvents {
     private static final String NBT_PROJECTILE_TELEKINESIS = "kruemblegard:telekinesis_projectile";
     private static final int DROP_REDIRECT_WINDOW_TICKS = 5;
     private static final double DROP_REDIRECT_RADIUS = 2.5D;
-    private static final Map<UUID, PendingTelekinesisRedirect> PENDING_REDIRECTS = new HashMap<>();
+    private static final double MOB_REWARD_REDIRECT_RADIUS = 3.5D;
+    private static final List<PendingTelekinesisRedirect> PENDING_REDIRECTS = new ArrayList<>();
 
     private TelekinesisEvents() {}
 
@@ -57,7 +59,7 @@ public final class TelekinesisEvents {
         cleanupExpired(now);
 
         AABB aabb = new AABB(event.getPos()).inflate(DROP_REDIRECT_RADIUS, DROP_REDIRECT_RADIUS, DROP_REDIRECT_RADIUS);
-        PENDING_REDIRECTS.put(player.getUUID(), new PendingTelekinesisRedirect(level.dimension(), aabb, now + DROP_REDIRECT_WINDOW_TICKS));
+        queueRedirect(level, player, aabb, now);
 
         relocateNearbyNewDrops(level, player, aabb);
     }
@@ -76,6 +78,11 @@ public final class TelekinesisEvents {
             return;
         }
 
+        if (event.getEntity() instanceof ExperienceOrb experienceOrb) {
+            redirectExperienceOrb(level, experienceOrb);
+            return;
+        }
+
         if (!(event.getEntity() instanceof ItemEntity itemEntity)) {
             return;
         }
@@ -83,13 +90,12 @@ public final class TelekinesisEvents {
         long now = level.getGameTime();
         cleanupExpired(now);
 
-        for (Map.Entry<UUID, PendingTelekinesisRedirect> entry : PENDING_REDIRECTS.entrySet()) {
-            PendingTelekinesisRedirect redirect = entry.getValue();
+        for (PendingTelekinesisRedirect redirect : PENDING_REDIRECTS) {
             if (!redirect.isActive(level.dimension(), now) || !redirect.aabb.contains(itemEntity.position())) {
                 continue;
             }
 
-            ServerPlayer player = level.getServer().getPlayerList().getPlayer(entry.getKey());
+            ServerPlayer player = level.getServer().getPlayerList().getPlayer(redirect.playerId());
             if (player == null || player.level() != level || player.isSpectator()) {
                 continue;
             }
@@ -103,7 +109,7 @@ public final class TelekinesisEvents {
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
-        if (!(event.getEntity().level() instanceof ServerLevel)) {
+        if (!(event.getEntity().level() instanceof ServerLevel level)) {
             return;
         }
 
@@ -111,6 +117,8 @@ public final class TelekinesisEvents {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return;
         }
+
+        queueRedirect(level, serverPlayer, event.getEntity().getBoundingBox().inflate(MOB_REWARD_REDIRECT_RADIUS), level.getGameTime());
 
         Iterator<ItemEntity> iterator = event.getDrops().iterator();
         while (iterator.hasNext()) {
@@ -131,22 +139,40 @@ public final class TelekinesisEvents {
             return;
         }
 
-        if (!(event.getAttackingPlayer() instanceof ServerPlayer attackingPlayer) || attackingPlayer.isSpectator()) {
-            return;
-        }
-
         Entity directEntity = event.getEntity().getLastDamageSource() == null
                 ? null
                 : event.getEntity().getLastDamageSource().getDirectEntity();
-        ServerPlayer player = getTelekinesisProjectilePlayer(attackingPlayer, directEntity);
-        if (player == null) {
+        Player player = getTelekinesisPlayer(event.getAttackingPlayer(), directEntity);
+        if (!(player instanceof ServerPlayer serverPlayer)) {
             return;
         }
 
-        int droppedExperience = event.getDroppedExperience();
-        event.setDroppedExperience(0);
-        event.setCanceled(true);
-        ExperienceOrb.award(level, player.position(), droppedExperience);
+        queueRedirect(level, serverPlayer, event.getEntity().getBoundingBox().inflate(MOB_REWARD_REDIRECT_RADIUS), level.getGameTime());
+    }
+
+    private static void redirectExperienceOrb(ServerLevel level, ExperienceOrb experienceOrb) {
+        long now = level.getGameTime();
+        cleanupExpired(now);
+
+        for (PendingTelekinesisRedirect redirect : PENDING_REDIRECTS) {
+            if (!redirect.isActive(level.dimension(), now) || !redirect.aabb.contains(experienceOrb.position())) {
+                continue;
+            }
+
+            ServerPlayer player = level.getServer().getPlayerList().getPlayer(redirect.playerId());
+            if (player == null || player.level() != level || player.isSpectator()) {
+                continue;
+            }
+
+            experienceOrb.setPos(player.getX(), player.getY() + 0.1D, player.getZ());
+            experienceOrb.setDeltaMovement(Vec3.ZERO);
+            return;
+        }
+    }
+
+    private static void queueRedirect(ServerLevel level, ServerPlayer player, AABB aabb, long now) {
+        cleanupExpired(now);
+        PENDING_REDIRECTS.add(new PendingTelekinesisRedirect(player.getUUID(), level.dimension(), aabb, now + DROP_REDIRECT_WINDOW_TICKS));
     }
 
     private static void relocateNearbyNewDrops(ServerLevel level, ServerPlayer player, AABB aabb) {
@@ -190,14 +216,16 @@ public final class TelekinesisEvents {
     }
 
     private static Player getTelekinesisPlayer(Entity attacker, Entity directEntity) {
-        if (!(attacker instanceof Player player)) {
-            return getTelekinesisProjectilePlayer(directEntity);
+        ServerPlayer projectilePlayer = getTelekinesisProjectilePlayer(attacker instanceof Player player ? player : null, directEntity);
+        if (projectilePlayer != null) {
+            return projectilePlayer;
         }
-        return hasTelekinesis(player.getMainHandItem()) ? player : null;
-    }
 
-    private static ServerPlayer getTelekinesisProjectilePlayer(Entity directEntity) {
-        return getTelekinesisProjectilePlayer(null, directEntity);
+        if (!(attacker instanceof Player player)) {
+            return null;
+        }
+
+        return hasTelekinesis(player.getMainHandItem()) ? player : null;
     }
 
     private static ServerPlayer getTelekinesisProjectilePlayer(Player attackingPlayer, Entity directEntity) {
@@ -225,16 +253,16 @@ public final class TelekinesisEvents {
     }
 
     private static void cleanupExpired(long now) {
-        Iterator<Map.Entry<UUID, PendingTelekinesisRedirect>> iterator = PENDING_REDIRECTS.entrySet().iterator();
+        Iterator<PendingTelekinesisRedirect> iterator = PENDING_REDIRECTS.iterator();
         while (iterator.hasNext()) {
-            Map.Entry<UUID, PendingTelekinesisRedirect> entry = iterator.next();
-            if (now > entry.getValue().expiresGameTime()) {
+            PendingTelekinesisRedirect redirect = iterator.next();
+            if (now > redirect.expiresGameTime()) {
                 iterator.remove();
             }
         }
     }
 
-    private record PendingTelekinesisRedirect(ResourceKey<Level> dimension, AABB aabb, long expiresGameTime) {
+    private record PendingTelekinesisRedirect(UUID playerId, ResourceKey<Level> dimension, AABB aabb, long expiresGameTime) {
         private boolean isActive(ResourceKey<Level> currentDimension, long now) {
             return this.dimension.equals(currentDimension) && now <= this.expiresGameTime;
         }

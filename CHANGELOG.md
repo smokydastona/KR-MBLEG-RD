@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Feat(telekinesis): make Telekinesis collect both drops and XP from melee or projectile mob kills through a shared redirect window, so modded mobs that spawn reward items/orbs slightly later still funnel those rewards back to the player.
 - Chore(deps): add Chunk Optimization (`curse.maven:chunk-optimization-1400281:7314608`) as an optional runtime-only dependency so dev runs and modpacks can include it without making it a hard Kruemblegard requirement.
 - Tune(structure/overworld): thin the Ancient Way Ruins' residual sculk warning network again by biasing more post-masonry sculk to air, trimming sensor density, and making summon-capable shriekers genuinely rare.
 - Fix(xp/telekinesis): make projectile Telekinesis XP relocation use Forge's attacking-player death context plus the tagged projectile owner so XP orbs consistently spawn at the shooter's feet instead of falling back to the mob death position.

@@ -141,7 +141,7 @@ Keep it up to date whenever you add/remove/rename content.
   - In-game hinting: the Crumbling Codex includes a dedicated Telekinesis page that points players toward enchanting-table use, anvil transfers, late villager stock, and End City/Ancient City loot.
   - Tooltip hinting: Telekinesis books and enchanted gear add native hover-text lines that summarize the inventory-routing effect even without JEI integration.
   - Effect scope: only the enchanted tool or weapon applies the effect; Telekinesis is not a player-wide passive.
-  - Runtime behavior: successful mining, melee kills, and tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption. Tagged projectile kills also relocate their XP orbs to the shooter, while melee XP continues to drop normally at the kill site.
+  - Runtime behavior: successful mining plus melee or tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption. Mob XP orbs from those Telekinesis kills also redirect to the player, and a short kill-site redirect window catches later-spawned modded item entities or experience orbs so non-loot-table reward paths still funnel back to the player.
 
 ## Mobs
 - **Mirrored mob variants**
@@ -512,9 +512,10 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
 - **Telekinesis enchantment** (`telekinesis`)
   - Type: very-rare enchantment for breakable mainhand tools and weapons.
   - Block drops: when an enchanted tool breaks a block, nearby fresh item entities from that break are redirected into the player's inventory; any overflow is repositioned at the player for immediate pickup.
-  - Mob drops: when a player lands the killing blow with an enchanted mainhand weapon/tool, or kills through a projectile launched from that enchanted mainhand item, the killed entity's item drops are inserted into the killer's inventory, with only leftover overflow remaining as item entities near the player.
+  - Mob drops: when a player lands the killing blow with an enchanted mainhand weapon/tool, or kills through a projectile launched from that enchanted mainhand item, the killed entity's item drops are inserted into the killer's inventory, with only leftover overflow remaining as item entities near the player; a short redirect window also catches later-spawned item entities from modded/custom death handlers near the corpse.
+  - Mob XP: Telekinesis kill rewards now redirect mob experience orbs to the player for both melee and projectile kills, including later-spawned custom orbs emitted near the corpse by modded death paths.
   - Feedback: successful absorption plays the vanilla `ITEM_PICKUP` cue so Telekinesis reads clearly during mining and combat.
-  - Implementation note: Forge-native event hooks are used instead of mixins, so the behavior works through `BlockEvent.BreakEvent`, `EntityJoinLevelEvent`, `LivingDropsEvent`, and `LivingExperienceDropEvent`, with newly spawned projectiles tagged server-side when launched from a Telekinesis-held mainhand item and projectile XP relocation keyed off Forge's authoritative attacking-player field plus the tagged projectile owner.
+  - Implementation note: Forge-native event hooks are used instead of mixins, so the behavior works through `BlockEvent.BreakEvent`, `EntityJoinLevelEvent`, `LivingDropsEvent`, and `LivingExperienceDropEvent`, with newly spawned projectiles tagged server-side when launched from a Telekinesis-held mainhand item and a short redirect window around Telekinesis block breaks or mob deaths to catch both vanilla and modded item/xp entities that spawn slightly later.
 
 - **Crushstone tool set**
   - Crushstone Pickaxe (`crushstone_pickaxe`)
