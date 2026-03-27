@@ -111,6 +111,19 @@
       {
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:quartz_pillar",
+          "probability": 0.15
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:polished_diorite"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:deepslate_bricks",
           "probability": 0.18
         },

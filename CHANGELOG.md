@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Tune(structure/overworld): extend the Ancient Way Ruins quartz weathering pass to cover palette-used quartz pillars as polished diorite so more of the decorative quartz family can mineralize without keeping the layout sterile.
 - Tune(structure/overworld): weather about twenty percent of Ancient Way Ruins purple terracotta into pink terracotta and about twenty percent of quartz accents into diorite so the ruin palette feels more sun-faded and mineral-stained.
 - Tune(structure/overworld): bias the Ancient Way Ruins' darker remnant pass toward cracked polished blackstone bricks and shift a little plain cobblestone weight into mossy stone bricks so the ruin reads more like ancient cursed masonry than generic rubble.
 - Tune(structure/overworld): let about ten percent of the Ancient Way Ruins' remaining sculk weather into blackstone variants so the ruin keeps a small darker remnant layer alongside the ruined masonry pass.
