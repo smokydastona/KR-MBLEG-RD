@@ -131,16 +131,22 @@ public final class TelekinesisEvents {
             return;
         }
 
+        if (!(event.getAttackingPlayer() instanceof ServerPlayer attackingPlayer) || attackingPlayer.isSpectator()) {
+            return;
+        }
+
         Entity directEntity = event.getEntity().getLastDamageSource() == null
                 ? null
                 : event.getEntity().getLastDamageSource().getDirectEntity();
-        ServerPlayer player = getTelekinesisProjectilePlayer(directEntity);
+        ServerPlayer player = getTelekinesisProjectilePlayer(attackingPlayer, directEntity);
         if (player == null) {
             return;
         }
 
-        ExperienceOrb.award(level, player.position(), event.getDroppedExperience());
+        int droppedExperience = event.getDroppedExperience();
         event.setDroppedExperience(0);
+        event.setCanceled(true);
+        ExperienceOrb.award(level, player.position(), droppedExperience);
     }
 
     private static void relocateNearbyNewDrops(ServerLevel level, ServerPlayer player, AABB aabb) {
@@ -191,6 +197,10 @@ public final class TelekinesisEvents {
     }
 
     private static ServerPlayer getTelekinesisProjectilePlayer(Entity directEntity) {
+        return getTelekinesisProjectilePlayer(null, directEntity);
+    }
+
+    private static ServerPlayer getTelekinesisProjectilePlayer(Player attackingPlayer, Entity directEntity) {
         if (!(directEntity instanceof Projectile projectile)) {
             return null;
         }
@@ -200,6 +210,10 @@ public final class TelekinesisEvents {
         }
 
         if (!(projectile.getOwner() instanceof ServerPlayer projectileOwner) || projectileOwner.isSpectator()) {
+            return null;
+        }
+
+        if (attackingPlayer != null && !projectileOwner.getUUID().equals(attackingPlayer.getUUID())) {
             return null;
         }
 

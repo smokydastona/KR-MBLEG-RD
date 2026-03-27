@@ -510,7 +510,7 @@ Note: Krümblegård is no longer spawned by waystones. It can still be spawned v
   - Block drops: when an enchanted tool breaks a block, nearby fresh item entities from that break are redirected into the player's inventory; any overflow is repositioned at the player for immediate pickup.
   - Mob drops: when a player lands the killing blow with an enchanted mainhand weapon/tool, or kills through a projectile launched from that enchanted mainhand item, the killed entity's item drops are inserted into the killer's inventory, with only leftover overflow remaining as item entities near the player.
   - Feedback: successful absorption plays the vanilla `ITEM_PICKUP` cue so Telekinesis reads clearly during mining and combat.
-  - Implementation note: Forge-native event hooks are used instead of mixins, so the behavior works through `BlockEvent.BreakEvent`, `EntityJoinLevelEvent`, and `LivingDropsEvent`, with newly spawned projectiles tagged server-side when launched from a Telekinesis-held mainhand item.
+  - Implementation note: Forge-native event hooks are used instead of mixins, so the behavior works through `BlockEvent.BreakEvent`, `EntityJoinLevelEvent`, `LivingDropsEvent`, and `LivingExperienceDropEvent`, with newly spawned projectiles tagged server-side when launched from a Telekinesis-held mainhand item and projectile XP relocation keyed off Forge's authoritative attacking-player field plus the tagged projectile owner.
 
 - **Crushstone tool set**
   - Crushstone Pickaxe (`crushstone_pickaxe`)
