@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class TelekinesisEvents {
+    private static final String NBT_PROJECTILE_TELEKINESIS = "kruemblegard:telekinesis_projectile";
     private static final int DROP_REDIRECT_WINDOW_TICKS = 5;
     private static final double DROP_REDIRECT_RADIUS = 2.5D;
     private static final Map<UUID, PendingTelekinesisRedirect> PENDING_REDIRECTS = new HashMap<>();
@@ -62,6 +64,14 @@ public final class TelekinesisEvents {
             return;
         }
 
+        if (event.getEntity() instanceof Projectile projectile) {
+            Entity owner = projectile.getOwner();
+            if (owner instanceof Player player && hasTelekinesis(player.getMainHandItem())) {
+                projectile.getPersistentData().putBoolean(NBT_PROJECTILE_TELEKINESIS, true);
+            }
+            return;
+        }
+
         if (!(event.getEntity() instanceof ItemEntity itemEntity)) {
             return;
         }
@@ -93,7 +103,7 @@ public final class TelekinesisEvents {
             return;
         }
 
-        Player player = getTelekinesisPlayer(event.getSource().getEntity());
+        Player player = getTelekinesisPlayer(event.getSource().getEntity(), event.getSource().getDirectEntity());
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return;
         }
@@ -131,8 +141,13 @@ public final class TelekinesisEvents {
         return false;
     }
 
-    private static Player getTelekinesisPlayer(Entity attacker) {
+    private static Player getTelekinesisPlayer(Entity attacker, Entity directEntity) {
         if (!(attacker instanceof Player player)) {
+            if (directEntity instanceof Projectile projectile
+                    && projectile.getPersistentData().getBoolean(NBT_PROJECTILE_TELEKINESIS)
+                    && projectile.getOwner() instanceof Player projectileOwner) {
+                return projectileOwner;
+            }
             return null;
         }
         return hasTelekinesis(player.getMainHandItem()) ? player : null;
