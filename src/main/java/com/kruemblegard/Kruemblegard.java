@@ -11,6 +11,7 @@ import com.kruemblegard.init.ModVillagers;
 import com.kruemblegard.book.KruemblegardGuidebook;
 import com.kruemblegard.network.ModNetworking;
 import com.kruemblegard.registry.ModEntities;
+import com.kruemblegard.registry.ModEnchantments;
 import com.kruemblegard.registry.ModFeatures;
 import com.kruemblegard.registry.ModFlammability;
 import com.kruemblegard.registry.ModItems;
@@ -66,6 +67,7 @@ public final class Kruemblegard {
         ModVillagers.register(modBus);
 
         ModEntities.ENTITIES.register(modBus);
+        ModEnchantments.ENCHANTMENTS.register(modBus);
         ModProjectileEntities.PROJECTILES.register(modBus);
         ModFeatures.register(modBus);
         ModStructures.register(modBus);
