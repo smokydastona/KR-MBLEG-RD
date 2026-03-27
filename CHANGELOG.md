@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(structure/overworld): stop the Ancient Way Ruins monster filter from resolving Cephalari registry objects during class initialization so Forge can finish entity registration before the spawn gate checks allowed mobs.
 - Feat(xp/telekinesis): make Telekinesis projectile kills pull XP orbs to the shooter while melee kills keep vanilla XP behavior.
 - Feat(config/telekinesis): add common-config knobs for Telekinesis villager book prices plus Fletcher/Toolsmith/Weaponsmith enchanted offer prices and roll chances so packs can tune the economy without code changes.
 - Tune(villagers/telekinesis): rebalance master Telekinesis stock so the librarian book is cheaper and more available while Fletcher/Toolsmith/Weaponsmith enchanted gear rolls are less frequent and priced more consistently.

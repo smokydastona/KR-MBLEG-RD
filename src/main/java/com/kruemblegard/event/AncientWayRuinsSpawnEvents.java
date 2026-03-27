@@ -5,7 +5,6 @@ import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.worldgen.ModWorldgenKeys;
 
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -26,18 +25,13 @@ import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Kruemblegard.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class AncientWayRuinsSpawnEvents {
     private AncientWayRuinsSpawnEvents() {}
 
     private static final ResourceLocation ANCIENT_WAY_RUINS_ID = ModWorldgenKeys.Structures.ANCIENT_WAY_RUINS.location();
-    private static final Set<EntityType<?>> ALLOWED_MONSTERS = Set.of(
-            ModEntities.CEPHALARI_ZOMBIE.get(),
-            ModEntities.CEPHALARI_HUSK.get(),
-            ModEntities.CEPHALARI_DROWNED.get(),
-            EntityType.WARDEN
-    );
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
@@ -50,7 +44,7 @@ public final class AncientWayRuinsSpawnEvents {
             return;
         }
 
-        if (ALLOWED_MONSTERS.contains(mob.getType())) {
+        if (isAllowedMonster(mob.getType())) {
             return;
         }
 
@@ -90,5 +84,16 @@ public final class AncientWayRuinsSpawnEvents {
         }
 
         return false;
+    }
+
+    private static boolean isAllowedMonster(EntityType<?> entityType) {
+        return entityType == EntityType.WARDEN
+                || matches(entityType, ModEntities.CEPHALARI_ZOMBIE)
+                || matches(entityType, ModEntities.CEPHALARI_HUSK)
+                || matches(entityType, ModEntities.CEPHALARI_DROWNED);
+    }
+
+    private static boolean matches(EntityType<?> entityType, RegistryObject<? extends EntityType<?>> registryObject) {
+        return registryObject.isPresent() && entityType == registryObject.get();
     }
 }
