@@ -8,6 +8,30 @@
     "rules": [
       {
         "input_predicate": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:red_wool"
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:air"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:red_stained_glass"
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:air"
+        }
+      },
+      {
+        "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:stone_bricks",
           "probability": 0.22

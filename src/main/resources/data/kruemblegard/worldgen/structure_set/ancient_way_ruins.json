@@ -4,6 +4,10 @@
     "distance": 96,
     "spread": 3,
     "count": 3,
+    "exclusion_zone": {
+      "other_set": "minecraft:strongholds",
+      "chunk_count": 32
+    },
     "preferred_biomes": "#kruemblegard:has_structure/ancient_way_ruins"
   },
   "structures": [

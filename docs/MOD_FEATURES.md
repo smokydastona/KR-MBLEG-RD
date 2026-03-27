@@ -62,8 +62,9 @@ Keep it up to date whenever you add/remove/rename content.
   - Generated from `examples/wayfall_temple.schem`, shipped at runtime as `data/kruemblegard/schematics/ancient_way_ruins/wayfall_temple.schem`.
   - Placement anchor: the schematic's **red wool** marker is treated as the true structure origin and snapped to the generated world position; it is not placed into the final structure.
   - Global count: the overworld structure set is finite and globally capped at three placements per world, with the placements kept well over 1500 blocks apart by concentric-ring spacing.
+  - Vanilla spacing guard: the structure set also excludes placements within 32 chunks of the vanilla `minecraft:strongholds` structure set so ruins do not crowd stronghold terrain.
   - Explorer maps: master cartographers can sell a locator map to the nearest Ancient Way Ruins structure.
-  - Aging pass: placement applies a structure-specific ruin processor pass that chips blocks away, mosses/cracks masonry, and converts `sculk_vein` markers into an ancient-city-style mix of air, `sculk_sensor`, and Warden-capable `sculk_shrieker` blocks.
+  - Aging pass: placement applies a structure-specific ruin processor pass that strips red-wool marker blocks to air, chips blocks away, mosses/cracks masonry, and converts `sculk_vein` markers into an ancient-city-style mix of air, `sculk_sensor`, and Warden-capable `sculk_shrieker` blocks.
   - Monster control: natural monster spawns inside the structure bounding box are constrained to the three Cephalari zombie variants, while Wardens summoned by shriekers remain allowed.
 
 - **Ashmoss → Ashbloom (azalea-style)**
