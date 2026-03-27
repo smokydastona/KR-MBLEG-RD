@@ -8,7 +8,6 @@ import com.kruemblegard.init.ModBlockEntities;
 import com.kruemblegard.init.ModCreativeTabs;
 import com.kruemblegard.init.ModCriteria;
 import com.kruemblegard.init.ModVillagers;
-import com.kruemblegard.book.KruemblegardGuidebook;
 import com.kruemblegard.network.ModNetworking;
 import com.kruemblegard.registry.ModEntities;
 import com.kruemblegard.registry.ModEnchantments;
@@ -24,6 +23,8 @@ import com.kruemblegard.registry.ModSounds;
 import com.kruemblegard.registry.ModStructures;
 import com.kruemblegard.registry.ModWoodTypes;
 
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.CreativeModeTabs;
 
 import net.minecraftforge.fml.ModLoadingContext;
@@ -93,105 +94,8 @@ public final class Kruemblegard {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(ModItems.ANCIENT_WAYSTONE_ITEM);
-            event.accept(ModBlocks.BRINE_GARDEN_BASIN.get());
-            event.accept(ModBlocks.TENDRIL_FORGE.get());
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModItems.STANDING_STONE_ITEM);
-            event.accept(ModItems.ATTUNED_STONE_ITEM);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
-            event.accept(ModItems.WISPSTALK_ITEM);
-            event.accept(ModItems.GRAVEVINE_ITEM);
-            event.accept(ModItems.PYROKELP_ITEM);
-            event.accept(ModItems.ECHOCAP_ITEM);
-            event.accept(ModItems.RUNEBLOOM_ITEM);
-            event.accept(ModItems.RUNE_SPROUTS_ITEM);
-            event.accept(ModItems.RUNEDRIFT_REED_ITEM);
-            event.accept(ModItems.SOULBERRY_SHRUB_ITEM);
-            event.accept(ModItems.GHOULBERRY_SHRUB_ITEM);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.ATTUNED_RUNE_SHARD);
-            event.accept(ModItems.RUNIC_SCRAP);
-            event.accept(ModItems.RUNIC_INGOT);
-            event.accept(ModItems.ATTUNED_INGOT);
-            event.accept(ModItems.SCARSTEEL_INGOT);
-            event.accept(ModItems.RUNIC_CORE);
-            event.accept(ModItems.REMNANT_SEEDS);
-            event.accept(ModItems.PALEWEFT_SEEDS);
-            event.accept(ModItems.RUNE_PETALS);
-            event.accept(ModItems.BIO_RESIN);
-            event.accept(ModItems.MOISTURE_STONE);
-            event.accept(ModItems.TENDRIL_STRANDS);
-            event.accept(ModItems.RESONANCE_SHARD);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.SOULBERRIES);
-            event.accept(ModItems.GHOULBERRIES);
-            event.accept(ModItems.WISPSHOOT);
-            event.accept(ModItems.WEFTKERN);
-            event.accept(ModItems.ECHOKERN);
-            event.accept(ModItems.WEFTMEAL);
-            event.accept(ModItems.BUG_MEAT);
-            event.accept(ModItems.COOKED_BUG_MEAT);
-        }
-
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(KruemblegardGuidebook.createDefaultFilledBook());
-            event.accept(ModItems.CRUSHSTONE_PICKAXE);
-            event.accept(ModItems.CRUSHSTONE_AXE);
-            event.accept(ModItems.CRUSHSTONE_SHOVEL);
-            event.accept(ModItems.CRUSHSTONE_HOE);
-            event.accept(ModItems.SCARSTEEL_PICKAXE);
-            event.accept(ModItems.SCARSTEEL_AXE);
-            event.accept(ModItems.SCARSTEEL_SHOVEL);
-            event.accept(ModItems.SCARSTEEL_HOE);
-            event.accept(ModItems.SCARSTEEL_HAMMER);
-            event.accept(ModItems.RUNIC_PICKAXE);
-            event.accept(ModItems.RUNIC_AXE);
-            event.accept(ModItems.RUNIC_SHOVEL);
-            event.accept(ModItems.RUNIC_HOE);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(ModItems.SCARSTEEL_SWORD);
-            event.accept(ModItems.SCARSTEEL_HELMET);
-            event.accept(ModItems.SCARSTEEL_CHESTPLATE);
-            event.accept(ModItems.SCARSTEEL_LEGGINGS);
-            event.accept(ModItems.SCARSTEEL_BOOTS);
-            event.accept(ModItems.RUNIC_SWORD);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(ModItems.KRUEMBLEGARD_SPAWN_EGG);
-            event.accept(ModItems.TRAPROCK_SPAWN_EGG);
-            event.accept(ModItems.PEBBLIT_SPAWN_EGG);
-            event.accept(ModItems.UNKEEPER_SPAWN_EGG);
-            event.accept(ModItems.SCATTERED_ENDERMAN_SPAWN_EGG);
-            event.accept(ModItems.MOOGLOOM_SPAWN_EGG);
-            event.accept(ModItems.FAULT_CRAWLER_SPAWN_EGG);
-
-            event.accept(ModItems.SCARALON_BEETLE_SPAWN_EGG);
-            event.accept(ModItems.TRADER_BEETLE_SPAWN_EGG);
-
-            event.accept(ModItems.WYRDWING_SPAWN_EGG);
-            event.accept(ModItems.DRIFTWHALE_SPAWN_EGG);
-            event.accept(ModItems.PEBBLE_WREN_SPAWN_EGG);
-            event.accept(ModItems.MOSSBACK_TORTOISE_SPAWN_EGG);
-            event.accept(ModItems.GRAVE_CAIRN_SPAWN_EGG);
-
-            event.accept(ModItems.CEPHALARI_SPAWN_EGG);
-            event.accept(ModItems.CEPHALARI_ZOMBIE_SPAWN_EGG);
-            event.accept(ModItems.CEPHALARI_HUSK_SPAWN_EGG);
-            event.accept(ModItems.CEPHALARI_DROWNED_SPAWN_EGG);
-            event.accept(ModItems.CEPHALARI_GOLEM_SPAWN_EGG);
+            event.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.TELEKINESIS.get(), 1)));
         }
     }
 }

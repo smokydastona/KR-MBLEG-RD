@@ -19,6 +19,10 @@ Keep it up to date whenever you add/remove/rename content.
 - `waystoneinjector` (client-only): optional Waystones integration helper.
 - Chunk Optimization: optional Forge 1.20.1 performance helper added as a runtime-only dependency for dev runs and modpacks; Kruemblegard does not require it to load.
 
+## Creative Tabs
+- Krümblegård content is surfaced through the mod's custom creative tabs in `init/ModCreativeTabs` rather than the vanilla tab inventories.
+- Intentional exception: the Telekinesis enchanted book is still injected into the vanilla `TOOLS_AND_UTILITIES` tab so it sits with the rest of the enchanted books.
+
 ## Performance (Client)
 - Client config file: `config/kruemblegard-client.toml`
 - `Kruemblegard.Performance.Client.enableDistanceCulledCosmetics`
