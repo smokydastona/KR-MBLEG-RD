@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Tune(villagers/telekinesis): rebalance master Telekinesis stock so the librarian book is cheaper and more available while Fletcher/Toolsmith/Weaponsmith enchanted gear rolls are less frequent and priced more consistently.
+- Feat(ui/telekinesis): add native tooltip lines to Telekinesis books and enchanted gear so the effect reads in inventory even without a JEI-style info surface.
 - Docs(gameplay): add a Crumbling Codex Telekinesis page pointing players toward enchanting, anvils, city loot, and late villager stock.
 - Tune(villagers/telekinesis): let master Fletchers sometimes roll Telekinesis bows and crossbows so ranged stock comes from the natural vanilla profession.
 - Tune(enchantment/loot): make Telekinesis a normal enchanting-table/anvil enchantment for tools and weapons only, add End City and Ancient City chest rolls for both enchanted books and pre-enchanted gear, add master librarian book sales, and let master toolsmiths/weaponsmiths roll Telekinesis equipment offers.

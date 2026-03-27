@@ -6,14 +6,19 @@ import com.kruemblegard.entity.GraveCairnEntity;
 import com.kruemblegard.entity.WyrdwingEntity;
 import com.kruemblegard.entity.goal.RunegrowthGrazingGoal;
 import com.kruemblegard.init.ModBlocks;
+import com.kruemblegard.registry.ModEnchantments;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -28,8 +33,10 @@ import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -37,6 +44,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,6 +57,7 @@ public final class CommonForgeEvents {
     private static final String NBT_SMASH_SCARALON_EGGS = "kruemblegard:smash_scaralon_eggs";
     private static final String NBT_AVOID_DRIFTWHALE = "kruemblegard:avoid_driftwhale";
     private static final String NBT_SHEEP_RUNEGROWTH_GRAZING = "kruemblegard:sheep_runegrowth_grazing";
+    private static final String TELEKINESIS_TOOLTIP_MARKER = "tooltip.kruemblegard.telekinesis.routes_drops";
 
     @SubscribeEvent
     public static void onHoeWayfallSoil(PlayerInteractEvent.RightClickBlock event) {
@@ -105,6 +114,22 @@ public final class CommonForgeEvents {
                     0.02
             );
         }
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        if (!hasTelekinesisTooltip(event.getItemStack())) {
+            return;
+        }
+
+        List<Component> tooltip = event.getToolTip();
+        Component firstLine = Component.translatable(TELEKINESIS_TOOLTIP_MARKER).withStyle(ChatFormatting.AQUA);
+        if (tooltip.stream().anyMatch(firstLine::equals)) {
+            return;
+        }
+
+        tooltip.add(firstLine);
+        tooltip.add(Component.translatable("tooltip.kruemblegard.telekinesis.inventory_priority").withStyle(ChatFormatting.DARK_AQUA));
     }
 
     @SubscribeEvent
@@ -236,5 +261,15 @@ public final class CommonForgeEvents {
                 cairn.wakeFromDisturbance(player);
             }
         }
+    }
+
+    private static boolean hasTelekinesisTooltip(ItemStack stack) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.TELEKINESIS.get(), stack) > 0) {
+            return true;
+        }
+
+        return EnchantedBookItem.getEnchantments(stack).stream()
+        .anyMatch(tag -> tag instanceof CompoundTag compoundTag
+            && ModEnchantments.TELEKINESIS.getId().toString().equals(compoundTag.getString("id")));
     }
 }

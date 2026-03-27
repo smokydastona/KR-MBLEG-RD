@@ -128,7 +128,7 @@ public final class ModVillagers {
     }
 
                                 private static void addLibrarianTrades(VillagerTradesEvent event) {
-                                                                                                event.getTrades().get(5).add(telekinesisBookTrade(28, 3, 30));
+                                                                                                event.getTrades().get(5).add(telekinesisBookTrade(24, 4, 30));
                                 }
 
                 private static void addCartographerTrades(VillagerTradesEvent event) {
@@ -136,14 +136,14 @@ public final class ModVillagers {
                 }
 
                 private static void addFletcherTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(17, 25, 3, 30, 0.45F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(16, 22, 4, 30, 0.3F,
                                                                                 Items.BOW,
                                                                                 Items.CROSSBOW
                                                 ));
                 }
 
                 private static void addToolsmithTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(16, 24, 3, 30, 0.45F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(15, 21, 4, 30, 0.32F,
                                                                                 Items.DIAMOND_PICKAXE,
                                                                                 Items.DIAMOND_AXE,
                                                                                 Items.DIAMOND_SHOVEL,
@@ -152,7 +152,7 @@ public final class ModVillagers {
                 }
 
                 private static void addWeaponsmithTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(18, 26, 3, 30, 0.45F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(16, 23, 4, 30, 0.32F,
                                                                                 Items.DIAMOND_SWORD,
                                                                                 Items.DIAMOND_AXE
                                                 ));
