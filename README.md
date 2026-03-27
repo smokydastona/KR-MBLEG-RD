@@ -16,6 +16,7 @@ Runtime mod dependencies:
 - TerraBlender 3.x
 - Waystones (requires Balm)
 - Optional (client-only): Waystone Injector (`waystoneinjector`)
+- Optional (performance): Chunk Optimization
 
 Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 

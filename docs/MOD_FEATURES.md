@@ -15,6 +15,10 @@ Keep it up to date whenever you add/remove/rename content.
 - Texture resize helpers (256x256, no cropping, reports written under `tools/_reports`):
   - `tools/resize_textures_to_256.ps1` (block + item)
 
+## Optional Runtime Mods
+- `waystoneinjector` (client-only): optional Waystones integration helper.
+- Chunk Optimization: optional Forge 1.20.1 performance helper added as a runtime-only dependency for dev runs and modpacks; Kruemblegard does not require it to load.
+
 ## Performance (Client)
 - Client config file: `config/kruemblegard-client.toml`
 - `Kruemblegard.Performance.Client.enableDistanceCulledCosmetics`
