@@ -30,5 +30,6 @@
   },
   "schematic": "kruemblegard:schematics/ancient_way_ruins/wayfall_temple.schem",
   "processors": "kruemblegard:ancient_way_ruins",
-  "surface_y_offset": 0
+  "surface_y_offset": 0,
+  "minimum_origin_distance": 2048
 }
