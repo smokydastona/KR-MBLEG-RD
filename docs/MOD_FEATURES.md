@@ -5,6 +5,7 @@ This document is a **complete, living reference** of current Krümblegård featu
 Keep it up to date whenever you add/remove/rename content.
 
 ## Documentation
+- README quick-start now includes a direct **"What can Krümblegård do?"** summary for newcomers before linking into this full reference.
 - Block material rules + full block inventory: `docs/Block_Material_Bible.md`
 - Item material rules + full item inventory: `docs/Item_Material_Bible.md`
 - Mob roster + audit-driven TODOs: `docs/mob_bible.md`

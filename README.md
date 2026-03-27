@@ -44,6 +44,12 @@ Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to 
 - **Mirrored custom mob variants**: custom Geo-rendered mobs now pick a deterministic left-handed mirrored variant from their UUID, so some spawns permanently read as the opposite-handed version of the authored animation set without needing separate animation files.
 - **Cephalari adult forms**: Spiral Strider, DriftSkimmer, Treadwinder, and Echo Harness all share the embedded Cephalari body/profession texture mapping path, render through explicit shell/body/profession layer passes for both live Cephalari appearances and stand-alone adult-form entities, and now keep their full per-form animation routing on the live Cephalari path as well, so idle, move, trade, work, celebrate, hurt, zombify, death, and sleep all resolve from the matching adult-form animation file. Their in-bed pose mirror remains restricted to east-west bed facings and applies separately from the spawn-time left-handed variant so the disconnected sleep rigs do not clip into one side of the bed.
 
+## What can Krümblegård do?
+- Add a new **Wayfall** dimension with floating-island exploration, custom biome ambience, flora, and worldgen.
+- Add new **boss**, **mob**, and **encounter** content, including the rune-bound Krümblegård guardian, Traprocks, Pebblits, Driftwhales, Cephalari forms, and more.
+- Add new **progression** content such as Scarsteel gear, custom professions/workstations, structures, loot, and a first-join guidebook.
+- Add configurable **pack/dev hooks** including documented configs, testing commands, and a complete feature reference for pack makers and contributors.
+
 For the full, always-up-to-date list (woods, fungi, mobs, compatibility notes, worldgen rules), see [docs/MOD_FEATURES.md](docs/MOD_FEATURES.md).
 
 ## Guidebook
