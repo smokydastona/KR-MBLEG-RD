@@ -2,6 +2,7 @@ package com.kruemblegard.init;
 
 import com.google.common.collect.ImmutableSet;
 import com.kruemblegard.Kruemblegard;
+import com.kruemblegard.config.ModConfig;
 import com.kruemblegard.registry.ModEnchantments;
 import com.kruemblegard.registry.ModItems;
 import com.kruemblegard.registry.ModTags;
@@ -128,7 +129,7 @@ public final class ModVillagers {
     }
 
                                 private static void addLibrarianTrades(VillagerTradesEvent event) {
-                                                                                                event.getTrades().get(5).add(telekinesisBookTrade(24, 4, 30));
+                                                                                                event.getTrades().get(5).add(telekinesisBookTrade(ModConfig.TELEKINESIS_LIBRARIAN_BOOK_PRICE.get(), 4, 30));
                                 }
 
                 private static void addCartographerTrades(VillagerTradesEvent event) {
@@ -136,14 +137,24 @@ public final class ModVillagers {
                 }
 
                 private static void addFletcherTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(16, 22, 4, 30, 0.3F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(
+                                                                                ModConfig.TELEKINESIS_FLETCHER_PLAIN_PRICE.get(),
+                                                                                ModConfig.TELEKINESIS_FLETCHER_ENCHANTED_PRICE.get(),
+                                                                                4,
+                                                                                30,
+                                                                                (float) ModConfig.TELEKINESIS_FLETCHER_ENCHANTED_CHANCE.get().doubleValue(),
                                                                                 Items.BOW,
                                                                                 Items.CROSSBOW
                                                 ));
                 }
 
                 private static void addToolsmithTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(15, 21, 4, 30, 0.32F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(
+                                                                                ModConfig.TELEKINESIS_TOOLSMITH_PLAIN_PRICE.get(),
+                                                                                ModConfig.TELEKINESIS_TOOLSMITH_ENCHANTED_PRICE.get(),
+                                                                                4,
+                                                                                30,
+                                                                                (float) ModConfig.TELEKINESIS_TOOLSMITH_ENCHANTED_CHANCE.get().doubleValue(),
                                                                                 Items.DIAMOND_PICKAXE,
                                                                                 Items.DIAMOND_AXE,
                                                                                 Items.DIAMOND_SHOVEL,
@@ -152,7 +163,12 @@ public final class ModVillagers {
                 }
 
                 private static void addWeaponsmithTrades(VillagerTradesEvent event) {
-                                                event.getTrades().get(5).add(telekineticGearTrade(16, 23, 4, 30, 0.32F,
+                                                event.getTrades().get(5).add(telekineticGearTrade(
+                                                                                ModConfig.TELEKINESIS_WEAPONSMITH_PLAIN_PRICE.get(),
+                                                                                ModConfig.TELEKINESIS_WEAPONSMITH_ENCHANTED_PRICE.get(),
+                                                                                4,
+                                                                                30,
+                                                                                (float) ModConfig.TELEKINESIS_WEAPONSMITH_ENCHANTED_CHANCE.get().doubleValue(),
                                                                                 Items.DIAMOND_SWORD,
                                                                                 Items.DIAMOND_AXE
                                                 ));

@@ -57,6 +57,7 @@ Configs generate under the instance `config/` folder.
 - `kruemblegard-common.toml`
     - Boss stats/cooldowns and phase thresholds
     - Waystone-related settings (including False Waystones)
+    - Telekinesis villager pricing/chance tuning for librarians, fletchers, toolsmiths, and weaponsmiths
     - Wayfall initialization safety/performance toggles
 - `kruemblegard-client.toml`
     - Client-only cosmetic/performance settings

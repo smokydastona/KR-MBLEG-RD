@@ -19,6 +19,17 @@ public final class ModConfig {
     public static final ForgeConfigSpec.BooleanValue WAYFALL_PRELOAD_ON_SERVER_START;
     public static final ForgeConfigSpec.BooleanValue WAYFALL_DEBUG_LOGGING;
 
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_LIBRARIAN_BOOK_PRICE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_FLETCHER_PLAIN_PRICE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_FLETCHER_ENCHANTED_PRICE;
+    public static final ForgeConfigSpec.DoubleValue TELEKINESIS_FLETCHER_ENCHANTED_CHANCE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_TOOLSMITH_PLAIN_PRICE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_TOOLSMITH_ENCHANTED_PRICE;
+    public static final ForgeConfigSpec.DoubleValue TELEKINESIS_TOOLSMITH_ENCHANTED_CHANCE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_WEAPONSMITH_PLAIN_PRICE;
+    public static final ForgeConfigSpec.IntValue TELEKINESIS_WEAPONSMITH_ENCHANTED_PRICE;
+    public static final ForgeConfigSpec.DoubleValue TELEKINESIS_WEAPONSMITH_ENCHANTED_CHANCE;
+
     public static final ForgeConfigSpec.DoubleValue BOSS_MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR;
     public static final ForgeConfigSpec.DoubleValue BOSS_ARMOR_TOUGHNESS;
@@ -102,6 +113,50 @@ public final class ModConfig {
         WAYFALL_DEBUG_LOGGING = builder
             .comment("Enable extra Wayfall debug logging (init task progress).")
             .define("wayfallDebugLogging", false);
+
+        builder.pop();
+
+        builder.push("TelekinesisVillagers");
+
+        TELEKINESIS_LIBRARIAN_BOOK_PRICE = builder
+            .comment("Emerald price for the master librarian Telekinesis book offer (plus one book item).")
+            .defineInRange("librarianBookPrice", 24, 1, 64);
+
+        TELEKINESIS_FLETCHER_PLAIN_PRICE = builder
+            .comment("Emerald price for the plain master fletcher bow/crossbow offer when it does not roll Telekinesis.")
+            .defineInRange("fletcherPlainPrice", 16, 1, 64);
+
+        TELEKINESIS_FLETCHER_ENCHANTED_PRICE = builder
+            .comment("Emerald price for the master fletcher bow/crossbow offer when it rolls Telekinesis.")
+            .defineInRange("fletcherEnchantedPrice", 22, 1, 64);
+
+        TELEKINESIS_FLETCHER_ENCHANTED_CHANCE = builder
+            .comment("Chance (0..1) for the master fletcher bow/crossbow offer to roll Telekinesis.")
+            .defineInRange("fletcherEnchantedChance", 0.30D, 0.0D, 1.0D);
+
+        TELEKINESIS_TOOLSMITH_PLAIN_PRICE = builder
+            .comment("Emerald price for the plain master toolsmith tool offer when it does not roll Telekinesis.")
+            .defineInRange("toolsmithPlainPrice", 15, 1, 64);
+
+        TELEKINESIS_TOOLSMITH_ENCHANTED_PRICE = builder
+            .comment("Emerald price for the master toolsmith tool offer when it rolls Telekinesis.")
+            .defineInRange("toolsmithEnchantedPrice", 21, 1, 64);
+
+        TELEKINESIS_TOOLSMITH_ENCHANTED_CHANCE = builder
+            .comment("Chance (0..1) for the master toolsmith tool offer to roll Telekinesis.")
+            .defineInRange("toolsmithEnchantedChance", 0.32D, 0.0D, 1.0D);
+
+        TELEKINESIS_WEAPONSMITH_PLAIN_PRICE = builder
+            .comment("Emerald price for the plain master weaponsmith melee weapon offer when it does not roll Telekinesis.")
+            .defineInRange("weaponsmithPlainPrice", 16, 1, 64);
+
+        TELEKINESIS_WEAPONSMITH_ENCHANTED_PRICE = builder
+            .comment("Emerald price for the master weaponsmith melee weapon offer when it rolls Telekinesis.")
+            .defineInRange("weaponsmithEnchantedPrice", 23, 1, 64);
+
+        TELEKINESIS_WEAPONSMITH_ENCHANTED_CHANCE = builder
+            .comment("Chance (0..1) for the master weaponsmith melee weapon offer to roll Telekinesis.")
+            .defineInRange("weaponsmithEnchantedChance", 0.32D, 0.0D, 1.0D);
 
         builder.pop();
 

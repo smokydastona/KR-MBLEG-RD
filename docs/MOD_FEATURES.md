@@ -133,6 +133,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Valid targets: tools and weapons only, specifically digger tools, shears, swords, bows, crossbows, and tridents.
   - Loot sources: can appear in End City and Ancient City chests both as an enchanted book and as pre-enchanted gear.
   - Trades: master librarians can sell the Telekinesis book for 24 emeralds plus a book with 4 restocks; master fletchers can sometimes roll Telekinesis bows/crossbows at a 30% enchanted chance; master toolsmiths and weaponsmiths can roll Telekinesis tools or melee weapons at a 32% enchanted chance with lower enchanted premiums than the first pass.
+  - Pack tuning: `kruemblegard-common.toml` exposes a `TelekinesisVillagers` section so pack makers can tune the librarian book price plus Fletcher/Toolsmith/Weaponsmith plain/enchanted prices and enchanted roll chances without code changes.
   - In-game hinting: the Crumbling Codex includes a dedicated Telekinesis page that points players toward enchanting-table use, anvil transfers, late villager stock, and End City/Ancient City loot.
   - Tooltip hinting: Telekinesis books and enchanted gear add native hover-text lines that summarize the inventory-routing effect even without JEI integration.
   - Effect scope: only the enchanted tool or weapon applies the effect; Telekinesis is not a player-wide passive.
