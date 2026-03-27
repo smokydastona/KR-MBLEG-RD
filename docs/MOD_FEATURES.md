@@ -193,7 +193,7 @@ Keep it up to date whenever you add/remove/rename content.
   - Audio: now uses dedicated custom `entity.pebble_wren.*` sound events for ambient chirps, perch calls/replies, social flourishes, flutter takeoffs/landings, hurt/death, and ore-find pings; most of the set is procedurally synthesized in-house with `ffmpeg` filter graphs, while the flutter cue is a lighter trimmed cut from the PSFX example file `beating-wings-small-001.ogg`, all tracked in `docs/audio_licenses/pebble_wren/manifest.md`.
   - Tempt/breed item: Wheat Seeds.
   - Natural spawns: all Wayfall biomes (`#kruemblegard:wayfall`) plus all Overworld biomes (`#minecraft:is_overworld`), now counted against the ambient mob cap like vanilla bats, with reduced ambient flock pressure at weight 4 and group size 1-3.
-  - Drops 1-2 Feathers (plus up to 1 extra from Looting) and one random plant seed chosen from Wheat, Beetroot, Melon, Pumpkin, Torchflower, Paleweft, or Remnant seeds.
+  - Drops 1-2 Feathers (plus up to 1 extra from Looting) and one weighted plant seed: Wayfall Wrens favor Paleweft/Remnant seeds, Overworld Wrens favor vanilla crop seeds, and nonstandard dimensions fall back to a balanced Wheat/Beetroot/Melon/Pumpkin/Torchflower/Paleweft/Remnant mix.
   - Uses editable resources:
     - Geo: `assets/kruemblegard/geo/pebble_wren.geo.json`
     - Animations: `assets/kruemblegard/animations/pebble_wren.animation.json`
