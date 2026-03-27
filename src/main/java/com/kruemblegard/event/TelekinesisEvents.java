@@ -11,6 +11,8 @@ import java.util.UUID;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -127,8 +129,14 @@ public final class TelekinesisEvents {
     }
 
     private static boolean absorbItemEntity(ItemEntity itemEntity, ServerPlayer player) {
+        int originalCount = itemEntity.getItem().getCount();
         ItemStack remaining = itemEntity.getItem().copy();
         player.getInventory().add(remaining);
+        int absorbedCount = originalCount - remaining.getCount();
+
+        if (absorbedCount > 0) {
+            playPickupCue(player, absorbedCount);
+        }
 
         if (remaining.isEmpty()) {
             itemEntity.discard();
@@ -139,6 +147,16 @@ public final class TelekinesisEvents {
         itemEntity.setPos(player.getX(), player.getY() + 0.1D, player.getZ());
         itemEntity.setNoPickUpDelay();
         return false;
+    }
+
+    private static void playPickupCue(ServerPlayer player, int absorbedCount) {
+        float volume = 0.2F;
+        float pitch = ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F;
+        if (absorbedCount > 1) {
+            pitch = Math.max(0.6F, pitch - Math.min(0.5F, absorbedCount * 0.03F));
+        }
+
+        player.level().playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, volume, pitch);
     }
 
     private static Player getTelekinesisPlayer(Entity attacker, Entity directEntity) {
