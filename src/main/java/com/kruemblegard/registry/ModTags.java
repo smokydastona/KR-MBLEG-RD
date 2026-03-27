@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class ModTags {
     private ModTags() {}
@@ -90,6 +91,11 @@ public final class ModTags {
                 new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/megalithic_circle")
         );
 
+        public static final TagKey<Biome> HAS_ANCIENT_WAY_RUINS = TagKey.create(
+            Registries.BIOME,
+            new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/ancient_way_ruins")
+        );
+
         public static final TagKey<Biome> HAS_LOST_PILLAGER_SHIP = TagKey.create(
             Registries.BIOME,
             new ResourceLocation(Kruemblegard.MOD_ID, "has_structure/lost_pillager_ship")
@@ -98,6 +104,15 @@ public final class ModTags {
         public static final TagKey<Biome> BASIN_OF_SCARS = TagKey.create(
             Registries.BIOME,
             new ResourceLocation(Kruemblegard.MOD_ID, "basin_of_scars")
+        );
+    }
+
+    public static final class Structures {
+        private Structures() {}
+
+        public static final TagKey<Structure> ANCIENT_WAY_RUINS_MAPS = TagKey.create(
+                Registries.STRUCTURE,
+                new ResourceLocation(Kruemblegard.MOD_ID, "ancient_way_ruins_maps")
         );
     }
 }

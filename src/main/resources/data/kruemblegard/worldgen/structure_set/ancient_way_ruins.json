@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:concentric_rings",
+    "distance": 96,
+    "spread": 3,
+    "count": 3,
+    "preferred_biomes": "#kruemblegard:has_structure/ancient_way_ruins"
+  },
+  "structures": [
+    {
+      "structure": "kruemblegard:ancient_way_ruins",
+      "weight": 1
+    }
+  ]
+}

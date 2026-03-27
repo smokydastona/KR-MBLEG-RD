@@ -3,18 +3,26 @@ package com.kruemblegard.init;
 import com.google.common.collect.ImmutableSet;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.registry.ModItems;
+import com.kruemblegard.registry.ModTags;
 
 import java.util.Set;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -85,6 +93,10 @@ public final class ModVillagers {
 
         @SubscribeEvent
         public static void onVillagerTrades(VillagerTradesEvent event) {
+                        if (event.getType() == VillagerProfession.CARTOGRAPHER) {
+                                addCartographerTrades(event);
+                        }
+
             if (event.getType() == NUTRIENT_KEEPER.get()) {
                                 addNutrientKeeperTrades(event);
             }
@@ -94,6 +106,10 @@ public final class ModVillagers {
             }
         }
     }
+
+                private static void addCartographerTrades(VillagerTradesEvent event) {
+                                                event.getTrades().get(5).add(ancientWayRuinsMapTrade(14, 30));
+                }
 
         private static void addNutrientKeeperTrades(VillagerTradesEvent event) {
                         event.getTrades().get(1).add(buyForOneEmerald(ModItems.SOULBERRIES.get(), 16, 12, 2));
@@ -191,5 +207,40 @@ public final class ModVillagers {
                                 villagerXp,
                                 PRICE_MULTIPLIER
                 );
+        }
+
+        private static VillagerTrades.ItemListing ancientWayRuinsMapTrade(int emeralds, int villagerXp) {
+                return (trader, random) -> {
+                                if (!(trader instanceof Villager villager)) {
+                                                return null;
+                                }
+                                if (!(villager.level() instanceof ServerLevel serverLevel)) {
+                                                return null;
+                                }
+
+                                BlockPos target = serverLevel.findNearestMapStructure(
+                                                ModTags.Structures.ANCIENT_WAY_RUINS_MAPS,
+                                                villager.blockPosition(),
+                                                2048,
+                                                true
+                                );
+                                if (target == null) {
+                                                return null;
+                                }
+
+                                ItemStack map = MapItem.create(serverLevel, target.getX(), target.getZ(), (byte) 2, true, true);
+                                MapItem.renderBiomePreviewMap(serverLevel, map);
+                                MapItemSavedData.addTargetDecoration(map, target, "+", MapDecoration.Type.RED_X);
+                                map.setHoverName(Component.translatable("filled_map.kruemblegard.ancient_way_ruins"));
+
+                                return new MerchantOffer(
+                                                new ItemStack(Items.EMERALD, emeralds),
+                                                new ItemStack(Items.COMPASS),
+                                                map,
+                                                12,
+                                                villagerXp,
+                                                PRICE_MULTIPLIER
+                                );
+                };
         }
 }

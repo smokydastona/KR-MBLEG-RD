@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Feat(structure/overworld): add Ancient Way Ruins as a globally limited overworld structure sourced from `wayfall_temple.schem`, anchored to the schematic's red wool origin marker, sold by cartographer explorer maps, weathered during placement, and restricted to Cephalari zombie-family monster spawns plus Warden-capable shriekers.
 - Tune(fault_crawler): make Fault Crawlers roll left-handed mirrored variants at a true 50/50 spawn split instead of the vanilla rare-lefty chance.
 - Tune(worldgen/surfaces): move Strata Collapse onto the emberwarmed runegrowth top-layer set and keep Emberwarmed Runegrowth through the first shallow subsurface layer in Fracture Shoals, Basin of Scars, and Strata Collapse so the hot Wayfall surface variant shows up more reliably.
 - Fix(grazing): make runegrowth grazing fall back to `fault_dust` instead of `rubble_tilth`, matching the canonical runegrowth surface behavior rather than the Wayfall farmland block.

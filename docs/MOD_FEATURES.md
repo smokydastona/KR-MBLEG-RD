@@ -58,6 +58,14 @@ Keep it up to date whenever you add/remove/rename content.
     - When `strictValidation=false`, validation is skipped (keeps server start/world creation lightweight).
 - Optional TerraBlender integration (Overworld): controlled by weights and per-biome toggles inside `terraBlender.overworld` in the same config.
 
+- **Ancient Way Ruins (Overworld structure)**
+  - Generated from `examples/wayfall_temple.schem`, shipped at runtime as `data/kruemblegard/schematics/ancient_way_ruins/wayfall_temple.schem`.
+  - Placement anchor: the schematic's **red wool** marker is treated as the true structure origin and snapped to the generated world position; it is not placed into the final structure.
+  - Global count: the overworld structure set is finite and globally capped at three placements per world, with the placements kept well over 1500 blocks apart by concentric-ring spacing.
+  - Explorer maps: master cartographers can sell a locator map to the nearest Ancient Way Ruins structure.
+  - Aging pass: placement applies a structure-specific ruin processor pass that chips blocks away, mosses/cracks masonry, and converts `sculk_vein` markers into an ancient-city-style mix of air, `sculk_sensor`, and Warden-capable `sculk_shrieker` blocks.
+  - Monster control: natural monster spawns inside the structure bounding box are constrained to the three Cephalari zombie variants, while Wardens summoned by shriekers remain allowed.
+
 - **Ashmoss → Ashbloom (azalea-style)**
   - Ashbloom now generates naturally as **small plants** on Ashmoss (with a rare flowering variant).
   - Ashbloom saplings are **bonemeal-only** (no random tick growth into trees).

@@ -1,0 +1,34 @@
+{
+  "type": "kruemblegard:ancient_way_ruins",
+  "biomes": "#kruemblegard:has_structure/ancient_way_ruins",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+        {
+          "type": "kruemblegard:cephalari_zombie",
+          "weight": 2,
+          "minCount": 1,
+          "maxCount": 2
+        },
+        {
+          "type": "kruemblegard:cephalari_husk",
+          "weight": 2,
+          "minCount": 1,
+          "maxCount": 2
+        },
+        {
+          "type": "kruemblegard:cephalari_drowned",
+          "weight": 2,
+          "minCount": 1,
+          "maxCount": 2
+        }
+      ]
+    }
+  },
+  "schematic": "kruemblegard:schematics/ancient_way_ruins/wayfall_temple.schem",
+  "processors": "kruemblegard:ancient_way_ruins",
+  "surface_y_offset": 0
+}

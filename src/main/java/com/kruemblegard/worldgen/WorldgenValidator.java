@@ -3,6 +3,7 @@ package com.kruemblegard.worldgen;
 import com.kruemblegard.Kruemblegard;
 import com.kruemblegard.config.worldgen.WorldgenTuningConfig;
 import com.kruemblegard.registry.ModTags;
+import com.kruemblegard.world.schematic.SpongeSchematic;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -48,12 +49,18 @@ public final class WorldgenValidator {
         // Biome tag sanity.
         validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.WAYFALL, strict);
         validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.HAS_MEGALITHIC_CIRCLE, strict);
+        validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.HAS_ANCIENT_WAY_RUINS, strict);
         validateBiomeTagNonEmpty(registries.registryOrThrow(Registries.BIOME), ModTags.WorldgenBiomes.HAS_LOST_PILLAGER_SHIP, strict);
 
         // Critical registry keys referenced by datapack.
         validatePresent(registries.registryOrThrow(Registries.NOISE_SETTINGS), ModWorldgenKeys.NoiseSettings.WAYFALL, strict);
         validatePresent(registries.registryOrThrow(Registries.LEVEL_STEM), ModWorldgenKeys.Dimensions.WAYFALL, strict);
         validatePresent(registries.registryOrThrow(Registries.DIMENSION_TYPE), ModWorldgenKeys.DimensionTypes.WAYFALL, strict);
+
+        validatePresent(registries.registryOrThrow(Registries.STRUCTURE), ModWorldgenKeys.Structures.ANCIENT_WAY_RUINS, strict);
+        validatePresent(registries.registryOrThrow(Registries.STRUCTURE_SET), ModWorldgenKeys.StructureSets.ANCIENT_WAY_RUINS, strict);
+        validatePresent(registries.registryOrThrow(Registries.PROCESSOR_LIST), ModWorldgenKeys.ProcessorLists.ANCIENT_WAY_RUINS, strict);
+        validateSchematicResource(server, new ResourceLocation(Kruemblegard.MOD_ID, "schematics/ancient_way_ruins/wayfall_temple.schem"), strict);
 
         validatePresent(registries.registryOrThrow(Registries.STRUCTURE), ModWorldgenKeys.Structures.MEGALITHIC_CIRCLE, strict);
         validatePresent(registries.registryOrThrow(Registries.STRUCTURE_SET), ModWorldgenKeys.StructureSets.MEGALITHIC_CIRCLE, strict);
@@ -231,6 +238,18 @@ public final class WorldgenValidator {
                 throw new IllegalStateException("Failed to validate template pool JSON " + templatePoolJson, ex);
             }
             Kruemblegard.LOGGER.warn("Failed to validate template pool JSON {}: {}", templatePoolJson, ex.toString());
+        }
+    }
+
+    private static void validateSchematicResource(MinecraftServer server, ResourceLocation schematicId, boolean strict) {
+        try {
+            SpongeSchematic.loadCached(server.getResourceManager(), schematicId);
+        } catch (Exception ex) {
+            String message = "Failed to load schematic resource " + schematicId + ": " + ex;
+            if (strict) {
+                throw new IllegalStateException(message, ex);
+            }
+            Kruemblegard.LOGGER.warn(message);
         }
     }
 
