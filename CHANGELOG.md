@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Fix(worldgen/structure_set): add the missing `salt` field to the Ancient Way Ruins concentric-rings structure set so registry loading no longer fails when creating or previewing worlds.
 - Fix(structure/overworld): stop the Ancient Way Ruins monster filter from resolving Cephalari registry objects during class initialization so Forge can finish entity registration before the spawn gate checks allowed mobs.
 - Feat(xp/telekinesis): make Telekinesis projectile kills pull XP orbs to the shooter while melee kills keep vanilla XP behavior.
 - Feat(config/telekinesis): add common-config knobs for Telekinesis villager book prices plus Fletcher/Toolsmith/Weaponsmith enchanted offer prices and roll chances so packs can tune the economy without code changes.

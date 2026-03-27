@@ -1,6 +1,7 @@
 {
   "placement": {
     "type": "minecraft:concentric_rings",
+    "salt": 184372691,
     "distance": 96,
     "spread": 3,
     "count": 3,
