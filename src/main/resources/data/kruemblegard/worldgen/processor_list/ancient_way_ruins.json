@@ -99,6 +99,71 @@
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:sculk_vein",
+          "probability": 0.10
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:stone_bricks"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:sculk_vein",
+          "probability": 0.1112
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:cobblestone"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:sculk_vein",
+          "probability": 0.1251
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:cracked_stone_bricks"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:sculk_vein",
+          "probability": 0.1429
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:mossy_cobblestone"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:sculk_vein",
+          "probability": 0.1667
+        },
+        "location_predicate": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "output_state": {
+          "Name": "minecraft:mossy_stone_bricks"
+        }
+      },
+      {
+        "input_predicate": {
+          "predicate_type": "minecraft:random_block_match",
+          "block": "minecraft:sculk_vein",
           "probability": 0.64
         },
         "location_predicate": {
@@ -112,7 +177,7 @@
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:sculk_vein",
-          "probability": 0.32
+          "probability": 0.7778
         },
         "location_predicate": {
           "predicate_type": "minecraft:always_true"
@@ -125,7 +190,7 @@
         "input_predicate": {
           "predicate_type": "minecraft:random_block_match",
           "block": "minecraft:sculk_vein",
-          "probability": 0.04
+          "probability": 1.0
         },
         "location_predicate": {
           "predicate_type": "minecraft:always_true"

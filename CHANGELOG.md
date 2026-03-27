@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
+- Tune(structure/overworld): make roughly half of the Ancient Way Ruins sculk marker blocks weather back into ruined stone masonry so the site reads more like an overgrown ruin than a dense sculk patch.
 - Tune(structure/overworld): reduce Ancient Way Ruins sculk shrieker conversions so the ruin's warning network lands closer to vanilla Ancient City pressure instead of over-seeding summon-capable shriekers.
 - Fix(worldgen/structure_set): add the missing `salt` field to the Ancient Way Ruins concentric-rings structure set so registry loading no longer fails when creating or previewing worlds.
 - Fix(structure/overworld): stop the Ancient Way Ruins monster filter from resolving Cephalari registry objects during class initialization so Forge can finish entity registration before the spawn gate checks allowed mobs.
