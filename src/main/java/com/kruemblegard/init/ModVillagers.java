@@ -101,6 +101,10 @@ public final class ModVillagers {
                                 addLibrarianTrades(event);
                         }
 
+                        if (event.getType() == VillagerProfession.FLETCHER) {
+                                addFletcherTrades(event);
+                        }
+
                         if (event.getType() == VillagerProfession.TOOLSMITH) {
                                 addToolsmithTrades(event);
                         }
@@ -129,6 +133,13 @@ public final class ModVillagers {
 
                 private static void addCartographerTrades(VillagerTradesEvent event) {
                                                 event.getTrades().get(5).add(ancientWayRuinsMapTrade(14, 30));
+                }
+
+                private static void addFletcherTrades(VillagerTradesEvent event) {
+                                                event.getTrades().get(5).add(telekineticGearTrade(17, 25, 3, 30, 0.45F,
+                                                                                Items.BOW,
+                                                                                Items.CROSSBOW
+                                                ));
                 }
 
                 private static void addToolsmithTrades(VillagerTradesEvent event) {

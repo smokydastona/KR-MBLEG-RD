@@ -132,7 +132,8 @@ Keep it up to date whenever you add/remove/rename content.
   - Acquisition: available from the enchanting table and anvil like a normal non-treasure enchantment.
   - Valid targets: tools and weapons only, specifically digger tools, shears, swords, bows, crossbows, and tridents.
   - Loot sources: can appear in End City and Ancient City chests both as an enchanted book and as pre-enchanted gear.
-  - Trades: master librarians can sell the Telekinesis book; master toolsmiths and weaponsmiths can roll Telekinesis tools or weapons in their final-tier offers.
+  - Trades: master librarians can sell the Telekinesis book; master fletchers can sometimes roll Telekinesis bows/crossbows; master toolsmiths and weaponsmiths can roll Telekinesis tools or melee weapons in their final-tier offers.
+  - In-game hinting: the Crumbling Codex includes a dedicated Telekinesis page that points players toward enchanting-table use, anvil transfers, late villager stock, and End City/Ancient City loot.
   - Effect scope: only the enchanted tool or weapon applies the effect; Telekinesis is not a player-wide passive.
   - Runtime behavior: successful mining, melee kills, and tagged projectile kills from the enchanted item route drops into inventory when possible, spill overflow at the player, and play the vanilla `ITEM_PICKUP` cue on successful absorption.
 
