@@ -106,6 +106,7 @@ Animation keys currently used by code:
 - Source of truth: `src/main/java` + `src/main/resources` (the root Gradle project compiles from `sourceSets.main`)
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
     - CI should use a full git checkout (`fetch-depth: 0`) so versions match local.
+- GitHub Actions build workflow: uses Node 24-ready `actions/checkout`, `actions/setup-java`, `gradle/actions/setup-gradle`, and `actions/upload-artifact` majors to stay ahead of the GitHub-hosted runner Node 20 retirement.
 
 Handy Gradle tasks:
 - `./gradlew clean build`
