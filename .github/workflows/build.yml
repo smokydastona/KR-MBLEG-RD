@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
           cache: gradle
 
+      - name: Verify mirrored locale files
+        run: python3 tools/sync_lang_locales.py --verify
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
 

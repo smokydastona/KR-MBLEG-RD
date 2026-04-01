@@ -21,6 +21,7 @@ Runtime mod dependencies:
 Localization coverage:
 - Krümblegård ships mirrored fallback language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `python tools/sync_lang_locales.py` after any text-key change to refresh the full locale mirror set.
+- CI also runs `python3 tools/sync_lang_locales.py --verify`, so missing or stale mirrored locale files fail the build instead of slipping into release jars.
 
 Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 
