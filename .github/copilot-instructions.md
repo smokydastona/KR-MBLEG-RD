@@ -40,9 +40,11 @@
 
 ## Localization
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` is the **source of truth** for Krümblegård text.
-- The mod must also ship mirrored language JSON files for **every Minecraft Java 1.20.1 supported locale** so players never fall back to raw translation keys just because their game is set to a non-English language.
-- After **any** new/removed/renamed translation key or subtitle text change, run `python tools/sync_lang_locales.py` so every locale file mirrors the updated `en_us.json` contents.
-- Do not hand-edit the mirrored locale files one-by-one unless doing an intentional full translation pass across the whole locale set.
+- The mod must also ship language JSON files for **every Minecraft Java 1.20.1 supported locale** so players never fall back to raw translation keys just because their game is set to a non-English language.
+- After **any** new/removed/renamed translation key or subtitle text change, run `python tools/sync_lang_locales.py` so every locale file keeps the same key set as `en_us.json`, preserves existing translations, and falls back to English only for untranslated keys.
+- Reviewed non-English translations ship through Crowdin, using `crowdin.yml` plus `.github/workflows/localization.yml`; keep `CROWDIN_PROJECT_ID` and `CROWDIN_PERSONAL_TOKEN` secrets configured so source-string uploads and reviewed-translation PRs keep working.
+- Use `python tools/translate_lang_locales.py <locale...>` or `python tools/translate_lang_locales.py` only when you intentionally need draft text to seed or refresh untranslated locales before review.
+- Do not hand-edit locale files one-by-one unless doing an intentional reviewed translation pass.
 - Before committing localization changes, verify `python tools/sync_lang_locales.py --verify` passes and the lang folder contains the complete supported locale set with no stale extra locale files.
 
 ## Dev workflows & safety features

@@ -19,9 +19,13 @@ Runtime mod dependencies:
 - Optional (performance): Chunk Optimization
 
 Localization coverage:
-- Krümblegård ships mirrored fallback language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
-- `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `python tools/sync_lang_locales.py` after any text-key change to refresh the full locale mirror set.
-- CI also runs `python3 tools/sync_lang_locales.py --verify`, so missing or stale mirrored locale files fail the build instead of slipping into release jars.
+- Krümblegård ships language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
+- `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `python tools/sync_lang_locales.py` after any text-key change so every locale keeps the full key set and falls back to English only for keys that still need translation.
+- Reviewed translations are managed through Crowdin: `crowdin.yml` defines the lang-file mapping, and `.github/workflows/localization.yml` uploads new `en_us` strings then opens PRs with approved translations.
+- To enable the reviewed-translation workflow, add `CROWDIN_PROJECT_ID` and `CROWDIN_PERSONAL_TOKEN` in GitHub Actions secrets.
+- `python tools/translate_lang_locales.py` remains available only as a draft-generation helper; review its output before shipping it.
+- Localization tooling dependency: install `tools/requirements-localization.txt` into the repo venv before running `tools/translate_lang_locales.py` on a clean machine.
+- CI also runs `python3 tools/sync_lang_locales.py --verify`, so missing or stale locale keys fail the build instead of slipping into release jars.
 
 Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 
@@ -112,7 +116,7 @@ Animation keys currently used by code:
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
     - CI should use a full git checkout (`fetch-depth: 0`) so versions match local.
 - GitHub Actions build workflow: uses Node 24-ready `actions/checkout`, `actions/setup-java`, `gradle/actions/setup-gradle`, and `actions/upload-artifact` majors to stay ahead of the GitHub-hosted runner Node 20 retirement.
-- Localization workflow: edit `src/main/resources/assets/kruemblegard/lang/en_us.json`, then run `python tools/sync_lang_locales.py` to mirror the updated text into every supported Minecraft Java 1.20.1 locale file.
+- Localization workflow: edit `src/main/resources/assets/kruemblegard/lang/en_us.json`, run `python tools/sync_lang_locales.py`, commit and push so `.github/workflows/localization.yml` uploads the new source strings to Crowdin, then review and merge the Crowdin translation PRs that come back with approved locale updates.
 
 Handy Gradle tasks:
 - `./gradlew clean build`
