@@ -198,6 +198,11 @@ def merge_locale(source: dict[str, str], current: dict[str, str]) -> dict[str, s
     return merged
 
 
+def expected_locale_output(locale_code: str, source: dict[str, str], current: dict[str, str]) -> str:
+    merged = source if locale_code == "en_us" else merge_locale(source, current)
+    return dump_json(merged)
+
+
 def sync_locales() -> int:
     if not SOURCE_PATH.exists():
         raise FileNotFoundError(f"Missing source language file: {SOURCE_PATH}")
@@ -210,8 +215,7 @@ def sync_locales() -> int:
     for locale_code in SUPPORTED_LOCALES:
         path = locale_path(locale_code)
         current = load_json(path) if path.exists() else {}
-        merged = source if locale_code == "en_us" else merge_locale(source, current)
-        output = dump_json(merged)
+        output = expected_locale_output(locale_code, source, current)
         existing_text = path.read_text(encoding="utf-8") if path.exists() else None
         if existing_text != output:
             path.write_text(output, encoding="utf-8", newline="\n")
@@ -241,6 +245,7 @@ def verify_locales() -> int:
     missing = []
     invalid = []
     key_mismatches = []
+    rewrite_needed = []
 
     source_keys = list(source.keys())
 
@@ -258,11 +263,17 @@ def verify_locales() -> int:
         locale_keys = list(locale_data.keys())
         if locale_keys != source_keys:
             key_mismatches.append(locale_code)
+            continue
+
+        expected_output = expected_locale_output(locale_code, source, locale_data)
+        existing_text = path.read_text(encoding="utf-8")
+        if existing_text != expected_output:
+            rewrite_needed.append(locale_code)
 
     extras = sorted(existing_locale_codes() - set(SUPPORTED_LOCALES))
 
-    if not missing and not invalid and not key_mismatches and not extras:
-        print(f"Verified {len(SUPPORTED_LOCALES)} locale files; all are present and key-aligned with {SOURCE_PATH.name}.")
+    if not missing and not invalid and not key_mismatches and not rewrite_needed and not extras:
+        print(f"Verified {len(SUPPORTED_LOCALES)} locale files; all are present and in clean sync with {SOURCE_PATH.name}.")
         return 0
 
     if missing:
@@ -276,6 +287,10 @@ def verify_locales() -> int:
     if key_mismatches:
         print("Locale files with stale or mismatched key sets:")
         for locale_code in key_mismatches:
+            print(f"- {locale_code}.json")
+    if rewrite_needed:
+        print("Locale files that would be rewritten by sync_locales():")
+        for locale_code in rewrite_needed:
             print(f"- {locale_code}.json")
     if extras:
         print("Unsupported extra locale files:")

@@ -8,6 +8,8 @@ on:
       - "crowdin.yml"
       - ".github/workflows/localization.yml"
       - "src/main/resources/assets/kruemblegard/lang/en_us.json"
+      - "tools/check_lang_translation_coverage.py"
+      - "tools/sync_lang_files.ps1"
       - "tools/sync_lang_locales.py"
   schedule:
     - cron: "0 6 * * *"
@@ -102,9 +104,10 @@ jobs:
 
       - name: Normalize locale filenames and sync fallback keys
         if: steps.crowdin_credentials.outputs.configured == 'true'
+        shell: pwsh
         run: |
-          python3 tools/sync_lang_locales.py
-          python3 tools/sync_lang_locales.py --verify
+          ./tools/sync_lang_files.ps1
+          ./tools/sync_lang_files.ps1 -Verify
 
       - name: Detect locale changes
         if: steps.crowdin_credentials.outputs.configured == 'true'
@@ -135,5 +138,5 @@ jobs:
               --base main \
               --head "$branch" \
               --title "Import reviewed Crowdin translations" \
-              --body "This PR imports approved locale updates from Crowdin and re-syncs untranslated keys through tools/sync_lang_locales.py."
+              --body "This PR imports approved locale updates from Crowdin and re-syncs untranslated keys through tools/sync_lang_files.ps1."
           fi

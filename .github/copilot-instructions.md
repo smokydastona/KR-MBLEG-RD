@@ -41,11 +41,13 @@
 ## Localization
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` is the **source of truth** for Krümblegård text.
 - The mod must also ship language JSON files for **every Minecraft Java 1.20.1 supported locale** so players never fall back to raw translation keys just because their game is set to a non-English language.
-- After **any** new/removed/renamed translation key or subtitle text change, run `python tools/sync_lang_locales.py` so every locale file keeps the same key set as `en_us.json`, preserves existing translations, and falls back to English only for untranslated keys.
+- One JSON file must exist for every Minecraft Java 1.20.1 supported locale, seeded from `en_us.json` for contributor accessibility.
+- After **any** new/removed/renamed translation key or subtitle text change, run `./tools/sync_lang_files.ps1` so every locale file keeps the same key set as `en_us.json`, preserves existing translations, and falls back to English only for untranslated keys.
+- When adding real translations to non-English locale files, keep the same keys and only change the values.
 - Reviewed non-English translations ship through Crowdin, using `crowdin.yml` plus `.github/workflows/localization.yml`; keep `CROWDIN_PROJECT_ID` and `CROWDIN_PERSONAL_TOKEN` secrets configured so source-string uploads and reviewed-translation PRs keep working.
 - Use `python tools/translate_lang_locales.py <locale...>` or `python tools/translate_lang_locales.py` only when you intentionally need draft text to seed or refresh untranslated locales before review.
 - Do not hand-edit locale files one-by-one unless doing an intentional reviewed translation pass.
-- Before committing localization changes, verify `python tools/sync_lang_locales.py --verify` passes and the lang folder contains the complete supported locale set with no stale extra locale files.
+- Before committing localization changes, verify `./tools/sync_lang_files.ps1 -Verify` passes. CI must fail if sync would rewrite any locale file or if any non-exempt translation locale still looks like obvious English fallback content. English-variant and novelty locales are exempt from the translation-coverage gate but must still stay structurally synced with `en_us.json`.
 
 ## Dev workflows & safety features
 - Every change should follow this workflow.
@@ -100,8 +102,8 @@
   - Confirm `assets/kruemblegard/**` file paths match code `ResourceLocation`s
   - Ensure animation/model JSONs are well-formed and avoid known fragile patterns (e.g., keyframes)
 - **Localization / lang changes** (`src/main/resources/assets/kruemblegard/lang/**`)
-  - Update `en_us.json` first, then run `python tools/sync_lang_locales.py`.
-  - Verify `python tools/sync_lang_locales.py --verify` passes before shipping.
+  - Update `en_us.json` first, then run `./tools/sync_lang_files.ps1`.
+  - Verify `./tools/sync_lang_files.ps1 -Verify` passes before shipping.
   - Keep the full Minecraft Java 1.20.1 locale mirror set present; do not leave missing or stale locale files behind.
 - **Gameplay flow changes**
   - Re-scan Trigger → Controller → Boss flow to ensure trigger placement/removal and server/client separation still holds

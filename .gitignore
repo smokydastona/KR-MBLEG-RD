@@ -46,6 +46,7 @@ tools/**
 !tools/*.md
 !tools/generate_mob_bible.py
 !tools/compare_profession_geo_to_spiral_strider.py
+!tools/check_lang_translation_coverage.py
 !tools/sync_lang_locales.py
 !tools/translate_lang_locales.py
 !tools/requirements-localization.txt
