@@ -60,7 +60,7 @@ For a new sound:
   - Sound definition: `src/main/resources/assets/kruemblegard/sounds.json`
   - Audio file(s): `src/main/resources/assets/kruemblegard/sounds/**/*.ogg`
 - Localization
-  - If you set `subtitle`, ensure `assets/kruemblegard/lang/en_us.json` contains the subtitle key.
+  - If you set `subtitle`, ensure `assets/kruemblegard/lang/en_us.json` contains the subtitle key, then run `python tools/sync_lang_locales.py` so the mirrored locale set stays current.
 
 ---
 

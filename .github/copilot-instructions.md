@@ -38,6 +38,13 @@
 - Entity texture: `assets/kruemblegard/textures/entity/kruemblegard.png`.
 - Block texture reuse: `assets/kruemblegard/textures/block/standing_stone.png` is intentionally reused by multiple blocks.
 
+## Localization
+- `src/main/resources/assets/kruemblegard/lang/en_us.json` is the **source of truth** for Krümblegård text.
+- The mod must also ship mirrored language JSON files for **every Minecraft Java 1.20.1 supported locale** so players never fall back to raw translation keys just because their game is set to a non-English language.
+- After **any** new/removed/renamed translation key or subtitle text change, run `python tools/sync_lang_locales.py` so every locale file mirrors the updated `en_us.json` contents.
+- Do not hand-edit the mirrored locale files one-by-one unless doing an intentional full translation pass across the whole locale set.
+- Before committing localization changes, verify `python tools/sync_lang_locales.py --verify` passes and the lang folder contains the complete supported locale set with no stale extra locale files.
+
 ## Dev workflows & safety features
 - Every change should follow this workflow.
 
@@ -90,6 +97,10 @@
 - **Assets / GeckoLib JSON changes**
   - Confirm `assets/kruemblegard/**` file paths match code `ResourceLocation`s
   - Ensure animation/model JSONs are well-formed and avoid known fragile patterns (e.g., keyframes)
+- **Localization / lang changes** (`src/main/resources/assets/kruemblegard/lang/**`)
+  - Update `en_us.json` first, then run `python tools/sync_lang_locales.py`.
+  - Verify `python tools/sync_lang_locales.py --verify` passes before shipping.
+  - Keep the full Minecraft Java 1.20.1 locale mirror set present; do not leave missing or stale locale files behind.
 - **Gameplay flow changes**
   - Re-scan Trigger → Controller → Boss flow to ensure trigger placement/removal and server/client separation still holds
 

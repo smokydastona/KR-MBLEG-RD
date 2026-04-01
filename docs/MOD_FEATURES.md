@@ -15,6 +15,12 @@ Keep it up to date whenever you add/remove/rename content.
 - Texture resize helpers (256x256, no cropping, reports written under `tools/_reports`):
   - `tools/resize_textures_to_256.ps1` (block + item)
 
+## Localization
+- Krümblegård ships fallback language JSON files for every Minecraft Java 1.20.1 supported locale so the mod remains readable under any built-in language selection instead of exposing raw translation keys.
+- `src/main/resources/assets/kruemblegard/lang/en_us.json` is the single source of truth for translation keys and current default text.
+- After any text-key, subtitle, or display-name change, run `python tools/sync_lang_locales.py` to mirror the updated `en_us.json` into the full locale set.
+- Validation step: run `python tools/sync_lang_locales.py --verify` before shipping localization-affecting changes.
+
 ## Optional Runtime Mods
 - `waystoneinjector` (client-only): optional Waystones integration helper.
 - Chunk Optimization: optional Forge 1.20.1 performance helper added as a runtime-only dependency for dev runs and modpacks; Kruemblegard does not require it to load.

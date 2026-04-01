@@ -24,7 +24,7 @@ python -m soundgen.batch `
 Notes:
 - This will create/update:
   - `src/main/resources/assets/kruemblegard/sounds.json`
-  - `src/main/resources/assets/kruemblegard/lang/en_us.json` (only if subtitle text is provided)
+  - `src/main/resources/assets/kruemblegard/lang/en_us.json` (only if subtitle text is provided; then run `python tools/sync_lang_locales.py` to refresh the mirrored locale set)
   - `.ogg` files under `src/main/resources/assets/kruemblegard/sounds/`
 - Prompts here are starter text; tune them before generating final assets.
 

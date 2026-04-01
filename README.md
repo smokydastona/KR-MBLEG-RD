@@ -18,6 +18,10 @@ Runtime mod dependencies:
 - Optional (client-only): Waystone Injector (`waystoneinjector`)
 - Optional (performance): Chunk Optimization
 
+Localization coverage:
+- Krümblegård ships mirrored fallback language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
+- `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `python tools/sync_lang_locales.py` after any text-key change to refresh the full locale mirror set.
+
 Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 
 ## Highlights
@@ -107,6 +111,7 @@ Animation keys currently used by code:
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
     - CI should use a full git checkout (`fetch-depth: 0`) so versions match local.
 - GitHub Actions build workflow: uses Node 24-ready `actions/checkout`, `actions/setup-java`, `gradle/actions/setup-gradle`, and `actions/upload-artifact` majors to stay ahead of the GitHub-hosted runner Node 20 retirement.
+- Localization workflow: edit `src/main/resources/assets/kruemblegard/lang/en_us.json`, then run `python tools/sync_lang_locales.py` to mirror the updated text into every supported Minecraft Java 1.20.1 locale file.
 
 Handy Gradle tasks:
 - `./gradlew clean build`

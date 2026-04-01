@@ -34,6 +34,14 @@ Suggested hygiene pass (periodic):
 	- `tools/generate_sound_bible.ps1`
 	- `tools/audit_sound_uniqueness.ps1`
 
+## Localization
+- Treat `src/main/resources/assets/kruemblegard/lang/en_us.json` as the source of truth.
+- Krümblegård ships mirrored fallback lang files for every Minecraft Java 1.20.1 supported locale; do not update `en_us.json` without syncing the rest of the locale set.
+- After any translation-key, block/item/entity name, or subtitle change, run:
+  - `python tools/sync_lang_locales.py`
+  - `python tools/sync_lang_locales.py --verify`
+- Do not hand-edit the mirrored locale files individually unless you are intentionally maintaining full translated variants for the whole set.
+
 ## Adding a new mob (required: sounds + credits)
 
 When adding a new entity mob, it must ship with its sound set from the start.
@@ -42,6 +50,7 @@ Checklist:
 - Register the `SoundEvent`s in `src/main/java/com/kruemblegard/registry/ModSounds.java`.
 - Add entries to `src/main/resources/assets/kruemblegard/sounds.json`.
 - Add subtitles to `src/main/resources/assets/kruemblegard/lang/en_us.json`.
+- Run `python tools/sync_lang_locales.py` so every locale file picks up the updated subtitle key.
 - Add the `.ogg` assets under `src/main/resources/assets/kruemblegard/sounds/entity/<mob>/`.
 - Hook the entity to use them (ambient/hurt/death/step + any special one-shots).
 - Add/extend attributions in `docs/SOUND_CREDITS.md` for every new sound clip used.
