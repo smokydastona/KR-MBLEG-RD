@@ -6,7 +6,10 @@ import sys
 import time
 from pathlib import Path
 
+import requests
 from deep_translator import GoogleTranslator
+from deep_translator.exceptions import TranslationNotFound
+from requests.exceptions import RequestException
 
 from sync_lang_locales import SOURCE_PATH, SUPPORTED_LOCALES, dump_json, load_json, merge_locale
 
@@ -37,11 +40,31 @@ TARGET_LANGUAGE_BY_LOCALE = {
 }
 
 
+DONOR_LOCALE_BY_TARGET_LANGUAGE = {
+    "ca": "ca_es",
+    "de": "de_de",
+    "es": "es_es",
+    "fr": "fr_fr",
+    "it": "it_it",
+    "ja": "ja_jp",
+    "ko": "ko_kr",
+    "nl": "nl_nl",
+    "no": "no_no",
+    "pl": "pl_pl",
+    "pt": "pt_br",
+    "ru": "ru_ru",
+    "sv": "sv_se",
+    "uk": "uk_ua",
+    "zh-CN": "zh_cn",
+    "zh-TW": "zh_tw",
+}
+
+
 PROTECTED_TERMS = [
     "Krümblegård", "Cephalari", "Wayfall", "Telekinesis", "Moogloom", "Scaralon", "Wyrdwing",
     "Driftwhale", "Pebble Wren", "Mossback Tortoise", "Grave Cairn", "Trader Beetle", "Spiral Strider",
     "Drift Skimmer", "Treadwinder", "Echo Harness", "Ashbloom", "Ashmoss", "Ashspire", "Cairnroot",
-    "Echocap", "Echowood", "Driftwood", "Driftwillow", "Paleweft", "Remnant", "Runegrowth",
+    "Echocap", "Echowood", "Driftwood", "Driftwillow", "Faultwood", "Paleweft", "Remnant", "Runegrowth",
     "Pebblit", "Traprock", "Waystone", "Waystones", "Scarsteel",
 ]
 
@@ -62,15 +85,33 @@ UPSIDE_DOWN_MAP = {
 }
 
 
+PLACEHOLDER_ARTIFACT_RE = re.compile(r"ZZKRGTERM\d+KRZZ|__[^\n]*__")
+REQUEST_TIMEOUT_SECONDS = 20
+MAX_TRANSLATION_RETRIES = 3
+
+
 def locale_path(locale_code: str) -> Path:
     return SOURCE_PATH.parent / f"{locale_code}.json"
+
+
+def donor_locale_data(locale_code: str) -> dict[str, str]:
+    target_language = TARGET_LANGUAGE_BY_LOCALE[locale_code]
+    donor_locale = DONOR_LOCALE_BY_TARGET_LANGUAGE.get(target_language)
+    if donor_locale is None or donor_locale == locale_code:
+        return {}
+
+    donor_path = locale_path(donor_locale)
+    if not donor_path.exists():
+        return {}
+
+    return load_json(donor_path)
 
 
 def protect_terms(text: str) -> tuple[str, dict[str, str]]:
     placeholders: dict[str, str] = {}
     protected = text
     for index, term in enumerate(sorted(PROTECTED_TERMS, key=len, reverse=True)):
-        token = f"__TERM_{index}__"
+        token = f"ZZKRGTERM{index}KRZZ"
         if term in protected:
             placeholders[token] = term
             protected = protected.replace(term, token)
@@ -110,14 +151,39 @@ def stylize_english_variant(locale_code: str, value: str) -> str:
     return value
 
 
+def _requests_get_with_timeout(*args, **kwargs):
+    kwargs.setdefault("timeout", REQUEST_TIMEOUT_SECONDS)
+    return requests.api.get(*args, **kwargs)
+
+
+requests.get = _requests_get_with_timeout
+
+
+def translate_value(translator: GoogleTranslator, value: str) -> str:
+    for attempt in range(MAX_TRANSLATION_RETRIES):
+        try:
+            translated_value = translator.translate(value)
+        except TranslationNotFound:
+            return value
+        except RequestException:
+            if attempt == MAX_TRANSLATION_RETRIES - 1:
+                return value
+            time.sleep(1.0 * (attempt + 1))
+            continue
+
+        if translated_value is None:
+            return value
+        return translated_value
+
+    return value
+
+
 def translate_values(values: list[str], target_language: str) -> list[str]:
     translator = GoogleTranslator(source="en", target=target_language)
     translated_values: list[str] = []
     for start in range(0, len(values), 50):
         chunk = values[start:start + 50]
-        translated_chunk = translator.translate_batch(chunk)
-        if translated_chunk is None:
-            raise RuntimeError(f"Translation failed for target {target_language}")
+        translated_chunk = [translate_value(translator, value) for value in chunk]
         translated_values.extend(translated_chunk)
         time.sleep(0.2)
     return translated_values
@@ -129,9 +195,28 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
 
     path = locale_path(locale_code)
     current = load_json(path) if path.exists() else {}
-    pending_keys = [key for key, value in source.items() if current.get(key, value) == value]
+    donor_data = donor_locale_data(locale_code)
+
+    updated = dict(current)
+    for key, value in source.items():
+        if updated.get(key, value) != value:
+            continue
+
+        donor_value = donor_data.get(key)
+        if donor_value and donor_value != value:
+            updated[key] = donor_value
+
+    pending_keys = [
+        key
+        for key, value in source.items()
+        if updated.get(key, value) == value
+        or (
+            isinstance(updated.get(key), str)
+            and PLACEHOLDER_ARTIFACT_RE.search(updated[key]) is not None
+        )
+    ]
     if not pending_keys:
-        return merge_locale(source, current)
+        return merge_locale(source, updated)
 
     target_language = TARGET_LANGUAGE_BY_LOCALE[locale_code]
     if target_language == "en":
@@ -146,7 +231,6 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
         translated_values = translate_values(protected_values, target_language)
         translated_values = [restore_terms(value, placeholder_maps[index]) for index, value in enumerate(translated_values)]
 
-    updated = dict(current)
     for key, value in zip(pending_keys, translated_values):
         updated[key] = value
     return merge_locale(source, updated)
