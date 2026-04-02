@@ -37,10 +37,8 @@ Suggested hygiene pass (periodic):
 ## Localization
 - Treat `src/main/resources/assets/kruemblegard/lang/en_us.json` as the source of truth.
 - Krümblegård ships lang files for every Minecraft Java 1.20.1 supported locale; do not update `en_us.json` without syncing the rest of the locale set.
-- Reviewed translation work should flow through Crowdin PRs from `.github/workflows/localization.yml`, not by silently editing dozens of locale files locally.
 - After any translation-key, block/item/entity name, or subtitle change, run:
 	- `./tools/sync_lang_files.ps1`
-	- push the source-text change so the Crowdin workflow can upload the new strings
 	- `python tools/translate_lang_locales.py` only if you intentionally need machine-drafted placeholder text before review
 	- `./tools/sync_lang_files.ps1 -Verify`
 - When translating non-English locale files, keep the same keys as `en_us.json`; only change values.

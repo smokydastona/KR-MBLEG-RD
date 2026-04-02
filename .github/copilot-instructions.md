@@ -44,7 +44,6 @@
 - One JSON file must exist for every Minecraft Java 1.20.1 supported locale, seeded from `en_us.json` for contributor accessibility.
 - After **any** new/removed/renamed translation key or subtitle text change, run `./tools/sync_lang_files.ps1` so every locale file keeps the same key set as `en_us.json`, preserves existing translations, and falls back to English only for untranslated keys.
 - When adding real translations to non-English locale files, keep the same keys and only change the values.
-- Reviewed non-English translations ship through Crowdin, using `crowdin.yml` plus `.github/workflows/localization.yml`; keep `CROWDIN_PROJECT_ID` and `CROWDIN_PERSONAL_TOKEN` secrets configured so source-string uploads and reviewed-translation PRs keep working.
 - Use `python tools/translate_lang_locales.py <locale...>` or `python tools/translate_lang_locales.py` only when you intentionally need draft text to seed or refresh untranslated locales before review.
 - Do not hand-edit locale files one-by-one unless doing an intentional reviewed translation pass.
 - Before committing localization changes, verify `./tools/sync_lang_files.ps1 -Verify` passes. CI must fail if sync would rewrite any locale file or if any non-exempt translation locale still looks like obvious English fallback content. English-variant and novelty locales are exempt from the translation-coverage gate but must still stay structurally synced with `en_us.json`.

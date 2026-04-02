@@ -5,8 +5,9 @@ All notable changes to this project will be documented in this file.
 Changelog entries are grouped by the exact mod version embedded in the built jar.
 
 ## Unreleased
-- Feat(localization): track the locale sync tooling in git, normalize Crowdin-exported locale filenames, and add a Crowdin-backed GitHub Actions workflow that uploads `en_us` changes and returns approved translations as reviewable pull requests while `tools/sync_lang_locales.py` keeps the full locale set aligned.
+- Feat(localization): track the locale sync tooling in git and keep the full locale set aligned through `tools/sync_lang_files.ps1`, `tools/sync_lang_locales.py`, and CI verification against `en_us.json`.
 - Chore(localization): add `tools/sync_lang_files.ps1` plus an obvious-English fallback coverage gate so commit/push CI now fails when locale files drift from `en_us.json` or when non-exempt translation locales still look like English fallback content.
+- Fix(localization): harden machine-draft protected-term placeholders so draft translations stop corrupting preserved Krümblegård proper nouns in locales like Simplified Chinese.
 - Chore(ci): move the GitHub Actions build workflow onto Node 24-ready `checkout`, `setup-java`, `setup-gradle`, and `upload-artifact` majors and drop the temporary forced-Node24 toggle so CI stops emitting the Node 20 deprecation warning.
 - Tune(ui/creative-tabs): stop mirroring Krümblegård blocks/items into vanilla creative tabs so mod content stays inside the custom Krümblegård tabs, with only the Telekinesis enchanted book still mixed into the vanilla enchanted-book listing.
 - Feat(telekinesis): make Telekinesis collect both drops and XP from melee or projectile mob kills through a shared redirect window, so modded mobs that spawn reward items/orbs slightly later still funnel those rewards back to the player.

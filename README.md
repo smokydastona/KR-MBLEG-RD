@@ -22,8 +22,6 @@ Localization coverage:
 - Krümblegård ships language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `./tools/sync_lang_files.ps1` after any text-key change so every locale keeps the full key set and falls back to English only for keys that still need translation.
 - Non-English locale files must keep the same keys as `en_us.json`; only the values should change during translation passes.
-- Reviewed translations are managed through Crowdin: `crowdin.yml` defines the lang-file mapping, and `.github/workflows/localization.yml` uploads new `en_us` strings then opens PRs with approved translations.
-- To enable the reviewed-translation workflow, add `CROWDIN_PROJECT_ID` and `CROWDIN_PERSONAL_TOKEN` in GitHub Actions secrets.
 - `python tools/translate_lang_locales.py` remains available only as a draft-generation helper; review its output before shipping it.
 - Localization tooling dependency: install `tools/requirements-localization.txt` into the repo venv before running `tools/translate_lang_locales.py` on a clean machine.
 - CI also runs `./tools/sync_lang_files.ps1 -Verify`, so the build fails if locale sync would rewrite files or if any non-exempt translation locale still looks like obvious English fallback content.
@@ -117,7 +115,7 @@ Animation keys currently used by code:
 - Jar version: `major.minor.<git commit count>` (see `build.gradle`)
     - CI should use a full git checkout (`fetch-depth: 0`) so versions match local.
 - GitHub Actions build workflow: uses Node 24-ready `actions/checkout`, `actions/setup-java`, `gradle/actions/setup-gradle`, and `actions/upload-artifact` majors to stay ahead of the GitHub-hosted runner Node 20 retirement.
-- Localization workflow: edit `src/main/resources/assets/kruemblegard/lang/en_us.json`, run `./tools/sync_lang_files.ps1`, commit and push so `.github/workflows/localization.yml` uploads the new source strings to Crowdin, then review and merge the Crowdin translation PRs that come back with approved locale updates.
+- Localization workflow: edit `src/main/resources/assets/kruemblegard/lang/en_us.json`, run `./tools/sync_lang_files.ps1`, refresh any non-English locale values you are actively translating, then verify with `./tools/sync_lang_files.ps1 -Verify` before committing.
 
 Handy Gradle tasks:
 - `./gradlew clean build`

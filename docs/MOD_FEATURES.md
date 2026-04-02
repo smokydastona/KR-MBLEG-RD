@@ -20,7 +20,6 @@ Keep it up to date whenever you add/remove/rename content.
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` is the single source of truth for translation keys and current default text.
 - After any text-key, subtitle, or display-name change, run `./tools/sync_lang_files.ps1` so every locale keeps the same key set and preserves existing translations while falling back to `en_us` for untranslated entries.
 - Non-English locale files keep the same keys as `en_us.json`; translation work only changes the values.
-- Reviewed locale updates come back through the Crowdin-backed `.github/workflows/localization.yml` pull-request flow.
 - Use `python tools/translate_lang_locales.py` only to draft placeholder text where English fallback entries still need later review.
 - Validation step: run `./tools/sync_lang_files.ps1 -Verify` before shipping localization-affecting changes.
 
