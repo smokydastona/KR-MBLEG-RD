@@ -72,8 +72,8 @@ MOD_TERM_SUBSTITUTIONS = {
     # These do not affect en_us.json; they only influence the machine-draft translator input.
     "Cephalari": "squid people",
     "Moogloom": "sad mushroom cow",
-    "Scaralon": "serious",
-    "Wyrdwing": "weird wing",
+    "Scaralon": "serious beetle",
+    "Wyrdwing": "weird winged creature",
     "Pebblit": "rock child",
 }
 
