@@ -24,7 +24,8 @@ Keep it up to date whenever you add/remove/rename content.
 - Draft translation passes now write completed chunks back into the locale file as they finish and reuse per-language caches under `tools/_reports/translation_cache` so interrupted runs can resume without retranslating the same English strings.
 - Coverage fallback escape hatch: `python tools/break_obvious_english_fallbacks.py` clears exact-English fallback strings offline (appends a zero-width space) so `./tools/sync_lang_files.ps1 -Verify` can pass when you intentionally need placeholder values.
 - Validation step: run `./tools/sync_lang_files.ps1 -Verify` before shipping localization-affecting changes.
-- Optional stricter gate: `./tools/sync_lang_files.ps1 -Verify -RequireModTermTranslations` also fails when specific mod name-terms (like `Waystone`) remain effectively English (exact match, or only differing by the zero-width-space coverage marker).
+- Strict mod-term gate (default): `./tools/sync_lang_files.ps1 -Verify` also fails when specific mod name-terms (like `Waystone`) remain effectively English (exact match, or only differing by the zero-width-space coverage marker).
+  - Opt-out (not recommended): `./tools/sync_lang_files.ps1 -Verify -NoRequireModTermTranslations`
 
 ## Optional Runtime Mods
 - `waystoneinjector` (client-only): optional Waystones integration helper.

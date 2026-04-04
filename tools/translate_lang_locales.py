@@ -13,6 +13,7 @@ from deep_translator import GoogleTranslator
 from deep_translator.exceptions import TranslationNotFound
 from requests.exceptions import RequestException
 
+from check_lang_translation_coverage import REQUIRED_TRANSLATED_SOURCE_VALUES
 from sync_lang_locales import SOURCE_PATH, SUPPORTED_LOCALES, dump_json, load_json, merge_locale
 
 
@@ -75,6 +76,7 @@ MOD_TERM_SUBSTITUTIONS = {
     "Scaralon": "serious beetle",
     "Wyrdwing": "weird winged creature",
     "Pebblit": "rock child",
+    "Telekinesis": "mind movement",
 }
 
 
@@ -341,6 +343,14 @@ def restore_terms(text: str, placeholders: dict[str, str]) -> str:
     return restored
 
 
+def maybe_capitalize_like(source_value: str, translated_value: str) -> str:
+    if not source_value or not translated_value:
+        return translated_value
+    if source_value[:1].isupper() and translated_value[:1].islower():
+        return translated_value[:1].upper() + translated_value[1:]
+    return translated_value
+
+
 def stylize_english_variant(locale_code: str, value: str) -> str:
     if locale_code == "en_ud":
         return value.translate(UPSIDE_DOWN_MAP)[::-1]
@@ -429,16 +439,31 @@ def translate_chunk(values: list[str], target_language: str) -> list[str]:
     return translated_chunk
 
 
-def translate_locale(locale_code: str, source: dict[str, str], *, hint_compounds: bool) -> dict[str, str]:
+def translate_locale(
+    locale_code: str,
+    source: dict[str, str],
+    *,
+    hint_compounds: bool,
+    only_required_mod_terms: bool,
+) -> dict[str, str]:
     if locale_code == "en_us":
         return source
+
+    keys_to_translate = list(source.keys())
+    if only_required_mod_terms:
+        keys_to_translate = [
+            key
+            for key, value in source.items()
+            if value in REQUIRED_TRANSLATED_SOURCE_VALUES
+        ]
 
     path = locale_path(locale_code)
     current = load_json(path) if path.exists() else {}
     donor_data = donor_locale_data(locale_code, source)
 
     updated = dict(current)
-    for key, value in source.items():
+    for key in keys_to_translate:
+        value = source[key]
         if not is_effective_fallback(updated.get(key), value):
             continue
 
@@ -448,8 +473,8 @@ def translate_locale(locale_code: str, source: dict[str, str], *, hint_compounds
 
     pending_keys = [
         key
-        for key, value in source.items()
-        if is_effective_fallback(updated.get(key), value)
+        for key in keys_to_translate
+        if is_effective_fallback(updated.get(key), source[key])
         or (
             isinstance(updated.get(key), str)
             and PLACEHOLDER_ARTIFACT_RE.search(updated[key]) is not None
@@ -469,15 +494,24 @@ def translate_locale(locale_code: str, source: dict[str, str], *, hint_compounds
             protected_values = []
             placeholder_maps = []
             for key in chunk_keys:
-                value = apply_mod_term_policy(source[key], hint_compounds=hint_compounds)
+                source_value = source[key]
+                value = apply_mod_term_policy(source_value, hint_compounds=hint_compounds)
+                if source_value in REQUIRED_TRANSLATED_SOURCE_VALUES:
+                    value = value.lower()
                 protected, placeholders = protect_terms(value)
                 protected_values.append(protected)
                 placeholder_maps.append(placeholders)
 
             translated_chunk = translate_chunk(protected_values, target_language)
-            translated_chunk = [restore_terms(value, placeholder_maps[index]) for index, value in enumerate(translated_chunk)]
+            translated_chunk = [
+                restore_terms(value, placeholder_maps[index])
+                for index, value in enumerate(translated_chunk)
+            ]
 
             for key, value in zip(chunk_keys, translated_chunk):
+                source_value = source[key]
+                if source_value in REQUIRED_TRANSLATED_SOURCE_VALUES:
+                    value = maybe_capitalize_like(source_value, value)
                 updated[key] = value
 
             # Persist each completed chunk so long-running locale seeding can resume after interruption.
@@ -496,6 +530,14 @@ def main() -> int:
         action="store_true",
         help="Split certain mod compound terms (e.g., 'Traprock' -> 'Trap rock') as a translation hint; does not affect en_us.json.",
     )
+    parser.add_argument(
+        "--only-required-mod-terms",
+        action="store_true",
+        help=(
+            "Only translate keys whose en_us value is in the strict-gate required mod-term display-name list. "
+            "This is intended for making the strict coverage gate pass without rewriting the whole locale."
+        ),
+    )
     args = parser.parse_args()
 
     source = load_json(SOURCE_PATH)
@@ -505,13 +547,32 @@ def main() -> int:
         if locale_code not in TARGET_LANGUAGE_BY_LOCALE:
             raise KeyError(f"Missing translation mapping for {locale_code}")
 
+    errors: list[tuple[str, BaseException]] = []
+    errors_guard = threading.Lock()
+
     def translate_one_locale(locale_code: str) -> None:
-        print(f"Translating {locale_code}...", flush=True)
-        translated = translate_locale(locale_code, source, hint_compounds=args.hint_compounds)
-        write_locale_json(locale_path(locale_code), translated)
+        try:
+            print(f"Translating {locale_code}...", flush=True)
+            translated = translate_locale(
+                locale_code,
+                source,
+                hint_compounds=args.hint_compounds,
+                only_required_mod_terms=args.only_required_mod_terms,
+            )
+            write_locale_json(locale_path(locale_code), translated)
+        except BaseException as exc:
+            with errors_guard:
+                errors.append((locale_code, exc))
+            print(f"ERROR translating {locale_code}: {exc}", flush=True)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=min(LOCALE_WORKERS, len(locales) or 1)) as executor:
         list(executor.map(translate_one_locale, locales))
+
+    if errors:
+        print("\nTranslation failures:")
+        for locale_code, exc in sorted(errors, key=lambda item: item[0]):
+            print(f"- {locale_code}: {exc}")
+        return 1
 
     return 0
 

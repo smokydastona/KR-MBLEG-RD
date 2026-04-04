@@ -1,6 +1,7 @@
 param(
     [switch]$Verify,
-    [switch]$RequireModTermTranslations
+    [switch]$RequireModTermTranslations,
+    [switch]$NoRequireModTermTranslations
 )
 
 $ErrorActionPreference = 'Stop'
@@ -38,11 +39,13 @@ if ($Verify) {
         exit $LASTEXITCODE
     }
 
-    if ($RequireModTermTranslations) {
-        & $python $coverageScript --require-mod-term-translations
+    if ($NoRequireModTermTranslations) {
+        & $python $coverageScript --no-require-mod-term-translations
         exit $LASTEXITCODE
     }
 
+    # Strict mod-term translation coverage is now the default.
+    # Keep $RequireModTermTranslations for backwards compatibility / readability.
     & $python $coverageScript
     exit $LASTEXITCODE
 }

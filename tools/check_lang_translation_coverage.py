@@ -153,13 +153,27 @@ def main() -> int:
     )
     parser.add_argument(
         "--require-mod-term-translations",
+        dest="require_mod_term_translations",
         action="store_true",
+        default=None,
         help=(
-            "Also fail when keys whose en_us value is a mod name-term (e.g., 'Waystone') remain effectively English "
-            "in non-exempt locales (exact match, or only differs by zero-width-space coverage markers)."
+            "Enable strict mod-term translation coverage (this is the default). Fails when keys whose en_us value is a "
+            "mod name-term (e.g., 'Waystone') remain effectively English in non-exempt locales (exact match, or only differs "
+            "by zero-width-space coverage markers)."
+        ),
+    )
+    parser.add_argument(
+        "--no-require-mod-term-translations",
+        dest="require_mod_term_translations",
+        action="store_false",
+        default=None,
+        help=(
+            "Disable strict mod-term translation coverage (not recommended). This keeps only the 'obvious English fallback' gate."
         ),
     )
     args = parser.parse_args()
+
+    require_mod_term_translations = True if args.require_mod_term_translations is None else args.require_mod_term_translations
 
     source = load_json(SOURCE_PATH)
     failures: list[tuple[str, list[str]]] = []
@@ -177,7 +191,7 @@ def main() -> int:
         ]
 
         strict_keys: list[str] = []
-        if args.require_mod_term_translations:
+        if require_mod_term_translations:
             strict_keys = [
                 key
                 for key, source_value in source.items()
@@ -193,7 +207,7 @@ def main() -> int:
 
     if not failures and not strict_failures:
         print("Verified locale translation coverage; no obvious English fallback content found in non-exempt locales.")
-        if args.require_mod_term_translations:
+        if require_mod_term_translations:
             print("Verified strict mod-term translation coverage; required mod name-terms are not effectively English.")
         return 0
 
