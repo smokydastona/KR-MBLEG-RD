@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import re
 import sys
 import time
@@ -88,23 +89,91 @@ UPSIDE_DOWN_MAP = {
 PLACEHOLDER_ARTIFACT_RE = re.compile(r"ZZKRGTERM\d+KRZZ|__[^\n]*__")
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_TRANSLATION_RETRIES = 3
+TRANSLATION_WORKERS = 10
+TRANSLATION_CACHE_DIR = Path(__file__).resolve().parent / "_reports" / "translation_cache"
+FILE_REPLACE_RETRIES = 10
+FILE_REPLACE_RETRY_DELAY_SECONDS = 0.5
 
 
 def locale_path(locale_code: str) -> Path:
     return SOURCE_PATH.parent / f"{locale_code}.json"
 
 
-def donor_locale_data(locale_code: str) -> dict[str, str]:
+def write_locale_json(path: Path, data: dict[str, str]) -> None:
+    temp_path = path.with_suffix(f"{path.suffix}.tmp")
+    temp_path.write_text(dump_json(data), encoding="utf-8", newline="\n")
+    for attempt in range(FILE_REPLACE_RETRIES):
+        try:
+            temp_path.replace(path)
+            return
+        except PermissionError:
+            if attempt == FILE_REPLACE_RETRIES - 1:
+                raise
+            time.sleep(FILE_REPLACE_RETRY_DELAY_SECONDS * (attempt + 1))
+
+
+def translation_cache_path(target_language: str) -> Path:
+    safe_language = target_language.replace("/", "_")
+    return TRANSLATION_CACHE_DIR / f"{safe_language}.json"
+
+
+def load_translation_cache(target_language: str) -> dict[str, str]:
+    path = translation_cache_path(target_language)
+    if not path.exists():
+        return {}
+    return load_json(path)
+
+
+def write_translation_cache(target_language: str, cache: dict[str, str]) -> None:
+    TRANSLATION_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    path = translation_cache_path(target_language)
+    temp_path = path.with_suffix(f"{path.suffix}.tmp")
+    temp_path.write_text(dump_json(cache), encoding="utf-8", newline="\n")
+    for attempt in range(FILE_REPLACE_RETRIES):
+        try:
+            temp_path.replace(path)
+            return
+        except PermissionError:
+            if attempt == FILE_REPLACE_RETRIES - 1:
+                raise
+            time.sleep(FILE_REPLACE_RETRY_DELAY_SECONDS * (attempt + 1))
+
+
+def suspicious_fallback_count(locale_data: dict[str, str], source: dict[str, str]) -> int:
+    return sum(1 for key, value in source.items() if locale_data.get(key, value) == value)
+
+
+def donor_locale_data(locale_code: str, source: dict[str, str]) -> dict[str, str]:
     target_language = TARGET_LANGUAGE_BY_LOCALE[locale_code]
-    donor_locale = DONOR_LOCALE_BY_TARGET_LANGUAGE.get(target_language)
-    if donor_locale is None or donor_locale == locale_code:
-        return {}
+    candidate_locales = [
+        candidate
+        for candidate, candidate_language in TARGET_LANGUAGE_BY_LOCALE.items()
+        if candidate != locale_code and candidate_language == target_language
+    ]
+    preferred_donor = DONOR_LOCALE_BY_TARGET_LANGUAGE.get(target_language)
+    if preferred_donor in candidate_locales:
+        candidate_locales.remove(preferred_donor)
+        candidate_locales.insert(0, preferred_donor)
 
-    donor_path = locale_path(donor_locale)
-    if not donor_path.exists():
-        return {}
+    ranked_donors: list[tuple[int, str, dict[str, str]]] = []
+    for candidate_locale in candidate_locales:
+        candidate_path = locale_path(candidate_locale)
+        if not candidate_path.exists():
+            continue
 
-    return load_json(donor_path)
+        candidate_data = load_json(candidate_path)
+        ranked_donors.append((suspicious_fallback_count(candidate_data, source), candidate_locale, candidate_data))
+
+    ranked_donors.sort(key=lambda item: (item[0], item[1]))
+
+    merged_donor_data: dict[str, str] = {}
+    for _, _, candidate_data in ranked_donors:
+        for key, source_value in source.items():
+            donor_value = candidate_data.get(key)
+            if donor_value and donor_value != source_value and key not in merged_donor_data:
+                merged_donor_data[key] = donor_value
+
+    return merged_donor_data
 
 
 def protect_terms(text: str) -> tuple[str, dict[str, str]]:
@@ -183,10 +252,32 @@ def translate_values(values: list[str], target_language: str) -> list[str]:
     translated_values: list[str] = []
     for start in range(0, len(values), 50):
         chunk = values[start:start + 50]
-        translated_chunk = [translate_value(translator, value) for value in chunk]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
+            translated_chunk = list(executor.map(lambda value: translate_value(translator, value), chunk))
         translated_values.extend(translated_chunk)
         time.sleep(0.2)
     return translated_values
+
+
+def translate_chunk(values: list[str], target_language: str) -> list[str]:
+    if not values:
+        return []
+
+    translated_by_value = load_translation_cache(target_language)
+    unique_values = list(dict.fromkeys(values))
+    missing_values = [value for value in unique_values if value not in translated_by_value]
+
+    if missing_values:
+        translator = GoogleTranslator(source="en", target=target_language)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
+            translated_missing_values = list(executor.map(lambda value: translate_value(translator, value), missing_values))
+
+        translated_by_value.update(dict(zip(missing_values, translated_missing_values)))
+        write_translation_cache(target_language, translated_by_value)
+
+    translated_chunk = [translated_by_value[value] for value in values]
+    time.sleep(0.2)
+    return translated_chunk
 
 
 def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]:
@@ -195,7 +286,7 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
 
     path = locale_path(locale_code)
     current = load_json(path) if path.exists() else {}
-    donor_data = donor_locale_data(locale_code)
+    donor_data = donor_locale_data(locale_code, source)
 
     updated = dict(current)
     for key, value in source.items():
@@ -221,18 +312,27 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
     target_language = TARGET_LANGUAGE_BY_LOCALE[locale_code]
     if target_language == "en":
         translated_values = [stylize_english_variant(locale_code, source[key]) for key in pending_keys]
+        for key, value in zip(pending_keys, translated_values):
+            updated[key] = value
     else:
-        protected_values = []
-        placeholder_maps = []
-        for key in pending_keys:
-            protected, placeholders = protect_terms(source[key])
-            protected_values.append(protected)
-            placeholder_maps.append(placeholders)
-        translated_values = translate_values(protected_values, target_language)
-        translated_values = [restore_terms(value, placeholder_maps[index]) for index, value in enumerate(translated_values)]
+        for start in range(0, len(pending_keys), 50):
+            chunk_keys = pending_keys[start:start + 50]
+            protected_values = []
+            placeholder_maps = []
+            for key in chunk_keys:
+                protected, placeholders = protect_terms(source[key])
+                protected_values.append(protected)
+                placeholder_maps.append(placeholders)
 
-    for key, value in zip(pending_keys, translated_values):
-        updated[key] = value
+            translated_chunk = translate_chunk(protected_values, target_language)
+            translated_chunk = [restore_terms(value, placeholder_maps[index]) for index, value in enumerate(translated_chunk)]
+
+            for key, value in zip(chunk_keys, translated_chunk):
+                updated[key] = value
+
+            # Persist each completed chunk so long-running locale seeding can resume after interruption.
+            write_locale_json(path, merge_locale(source, updated))
+
     return merge_locale(source, updated)
 
 
@@ -251,7 +351,7 @@ def main() -> int:
             raise KeyError(f"Missing translation mapping for {locale_code}")
         print(f"Translating {locale_code}...")
         translated = translate_locale(locale_code, source)
-        locale_path(locale_code).write_text(dump_json(translated), encoding="utf-8", newline="\n")
+        write_locale_json(locale_path(locale_code), translated)
 
     return 0
 
