@@ -99,6 +99,73 @@ REQUIRED_TRANSLATED_SOURCE_VALUES = {
     "Scarsteel",
 }
 
+
+COMPOUND_SUFFIXES = [
+    "stones",
+    "stone",
+    "wood",
+    "moss",
+    "bloom",
+    "spire",
+    "root",
+    "cap",
+    "steel",
+    "fall",
+    "wing",
+    "whale",
+    "winder",
+    "skimmer",
+    "strider",
+    "beetle",
+    "tortoise",
+    "wren",
+    "harness",
+    "growth",
+    "willow",
+    "weft",
+    "rock",
+]
+
+
+ENGLISH_REQUIRED_TERM_SEEDS = {
+    # Must match the translation-input policy used by tools/translate_lang_locales.py.
+    "Cephalari": "squid people",
+    "Moogloom": "sad mushroom cow",
+    "Scaralon": "serious",
+    "Wyrdwing": "wierd wing",
+    "Pebblit": "rock child",
+    "Telekinesis": "mind movement",
+}
+
+
+def split_compound_term(term: str) -> str | None:
+    if " " in term:
+        return None
+    if not term.isalpha():
+        return None
+    if not term.isascii():
+        return None
+
+    lower = term.lower()
+    for suffix in sorted(COMPOUND_SUFFIXES, key=len, reverse=True):
+        if not lower.endswith(suffix):
+            continue
+        split_at = len(term) - len(suffix)
+        if split_at < 3 or split_at >= len(term) - 2:
+            continue
+        left = term[:split_at]
+        right = term[split_at:]
+        return f"{left} {right}"
+    return None
+
+
+def english_seed_for_required_term(source_value: str) -> str:
+    seeded = ENGLISH_REQUIRED_TERM_SEEDS.get(source_value)
+    if seeded:
+        return seeded
+    hinted = split_compound_term(source_value)
+    return hinted or source_value
+
 WORD_RE = re.compile(r"[a-zA-Z][a-zA-Z'-]+")
 PLACEHOLDER_RE = re.compile(r"%\d*\$?[sdif]|\{[^}]+\}|<[^>]+>|§.")
 
@@ -121,6 +188,12 @@ def is_effective_fallback(locale_value: str, source_value: str) -> bool:
     if locale_value == source_value:
         return True
     return strip_translation_markers(locale_value) == source_value
+
+
+def is_effective_english_seed(locale_value: str, source_value: str) -> bool:
+    seed = english_seed_for_required_term(source_value)
+    cleaned = strip_translation_markers(locale_value).strip()
+    return cleaned.casefold() == seed.casefold()
 
 
 def looks_like_obvious_english_fallback(source_value: str, locale_value: str) -> bool:
@@ -177,7 +250,7 @@ def main() -> int:
 
     source = load_json(SOURCE_PATH)
     failures: list[tuple[str, list[str]]] = []
-    strict_failures: list[tuple[str, list[str]]] = []
+    strict_failures: list[tuple[str, list[tuple[str, str, str, str]]]] = []
 
     for locale_code in SUPPORTED_LOCALES:
         if locale_code in EXEMPT_LOCALES:
@@ -190,20 +263,23 @@ def main() -> int:
             if looks_like_obvious_english_fallback(source_value, locale_data.get(key, ""))
         ]
 
-        strict_keys: list[str] = []
+        strict_items: list[tuple[str, str, str, str]] = []
         if require_mod_term_translations:
-            strict_keys = [
-                key
-                for key, source_value in source.items()
-                if source_value in REQUIRED_TRANSLATED_SOURCE_VALUES
-                and is_effective_fallback(locale_data.get(key, ""), source_value)
-            ]
+            for key, source_value in source.items():
+                if source_value not in REQUIRED_TRANSLATED_SOURCE_VALUES:
+                    continue
+                locale_value = locale_data.get(key, "")
+                if is_effective_fallback(locale_value, source_value):
+                    strict_items.append((key, "equals_en_us", locale_value, source_value))
+                    continue
+                if is_effective_english_seed(locale_value, source_value):
+                    strict_items.append((key, "equals_english_seed", locale_value, english_seed_for_required_term(source_value)))
 
         if len(suspicious_keys) > args.max_suspicious_per_locale:
             failures.append((locale_code, suspicious_keys))
 
-        if strict_keys:
-            strict_failures.append((locale_code, strict_keys))
+        if strict_items:
+            strict_failures.append((locale_code, strict_items))
 
     if not failures and not strict_failures:
         print("Verified locale translation coverage; no obvious English fallback content found in non-exempt locales.")
@@ -222,12 +298,15 @@ def main() -> int:
 
     if strict_failures:
         print("Locales with required mod name-terms still effectively English:")
-        for locale_code, strict_keys in strict_failures:
-            print(f"- {locale_code}.json: {len(strict_keys)} strict failures")
-            for key in strict_keys[:10]:
-                print(f"  - {key}: {source[key]}")
-            if len(strict_keys) > 10:
-                print(f"  - ... {len(strict_keys) - 10} more")
+        for locale_code, strict_items in strict_failures:
+            print(f"- {locale_code}.json: {len(strict_items)} strict failures")
+            for key, reason, locale_value, expected in strict_items[:10]:
+                print(f"  - {key}: {reason}")
+                print(f"    en_us:   {source[key]}")
+                print(f"    locale:  {locale_value}")
+                print(f"    expect≠: {expected}")
+            if len(strict_items) > 10:
+                print(f"  - ... {len(strict_items) - 10} more")
     return 1
 
 

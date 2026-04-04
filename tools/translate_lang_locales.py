@@ -80,6 +80,11 @@ MOD_TERM_SUBSTITUTIONS = {
 }
 
 
+def english_seed_for_required_term(source_value: str, *, hint_compounds: bool) -> str:
+    seed = apply_mod_term_policy(source_value, hint_compounds=hint_compounds)
+    return seed
+
+
 MOD_TRANSLATABLE_TERMS = [
     "Wayfall",
     "Telekinesis",
@@ -151,6 +156,14 @@ def is_effective_fallback(locale_value: str | None, source_value: str) -> bool:
     if locale_value == source_value:
         return True
     return strip_translation_markers(locale_value) == source_value
+
+
+def is_effective_english_seed(locale_value: str | None, source_value: str, *, hint_compounds: bool) -> bool:
+    if locale_value is None:
+        return False
+    seed = english_seed_for_required_term(source_value, hint_compounds=hint_compounds)
+    cleaned = strip_translation_markers(locale_value).strip()
+    return cleaned.casefold() == seed.strip().casefold()
 
 
 COMPOUND_SUFFIXES = [
@@ -351,6 +364,27 @@ def maybe_capitalize_like(source_value: str, translated_value: str) -> str:
     return translated_value
 
 
+_WORD_SPLIT_RE = re.compile(r"(\s+)")
+
+
+def translate_word_by_word(text: str, target_language: str) -> str:
+    """Translate a short English phrase token-by-token.
+
+    This is a fallback for mod name-terms that sometimes come back unchanged when translated as a full phrase.
+    """
+    translator = GoogleTranslator(source="en", target=target_language)
+    parts = _WORD_SPLIT_RE.split(text)
+    translated_parts: list[str] = []
+    for part in parts:
+        if not part:
+            continue
+        if part.isspace():
+            translated_parts.append(part)
+            continue
+        translated_parts.append(translate_value(translator, part))
+    return "".join(translated_parts)
+
+
 def stylize_english_variant(locale_code: str, value: str) -> str:
     if locale_code == "en_ud":
         return value.translate(UPSIDE_DOWN_MAP)[::-1]
@@ -409,8 +443,8 @@ def translate_values(values: list[str], target_language: str) -> list[str]:
     translated_values: list[str] = []
     for start in range(0, len(values), 50):
         chunk = values[start:start + 50]
-        with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
-            translated_chunk = list(executor.map(lambda value: translate_value(translator, value), chunk))
+        # NOTE: deep_translator.GoogleTranslator is not thread-safe; concurrent usage can corrupt results.
+        translated_chunk = [translate_value(translator, value) for value in chunk]
         translated_values.extend(translated_chunk)
         time.sleep(0.2)
     return translated_values
@@ -423,17 +457,77 @@ def translate_chunk(values: list[str], target_language: str) -> list[str]:
     with translation_cache_lock(target_language):
         translated_by_value = load_translation_cache(target_language)
         unique_values = list(dict.fromkeys(values))
+        # Purge cached entries that are clearly "stuck" (cached translation equals the English input).
+        # These frequently come from transient request failures; keeping them prevents any future retries.
+        if target_language != "en":
+            stuck_values = [
+                value
+                for value in unique_values
+                if value in translated_by_value
+                and isinstance(translated_by_value.get(value), str)
+                and translated_by_value[value].strip().casefold() == value.strip().casefold()
+            ]
+            if stuck_values:
+                for value in stuck_values:
+                    translated_by_value.pop(value, None)
+                write_translation_cache(target_language, translated_by_value)
+
         missing_values = [value for value in unique_values if value not in translated_by_value]
+        translated_missing_by_value: dict[str, str] = {}
 
         if missing_values:
             translator = GoogleTranslator(source="en", target=target_language)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
-                translated_missing_values = list(executor.map(lambda value: translate_value(translator, value), missing_values))
+            # NOTE: deep_translator.GoogleTranslator is not thread-safe; concurrent usage can corrupt results.
+            translated_missing_values = [translate_value(translator, value) for value in missing_values]
 
-            translated_by_value.update(dict(zip(missing_values, translated_missing_values)))
-            write_translation_cache(target_language, translated_by_value)
+            translated_missing_by_value = dict(zip(missing_values, translated_missing_values))
 
-        translated_chunk = [translated_by_value[value] for value in values]
+            if target_language != "en":
+                unchanged = [
+                    original
+                    for original, translated in translated_missing_by_value.items()
+                    if translated is None or translated.strip().casefold() == original.strip().casefold()
+                ]
+                if unchanged:
+                    # Retry a couple times with a slower, sequential approach; this often fixes transient request issues.
+                    retry_translator = GoogleTranslator(source="en", target=target_language)
+                    for attempt in range(2):
+                        still = []
+                        for original in unchanged:
+                            new_value = translate_value(retry_translator, original)
+                            translated_missing_by_value[original] = new_value
+                            if new_value is None or new_value.strip().casefold() == original.strip().casefold():
+                                still.append(original)
+                        unchanged = still
+                        if not unchanged:
+                            break
+                        time.sleep(0.5 * (attempt + 1))
+
+            # Only cache results that are genuinely different from the English input.
+            # If we cache unchanged values, we permanently lock in failures.
+            updates: dict[str, str] = {}
+            for original, translated in translated_missing_by_value.items():
+                if translated is None:
+                    continue
+                if target_language != "en" and translated.strip().casefold() == original.strip().casefold():
+                    continue
+                updates[original] = translated
+
+            if updates:
+                translated_by_value.update(updates)
+                write_translation_cache(target_language, translated_by_value)
+
+        translated_chunk: list[str] = []
+        for value in values:
+            cached = translated_by_value.get(value)
+            if cached is not None:
+                translated_chunk.append(cached)
+                continue
+            translated = translated_missing_by_value.get(value)
+            if translated is None:
+                translated_chunk.append(value)
+            else:
+                translated_chunk.append(translated)
 
     time.sleep(0.2)
     return translated_chunk
@@ -462,9 +556,59 @@ def translate_locale(
     donor_data = donor_locale_data(locale_code, source)
 
     updated = dict(current)
+
+    suspicious_required_keys: set[str] = set()
+    if only_required_mod_terms:
+        # Heuristic to repair previously-corrupted locale entries:
+        # if two *different* required source values share the exact same locale value,
+        # it's overwhelmingly likely a cache-poison / mapping swap artifact.
+        #
+        # Note: It's normal for multiple keys to share the same source value (e.g., block+item both "Ash moss"),
+        # so we only flag duplicates across *different* source values.
+        cleaned_to_source_values: dict[str, set[str]] = {}
+        cleaned_to_keys: dict[str, list[str]] = {}
+        for key in keys_to_translate:
+            source_value = source[key]
+            locale_value = updated.get(key)
+            if not isinstance(locale_value, str):
+                continue
+            cleaned = strip_translation_markers(locale_value).strip()
+            if not cleaned:
+                continue
+            cleaned_cf = cleaned.casefold()
+            cleaned_to_keys.setdefault(cleaned_cf, []).append(key)
+            cleaned_to_source_values.setdefault(cleaned_cf, set()).add(source_value)
+
+        for cleaned_cf, source_values in cleaned_to_source_values.items():
+            if len(source_values) <= 1:
+                continue
+            suspicious_required_keys.update(cleaned_to_keys.get(cleaned_cf, []))
+
+    required_seeds_casefold = {
+        english_seed_for_required_term(value, hint_compounds=hint_compounds).strip().casefold()
+        for value in REQUIRED_TRANSLATED_SOURCE_VALUES
+    }
+
+    def is_wrong_required_seed(locale_value: str | None, source_value: str) -> bool:
+        if not locale_value:
+            return False
+        cleaned = locale_value.replace(ZERO_WIDTH_SPACE, "").strip().casefold()
+        if cleaned not in required_seeds_casefold:
+            return False
+        # If it's equal to this term's own seed, that's handled by is_effective_english_seed.
+        own_seed = english_seed_for_required_term(source_value, hint_compounds=hint_compounds).strip().casefold()
+        return cleaned != own_seed
     for key in keys_to_translate:
         value = source[key]
-        if not is_effective_fallback(updated.get(key), value):
+        if not is_effective_fallback(updated.get(key), value) and not (
+            only_required_mod_terms
+            and value in REQUIRED_TRANSLATED_SOURCE_VALUES
+            and (
+                is_effective_english_seed(updated.get(key), value, hint_compounds=hint_compounds)
+                or is_wrong_required_seed(updated.get(key), value)
+                or key in suspicious_required_keys
+            )
+        ):
             continue
 
         donor_value = donor_data.get(key)
@@ -475,6 +619,15 @@ def translate_locale(
         key
         for key in keys_to_translate
         if is_effective_fallback(updated.get(key), source[key])
+        or (
+            only_required_mod_terms
+            and source[key] in REQUIRED_TRANSLATED_SOURCE_VALUES
+            and (
+                is_effective_english_seed(updated.get(key), source[key], hint_compounds=hint_compounds)
+                or is_wrong_required_seed(updated.get(key), source[key])
+                or key in suspicious_required_keys
+            )
+        )
         or (
             isinstance(updated.get(key), str)
             and PLACEHOLDER_ARTIFACT_RE.search(updated[key]) is not None
@@ -489,6 +642,28 @@ def translate_locale(
         for key, value in zip(pending_keys, translated_values):
             updated[key] = value
     else:
+        if only_required_mod_terms:
+            # Translate required mod terms one-by-one without using the shared cached chunk translation path.
+            # This avoids thread-safety issues and prevents poisoned cache entries from propagating.
+            translator = GoogleTranslator(source="en", target=target_language)
+            for key in pending_keys:
+                source_value = source[key]
+                seed = english_seed_for_required_term(source_value, hint_compounds=hint_compounds).lower()
+                protected, placeholders = protect_terms(seed)
+                translated = translate_value(translator, protected)
+                translated = restore_terms(translated, placeholders)
+                translated = maybe_capitalize_like(source_value, translated)
+                if is_effective_english_seed(translated, source_value, hint_compounds=hint_compounds):
+                    fallback = translate_word_by_word(seed, target_language)
+                    fallback = maybe_capitalize_like(source_value, fallback)
+                    if not is_effective_english_seed(fallback, source_value, hint_compounds=hint_compounds):
+                        translated = fallback
+                updated[key] = translated
+
+                # Persist each key so long-running locale seeding can resume after interruption.
+                write_locale_json(path, merge_locale(source, updated))
+            return merge_locale(source, updated)
+
         for start in range(0, len(pending_keys), 50):
             chunk_keys = pending_keys[start:start + 50]
             protected_values = []
@@ -512,6 +687,12 @@ def translate_locale(
                 source_value = source[key]
                 if source_value in REQUIRED_TRANSLATED_SOURCE_VALUES:
                     value = maybe_capitalize_like(source_value, value)
+                    if is_effective_english_seed(value, source_value, hint_compounds=hint_compounds):
+                        seed = english_seed_for_required_term(source_value, hint_compounds=hint_compounds).lower()
+                        fallback = translate_word_by_word(seed, target_language)
+                        fallback = maybe_capitalize_like(source_value, fallback)
+                        if not is_effective_english_seed(fallback, source_value, hint_compounds=hint_compounds):
+                            value = fallback
                 updated[key] = value
 
             # Persist each completed chunk so long-running locale seeding can resume after interruption.
