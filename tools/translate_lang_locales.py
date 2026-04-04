@@ -62,12 +62,50 @@ DONOR_LOCALE_BY_TARGET_LANGUAGE = {
 }
 
 
-PROTECTED_TERMS = [
-    "Krümblegård", "Cephalari", "Wayfall", "Telekinesis", "Moogloom", "Scaralon", "Wyrdwing",
-    "Driftwhale", "Pebble Wren", "Mossback Tortoise", "Grave Cairn", "Trader Beetle", "Spiral Strider",
-    "Drift Skimmer", "Treadwinder", "Echo Harness", "Ashbloom", "Ashmoss", "Ashspire", "Cairnroot",
-    "Echocap", "Echowood", "Driftwood", "Driftwillow", "Faultwood", "Paleweft", "Remnant", "Runegrowth",
-    "Pebblit", "Traprock", "Waystone", "Waystones", "Scarsteel",
+ALWAYS_PROTECTED_TERMS = [
+    "Krümblegård",
+]
+
+
+MOD_TERM_SUBSTITUTIONS = {
+    # Translation hints for better draft output (applied before translation).
+    # These do not affect en_us.json; they only influence the machine-draft translator input.
+    "Cephalari": "squid people",
+    "Moogloom": "sad mushroom cow",
+    "Scaralon": "serious",
+    "Wyrdwing": "weird wing",
+    "Pebblit": "rock child",
+}
+
+
+MOD_TRANSLATABLE_TERMS = [
+    "Wayfall",
+    "Telekinesis",
+    "Driftwhale",
+    "Pebble Wren",
+    "Mossback Tortoise",
+    "Grave Cairn",
+    "Trader Beetle",
+    "Spiral Strider",
+    "Drift Skimmer",
+    "Treadwinder",
+    "Echo Harness",
+    "Ashbloom",
+    "Ashmoss",
+    "Ashspire",
+    "Cairnroot",
+    "Echocap",
+    "Echowood",
+    "Driftwood",
+    "Driftwillow",
+    "Faultwood",
+    "Paleweft",
+    "Remnant",
+    "Runegrowth",
+    "Traprock",
+    "Waystone",
+    "Waystones",
+    "Scarsteel",
 ]
 
 
@@ -179,6 +217,26 @@ def apply_compound_hints(text: str, hints: dict[str, str]) -> str:
     return output
 
 
+def apply_mod_term_substitutions(text: str) -> str:
+    output = text
+    for term, substitute in sorted(MOD_TERM_SUBSTITUTIONS.items(), key=lambda item: len(item[0]), reverse=True):
+        if term in output:
+            output = output.replace(term, substitute)
+    return output
+
+
+def apply_mod_term_policy(text: str, *, hint_compounds: bool) -> str:
+    output = apply_mod_term_substitutions(text)
+    if not hint_compounds:
+        return output
+
+    hint_terms = MOD_TRANSLATABLE_TERMS + list(MOD_TERM_SUBSTITUTIONS.keys())
+    compound_hints = build_compound_hint_map(hint_terms)
+    if not compound_hints:
+        return output
+    return apply_compound_hints(output, compound_hints)
+
+
 def locale_path(locale_code: str) -> Path:
     return SOURCE_PATH.parent / f"{locale_code}.json"
 
@@ -268,7 +326,7 @@ def donor_locale_data(locale_code: str, source: dict[str, str]) -> dict[str, str
 def protect_terms(text: str) -> tuple[str, dict[str, str]]:
     placeholders: dict[str, str] = {}
     protected = text
-    for index, term in enumerate(sorted(PROTECTED_TERMS, key=len, reverse=True)):
+    for index, term in enumerate(sorted(ALWAYS_PROTECTED_TERMS, key=len, reverse=True)):
         token = f"ZZKRGTERM{index}KRZZ"
         if term in protected:
             placeholders[token] = term
@@ -406,15 +464,12 @@ def translate_locale(locale_code: str, source: dict[str, str], *, hint_compounds
         for key, value in zip(pending_keys, translated_values):
             updated[key] = value
     else:
-        compound_hints = build_compound_hint_map(PROTECTED_TERMS) if hint_compounds else {}
         for start in range(0, len(pending_keys), 50):
             chunk_keys = pending_keys[start:start + 50]
             protected_values = []
             placeholder_maps = []
             for key in chunk_keys:
-                value = source[key]
-                if compound_hints:
-                    value = apply_compound_hints(value, compound_hints)
+                value = apply_mod_term_policy(source[key], hint_compounds=hint_compounds)
                 protected, placeholders = protect_terms(value)
                 protected_values.append(protected)
                 placeholder_maps.append(placeholders)
