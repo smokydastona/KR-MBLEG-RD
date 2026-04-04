@@ -22,7 +22,7 @@ Localization coverage:
 - Krümblegård ships language JSON files for every Minecraft Java 1.20.1 supported locale so mod text still resolves when players pick any built-in game language.
 - `src/main/resources/assets/kruemblegard/lang/en_us.json` remains the source of truth; run `./tools/sync_lang_files.ps1` after any text-key change so every locale keeps the full key set and falls back to English only for keys that still need translation.
 - Non-English locale files must keep the same keys as `en_us.json`; only the values should change during translation passes.
-- `python tools/translate_lang_locales.py` remains available only as a draft-generation helper; review its output before shipping it.
+- `python tools/translate_lang_locales.py` remains available only as a draft-generation helper; review its output before shipping it. If mod compound terms are coming through untranslated, try `--hint-compounds` to split certain protected compounds (e.g., `Traprock` -> `Trap rock`) as a translation hint.
 - Draft translation runs now persist completed chunks back into the target locale file and reuse a per-language cache under `tools/_reports/translation_cache`, so long seeding passes can resume after interruption instead of retranslating repeated strings.
 - If CI is failing only on the obvious-English coverage gate, `python tools/break_obvious_english_fallbacks.py` can clear exact-English fallback values offline by appending a zero-width space.
 - Localization tooling dependency: install `tools/requirements-localization.txt` into the repo venv before running `tools/translate_lang_locales.py` on a clean machine.

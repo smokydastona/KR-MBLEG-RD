@@ -98,6 +98,86 @@ FILE_REPLACE_RETRY_DELAY_SECONDS = 0.5
 TRANSLATION_CACHE_LOCKS: dict[str, threading.Lock] = {}
 TRANSLATION_CACHE_LOCKS_GUARD = threading.Lock()
 
+ZERO_WIDTH_SPACE = "\u200B"
+
+
+def strip_translation_markers(text: str) -> str:
+    return text.replace(ZERO_WIDTH_SPACE, "")
+
+
+def is_effective_fallback(locale_value: str | None, source_value: str) -> bool:
+    if locale_value is None:
+        return True
+    if locale_value == source_value:
+        return True
+    return strip_translation_markers(locale_value) == source_value
+
+
+COMPOUND_SUFFIXES = [
+    "stones",
+    "stone",
+    "wood",
+    "moss",
+    "bloom",
+    "spire",
+    "root",
+    "cap",
+    "steel",
+    "fall",
+    "wing",
+    "whale",
+    "winder",
+    "skimmer",
+    "strider",
+    "beetle",
+    "tortoise",
+    "wren",
+    "harness",
+    "growth",
+    "willow",
+    "weft",
+    "rock",
+]
+
+
+def split_compound_term(term: str) -> str | None:
+    if " " in term:
+        return None
+    if not term.isalpha():
+        return None
+    # Avoid splitting non-ASCII proper nouns like Krümblegård.
+    if not term.isascii():
+        return None
+
+    lower = term.lower()
+    for suffix in sorted(COMPOUND_SUFFIXES, key=len, reverse=True):
+        if not lower.endswith(suffix):
+            continue
+        split_at = len(term) - len(suffix)
+        if split_at < 3 or split_at >= len(term) - 2:
+            continue
+        left = term[:split_at]
+        right = term[split_at:]
+        return f"{left} {right}"
+    return None
+
+
+def build_compound_hint_map(terms: list[str]) -> dict[str, str]:
+    hints: dict[str, str] = {}
+    for term in terms:
+        hint = split_compound_term(term)
+        if hint:
+            hints[term] = hint
+    return hints
+
+
+def apply_compound_hints(text: str, hints: dict[str, str]) -> str:
+    output = text
+    for term in sorted(hints.keys(), key=len, reverse=True):
+        if term in output:
+            output = output.replace(term, hints[term])
+    return output
+
 
 def locale_path(locale_code: str) -> Path:
     return SOURCE_PATH.parent / f"{locale_code}.json"
@@ -149,7 +229,7 @@ def translation_cache_lock(target_language: str) -> threading.Lock:
 
 
 def suspicious_fallback_count(locale_data: dict[str, str], source: dict[str, str]) -> int:
-    return sum(1 for key, value in source.items() if locale_data.get(key, value) == value)
+    return sum(1 for key, value in source.items() if is_effective_fallback(locale_data.get(key), value))
 
 
 def donor_locale_data(locale_code: str, source: dict[str, str]) -> dict[str, str]:
@@ -291,7 +371,7 @@ def translate_chunk(values: list[str], target_language: str) -> list[str]:
     return translated_chunk
 
 
-def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]:
+def translate_locale(locale_code: str, source: dict[str, str], *, hint_compounds: bool) -> dict[str, str]:
     if locale_code == "en_us":
         return source
 
@@ -301,7 +381,7 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
 
     updated = dict(current)
     for key, value in source.items():
-        if updated.get(key, value) != value:
+        if not is_effective_fallback(updated.get(key), value):
             continue
 
         donor_value = donor_data.get(key)
@@ -311,7 +391,7 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
     pending_keys = [
         key
         for key, value in source.items()
-        if updated.get(key, value) == value
+        if is_effective_fallback(updated.get(key), value)
         or (
             isinstance(updated.get(key), str)
             and PLACEHOLDER_ARTIFACT_RE.search(updated[key]) is not None
@@ -326,12 +406,16 @@ def translate_locale(locale_code: str, source: dict[str, str]) -> dict[str, str]
         for key, value in zip(pending_keys, translated_values):
             updated[key] = value
     else:
+        compound_hints = build_compound_hint_map(PROTECTED_TERMS) if hint_compounds else {}
         for start in range(0, len(pending_keys), 50):
             chunk_keys = pending_keys[start:start + 50]
             protected_values = []
             placeholder_maps = []
             for key in chunk_keys:
-                protected, placeholders = protect_terms(source[key])
+                value = source[key]
+                if compound_hints:
+                    value = apply_compound_hints(value, compound_hints)
+                protected, placeholders = protect_terms(value)
                 protected_values.append(protected)
                 placeholder_maps.append(placeholders)
 
@@ -352,6 +436,11 @@ def main() -> int:
         description="Generate machine-drafted locale files for Kruemblegard while preserving fallback sync behavior."
     )
     parser.add_argument("locales", nargs="*", help="Optional locale codes to translate; defaults to all non-en_us locales.")
+    parser.add_argument(
+        "--hint-compounds",
+        action="store_true",
+        help="Split certain mod compound terms (e.g., 'Traprock' -> 'Trap rock') as a translation hint; does not affect en_us.json.",
+    )
     args = parser.parse_args()
 
     source = load_json(SOURCE_PATH)
@@ -363,7 +452,7 @@ def main() -> int:
 
     def translate_one_locale(locale_code: str) -> None:
         print(f"Translating {locale_code}...", flush=True)
-        translated = translate_locale(locale_code, source)
+        translated = translate_locale(locale_code, source, hint_compounds=args.hint_compounds)
         write_locale_json(locale_path(locale_code), translated)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=min(LOCALE_WORKERS, len(locales) or 1)) as executor:
