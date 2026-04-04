@@ -27,6 +27,7 @@ Localization coverage:
 - If CI is failing only on the obvious-English coverage gate, `python tools/break_obvious_english_fallbacks.py` can clear exact-English fallback values offline by appending a zero-width space.
 - Localization tooling dependency: install `tools/requirements-localization.txt` into the repo venv before running `tools/translate_lang_locales.py` on a clean machine.
 - CI also runs `./tools/sync_lang_files.ps1 -Verify`, so the build fails if locale sync would rewrite files or if any non-exempt translation locale still looks like obvious English fallback content.
+- Optional stricter gate: `./tools/sync_lang_files.ps1 -Verify -RequireModTermTranslations` additionally fails if specific mod name-terms (like `Waystone`) remain effectively English (exact match, or only differing by the zero-width-space coverage marker).
 
 Note: if you see a shutdown crash like `SimpleCommentedConfig cannot be cast to CommentedFileConfig` when leaving a world, update Forge.
 

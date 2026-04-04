@@ -1,5 +1,6 @@
 param(
-    [switch]$Verify
+    [switch]$Verify,
+    [switch]$RequireModTermTranslations
 )
 
 $ErrorActionPreference = 'Stop'
@@ -34,6 +35,11 @@ $coverageScript = Join-Path $PSScriptRoot 'check_lang_translation_coverage.py'
 if ($Verify) {
     & $python $syncScript --verify
     if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
+    if ($RequireModTermTranslations) {
+        & $python $coverageScript --require-mod-term-translations
         exit $LASTEXITCODE
     }
 
