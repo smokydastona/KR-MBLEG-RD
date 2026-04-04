@@ -22,6 +22,7 @@ Keep it up to date whenever you add/remove/rename content.
 - Non-English locale files keep the same keys as `en_us.json`; translation work only changes the values.
 - Use `python tools/translate_lang_locales.py` only to draft placeholder text where English fallback entries still need later review.
 - Draft translation passes now write completed chunks back into the locale file as they finish and reuse per-language caches under `tools/_reports/translation_cache` so interrupted runs can resume without retranslating the same English strings.
+- Coverage fallback escape hatch: `python tools/break_obvious_english_fallbacks.py` clears exact-English fallback strings offline (appends a zero-width space) so `./tools/sync_lang_files.ps1 -Verify` can pass when you intentionally need placeholder values.
 - Validation step: run `./tools/sync_lang_files.ps1 -Verify` before shipping localization-affecting changes.
 
 ## Optional Runtime Mods

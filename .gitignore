@@ -49,6 +49,7 @@ tools/**
 !tools/check_lang_translation_coverage.py
 !tools/sync_lang_locales.py
 !tools/translate_lang_locales.py
+!tools/break_obvious_english_fallbacks.py
 !tools/requirements-localization.txt
 !tools/_reports/
 !tools/_reports/mob_audit_runner.py

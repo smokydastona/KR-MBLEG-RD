@@ -4,6 +4,7 @@ import argparse
 import concurrent.futures
 import re
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -27,7 +28,7 @@ TARGET_LANGUAGE_BY_LOCALE = {
     "gd_gb": "gd", "gl_es": "gl", "haw_us": "haw", "he_il": "iw", "hi_in": "hi", "hr_hr": "hr",
     "hu_hu": "hu", "hy_am": "hy", "id_id": "id", "ig_ng": "ig", "io_en": "eo", "is_is": "is",
     "isv": "pl", "it_it": "it", "ja_jp": "ja", "jbo_en": "en", "ka_ge": "ka", "kk_kz": "kk",
-    "kn_in": "kn", "ko_kr": "ko", "ksh": "de", "kw_gb": "en", "la_la": "la", "lb_lu": "de",
+    "kn_in": "kn", "ko_kr": "ko", "ksh": "de", "kw_gb": "cy", "la_la": "la", "lb_lu": "de",
     "li_li": "nl", "lmo": "it", "lo_la": "lo", "lol_us": "en", "lt_lt": "lt", "lv_lv": "lv",
     "lzh": "zh-TW", "mk_mk": "mk", "mn_mn": "mn", "ms_my": "ms", "mt_mt": "mt", "nah": "es",
     "nds_de": "de", "nl_be": "nl", "nl_nl": "nl", "nn_no": "no", "no_no": "no", "oc_fr": "fr",
@@ -90,9 +91,12 @@ PLACEHOLDER_ARTIFACT_RE = re.compile(r"ZZKRGTERM\d+KRZZ|__[^\n]*__")
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_TRANSLATION_RETRIES = 3
 TRANSLATION_WORKERS = 10
+LOCALE_WORKERS = 4
 TRANSLATION_CACHE_DIR = Path(__file__).resolve().parent / "_reports" / "translation_cache"
 FILE_REPLACE_RETRIES = 10
 FILE_REPLACE_RETRY_DELAY_SECONDS = 0.5
+TRANSLATION_CACHE_LOCKS: dict[str, threading.Lock] = {}
+TRANSLATION_CACHE_LOCKS_GUARD = threading.Lock()
 
 
 def locale_path(locale_code: str) -> Path:
@@ -137,6 +141,11 @@ def write_translation_cache(target_language: str, cache: dict[str, str]) -> None
             if attempt == FILE_REPLACE_RETRIES - 1:
                 raise
             time.sleep(FILE_REPLACE_RETRY_DELAY_SECONDS * (attempt + 1))
+
+
+def translation_cache_lock(target_language: str) -> threading.Lock:
+    with TRANSLATION_CACHE_LOCKS_GUARD:
+        return TRANSLATION_CACHE_LOCKS.setdefault(target_language, threading.Lock())
 
 
 def suspicious_fallback_count(locale_data: dict[str, str], source: dict[str, str]) -> int:
@@ -263,19 +272,21 @@ def translate_chunk(values: list[str], target_language: str) -> list[str]:
     if not values:
         return []
 
-    translated_by_value = load_translation_cache(target_language)
-    unique_values = list(dict.fromkeys(values))
-    missing_values = [value for value in unique_values if value not in translated_by_value]
+    with translation_cache_lock(target_language):
+        translated_by_value = load_translation_cache(target_language)
+        unique_values = list(dict.fromkeys(values))
+        missing_values = [value for value in unique_values if value not in translated_by_value]
 
-    if missing_values:
-        translator = GoogleTranslator(source="en", target=target_language)
-        with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
-            translated_missing_values = list(executor.map(lambda value: translate_value(translator, value), missing_values))
+        if missing_values:
+            translator = GoogleTranslator(source="en", target=target_language)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS) as executor:
+                translated_missing_values = list(executor.map(lambda value: translate_value(translator, value), missing_values))
 
-        translated_by_value.update(dict(zip(missing_values, translated_missing_values)))
-        write_translation_cache(target_language, translated_by_value)
+            translated_by_value.update(dict(zip(missing_values, translated_missing_values)))
+            write_translation_cache(target_language, translated_by_value)
 
-    translated_chunk = [translated_by_value[value] for value in values]
+        translated_chunk = [translated_by_value[value] for value in values]
+
     time.sleep(0.2)
     return translated_chunk
 
@@ -349,9 +360,14 @@ def main() -> int:
     for locale_code in locales:
         if locale_code not in TARGET_LANGUAGE_BY_LOCALE:
             raise KeyError(f"Missing translation mapping for {locale_code}")
-        print(f"Translating {locale_code}...")
+
+    def translate_one_locale(locale_code: str) -> None:
+        print(f"Translating {locale_code}...", flush=True)
         translated = translate_locale(locale_code, source)
         write_locale_json(locale_path(locale_code), translated)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(LOCALE_WORKERS, len(locales) or 1)) as executor:
+        list(executor.map(translate_one_locale, locales))
 
     return 0
 

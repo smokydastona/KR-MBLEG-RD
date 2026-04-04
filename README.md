@@ -24,6 +24,7 @@ Localization coverage:
 - Non-English locale files must keep the same keys as `en_us.json`; only the values should change during translation passes.
 - `python tools/translate_lang_locales.py` remains available only as a draft-generation helper; review its output before shipping it.
 - Draft translation runs now persist completed chunks back into the target locale file and reuse a per-language cache under `tools/_reports/translation_cache`, so long seeding passes can resume after interruption instead of retranslating repeated strings.
+- If CI is failing only on the obvious-English coverage gate, `python tools/break_obvious_english_fallbacks.py` can clear exact-English fallback values offline by appending a zero-width space.
 - Localization tooling dependency: install `tools/requirements-localization.txt` into the repo venv before running `tools/translate_lang_locales.py` on a clean machine.
 - CI also runs `./tools/sync_lang_files.ps1 -Verify`, so the build fails if locale sync would rewrite files or if any non-exempt translation locale still looks like obvious English fallback content.
 
